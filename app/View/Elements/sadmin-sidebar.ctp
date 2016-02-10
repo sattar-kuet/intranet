@@ -1,53 +1,103 @@
-<div id="wrapper">
-    <!--Responsive navigation button-->  
-    <div class="resBtn">
-        <a href="#"><span class="icon16 minia-icon-list-3"></span></a>
-    </div>
+<!-- BEGIN SIDEBAR -->
+<div class="page-sidebar-wrapper">
+    <div class="page-sidebar navbar-collapse collapse">
+        <!-- BEGIN SIDEBAR MENU -->
+        <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+            <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+            <li class="sidebar-toggler-wrapper">
+                <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                <div class="sidebar-toggler">
+                </div>
+                <!-- END SIDEBAR TOGGLER BUTTON -->
+            </li>
+            <!-- DOC: To remove the search box from the sidebar you just need to completely remove the below "sidebar-search-wrapper" LI element -->
+            <li class="sidebar-search-wrapper">
+                <form class="sidebar-search " action="extra_search.html" method="POST">
+                    <a href="javascript:;" class="remove">
+                        <i class="icon-close"></i>
+                    </a>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search...">
+                        <span class="input-group-btn">
+                            <a href="javascript:;" class="btn submit"><i class="icon-magnifier"></i></a>
+                        </span>
+                    </div>
+                </form>
+                <!-- END RESPONSIVE QUICK SEARCH FORM -->
+            </li>
+            
+            <li 
+            <?php
+            $admins = array('Adminsaddrole', 'Adminseditrole', 'Adminscreate', 'Adminsmanage', 'Adminsedit_admin');
+            if (in_array($this->name . '' . $this->action, $admins)):
+                ?>
+                    class="active"
+                    <?php
+                endif;
+                ?>
+                >
+                <a href="javascript:;">
+                    <i class="fa fa-user"></i>
+                    <span class="title">Admin Management</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
 
-    <!--Left Sidebar collapse button-->  
-    <div class="collapseBtn leftbar">
-        <a href="#" class="tipR" title="Hide Left Sidebar"><span class="icon12 minia-icon-layout"></span></a>
-    </div>
-
-    <!--Sidebar background-->
-    <div id="sidebarbg"></div>
-    <!--Sidebar content-->
-    <div id="sidebar">
-
-        <div class="shortcuts">
-            <ul>
-                <li><a href="support.html" title="Support section" class="tip"><span class="icon24 icomoon-icon-support"></span></a></li>
-                <li><a href="#" title="Database backup" class="tip"><span class="icon24 icomoon-icon-database"></span></a></li>
-                <li><a href="charts.html" title="Sales statistics" class="tip"><span class="icon24 icomoon-icon-pie-2"></span></a></li>
-                <li><a href="#" title="Write post" class="tip"><span class="icon24 icomoon-icon-pencil"></span></a></li>
-            </ul>
-        </div><!-- End search -->            
-
-        <div class="sidenav">
-
-            <div class="sidebar-widget" style="margin: -1px 0 0 0;">
-                <h5 class="title" style="margin-bottom:0">Navigation</h5>
-            </div><!-- End .sidenav-widget -->
-
-            <div class="mainnav">
-                <ul>   
-                    <li>
-                        <a href="<?php echo Router::url(array('controller' => 'departments', 'action' => 'add_department')) ?>"><span class="icon16 icomoon-icon-plus"></span>Create Department</a>
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Adminsaddrole'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'addrole')) ?>">
+                            <i class="fa fa-graduation-cap"></i>
+                            Add Role</a>
                     </li>
-                    <li>
-                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'addrole')) ?>"><span class="icon16 icomoon-icon-plus"></span>Create Role</a>
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Adminseditrole'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'editrole')) ?>">
+                            <i class="fa fa-pencil"></i>
+                            Edit Role</a>
                     </li>
-                    <li>
-                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'manage')) ?>"><span class="icon16 icomoon-icon-list-view-2"></span>Manage Admins</a>
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Adminscreate'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'create')) ?>">
+                            <i class="fa  fa-plus"></i>
+                            Create Admin</a>
                     </li>
-                    
-<!--                    <li>
-                        <a href="#"><span class="icon16 icomoon-icon-list-view-2"></span>Manage Departments</a>
-                        <ul class="sub">
-                           
-                        </ul>
-                    </li>                           -->
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Adminsmanage'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'manage')) ?>">
+                            <i class="fa fa-heart"></i>
+                            Manage Admin</a>
+                    </li>
                 </ul>
-            </div>
-        </div><!-- End sidenav -->
-    </div><!-- End #sidebar -->
+            </li>
+
+            
+         
+        </ul>
+        <!-- END SIDEBAR MENU -->
+    </div>
+</div>
+<!-- END SIDEBAR -->

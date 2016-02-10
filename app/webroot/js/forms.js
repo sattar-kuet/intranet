@@ -93,7 +93,7 @@ $(document).ready(function() {
 		show24Hours: false,
 		spinnerImage: ''
 	});
-	$('#timepicker').timeEntry('setTime', '22:15:00')
+	$('#timepicker').timeEntry('setTime', '22:15')
 
 	//------------- Select plugin -------------//
 	$("#select1").select2();

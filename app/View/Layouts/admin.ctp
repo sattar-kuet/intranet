@@ -1,5 +1,11 @@
 <?php echo $this->element('common-header'); ?> 
 <?php echo $this->element('admin-header'); ?> 
-<?php echo $this->element('admin-sidebar'); ?> 
+
+<?php 
+if(isset($sidebar)){
+      echo $this->element($sidebar.'-sidebar'); 	
+ }
+?> 
 <?php echo $this->fetch('content'); ?>
-<?php echo $this->element('common-footer'); ?> 
+
+<?php echo $this->element('admin-footer'); ?> 

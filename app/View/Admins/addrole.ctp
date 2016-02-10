@@ -1,81 +1,89 @@
-<div id="content" class="clearfix">
-    <div class="contentwrapper"><!--Content wrapper-->
-        <div class="heading">
-            <h3>Admin Creation</h3>                    
-            <div class="resBtnSearch">
-                <a href="#"><span class="icon16 icomoon-icon-search-3"></span></a>
-            </div>
+<style type="text/css">
+    .alert {
+        padding: 6px;
+        margin-bottom: 5px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        text-align: center;
+    }
 
-        </div><!-- End .heading-->
-        <!-- Build page from here: Usual with <div class="row-fluid"></div> -->
-        <div class="row-fluid">
-            <div class="span12">
-                <div class="box">
-                    <div class="title">
-
-                        <h4>
-                            <span>Create new Admin role</span>
-                        </h4>
-
-                        <?php
-                        echo $this->Session->flash();
-                        echo $this->Session->flash('auth');
-                        ?>
-                        
+</style>
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <!-- BEGIN PAGE CONTENT-->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet box green">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-plus"></i>Add new Product
+                        </div>
+                        <div class="tools">
+                            <a href="javascript:;" class="reload">
+                            </a>
+                        </div>
                     </div>
-                    <div class="content">
+                    <div class="portlet-body form">
+                        <!-- BEGIN FORM-->
                         <?php
                         echo $this->Form->create('Role', array(
                             'inputDefaults' => array(
                                 'label' => false,
                                 'div' => false
                             ),
-                            'id' => 'form-validate',
+                          
                             'class' => 'form-horizontal',
                             'novalidate' => 'novalidate'
+                            
                                 )
                         );
                         ?>
+                        <div class="form-body">
+                            <div class="alert alert-danger display-hide">
+                                <button class="close" data-close="alert"></button>
+                                You have some form errors. Please check below.
+                            </div>
+                            <?php echo $this->Session->flash(); ?>
 
-                        <div class="form-row row-fluid">
-                            <div class="span12">
-                                <div class="row-fluid">
-                                    <label class="form-label span3" for="required">Role Name</label>
-
+                            
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Name<span class="required">
+                                        * </span>
+                                </label>
+                                <div class="col-md-4">
                                     <?php
                                     echo $this->Form->input(
                                             'name', array(
-                                        'id' => 'required',
-                                        'class' => 'span9 text'
+                                        'class' => 'form-control required',
+                                        'type' => 'text'
                                             )
                                     );
                                     ?>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-row row-fluid">
-                            <div class="span12">
-                                <div class="row-fluid">
-                                    <div class="form-actions">
-                                        <div class="span3"></div>
-                                        <div class="span9 controls">
-                                            <?php
-                                            echo $this->Form->button(
-                                                    'Add', array('class' => 'btn marginR10', 'type' => 'submit')
-                                            );
-                                            ?>
+                         
 
-                                        </div>
-                                    </div>
+                        </div>
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-7 col-md-4">
+                                    <?php
+                                    echo $this->Form->button(
+                                            'Add', array('class' => 'btn green', 'type' => 'submit')
+                                    );
+                                    ?>
                                 </div>
-                            </div> 
+                            </div>
                         </div>
                         <?php echo $this->Form->end(); ?>
-
+                        <!-- END FORM-->
                     </div>
+                    <!-- END VALIDATION STATES-->
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT -->
+    </div>
+</div>
+<!-- END CONTENT -->
 
-                </div><!-- End .box -->
-
-            </div><!-- End .span12 -->
-
-        </div><!-- End .row-fluid -->

@@ -1,102 +1,151 @@
-<div id="content" class="clearfix">
-            <div class="contentwrapper"><!--Content wrapper-->
+<style type="text/css">
+    .alert {
+        padding: 6px;
+        margin-bottom: 5px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        text-align: center;
+    }
 
-                <div class="heading">
+</style>
 
-                    <h3>All Agents</h3>                    
-                   
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <!-- BEGIN PAGE HEADER-->
+        <h3 class="page-title">
+            Sold Order List <small>Check your chash. Cash should be increased by these order if you are honest</small>
+        </h3>
 
-                    <div class="resBtnSearch">
-                        <a href="#"><span class="icon16 icomoon-icon-search-3"></span></a>
+        <!-- END PAGE HEADER-->
+        <!-- BEGIN PAGE CONTENT-->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                <div class="portlet box blue">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-dollar"></i>Sold Order
+                        </div>
+                       
+                        <div class="tools">
+                            <a href="javascript:;" class="reload">
+                            </a>
+                        </div>
                     </div>
+                    <div class="portlet-body">
 
-                    <div class="search">
+ <?php echo $this->Session->flash(); ?>
 
-                        <form id="searchform" action="search.html">
-                            <input type="text" id="tipue_search_input" class="top-search" placeholder="Search here ..." />
-                            <input type="submit" id="tipue_search_button" class="search-btn" value=""/>
-                        </form>
-                
-                    </div><!-- End search -->
-                    
-                    <ul class="breadcrumb">
-                        <li>You are here:</li>
-                        <li>
-                            <a href="#" class="tip" title="back to dashboard">
-                                <span class="icon16 icomoon-icon-screen-2"></span>
-                            </a> 
-                            <span class="divider">
-                                <span class="icon16 icomoon-icon-arrow-right-2"></span>
-                            </span>
-                        </li>
-                        <li class="active">All Agents</li>
-                    </ul>
+                        <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Product Info</th>
+                                    <th>Name</th>
+                                    <th>Mobile</th>
+                                    <th>City</th>
+                                    <th>Location</th>           
+                                    <th>Detail Address</th>           
+                                    <th>Cash out by</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                foreach ($alldata as $k => $single):
+                                    $grantTotal = 0;
+                                    $total_pieces = 0;
+                                    $order = $single['orders'];
+                                    $customer = $single['customers'];
+                                    $order_products = $single['order_products'];
+                                    $products = $single['products'];
+                                    $psettings = $single['psettings'];
+                                    ?>
+                                    <tr>
+                                    <td> 
+                                    #<?php echo $order['id'];?>
+                                    </td>
+                                       <td>
+                                            <div style="text-align: center;">
+                                                <button  class="product_toggle" id="p<?php echo$k + 1; ?>"><span class="fa fa-eye"></span></button>
+                                            </div>
+                                            <div class="top-cart-content-wrapper display-hide" id="info-p<?php echo$k + 1; ?>">
 
-                </div><!-- End .heading-->
-                    
-                <!-- Build page from here: Usual with <div class="row-fluid"></div> -->
+                                                 <?php foreach ($products as $key => $product): 
 
-                    <div class="row-fluid">
+                                                 
+                                                 ?>
+                                                     
 
-                        <div class="span12">
+                                                 <li>
+                                                    <a href="javascript:void(0)">
+                                                        <img src="<?php echo $this->webroot . 'productImages/small/' . $psettings[$key]['small_img'] ?>" width="37" height="34"></a>
+                                                        <span class="cart-content-count">x <?php
+                                                                $total_pieces+=$order_products[$key]['pieces'];
+                                                                echo $order_products[$key]['pieces'];
+                                                                ?></span>
+                                                        <span>
+                                                        <?php echo $product['name'].' By '.$product['writer'];; ?>
+                                                        </span>
+                                                        
+                                                        <em style="color:red;"><?php
+                                                                $discount = $psettings[$key]['sppp'] * $psettings[$key]['discount'] / 100;
+                                                                $total =ceil($psettings[$key]['sppp'] - $discount);
+                                                                $total *=$order_products[$key]['pieces'];
+                                                                //$total +=$psettings[$key]['service_charge'];
+                                                                $grantTotal +=$total;
+                                                                echo $total;
+                                                                ?> TK</em>
+                                                    </li>
+                           
+                                                   
+                                                    
+                                                <?php endforeach; ?>
+                                             
+                                                            <div class="alert alert-info">
+                                <strong>    Service Charge : <?php echo $sc; ?></strong> 
+                            </div>
 
-                            <div class="box gradient">
+                                                <a href="#" class="btn purple pull-right" style="width:152px;">
+                                                             Grant Total : <?php echo $grantTotal + $sc; ?> </a>
 
-                                <div class="title">
-                                    <h4>
-                                        <span>All Orders which are not contacted</span>
-                                    </h4>
-                                </div>
-                                 <?php echo $this->Session->flash(); ?>
-                                <div class="content noPad clearfix">
-                                    <table cellpadding="0" cellspacing="0" border="0" class="responsive dynamicTable display table table-bordered" width="100%">
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Email</th>
-                                                <th>Mobile</th>
-                                                <th>Alt Mobile</th>
-                                                <th>City</th>
-                                                <th>Location</th>
-                                                <th>How many </th>
-                                                <th> Sell Time</th>
-                                        
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
+                                            </div>  
+                                        </td>
+                                         <td><?php echo $customer['name']; ?></td>
+                                        <td><?php echo $customer['mobile'] . '<br/>' . $customer['alt_mobile']; ?></td>
+                                        <td><?php echo $single['city']['name']; ?></td>
+                                        <td><?php echo $single['location']['name']; ?></td>
+                                        <td><?php echo $customer['detail_addr']; ?></td>
+                                        <td>
+                                            <div style="text-align:center;">
+                                                <button class="action_toggle" id="action<?php echo$k + 1; ?>"><span class="fa fa-eye"></span></button> 
+                                            </div> 
+                                            <div class="content display-hide" id="info-action<?php echo$k + 1; ?>" >
+                                                <?php foreach ($single['action'] as $key => $action): ?>
 
-                                            foreach ($allSold as $single):
-                                                $order = $single['Order'];
-                                                ?>
-                                            <tr class="odd gradeX">
-                                                <td><?php echo $order['name']; ?></td>
-                                                <td><?php echo $order['email']; ?></td>
-                                                <td><?php echo $order['mobile']; ?></td>
-                                                <td><?php echo $order['alt_mobile']; ?></td>
-                                            <td><?php echo $single['City']['name']; ?></td>
-                                            <td><?php echo $single['Location']['name']; ?></td>
-                                                <td><?php echo $order['pieces']; ?></td>
-                                                <td><?php echo $order['modified'];?></td>
-                                                                                          
-                                            </tr>
+                                                    <div class="alert alert-info">
+                                                        <?php
+                                                        echo $action['Admin']['name'] . ' (' . $action['Admin']['mobile'] . ')';
+                                                        ?>
+                                                        <br/>
+                                                        <strong><?php echo $action['ActionBy']['created']; ?></strong> 
+                                                    </div>
 
-                                            <?php
-                                            endforeach;
-                                            ?>
-                                          
-                                            
-                                        </tbody>
-                                     
-                                    </table>
-                                </div>
+                                                <?php endforeach; ?>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                endforeach;
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- END EXAMPLE TABLE PORTLET-->
+            </div>
+        </div>
+        <!-- END PAGE CONTENT -->
+    </div>
+</div>
+<!-- END CONTENT -->
 
-                            </div><!-- End .box -->
-
-                        </div><!-- End .span12 -->
-
-                    </div><!-- End .row-fluid -->
-               
-                <!-- Page end here -->               
-            </div><!-- End contentwrapper -->
-        </div><!-- End #content -->

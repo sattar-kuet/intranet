@@ -1,74 +1,77 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+    <!--<![endif]-->
+    <!-- BEGIN HEAD -->
     <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Admin</title>
+        <meta charset="utf-8"/>
+        <meta name="google-site-verification" content="EehELcEVuQwNUOU8twYjFX9vmrosW3pMCpc7NNOeA00" />
+        <title>jegeachi</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
 
-    <!-- Mobile Specific Metas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <?php
+        echo $this->Html->css(
+        array(
+        //BEGIN GLOBAL MANDATORY STYLES
+        'http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all',
+        'http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|PT+Sans+Narrow|Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all"',
+        '/assets/global/plugins/font-awesome/css/font-awesome.min',
+        '/assets/global/plugins/simple-line-icons/simple-line-icons.min',
+        '/assets/global/plugins/bootstrap/css/bootstrap.min',
+        '/assets/global/plugins/uniform/css/uniform.default',
+        '/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min',
+        //END GLOBAL MANDATORY STYLES
+        // Start shope-product-list.html
+        '/assets/global/plugins/fancybox/source/jquery.fancybox',
+        '/assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel',
+        'http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css',
+        '/assets/global/plugins/rateit/src/rateit',
+        // End Shope-product-list.html
+        
+        // Start components_pickers.html
+        '/assets/global/plugins/clockface/css/clockface',
+        '/assets/global/plugins/bootstrap-datepicker/css/datepicker3',
+        '/assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min',
+        '/assets/global/plugins/bootstrap-colorpicker/css/colorpicker',
+        '/assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3',
+        '/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min',
+        // End components_pickers.html
+        // 
+        // Start form_validation.html
+        '/assets/global/plugins/select2/select2',
+        '/assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5',
+        '/assets/global/plugins/bootstrap-markdown/css/bootstrap-markdown.min',
+        '/assets/global/plugins/bootstrap-datepicker/css/datepicker',
+        // End form_validation.html
+        // table_advanced.html
+        '/assets/global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min',
+        '/assets/global/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min',
+        '/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap',
+        //END- table_advanced.html
+        // login_soft
+        '/assets/admin/pages/css/login-soft',
+        // login_soft
+        // extra_profile
+        '/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput',
+        '/assets/admin/pages/css/profile',
+        '/assets/admin/pages/css/tasks',
+        // END extra_profile
+        // BEGIN THEME GLOBAL STYLES 
+        '/assets/admin/layout/css/themes/darkblue',
+        '/assets/global/css/components',
+        '/assets/global/css/plugins',
+        //END THEME GLOBAL STYLES
 
-    <!-- Le styles -->
-    <!-- Use new way for google web fonts 
-    http://www.smashingmagazine.com/2012/07/11/avoiding-faux-weights-styles-google-web-fonts -->
-    <!-- Headings -->
-    <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />  -->
-    <!-- Text -->
-    <!-- <link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css' /> --> 
-    <!--[if lt IE 9]>
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet" type="text/css" />
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:700" rel="stylesheet" type="text/css" />
-    <link href="http://fonts.googleapis.com/css?family=Droid+Sans:400" rel="stylesheet" type="text/css" />
-    <link href="http://fonts.googleapis.com/css?family=Droid+Sans:700" rel="stylesheet" type="text/css" />
-    <![endif]-->
+        // common custom css
+         'custom',
+         'chat',
+        )
+        );
+        ?>
 
-  
+    <p class="hide" id="webroot">    <?php echo $this->webroot; ?></p>
 
-     <?php echo $this->Html->css(
-         array(
-            'http://fonts.googleapis.com/css?family=Open+Sans:400,700',
-            'http://fonts.googleapis.com/css?family=Droid+Sans:400,700',
-            'bootstrap/bootstrap.min',
-            'bootstrap/bootstrap-responsive.min',
-            'supr-theme/jquery.ui.supr',
-            'icons',
-            '/plugins/misc/qtip/jquery.qtip',
-            '/plugins/misc/fullcalendar/fullcalendar',
-            '/plugins/misc/search/tipuesearch',
-            '/plugins/forms/inputlimiter/jquery.inputlimiter',
-            '/plugins/forms/togglebutton/toggle-buttons',
-            '/plugins/forms/uniform/uniform.default',
-            '/plugins/forms/color-picker/color-picker',
-            
-            '/plugins/misc/prettify/prettify',
-            '/plugins/misc/pnotify/jquery.pnotify.default',
-            '/plugins/misc/qtip/jquery.qtip',
-            '/plugins/forms/uniform/uniform.default',
-            '/plugins/tables/dataTables/jquery.dataTables',
-            '/plugins/forms/select/select2',
-            '/plugins/forms/validate/validate',
-            '/plugins/forms/smartWizzard/smart_wizard',
-            'main',
-            'custom'
-            )
-         );
-           ?>
-   
-    
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-    <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="<?php echo $this->webroot; ?>/images/favicon.ico" />
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo $this->webroot; ?>/images/apple-touch-icon-144-precomposed.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo $this->webroot; ?>/images/apple-touch-icon-114-precomposed.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo $this->webroot; ?>/images/apple-touch-icon-72-precomposed.png" />
-    <link rel="apple-touch-icon-precomposed" href="<?php echo $this->webroot; ?>/images/apple-touch-icon-57-precomposed.png" />
-    
-    <script type="text/javascript">
-        //adding load class to body and hide page
-        document.documentElement.className += 'loadstate';
-    </script>
-
-    </head>

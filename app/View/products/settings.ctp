@@ -1,232 +1,237 @@
-<div id="content" class="clearfix">
-    <div class="contentwrapper"><!--Content wrapper-->
+<style type="text/css">
+    .alert {
+        padding: 6px;
+        margin-bottom: 5px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        text-align: center;
+    }
 
-        <div class="heading">
-
-            <h3>Product addition</h3>                    
-
-            <div class="resBtnSearch">
-                <a href="#"><span class="icon16 icomoon-icon-search-3"></span></a>
-            </div>
-
-            <div class="search">
-
-                <form id="searchform" action="search.html">
-                    <input type="text" id="tipue_search_input" class="top-search text" placeholder="Search here ...">
-                    <input type="submit" id="tipue_search_button" class="search-btn nostyle" value="">
-                </form>
-
-            </div><!-- End search -->
-
-            <ul class="breadcrumb">
-                <li>You are here:</li>
-                <li>
-                    <a href="#" class="tip" oldtitle="back to dashboard" title="" data-hasqtip="true">
-                        <span class="icon16 icomoon-icon-screen-2"></span>
-                    </a> 
-                    <span class="divider">
-                        <span class="icon16 icomoon-icon-arrow-right-2"></span>
-                    </span>
-                </li>
-                <li class="active">Fill up </li>
-            </ul>
-
-        </div><!-- End .heading-->
-
-        <!-- Build page from here: Usual with <div class="row-fluid"></div> -->
-
-        <div class="row-fluid">
-
-            <div class="span12">
-
-                <div class="box">
-
-                    <div class="title">
-
-                        <h4>
-                            <span>Add new product</span>
-                        </h4>
-
-                        <?php echo $this->Session->flash(); ?>
-                        <?php
-                        if (isset($errors)):
-                            echo $errors;
-                        endif;
-                        ?>   
+</style>
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <!-- BEGIN PAGE CONTENT-->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet box green">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-plus"></i>Edit Product
+                        </div>
+                        <div class="tools">
+                            <a href="javascript:;" class="reload">
+                            </a>
+                        </div>
                     </div>
-                    <div class="content">
+                    <div class="portlet-body form">
+                        
+                     
+                        <!-- BEGIN FORM-->
                         <?php
                         echo $this->Form->create('Psetting', array(
                             'inputDefaults' => array(
                                 'label' => false,
                                 'div' => false
                             ),
-                            'id' => 'form-validate',
+                            'id' => 'form_sample_3',
                             'class' => 'form-horizontal',
                             'novalidate' => 'novalidate',
                             'type' => 'file'
                                 )
                         );
                         ?>
-                        <div class="form-row row-fluid">
-                            <div class="span12">
-                                <div class="row-fluid">
-                                    <label class="form-label span4" for="checkboxes">Category</label>
-                                    <div class="span8 controls sel">
-                                        <?php
-                                        echo $this->Form->input('category_id', array(
-                                            'type' => 'select',
-                                            'options' => $categories,
-                                            'empty' => '',
-                                            'class' => 'span12 uniform nostyle select1 pclass required',
-                                            'div' => array('class' => 'span12 required')
-                                                )
-                                        );
-                                        ?>
-                                    </div> 
+                        <div class="form-body">
+                            <div class="alert alert-danger display-hide">
+                                <button class="close" data-close="alert"></button>
+                                You have some form errors. Please check below.
+                            </div>
+                            <?php echo $this->Session->flash(); ?>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Category
+                                </label>
+                                <div class="col-md-9">
+                                    <?php
+                                    echo $this->Form->input('category_id', array(
+                                        'type' => 'select',
+                                        'options' => $categories,
+                                        'empty' => 'Select Category',
+                                        'class' => 'form-control select2me required pclass',
+                                            )
+                                    );
+                                    ?>
                                 </div>
-                            </div> 
-                        </div>  
-
-                        <div class="form-row row-fluid">
-                            <div class="span12">
-                                <div class="row-fluid">
-                                    <label class="form-label span4" for="checkboxes">Product</label>
-                                    <div class="span8 controls sel">
-                                        <?php
-                                        echo $this->Form->input('product_id', array(
-                                            'type' => 'select',
-                                            'options' => $product,
-                                            'empty' => '',
-                                            'class' => 'span12 uniform nostyle  cclass select1 required',
-                                            'id' => 'cid',
-                                            'style' => 'width:100%;',
-                                            'div' => array('class' => 'span12 required')
-                                                )
-                                        );
-                                        ?>
-                                    </div> 
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Product
+                                </label>
+                                <div class="col-md-9">
+                                    <?php
+                                    echo $this->Form->input('product_id', array(
+                                        'type' => 'select',
+                                        'options' => $product,
+                                        'empty' => 'Select product',
+                                        'id' => 'cid',
+                                        'class' => 'form-control select2me required cclass Loadingpsetting',
+                                            )
+                                    );
+                                    ?>
                                 </div>
-                            </div> 
-                        </div>
+                            </div>
 
-                        <div class="form-row row-fluid">
-                            <div class="span12">
-                                <div class="row-fluid">
-                                    <label class="form-label span4" for="checkboxes">Product Image</label>
-                                    <div class="span8 controls sel">
-                                        <?php
-                                        echo $this->Form->input('img', array(
-                                            'type' => 'file',
-                                            'class' => 'span12 ',
-                                            'id' => 'file',
-                                            'style' => 'width:100%;',
-                                                )
-                                        );
-                                        ?>
+                            <div class=" col-md-offset-3 col-md-9" id="prev_image1">
 
-                                    </div> 
-                                </div>
-                            </div> 
-                        </div>
 
-                        <div class="form-row row-fluid">
-                            <div class="span12">
-                                <div class="row-fluid">
-                                    <label class="form-label span4" for="bppp">Buying price per piece</label>
+                            </div>
+                            <div class="form-group img-upload">
+                                <label class="control-label col-md-offset-3 col-md-3 btn green" style="text-align:center;">Add Thumbnail Image
+                                    <?php
+                                    echo $this->Form->input(
+                                            'thum_img', array(
+                                        'class' => 'form-control hide single_img_btn',
+                                        'type' => 'file',
+                                        'id' => 1
+                                            )
+                                    );
+                                    ?>
+                                </label>
+
+                            </div>
+
+                            <div class=" col-md-offset-3 col-md-9" id="prev_image2">
+
+
+                            </div>
+                            <div class="form-group img-upload">
+                                <label class="control-label col-md-offset-3 col-md-3 btn green" style="text-align:center;">Add Small Image
+                                    <?php
+                                    echo $this->Form->input(
+                                            'small_img', array(
+                                        'class' => 'form-control hide single_img_btn',
+                                        'type' => 'file',
+                                        'id' => 2
+                                            )
+                                    );
+                                    ?>
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Buying price per piece<span class="required">
+                                        * </span>
+                                </label>
+                                <div class="col-md-9">
                                     <?php
                                     echo $this->Form->input(
                                             'bppp', array(
-                                        'class' => 'span8 ',
+                                        'class' => 'form-control required',
+                                        'type' => 'text',
+                                        'id' => 'bppp'
                                             )
                                     );
                                     ?>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="form-row row-fluid">
-                            <div class="span12">
-                                <div class="row-fluid">
-                                    <label class="form-label span4" for="sppp">Selling price per piece</label>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Selling price per piece<span class="required">
+                                        * </span>
+                                </label>
+                                <div class="col-md-9">
                                     <?php
                                     echo $this->Form->input(
                                             'sppp', array(
-                                        'class' => 'span8 ',
+                                        'class' => 'form-control required',
+                                        'type' => 'text',
+                                        'id' => 'sppp'
                                             )
                                     );
                                     ?>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-row row-fluid">
-                            <div class="span12">
-                                <div class="row-fluid">
-                                    <label class="form-label span4" for="sppp">Service Charge</label>
-                                    <?php
-                                    echo $this->Form->input(
-                                            'service_charge', array(
-                                        'class' => 'span8 ',
-                                            )
-                                    );
-                                    ?>
-                                </div>
-                            </div>
-                        </div>
-                          <div class="form-row row-fluid">
-                            <div class="span12">
-                                <div class="row-fluid">
-                                    <label class="form-label span4" for="sppp">Discount(%)</label>
+
+                            
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Discount(%)<span class="required">
+                                        * </span>
+                                </label>
+                                <div class="col-md-9">
                                     <?php
                                     echo $this->Form->input(
                                             'discount', array(
-                                        'class' => 'span8 ',
+                                        'class' => 'form-control required',
+                                        'type' => 'text',
+                                        'id' => 'discount'
                                             )
                                     );
                                     ?>
                                 </div>
                             </div>
-                        </div>
-                         <div class="form-row row-fluid">
-                            <div class="span12">
-                                <div class="row-fluid">
-                                    <label class="form-label span4" for="sppp">Description</label>
+
+                            <div class="form-group last">
+                                <label class="control-label col-md-3">Description <span class="required">
+                                        * </span>
+                                </label>
+                                <div class="col-md-9">
                                     <?php
                                     echo $this->Form->input(
                                             'desc', array(
-                                        'class' => 'span8 tinymce',
-                                        'type' =>'textarea',
+                                        'class' => 'form-control required ckeditor',
+                                        'data-error-container' => '#editor2_error',
+                                        'rows' => 6,
+                                        'type' => 'textarea',
+                                        'id' => 'desc'
                                             )
+                                    );
+                                    ?>
+
+                                    <div id="editor2_error">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                              <div class="form-group last">
+                                <label class="control-label col-md-3">Index<span class="required">
+                                        * </span>
+                                </label>
+                                <div class="col-md-9">
+                                    <?php
+                                    echo $this->Form->input(
+                                            'index', array(
+                                        'class' => 'form-control required ckeditor',
+                                        'data-error-container' => '#editor3_error',
+                                        'rows' => 6,
+                                        'type' => 'textarea',
+                                        'id' => 'index'
+                                            )
+                                    );
+                                    ?>
+
+                                    <div id="editor3_error">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-7 col-md-4">
+                                    <?php
+                                    echo $this->Form->button(
+                                            'Update', array('class' => 'btn green', 'type' => 'submit')
                                     );
                                     ?>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-row row-fluid">
-                            <div class="span12">
-                                <div class="row-fluid">
-                                    <div class="form-actions">
-                                        <div class="span3"></div>
-                                        <div class="span9 controls">
-                                            <?php
-                                            echo $this->Form->button(
-                                                    'Add', array('class' => 'btn marginR10 pull-right  btn-primary btn-large', 'type' => 'submit')
-                                            );
-                                            ?>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> 
-                        </div>
                         <?php echo $this->Form->end(); ?>
-
+                        <!-- END FORM-->
                     </div>
-
-                </div><!-- End .box -->
-
-            </div><!-- End .span12 -->
-
-
-
-        </div><!-- End .row-fluid -->  
+                    <!-- END VALIDATION STATES-->
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT -->
+    </div>
+</div>
+<!-- END CONTENT -->

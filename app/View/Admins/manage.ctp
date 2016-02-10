@@ -1,136 +1,116 @@
-<div id="content" class="clearfix">
-            <div class="contentwrapper"><!--Content wrapper-->
+<style type="text/css">
+    .alert {
+        padding: 6px;
+        margin-bottom: 5px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        text-align: center;
+    }
 
-                <div class="heading">
+</style>
 
-                    <h3>All Agents</h3>                    
-                   
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <!-- BEGIN PAGE HEADER-->
+        <h3 class="page-title">
+            No contact Order List <small>Contact with customer to confirm</small>
+        </h3>
 
-                    <div class="resBtnSearch">
-                        <a href="#"><span class="icon16 icomoon-icon-search-3"></span></a>
+        <!-- END PAGE HEADER-->
+        <!-- BEGIN PAGE CONTENT-->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                <div class="portlet box blue">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-phone"></i>No Contact Order
+                        </div>
+                        <?php echo $this->Session->flash(); ?>
+                        <div class="tools">
+                            <a href="javascript:;" class="reload">
+                            </a>
+                        </div>
                     </div>
+                    <div class="portlet-body">
 
-                    <div class="search">
 
-                        <form id="searchform" action="search.html">
-                            <input type="text" id="tipue_search_input" class="top-search" placeholder="Search here ..." />
-                            <input type="submit" id="tipue_search_button" class="search-btn" value=""/>
-                        </form>
-                
-                    </div><!-- End search -->
-                    
-                    <ul class="breadcrumb">
-                        <li>You are here:</li>
-                        <li>
-                            <a href="#" class="tip" title="back to dashboard">
-                                <span class="icon16 icomoon-icon-screen-2"></span>
-                            </a> 
-                            <span class="divider">
-                                <span class="icon16 icomoon-icon-arrow-right-2"></span>
-                            </span>
-                        </li>
-                        <li class="active">All Agents</li>
-                    </ul>
 
-                </div><!-- End .heading-->
-                    
-                <!-- Build page from here: Usual with <div class="row-fluid"></div> -->
+                        <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Mobile</th>
+                                    <th>Area</th>
+                                    <th>Role</th>
+                                    <th>Status</th>
+                                    <th>Comment</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                foreach ($agents as $single):
 
-                    <div class="row-fluid">
+                                    $agent = $single['Admin'];
+                                    ?>
+                                    <tr >
+                                        <td><?php echo $agent['name']; ?></td>
+                                        <td><?php echo $agent['email']; ?></td>
+                                        <td><?php echo $agent['mobile']; ?></td>
+                                        <td><?php echo $agent['area']; ?></td>
+                                        <td><?php echo $single['Role']['name']; ?></td>
+                                        <td><?php echo $agent['status']; ?></td>
+                                        <td><?php echo $agent['comment']; ?></td>
 
-                        <div class="span12">
+                                        <td>   
+                                            <div class="controls center">
+                                                <a  target="_blank" title="edit" href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'edit_admin', $agent['id'])) ?>" >
+                                                    <span class="fa fa-pencil"></span></a>
+                                                &nbsp;&nbsp;
+                                                <a 
+                                                   onclick="if (confirm(&quot; Are you sure to delete this Admin? &quot; )) { return true; } return false;"
+                                                   href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'delete', $agent['id']))?>" title="delete">
+                                                    <span class="fa fa-minus-square"></span>
+                                                </a>                          
+                                            &nbsp;&nbsp;
+                                             <?php if ($agent['status'] != 'blocked'): ?>
 
-                            <div class="box gradient">
+                                                    <a 
+                                                       onclick="if(confirm(&quot; Are you sure to block this Admin? &quot;)) { return true; } return false;"
 
-                                <div class="title">
-                                    <h4>
-                                        <span>All Agents list</span>
-                                    </h4>
-                                </div>
-                                 <?php echo $this->Session->flash(); ?>
-                                <div class="content noPad clearfix">
-                                    <table cellpadding="0" cellspacing="0" border="0" class="responsive dynamicTable display table table-bordered" width="100%">
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Email</th>
-                                                <th>Mobile</th>
-                                                <th>Area</th>
-                                                <th>Status</th>
-                                                <th>Comment</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            foreach ($agents as $single):
-                                                $agent = $single['Agent'];
-                                                ?>
-                                            <tr class="odd gradeX">
-                                                <td><?php echo $agent['name']; ?></td>
-                                                <td><?php echo $agent['email']; ?></td>
-                                                <td><?php echo $agent['mobile']; ?></td>
-                                                <td><?php echo $agent['area']; ?></td>
-                                                <td><?php echo $agent['status']; ?></td>
-                                                <td><?php echo $agent['comment']; ?></td>
-                                                
-                                                <td>   
-                                                    <div class="controls center">
-                                                        <a aria-describedby="qtip-7" data-hasqtip="true" title="" oldtitle="Edit task" target="_blank" href="<?php echo Router::url(array('controller'=>'admins','action'=>'edit',$agent['id']))?>" class="tip"><span class="icon12 icomoon-icon-pencil"></span></a>
+                                                       href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'block', $agent['id']))?>" title="block">
+                                                        <span class="fa  fa-ban"></span>
+                                                    </a>
+                                                <?php endif; ?>
 
-                                                         <a aria-describedby="qtip-8" data-hasqtip="true" title="" oldtitle="Remove task"
-                                                         onclick="if (confirm(&quot;Are you sure to delete this Agent?&quot;)) { return true; } return false;"
-                                                          href="<?php echo Router::url(array('controller'=>'admins','action'=>'delete',$agent['id'])
-                                                         )?>" class="tip"><span class="icon12 icomoon-icon-remove"></span></a>                          
-                                                        <?php if($agent['status']!='blocked'):?>
+    <?php if ($agent['status'] != 'active'): ?>
+                                                    <a aria-describedby="qtip-8" data-hasqtip="true" title="" oldtitle="Remove task" 
+                                                       onclick="if (confirm(&quot; Are you sure to active this Admin? &quot; )) { return true; } return false;"
 
-                                                          <a aria-describedby="qtip-7" data-hasqtip="true" title="" oldtitle="Edit task"
-                                                           onclick="if (confirm(&quot;Are you sure to block this Agent?&quot;)) { return true; } return false;"
+                                                       href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'active', $agent['id'])
+        )
+        ?>"
+                                                       class="tip"><span class="fa  fa-check"></span></a>
+    <?php endif; ?>
+                                            </div>
+                                        </td>
+                                    </tr>
 
-                                                           href="<?php echo Router::url(array('controller'=>'admins','action'=>'block',$agent['id'])
-                                                         )?>" class="tip"><span class="icon12 iconic-icon-move-horizontal-alt2"></span></a>
-                                                          <?php endif; ?>
-                                                       
-                                                        <?php if($agent['status']!='active'):?>
-                                                        <a aria-describedby="qtip-8" data-hasqtip="true" title="" oldtitle="Remove task" 
-                                                        onclick="if (confirm(&quot;Are you sure to active this Agent?&quot;)) { return true; } return false;"
+    <?php
+endforeach;
+?>
 
-                                                           href="<?php echo Router::url(array('controller'=>'admins','action'=>'active',$agent['id'])
-                                                         )?>"
-                                                         class="tip"><span class="icon12 icomoon-icon-checkmark"></span></a>
-                                                    <?php endif; ?>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- END EXAMPLE TABLE PORTLET-->
+            </div>
+        </div>
+        <!-- END PAGE CONTENT -->
+    </div>
+</div>
+<!-- END CONTENT -->
 
-                                            <?php
-                                            endforeach;
-                                            ?>
-                                          
-                                            
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Email</th>
-                                             
-                                                <th>Mobile</th>
-                                                <th>Area</th>
-                                                <th>Status</th>
-                                                <th>Comment</th>
-                                               
-                                                <th>Action</th>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-
-                            </div><!-- End .box -->
-
-                        </div><!-- End .span12 -->
-
-                    </div><!-- End .row-fluid -->
-               
-                <!-- Page end here -->               
-            </div><!-- End contentwrapper -->
-        </div><!-- End #content -->

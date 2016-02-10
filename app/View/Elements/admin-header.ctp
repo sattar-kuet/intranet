@@ -1,129 +1,49 @@
-
-      
-    <body>
-    <!-- loading animation -->
-    <div id="qLoverlay"></div>
-    <div id="qLbar"></div>
-        
-    <div id="header">
-
-        <div class="navbar">
-            <div class="navbar-inner">
-              <div class="container-fluid">
-                <a class="brand" href="<?php echo Router::url(array('controller'=>'admins','action'=>'deshboard'))?>">Admin</a>
-                <div class="nav-no-collapse">
-                    <ul class="nav">
-                        <li class="active"><a href="dashboard.html"><span class="icon16 icomoon-icon-screen-2"></span> Dashboard</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <span class="icon16 icomoon-icon-cog"></span> Settings
-                                <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="menu">
-                                    <ul>
-                                        <li>                                                    
-                                            <a href="#"><span class="icon16 icomoon-icon-equalizer"></span>Site config</a>
-                                        </li>
-                                        <li>                                                    
-                                            <a href="#"><span class="icon16 icomoon-icon-wrench"></span>Plugins</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><span class="icon16 icomoon-icon-picture-2"></span>Themes</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <span class="icon16 icomoon-icon-mail-3"></span>Messages <span class="notification">8</span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="menu">
-                                    <ul class="messages">    
-                                        <li class="header"><strong>Messages</strong> (10) emails and (2) PM</li>
-                                        <li>
-                                           <span class="icon"><span class="icon16 icomoon-icon-user-3"></span></span>
-                                            <span class="name"><a data-toggle="modal" href="#myModal1"><strong>Sammy Morerira</strong></a><span class="time">35 min ago</span></span>
-                                            <span class="msg">I have question about new function ...</span>
-                                        </li>
-                                        <li>
-                                           <span class="icon avatar"><img src="<?php echo $this->webroot; ?>images/avatar.jpg" alt="" /></span>
-                                            <span class="name"><a data-toggle="modal" href="#myModal1"><strong>George Michael</strong></a><span class="time">1 hour ago</span></span>
-                                            <span class="msg">I need to meet you urgent please call me ...</span>
-                                        </li>
-                                        <li>
-                                            <span class="icon"><span class="icon16 icomoon-icon-mail-3"></span></span>
-                                            <span class="name"><a data-toggle="modal" href="#myModal1"><strong>Ivanovich</strong></a><span class="time">1 day ago</span></span>
-                                            <span class="msg">I send you my suggestion, please look and ...</span>
-                                        </li>
-                                        <li class="view-all"><a href="#">View all messages <span class="icon16 icomoon-icon-arrow-right-8"></span></a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                  
-                    <ul class="nav pull-right usernav">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <span class="icon16 icomoon-icon-bell-2"></span><span class="notification">3</span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="menu">
-                                    <ul class="notif">
-                                        <li class="header"><strong>Notifications</strong> (3) items</li>
-                                        <li>
-                                            <a href="#">
-                                                <span class="icon"><span class="icon16 icomoon-icon-user-3"></span></span>
-                                                <span class="event">1 User is registred</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <span class="icon"><span class="icon16 icomoon-icon-comments-4"></span></span>
-                                                <span class="event">Jony add 1 comment</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <span class="icon"><span class="icon16 icomoon-icon-new-2"></span></span>
-                                                <span class="event">admin Julia added post with a long description</span>
-                                            </a>
-                                        </li>
-                                        <li class="view-all"><a href="#">View all notifications <span class="icon16 icomoon-icon-arrow-right-8"></span></a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle avatar" data-toggle="dropdown">
-                                <img src="<?php echo $this->webroot; ?>images/avatar.jpg" alt="" class="image" /> 
-                                <span class="txt">admin@supr.com</span>
-                                <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="menu">
-                                    <ul>
-                                        <li>
-                                            <a href="#"><span class="icon16 icomoon-icon-user-3"></span>Edit profile</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><span class="icon16 icomoon-icon-comments-2"></span>Approve comments</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><span class="icon16 icomoon-icon-plus-2"></span>Add user</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li><a href="index.html"><span class="icon16 icomoon-icon-exit"></span> Logout</a></li>
-                    </ul>
-                </div><!-- /.nav-collapse -->
-              </div>
-            </div><!-- /navbar-inner -->
-          </div><!-- /navbar --> 
-
-    </div><!-- End #header -->
+<?php
+echo $this->Html->css(
+        array(
+            '/assets/admin/layout/css/layout',
+            '/assets/admin/layout/css/themes/darkblue',
+            '/assets/admin/layout/css/custom'
+        )
+);
+?>
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<!-- DOC: Apply "page-header-fixed-mobile" and "page-footer-fixed-mobile" class to body element to force fixed header or footer in mobile devices -->
+<!-- DOC: Apply "page-sidebar-closed" class to the body and "page-sidebar-menu-closed" class to the sidebar menu element to hide the sidebar by default -->
+<!-- DOC: Apply "page-sidebar-hide" class to the body to make the sidebar completely hidden on toggle -->
+<!-- DOC: Apply "page-sidebar-closed-hide-logo" class to the body element to make the logo hidden on sidebar toggle -->
+<!-- DOC: Apply "page-sidebar-hide" class to body element to completely hide the sidebar on sidebar toggle -->
+<!-- DOC: Apply "page-sidebar-fixed" class to have fixed sidebar -->
+<!-- DOC: Apply "page-footer-fixed" class to the body element to have fixed footer -->
+<!-- DOC: Apply "page-sidebar-reversed" class to put the sidebar on the right side -->
+<!-- DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu -->
+<body class="page-header-fixed page-quick-sidebar-over-content ">
+    <!-- BEGIN HEADER -->
+    <div class="page-header navbar navbar-fixed-top">
+        <!-- BEGIN HEADER INNER -->
+        <div class="page-header-inner">
+            <!-- BEGIN LOGO -->
+            <div class="page-logo">
+                <a href="<?php echo $this->webroot; ?>" target="_blank">
+                    <img src="<?php echo $this->webroot;?>img/logo.png" alt="logo" class="logo-default"/>
+                </a>
+                <div class="menu-toggler sidebar-toggler hide">
+                    <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+                </div>
+            </div>
+            <!-- END LOGO -->
+            <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+            <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+            </a>
+            <!-- END RESPONSIVE MENU TOGGLER -->
+   
+        </div>
+        <!-- END HEADER INNER -->
+    </div>
+    <!-- END HEADER -->
+    <div class="clearfix">
+    </div>
+    <!-- BEGIN CONTAINER -->
+    <div class="page-container">

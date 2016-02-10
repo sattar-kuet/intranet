@@ -1,0 +1,26 @@
+   <body>
+    <!-- loading animation -->
+    <div id="qLoverlay"></div>
+    <div id="qLbar"></div>
+
+    <div id="header">
+
+        <div class="navbar">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a class="brand" href="<?php echo Router::url('/', true); ?>">
+                        <img src="<?php echo $this->webroot; ?>img/logo.png"> 
+                    </a>
+                    <span id="site"> <a class="brand" href="<?php echo Router::url('/', true); ?>">jegeachi.com </a></span>
+               
+                    <div class="pull-right">
+                        <p id="siteName">আমরা জেগে আছি</p>
+                        <p id="slogan"> আলো আসবেই</p> 
+                    </div>
+
+                </div>
+            </div><!-- /navbar-inner -->
+        </div><!-- /navbar -->
+    </div><!-- End #header -->
+
+

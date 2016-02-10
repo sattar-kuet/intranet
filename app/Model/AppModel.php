@@ -36,4 +36,9 @@ class AppModel extends Model {
    $lastLog = end($logs['log']);
    return $lastLog['query'];
  }
+ 
+  public function checkUnique($ignoredData, $fields, $or = true) {
+        return $this->isUnique($fields, $or);
+    }
+
 }

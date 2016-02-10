@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Application level Controller
  *
@@ -18,8 +19,10 @@
  * @since         CakePHP(tm) v 0.2.9
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-
 App::uses('Controller', 'Controller');
+App::uses('Mylib', 'Lib');
+App::uses('File', 'Utility');
+App::uses('CakeEmail', 'Network/Email');
 
 /**
  * Application Controller
@@ -32,49 +35,231 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
 
-	function pr($input=null){
-		echo '<pre>'; 
-		print_r($input);
-		echo '</pre>';
+    public $components = array(
+        'Session',
+        'Auth' => array(
+            'authenticate' => array(
+                'Form' => array(
+                    'fields' => array(
+                        'username' => 'email', //Default is 'username' in the userModel
+                        'password' => 'password'  //Default is 'password' in the userModel
+                    ),
+                    'passwordHasher' => array(
+                        'className' => 'Simple',
+                        'hashType' => 'sha256'
+                    )
+                )
+            )
+        )
+    );
 
-	}
-	function generateError($input=null){
-		$output='<ul>';
-		foreach ($input as $single) {
-			foreach ($single as $value) {
-				$output.='<li>'.$value.'</li>';
-			}
-			
-		}
-		$output.='</ul>';
-		$output='<div class="alert alert-error">
-		<button type="button" class="close" data-dismiss="alert">&times;</button>
-		'.$output.'<strong> Change these things and try again. </strong> </div>';
-		return $output;
-	}
+    public function beforeFilter() {
+        // save last visited url
+        $url = Router::url(NULL, true); //complete url
+        if (!preg_match('/login|logout|isLooged_in/i', $url)) {
+            $this->Session->write('lastUrl', $url);
+        }
+        $this->set('baseUrl', Router::url('/', true));
+        $this->Auth->allow('index', 'logo');
+
+        $admin = $this->Auth->user();
+
+        if (isset($admin['Role']['name'])) {
+            $sidebar = $admin['Role']['name'];
+            $this->set(compact('sidebar'));
+        }
 
 
-
-	function humanTiming ($input=null)
-	{
-    $time = strtotime($input);
-    $time = time() - $time; // to get the time since that moment
-
-    $tokens = array (
-    	31536000 => 'year',
-    	2592000 => 'month',
-    	604800 => 'week',
-    	86400 => 'day',
-    	3600 => 'hour',
-    	60 => 'minute',
-    	1 => 'second'
-    	);
-
-    foreach ($tokens as $unit => $text) {
-    	if ($time < $unit) continue;
-    	$numberOfUnits = floor($time / $unit);
-    	return $numberOfUnits.' '.$text.(($numberOfUnits>1)?'s':'').' ago';
+        //   $this->loadMenu();
+        // $this->loadLeftMenu();
+        // $this->loadFooter();
     }
 
-}
+    function loadFooter() {
+        $this->loadModel('Footer');
+        $footer = $this->Footer->find('all');
+        $this->set(compact('footer'));
+    }
+
+    function loadLeftMenu() {
+        $this->loadModel('Level');
+        $options = array(
+            'fields' => array('Level.name', 'Level.id', 'subjects.name', 'subjects.id', 'chapters.name', 'chapters.id'),
+            'joins' => array('LEFT JOIN `subjects`  ON `Level`.`id` = `subjects`.`level_id` 
+            LEFT JOIN `chapters`  ON `subjects`.`id` = `chapters`.`subject_id`       
+                '),
+            'conditions' => array('LOWER(Level.name)' => strtolower($this->request->params['action']))
+        );
+
+        $menus = $this->Level->find('all', $options);
+        $filteredMenu = array();
+        $unique = array();
+
+        $index = 0;
+        $subjectNo = 0;
+        foreach ($menus as $key => $menu) {
+            $level = $menu['Level']['id'];
+            $subject = $menu['subjects']['id'];
+            if (isset($unique[$level])) {
+                if (isset($unique[$subject])) {
+                    if (!empty($menu['chapters']['name'])) {
+                        $temp = array('name' => $menu['chapters']['name'], 'chapter_id' => $menu['chapters']['id'], 'level_id' => $level, 'subject_id' => $subject);
+                        $filteredMenu[$index]['subject'][$subjectNo]['chapter'][] = $temp;
+                    }
+                } else {
+                    if ($key != 0)
+                        $subjectNo++;
+                    if (!empty($menu['chapters']['name'])) {
+                        $temp = array('name' => $menu['subjects']['name']);
+                        $filteredMenu[$index]['subject'][$subjectNo] = $temp;
+                        $temp = array('name' => $menu['chapters']['name'], 'chapter_id' => $menu['chapters']['id'], 'level_id' => $level, 'subject_id' => $subject);
+                        $filteredMenu[$index]['subject'][$subjectNo]['chapter'][] = $temp;
+                    }
+                }
+            } else {
+
+                if ($key != 0)
+                    $index++;
+                $unique[$level] = 'set';
+                $temp = array('name' => $menu['Level']['name']);
+                $filteredMenu[$index]['level'] = $temp;
+                if (!empty($menu['subjects']['name'])) {
+                    $temp = array('name' => $menu['subjects']['name']);
+                    $filteredMenu[$index]['subject'][$subjectNo] = $temp;
+                }
+
+
+                if (!empty($menu['chapters']['name'])) {
+                    $temp = array('name' => $menu['chapters']['name'], 'chapter_id' => $menu['chapters']['id'], 'level_id' => $level, 'subject_id' => $subject);
+                    $filteredMenu[$index]['subject'][$subjectNo]['chapter'][] = $temp;
+                }
+            }
+        }
+        if (count($filteredMenu) > 0) {
+            $leftMenu = $filteredMenu[0];
+            $this->set(compact('leftMenu'));
+        }
+
+        //echo $this->Level->getLastQuery(); 
+        //pr( $filteredMenu); exit;    
+    }
+
+    function pr($input = null) {
+        echo '<pre>';
+        print_r($input);
+        echo '</pre>';
+    }
+
+    function generateError($input = null) {
+        $output = '';
+        if (is_array($input)) {
+            $output = '<ul>';
+            foreach ($input as $single) {
+                foreach ($single as $value) {
+                    $output.='<li>' . $value . '</li>';
+                }
+            }
+            $output.='</ul>';
+        } else {
+            $output = $input;
+        }
+
+        $output = '<div class="alert alert-danger">
+		' . $output . '<strong> Change these things and try again. </strong> </div>';
+        return $output;
+    }
+
+    function humanTiming($input = null) {
+        $time = strtotime($input);
+        $time = time() - $time; // to get the time since that moment
+
+        $tokens = array(
+            31536000 => 'year',
+            2592000 => 'month',
+            604800 => 'week',
+            86400 => 'day',
+            3600 => 'hour',
+            60 => 'minute',
+            1 => 'second'
+        );
+
+        foreach ($tokens as $unit => $text) {
+            if ($time < $unit)
+                continue;
+            $numberOfUnits = floor($time / $unit);
+            return $numberOfUnits . ' ' . $text . (($numberOfUnits > 1) ? 's' : '') . ' ago';
+        }
+    }
+
+    function sendEmail($emailInfo = array()) {
+        // pr($emailInfo); exit;
+        $from = $emailInfo['from']; //'info@jegeachi.com';
+        $subject = $emailInfo['subject']; // "Reseller Registration";
+        $title = $emailInfo['title'];
+
+        $to = $emailInfo['to']; //array('sattar.kuet@gmail.com');
+        $mail_content = $emailInfo['content'];
+        $Email = new CakeEmail('default');
+        if (array_key_exists("img", $emailInfo)) {
+            $Email->template($emailInfo['content']['template'], null)
+                    ->emailFormat('html')
+                    ->from(array($from => $title))
+                    ->attachments(array(
+                        array(
+                            //<img src="../../assets/admin/pages/media/email/social_twitter.png" alt="social icon">
+                            'file' => ROOT . '/app/webroot/assets/admin/pages/media/email/social_twitter.png',
+                            'mimetype' => 'image',
+                            'contentId' => 'twitterIcon'
+                        ),
+                        array(
+                            ///assets/admin/pages/media/email/social_facebook.png
+                            'file' => ROOT . '/app/webroot/assets/admin/pages/media/email/social_facebook.png',
+                            'mimetype' => 'image/png',
+                            'contentId' => 'fbIcon'
+                        ),
+                        array(
+                            'file' => ROOT . '/app/webroot/img/logo.png',
+                            'mimetype' => 'image',
+                            'contentId' => 'logo'
+                        ),
+                        $emailInfo['img']
+                    ))
+                    ->viewVars(compact('mail_content'))
+                    ->to($to)
+                    ->subject($subject);
+        } else {
+            $Email->template($emailInfo['content']['template'], null)
+                    ->emailFormat('html')
+                    ->from(array($from => $title))
+                    ->attachments(array(
+                        array(
+                            //<img src="../../assets/admin/pages/media/email/social_twitter.png" alt="social icon">
+                            'file' => ROOT . '/app/webroot/assets/admin/pages/media/email/social_twitter.png',
+                            'mimetype' => 'image',
+                            'contentId' => 'twitterIcon'
+                        ),
+                        array(
+                            ///assets/admin/pages/media/email/social_facebook.png
+                            'file' => ROOT . '/app/webroot/assets/admin/pages/media/email/social_facebook.png',
+                            'mimetype' => 'image/png',
+                            'contentId' => 'fbIcon'
+                        ),
+                        array(
+                            'file' => ROOT . '/app/webroot/img/logo.png',
+                            'mimetype' => 'image',
+                            'contentId' => 'logo'
+                        )
+                    ))
+                    ->viewVars(compact('mail_content'))
+                    ->to($to)
+                    ->subject($subject);
+        }
+        try {
+            $Email->send();
+            return true;
+        } catch (SocketException $e) {
+            return false;
+        }
+    }
+
 }

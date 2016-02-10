@@ -112,7 +112,7 @@ $(document).ready(function() {
 	//--------------- Form validation ------------------//
 	$('#select1').select2({placeholder: "Select"});
 	$('.select1').select2({placeholder: "Select"});
-    $("#form-validate").validate({
+    $(".form-validate").validate({
     	ignore: null,
     	ignore: 'input[type="hidden"]',
     	rules: {
