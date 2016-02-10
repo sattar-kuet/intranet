@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Application level Controller
  *
@@ -19,8 +18,8 @@
  * @since         CakePHP(tm) v 0.2.9
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
+
 App::uses('Controller', 'Controller');
-App::uses('Mylib', 'Lib');
 
 /**
  * Application Controller
@@ -33,53 +32,49 @@ App::uses('Mylib', 'Lib');
  */
 class AppController extends Controller {
 
-    public $components = array(
-        'Session',
-        'Auth' => array(
-            'authenticate' => array(
-                'Form' => array(
-                    'fields' => array(
-                        'username' => 'email', //Default is 'username' in the userModel
-                        'password' => 'password'  //Default is 'password' in the userModel
-                    ),
-                    'passwordHasher' => array(
-                        'className' => 'Simple',
-                        'hashType' => 'sha256'
-                    )
-                )
-            )
-        )
-    );
+	function pr($input=null){
+		echo '<pre>'; 
+		print_r($input);
+		echo '</pre>';
 
-    public function beforeFilter() {
-        //parent::beforeFilter();
-
-        $this->Auth->allow('index');
-    }
-
-    function pr($input = null) {
-        echo '<pre>';
-        print_r($input);
-        echo '</pre>';
-    }
-
-    function generateError($input = null) {
-        $output = '<ul>';
-        foreach ($input as $single) {
-            foreach ($single as $value) {
-                $output.='<li>' . $value . '</li>';
-            }
-        }
-        $output .='</ul>';
-        $output = '<div class="alert alert-error">
+	}
+	function generateError($input=null){
+		$output='<ul>';
+		foreach ($input as $single) {
+			foreach ($single as $value) {
+				$output.='<li>'.$value.'</li>';
+			}
+			
+		}
+		$output.='</ul>';
+		$output='<div class="alert alert-error">
 		<button type="button" class="close" data-dismiss="alert">&times;</button>
-		' . $output . '<strong> Change these things and try again. </strong> </div>';
-        return $output;
+		'.$output.'<strong> Change these things and try again. </strong> </div>';
+		return $output;
+	}
+
+
+
+	function humanTiming ($input=null)
+	{
+    $time = strtotime($input);
+    $time = time() - $time; // to get the time since that moment
+
+    $tokens = array (
+    	31536000 => 'year',
+    	2592000 => 'month',
+    	604800 => 'week',
+    	86400 => 'day',
+    	3600 => 'hour',
+    	60 => 'minute',
+    	1 => 'second'
+    	);
+
+    foreach ($tokens as $unit => $text) {
+    	if ($time < $unit) continue;
+    	$numberOfUnits = floor($time / $unit);
+    	return $numberOfUnits.' '.$text.(($numberOfUnits>1)?'s':'').' ago';
     }
 
-    function humanTiming($input = null) {
-        echo $input;
-        exit;
-    }
-
+}
 }

@@ -50,9 +50,7 @@
                 <div class="navbar">
                     <div class="navbar-inner">
                       <div class="container">
-                          <h1 class="brand">Admin</h1>
-<!--                          <h1 class="brand">Employee</h1>-->
-                        <!--<a class="brand" href="dashboard.html">Employee</a>-->
+                        <a class="brand" href="dashboard.html">Admin</a>
                     </div>
                 </div><!-- /navbar-inner -->
             </div><!-- /navbar -->

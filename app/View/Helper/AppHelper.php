@@ -30,10 +30,5 @@ App::uses('Helper', 'View');
  * @package       app.View.Helper
  */
 class AppHelper extends Helper {
-    
-    function say_hello(){
-        echo 'Hello';
-        exit;
-    }
 
 }

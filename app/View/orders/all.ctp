@@ -44,7 +44,7 @@
 
                                 <div class="title">
                                     <h4>
-                                        <span>All Agents list</span>
+                                        <span>All Orders which are not contacted</span>
                                     </h4>
                                 </div>
                                  <?php echo $this->Session->flash(); ?>
@@ -55,52 +55,64 @@
                                                 <th>Name</th>
                                                 <th>Email</th>
                                                 <th>Mobile</th>
-                                                <th>Area</th>
+                                                <th>Alt Mobile</th>
+                                                <th>City</th>
+                                                <th>Location</th>
+                                                <th> How many</th>
                                                 <th>Status</th>
-                                                <th>Comment</th>
-                                                <th>Action</th>
+                                                <th>Time</th>
+                                                <th>Action </th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
-                                            foreach ($agents as $single):
-                                                $agent = $single['Agent'];
+
+                                            foreach ($all as $single):
+                                                $order = $single['Order'];
+
                                                 ?>
                                             <tr class="odd gradeX">
-                                                <td><?php echo $agent['name']; ?></td>
-                                                <td><?php echo $agent['email']; ?></td>
-                                                <td><?php echo $agent['mobile']; ?></td>
-                                                <td><?php echo $agent['area']; ?></td>
-                                                <td><?php echo $agent['status']; ?></td>
-                                                <td><?php echo $agent['comment']; ?></td>
+                                                <td><?php echo $order['name']; ?></td>
+                                                <td><?php echo $order['email']; ?></td>
+                                                <td><?php echo $order['mobile']; ?></td>
+                                                <td><?php echo $order['alt_mobile']; ?></td>
+                                            <td><?php echo $single['City']['name']; ?></td>
+                                            <td><?php echo $single['Location']['name']; ?></td>
+                                            <td><?php echo $order['pieces']; ?></td>
+                                                <td><?php echo $order['status']; ?></td>
                                                 
+                                                         <td>
+                         <button class="btn btn-inverse" href="#"><?php 
+                             if($order['status']=='No contact')
+                                $time = humantime($order['created']).' ago';
+                            else if($order['status']=='confirmed')
+                                $time = humantime($order['comment']).' remaining';
+                            else
+                                  $time = $order['modified'];
+
+                         echo $time; ?></button>
+                                    </td>
                                                 <td>   
                                                     <div class="controls center">
-                                                        <a aria-describedby="qtip-7" data-hasqtip="true" title="" oldtitle="Edit task" target="_blank" href="<?php echo Router::url(array('controller'=>'admins','action'=>'edit',$agent['id']))?>" class="tip"><span class="icon12 icomoon-icon-pencil"></span></a>
-
-                                                         <a aria-describedby="qtip-8" data-hasqtip="true" title="" oldtitle="Remove task"
-                                                         onclick="if (confirm(&quot;Are you sure to delete this Agent?&quot;)) { return true; } return false;"
-                                                          href="<?php echo Router::url(array('controller'=>'admins','action'=>'delete',$agent['id'])
-                                                         )?>" class="tip"><span class="icon12 icomoon-icon-remove"></span></a>                          
-                                                        <?php if($agent['status']!='blocked'):?>
+                                                
 
                                                           <a aria-describedby="qtip-7" data-hasqtip="true" title="" oldtitle="Edit task"
-                                                           onclick="if (confirm(&quot;Are you sure to block this Agent?&quot;)) { return true; } return false;"
+                                                           onclick="if (confirm(&quot;Are you sure to cancel this order?&quot;)) { return true; } return false;"
 
-                                                           href="<?php echo Router::url(array('controller'=>'admins','action'=>'block',$agent['id'])
-                                                         )?>" class="tip"><span class="icon12 iconic-icon-move-horizontal-alt2"></span></a>
-                                                          <?php endif; ?>
+                                                           href="<?php echo Router::url(array('controller'=>'orders','action'=>'cancel',$order['id'])
+                                                         )?>" class="tip"><span class="icon12 iconic-icon-move-horizontal-alt2" title="cancel"></span></a>
                                                        
-                                                        <?php if($agent['status']!='active'):?>
+                                                       
+                                                     
                                                         <a aria-describedby="qtip-8" data-hasqtip="true" title="" oldtitle="Remove task" 
-                                                        onclick="if (confirm(&quot;Are you sure to active this Agent?&quot;)) { return true; } return false;"
+                                                        onclick="if (confirm(&quot;Are you sure to confirm this order?&quot;)) { return true; } return false;"
 
-                                                           href="<?php echo Router::url(array('controller'=>'admins','action'=>'active',$agent['id'])
+                                                           href="<?php echo Router::url(array('controller'=>'orders','action'=>'confirm',$order['id'])
                                                          )?>"
-                                                         class="tip"><span class="icon12 icomoon-icon-checkmark"></span></a>
-                                                    <?php endif; ?>
+                                                         class="tip"><span class="icon12 icomoon-icon-checkmark" title="confirm"></span></a>
+                                                   
                                                     </div>
-                                                </td>
+                                                </td>                                          
                                             </tr>
 
                                             <?php
@@ -109,19 +121,7 @@
                                           
                                             
                                         </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Email</th>
-                                             
-                                                <th>Mobile</th>
-                                                <th>Area</th>
-                                                <th>Status</th>
-                                                <th>Comment</th>
-                                               
-                                                <th>Action</th>
-                                            </tr>
-                                        </tfoot>
+                                     
                                     </table>
                                 </div>
 

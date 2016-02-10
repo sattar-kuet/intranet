@@ -94,7 +94,7 @@ Cache::config('default', array('engine' => 'File'));
  * ));
  */
 
-CakePlugin::loadAll();
+
 Configure::write('Dispatcher.filters', array(
 	'AssetDispatcher',
 	'CacheDispatcher'
@@ -194,11 +194,3 @@ $unique = array_intersect_key($original ,
            );
  return $unique;
 }
-
-function get_discount($items,$sc){
-  foreach ($sc as $single) {
-   if($single['ServiceCharge']['pieces'] == $items)
-    return $single['ServiceCharge']['discount']; 
-  }
-}
-
