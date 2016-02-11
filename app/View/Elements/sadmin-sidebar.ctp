@@ -147,6 +147,33 @@
                             <i class="fa fa-pencil"></i>
                             Manage</a>
                     </li>
+                    
+                    
+                    
+                     <li
+                    <?php if ($this->name . '' . $this->action == 'Ticketscreate'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'adddepartment')) ?>">
+                            <i class="fa fa-graduation-cap"></i>
+                            Add Department</a>
+                    </li>
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Ticketsmanage'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'editdepartment')) ?>">
+                            <i class="fa fa-pencil"></i>
+                            Edit Department </a>
+                    </li>
        
                 </ul>
             </li>

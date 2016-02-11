@@ -16,6 +16,7 @@ class TicketsController extends AppController {
     public function isAuthorized($user = null) {
         return true;
     }
+
     function create() {
         $this->loadModel('Role');
         if ($this->request->is('post')) {
@@ -62,6 +63,47 @@ class TicketsController extends AppController {
         $agents = $this->User->find('all');
         $this->set(compact('agents'));
     }
+
+    function adddepartment() {
+        $this->loadModel('TicketDepartment');
+        if ($this->request->is('post')) {
+            $this->TicketDepartment->set($this->request->data);
+            if ($this->TicketDepartment->validates()) {
+                $this->TicketDepartment->save($this->request->data['TicketDepartment']);
+                $msg = '<div class="alert alert-success">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong> Added New Department  </strong>
+			</div>';
+                $this->Session->setFlash($msg);
+                return $this->redirect('adddepartment');
+            } else {
+                $msg = $this->generateError($this->TicketDepartment->validationErrors);
+                $this->Session->setFlash($msg);
+            }
+        }
+    }
+    
+   function editdepartment() {
+        $this->loadModel('TicketDepartment');
+        if ($this->request->is('post')) {
+            $this->TicketDepartment->set($this->request->data);
+            if ($this->TicketDepartment->validates()) {
+                $this->TicketDepartment->id = $this->request->data['TicketDepartment']['id'];
+                $this->TicketDepartment->save($this->request->data['TicketDepartment']);
+                $msg = '<div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong> Role edited succeesfully </strong>
+        </div>';
+                $this->Session->setFlash($msg);
+                return $this->redirect($this->referer());
+            } else {
+                $msg = $this->generateError($this->TicketDepartment->validationErrors);
+                $this->Session->setFlash($msg);
+            }
+        }
+        $roles = $this->TicketDepartment->find('list', array('order' => array('TicketDepartment.name' => 'ASC')));
+        $this->set(compact('TicketDepartment'));
+    } 
 
 }
 
