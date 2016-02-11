@@ -101,7 +101,7 @@
                         ?>
                         >
                         <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'servicemanage')) ?>">
-                            <i class="fa fa-heart"></i>
+                            <i class="fa fa-magic"></i>
                             Service Management</a>
                     </li>
                 </ul>
