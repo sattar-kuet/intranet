@@ -35,10 +35,9 @@ class TicketsController extends AppController {
                 $this->Session->setFlash($msg);
             }
         }
-          $depts = $this->TicketDepartment->find('list', array('fields' => array('id', 'name', ), 'order' => array('TicketDepartment.name' => 'ASC')));
-          
-         $this->set(compact('depts'));
-   
+        $depts = $this->TicketDepartment->find('list', array('fields' => array('id', 'name',), 'order' => array('TicketDepartment.name' => 'ASC')));
+
+        $this->set(compact('depts'));
     }
 
     function edit() {
@@ -87,8 +86,8 @@ class TicketsController extends AppController {
             }
         }
     }
-    
-   function editdepartment() {
+
+    function editdepartment() {
         $this->loadModel('TicketDepartment');
         if ($this->request->is('post')) {
             $this->TicketDepartment->set($this->request->data);
@@ -106,9 +105,12 @@ class TicketsController extends AppController {
                 $this->Session->setFlash($msg);
             }
         }
+
         $roles = $this->TicketDepartment->find('list', array('order' => array('TicketDepartment.name' => 'ASC')));
-        $this->set(compact('TicketDepartment'));
-    } 
+       
+        
+        $this->set(compact('roles'));
+    }
 
 }
 
