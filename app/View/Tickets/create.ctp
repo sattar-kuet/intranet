@@ -26,7 +26,7 @@
                     <div class="portlet-body form">
                         <!-- BEGIN FORM-->
                         <?php
-                        echo $this->Form->create('User', array(
+                        echo $this->Form->create('Ticket', array(
                             'inputDefaults' => array(
                                 'label' => false,
                                 'div' => false
@@ -45,19 +45,26 @@
                             <?php echo $this->Session->flash(); ?>
 
                             <div class="form-group">
-                                <label class="control-label col-md-3">Name<span class="required">
+                                <label class="control-label col-md-3">Select Department<span class="required">
                                         * </span>
+                                </label>
+                                 <div class="form-group">
+                                <label class="control-label col-md-3">
                                 </label>
                                 <div class="col-md-4">
                                     <?php
-                                    echo $this->Form->input(
-                                            'name', array(
-                                        'class' => 'form-control required',
-                                        'type' => 'text'
+                                    
+                                   
+                                    echo $this->Form->input('ticket_department_id', array(
+                                        'type' => 'select',
+                                        'options' => $depts,
+                                        'empty' => 'Select Department',
+                                        'class' => 'form-control select2me required pclass',
                                             )
                                     );
                                     ?>
                                 </div>
+                            </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3">Email<span class="required">

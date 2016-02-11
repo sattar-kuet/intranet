@@ -19,6 +19,7 @@ class TicketsController extends AppController {
 
     function create() {
         $this->loadModel('Role');
+        $this->loadModel('TicketDepartment');
         if ($this->request->is('post')) {
             $this->Role->set($this->request->data);
             if ($this->Role->validates()) {
@@ -34,6 +35,10 @@ class TicketsController extends AppController {
                 $this->Session->setFlash($msg);
             }
         }
+          $depts = $this->TicketDepartment->find('list', array('fields' => array('id', 'name', ), 'order' => array('TicketDepartment.name' => 'ASC')));
+          
+         $this->set(compact('depts'));
+   
     }
 
     function edit() {
