@@ -94,14 +94,10 @@ class AdminsController extends AppController {
     }
 
     public function logout() {
-        $this->Admin->id = $this->Auth->user('id');
-        $this->Admin->saveField("loggedIn", 0);
-
         $msg = ' <div class="alert alert-success">
                                 <button type="button" class="close" data-dismiss="alert">×</button>
                                 <strong>You have successfully logged out</strong> 
                             </div>';
-
         $this->Session->setFlash($msg);
         return $this->redirect($this->Auth->logout());
     }
