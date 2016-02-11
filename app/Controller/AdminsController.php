@@ -238,6 +238,28 @@ class AdminsController extends AppController {
         $this->Session->setFlash($msg);
         return $this->redirect('manage');
     }
+    
+     function servicemanage() {
+        $this->loadModel('PaidCustomer');
+        if ($this->request->is('post')) {
+            $this->Role->set($this->request->data);
+            if ($this->Role->validates()) {
+                $this->Role->id = $this->request->data['Role']['id'];
+                $this->Role->save($this->request->data['Role']);
+                $msg = '<div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong> Role edited succeesfully </strong>
+        </div>';
+                $this->Session->setFlash($msg);
+                return $this->redirect($this->referer());
+            } else {
+                $msg = $this->generateError($this->Role->validationErrors);
+                $this->Session->setFlash($msg);
+            }
+        }
+        $cells = $this->PaidCustomer->find('list', array('order' => array('PaidCustomer.cell' => 'ASC')));
+        $this->set(compact('cells'));
+    }
 
 }
 
