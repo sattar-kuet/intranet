@@ -48,52 +48,57 @@
                                 <label class="control-label col-md-3">Select Department<span class="required">
                                         * </span>
                                 </label>
-                                 <div class="form-group">
-                                <label class="control-label col-md-3">
-                                </label>
-                                <div class="col-md-4">
-                                    <?php
-                                    
-                                   
-                                    echo $this->Form->input('ticket_department_id', array(
-                                        'type' => 'select',
-                                        'options' => $depts,
-                                        'empty' => 'Select Department',
-                                        'class' => 'form-control select2me required pclass',
-                                            )
-                                    );
-                                    ?>
-                                </div>
-                            </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Email<span class="required">
-                                        * </span>
-                                </label>
-                                <div class="col-md-4">
-                                    <?php
-                                    echo $this->Form->input(
-                                            'email', array(
-                                        'class' => 'form-control required',
-                                        'type' => 'text'
-                                            )
-                                    );
-                                    ?>
+                                <div class="form-group">
+
+                                    <div class="col-md-4">
+                                        <?php
+                                        echo $this->Form->input('ticket_department_id', array(
+                                            'type' => 'select',
+                                            'options' => $depts,
+                                            'empty' => 'Select Department',
+                                            'class' => 'form-control select2me required pclass',
+                                                )
+                                        );
+                                        ?>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-3">Password<span class="required">
+                                <label class="control-label col-md-3">Select Priority<span class="required">
                                         * </span>
                                 </label>
-                                <div class="col-md-4">
+                                <div class="form-group">
+
+                                    <div class="col-md-4">
+                                        <?php
+                                        echo $this->Form->input('priority', array(
+                                            'type' => 'select',
+                                            'options' => array('low' => 'Low', 'medium' => 'Medium', 'high' => 'High'),
+                                            'empty' => 'Select Priority',
+                                            'class' => 'form-control select2me required pclass',
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Ticket Details 
+                                </label>
+                                <div class="col-md-9">
                                     <?php
                                     echo $this->Form->input(
-                                            'password', array(
-                                        'class' => 'form-control required',
-                                        'type' => 'password'
+                                            'content', array(
+                                        'class' => 'form-control required ckeditor',
+                                        'data-error-container' => '#editor2_error',
+                                        'rows' => 6,
+                                        'type' => 'textarea',
+                                        'id' => 'desc'
                                             )
                                     );
                                     ?>
+
+
                                 </div>
                             </div>
                         </div>
