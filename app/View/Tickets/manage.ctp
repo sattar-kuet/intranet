@@ -39,62 +39,54 @@
                         <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Role </th>
+                                    <th>Open Time</th>
+                                    <th>Ticket From</th>
+                                    <th>Priority</th>
+                                    <th>Detail</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                foreach ($agents as $single):
-
-                                    $agent = $single['User'];
+                                foreach ($tickets as $single):
+                                    //  pr($single); exit;
+                                    $ticket = $single['Ticket'];
                                     ?>
                                     <tr >
-                                        <td><?php echo $agent['name']; ?></td>
-                                        <td><?php echo $agent['email']; ?></td>
-                                        <td><?php echo $single['Role']['name']; ?></td>
-                                        <td><?php echo $agent['status']; ?></td>
+                                        <td><?php echo $ticket['created']; ?></td>
+                                        <td><?php echo $single['TicketDepartment']['name']; ?></td>
+                                        <td><?php echo $ticket['priority']; ?></td>
+                                        <td><?php echo $ticket['content']; ?></td>
+                                        <td><?php echo $ticket['status']; ?></td>
 
                                         <td>   
                                             <div class="controls center">
-                                                <a  target="_blank" title="edit" href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'edit_admin', $agent['id'])) ?>" >
-                                                    <span class="fa fa-pencil"></span></a>
-                                                &nbsp;&nbsp;
-                                                <a 
-                                                   onclick="if (confirm(&quot; Are you sure to delete this Admin? &quot; )) { return true; } return false;"
-                                                   href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'delete', $agent['id']))?>" title="delete">
-                                                    <span class="fa fa-minus-square"></span>
-                                                </a>                          
-                                            &nbsp;&nbsp;
-                                             <?php if ($agent['status'] != 'blocked'): ?>
 
+                                                <?php if ($ticket['status'] != 'closed') { ?>
                                                     <a 
-                                                       onclick="if(confirm(&quot; Are you sure to block this Admin? &quot;)) { return true; } return false;"
+                                                        onclick="if (confirm('Are you sure to close this ticket?')) {
+                                                                    return true;
+                                                                }
+                                                                return false;"
+                                                        href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'close', $ticket['id'])) ?>" title="close">
+                                                        <span class="fa fa-ban"></span>
+                                                    </a>  
 
-                                                       href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'block', $agent['id']))?>" title="block">
-                                                        <span class="fa  fa-ban"></span>
-                                                    </a>
-                                                <?php endif; ?>
+                                                <?php
+                                                } else {
+                                                    echo 'Nothing to Do';
+                                                }
+                                                ?>
 
-    <?php if ($agent['status'] != 'active'): ?>
-                                                    <a aria-describedby="qtip-8" data-hasqtip="true" title="" oldtitle="Remove task" 
-                                                       onclick="if (confirm(&quot; Are you sure to active this Admin? &quot; )) { return true; } return false;"
 
-                                                       href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'active', $agent['id'])
-        )
-        ?>"
-                                                       class="tip"><span class="fa  fa-check"></span></a>
-    <?php endif; ?>
                                             </div>
                                         </td>
                                     </tr>
 
-    <?php
-endforeach;
-?>
+                                    <?php
+                                endforeach;
+                                ?>
 
                             </tbody>
                         </table>

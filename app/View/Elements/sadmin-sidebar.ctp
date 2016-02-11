@@ -108,7 +108,7 @@
             </li>
             <li 
             <?php
-            $tickets = array('Ticketscreate', 'Ticketsmanage');
+            $tickets = array('Ticketscreate', 'Ticketsmanage',);
             if (in_array($this->name . '' . $this->action, $tickets)):
                 ?>
                     class="active"
