@@ -65,6 +65,7 @@
 
                                                 <?php if ($ticket['status'] != 'closed') { ?>
                                                     <a 
+
                                                         onclick="if (confirm('Are you sure to close this ticket?')) {
                                                                     return true;
                                                                 }
@@ -78,6 +79,7 @@
                                                     echo 'Nothing to Do';
                                                 }
                                                 ?>
+
 
 
                                             </div>
