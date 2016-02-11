@@ -28,7 +28,7 @@
 
             <li 
             <?php
-            $admins = array('Adminsaddrole', 'Adminseditrole', 'Adminscreate', 'Adminsmanage', 'Adminsedit_admin');
+            $admins = array('Adminsaddrole', 'Adminseditrole', 'Adminscreate', 'Adminsmanage', 'Adminsedit_admin',);
             if (in_array($this->name . '' . $this->action, $admins)):
                 ?>
                     class="active"
@@ -91,7 +91,7 @@
                             <i class="fa fa-heart"></i>
                             Manage Admin</a>
                     </li>
-                    
+
                     <li
                     <?php if ($this->name . '' . $this->action == 'Adminsmanage'):
                         ?>
@@ -147,23 +147,39 @@
                             <i class="fa fa-pencil"></i>
                             Manage</a>
                     </li>
-                    
-                    
-                    
-                     <li
-                    <?php if ($this->name . '' . $this->action == 'Ticketscreate'):
+                    </ul>
+                 <li 
+            <?php
+            $tickets = array('Ticketsadddepartment', 'Ticketseditdepartment');
+            if (in_array($this->name . '' . $this->action, $tickets)):
+                ?>
+                    class="active"
+                    <?php
+                endif;
+                ?>
+                >
+
+                  <a href="javascript:;">
+                    <i class="fa fa-user"></i>
+                    <span class="title">Department Manage</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Ticketsadddepartment'):
                         ?>
                             class="active"
                             <?php
                         endif;
                         ?>
                         >
+
                         <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'adddepartment')) ?>">
                             <i class="fa fa-graduation-cap"></i>
                             Add Department</a>
                     </li>
                     <li
-                    <?php if ($this->name . '' . $this->action == 'Ticketsmanage'):
+                    <?php if ($this->name . '' . $this->action == 'Ticketseditdepartment'):
                         ?>
                             class="active"
                             <?php
@@ -174,7 +190,7 @@
                             <i class="fa fa-pencil"></i>
                             Edit Department </a>
                     </li>
-       
+
                 </ul>
             </li>
 
