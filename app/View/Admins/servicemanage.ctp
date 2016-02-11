@@ -16,7 +16,7 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-plus"></i>Add new Product
+                            <i class="fa fa-search"></i>Search customer information by cell no
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="reload">
@@ -33,7 +33,8 @@
                             ),
                             'id' => 'form_sample_3',
                             'class' => 'form-horizontal',
-                            'novalidate' => 'novalidate'
+                            'novalidate' => 'novalidate',
+                            //'url' => array('controler' => 'Admins', 'action' => 'changeservice')
                                 )
                         );
                         ?>
@@ -45,14 +46,14 @@
                             <?php echo $this->Session->flash(); ?>
 
                             <div class="form-group">
-                                <label class="control-label col-md-3">Select Role Name
+                                <label class="control-label col-md-3">
                                 </label>
                                 <div class="col-md-4">
                                     <?php
-                                    echo $this->Form->input('id', array(
+                                    echo $this->Form->input('cell', array(
                                         'type' => 'select',
                                         'options' => $cells,
-                                        'empty' => 'Select Category',
+                                        'empty' => 'Select Cell No',
                                         'class' => 'form-control select2me required pclass',
                                             )
                                     );
@@ -63,10 +64,10 @@
                         </div>
                         <div class="form-actions">
                             <div class="row">
-                                <div class="col-md-offset-7 col-md-4">
+                                <div class="col-md-offset-6 col-md-4">
                                     <?php
                                     echo $this->Form->button(
-                                            'Add', array('class' => 'btn green', 'type' => 'submit')
+                                            'Search', array('class' => 'btn green', 'type' => 'submit')
                                     );
                                     ?>
                                 </div>
@@ -79,8 +80,69 @@
                 </div>
             </div>
         </div>
-        <!-- END PAGE CONTENT -->
+        <!-- END PAGE CONTENT -->        
+
+        <?php if ($clicked): ?>
+
+            <div class="row-fluid">
+                <table cellpadding="0" cellspacing="0" border="0" class="responsive dynamicTable display table table-bordered" width="100%">
+                    <thead>
+                        <tr>                                           
+                            <th>Name</th>
+                            <th>Cell</th>
+                            <th>Package</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $info = $customer_info['PaidCustomer'];
+                        ?>
+                        <tr class="odd gradeX">
+                            <td><?php echo $info['lname']; ?></td>
+                            <td><?php echo $info['cell']; ?></td>
+                            <td><?php echo $info['psetting_id']; ?></td>
+                            <td><?php echo $info['status']; ?></td>
+                            <td rowspan="1" colspan="1">
+
+                                <?php
+                                echo $this->Form->input('cell', array(
+                                    'type' => 'select',
+                                    'options' => Array('cancel' => 'Cancel', 'continue' => 'Continue', 'hold' => 'Hold', 'reconnect' => 'Reconnect'),
+                                    'empty' => 'Select.....',
+                                    'class' => 'form-control form-filter input-sm',
+                                        )
+                                );
+                                ?>
+                            </td>
+
+                            <td style="text-align: center; "><button onclick="if (confirm(&quot; Are you sure to change it?&quot; )) {
+                                        return true;
+                                    }
+                                    return false;" title="Do this selected action"><i class="fa fa-save"></i>Chang Service</button></td>
+
+                        </tr>
+                        <?php
+                        ?>
+                    </tbody>
+
+                </table>
+            </div>
+
+            <?php
+        endif;
+        ?>
+
     </div>
+
 </div>
 <!-- END CONTENT -->
+
+<!--                                <td style="text-align: center; "><button href="<?php
+// echo Router::url(array('controller' => //'admins', 'action' => 'active', $info['id'])
+//  )
+?>" title="Do this selected action" class="btn btn-sm"><i class="fa fa-save"></i> Save</button></td>-->
+
 

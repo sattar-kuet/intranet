@@ -234,27 +234,36 @@ class AdminsController extends AppController {
         $this->Session->setFlash($msg);
         return $this->redirect('manage');
     }
-    
-     function servicemanage() {
+
+    function servicemanage($cell = null) {
+
+
         $this->loadModel('PaidCustomer');
+        $clicked = false;
         if ($this->request->is('post')) {
-            $this->Role->set($this->request->data);
-            if ($this->Role->validates()) {
-                $this->Role->id = $this->request->data['Role']['id'];
-                $this->Role->save($this->request->data['Role']);
-                $msg = '<div class="alert alert-success">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong> Role edited succeesfully </strong>
-        </div>';
-                $this->Session->setFlash($msg);
-                return $this->redirect($this->referer());
-            } else {
-                $msg = $this->generateError($this->Role->validationErrors);
-                $this->Session->setFlash($msg);
-            }
+            $cell = $this->request->data['PaidCustomer']['cell'];            
+
+            $customer_info =  $this->PaidCustomer->find('first',array('conditions' => array('PaidCustomer.cell' => $cell)));
+           // pr($customer_info);
+            //exit;
+            $clicked = true;
+            $this->set(compact('customer_info'));
         }
-        $cells = $this->PaidCustomer->find('list', array('order' => array('PaidCustomer.cell' => 'ASC')));
-        $this->set(compact('cells'));
+
+        $cells = $this->PaidCustomer->find('list', array('fields' => array('cell', 'cell')));
+        $this->set(compact('cells', 'clicked'));
+    }
+
+    function changeservice($id = null) {
+        $this->loadModel('PaidCustomer');
+        $this->PaidCustomer->id = $id;
+        $this->PaidCustomer->saveField("status", "active");
+        $msg = '<div class="alert alert-success">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<strong> User activated succeesfully </strong>
+</div>';
+        $this->Session->setFlash($msg);
+        return $this->redirect('manage');
     }
 
 }
