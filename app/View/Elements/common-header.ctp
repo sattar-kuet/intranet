@@ -8,7 +8,7 @@
     <head>
         <meta charset="utf-8"/>
         <meta name="google-site-verification" content="EehELcEVuQwNUOU8twYjFX9vmrosW3pMCpc7NNOeA00" />
-        <title>jegeachi</title>
+        <title>Intra Net</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
         <meta http-equiv="Content-type" content="text/html; charset=utf-8">

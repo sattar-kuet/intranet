@@ -41,11 +41,8 @@
                                 <tr>
                                     <th>Name</th>
                                     <th>Email</th>
-                                    <th>Mobile</th>
-                                    <th>Area</th>
-                                    <th>Role</th>
+                                    <th>Role </th>
                                     <th>Status</th>
-                                    <th>Comment</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -53,16 +50,13 @@
                                 <?php
                                 foreach ($agents as $single):
 
-                                    $agent = $single['Admin'];
+                                    $agent = $single['User'];
                                     ?>
                                     <tr >
                                         <td><?php echo $agent['name']; ?></td>
                                         <td><?php echo $agent['email']; ?></td>
-                                        <td><?php echo $agent['mobile']; ?></td>
-                                        <td><?php echo $agent['area']; ?></td>
                                         <td><?php echo $single['Role']['name']; ?></td>
                                         <td><?php echo $agent['status']; ?></td>
-                                        <td><?php echo $agent['comment']; ?></td>
 
                                         <td>   
                                             <div class="controls center">

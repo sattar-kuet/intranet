@@ -16,7 +16,7 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-plus"></i>Add new Product
+                            <i class="fa fa-plus"></i>Add new Admin
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="reload">
@@ -26,7 +26,7 @@
                     <div class="portlet-body form">
                         <!-- BEGIN FORM-->
                         <?php
-                        echo $this->Form->create('Admin', array(
+                        echo $this->Form->create('User', array(
                             'inputDefaults' => array(
                                 'label' => false,
                                 'div' => false
@@ -89,70 +89,6 @@
                                     ?>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Mobile<span class="required">
-                                        * </span>
-                                </label>
-                                <div class="col-md-4">
-                                    <?php
-                                    echo $this->Form->input(
-                                            'mobile', array(
-                                        'class' => 'form-control required',
-                                        'type' => 'text'
-                                            )
-                                    );
-                                    ?>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Area<span class="required">
-                                        * </span>
-                                </label>
-                                <div class="col-md-4">
-                                    <?php
-                                    echo $this->Form->input(
-                                            'area', array(
-                                        'class' => 'form-control required',
-                                        'type' => 'text'
-                                            )
-                                    );
-                                    ?>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Comment
-                                </label>
-                                <div class="col-md-4">
-                                    <?php
-                                    echo $this->Form->input(
-                                            'comment', array(
-                                        'class' => 'form-control',
-                                        'type' => 'textarea'
-                                            )
-                                    );
-                                    ?>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Select Role Name<span class="required">
-                                        * </span>
-                                </label>
-                                <div class="col-md-4">
-                                    <?php
-                                    echo $this->Form->input('role_id', array(
-                                        'type' => 'select',
-                                        'options' => $roles,
-                                        'empty' => 'Select Category',
-                                        'class' => 'form-control select2me required pclass',
-                                            )
-                                    );
-                                    ?>
-                                </div>
-                            </div>
-
-
-
                         </div>
                         <div class="form-actions">
                             <div class="row">

@@ -40,23 +40,22 @@ class AdminsController extends AppController {
         }
         return true;
     }
-    
+
     public function getIsChatAgent() {
         $this->layout = 'ajax';
         $this->render('nothing');
         $this->loadModel('Admin');
         $admins = $this->Admin->find('first', array(
-                'conditions' => array(
-                    'Role.name' => 'support'
-                )
-            ));
-          
-          if($admins['Admin']['loggedIn']){
-              echo 'online,' . $admins['Admin']['name'];
-          }
-          else{
-              echo 'offline';
-          }
+            'conditions' => array(
+                'Role.name' => 'support'
+            )
+        ));
+
+        if ($admins['Admin']['loggedIn']) {
+            echo 'online,' . $admins['Admin']['name'];
+        } else {
+            echo 'offline';
+        }
     }
 
     function login() {
@@ -72,7 +71,7 @@ class AdminsController extends AppController {
                 // pr($this->Auth); exit;
                 if ($this->Auth->user('status') == 'active') {
                     // user is activated
-                 
+
                     return $this->redirect($this->Auth->redirectUrl());
                 } else {
                     // user is not activated
@@ -95,9 +94,9 @@ class AdminsController extends AppController {
     }
 
     public function logout() {
-          $this->Admin->id = $this->Auth->user('id');
-                    $this->Admin->saveField("loggedIn", 0);
-        
+        $this->Admin->id = $this->Auth->user('id');
+        $this->Admin->saveField("loggedIn", 0);
+
         $msg = ' <div class="alert alert-success">
                                 <button type="button" class="close" data-dismiss="alert">×</button>
                                 <strong>You have successfully logged out</strong> 
@@ -153,20 +152,20 @@ class AdminsController extends AppController {
     }
 
     function create() {
-        $this->loadModel('Admin');
+        $this->loadModel('User');
         $this->loadModel('Role');
         if ($this->request->is('post')) {
-            $this->Admin->set($this->request->data);
-            if ($this->Admin->validates()) {
-                $this->Admin->save($this->request->data['Admin']);
+            $this->User->set($this->request->data);
+            if ($this->User->validates()) {
+                $this->User->save($this->request->data['User']);
                 $msg = '<div class="alert alert-success">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
-				<strong> Admin Created succeesfully </strong>
+				<strong> User Created succeesfully </strong>
 			</div>';
                 $this->Session->setFlash($msg);
                 return $this->redirect('create');
             } else {
-                $msg = $this->generateError($this->Admin->validationErrors);
+                $msg = $this->generateError($this->User->validationErrors);
                 $this->Session->setFlash($msg);
             }
         }
@@ -174,8 +173,8 @@ class AdminsController extends AppController {
     }
 
     function manage() {
-        $this->loadModel('Admin');
-        $agents = $this->Admin->find('all');
+        $this->loadModel('User');
+        $agents = $this->User->find('all');
         $this->set(compact('agents'));
     }
 
@@ -206,35 +205,35 @@ class AdminsController extends AppController {
     }
 
     function delete($id = null) {
-        $this->loadModel('Admin');
-        $this->Admin->delete($id);
+        $this->loadModel('User');
+        $this->User->delete($id);
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
-	<strong> Admin deleted succeesfully </strong>
+	<strong> User deleted succeesfully </strong>
 </div>';
         $this->Session->setFlash($msg);
         return $this->redirect('manage');
     }
 
     function block($id = null) {
-        $this->loadModel('Admin');
-        $this->Admin->id = $id;
-        $this->Admin->saveField("status", "blocked");
+        $this->loadModel('User');
+        $this->User->id = $id;
+        $this->User->saveField("status", "blocked");
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
-	<strong> Admin blocked succeesfully </strong>
+	<strong> User blocked succeesfully </strong>
 </div>';
         $this->Session->setFlash($msg);
         return $this->redirect('manage');
     }
 
     function active($id = null) {
-        $this->loadModel('Admin');
-        $this->Admin->id = $id;
-        $this->Admin->saveField("status", "active");
+        $this->loadModel('User');
+        $this->User->id = $id;
+        $this->User->saveField("status", "active");
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
-	<strong> Admin activated succeesfully </strong>
+	<strong> User activated succeesfully </strong>
 </div>';
         $this->Session->setFlash($msg);
         return $this->redirect('manage');

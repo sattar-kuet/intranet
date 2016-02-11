@@ -26,9 +26,7 @@ echo $this->Html->css(
         <div class="page-header-inner">
             <!-- BEGIN LOGO -->
             <div class="page-logo">
-                <a href="<?php echo $this->webroot; ?>" target="_blank">
-                    <img src="<?php echo $this->webroot;?>img/logo.png" alt="logo" class="logo-default"/>
-                </a>
+              
                 <div class="menu-toggler sidebar-toggler hide">
                     <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
                 </div>
