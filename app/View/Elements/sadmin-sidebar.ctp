@@ -25,7 +25,7 @@
                 </form>
                 <!-- END RESPONSIVE QUICK SEARCH FORM -->
             </li>
-            
+
             <li 
             <?php
             $admins = array('Adminsaddrole', 'Adminseditrole', 'Adminscreate', 'Adminsmanage', 'Adminsedit_admin');
@@ -93,9 +93,51 @@
                     </li>
                 </ul>
             </li>
+            <li 
+            <?php
+            $tickets = array('Ticketscreate', 'Ticketsmanage');
+            if (in_array($this->name . '' . $this->action, $tickets)):
+                ?>
+                    class="active"
+                    <?php
+                endif;
+                ?>
+                >
+                <a href="javascript:;">
+                    <i class="fa fa-user"></i>
+                    <span class="title">Ticket Management</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
 
-            
-         
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Ticketscreate'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'create')) ?>">
+                            <i class="fa fa-graduation-cap"></i>
+                            Create New</a>
+                    </li>
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Ticketsmanage'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'manage')) ?>">
+                            <i class="fa fa-pencil"></i>
+                            Manage</a>
+                    </li>
+       
+                </ul>
+            </li>
+
         </ul>
         <!-- END SIDEBAR MENU -->
     </div>
