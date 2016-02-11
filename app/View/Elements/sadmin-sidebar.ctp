@@ -91,6 +91,19 @@
                             <i class="fa fa-heart"></i>
                             Manage Admin</a>
                     </li>
+                    
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Adminsmanage'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'servicemanage')) ?>">
+                            <i class="fa fa-heart"></i>
+                            Service Management</a>
+                    </li>
                 </ul>
             </li>
             <li 
