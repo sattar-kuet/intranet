@@ -34,7 +34,7 @@
                             'id' => 'form_sample_3',
                             'class' => 'form-horizontal',
                             'novalidate' => 'novalidate',
-                            //'url' => array('controler' => 'Admins', 'action' => 'changeservice')
+                                //'url' => array('controler' => 'Admins', 'action' => 'changeservice')
                                 )
                         );
                         ?>
@@ -93,7 +93,7 @@
                             <th>Package</th>
                             <th>Status</th>
                             <th>Action</th>
-                            <th></th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -101,27 +101,51 @@
                         $info = $customer_info['PaidCustomer'];
                         ?>
                         <tr class="odd gradeX">
+                            
                             <td><?php echo $info['lname']; ?></td>
                             <td><?php echo $info['cell']; ?></td>
                             <td><?php echo $info['psetting_id']; ?></td>
                             <td><?php echo $info['status']; ?></td>
-                            <td rowspan="1" colspan="1">
-
+                            <td>
                                 <?php
-                                echo $this->Form->input('cell', array(
+                                echo $this->Form->create('PaidCustomer', array(
+                                    'inputDefaults' => array(
+                                        'label' => false,
+                                        'div' => false
+                                    ),
+                                    'id' => 'form_sample_3',
+                                    'class' => 'form-horizontal',
+                                    'novalidate' => 'novalidate',
+                                    'url' => array('controller' => 'admins', 'action' => 'changeservice')
+                                        )
+                                );
+                                ?>
+                                
+                                <?php
+                                echo $this->Form->input('id', array(
+                                    'type' => 'hidden',
+                                    'value' => $info['id']
+                                        )
+                                );
+                                ?>
+                                <?php
+                                echo $this->Form->input('status', array(
                                     'type' => 'select',
-                                    'options' => Array('cancel' => 'Cancel', 'continue' => 'Continue', 'hold' => 'Hold', 'reconnect' => 'Reconnect'),
-                                    'empty' => 'Select.....',
+                                    'options' => Array('canceled' => 'Cancel', 'continue' => 'Continue', 'hold' => 'Hold', 'reconnect' => 'Reconnect'),
+                                    'empty' => 'Select Action',
                                     'class' => 'form-control form-filter input-sm',
                                         )
                                 );
                                 ?>
+                                <?php
+                                echo $this->Form->button(
+                                        'DO', array('class' => 'btn whitesmoke', 'title' => 'Do this selected action', 'type' => 'submit')
+                                );
+                                ?>
+                                <?php echo $this->Form->end(); ?>
                             </td>
 
-                            <td style="text-align: center; "><button onclick="if (confirm(&quot; Are you sure to change it?&quot; )) {
-                                        return true;
-                                    }
-                                    return false;" title="Do this selected action"><i class="fa fa-save"></i>Chang Service</button></td>
+
 
                         </tr>
                         <?php
@@ -139,10 +163,4 @@
 
 </div>
 <!-- END CONTENT -->
-
-<!--                                <td style="text-align: center; "><button href="<?php
-// echo Router::url(array('controller' => //'admins', 'action' => 'active', $info['id'])
-//  )
-?>" title="Do this selected action" class="btn btn-sm"><i class="fa fa-save"></i> Save</button></td>-->
-
 
