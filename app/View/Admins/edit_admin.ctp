@@ -16,7 +16,7 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-plus"></i>Add new Product
+                            <i class="fa fa-plus"></i>Edit Admin
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="reload">
@@ -26,7 +26,7 @@
                     <div class="portlet-body form">
                         <!-- BEGIN FORM-->
                         <?php
-                        echo $this->Form->create('Admin', array(
+                        echo $this->Form->create('User', array(
                             'inputDefaults' => array(
                                 'label' => false,
                                 'div' => false
@@ -37,7 +37,6 @@
                                 )
                         );
                         ?>
-                         <?php echo $this->Form->input('id'); ?>
                         <div class="form-body">
                             <div class="alert alert-danger display-hide">
                                 <button class="close" data-close="alert"></button>
@@ -60,6 +59,7 @@
                                     ?>
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <label class="control-label col-md-3">Email<span class="required">
                                         * </span>
@@ -75,6 +75,23 @@
                                     ?>
                                 </div>
                             </div>
+                            
+                             <div class="form-group">
+                                <label class="control-label col-md-3">New Role Name<span class="required">
+                                        * </span>
+                                </label>
+                                <div class="col-md-4">
+                                    <?php
+                                    echo $this->Form->input(
+                                            'role_id', array(
+                                        'class' => 'form-control required',
+                                        'type' => 'text'
+                                            )
+                                    );
+                                    ?>
+                                </div>
+                            </div>
+
                             <div class="form-group">
                                 <label class="control-label col-md-3">Password<span class="required">
                                         * </span>
@@ -84,20 +101,22 @@
                                     echo $this->Form->input(
                                             'password', array(
                                         'class' => 'form-control required',
-                                        'type' => 'password'
+                                        'type' => 'text'
                                             )
                                     );
                                     ?>
                                 </div>
                             </div>
+
+                            
                             <div class="form-group">
-                                <label class="control-label col-md-3">Mobile<span class="required">
+                                <label class="control-label col-md-3">Status<span class="required">
                                         * </span>
                                 </label>
                                 <div class="col-md-4">
                                     <?php
                                     echo $this->Form->input(
-                                            'mobile', array(
+                                            'status', array(
                                         'class' => 'form-control required',
                                         'type' => 'text'
                                             )
@@ -105,54 +124,6 @@
                                     ?>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Area<span class="required">
-                                        * </span>
-                                </label>
-                                <div class="col-md-4">
-                                    <?php
-                                    echo $this->Form->input(
-                                            'area', array(
-                                        'class' => 'form-control required',
-                                        'type' => 'text'
-                                            )
-                                    );
-                                    ?>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Comment
-                                </label>
-                                <div class="col-md-4">
-                                    <?php
-                                    echo $this->Form->input(
-                                            'comment', array(
-                                        'class' => 'form-control',
-                                        'type' => 'textarea'
-                                            )
-                                    );
-                                    ?>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Select Role Name<span class="required">
-                                        * </span>
-                                </label>
-                                <div class="col-md-4">
-                                    <?php
-                                    echo $this->Form->input('role_id', array(
-                                        'type' => 'select',
-                                        'options' => $roles,
-                                        'empty' => 'Select Category',
-                                        'class' => 'form-control select2me required pclass',
-                                            )
-                                    );
-                                    ?>
-                                </div>
-                            </div>
-
-
 
                         </div>
                         <div class="form-actions">
@@ -160,7 +131,7 @@
                                 <div class="col-md-offset-7 col-md-4">
                                     <?php
                                     echo $this->Form->button(
-                                            'Edit', array('class' => 'btn green', 'type' => 'submit')
+                                            'Update', array('class' => 'btn green', 'type' => 'submit')
                                     );
                                     ?>
                                 </div>
