@@ -76,12 +76,12 @@ class TicketsController extends AppController {
     }
 
     function solved($id = null) {
-        $this->loadModel('Ticket');
-        $this->Ticket->id = $id;
-        $this->Ticket->saveField("status", "solved");
+        $this->loadModel('Track');
+        $this->Track->id = $id;
+        $this->Track->saveField("status", "solved");
         $msg = '<div class="alert alert-success">
  <button type="button" class="close" data-dismiss="alert">&times;</button>
- <strong> Ticket is closed succeesfully </strong>
+ <strong> Ticket is Solved succeesfully </strong>
 </div>';
         $this->Session->setFlash($msg);
         return $this->redirect($this->referer());
@@ -120,7 +120,6 @@ class TicketsController extends AppController {
         $roles = $this->Role->find('list', array('order' => array('Role.name' => 'ASC')));
         $this->set(compact('roles'));
     }
-
     function manage() {
         $this->loadModel('Track');
         $this->loadModel('User');
@@ -150,10 +149,7 @@ class TicketsController extends AppController {
                 $filteredTicket[$index]['history'][] = $temp;
             }
         }
-       
         $data = $filteredTicket;
-
-      
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
         // pr($users);

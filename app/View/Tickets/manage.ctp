@@ -56,12 +56,14 @@
                                         <td><?php echo $ticket['content']; ?></td>
                                         <td>
                                             <ol>
-                                                <?php foreach ($single['history'] as $history): ?>
+                                                <?php 
+                                                $lasthistory = $single['history'][0]['tr'];
+                                                foreach ($single['history'] as $history): ?>
                                                     <li>
                                                         Forwarded By: <?php echo $history['fb']['name']; ?>
                                                         Forwarded To: <?php echo $history['ft']['name']; ?>
                                                         Forward Time: <?php echo $history['tr']['created']; ?>
-                                                        Ticket Status: <?php echo $history['tr']['created']; ?>
+                                                        Ticket Status: <?php echo $history['tr']['status']; ?>
                                                     </li> 
                                                 <?php endforeach; ?>
                                             </ol>
@@ -69,14 +71,14 @@
                                         <td>   
                                             <div class="controls center text-center">
 
-                                                <?php if ($ticket['status'] == 'open') { ?>
+                                                <?php if ($lasthistory['status'] == 'open') { ?>
                                                     <a 
 
                                                         onclick="if (confirm('Are you sure to close this ticket?')) {
                                                                             return true;
                                                                         }
                                                                         return false;"
-                                                        href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'close', $ticket['id'])) ?>" title="Close">
+                                                        href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'close', $lasthistory['id'])) ?>" title="Close">
                                                         <span class="fa fa-ban fa-lg"></span>
                                                     </a> 
                                                     &nbsp; 
@@ -86,7 +88,7 @@
                                                                             return true;
                                                                         }
                                                                         return false;"
-                                                        href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'solved', $ticket['id'])) ?>" title="Solved">
+                                                        href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'solved', $lasthistory['id'])) ?>" title="Solved">
                                                         <span class="fa fa-check fa-lg"></span>
                                                     </a>
                                                     &nbsp;
@@ -96,7 +98,7 @@
                                                                             return true;
                                                                         }
                                                                         return false;"
-                                                        href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'unsolved', $ticket['id'])) ?>" title="Unolved">
+                                                        href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'unsolved', $lasthistory['id'])) ?>" title="Unolved">
                                                         <span class="fa fa-times fa-lg"></span>
                                                     </a>
                                                     &nbsp;
