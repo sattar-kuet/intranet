@@ -75,6 +75,30 @@ class TicketsController extends AppController {
         return $this->redirect($this->referer());
     }
 
+    function solved($id = null) {
+        $this->loadModel('Ticket');
+        $this->Ticket->id = $id;
+        $this->Ticket->saveField("status", "solved");
+        $msg = '<div class="alert alert-success">
+ <button type="button" class="close" data-dismiss="alert">&times;</button>
+ <strong> Ticket is closed succeesfully </strong>
+</div>';
+        $this->Session->setFlash($msg);
+        return $this->redirect($this->referer());
+    }
+
+    function unsolved($id = null) {
+        $this->loadModel('Ticket');
+        $this->Ticket->id = $id;
+        $this->Ticket->saveField("status", "unsolved");
+        $msg = '<div class="alert alert-success">
+ <button type="button" class="close" data-dismiss="alert">&times;</button>
+ <strong> Ticket is closed succeesfully </strong>
+</div>';
+        $this->Session->setFlash($msg);
+        return $this->redirect($this->referer());
+    }
+
     function edit() {
         $this->loadModel('Role');
         if ($this->request->is('post')) {
@@ -98,20 +122,38 @@ class TicketsController extends AppController {
     }
 
     function manage() {
-        $this->loadModel('Ticket');
+        $this->loadModel('Track');
         $this->loadModel('User');
         $this->loadModel('Role');
-        $tickets = $this->Ticket->find('all');
-        pr($tickets); die();
-        $data = array();
+        $tickets = $this->Track->query("SELECT * FROM tracks tr 
+                    inner join tickets t on tr.ticket_id = t.id
+                    inner join users fb on tr.forwarded_by = fb.id
+                    inner join roles r on  tr.role_id = r.id
+                    inner join users ft on  tr.user_id = ft.id order by tr.created desc");
 
-        foreach ($tickets as $index => $ticket) {
-            //pr($ticket['Ticket']['created_by']);
-            $open_by = $this->User->findById($ticket['Ticket']['created_by']);
-            $data[$index]['open_by'] = $open_by;
-            $data[$index]['ticket'] = $ticket['Ticket'];
-            $data[$index]['assign_to'] = array('dept' => $ticket['Role'], 'admin' => $ticket['User']);
+        $filteredTicket = array();
+        $unique = array();
+        $index = 0;
+        foreach ($tickets as $key => $ticket) {
+            $t = $ticket['t']['id'];
+            if (isset($unique[$t])) {
+                //  echo 'already exist'.$key.'<br/>';
+
+                $temp = array('tr' => $ticket['tr'], 'fb' => $ticket['fb'], 'r' => $ticket['r'], 'ft' => $ticket['ft']);
+                $filteredTicket[$index]['history'][] = $temp;
+            } else {
+                if ($key != 0)
+                    $index++;
+                $unique[$t] = 'set';
+                $filteredTicket[$index]['ticket'] = $ticket['t'];
+                $temp = array('tr' => $ticket['tr'], 'fb' => $ticket['fb'], 'r' => $ticket['r'], 'ft' => $ticket['ft']);
+                $filteredTicket[$index]['history'][] = $temp;
+            }
         }
+       
+        $data = $filteredTicket;
+
+      
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
         // pr($users);
