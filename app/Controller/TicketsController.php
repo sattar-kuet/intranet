@@ -27,14 +27,14 @@ class TicketsController extends AppController {
             $this->Ticket->set($this->request->data);
             if ($this->Ticket->validates()) {
                 $this->request->data['Ticket']['created_by'] = $loggedUser['id'];
-                 if(empty($this->request->data['Ticket']['user_id']) && empty($this->request->data['Ticket']['role_id'])){
-                      $msg = '<div class="alert alert-error">
+                if (empty($this->request->data['Ticket']['user_id']) && empty($this->request->data['Ticket']['role_id'])) {
+                    $msg = '<div class="alert alert-error">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
 				<strong> You must select: Who or Which department is responsible for this ticket  </strong>
 			</div>';
-                    $this->Session->setFlash($msg); 
-                      return $this->redirect($this->referer());
-                 }
+                    $this->Session->setFlash($msg);
+                    return $this->redirect($this->referer());
+                }
                 $this->Ticket->save($this->request->data['Ticket']);
                 $msg = '<div class="alert alert-success">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -47,14 +47,14 @@ class TicketsController extends AppController {
                 $this->Session->setFlash($msg);
             }
         }
-        
+
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
-       // pr($users);
-      //  pr($roles); exit;
-        
-        $this->set(compact('users','roles'));
+        // pr($users);
+        //  pr($roles); exit;
+        $this->set(compact('users', 'roles'));
     }
+
     function close($id = null) {
         $this->loadModel('Ticket');
         $this->Ticket->id = $id;
@@ -92,25 +92,24 @@ class TicketsController extends AppController {
     function manage() {
         $this->loadModel('Ticket');
         $this->loadModel('User');
+        $this->loadModel('Role');
         $tickets = $this->Ticket->find('all');
         $data = array();
-        
-       foreach($tickets as $index=>$ticket){
-           //pr($ticket['Ticket']['created_by']);
-           $open_by = $this->User->findById($ticket['Ticket']['created_by']);
-           $data[$index]['open_by'] = $open_by;
-           $data[$index]['ticket'] = $ticket['Ticket'];
-           $data[$index]['assign_to'] = array('dept'=>$ticket['Role'],'admin'=>$ticket['User']); ;
-           
-          
-          
-       }
-       pr($data);
-       exit;
-        $this->set(compact('tickets'));
-       
-      
+
+        foreach ($tickets as $index => $ticket) {
+            //pr($ticket['Ticket']['created_by']);
+            $open_by = $this->User->findById($ticket['Ticket']['created_by']);
+            $data[$index]['open_by'] = $open_by;
+            $data[$index]['ticket'] = $ticket['Ticket'];
+            $data[$index]['assign_to'] = array('dept' => $ticket['Role'], 'admin' => $ticket['User']);
+        }
+        $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
+        $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
+        // pr($users);
+        //  pr($roles); exit;
+        $this->set(compact('data','users', 'roles'));
     }
+
     function adddepartment() {
         $this->loadModel('TicketDepartment');
         if ($this->request->is('post')) {
