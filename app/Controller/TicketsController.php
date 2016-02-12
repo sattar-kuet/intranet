@@ -74,6 +74,28 @@ class TicketsController extends AppController {
         $this->Session->setFlash($msg);
         return $this->redirect($this->referer());
     }
+    function solved($id = null) {
+        $this->loadModel('Ticket');
+        $this->Ticket->id = $id;
+        $this->Ticket->saveField("status", "solved");
+        $msg = '<div class="alert alert-success">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<strong> Ticket is closed succeesfully </strong>
+</div>';
+        $this->Session->setFlash($msg);
+        return $this->redirect($this->referer());
+    }
+    function unsolved($id = null) {
+        $this->loadModel('Ticket');
+        $this->Ticket->id = $id;
+        $this->Ticket->saveField("status", "unsolved");
+        $msg = '<div class="alert alert-success">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<strong> Ticket is closed succeesfully </strong>
+</div>';
+        $this->Session->setFlash($msg);
+        return $this->redirect($this->referer());
+    }
 
     function edit() {
         $this->loadModel('Role');

@@ -107,6 +107,7 @@
                             <td><?php echo $info['psetting_id']; ?></td>
                             <td><?php echo $info['status']; ?></td>
                             <td>
+                                
                                 <?php
                                 echo $this->Form->create('PaidCustomer', array(
                                     'inputDefaults' => array(
@@ -137,12 +138,17 @@
                                         )
                                 );
                                 ?>
+                                    
+                                <br>
+                                
                                 <?php
                                 echo $this->Form->button(
-                                        'DO', array('class' => 'btn whitesmoke', 'title' => 'Do this selected action', 'type' => 'submit')
+                                        'DO', array('class' => 'btn blue', 'title' => 'Do this selected action', 'type' => 'submit')
                                 );
                                 ?>
                                 <?php echo $this->Form->end(); ?>
+                                
+                                
                             </td>
 
 

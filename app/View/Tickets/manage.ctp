@@ -65,23 +65,49 @@
                                                 <li><?php echo $single['assign_to']['admin']['name']; ?></li>
                                             </ul>
                                         </td>
-                                        <td><?php echo $ticket['status']; ?></td>
+                                        <td><?php echo 'Closed: ' . ucfirst($ticket['status']); ?></td>
 
                                         <td>   
-                                            <div class="controls center">
+                                            <div class="controls center text-center">
 
-                                                <?php if ($ticket['status'] != 'closed') { ?>
+                                                <?php if ($ticket['status'] == 'open') { ?>
                                                     <a 
 
                                                         onclick="if (confirm('Are you sure to close this ticket?')) {
                                                                             return true;
                                                                         }
                                                                         return false;"
-                                                        href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'close', $ticket['id'])) ?>" title="close">
-                                                        <span class="fa fa-ban"></span>
+                                                        href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'close', $ticket['id'])) ?>" title="Close">
+                                                        <span class="fa fa-ban fa-lg"></span>
                                                     </a> 
+                                                    &nbsp; 
+                                                    <a 
 
-                                                    <div class="portlet-body form">
+                                                        onclick="if (confirm('Are you sure this ticket is solved?')) {
+                                                                            return true;
+                                                                        }
+                                                                        return false;"
+                                                        href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'solved', $ticket['id'])) ?>" title="Solved">
+                                                        <span class="fa fa-check fa-lg"></span>
+                                                    </a>
+                                                    &nbsp;
+                                                    <a 
+
+                                                        onclick="if (confirm('This ticket is still UNSOLVED! Proceed?')) {
+                                                                            return true;
+                                                                        }
+                                                                        return false;"
+                                                        href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'unsolved', $ticket['id'])) ?>" title="Unolved">
+                                                        <span class="fa fa-times fa-lg"></span>
+                                                    </a>
+                                                    &nbsp;
+                                                    <a 
+                                                        href="#" title="Forward">
+                                                        <span id="forward_ticket" class="fa fa-mail-forward fa-lg"></span>
+                                                    </a>
+
+
+                                                    <div id="forward_dialog" class="portlet-body form" style="display: none;">
                                                         <!-- BEGIN FORM-->
                                                         <?php
                                                         echo $this->Form->create('Ticket', array(
@@ -103,11 +129,11 @@
                                                             <?php echo $this->Session->flash(); ?>
 
                                                             <div class="form-group">
-                                                                <label class="control-label col-md-3">Assign to (individual)
+                                                                <label class="control-label col-md-4" style="padding-top: 0px;">Assign to (individual)
                                                                 </label>
                                                                 <div class="form-group">
 
-                                                                    <div class="col-md-4">
+                                                                    <div class="col-md-7">
                                                                         <?php
                                                                         echo $this->Form->input('user_id', array(
                                                                             'type' => 'select',
@@ -121,11 +147,11 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label class="control-label col-md-3">Assign to (Department)
+                                                                <label class="control-label col-md-4" style="padding-top: 0px;">Assign to (Department)
                                                                 </label>
                                                                 <div class="form-group">
 
-                                                                    <div class="col-md-4">
+                                                                    <div class="col-md-7">
                                                                         <?php
                                                                         echo $this->Form->input('role_id', array(
                                                                             'type' => 'select',
@@ -139,12 +165,12 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label class="control-label col-md-3">Select Priority<span class="required">
+                                                                <label class="control-label col-md-4" style="padding-top: 0px;">Select Priority<span class="required">
                                                                         * </span>
                                                                 </label>
                                                                 <div class="form-group">
 
-                                                                    <div class="col-md-4">
+                                                                    <div class="col-md-7">
                                                                         <?php
                                                                         echo $this->Form->input('priority', array(
                                                                             'type' => 'select',
@@ -157,7 +183,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                           
+
                                                         </div>
                                                         <div class="form-actions">
                                                             <div class="row">
@@ -176,7 +202,7 @@
 
                                                     <?php
                                                 } else {
-                                                    echo 'Nothing to Do';
+                                                    echo 'Nothing to do';
                                                 }
                                                 ?>
 
