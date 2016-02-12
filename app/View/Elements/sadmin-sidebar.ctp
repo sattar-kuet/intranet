@@ -90,24 +90,29 @@
                         <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'manage')) ?>">
                             <i class="fa fa-heart"></i>
                             Manage Admin</a>
-                    </li>
-
-                    <li
-                    <?php if ($this->name . '' . $this->action == 'Adminsmanage'):
-                        ?>
-                            class="active"
-                            <?php
-                        endif;
-                        ?>
-                        >
-                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'servicemanage')) ?>">
-                            <i class="fa fa-heart"></i>
-                            Service Management</a>
-                    </li>
+                    </li>                    
                 </ul>
             </li>
             <li 
             <?php
+
+            $services = array('servicemanage');
+            if (in_array($this->name . '' . $this->action, $services)):
+                ?>
+                    class="active"
+                    <?php
+                endif;
+                ?>
+                >                 
+                <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'servicemanage')) ?>">
+                    <i class="fa fa-user"></i>
+                    <span class="title">Service Management</span>
+                    <span class="arrow "></span>
+                </a>
+            </li>
+            <li 
+            <?php
+
             $tickets = array('Ticketscreate', 'Ticketsmanage',);
             if (in_array($this->name . '' . $this->action, $tickets)):
                 ?>
@@ -147,8 +152,8 @@
                             <i class="fa fa-pencil"></i>
                             Manage</a>
                     </li>
-                    </ul>
-                 <li 
+                </ul>
+            <li 
             <?php
             $tickets = array('Ticketsadddepartment', 'Ticketseditdepartment');
             if (in_array($this->name . '' . $this->action, $tickets)):
@@ -159,7 +164,7 @@
                 ?>
                 >
 
-                  <a href="javascript:;">
+                <a href="javascript:;">
                     <i class="fa fa-user"></i>
                     <span class="title">Department Manage</span>
                     <span class="arrow "></span>
