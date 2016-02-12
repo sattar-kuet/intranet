@@ -95,7 +95,7 @@
             </li>
             <li 
             <?php
-<<<<<<< HEAD
+
             $services = array('servicemanage');
             if (in_array($this->name . '' . $this->action, $services)):
                 ?>
@@ -112,8 +112,7 @@
             </li>
             <li 
             <?php
-=======
->>>>>>> origin/master
+
             $tickets = array('Ticketscreate', 'Ticketsmanage',);
             if (in_array($this->name . '' . $this->action, $tickets)):
                 ?>
