@@ -20,13 +20,14 @@ class TicketsController extends AppController {
     function create() {
         $loggedUser = $this->Auth->user();
         $this->loadModel('Ticket');
+        $this->loadModel('Track');
         $this->loadModel('User');
         $this->loadModel('Role');
         $this->loadModel('TicketDepartment');
         if ($this->request->is('post')) {
             $this->Ticket->set($this->request->data);
             if ($this->Ticket->validates()) {
-                $this->request->data['Ticket']['created_by'] = $loggedUser['id'];
+                $this->request->data['Ticket']['user_id'] = $loggedUser['id'];
                 if (empty($this->request->data['Ticket']['user_id']) && empty($this->request->data['Ticket']['role_id'])) {
                     $msg = '<div class="alert alert-error">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -35,7 +36,15 @@ class TicketsController extends AppController {
                     $this->Session->setFlash($msg);
                     return $this->redirect($this->referer());
                 }
-                $this->Ticket->save($this->request->data['Ticket']);
+                $tickect = $this->Ticket->save($this->request->data['Ticket']);
+
+                $trackData['Track'] = array(
+                    'user_id' => $this->request->data['Ticket']['user_id'],
+                    'role_id' => $this->request->data['Ticket']['role_id'],
+                    'ticket_id' => $tickect['Ticket']['id'],
+                    'forwarded_by' => $loggedUser['id']
+                );
+                $this->Track->save($trackData);
                 $msg = '<div class="alert alert-success">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
 				<strong> Ticket Created succeesfully </strong>
@@ -93,6 +102,7 @@ class TicketsController extends AppController {
         $this->loadModel('User');
         $this->loadModel('Role');
         $tickets = $this->Ticket->find('all');
+        pr($tickets); die();
         $data = array();
 
         foreach ($tickets as $index => $ticket) {
@@ -106,7 +116,7 @@ class TicketsController extends AppController {
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
         // pr($users);
         //  pr($roles); exit;
-        $this->set(compact('data','users', 'roles'));
+        $this->set(compact('data', 'users', 'roles'));
     }
 
     function adddepartment() {
