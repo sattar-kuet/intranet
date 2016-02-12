@@ -46,7 +46,7 @@
                             <?php echo $this->Session->flash(); ?>
 
                             <div class="form-group">
-                                <label class="control-label col-md-3">Select Role Name
+                                <label class="control-label col-md-3">Select Department Name
                                 </label>
                                 <div class="col-md-4">
                                     <?php
@@ -83,7 +83,7 @@
                                 <div class="col-md-offset-7 col-md-4">
                                     <?php
                                     echo $this->Form->button(
-                                            'Add', array('class' => 'btn green', 'type' => 'submit')
+                                            'Edit', array('class' => 'btn green', 'type' => 'submit')
                                     );
                                     ?>
                                 </div>

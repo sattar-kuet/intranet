@@ -47,6 +47,10 @@ class TicketsController extends AppController {
                 $this->Session->setFlash($msg);
             }
         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
         
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
@@ -148,8 +152,15 @@ class TicketsController extends AppController {
                 $this->Session->setFlash($msg);
             }
         }
+
         $roles = $this->TicketDepartment->find('list', array('order' => array('TicketDepartment.name' => 'ASC')));
+<<<<<<< HEAD
         $this->set(compact('TicketDepartment'));
+=======
+
+        $this->set(compact('roles'));
+
+>>>>>>> origin/master
     }
 
 }
