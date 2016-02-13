@@ -44,10 +44,9 @@
                                 You have some form errors. Please check below.
                             </div>
                             <?php echo $this->Session->flash(); ?>
-
-                            
+                           
                             <div class="form-group">
-                                <label class="control-label col-md-3">Name<span class="required">
+                                <label class="control-label col-md-3">Name of issue:<span class="required">
                                         *</span>
                                 </label>
                                 <div class="col-md-4">
@@ -66,7 +65,7 @@
                         </div>
                         <div class="form-actions">
                             <div class="row">
-                                <div class="col-md-offset-7 col-md-4">
+                                <div class="col-md-offset-6 col-md-4">
                                     <?php
                                     echo $this->Form->button(
                                             'Add', array('class' => 'btn green', 'type' => 'submit')

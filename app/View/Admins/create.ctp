@@ -92,7 +92,7 @@
                         </div>
                         <div class="form-actions">
                             <div class="row">
-                                <div class="col-md-offset-7 col-md-4">
+                                <div class="col-md-offset-6 col-md-4">
                                     <?php
                                     echo $this->Form->button(
                                             'Add', array('class' => 'btn green', 'type' => 'submit')
