@@ -21,13 +21,14 @@ class TicketsController extends AppController {
         $loggedUser = $this->Auth->user();
         $this->loadModel('Ticket');
         $this->loadModel('Track');
+        $this->loadModel('Issue');
         $this->loadModel('User');
         $this->loadModel('Role');
+        $this->loadModel('Issue');
         $this->loadModel('TicketDepartment');
         if ($this->request->is('post')) {
             $this->Ticket->set($this->request->data);
             if ($this->Ticket->validates()) {
-                $this->request->data['Ticket']['user_id'] = $loggedUser['id'];
                 if (empty($this->request->data['Ticket']['user_id']) && empty($this->request->data['Ticket']['role_id'])) {
                     $msg = '<div class="alert alert-error">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -36,15 +37,17 @@ class TicketsController extends AppController {
                     $this->Session->setFlash($msg);
                     return $this->redirect($this->referer());
                 }
-                $tickect = $this->Ticket->save($this->request->data['Ticket']);
-
+                $tickect = $this->Ticket->save($this->request->data['Ticket']); // Data save in Ticket
                 $trackData['Track'] = array(
+                    'issue_id' => $this->request->data['Ticket']['issue_id'],
                     'user_id' => $this->request->data['Ticket']['user_id'],
                     'role_id' => $this->request->data['Ticket']['role_id'],
+                    'issue_id' => $this->request->data['Ticket']['issue_id'],
                     'ticket_id' => $tickect['Ticket']['id'],
                     'forwarded_by' => $loggedUser['id']
                 );
-                $this->Track->save($trackData);
+
+                $this->Track->save($trackData); // Data save in Track
                 $msg = '<div class="alert alert-success">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
 				<strong> Ticket Created succeesfully </strong>
@@ -57,10 +60,14 @@ class TicketsController extends AppController {
             }
         }
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
+        $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
+
+        $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
         // pr($users);
         //  pr($roles); exit;
-        $this->set(compact('users', 'roles'));
+
+        $this->set(compact('users', 'roles', 'issues'));
     }
 
     function close($id = null) {
@@ -75,22 +82,23 @@ class TicketsController extends AppController {
         return $this->redirect($this->referer());
     }
 
-    function unsolved($id = null) {
+    function unsolve() {
         $this->loadModel('Track');
-        $this->Ticket->id = $id;
-        $this->Ticket->saveField("status", "unsolved");
-        $msg = '<div class="alert alert-success">
-	<button type="button" class="close" data-dismiss="alert">&times;</button>
-	<strong> Ticket is closed succeesfully </strong>
+        $this->request->data['Track']['status'] = 'unresolved';
+        $this->Track->save($this->request->data['Track']);
+        $msg = '<div class="alert alert-warning">
+ <button type="button" class="close" data-dismiss="alert">&times;</button>
+ <strong> Ticket is closed without solution </strong>
 </div>';
+
         $this->Session->setFlash($msg);
         return $this->redirect($this->referer());
     }
 
-    function solved($id = null) {
+    function solve() {
         $this->loadModel('Track');
-        $this->Track->id = $id;
-        $this->Track->saveField("status", "solved");
+        $this->request->data['Track']['status'] = 'solved';
+        $this->Track->save($this->request->data['Track']);
         $msg = '<div class="alert alert-success">
  <button type="button" class="close" data-dismiss="alert">&times;</button>
  <strong> Ticket is Solved succeesfully </strong>
@@ -125,11 +133,20 @@ class TicketsController extends AppController {
         $this->loadModel('Track');
         $this->loadModel('User');
         $this->loadModel('Role');
-        $tickets = $this->Track->query("SELECT * FROM tracks tr 
-                    inner join tickets t on tr.ticket_id = t.id
-                    inner join users fb on tr.forwarded_by = fb.id
-                    inner join roles r on  tr.role_id = r.id
-                    inner join users ft on  tr.user_id = ft.id order by tr.created desc");
+//        $tickets = $this->Track->query("SELECT * FROM tracks tr 
+//                    inner join tickets t on tr.ticket_id = t.id
+//                    inner join users fb on tr.forwarded_by = fb.id
+//                    inner join roles r on  tr.role_id = r.id
+//                    inner join users ft on  tr.user_id = ft.id order by tr.created desc");
+
+        $tickets = $this->Track->query("SELECT * FROM tracks tr
+                        left JOIN tickets t ON tr.ticket_id = t.id
+                        left JOIN users fb ON tr.forwarded_by = fb.id
+                        left JOIN roles fd ON tr.role_id = fd.id
+                        left JOIN users fi ON tr.user_id = fi.id
+                        left JOIN issues i ON tr.issue_id = i.id
+                        ORDER BY tr.created DESC");
+        //     pr($tickets); exit;
 
         $filteredTicket = array();
         $unique = array();
@@ -139,21 +156,21 @@ class TicketsController extends AppController {
             if (isset($unique[$t])) {
                 //  echo 'already exist'.$key.'<br/>';
 
-                $temp = array('tr' => $ticket['tr'], 'fb' => $ticket['fb'], 'r' => $ticket['r'], 'ft' => $ticket['ft']);
+                $temp = array('tr' => $ticket['tr'], 'fb' => $ticket['fb'], 'fd' => $ticket['fd'], 'fi' => $ticket['fi'], 'i' => $ticket['i']);
                 $filteredTicket[$index]['history'][] = $temp;
             } else {
                 if ($key != 0)
                     $index++;
                 $unique[$t] = 'set';
                 $filteredTicket[$index]['ticket'] = $ticket['t'];
-                $temp = array('tr' => $ticket['tr'], 'fb' => $ticket['fb'], 'r' => $ticket['r'], 'ft' => $ticket['ft']);
+                $temp = array('tr' => $ticket['tr'], 'fb' => $ticket['fb'], 'fd' => $ticket['fd'], 'fi' => $ticket['fi'], 'i' => $ticket['i']);
                 $filteredTicket[$index]['history'][] = $temp;
             }
         }
         $data = $filteredTicket;
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
-        // pr($users);
+        //   pr($data); exit;
         //  pr($roles); exit;
         $this->set(compact('data', 'users', 'roles'));
     }
@@ -219,6 +236,49 @@ class TicketsController extends AppController {
 
         $roles = $this->TicketDepartment->find('list', array('order' => array('TicketDepartment.name' => 'ASC')));
         $this->set(compact('TicketDepartment'));
+        $this->set(compact('roles'));
+    }
+
+    function addissue() {
+        $this->loadModel('Issue');
+        if ($this->request->is('post')) {
+            $this->Issue->set($this->request->data);
+            if ($this->Issue->validates()) {
+                $this->Issue->save($this->request->data['Issue']);
+                $msg = '<div class="alert alert-success">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong> Added New Department  </strong>
+			</div>';
+                $this->Session->setFlash($msg);
+                return $this->redirect('addissue');
+            } else {
+                $msg = $this->generateError($this->issue->validationErrors);
+                $this->Session->setFlash($msg);
+            }
+        }
+    }
+
+    function editissue() {
+        $this->loadModel('Issue');
+        if ($this->request->is('post')) {
+            $this->Issue->set($this->request->data);
+            if ($this->Issue->validates()) {
+                $this->Issue->id = $this->request->data['Issue']['id'];
+                $this->Issue->save($this->request->data['Issue']);
+                $msg = '<div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong> Role edited succeesfully </strong>
+        </div>';
+                $this->Session->setFlash($msg);
+                return $this->redirect($this->referer());
+            } else {
+                $msg = $this->generateError($this->Issue->validationErrors);
+                $this->Session->setFlash($msg);
+            }
+        }
+
+        $roles = $this->Issue->find('list', array('order' => array('Issue.name' => 'ASC')));
+        $this->set(compact('Issue'));
         $this->set(compact('roles'));
     }
 

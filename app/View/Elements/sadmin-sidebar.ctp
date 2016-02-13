@@ -198,7 +198,53 @@
 
                 </ul>
             </li>
+   <li 
+            <?php
 
+            $tickets = array('Ticketsaddissue', 'Ticketseditissue');
+
+            if (in_array($this->name . '' . $this->action, $tickets)):
+                ?>
+                    class="active"
+                    <?php
+                endif;
+                ?>
+                >
+
+                <a href="javascript:;">
+                    <i class="fa fa-user"></i>
+                    <span class="title">Issues Management</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Ticketsaddissue'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+
+                        <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'addissue')) ?>">
+                            <i class="fa fa-graduation-cap"></i>
+                            Add Issues</a>
+                    </li>
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Ticketseditissue'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'editissue')) ?>">
+                            <i class="fa fa-pencil"></i>
+                            Edit Issues </a>
+                    </li>
+
+                </ul>
+            </li>
         </ul>
         <!-- END SIDEBAR MENU -->
     </div>

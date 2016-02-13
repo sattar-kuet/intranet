@@ -40,6 +40,7 @@
                         <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                             <thead>
                                 <tr>
+                                    <th>Subject</th>
                                     <th>Open Time</th>
                                     <th>Detail</th>
                                     <th>History</th>
@@ -49,10 +50,12 @@
                             <tbody>
                                 <?php
                                 foreach ($data as $single):
-                                    // pr($single['assign_to']); exit;
+                                    $issue = end($single['history']);
+
                                     $ticket = $single['ticket'];
                                     ?>
                                     <tr >
+                                        <td><?php echo $issue['i']['name']; ?></td>
                                         <td><?php echo $ticket['created']; ?></td>
                                         <td><?php echo $ticket['content']; ?></td>
                                         <td>
@@ -62,53 +65,51 @@
                                                 foreach ($single['history'] as $history):
                                                     ?>
                                                     <li>
-                                                        Forwarded By: <?php echo $history['fb']['name']; ?>
-                                                        Forwarded To: <?php echo $history['ft']['name']; ?>
-                                                        Forward Time: <?php echo $history['tr']['created']; ?>
-                                                        Ticket Status: <?php echo $history['tr']['status']; ?>
+                                                        <strong>Forwarded By:</strong> <?php echo $history['fb']['name']; ?>
+                                                        &nbsp;&nbsp;<strong>Forwarded To:</strong> <?php echo $history['fi']['name']; ?> <?php echo $history['fd']['name']; ?>
+                                                        <strong>Time:</strong> <?php echo $history['tr']['created']; ?>
+                                                        <strong>Status:</strong> <?php echo $history['tr']['status']; ?>
+                                                         <?php
+                                                        if (!empty($history['tr']['comment'])):
+                                                            echo 'Comment : ' . $history['tr']['comment'];
+                                                        endif;
+                                                        ?> 
                                                     </li> 
                                                 <?php endforeach; ?>
                                             </ol>
                                         </td>
 
+
                                         <td>   
                                             <div class="controls center text-center">
 
+
                                                 <?php if ($lasthistory['status'] == 'open') { ?>
 
+                                    
                                                     <a 
-
-                                                        onclick="if (confirm('Are you sure to close this ticket?')) {
-                                                                            return true;
-                                                                        }
-                                                                        return false;"
-
-                                                        href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'close', $lasthistory['id'])) ?>" title="Close">
-
-                                                        <span class="fa fa-ban fa-lg"></span>
-                                                    </a> 
-                                                    &nbsp; 
-                                                    <a 
-
                                                         href="#" title="Solved">
-                                                        <span id="<?php echo $ticket['id'];?>" class="fa fa-check fa-lg solve_ticket"></span>
+                                                        <span id="<?php echo $ticket['id']; ?>" class="fa fa-check fa-lg solve_ticket"></span>
                                                     </a>
                                                     &nbsp;
                                                     <a 
+                                                        href="#" title="Unresolved">
+                                                        <span id="<?php echo $ticket['id']; ?>" class="fa fa-times fa-lg unsolve_ticket"></span>
 
-                                                        href="#" title="Unolved">
 
-                                                        <span id="<?php echo $ticket['id'];?>" class="fa fa-times fa-lg unsolve_ticket"></span>
                                                     </a>
                                                     &nbsp;
+
                                                     <a 
                                                         href="#" title="Forward">
 
-                                                        <span id="<?php echo $ticket['id'];?>" class="fa fa-mail-forward fa-lg forward_ticket"></span>
+                                                        <span id="<?php echo $ticket['id']; ?>" class="fa fa-mail-forward fa-lg forward_ticket"></span>
                                                     </a>
 
 
-                                                    <div id="forward_dialog<?php echo $ticket['id'];?>" class="portlet-body form" style="display: none;">
+
+                                                    <div id="forward_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
+
 
                                                         <!-- BEGIN FORM-->
                                                         <?php
@@ -140,7 +141,7 @@
                                                             <?php echo $this->Session->flash(); ?>
 
                                                             <div class="form-group">
-                                                                
+
                                                                 <div class="form-group">
 
                                                                     <div class="col-md-12">
@@ -157,7 +158,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                
+
                                                                 <div class="form-group">
 
                                                                     <div class="col-md-12">
@@ -174,7 +175,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                
+
                                                                 <div class="form-group">
 
                                                                     <div class="col-md-12">
@@ -191,7 +192,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                
+
                                                                 <div class="form-group">
 
                                                                     <div class="col-md-12">
@@ -208,7 +209,7 @@
                                                             </div>
 
                                                         </div>
-                                                        
+
                                                         <div class="form-actions">
                                                             <div class="row">
                                                                 <div class="col-md-offset-7 col-md-4">
@@ -223,8 +224,8 @@
                                                         <?php echo $this->Form->end(); ?>
                                                         <!-- END FORM-->
                                                     </div>
-                                                                                                                                                           
-                                                    <div id="solve_dialog<?php echo $ticket['id'];?>" class="portlet-body form" style="display: none;">
+
+                                                    <div id="solve_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
 
                                                         <!-- BEGIN FORM-->
                                                         <?php
@@ -236,7 +237,7 @@
                                                             'id' => 'form_sample_3',
                                                             'class' => 'form-horizontal',
                                                             'novalidate' => 'novalidate',
-                                                            'url' => array('controller' => 'tickets', 'action' => 'solved')
+                                                            'url' => array('controller' => 'tickets', 'action' => 'solve')
                                                                 )
                                                         );
                                                         ?>
@@ -248,6 +249,34 @@
                                                                 )
                                                         );
                                                         ?>
+                                                        <?php
+                                                        echo $this->Form->input('user_id', array(
+                                                            'type' => 'hidden',
+                                                            'value' => $lasthistory['user_id'],
+                                                                )
+                                                        );
+                                                        ?>
+                                                        <?php
+                                                        echo $this->Form->input('role_id', array(
+                                                            'type' => 'hidden',
+                                                            'value' => $lasthistory['role_id'],
+                                                                )
+                                                        );
+                                                        ?>
+                                                        <?php
+                                                        echo $this->Form->input('issue_id', array(
+                                                            'type' => 'hidden',
+                                                            'value' => $lasthistory['issue_id'],
+                                                                )
+                                                        );
+                                                        ?>
+                                                        <?php
+                                                        echo $this->Form->input('forwarded_by', array(
+                                                            'type' => 'hidden',
+                                                            'value' => $lasthistory['forwarded_by'],
+                                                                )
+                                                        );
+                                                        ?>
                                                         <div class="form-body">
                                                             <div class="alert alert-danger display-hide">
                                                                 <button class="close" data-close="alert"></button>
@@ -255,9 +284,9 @@
                                                             </div>
                                                             <?php echo $this->Session->flash(); ?>
 
-                                                          
+
                                                             <div class="form-group">
-                                                                
+
                                                                 <div class="form-group">
 
                                                                     <div class="col-md-12">
@@ -265,7 +294,6 @@
                                                                         echo $this->Form->input('comment', array(
                                                                             'type' => 'textarea',
                                                                             'class' => 'form-control required txtArea',
-                                                                            
                                                                             'placeholder' => 'Write your comments'
                                                                                 )
                                                                         );
@@ -275,7 +303,7 @@
                                                             </div>
 
                                                         </div>
-                                                        
+
                                                         <div class="form-actions">
                                                             <div class="row">
                                                                 <div class="col-md-offset-7 col-md-4">
@@ -290,8 +318,8 @@
                                                         <?php echo $this->Form->end(); ?>
                                                         <!-- END FORM-->
                                                     </div> 
-                                                    
-                                                    <div id="unsolve_dialog<?php echo $ticket['id'];?>" class="portlet-body form" style="display: none;">
+
+                                                    <div id="unsolve_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
 
                                                         <!-- BEGIN FORM-->
                                                         <?php
@@ -303,15 +331,43 @@
                                                             'id' => 'form_sample_3',
                                                             'class' => 'form-horizontal',
                                                             'novalidate' => 'novalidate',
-                                                            'url' => array('controller' => 'tickets', 'action' => 'unsolved')
+                                                            'url' => array('controller' => 'tickets', 'action' => 'unsolve')
                                                                 )
                                                         );
                                                         ?>
 
-                                                        <?php
+                                                         <?php
                                                         echo $this->Form->input('ticket_id', array(
                                                             'type' => 'hidden',
                                                             'value' => $ticket['id'],
+                                                                )
+                                                        );
+                                                        ?>
+                                                        <?php
+                                                        echo $this->Form->input('user_id', array(
+                                                            'type' => 'hidden',
+                                                            'value' => $lasthistory['user_id'],
+                                                                )
+                                                        );
+                                                        ?>
+                                                        <?php
+                                                        echo $this->Form->input('role_id', array(
+                                                            'type' => 'hidden',
+                                                            'value' => $lasthistory['role_id'],
+                                                                )
+                                                        );
+                                                        ?>
+                                                        <?php
+                                                        echo $this->Form->input('issue_id', array(
+                                                            'type' => 'hidden',
+                                                            'value' => $lasthistory['issue_id'],
+                                                                )
+                                                        );
+                                                        ?>
+                                                        <?php
+                                                        echo $this->Form->input('forwarded_by', array(
+                                                            'type' => 'hidden',
+                                                            'value' => $lasthistory['forwarded_by'],
                                                                 )
                                                         );
                                                         ?>
@@ -322,9 +378,9 @@
                                                             </div>
                                                             <?php echo $this->Session->flash(); ?>
 
-                                                          
+
                                                             <div class="form-group">
-                                                                
+
                                                                 <div class="form-group">
 
                                                                     <div class="col-md-12">
@@ -341,7 +397,7 @@
                                                             </div>
 
                                                         </div>
-                                                        
+
                                                         <div class="form-actions">
                                                             <div class="row">
                                                                 <div class="col-md-offset-7 col-md-4">
