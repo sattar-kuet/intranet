@@ -71,7 +71,7 @@ class TicketsController extends AppController {
     }
 
     function close($id = null) {
-        $this->loadModel('Ticket');
+        $this->loadModel('Track');
         $this->Ticket->id = $id;
         $this->Ticket->saveField("status", "closed");
         $msg = '<div class="alert alert-success">
@@ -82,22 +82,23 @@ class TicketsController extends AppController {
         return $this->redirect($this->referer());
     }
 
-    function unsolved($id = null) {
-        $this->loadModel('Ticket');
-        $this->Ticket->id = $id;
-        $this->Ticket->saveField("status", "unsolved");
-        $msg = '<div class="alert alert-success">
-	<button type="button" class="close" data-dismiss="alert">&times;</button>
-	<strong> Ticket is closed succeesfully </strong>
+    function unsolve() {
+        $this->loadModel('Track');
+        $this->request->data['Track']['status'] = 'unresolved';
+        $this->Track->save($this->request->data['Track']);
+        $msg = '<div class="alert alert-warning">
+ <button type="button" class="close" data-dismiss="alert">&times;</button>
+ <strong> Ticket is closed without solution </strong>
 </div>';
+
         $this->Session->setFlash($msg);
         return $this->redirect($this->referer());
     }
 
-    function solved($id = null) {
+    function solve() {
         $this->loadModel('Track');
-        $this->Track->id = $id;
-        $this->Track->saveField("status", "solved");
+        $this->request->data['Track']['status'] = 'solved';
+        $this->Track->save($this->request->data['Track']);
         $msg = '<div class="alert alert-success">
  <button type="button" class="close" data-dismiss="alert">&times;</button>
  <strong> Ticket is Solved succeesfully </strong>
@@ -138,13 +139,26 @@ class TicketsController extends AppController {
 //                    inner join roles r on  tr.role_id = r.id
 //                    inner join users ft on  tr.user_id = ft.id order by tr.created desc");
 
-        $tickets = $this->Track->query("SELECT * FROM tracks tr
+
+        $loggedUser = $this->Auth->user();
+        if ($loggedUser['Role']['name'] == 'sadmin') {
+            $tickets = $this->Track->query("SELECT * FROM tracks tr
                         left JOIN tickets t ON tr.ticket_id = t.id
                         left JOIN users fb ON tr.forwarded_by = fb.id
                         left JOIN roles fd ON tr.role_id = fd.id
                         left JOIN users fi ON tr.user_id = fi.id
                         left JOIN issues i ON tr.issue_id = i.id
                         ORDER BY tr.created DESC");
+        } else {
+            $tickets = $this->Track->query("SELECT * FROM tracks tr
+                        left JOIN tickets t ON tr.ticket_id = t.id
+                        left JOIN users fb ON tr.forwarded_by = fb.id
+                        left JOIN roles fd ON tr.role_id = fd.id
+                        left JOIN users fi ON tr.user_id = fi.id
+                        left JOIN issues i ON tr.issue_id = i.id
+                        WHERE tr.role_id =". $loggedUser['Role']['id']." OR tr.user_id =". $loggedUser['Role']['id']." ORDER BY tr.created DESC");
+        }
+
         //     pr($tickets); exit;
 
         $filteredTicket = array();
@@ -178,6 +192,14 @@ class TicketsController extends AppController {
         $this->loadModel('Track');
         $loggedUser = $this->Auth->user();
         $this->request->data['Track']['forwarded_by'] = $loggedUser['id'];
+        if (empty($this->request->data['Track']['user_id']) && empty($this->request->data['Track']['role_id'])) {
+            $msg = '<div class="alert alert-error">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong> You must select: Who or Which department is responsible for this ticket  </strong>
+			</div>';
+            $this->Session->setFlash($msg);
+            return $this->redirect($this->referer());
+        }
         $this->Track->save($this->request->data['Track']);
         $msg = '<div class="alert alert-success">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
