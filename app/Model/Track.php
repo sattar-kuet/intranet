@@ -1,11 +1,9 @@
 <?php
 /**
-* 
-*/
-class Track extends AppModel
-{
-
-  
+ * 
+ */
+class Track extends AppModel {
+    var $belongsTo = array('User', 'Track');
 }
 
 ?>
