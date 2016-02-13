@@ -66,15 +66,19 @@
                                                     ?>
                                                     <li>
                                                         <strong>Forwarded By:</strong> <?php echo $history['fb']['name']; ?>
-                                                        &nbsp;&nbsp;<strong>Forwarded To:</strong> <?php echo $history['fi']['name']; ?> <?php echo $history['fd']['name']; ?>
+                                                        &nbsp;&nbsp;<strong>Forwarded To:</strong> <?php echo $history['fi']['name']; ?> <?php echo $history['fd']['name']; ?><br>
                                                         <strong>Time:</strong> <?php echo $history['tr']['created']; ?>
-                                                        <strong>Status:</strong> <?php echo $history['tr']['status']; ?>
+                                                        <strong>Status:</strong> <?php echo $history['tr']['status']; ?><br>
                                                          <?php
                                                         if (!empty($history['tr']['comment'])):
-                                                            echo 'Comment : ' . $history['tr']['comment'];
+                                                            echo '<strong>';
+                                                            echo 'Comment : ';
+                                                            echo '</strong>';
+                                                            echo $history['tr']['comment'];
                                                         endif;
                                                         ?> 
-                                                    </li> 
+                                                    </li>
+                                                    <br>
                                                 <?php endforeach; ?>
                                             </ol>
                                         </td>
