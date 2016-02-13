@@ -67,7 +67,7 @@ class TicketsController extends AppController {
     }
 
     function close($id = null) {
-        $this->loadModel('Ticket');
+        $this->loadModel('Track');
         $this->Ticket->id = $id;
         $this->Ticket->saveField("status", "closed");
         $msg = '<div class="alert alert-success">
@@ -78,22 +78,23 @@ class TicketsController extends AppController {
         return $this->redirect($this->referer());
     }
 
-    function unsolved($id = null) {
-        $this->loadModel('Ticket');
-        $this->Ticket->id = $id;
-        $this->Ticket->saveField("status", "unsolved");
-        $msg = '<div class="alert alert-success">
-	<button type="button" class="close" data-dismiss="alert">&times;</button>
-	<strong> Ticket is closed succeesfully </strong>
+    function unsolve() {
+        $this->loadModel('Track');
+        $this->request->data['Track']['status'] = 'unresolved';
+        $this->Track->save($this->request->data['Track']);
+        $msg = '<div class="alert alert-warning">
+ <button type="button" class="close" data-dismiss="alert">&times;</button>
+ <strong> Ticket is closed without solution </strong>
 </div>';
+
         $this->Session->setFlash($msg);
         return $this->redirect($this->referer());
     }
 
-    function solved($id = null) {
+    function solve() {
         $this->loadModel('Track');
-        $this->Track->id = $id;
-        $this->Track->saveField("status", "solved");
+        $this->request->data['Track']['status'] = 'solved';
+        $this->Track->save($this->request->data['Track']);
         $msg = '<div class="alert alert-success">
  <button type="button" class="close" data-dismiss="alert">&times;</button>
  <strong> Ticket is Solved succeesfully </strong>
@@ -174,6 +175,14 @@ class TicketsController extends AppController {
         $this->loadModel('Track');
         $loggedUser = $this->Auth->user();
         $this->request->data['Track']['forwarded_by'] = $loggedUser['id'];
+        if (empty($this->request->data['Track']['user_id']) && empty($this->request->data['Track']['role_id'])) {
+            $msg = '<div class="alert alert-error">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong> You must select: Who or Which department is responsible for this ticket  </strong>
+			</div>';
+            $this->Session->setFlash($msg);
+            return $this->redirect($this->referer());
+        }
         $this->Track->save($this->request->data['Track']);
         $msg = '<div class="alert alert-success">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>

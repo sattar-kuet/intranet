@@ -177,10 +177,10 @@ class AdminsController extends AppController {
     function edit_admin($id = null) {
         $this->loadModel('Role');
         $this->loadModel('User');
-        
+
         if ($this->request->is('post') || $this->request->is('put')) {
             $this->User->set($this->request->data);
-            if ($this->User->validates()) {
+            
                 $this->User->id = $id;
                 $this->User->save($this->request->data['User']);
                 $msg = '<div class="alert alert-success">
@@ -188,16 +188,16 @@ class AdminsController extends AppController {
 		<strong> Admin updated succeesfully </strong>
 	</div>';
                 $this->Session->setFlash($msg);
-                return $this->redirect($this->referer());
-            } else {
-                $msg = $this->generateError($this->User->validationErrors);
-                $this->Session->setFlash($msg);
-            }
+                
+           
+            return $this->redirect($this->referer());
         }
         if (!$this->request->data) {
             $data = $this->User->findById($id);
             $this->request->data = $data;
-          $this->set('roles', $this->Role->find("list"));
+//           $roles = $this->set('roles', $this->Role->find("list"));
+            $roles = $this->Role->find('list', array('order' => array('Role.name' => 'ASC')));
+            $this->set(compact('roles'));
         }
     }
 
@@ -239,12 +239,12 @@ class AdminsController extends AppController {
     function servicemanage($id = null) {
         $this->loadModel('PaidCustomer');
         $clicked = false;
-         if ($id) {
+        if ($id) {
             $customer_info = $this->PaidCustomer->find('first', array('conditions' => array('PaidCustomer.id' => $id)));
             $clicked = true;
             $this->set(compact('customer_info'));
         }
-        
+
         if ($this->request->is('post')) {
             $cell = $this->request->data['PaidCustomer']['cell'];
             $customer_info = $this->PaidCustomer->find('first', array('conditions' => array('PaidCustomer.cell' => $cell)));
@@ -252,7 +252,7 @@ class AdminsController extends AppController {
             $this->set(compact('customer_info'));
         }
 
-       
+
 
         $cells = $this->PaidCustomer->find('list', array('fields' => array('cell', 'cell')));
         $this->set(compact('cells', 'clicked'));
@@ -260,11 +260,11 @@ class AdminsController extends AppController {
 
     function changeservice($id = null) {
         $this->loadModel('PaidCustomer');
-       // pr($this->request->data); exit;
+        // pr($this->request->data); exit;
         $this->PaidCustomer->id = $this->request->data['PaidCustomer']['id'];
         $this->PaidCustomer->status = $this->request->data['PaidCustomer']['status'];
         $this->PaidCustomer->save($this->request->data['PaidCustomer']);
-        return $this->redirect('servicemanage'. DS . $this->request->data['PaidCustomer']['id']);
+        return $this->redirect('servicemanage' . DS . $this->request->data['PaidCustomer']['id']);
     }
 
 }
