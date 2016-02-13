@@ -200,7 +200,11 @@
             </li>
    <li 
             <?php
+<<<<<<< HEAD
             $tickets = array('Ticketsaddissue', 'Ticketseditissuet');
+=======
+            $tickets = array('Ticketsaddissue', 'Ticketseditissue');
+>>>>>>> b2460dd45a1a092ce7c77357aed9ad03bba5cfb3
             if (in_array($this->name . '' . $this->action, $tickets)):
                 ?>
                     class="active"
