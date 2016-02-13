@@ -6,17 +6,13 @@
 App::uses('SimplePasswordHasher', 'Controller/Component/Auth');
 
 class TicketsController extends AppController {
-
     var $layout = 'admin';
-
     public function beforeFilter() {
         parent::beforeFilter();
     }
-
     public function isAuthorized($user = null) {
         return true;
     }
-
     function create() {
         $loggedUser = $this->Auth->user();
         $this->loadModel('Ticket');
