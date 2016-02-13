@@ -6,13 +6,17 @@
 App::uses('SimplePasswordHasher', 'Controller/Component/Auth');
 
 class TicketsController extends AppController {
+
     var $layout = 'admin';
+
     public function beforeFilter() {
         parent::beforeFilter();
     }
+
     public function isAuthorized($user = null) {
         return true;
     }
+
     function create() {
         $loggedUser = $this->Auth->user();
         $this->loadModel('Ticket');
@@ -135,13 +139,26 @@ class TicketsController extends AppController {
 //                    inner join roles r on  tr.role_id = r.id
 //                    inner join users ft on  tr.user_id = ft.id order by tr.created desc");
 
-        $tickets = $this->Track->query("SELECT * FROM tracks tr
+
+        $loggedUser = $this->Auth->user();
+        if ($loggedUser['Role']['name'] == 'sadmin') {
+            $tickets = $this->Track->query("SELECT * FROM tracks tr
                         left JOIN tickets t ON tr.ticket_id = t.id
                         left JOIN users fb ON tr.forwarded_by = fb.id
                         left JOIN roles fd ON tr.role_id = fd.id
                         left JOIN users fi ON tr.user_id = fi.id
                         left JOIN issues i ON tr.issue_id = i.id
                         ORDER BY tr.created DESC");
+        } else {
+            $tickets = $this->Track->query("SELECT * FROM tracks tr
+                        left JOIN tickets t ON tr.ticket_id = t.id
+                        left JOIN users fb ON tr.forwarded_by = fb.id
+                        left JOIN roles fd ON tr.role_id = fd.id
+                        left JOIN users fi ON tr.user_id = fi.id
+                        left JOIN issues i ON tr.issue_id = i.id
+                        WHERE tr.role_id =". $loggedUser['Role']['id']." OR tr.user_id =". $loggedUser['Role']['id']." ORDER BY tr.created DESC");
+        }
+
         //     pr($tickets); exit;
 
         $filteredTicket = array();
