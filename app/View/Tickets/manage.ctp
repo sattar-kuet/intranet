@@ -65,11 +65,19 @@
                                                 foreach ($single['history'] as $history):
                                                     ?>
                                                     <li>
-                                                        <strong>Forwarded By:</strong> <?php echo $history['fb']['name']; ?>
+                                                        <?php if ($history['tr']['status'] != 'open') { ?>
+                                                        <strong><?php echo ucfirst($history['tr']['status']);?> By:</strong>
+                                                        <?php } else {
+                                                            ?>
+                                                            <strong>Forwarded By:</strong>
+                                                            <?php
+                                                        }
+                                                        ?>
+                                                        <?php echo $history['fb']['name']; ?>
                                                         &nbsp;&nbsp;<strong>Forwarded To:</strong> <?php echo $history['fi']['name']; ?> <?php echo $history['fd']['name']; ?><br>
                                                         <strong>Time:</strong> <?php echo $history['tr']['created']; ?>
                                                         <strong>Status:</strong> <?php echo $history['tr']['status']; ?><br>
-                                                         <?php
+                                                        <?php
                                                         if (!empty($history['tr']['comment'])):
                                                             echo '<strong>';
                                                             echo 'Comment : ';
@@ -90,7 +98,7 @@
 
                                                 <?php if ($lasthistory['status'] == 'open') { ?>
 
-                                    
+
                                                     <a 
                                                         href="#" title="Solved">
                                                         <span id="<?php echo $ticket['id']; ?>" class="fa fa-check fa-lg solve_ticket"></span>
@@ -274,13 +282,7 @@
                                                                 )
                                                         );
                                                         ?>
-                                                        <?php
-                                                        echo $this->Form->input('forwarded_by', array(
-                                                            'type' => 'hidden',
-                                                            'value' => $lasthistory['forwarded_by'],
-                                                                )
-                                                        );
-                                                        ?>
+
                                                         <div class="form-body">
                                                             <div class="alert alert-danger display-hide">
                                                                 <button class="close" data-close="alert"></button>
@@ -340,7 +342,7 @@
                                                         );
                                                         ?>
 
-                                                         <?php
+                                                        <?php
                                                         echo $this->Form->input('ticket_id', array(
                                                             'type' => 'hidden',
                                                             'value' => $ticket['id'],
@@ -368,13 +370,7 @@
                                                                 )
                                                         );
                                                         ?>
-                                                        <?php
-                                                        echo $this->Form->input('forwarded_by', array(
-                                                            'type' => 'hidden',
-                                                            'value' => $lasthistory['forwarded_by'],
-                                                                )
-                                                        );
-                                                        ?>
+
                                                         <div class="form-body">
                                                             <div class="alert alert-danger display-hide">
                                                                 <button class="close" data-close="alert"></button>
