@@ -62,7 +62,7 @@
                 </a>
                 <ul class="sub-menu">
 
-                    <li
+<!--                    <li
                     <?php if ($this->name . '' . $this->action == 'Ticketscreate'):
                         ?>
                             class="active"
@@ -73,7 +73,7 @@
                         <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'create')) ?>">
                             <i class="fa fa-graduation-cap"></i>
                             Create New</a>
-                    </li>
+                    </li>-->
                     <li
                     <?php if ($this->name . '' . $this->action == 'Ticketsmanage'):
                         ?>
