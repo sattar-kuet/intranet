@@ -40,11 +40,8 @@
                             <thead>
                                 <tr>
                                     <th>Open Time</th>
-                                    <th>Ticket From</th>
-                                    <th>Priority</th>
                                     <th>Detail</th>
-                                    <th>Assign To</th>
-                                    <th>Status</th>
+                                    <th>History</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -56,42 +53,82 @@
                                     ?>
                                     <tr >
                                         <td><?php echo $ticket['created']; ?></td>
-                                        <td><?php echo $single['open_by']['User']['name']; ?></td>
-                                        <td><?php echo $ticket['priority']; ?></td>
                                         <td><?php echo $ticket['content']; ?></td>
                                         <td>
-                                            <ul>
-                                                <li><?php echo $single['assign_to']['dept']['name']; ?></li>
-                                                <li><?php echo $single['assign_to']['admin']['name']; ?></li>
-                                            </ul>
+                                            <ol>
+                                                <?php
+                                                $lasthistory = $single['history'][0]['tr'];
+                                                foreach ($single['history'] as $history):
+                                                    ?>
+                                                    <li>
+                                                        Forwarded By: <?php echo $history['fb']['name']; ?>
+                                                        Forwarded To: <?php echo $history['ft']['name']; ?>
+                                                        Forward Time: <?php echo $history['tr']['created']; ?>
+                                                        Ticket Status: <?php echo $history['tr']['status']; ?>
+                                                    </li> 
+                                                <?php endforeach; ?>
+                                            </ol>
                                         </td>
-                                        <td><?php echo $ticket['status']; ?></td>
-
                                         <td>   
-                                            <div class="controls center">
+                                            <div class="controls center text-center">
 
-                                                <?php if ($ticket['status'] != 'closed') { ?>
+                                                <?php if ($lasthistory['status'] == 'open') { ?>
                                                     <a 
 
                                                         onclick="if (confirm('Are you sure to close this ticket?')) {
                                                                             return true;
                                                                         }
                                                                         return false;"
-                                                        href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'close', $ticket['id'])) ?>" title="close">
-                                                        <span class="fa fa-ban"></span>
+                                                        href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'close', $lasthistory['id'])) ?>" title="Close">
+                                                        <span class="fa fa-ban fa-lg"></span>
                                                     </a> 
+                                                    &nbsp; 
+                                                    <a 
 
-                                                    <div class="portlet-body form">
+                                                        onclick="if (confirm('Are you sure this ticket is solved?')) {
+                                                                            return true;
+                                                                        }
+                                                                        return false;"
+                                                        href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'solved', $lasthistory['id'])) ?>" title="Solved">
+                                                        <span class="fa fa-check fa-lg"></span>
+                                                    </a>
+                                                    &nbsp;
+                                                    <a 
+
+                                                        onclick="if (confirm('This ticket is still UNSOLVED! Proceed?')) {
+                                                                            return true;
+                                                                        }
+                                                                        return false;"
+                                                        href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'unsolved', $lasthistory['id'])) ?>" title="Unolved">
+                                                        <span class="fa fa-times fa-lg"></span>
+                                                    </a>
+                                                    &nbsp;
+                                                    <a 
+                                                        href="#" title="Forward">
+                                                        <span id="<?php echo $ticket['id'];?>" class="fa fa-mail-forward fa-lg forward_ticket"></span>
+                                                    </a>
+
+
+                                                    <div id="forward_dialog<?php echo $ticket['id'];?>" class="portlet-body form" style="display: none;">
                                                         <!-- BEGIN FORM-->
                                                         <?php
-                                                        echo $this->Form->create('Ticket', array(
+                                                        echo $this->Form->create('Track', array(
                                                             'inputDefaults' => array(
                                                                 'label' => false,
                                                                 'div' => false
                                                             ),
                                                             'id' => 'form_sample_3',
                                                             'class' => 'form-horizontal',
-                                                            'novalidate' => 'novalidate'
+                                                            'novalidate' => 'novalidate',
+                                                            'url' => array('controller' => 'tickets', 'action' => 'forward')
+                                                                )
+                                                        );
+                                                        ?>
+
+                                                        <?php
+                                                        echo $this->Form->input('ticket_id', array(
+                                                            'type' => 'hidden',
+                                                            'value' => $ticket['id'],
                                                                 )
                                                         );
                                                         ?>
@@ -103,11 +140,11 @@
                                                             <?php echo $this->Session->flash(); ?>
 
                                                             <div class="form-group">
-                                                                <label class="control-label col-md-3">Assign to (individual)
+                                                                <label class="control-label col-md-4" style="padding-top: 0px;">Assign to (individual)
                                                                 </label>
                                                                 <div class="form-group">
 
-                                                                    <div class="col-md-4">
+                                                                    <div class="col-md-7">
                                                                         <?php
                                                                         echo $this->Form->input('user_id', array(
                                                                             'type' => 'select',
@@ -121,11 +158,11 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label class="control-label col-md-3">Assign to (Department)
+                                                                <label class="control-label col-md-4" style="padding-top: 0px;">Assign to (Department)
                                                                 </label>
                                                                 <div class="form-group">
 
-                                                                    <div class="col-md-4">
+                                                                    <div class="col-md-7">
                                                                         <?php
                                                                         echo $this->Form->input('role_id', array(
                                                                             'type' => 'select',
@@ -139,12 +176,12 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label class="control-label col-md-3">Select Priority<span class="required">
+                                                                <label class="control-label col-md-4" style="padding-top: 0px;">Select Priority<span class="required">
                                                                         * </span>
                                                                 </label>
                                                                 <div class="form-group">
 
-                                                                    <div class="col-md-4">
+                                                                    <div class="col-md-7">
                                                                         <?php
                                                                         echo $this->Form->input('priority', array(
                                                                             'type' => 'select',
@@ -157,7 +194,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                           
+
                                                         </div>
                                                         <div class="form-actions">
                                                             <div class="row">
@@ -176,7 +213,7 @@
 
                                                     <?php
                                                 } else {
-                                                    echo 'Nothing to Do';
+                                                    echo 'Nothing to do';
                                                 }
                                                 ?>
 
