@@ -177,10 +177,11 @@ class AdminsController extends AppController {
     function edit_admin($id = null) {
         $this->loadModel('Role');
         $this->loadModel('User');
+        
         if ($this->request->is('post') || $this->request->is('put')) {
             $this->User->set($this->request->data);
             if ($this->User->validates()) {
-                $this->User->id = $this->request->data['User']['id'];
+                $this->User->id = $id;
                 $this->User->save($this->request->data['User']);
                 $msg = '<div class="alert alert-success">
 		<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -196,7 +197,7 @@ class AdminsController extends AppController {
         if (!$this->request->data) {
             $data = $this->User->findById($id);
             $this->request->data = $data;
-            $this->set('roles', $this->Role->find("list"));
+          $this->set('roles', $this->Role->find("list"));
         }
     }
 
