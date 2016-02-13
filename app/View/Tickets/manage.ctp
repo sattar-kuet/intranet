@@ -49,11 +49,12 @@
                             <tbody>
                                 <?php
                                 foreach ($data as $single):
-                                     pr($single); exit;
+                                     $issue = end($single['history']); 
+                              
                                     $ticket = $single['ticket'];
                                     ?>
                                     <tr >
-                                        <td><?php echo $ticket['created']; ?></td>
+                                        <td><?php echo $issue['i']['name']; ?></td>
                                         <td><?php echo $ticket['created']; ?></td>
                                         <td><?php echo $ticket['content']; ?></td>
                                         <td>
