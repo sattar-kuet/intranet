@@ -72,7 +72,7 @@ class AdminsController extends AppController {
                 if ($this->Auth->user('status') == 'active') {
                     // user is activated
 
-                    return $this->redirect($this->Auth->redirectUrl());
+                    return $this->redirect('/admins/servicemanage');
                 } else {
                     // user is not activated
                     // log the user out
@@ -251,9 +251,6 @@ class AdminsController extends AppController {
             $clicked = true;
             $this->set(compact('customer_info'));
         }
-
-
-
         $cells = $this->PaidCustomer->find('list', array('fields' => array('cell', 'cell')));
         $this->set(compact('cells', 'clicked'));
     }
@@ -261,6 +258,9 @@ class AdminsController extends AppController {
     function changeservice($id = null) {
         $this->loadModel('PaidCustomer');
         // pr($this->request->data); exit;
+        if($this->request->data['PaidCustomer']['status'] =='ticket'){
+            return $this->redirect('/tickets/create/'. $this->request->data['PaidCustomer']['id']);
+        }
         $this->PaidCustomer->id = $this->request->data['PaidCustomer']['id'];
         $this->PaidCustomer->status = $this->request->data['PaidCustomer']['status'];
         $this->PaidCustomer->save($this->request->data['PaidCustomer']);
