@@ -64,12 +64,32 @@
                             </div>
 
                             <div class="form-group">
+                                <label class="control-label col-md-3">Select Subject<span class="required">
+                                        * </span>
+                                </label>
+                                <div class="form-group">
+
+                                    <div class="col-md-4">
+                                        <?php
+                                        echo $this->Form->input('issue_id', array(
+                                            'type' => 'select',
+                                            'options' => $issues,
+                                            'empty' => 'Select Subject',
+                                            'class' => 'form-control select2me required',
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="control-label col-md-3">Assign to (individual)
                                 </label>
                                 <div class="form-group">
 
                                     <div class="col-md-4">
                                         <?php
+                                       
                                         echo $this->Form->input('user_id', array(
                                             'type' => 'select',
                                             'options' => $users,

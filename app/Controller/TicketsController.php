@@ -21,6 +21,7 @@ class TicketsController extends AppController {
         $loggedUser = $this->Auth->user();
         $this->loadModel('Ticket');
         $this->loadModel('Track');
+        $this->loadModel('Issue');
         $this->loadModel('User');
         $this->loadModel('Role');
         $this->loadModel('Issue');
@@ -28,8 +29,6 @@ class TicketsController extends AppController {
         if ($this->request->is('post')) {
             $this->Ticket->set($this->request->data);
             if ($this->Ticket->validates()) {
-
-                $this->request->data['Ticket']['user_id'] = $loggedUser['id'];
                 if (empty($this->request->data['Ticket']['user_id']) && empty($this->request->data['Ticket']['role_id'])) {
                     $msg = '<div class="alert alert-error">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -39,14 +38,15 @@ class TicketsController extends AppController {
                     return $this->redirect($this->referer());
                 }
                 $tickect = $this->Ticket->save($this->request->data['Ticket']); // Data save in Ticket
-
                 $trackData['Track'] = array(
                     'issue_id' => $this->request->data['Ticket']['issue_id'],
                     'user_id' => $this->request->data['Ticket']['user_id'],
                     'role_id' => $this->request->data['Ticket']['role_id'],
+                    'issue_id' => $this->request->data['Ticket']['issue_id'],
                     'ticket_id' => $tickect['Ticket']['id'],
                     'forwarded_by' => $loggedUser['id']
                 );
+
                 $this->Track->save($trackData); // Data save in Track
                 $msg = '<div class="alert alert-success">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -62,6 +62,11 @@ class TicketsController extends AppController {
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
         $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
+
+        $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
+        // pr($users);
+        //  pr($roles); exit;
+
         $this->set(compact('users', 'roles', 'issues'));
     }
 
@@ -101,8 +106,6 @@ class TicketsController extends AppController {
         return $this->redirect($this->referer());
     }
 
-
-
     function edit() {
         $this->loadModel('Role');
         if ($this->request->is('post')) {
@@ -129,11 +132,20 @@ class TicketsController extends AppController {
         $this->loadModel('Track');
         $this->loadModel('User');
         $this->loadModel('Role');
-        $tickets = $this->Track->query("SELECT * FROM tracks tr 
-                    inner join tickets t on tr.ticket_id = t.id
-                    inner join users fb on tr.forwarded_by = fb.id
-                    inner join roles r on  tr.role_id = r.id
-                    inner join users ft on  tr.user_id = ft.id order by tr.created desc");
+//        $tickets = $this->Track->query("SELECT * FROM tracks tr 
+//                    inner join tickets t on tr.ticket_id = t.id
+//                    inner join users fb on tr.forwarded_by = fb.id
+//                    inner join roles r on  tr.role_id = r.id
+//                    inner join users ft on  tr.user_id = ft.id order by tr.created desc");
+
+        $tickets = $this->Track->query("SELECT * FROM tracks tr
+                        left JOIN tickets t ON tr.ticket_id = t.id
+                        left JOIN users fb ON tr.forwarded_by = fb.id
+                        left JOIN roles fd ON tr.role_id = fd.id
+                        left JOIN users fi ON tr.user_id = fi.id
+                        left JOIN issues i ON tr.issue_id = i.id
+                        ORDER BY tr.created DESC");
+        //     pr($tickets); exit;
 
         $filteredTicket = array();
         $unique = array();
@@ -143,21 +155,21 @@ class TicketsController extends AppController {
             if (isset($unique[$t])) {
                 //  echo 'already exist'.$key.'<br/>';
 
-                $temp = array('tr' => $ticket['tr'], 'fb' => $ticket['fb'], 'r' => $ticket['r'], 'ft' => $ticket['ft']);
+                $temp = array('tr' => $ticket['tr'], 'fb' => $ticket['fb'], 'fd' => $ticket['fd'], 'fi' => $ticket['fi'], 'i' => $ticket['i']);
                 $filteredTicket[$index]['history'][] = $temp;
             } else {
                 if ($key != 0)
                     $index++;
                 $unique[$t] = 'set';
                 $filteredTicket[$index]['ticket'] = $ticket['t'];
-                $temp = array('tr' => $ticket['tr'], 'fb' => $ticket['fb'], 'r' => $ticket['r'], 'ft' => $ticket['ft']);
+                $temp = array('tr' => $ticket['tr'], 'fb' => $ticket['fb'], 'fd' => $ticket['fd'], 'fi' => $ticket['fi'], 'i' => $ticket['i']);
                 $filteredTicket[$index]['history'][] = $temp;
             }
         }
         $data = $filteredTicket;
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
-        // pr($users);
+        //   pr($data); exit;
         //  pr($roles); exit;
         $this->set(compact('data', 'users', 'roles'));
     }
@@ -217,7 +229,7 @@ class TicketsController extends AppController {
         $this->set(compact('TicketDepartment'));
         $this->set(compact('roles'));
     }
-    
+
     function addissue() {
         $this->loadModel('Issue');
         if ($this->request->is('post')) {
@@ -236,7 +248,7 @@ class TicketsController extends AppController {
             }
         }
     }
-    
+
     function editissue() {
         $this->loadModel('Issue');
         if ($this->request->is('post')) {
@@ -260,7 +272,7 @@ class TicketsController extends AppController {
         $this->set(compact('Issue'));
         $this->set(compact('roles'));
     }
-    
+
 }
 
 ?>
