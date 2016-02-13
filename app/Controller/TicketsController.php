@@ -120,6 +120,7 @@ class TicketsController extends AppController {
         $roles = $this->Role->find('list', array('order' => array('Role.name' => 'ASC')));
         $this->set(compact('roles'));
     }
+
     function manage() {
         $this->loadModel('Track');
         $this->loadModel('User');
@@ -155,6 +156,19 @@ class TicketsController extends AppController {
         // pr($users);
         //  pr($roles); exit;
         $this->set(compact('data', 'users', 'roles'));
+    }
+
+    function forward() {
+        $this->loadModel('Track');
+        $loggedUser = $this->Auth->user();
+        $this->request->data['Track']['forwarded_by'] = $loggedUser['id'];
+        $this->Track->save($this->request->data['Track']);
+        $msg = '<div class="alert alert-success">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong> Ticket Forwarded successfully!  </strong>
+			</div>';
+        $this->Session->setFlash($msg);
+        return $this->redirect($this->referer());
     }
 
     function adddepartment() {

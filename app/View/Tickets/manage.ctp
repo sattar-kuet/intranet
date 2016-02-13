@@ -56,9 +56,10 @@
                                         <td><?php echo $ticket['content']; ?></td>
                                         <td>
                                             <ol>
-                                                <?php 
+                                                <?php
                                                 $lasthistory = $single['history'][0]['tr'];
-                                                foreach ($single['history'] as $history): ?>
+                                                foreach ($single['history'] as $history):
+                                                    ?>
                                                     <li>
                                                         Forwarded By: <?php echo $history['fb']['name']; ?>
                                                         Forwarded To: <?php echo $history['ft']['name']; ?>
@@ -104,21 +105,30 @@
                                                     &nbsp;
                                                     <a 
                                                         href="#" title="Forward">
-                                                        <span id="forward_ticket" class="fa fa-mail-forward fa-lg"></span>
+                                                        <span id="<?php echo $ticket['id'];?>" class="fa fa-mail-forward fa-lg forward_ticket"></span>
                                                     </a>
 
 
-                                                    <div id="forward_dialog" class="portlet-body form" style="display: none;">
+                                                    <div id="forward_dialog<?php echo $ticket['id'];?>" class="portlet-body form" style="display: none;">
                                                         <!-- BEGIN FORM-->
                                                         <?php
-                                                        echo $this->Form->create('Ticket', array(
+                                                        echo $this->Form->create('Track', array(
                                                             'inputDefaults' => array(
                                                                 'label' => false,
                                                                 'div' => false
                                                             ),
                                                             'id' => 'form_sample_3',
                                                             'class' => 'form-horizontal',
-                                                            'novalidate' => 'novalidate'
+                                                            'novalidate' => 'novalidate',
+                                                            'url' => array('controller' => 'tickets', 'action' => 'forward')
+                                                                )
+                                                        );
+                                                        ?>
+
+                                                        <?php
+                                                        echo $this->Form->input('ticket_id', array(
+                                                            'type' => 'hidden',
+                                                            'value' => $ticket['id'],
                                                                 )
                                                         );
                                                         ?>
