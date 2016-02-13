@@ -39,6 +39,7 @@
                         <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                             <thead>
                                 <tr>
+                                    <th>Subject</th>
                                     <th>Open Time</th>
                                     <th>Detail</th>
                                     <th>History</th>
@@ -48,10 +49,11 @@
                             <tbody>
                                 <?php
                                 foreach ($data as $single):
-                                    // pr($single['assign_to']); exit;
+                                     pr($single); exit;
                                     $ticket = $single['ticket'];
                                     ?>
                                     <tr >
+                                        <td><?php echo $ticket['created']; ?></td>
                                         <td><?php echo $ticket['created']; ?></td>
                                         <td><?php echo $ticket['content']; ?></td>
                                         <td>
@@ -62,7 +64,7 @@
                                                     ?>
                                                     <li>
                                                         Forwarded By: <?php echo $history['fb']['name']; ?>
-                                                        Forwarded To: <?php echo $history['ft']['name']; ?>
+                                                        Forwarded To: <?php echo $history['fi']['name']; ?> <?php echo $history['fd']['name']; ?>
                                                         Forward Time: <?php echo $history['tr']['created']; ?>
                                                         Ticket Status: <?php echo $history['tr']['status']; ?>
                                                     </li> 
