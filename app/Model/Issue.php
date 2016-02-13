@@ -6,3 +6,4 @@ class Issue extends AppModel{
 }
 
 ?>
+

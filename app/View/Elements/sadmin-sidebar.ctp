@@ -200,7 +200,9 @@
             </li>
    <li 
             <?php
+
             $tickets = array('Ticketsaddissue', 'Ticketseditissue');
+
             if (in_array($this->name . '' . $this->action, $tickets)):
                 ?>
                     class="active"
