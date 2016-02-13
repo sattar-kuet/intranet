@@ -69,47 +69,26 @@
                                                 <?php endforeach; ?>
                                             </ol>
                                         </td>
-<<<<<<< HEAD
-                                        <td><?php echo 'Closed: ' . ucfirst($ticket['status']); ?></td>
 
-                                        <td>   
-                                            <div class="controls center text-center">
-
-                                                <?php if ($ticket['status'] == 'open') { ?>
-=======
                                         <td>   
                                             <div class="controls center text-center">
 
                                                 <?php if ($lasthistory['status'] == 'open') { ?>
->>>>>>> e629aea4a9f35e0c763a4b6d18988180400f5dd0
+
                                                     <a 
 
                                                         onclick="if (confirm('Are you sure to close this ticket?')) {
                                                                             return true;
                                                                         }
                                                                         return false;"
-<<<<<<< HEAD
-                                                        href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'close', $ticket['id'])) ?>" title="Close">
-=======
+
                                                         href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'close', $lasthistory['id'])) ?>" title="Close">
->>>>>>> e629aea4a9f35e0c763a4b6d18988180400f5dd0
+
                                                         <span class="fa fa-ban fa-lg"></span>
                                                     </a> 
                                                     &nbsp; 
                                                     <a 
-<<<<<<< HEAD
 
-                                                        onclick="if (confirm('Are you sure this ticket is solved?')) {
-                                                                            return true;
-                                                                        }
-                                                                        return false;"
-                                                        href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'solved', $ticket['id'])) ?>" title="Solved">
-                                                        <span class="fa fa-check fa-lg"></span>
-                                                    </a>
-                                                    &nbsp;
-                                                    <a 
-
-=======
 
                                                         onclick="if (confirm('Are you sure this ticket is solved?')) {
                                                                             return true;
@@ -121,34 +100,26 @@
                                                     &nbsp;
                                                     <a 
 
->>>>>>> e629aea4a9f35e0c763a4b6d18988180400f5dd0
+
                                                         onclick="if (confirm('This ticket is still UNSOLVED! Proceed?')) {
                                                                             return true;
                                                                         }
                                                                         return false;"
-<<<<<<< HEAD
-                                                        href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'unsolved', $ticket['id'])) ?>" title="Unolved">
-=======
+
                                                         href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'unsolved', $lasthistory['id'])) ?>" title="Unolved">
->>>>>>> e629aea4a9f35e0c763a4b6d18988180400f5dd0
+
                                                         <span class="fa fa-times fa-lg"></span>
                                                     </a>
                                                     &nbsp;
                                                     <a 
                                                         href="#" title="Forward">
-<<<<<<< HEAD
-                                                        <span id="forward_ticket" class="fa fa-mail-forward fa-lg"></span>
-                                                    </a>
 
-
-                                                    <div id="forward_dialog" class="portlet-body form" style="display: none;">
-=======
                                                         <span id="<?php echo $ticket['id'];?>" class="fa fa-mail-forward fa-lg forward_ticket"></span>
                                                     </a>
 
 
                                                     <div id="forward_dialog<?php echo $ticket['id'];?>" class="portlet-body form" style="display: none;">
->>>>>>> e629aea4a9f35e0c763a4b6d18988180400f5dd0
+
                                                         <!-- BEGIN FORM-->
                                                         <?php
                                                         echo $this->Form->create('Track', array(
