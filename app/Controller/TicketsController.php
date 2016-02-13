@@ -215,7 +215,50 @@ class TicketsController extends AppController {
         $this->set(compact('TicketDepartment'));
         $this->set(compact('roles'));
     }
+    
+    function addissue() {
+        $this->loadModel('Issue');
+        if ($this->request->is('post')) {
+            $this->Issue->set($this->request->data);
+            if ($this->Issue->validates()) {
+                $this->Issue->save($this->request->data['Issue']);
+                $msg = '<div class="alert alert-success">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong> Added New Department  </strong>
+			</div>';
+                $this->Session->setFlash($msg);
+                return $this->redirect('addissue');
+            } else {
+                $msg = $this->generateError($this->issue->validationErrors);
+                $this->Session->setFlash($msg);
+            }
+        }
+    }
+    
+    function editissue() {
+        $this->loadModel('Issue');
+        if ($this->request->is('post')) {
+            $this->Issue->set($this->request->data);
+            if ($this->Issue->validates()) {
+                $this->Issue->id = $this->request->data['Issue']['id'];
+                $this->Issue->save($this->request->data['Issue']);
+                $msg = '<div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong> Role edited succeesfully </strong>
+        </div>';
+                $this->Session->setFlash($msg);
+                return $this->redirect($this->referer());
+            } else {
+                $msg = $this->generateError($this->Issue->validationErrors);
+                $this->Session->setFlash($msg);
+            }
+        }
 
+        $roles = $this->Issue->find('list', array('order' => array('Issue.name' => 'ASC')));
+        $this->set(compact('Issue'));
+        $this->set(compact('roles'));
+    }
+    
 }
 
 ?>
