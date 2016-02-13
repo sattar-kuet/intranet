@@ -23,10 +23,12 @@ class TicketsController extends AppController {
         $this->loadModel('Track');
         $this->loadModel('User');
         $this->loadModel('Role');
+        $this->loadModel('Issue');
         $this->loadModel('TicketDepartment');
         if ($this->request->is('post')) {
             $this->Ticket->set($this->request->data);
             if ($this->Ticket->validates()) {
+
                 $this->request->data['Ticket']['user_id'] = $loggedUser['id'];
                 if (empty($this->request->data['Ticket']['user_id']) && empty($this->request->data['Ticket']['role_id'])) {
                     $msg = '<div class="alert alert-error">
@@ -36,15 +38,16 @@ class TicketsController extends AppController {
                     $this->Session->setFlash($msg);
                     return $this->redirect($this->referer());
                 }
-                $tickect = $this->Ticket->save($this->request->data['Ticket']);
+                $tickect = $this->Ticket->save($this->request->data['Ticket']); // Data save in Ticket
 
                 $trackData['Track'] = array(
+                    'issue_id' => $this->request->data['Ticket']['issue_id'],
                     'user_id' => $this->request->data['Ticket']['user_id'],
                     'role_id' => $this->request->data['Ticket']['role_id'],
                     'ticket_id' => $tickect['Ticket']['id'],
                     'forwarded_by' => $loggedUser['id']
                 );
-                $this->Track->save($trackData);
+                $this->Track->save($trackData); // Data save in Track
                 $msg = '<div class="alert alert-success">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
 				<strong> Ticket Created succeesfully </strong>
@@ -57,10 +60,9 @@ class TicketsController extends AppController {
             }
         }
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
+        $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
-        // pr($users);
-        //  pr($roles); exit;
-        $this->set(compact('users', 'roles'));
+        $this->set(compact('users', 'roles', 'issues'));
     }
 
     function close($id = null) {
@@ -213,7 +215,50 @@ class TicketsController extends AppController {
         $this->set(compact('TicketDepartment'));
         $this->set(compact('roles'));
     }
+    
+    function addissue() {
+        $this->loadModel('Issue');
+        if ($this->request->is('post')) {
+            $this->Issue->set($this->request->data);
+            if ($this->Issue->validates()) {
+                $this->Issue->save($this->request->data['Issue']);
+                $msg = '<div class="alert alert-success">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong> Added New Department  </strong>
+			</div>';
+                $this->Session->setFlash($msg);
+                return $this->redirect('addissue');
+            } else {
+                $msg = $this->generateError($this->issue->validationErrors);
+                $this->Session->setFlash($msg);
+            }
+        }
+    }
+    
+    function editissue() {
+        $this->loadModel('Issue');
+        if ($this->request->is('post')) {
+            $this->Issue->set($this->request->data);
+            if ($this->Issue->validates()) {
+                $this->Issue->id = $this->request->data['Issue']['id'];
+                $this->Issue->save($this->request->data['Issue']);
+                $msg = '<div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong> Role edited succeesfully </strong>
+        </div>';
+                $this->Session->setFlash($msg);
+                return $this->redirect($this->referer());
+            } else {
+                $msg = $this->generateError($this->Issue->validationErrors);
+                $this->Session->setFlash($msg);
+            }
+        }
 
+        $roles = $this->Issue->find('list', array('order' => array('Issue.name' => 'ASC')));
+        $this->set(compact('Issue'));
+        $this->set(compact('roles'));
+    }
+    
 }
 
 ?>
