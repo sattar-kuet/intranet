@@ -21,7 +21,7 @@ echo $this->Html->css(
 <!-- DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu -->
 <body class="page-header-fixed page-quick-sidebar-over-content ">
     <!-- BEGIN HEADER -->
-    <div class="page-header navbar navbar-fixed-top">
+    <div class="page-header navbar navbar-fixed-top"> 
         <!-- BEGIN HEADER INNER -->
         <div class="page-header-inner">
             <div class="page-logo">
