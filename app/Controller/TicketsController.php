@@ -17,8 +17,8 @@ class TicketsController extends AppController {
         return true;
     }
 
-    function create($customer_id=null) {
-        if($customer_id == null){
+    function create($customer_id = null) {
+        if ($customer_id == null) {
             $this->redirect('/admins/servicemanage');
         }
         $loggedUser = $this->Auth->user();
@@ -102,7 +102,7 @@ class TicketsController extends AppController {
     function solve() {
         $this->loadModel('Track');
         $this->request->data['Track']['status'] = 'solved';
-           $loggedUser = $this->Auth->user();
+        $loggedUser = $this->Auth->user();
         $this->request->data['Track']['forwarded_by'] = $loggedUser['id'];
         $this->Track->save($this->request->data['Track']);
         $msg = '<div class="alert alert-success">
@@ -144,8 +144,6 @@ class TicketsController extends AppController {
 //                    inner join users fb on tr.forwarded_by = fb.id
 //                    inner join roles r on  tr.role_id = r.id
 //                    inner join users ft on  tr.user_id = ft.id order by tr.created desc");
-
-
         $loggedUser = $this->Auth->user();
         if ($loggedUser['Role']['name'] == 'sadmin') {
             $tickets = $this->Track->query("SELECT * FROM tracks tr
@@ -154,7 +152,7 @@ class TicketsController extends AppController {
                         left JOIN roles fd ON tr.role_id = fd.id
                         left JOIN users fi ON tr.user_id = fi.id
                         left JOIN issues i ON tr.issue_id = i.id
-                        ORDER BY tr.created DESC");
+			left join paid_customers pc on tr.paid_customer_id = pc.id order by tr.created DESC");
         } else {
             $tickets = $this->Track->query("SELECT * FROM tracks tr
                         left JOIN tickets t ON tr.ticket_id = t.id
@@ -162,11 +160,9 @@ class TicketsController extends AppController {
                         left JOIN roles fd ON tr.role_id = fd.id
                         left JOIN users fi ON tr.user_id = fi.id
                         left JOIN issues i ON tr.issue_id = i.id
-                        WHERE tr.role_id =". $loggedUser['Role']['id']." OR tr.user_id =". $loggedUser['Role']['id']." ORDER BY tr.created DESC");
+                        left join paid_customers pc on tr.paid_customer_id = pc.id
+                        WHERE tr.role_id =" . $loggedUser['Role']['id'] ." OR tr.user_id =" . $loggedUser['Role']['id'] . " ORDER BY tr.created DESC");
         }
-
-        //     pr($tickets); exit;
-
         $filteredTicket = array();
         $unique = array();
         $index = 0;
@@ -175,14 +171,14 @@ class TicketsController extends AppController {
             if (isset($unique[$t])) {
                 //  echo 'already exist'.$key.'<br/>';
 
-                $temp = array('tr' => $ticket['tr'], 'fb' => $ticket['fb'], 'fd' => $ticket['fd'], 'fi' => $ticket['fi'], 'i' => $ticket['i']);
+                $temp = array('tr' => $ticket['tr'], 'fb' => $ticket['fb'], 'fd' => $ticket['fd'], 'fi' => $ticket['fi'], 'i' => $ticket['i'], 'pc' => $ticket['pc']);
                 $filteredTicket[$index]['history'][] = $temp;
             } else {
                 if ($key != 0)
                     $index++;
                 $unique[$t] = 'set';
                 $filteredTicket[$index]['ticket'] = $ticket['t'];
-                $temp = array('tr' => $ticket['tr'], 'fb' => $ticket['fb'], 'fd' => $ticket['fd'], 'fi' => $ticket['fi'], 'i' => $ticket['i']);
+                $temp = array('tr' => $ticket['tr'], 'fb' => $ticket['fb'], 'fd' => $ticket['fd'], 'fi' => $ticket['fi'], 'i' => $ticket['i'], 'pc' => $ticket['pc']);
                 $filteredTicket[$index]['history'][] = $temp;
             }
         }

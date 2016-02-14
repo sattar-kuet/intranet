@@ -14,7 +14,7 @@
     <div class="page-content">
         <!-- BEGIN PAGE HEADER-->
         <h3 class="page-title">
-            No contact Order List <small>Contact with customer to confirm</small>
+            No contact Order List <small> Contact with customer to confirm </small>
         </h3>
 
         <!-- END PAGE HEADER-->
@@ -41,6 +41,7 @@
                             <thead>
                                 <tr>
                                     <th>Subject</th>
+                                    <th>Customer Info</th>
                                     <th>Open Time</th>
                                     <th>Detail</th>
                                     <th>History</th>
@@ -51,11 +52,18 @@
                                 <?php
                                 foreach ($data as $single):
                                     $issue = end($single['history']);
-
+                                    $customer = end($single['history']);
+                                    $customer = $customer['pc'];
                                     $ticket = $single['ticket'];
                                     ?>
                                     <tr >
                                         <td><?php echo $issue['i']['name']; ?></td>
+                                        <td>
+                                            <ul>
+                                                <li> Name: <?php echo $customer['fname'].' '.$customer['lname']; ?> </li> 
+                                                <li> Cell: <?php echo $customer['cell']; ?> </li> 
+                                            </ul>
+                                        </td>
                                         <td><?php echo $ticket['created']; ?></td>
                                         <td><?php echo $ticket['content']; ?></td>
                                         <td>
@@ -66,7 +74,7 @@
                                                     ?>
                                                     <li>
                                                         <?php if ($history['tr']['status'] != 'open') { ?>
-                                                        <strong><?php echo ucfirst($history['tr']['status']);?> By:</strong>
+                                                            <strong><?php echo ucfirst($history['tr']['status']); ?> By:</strong>
                                                         <?php } else {
                                                             ?>
                                                             <strong>Forwarded By:</strong>
