@@ -84,7 +84,7 @@
                                                         }
                                                         ?>
                                                         <?php echo $history['fb']['name']; ?>
-                                                        &nbsp;&nbsp;<strong>Forwarded To:</strong> <?php echo $history['fi']['name']; ?> <?php echo $history['fd']['name']; ?><br>
+                                                            <p><strong>Forwarded To:</strong><ul><li><?php echo $history['fi']['name']; ?> </li><li><?php echo $history['fd']['name']; ?> </li></ul>
                                                         <strong>Time:</strong> <?php echo $history['tr']['created']; ?>
 
                                                         &nbsp;&nbsp;<strong>Status:</strong> <?php echo $history['tr']['status']; ?><br>
