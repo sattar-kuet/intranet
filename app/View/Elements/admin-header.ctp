@@ -24,18 +24,42 @@ echo $this->Html->css(
     <div class="page-header navbar navbar-fixed-top">
         <!-- BEGIN HEADER INNER -->
         <div class="page-header-inner">
-            <!-- BEGIN LOGO -->
             <div class="page-logo">
-              
-                <div class="menu-toggler sidebar-toggler hide">
-                    <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
-                </div>
-            </div>
-            <!-- END LOGO -->
-            <!-- BEGIN RESPONSIVE MENU TOGGLER -->
-            <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
-            </a>
-            <!-- END RESPONSIVE MENU TOGGLER -->
+			<a href="#">
+                            
+			<img src="../../assets/admin/layout/img/logo.png" alt="logo" class="logo-default">
+			</a>
+			<div class="menu-toggler sidebar-toggler hide">
+				<!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+			</div>
+		</div>
+            <div class="top-menu">
+			<ul class="nav navbar-nav pull-right">
+				
+				
+				
+				<!-- END TODO DROPDOWN -->
+				<!-- BEGIN USER LOGIN DROPDOWN -->
+				<!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+				<li class="dropdown dropdown-user">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="false">
+					<img alt="" class="img-circle" src="../../assets/admin/layout/img/avatar3_small.jpg">
+					<span class="username username-hide-on-mobile">
+					Totalcable</span>
+					<i class="fa fa-angle-down"></i>
+					</a>
+					<ul class="dropdown-menu dropdown-menu-default">
+						
+						<li>
+							<a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'logout')) ?>"
+							<i class="icon-key"></i> Log Out </a>
+						</li>
+					</ul>
+				</li>
+				
+				<!-- END QUICK SIDEBAR TOGGLER -->
+			</ul>
+		</div>
    
         </div>
         <!-- END HEADER INNER -->
