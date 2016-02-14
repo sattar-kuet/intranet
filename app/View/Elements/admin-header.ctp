@@ -21,10 +21,11 @@ echo $this->Html->css(
 <!-- DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu -->
 <body class="page-header-fixed page-quick-sidebar-over-content ">
     <!-- BEGIN HEADER -->
-    <div class="page-header navbar navbar-fixed-top">
+    <div class="page-header navbar navbar-fixed-top"> 
         <!-- BEGIN HEADER INNER -->
         <div class="page-header-inner">
             <div class="page-logo">
+
 			<a href="#">
                             
                             <img src="<?php echo $this->webroot; ?>images/support_icon_headset_orange.png" alt="logo" class="logo-default" style="margin: 9px 0 0 0;">
@@ -59,6 +60,7 @@ echo $this->Html->css(
 			</ul>
 		</div>
    
+
         </div>
         <!-- END HEADER INNER -->
     </div>
