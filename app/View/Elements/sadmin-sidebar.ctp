@@ -52,7 +52,7 @@
                         ?>
                         >
                         <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'addrole')) ?>">
-                            <i class="fa fa-graduation-cap"></i>
+                            <i class="fa fa-plus"></i>
                             Add Role</a>
                     </li>
                     <li
@@ -76,7 +76,7 @@
                         ?>
                         >
                         <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'create')) ?>">
-                            <i class="fa  fa-plus"></i>
+                            <i class="fa fa-plus"></i>
                             Create Admin</a>
                     </li>
                     <li
@@ -88,7 +88,7 @@
                         ?>
                         >
                         <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'manage')) ?>">
-                            <i class="fa fa-heart"></i>
+                            <i class="fa fa-wrench"></i>
                             Manage Admin</a>
                     </li>                    
                 </ul>
@@ -105,7 +105,7 @@
                 ?>
                 >                 
                 <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'servicemanage')) ?>">
-                    <i class="fa fa-user"></i>
+                    <i class="fa fa-support"></i>
                     <span class="title">Service Management</span>
                     <span class="arrow "></span>
                 </a>
@@ -122,7 +122,7 @@
                 ?>
                 >
                 <a href="javascript:;">
-                    <i class="fa fa-user"></i>
+                    <i class="fa fa-ticket"></i>
                     <span class="title">Ticket Management</span>
                     <span class="arrow "></span>
                 </a>
@@ -149,7 +149,7 @@
                         ?>
                         >
                         <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'manage')) ?>">
-                            <i class="fa fa-pencil"></i>
+                            <i class="fa fa-wrench"></i>
                             Manage</a>
                     </li>
                 </ul>
@@ -165,7 +165,7 @@
                 >
 
                 <a href="javascript:;">
-                    <i class="fa fa-user"></i>
+                    <i class="fa fa-sitemap"></i>
                     <span class="title">Department Manage</span>
                     <span class="arrow "></span>
                 </a>
@@ -180,7 +180,7 @@
                         >
 
                         <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'adddepartment')) ?>">
-                            <i class="fa fa-graduation-cap"></i>
+                            <i class="fa fa-plus"></i>
                             Add Department</a>
                     </li>
                     <li
@@ -212,7 +212,7 @@
                 >
 
                 <a href="javascript:;">
-                    <i class="fa fa-user"></i>
+                    <i class="fa fa-bug"></i>
                     <span class="title">Issues Management</span>
                     <span class="arrow "></span>
                 </a>
@@ -227,7 +227,7 @@
                         >
 
                         <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'addissue')) ?>">
-                            <i class="fa fa-graduation-cap"></i>
+                            <i class="fa fa-plus"></i>
                             Add Issues</a>
                     </li>
                     <li
