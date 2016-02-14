@@ -14,7 +14,9 @@
     <div class="page-content">
         <!-- BEGIN PAGE HEADER-->
         <h3 class="page-title">
-            No contact Order List <small> Contact with customer to confirm </small>
+
+            Manage the tickets <small>You can resolve, unresolve or froward</small>
+
         </h3>
 
         <!-- END PAGE HEADER-->
@@ -25,9 +27,9 @@
                 <div class="portlet box blue">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-phone"></i>No Contact Order
+                            <i class="fa fa-ticket"></i>List of all tickets
                         </div>
-                        <?php echo $this->Session->flash(); ?>
+                        
                         <div class="tools">
                             <a href="javascript:;" class="reload">
                             </a>
@@ -35,7 +37,7 @@
                     </div>
                     <div class="portlet-body">
 
-
+                        <?php echo $this->Session->flash(); ?>
 
                         <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                             <thead>
@@ -84,8 +86,10 @@
                                                         <?php echo $history['fb']['name']; ?>
                                                         &nbsp;&nbsp;<strong>Forwarded To:</strong> <?php echo $history['fi']['name']; ?> <?php echo $history['fd']['name']; ?><br>
                                                         <strong>Time:</strong> <?php echo $history['tr']['created']; ?>
-                                                        <strong>Status:</strong> <?php echo $history['tr']['status']; ?><br>
-                                                        <?php
+
+                                                        &nbsp;&nbsp;<strong>Status:</strong> <?php echo $history['tr']['status']; ?><br>
+                                                         <?php
+
                                                         if (!empty($history['tr']['comment'])):
                                                             echo '<strong>';
                                                             echo 'Comment : ';

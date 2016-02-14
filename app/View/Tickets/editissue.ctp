@@ -16,7 +16,7 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-plus"></i>Edit Issue
+                            <i class="fa fa-pencil"></i>Edit Issue
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="reload">
@@ -46,7 +46,7 @@
                             <?php echo $this->Session->flash(); ?>
 
                             <div class="form-group">
-                                <label class="control-label col-md-3">Select Issue Name
+                                <label class="control-label col-md-3">Select issue:
                                 </label>
                                 <div class="col-md-4">
                                     <?php
@@ -61,7 +61,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-3">New Issue Name<span class="required">
+                                <label class="control-label col-md-3">Enter new name:<span class="required">
                                         * </span>
                                 </label>
                                 <div class="col-md-4">
@@ -80,10 +80,10 @@
                         </div>
                         <div class="form-actions">
                             <div class="row">
-                                <div class="col-md-offset-7 col-md-4">
+                                <div class="col-md-offset-6 col-md-4">
                                     <?php
                                     echo $this->Form->button(
-                                            'Edit', array('class' => 'btn green', 'type' => 'submit')
+                                            'Done', array('class' => 'btn green', 'type' => 'submit')
                                     );
                                     ?>
                                 </div>

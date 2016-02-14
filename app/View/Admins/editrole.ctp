@@ -16,7 +16,7 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-plus"></i>Add new Product
+                            <i class="fa fa-pencil"></i>Edit role
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="reload">
@@ -80,10 +80,10 @@
                         </div>
                         <div class="form-actions">
                             <div class="row">
-                                <div class="col-md-offset-7 col-md-4">
+                                <div class="col-md-offset-6 col-md-4">
                                     <?php
                                     echo $this->Form->button(
-                                            'Add', array('class' => 'btn green', 'type' => 'submit')
+                                            'Done', array('class' => 'btn green', 'type' => 'submit')
                                     );
                                     ?>
                                 </div>
