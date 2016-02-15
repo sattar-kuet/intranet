@@ -161,7 +161,7 @@ class TicketsController extends AppController {
                         left JOIN users fi ON tr.user_id = fi.id
                         left JOIN issues i ON tr.issue_id = i.id
                         left join paid_customers pc on tr.paid_customer_id = pc.id
-                        WHERE tr.role_id =" . $loggedUser['Role']['id'] ." OR tr.user_id =" . $loggedUser['Role']['id'] . " ORDER BY tr.created DESC");
+                        WHERE tr.role_id =" . $loggedUser['Role']['id'] . " OR tr.user_id =" . $loggedUser['Role']['id'] . " ORDER BY tr.created DESC");
         }
         $filteredTicket = array();
         $unique = array();
@@ -170,7 +170,6 @@ class TicketsController extends AppController {
             $t = $ticket['t']['id'];
             if (isset($unique[$t])) {
                 //  echo 'already exist'.$key.'<br/>';
-
                 $temp = array('tr' => $ticket['tr'], 'fb' => $ticket['fb'], 'fd' => $ticket['fd'], 'fi' => $ticket['fi'], 'i' => $ticket['i'], 'pc' => $ticket['pc']);
                 $filteredTicket[$index]['history'][] = $temp;
             } else {
@@ -189,7 +188,6 @@ class TicketsController extends AppController {
         //  pr($roles); exit;
         $this->set(compact('data', 'users', 'roles'));
     }
-
     function forward() {
         $this->loadModel('Track');
         $loggedUser = $this->Auth->user();
@@ -229,7 +227,6 @@ class TicketsController extends AppController {
             }
         }
     }
-
     function editdepartment() {
         $this->loadModel('TicketDepartment');
         if ($this->request->is('post')) {
@@ -248,7 +245,6 @@ class TicketsController extends AppController {
                 $this->Session->setFlash($msg);
             }
         }
-
         $roles = $this->TicketDepartment->find('list', array('order' => array('TicketDepartment.name' => 'ASC')));
         $this->set(compact('TicketDepartment'));
         $this->set(compact('roles'));
@@ -272,7 +268,6 @@ class TicketsController extends AppController {
             }
         }
     }
-
     function editissue() {
         $this->loadModel('Issue');
         if ($this->request->is('post')) {
@@ -291,7 +286,6 @@ class TicketsController extends AppController {
                 $this->Session->setFlash($msg);
             }
         }
-
         $roles = $this->Issue->find('list', array('order' => array('Issue.name' => 'ASC')));
         $this->set(compact('Issue'));
         $this->set(compact('roles'));
