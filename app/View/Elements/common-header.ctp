@@ -12,7 +12,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
         <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-        <link rel="shortcut icon" href="<?php echo $this->webroot; ?>image/tab">
+        <link rel="shortcut icon" href="<?php echo $this->webroot; ?>images/icon-headset-blue.ico">
 
         <?php
         echo $this->Html->css(

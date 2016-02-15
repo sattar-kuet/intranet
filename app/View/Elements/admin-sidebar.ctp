@@ -39,7 +39,7 @@
                 ?>
                 >                 
                 <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'servicemanage')) ?>">
-                    <i class="fa fa-user"></i>
+                    <i class="fa fa-support"></i>
                     <span class="title">Service Management</span>
                     <span class="arrow "></span>
                 </a>
@@ -56,7 +56,7 @@
                 ?>
                 >
                 <a href="javascript:;">
-                    <i class="fa fa-user"></i>
+                    <i class="fa fa-ticket"></i>
                     <span class="title">Ticket Management</span>
                     <span class="arrow "></span>
                 </a>
@@ -83,7 +83,7 @@
                         ?>
                         >
                         <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'manage')) ?>">
-                            <i class="fa fa-pencil"></i>
+                            <i class="fa fa-wrench"></i>
                             Manage</a>
                     </li>
                 </ul>

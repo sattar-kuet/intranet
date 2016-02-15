@@ -142,7 +142,7 @@
                                 
                                 <?php
                                 echo $this->Form->button(
-                                        'DO', array('class' => 'btn blue', 'title' => 'Do this selected action', 'type' => 'submit')
+                                        'Go', array('class' => 'btn blue', 'title' => 'Do this selected action', 'type' => 'submit')
                                 );
                                 ?>
                                 <?php echo $this->Form->end(); ?>
