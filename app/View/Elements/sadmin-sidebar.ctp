@@ -245,6 +245,42 @@
 
                 </ul>
             </li>
+             <li 
+            <?php
+
+            $tickets = array('Ticketsaddmassage',);
+
+            if (in_array($this->name . '' . $this->action, $tickets)):
+                ?>
+                    class="active"
+                    <?php
+                endif;
+                ?>
+                >
+
+                <a href="javascript:;">
+                    <i class="fa fa-envelope"></i>
+                    <span class="title">Massage  Management</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Ticketsaddmassage'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+
+                        <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'addmassage')) ?>">
+                            <i class="fa fa-plus"></i>
+                            Add Massage</a>
+                    </li>
+                    
+
+                </ul>
+            </li>
         </ul>
         <!-- END SIDEBAR MENU -->
     </div>
