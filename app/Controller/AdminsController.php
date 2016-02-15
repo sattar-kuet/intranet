@@ -284,10 +284,13 @@ class AdminsController extends AppController {
 
             $this->set(compact('customer_info','data'));
         }
-        $admin_messages = $this->Message->find('All',array('order' => array('Message.created' => 'ASC')));
-        pr($messages);exit;
+//        $admin_messages = $this->Message->find('all', array('Message.created' => 'ASC'));
+                //$this->Message->find('All',array('order' => array('Message.created' => 'ASC')));
+//        $articles = $this->Article->find('available', array('order' => array('created' => 'desc')));
+        $admin_messages = $this->Message->find('all', array('order' => array('created' =>'asc')));
+//        pr($admin_messages);exit;
         $cells = $this->PaidCustomer->find('list', array('fields' => array('cell', 'cell')));
-        $this->set(compact('cells', 'clicked'));
+        $this->set(compact('cells', 'clicked','admin_messages'));
     }
     function changeservice($id = null) {
         $this->loadModel('PaidCustomer');
