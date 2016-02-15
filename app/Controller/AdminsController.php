@@ -239,6 +239,7 @@ class AdminsController extends AppController {
     function servicemanage($id = null) {
         $this->loadModel('PaidCustomer');
         $this->loadModel('Track');
+        $this->loadModel('Message');
         $clicked = false;
         if ($id) {
             $customer_info = $this->PaidCustomer->find('first', array('conditions' => array('PaidCustomer.id' => $id)));
@@ -283,6 +284,8 @@ class AdminsController extends AppController {
 
             $this->set(compact('customer_info','data'));
         }
+        $admin_messages = $this->Message->find('All',array('order' => array('Message.created' => 'ASC')));
+        //pr($messages);exit;
         $cells = $this->PaidCustomer->find('list', array('fields' => array('cell', 'cell')));
         $this->set(compact('cells', 'clicked'));
     }
