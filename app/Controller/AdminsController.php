@@ -260,6 +260,7 @@ class AdminsController extends AppController {
                         WHERE pc.cell = ". $cell . " ORDER BY tr.created DESC");
            // pr($tickets); exit;
             $filteredTicket = array();
+            $data = array();
         $unique = array();
         $index = 0;
         foreach ($tickets as $key => $ticket) {
