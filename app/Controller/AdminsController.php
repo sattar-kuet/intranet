@@ -258,51 +258,52 @@ class AdminsController extends AppController {
                         left JOIN users fi ON tr.user_id = fi.id
                         left JOIN issues i ON tr.issue_id = i.id
                         left join paid_customers pc on tr.paid_customer_id = pc.id
-                        WHERE pc.cell = ". $cell . " ORDER BY tr.created DESC");
-           // pr($tickets); exit;
+                        WHERE pc.cell = " . $cell . " ORDER BY tr.created DESC");
+            // pr($tickets); exit;
             $filteredTicket = array();
             $data = array();
-        $unique = array();
-        $index = 0;
-        foreach ($tickets as $key => $ticket) {
-            $t = $ticket['t']['id'];
-            if (isset($unique[$t])) {
-                //  echo 'already exist'.$key.'<br/>';
+            $unique = array();
+            $index = 0;
+            foreach ($tickets as $key => $ticket) {
+                $t = $ticket['t']['id'];
+                if (isset($unique[$t])) {
+                    //  echo 'already exist'.$key.'<br/>';
 
-                $temp = array('tr' => $ticket['tr'], 'fb' => $ticket['fb'], 'fd' => $ticket['fd'], 'fi' => $ticket['fi'], 'i' => $ticket['i'], 'pc' => $ticket['pc']);
-                $filteredTicket[$index]['history'][] = $temp;
-            } else {
-                if ($key != 0)
-                    $index++;
-                $unique[$t] = 'set';
-                $filteredTicket[$index]['ticket'] = $ticket['t'];
-                $temp = array('tr' => $ticket['tr'], 'fb' => $ticket['fb'], 'fd' => $ticket['fd'], 'fi' => $ticket['fi'], 'i' => $ticket['i'], 'pc' => $ticket['pc']);
-                $filteredTicket[$index]['history'][] = $temp;
+                    $temp = array('tr' => $ticket['tr'], 'fb' => $ticket['fb'], 'fd' => $ticket['fd'], 'fi' => $ticket['fi'], 'i' => $ticket['i'], 'pc' => $ticket['pc']);
+                    $filteredTicket[$index]['history'][] = $temp;
+                } else {
+                    if ($key != 0)
+                        $index++;
+                    $unique[$t] = 'set';
+                    $filteredTicket[$index]['ticket'] = $ticket['t'];
+                    $temp = array('tr' => $ticket['tr'], 'fb' => $ticket['fb'], 'fd' => $ticket['fd'], 'fi' => $ticket['fi'], 'i' => $ticket['i'], 'pc' => $ticket['pc']);
+                    $filteredTicket[$index]['history'][] = $temp;
+                }
             }
-        }
-        $data = $filteredTicket;
+            $data = $filteredTicket;
 
-            $this->set(compact('customer_info','data'));
+            $this->set(compact('customer_info', 'data'));
         }
-//        $admin_messages = $this->Message->find('all', array('Message.created' => 'ASC'));
-                //$this->Message->find('All',array('order' => array('Message.created' => 'ASC')));
-//        $articles = $this->Article->find('available', array('order' => array('created' => 'desc')));
-        $admin_messages = $this->Message->find('all', array('order' => array('Message.created' =>'DESC')));
-//        pr($admin_messages);exit;
+        $admin_messages = $this->Message->find('all', array('order' => array('Message.created' => 'DESC')));
         $cells = $this->PaidCustomer->find('list', array('fields' => array('cell', 'cell')));
-        $this->set(compact('cells', 'clicked','admin_messages'));
+        $this->set(compact('cells', 'clicked', 'admin_messages'));
     }
+
     function changeservice($id = null) {
         $this->loadModel('PaidCustomer');
         // pr($this->request->data); exit;
         if ($this->request->data['PaidCustomer']['status'] == 'ticket') {
             return $this->redirect('/tickets/create/' . $this->request->data['PaidCustomer']['id']);
         }
+        if ($this->request->data['PaidCustomer']['status'] == 'payment') {
+            return $this->redirect('/transactions/expire_customer/' . $this->request->data['PaidCustomer']['id']);
+        }
         $this->PaidCustomer->id = $this->request->data['PaidCustomer']['id'];
         $this->PaidCustomer->status = $this->request->data['PaidCustomer']['status'];
         $this->PaidCustomer->save($this->request->data['PaidCustomer']);
         return $this->redirect('servicemanage' . DS . $this->request->data['PaidCustomer']['id']);
     }
+
 }
 
 ?>

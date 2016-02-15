@@ -66,13 +66,14 @@ class TransactionsController extends AppController {
         $this->set(compact('clicked'));
     }
 
-    function expire_customer() {
+    function expire_customer($id = null) {
         $this->loadModel('PaidCustomer');
         $clicked = false;
         
-            $datrange = json_decode($this->request->data['paidcustomer']['daterange'], true);
-            $conditions = array('PaidCustomer.package_exp_date >=' => $datrange['start'], 'PaidCustomer.package_exp_date <=' => $datrange['end']);
-            $paidcustomers = $this->PaidCustomer->find('all');
+            //$datrange = json_decode($this->request->data['paidcustomer']['daterange'], true);
+            //$conditions = array('PaidCustomer.package_exp_date >=' => $datrange['start'], 'PaidCustomer.package_exp_date <=' => $datrange['end']);
+            $paidcustomers = $this->PaidCustomer->find('first', array('conditions' => array('PaidCustomer.id' => $id)) );
+            //pr($paidcustomers); exit;
             $clicked = true;
             $this->set(compact('paidcustomers'));
         

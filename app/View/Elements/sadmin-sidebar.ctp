@@ -246,10 +246,12 @@
                 </ul>
             </li> 
             
+            <!--
+       
              <li 
             <?php
 
-            $transactions = array('history', 'process');
+            $transactions = array('Transactionssearch', 'Transactionsexpire_customer');
 
             if (in_array($this->name . '' . $this->action, $transactions)):
                 ?>
@@ -293,6 +295,9 @@
 
                 </ul>
             </li>
+
+    -->
+
              <li 
             <?php
 
@@ -329,6 +334,7 @@
 
                 </ul>
             </li>
+
         </ul>
         <!-- END SIDEBAR MENU -->
     </div>
