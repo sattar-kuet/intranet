@@ -160,9 +160,9 @@
                 </table>
             </div>
         
-        <div class="row">
+<!--        <div class="row">
             <div class="col-md-12">
-                <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                 BEGIN EXAMPLE TABLE PORTLET
                 <div class="portlet box blue">
                     <div class="portlet-title">
                         <div class="caption">
@@ -274,7 +274,7 @@
                                                     <div id="forward_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
 
 
-                                                        <!-- BEGIN FORM-->
+                                                         BEGIN FORM
                                                         <?php
                                                         echo $this->Form->create('Track', array(
                                                             'inputDefaults' => array(
@@ -385,12 +385,12 @@
                                                             </div>
                                                         </div>
                                                         <?php echo $this->Form->end(); ?>
-                                                        <!-- END FORM-->
+                                                         END FORM
                                                     </div>
 
                                                     <div id="solve_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
 
-                                                        <!-- BEGIN FORM-->
+                                                         BEGIN FORM
                                                         <?php
                                                         echo $this->Form->create('Track', array(
                                                             'inputDefaults' => array(
@@ -473,12 +473,12 @@
                                                             </div>
                                                         </div>
                                                         <?php echo $this->Form->end(); ?>
-                                                        <!-- END FORM-->
+                                                         END FORM
                                                     </div> 
 
                                                     <div id="unsolve_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
 
-                                                        <!-- BEGIN FORM-->
+                                                         BEGIN FORM
                                                         <?php
                                                         echo $this->Form->create('Track', array(
                                                             'inputDefaults' => array(
@@ -554,7 +554,7 @@
                                                             </div>
                                                         </div>
                                                         <?php echo $this->Form->end(); ?>
-                                                        <!-- END FORM-->
+                                                         END FORM
                                                     </div> 
 
                                                     <?php
@@ -572,9 +572,9 @@
                         </table>
                     </div>
                 </div>
-                <!-- END EXAMPLE TABLE PORTLET-->
+                 END EXAMPLE TABLE PORTLET
             </div>
-        </div>
+        </div>-->
             <?php
         endif;
         ?>
