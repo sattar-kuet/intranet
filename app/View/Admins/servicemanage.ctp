@@ -109,7 +109,7 @@
                                             <span class="datetime">
                                                 at <?php echo $message['Message']['created']; ?>  </span>
                                             <span class="body">
-                                                <?php echo $message['Message']['massage']; ?> </span>
+                                                <?php echo $message['Message']['message']; ?> </span>
                                         <!--</div>-->
                                     </li>                                    
                                     <?php endforeach ?>
