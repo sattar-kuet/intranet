@@ -290,7 +290,26 @@ class TicketsController extends AppController {
         $this->set(compact('Issue'));
         $this->set(compact('roles'));
     }
-
+ function addmassage() {
+        $this->loadModel('Message');
+        if ($this->request->is('post')) {
+            $this->Message->set($this->request->data);
+            if ($this->Message->validates()) {
+                $loggedUser = $this->Auth->user();
+                $this->request->data['Message']['user_id'] = $loggedUser['id'];
+                $this->Message->save($this->request->data['Message']);
+                $msg = '<div class="alert alert-success">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong>  New Message added </strong>
+			</div>';
+                $this->Session->setFlash($msg);
+                return $this->redirect($this->referer());
+            } else {
+                $msg = $this->generateError($this->Message->validationErrors);
+                $this->Session->setFlash($msg);
+            }
+        }
+    }
 }
 
 ?>
