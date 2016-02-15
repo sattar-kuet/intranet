@@ -244,6 +244,54 @@
                     </li>
 
                 </ul>
+            </li> 
+            
+             <li 
+            <?php
+
+            $transactions = array('history', 'process');
+
+            if (in_array($this->name . '' . $this->action, $transactions)):
+                ?>
+                    class="active"
+                    <?php
+                endif;
+                ?>
+                >
+
+                <a href="javascript:;">
+                    <i class="fa fa-dollar"></i>
+                    <span class="title">Transactions</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Transactionssearch'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+
+                        <a href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'search')) ?>">
+                            <i class="fa fa-history"></i>
+                            History</a>
+                    </li>
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Transactionsexpire_customer'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'expire_customer')) ?>">
+                            <i class="fa fa-money"></i>
+                            Payments </a>
+                    </li>
+
+                </ul>
             </li>
         </ul>
         <!-- END SIDEBAR MENU -->
