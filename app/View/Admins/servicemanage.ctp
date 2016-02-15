@@ -124,7 +124,7 @@
 
         <?php if ($clicked): ?>
 
-<<<<<<< HEAD
+
             <div class="row-fluid">
                 <table cellpadding="0" cellspacing="0" border="0" class="responsive dynamicTable display table table-bordered" width="100%">
                     <thead>
