@@ -54,7 +54,8 @@
                             <tbody>
                                 <?php
                         foreach ($paidcustomers as $single):
-                            $info = $single['PaidCustomer'];
+                            $info = $single;
+//                        pr($single); exit;
                             ?>
                             <tr class="odd gradeX">
                                 <td><?php echo $info['fname']; ?></td>

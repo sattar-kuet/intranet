@@ -292,6 +292,9 @@ class AdminsController extends AppController {
         if ($this->request->data['PaidCustomer']['status'] == 'ticket') {
             return $this->redirect('/tickets/create/' . $this->request->data['PaidCustomer']['id']);
         }
+        if ($this->request->data['PaidCustomer']['status'] == 'payment') {
+            return $this->redirect('/transactions/expire_customer/' . $this->request->data['PaidCustomer']['id']);
+        }
         $this->PaidCustomer->id = $this->request->data['PaidCustomer']['id'];
         $this->PaidCustomer->status = $this->request->data['PaidCustomer']['status'];
         $this->PaidCustomer->save($this->request->data['PaidCustomer']);

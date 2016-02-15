@@ -184,7 +184,7 @@
                                 <?php
                                 echo $this->Form->input('status', array(
                                     'type' => 'select',
-                                    'options' => Array('ticket' => 'Generate Ticket', 'canceled' => 'Cancel', 'continue' => 'Continue', 'hold' => 'Hold', 'reconnect' => 'Reconnect'),
+                                    'options' => Array('ticket' => 'Generate Ticket', 'canceled' => 'Cancel', 'continue' => 'Continue', 'hold' => 'Hold', 'reconnect' => 'Reconnect','payment' => 'Payment' ),
                                     'empty' => 'Select Action',
                                     'class' => 'form-control form-filter input-sm',
                                         )
