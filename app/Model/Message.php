@@ -1,5 +1,9 @@
 <?php
-class Message extends AppModel{
-    
+
+class Message extends AppModel
+{
+
+	
 }
+
 ?>
