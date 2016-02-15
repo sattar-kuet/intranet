@@ -180,16 +180,16 @@ class AdminsController extends AppController {
 
         if ($this->request->is('post') || $this->request->is('put')) {
             $this->User->set($this->request->data);
-            
-                $this->User->id = $id;
-                $this->User->save($this->request->data['User']);
-                $msg = '<div class="alert alert-success">
+
+            $this->User->id = $id;
+            $this->User->save($this->request->data['User']);
+            $msg = '<div class="alert alert-success">
 		<button type="button" class="close" data-dismiss="alert">&times;</button>
 		<strong> Admin updated succeesfully </strong>
 	</div>';
-                $this->Session->setFlash($msg);
-                
-           
+            $this->Session->setFlash($msg);
+
+
             return $this->redirect($this->referer());
         }
         if (!$this->request->data) {
@@ -238,6 +238,7 @@ class AdminsController extends AppController {
 
     function servicemanage($id = null) {
         $this->loadModel('PaidCustomer');
+        $this->loadModel('Track');
         $clicked = false;
         if ($id) {
             $customer_info = $this->PaidCustomer->find('first', array('conditions' => array('PaidCustomer.id' => $id)));
@@ -249,24 +250,52 @@ class AdminsController extends AppController {
             $cell = $this->request->data['PaidCustomer']['cell'];
             $customer_info = $this->PaidCustomer->find('first', array('conditions' => array('PaidCustomer.cell' => $cell)));
             $clicked = true;
-            $this->set(compact('customer_info'));
+            $tickets = $this->Track->query("SELECT * FROM tracks tr
+                        left JOIN tickets t ON tr.ticket_id = t.id
+                        left JOIN users fb ON tr.forwarded_by = fb.id
+                        left JOIN roles fd ON tr.role_id = fd.id
+                        left JOIN users fi ON tr.user_id = fi.id
+                        left JOIN issues i ON tr.issue_id = i.id
+                        left join paid_customers pc on tr.paid_customer_id = pc.id
+                        WHERE pc.cell = ". $cell . " ORDER BY tr.created DESC");
+           // pr($tickets); exit;
+            $filteredTicket = array();
+        $unique = array();
+        $index = 0;
+        foreach ($tickets as $key => $ticket) {
+            $t = $ticket['t']['id'];
+            if (isset($unique[$t])) {
+                //  echo 'already exist'.$key.'<br/>';
+
+                $temp = array('tr' => $ticket['tr'], 'fb' => $ticket['fb'], 'fd' => $ticket['fd'], 'fi' => $ticket['fi'], 'i' => $ticket['i'], 'pc' => $ticket['pc']);
+                $filteredTicket[$index]['history'][] = $temp;
+            } else {
+                if ($key != 0)
+                    $index++;
+                $unique[$t] = 'set';
+                $filteredTicket[$index]['ticket'] = $ticket['t'];
+                $temp = array('tr' => $ticket['tr'], 'fb' => $ticket['fb'], 'fd' => $ticket['fd'], 'fi' => $ticket['fi'], 'i' => $ticket['i'], 'pc' => $ticket['pc']);
+                $filteredTicket[$index]['history'][] = $temp;
+            }
+        }
+        $data = $filteredTicket;
+
+            $this->set(compact('customer_info','data'));
         }
         $cells = $this->PaidCustomer->find('list', array('fields' => array('cell', 'cell')));
         $this->set(compact('cells', 'clicked'));
     }
-
     function changeservice($id = null) {
         $this->loadModel('PaidCustomer');
         // pr($this->request->data); exit;
-        if($this->request->data['PaidCustomer']['status'] =='ticket'){
-            return $this->redirect('/tickets/create/'. $this->request->data['PaidCustomer']['id']);
+        if ($this->request->data['PaidCustomer']['status'] == 'ticket') {
+            return $this->redirect('/tickets/create/' . $this->request->data['PaidCustomer']['id']);
         }
         $this->PaidCustomer->id = $this->request->data['PaidCustomer']['id'];
         $this->PaidCustomer->status = $this->request->data['PaidCustomer']['status'];
         $this->PaidCustomer->save($this->request->data['PaidCustomer']);
         return $this->redirect('servicemanage' . DS . $this->request->data['PaidCustomer']['id']);
     }
-
 }
 
 ?>
