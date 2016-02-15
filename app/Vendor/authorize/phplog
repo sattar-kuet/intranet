@@ -4927,3 +4927,33 @@ Mon, 15 Feb 2016 14:03:16 +0000:Response from AnetApi:
 
 Mon, 15 Feb 2016 14:03:16 +0000: Response De-Serialization Begin
 Mon, 15 Feb 2016 14:03:17 +0000: Response De-Serialization End
+Mon, 15 Feb 2016 14:33:37 +0000: Request Serialization Begin
+Mon, 15 Feb 2016 14:33:38 +0000: Request  Serialization End
+Mon, 15 Feb 2016 14:33:38 +0000: Url: https://apitest.authorize.net/xml/v1/request.api
+Mon, 15 Feb 2016 14:33:38 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[95x9PuD6b2]]></name>
+    <transactionKey><![CDATA[547z56Vcbs3Nz9R9]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1455546817]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>654654</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[4566]]></cardNumber>
+        <expirationDate><![CDATA[02/17]]></expirationDate>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Mon, 15 Feb 2016 14:33:38 +0000:Sending http request via Curl
+Mon, 15 Feb 2016 14:33:42 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1455546817</refId><messages><resultCode>Error</resultCode><message><code>E00027</code><text>The transaction was unsuccessful.</text></message></messages><transactionResponse><responseCode>3</responseCode><authCode /><avsResultCode>P</avsResultCode><cvvResultCode /><cavvResultCode /><transId>0</transId><refTransID /><transHash>8A8C96202F33726A46A77F8A0BD327B9</transHash><testRequest>0</testRequest><accountNumber>XXXX4566</accountNumber><accountType /><errors><error><errorCode>6</errorCode><errorText>The credit card number is invalid.</errorText></error></errors></transactionResponse></createTransactionResponse>
+
+Mon, 15 Feb 2016 14:33:42 +0000: Response De-Serialization Begin
+Mon, 15 Feb 2016 14:33:42 +0000: Response De-Serialization End
