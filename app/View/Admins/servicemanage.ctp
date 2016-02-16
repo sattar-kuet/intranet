@@ -93,7 +93,7 @@
 
                         </div>
                     </div>
-                    <div class="portlet-body" id="chats">
+                    <div class="portlet-body" id="chats" style="overflow-y: scroll; max-height: 300px;"/>
                         <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto;"><div class="scroller" style="overflow: hidden; width: auto;" data-always-visible="1" data-rail-visible1="1" data-initialized="1">
                                 <ul class="chats">
                                     <?php
