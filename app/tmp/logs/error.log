@@ -1702,3 +1702,21 @@ Stack Trace:
 #10 E:\Appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(TicketsController), Object(CakeRequest))
 #11 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #12 {main}
+2016-02-17 16:13:49 Error: [MissingTableException] Table paid_customers for model PaidCustomer was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'paid_customers',
+  'class' => 'PaidCustomer',
+  'ds' => 'default',
+)
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\Server\htdocs\intranet\lib\Cake\Model\Model.php(3644): Model->setSource('paid_customers')
+#1 D:\Server\htdocs\intranet\lib\Cake\Model\Model.php(3022): Model->getDataSource()
+#2 D:\Server\htdocs\intranet\lib\Cake\Model\Model.php(2994): Model->_readDataSource('list', Array)
+#3 D:\Server\htdocs\intranet\app\Controller\AdminsController.php(288): Model->find('list', Array)
+#4 [internal function]: AdminsController->servicemanage()
+#5 D:\Server\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#6 D:\Server\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#7 D:\Server\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#8 D:\Server\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#9 {main}
