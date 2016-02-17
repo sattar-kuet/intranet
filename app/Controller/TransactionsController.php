@@ -130,12 +130,11 @@ class TransactionsController extends AppController {
         $customer_info = $this->PackageCustomer->findById($id);
         $this->tariffplan(); //Call tarrifplan fuction to show packagese
         //FOR CUSTOMER TABLE
-        $this->loadModel('PaidCustomer');
         $clicked = false;
         
             //$datrange = json_decode($this->request->data['paidcustomer']['daterange'], true);
             //$conditions = array('PaidCustomer.package_exp_date >=' => $datrange['start'], 'PaidCustomer.package_exp_date <=' => $datrange['end']);
-            $paidcustomers = $this->PaidCustomer->find('first', array('conditions' => array('PaidCustomer.id' => $id)) );
+            $paidcustomers = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $id)) );
             //pr($paidcustomers); exit;
             $clicked = true;
             $this->set(compact('paidcustomers'));
@@ -143,7 +142,7 @@ class TransactionsController extends AppController {
         $this->set(compact('clicked'));
         //FOR EDIT DATA
         if ($this->request->is('post') || $this->request->is('put')) {
-            //pr($customer_info['PackageCustomer']['id']); exit;
+           pr($this->request->data); exit;
 
             $this->PackageCustomer->id = $customer_info['PackageCustomer']['id'];
             $this->PackageCustomer->save($this->request->data['PackageCustomer']);
