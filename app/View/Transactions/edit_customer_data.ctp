@@ -44,7 +44,7 @@
                                     <th>Package</th>
                                     <th>Total due</th>
                                     <th>Card Exp Date</th>
-                                    <th>Package Exp Date</th>
+                                    <!--<th>Package Exp Date</th>-->
                                     <th>Amount to be charged</th>
                                     <th>Action</th>
                                 </tr>
@@ -57,9 +57,9 @@
                                     ?>
                                     <tr class="odd gradeX"> 
                                         <td><?php echo 'full package'; ?></td>
-                                        <td><?php echo $info['due']; ?></td>
+                                        <td><?php echo $info['charge_amount']; ?></td>
                                         <td><?php echo $info['exp_date']; ?></td>
-                                        <td><?php echo $info['package_exp_date']; ?></td>
+                                        <!--<td><?php echo $info['package_exp_date']; ?></td>-->
                                         <td><div class="form-group">
 
                                                 <?php
