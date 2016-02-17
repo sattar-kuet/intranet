@@ -28,8 +28,8 @@ class PaymentsController extends AppController {
     }
 
     public function process1() {
-       
-        
+
+
         $this->layout = 'ajax';
 //        $this->loadModel('PaidCustomer');
 //        $sql = "SELECT name, transactionkey ,card_no, exp_date FROM paid_customers ";
@@ -211,15 +211,15 @@ class PaymentsController extends AppController {
         $msg .='</ul>';
         $this->set(compact('msg'));
     }
-    
-    public function individual_transaction($id=null) {
-       
-        
+
+    public function individual_transaction($id = null) {
+
+
         $this->layout = 'ajax';
 
         // Common setup for API credentials  
         $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
-         $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
+        $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
         //$merchantAuthentication->setName("42UHbr9Qa9B"); // live mode
         $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
         //$merchantAuthentication->setTransactionKey("6468X36RkrKGm3k6"); // live mode
@@ -227,82 +227,114 @@ class PaymentsController extends AppController {
 
 // Create the payment data for a credit card
         $creditCard = new AnetAPI\CreditCardType();
-        $this->loadModel('PaidCustomer');
+        $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
-        
-        
-        $pcustomers = $this->PaidCustomer->find('first', array('conditions' => array('PaidCustomer.id' => $id)));
-        
-        //pr($pcustomers);
-       //exit;
+        $this->loadModel('Ticket');
+        $this->loadModel('Track');
+
+        $loggedUser = $this->Auth->user();
+        $pcustomers = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $id)));
+//
+//        pr($pcustomers);
+//        exit;
         $msg = '<ul>';
         //foreach ($pcustomers as $pcustomer):
-            $pc = $pcustomers['PaidCustomer'];
-       // pr($pc); exit;
-            $creditCard->setCardNumber($pc['card_no']); // testing
-            $creditCard->setExpirationDate($pc['exp_date']); // testing
-            //     $creditCard->setCardNumber("4117733943147221"); // live
-            //  $creditCard->setExpirationDate("07-2019"); //live
-            $paymentOne = new AnetAPI\PaymentType();
-            $paymentOne->setCreditCard($creditCard);
-            $transactionData['paid_customer_id'] = $pc['id'];
-            //    Bill To
-            $billto = new AnetAPI\CustomerAddressType();
-            $billto->setFirstName($pc['fname']);
-            $billto->setLastName($pc['lname']);
-            // $billto->setCompany("Souveniropolis");
-            //$billto->setAddress("14 Main Street");
-            //$billto->setCity("Pecan Springs");
-            //$billto->setState("TX");
-            $billto->setZip($pc['zip_code']);
-            //$billto->setCountry("USA");
-            // Create a transaction
-            $transactionRequestType = new AnetAPI\TransactionRequestType();
-            $transactionRequestType->setTransactionType("authCaptureTransaction");
-            $transactionRequestType->setAmount($pc['due']);
-            $transactionRequestType->setPayment($paymentOne);
-            $request = new AnetAPI\CreateTransactionRequest();
-            $request->setMerchantAuthentication($merchantAuthentication);
-            $request->setRefId($refId);
-            $request->setTransactionRequest($transactionRequestType);
-            $controller = new AnetController\CreateTransactionController($request);
-               $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX); //Testing
-            //$response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION); // live
-            //  pr($response); exit;
-            $transactionData['error_msg'] = '';
-            $transactionData['status'] = '';
-            $transactionData['trx_id'] = '';
-            $transactionData['auth_code'] = '';
-            if ($response != null) {
-                $tresponse = $response->getTransactionResponse();
-                // pr($tresponse ); exit;
-                if (($tresponse != null) && ($tresponse->getResponseCode() == "1")) {
-                    $transactionData['status'] = 'success';
-                    $transactionData['trx_id'] = $tresponse->getTransId();
-                    $transactionData['auth_code'] = $tresponse->getAuthCode();
-                    $msg .='<li> Transaction for ' . $pc['fname'] . ' ' . $pc['lname'] . ' successfull</li>';
-                } else {
-                    $transactionData['status'] = 'error';
-                    $transactionData['error_msg'] = "Charge Credit Card ERROR :  Invalid response";
-                    $msg .='<li> Transaction for ' . $pc['fname'] . ' ' . $pc['lname'] . ' failed for Charge Credit Card ERROR</li>';
-                }
+        $pc = $pcustomers['PackageCustomer'];
+        // pr($pc); exit;
+        $creditCard->setCardNumber($pc['card_check_no']); // testing
+        $creditCard->setExpirationDate($pc['exp_date']); // testing
+        //     $creditCard->setCardNumber("4117733943147221"); // live
+        //  $creditCard->setExpirationDate("07-2019"); //live
+        $paymentOne = new AnetAPI\PaymentType();
+        $paymentOne->setCreditCard($creditCard);
+        $transactionData['package_customer_id'] = $pc['id'];
+        //    Bill To
+        $billto = new AnetAPI\CustomerAddressType();
+        $billto->setFirstName($pc['first_name']);
+        $billto->setLastName($pc['last_name']);
+        // $billto->setCompany("Souveniropolis");
+        //$billto->setAddress("14 Main Street");
+        //$billto->setCity("Pecan Springs");
+        //$billto->setState("TX");
+        $billto->setZip($pc['zip']);
+        //$billto->setCountry("USA");
+        // Create a transaction
+        $transactionRequestType = new AnetAPI\TransactionRequestType();
+        $transactionRequestType->setTransactionType("authCaptureTransaction");
+        $transactionRequestType->setAmount(1.00); // to do set amount from form
+        $transactionRequestType->setPayment($paymentOne);
+        $request = new AnetAPI\CreateTransactionRequest();
+        $request->setMerchantAuthentication($merchantAuthentication);
+        $request->setRefId($refId);
+        $request->setTransactionRequest($transactionRequestType);
+        $controller = new AnetController\CreateTransactionController($request);
+        $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX); //Testing
+        //$response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION); // live
+        //  pr($response); exit;
+        $transactionData['error_msg'] = '';
+        $transactionData['status'] = '';
+        $transactionData['trx_id'] = '';
+        $transactionData['auth_code'] = '';
+        if ($response != null) {
+            $tresponse = $response->getTransactionResponse();
+            // pr($tresponse ); exit;
+            if (($tresponse != null) && ($tresponse->getResponseCode() == "1")) {
+                $transactionData['status'] = 'success';
+                $transactionData['trx_id'] = $tresponse->getTransId();
+                $transactionData['auth_code'] = $tresponse->getAuthCode();
+                $msg .='<li> Transaction for ' . $pc['first_name'] . ' '.$pc['middle_name'].' '. $pc['last_name'] . ' successfull</li>';
+                $tdata['Ticket'] = array('content' => 'Transaction for ' .  $pc['first_name'] . ' '.$pc['middle_name'].' '. $pc['last_name'] . ' successfull');
+                $tickect = $this->Ticket->save($tdata); // Data save in Ticket
+                $trackData['Track'] = array(
+                    'package_customer_id' => $id,
+                    'ticket_id' => $tickect['Ticket']['id'],
+                    'status' => 'closed',
+                    'forwarded_by' => $loggedUser['id']
+                );
+                $this->Track->save($trackData);
             } else {
                 $transactionData['status'] = 'error';
-                $transactionData['error_msg'] = "Charge Credit card Null response returned";
-                $msg .='<li> Transaction for ' . $pc['fname'] . ' ' . $pc['lname'] . ' failed for Charge Credit card Null response</li>';
+                $transactionData['error_msg'] = "Charge Credit Card ERROR :  Invalid response";
+                $msg .='<li> Transaction for ' .  $pc['first_name'] . ' '.$pc['middle_name'].' '. $pc['last_name'] . ' failed for Charge Credit Card ERROR</li>';
+
+                $tdata['Ticket'] = array('content' => 'Transaction for ' .  $pc['first_name'] . ' '.$pc['middle_name'].' '. $pc['last_name'] . ' failed for Charge Credit Card ERROR');
+                $tickect = $this->Ticket->save($tdata); // Data save in Ticket
+                $trackData['Track'] = array(
+                    'package_customer_id' => $id,
+                    'ticket_id' => $tickect['Ticket']['id'],
+                    'status' => 'open',
+                    'forwarded_by' => $loggedUser['id']
+                );
+                $this->Track->save($trackData);
             }
-            $this->Transaction->create();
-            $this->Transaction->save($transactionData);
-       // endforeach;
+        } else {
+            $transactionData['status'] = 'error';
+            $transactionData['error_msg'] = "Charge Credit card Null response returned";
+            $msg .='<li> Transaction for ' . $pc['first_name'] . ' '.$pc['middle_name'].' '. $pc['last_name'] . ' failed for Charge Credit card Null response</li>';
+
+            $tdata['Ticket'] = array('content' => 'Transaction for ' .  $pc['first_name'] . ' '.$pc['middle_name'].' '. $pc['last_name']  . ' failed for Charge Credit card Null response');
+            $tickect = $this->Ticket->save($tdata); // Data save in Ticket
+            $trackData['Track'] = array(
+                'package_customer_id' => $id,
+                'ticket_id' => $tickect['Ticket']['id'],
+                'status' => 'open',
+                'forwarded_by' => $loggedUser['id']
+            );
+            $this->Track->save($trackData);
+        }
+        $this->Transaction->create();
+        $this->Transaction->save($transactionData);
+        // endforeach;
         //$msg .='</ul>';
         $msg1 = '<div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong>' .$msg. '</strong>
+        <strong>' . $msg . '</strong>
     </div>';
         $this->Session->setFlash($msg1);
         return $this->redirect($this->referer());
         //$this->set(compact('msg'));
     }
+
 }
 
 ?>
