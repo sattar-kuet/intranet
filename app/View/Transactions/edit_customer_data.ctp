@@ -40,7 +40,8 @@
 
                         <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                             <thead>
-                                <tr>                                    
+                                <tr> 
+                                    <th>Package</th>
                                     <th>Total due</th>
                                     <th>Card Exp Date</th>
                                     <th>Package Exp Date</th>
@@ -54,26 +55,28 @@
                                     $info = $single;
 //                        pr($single); exit;
                                     ?>
-                                    <tr class="odd gradeX">                                
+                                    <tr class="odd gradeX"> 
+                                        <td><?php echo 'full package'; ?></td>
                                         <td><?php echo $info['due']; ?></td>
                                         <td><?php echo $info['exp_date']; ?></td>
                                         <td><?php echo $info['package_exp_date']; ?></td>
                                         <td><div class="form-group">
 
+                                                <?php
+                                                echo $this->Form->create('PaidCustomer', array(
+                                                    'inputDefaults' => array(
+                                                        'label' => false,
+                                                        'div' => false
+                                                    ),
+                                                    'id' => 'form-validate',
+                                                    'class' => 'form-horizontal',
+                                                    'novalidate' => 'novalidate',
+                                                    'enctype' => 'multipart/form-data'
+                                                        )
+                                                );
+                                                ?>
                                                 <div class="col-md-9">
                                                     <?php
-                                                    echo $this->Form->create('PackageCustomer', array(
-                                                        'inputDefaults' => array(
-                                                            'label' => false,
-                                                            'div' => false
-                                                        ),
-                                                        'id' => 'form-validate',
-                                                        'class' => 'form-horizontal',
-                                                        'novalidate' => 'novalidate',
-                                                        'enctype' => 'multipart/form-data'
-                                                            )
-                                                    );
-
                                                     echo $this->Form->input('amount', array(
                                                         'type' => 'number',
                                                         'class' => 'form-control input-inline input-medium',
@@ -82,6 +85,7 @@
                                                     );
                                                     ?>
                                                 </div>
+                                                <?php echo $this->Form->end(); ?>
                                             </div></td>
                                         <td>   
                                             <div class="controls center text-center">                                               
@@ -428,90 +432,90 @@
                             <?php
                             if ($isloggedin == true) {
                                 ?>
-                                                                        
-                                                                                            <div class="row">
-                                                                                                <div class="col-md-12 ">
-                                                                                                     BEGIN SAMPLE FORM PORTLET
-                                                                                                    <div class="portlet box"  style=" text-align: center; background-color: black;">
-                                                                                                        <div class="portlet-title">
-                                                                                                            <div class="caption" id="blackcaption" >
-                                                                                                                Package Information
+                                                                                
+                                                                                                    <div class="row">
+                                                                                                        <div class="col-md-12 ">
+                                                                                                             BEGIN SAMPLE FORM PORTLET
+                                                                                                            <div class="portlet box"  style=" text-align: center; background-color: black;">
+                                                                                                                <div class="portlet-title">
+                                                                                                                    <div class="caption" id="blackcaption" >
+                                                                                                                        Package Information
+                                                                                                                    </div>
+                                                                                
+                                                                                                                </div>
                                                                                                             </div>
-                                                                        
                                                                                                         </div>
                                                                                                     </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                        
-                                                                        
-                                                                                            <div class="row">
-                                                                                                <div class="col-md-12">
-                                                                                                    <div class="panel-group accordion" id="accordion1">
-                                                                                                        <div class="panel panel-default">
-                                                                                                            <div class="panel-heading">
-                                                                                                                <h4 class="panel-title">
-                                                                                                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#collapse_1" aria-expanded="false">
-                                                                                                                        Full package </a>
-                                                                                                                </h4>
-                                                                                                            </div>
-                                                                                                            <div id="collapse_1" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
-                                                                                                                <div class="panel-body">
-                                                                                                                    <div class="">
-                                                                                                                        <div class="">
+                                                                                
+                                                                                
+                                                                                                    <div class="row">
+                                                                                                        <div class="col-md-12">
+                                                                                                            <div class="panel-group accordion" id="accordion1">
+                                                                                                                <div class="panel panel-default">
+                                                                                                                    <div class="panel-heading">
+                                                                                                                        <h4 class="panel-title">
+                                                                                                                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#collapse_1" aria-expanded="false">
+                                                                                                                                Full package </a>
+                                                                                                                        </h4>
+                                                                                                                    </div>
+                                                                                                                    <div id="collapse_1" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                                                                                                        <div class="panel-body">
                                                                                                                             <div class="">
-                                                                        
+                                                                                                                                <div class="">
+                                                                                                                                    <div class="">
+                                                                                
                                 <?php
                                 foreach ($packages_full as $package):
                                     echo $package['psettings']['offer'];
                                     $pid = $package['psettings']['id'];
                                     ?>
-                                                                                                                                                                                <input class="PSID" type="hidden" value="<?php echo $pid; ?>">
-                                                                                                                    
-                                                                                                                                                                            </div>
-                                                                                                                                                                        </div>
-                                                                                                                                                                    </div>
+                                                                                                                                                                                                <input class="PSID" type="hidden" value="<?php echo $pid; ?>">
+                                                                                                                                    
+                                                                                                                                                                                            </div>
+                                                                                                                                                                                        </div>
+                                                                                                                                                                                    </div>
                                 <?php endforeach; ?>
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                        
-                                                                        
-                                                                        
-                                                                        
-                                                                                                            <div class="panel panel-default">
-                                                                                                                <div class="panel-heading">
-                                                                                                                    <h4 class="panel-title">
-                                                                                                                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#collapse_2" aria-expanded="false">
-                                                                                                                            NABC special package </a>
-                                                                                                                    </h4>
-                                                                                                                </div>
-                                                                                                                <div id="collapse_2" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
-                                                                                                                    <div class="panel-body">
-                                                                        
-                                                                        
-                                                                        
-                                                                        
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                                                    <div class="panel panel-default">
+                                                                                                                        <div class="panel-heading">
+                                                                                                                            <h4 class="panel-title">
+                                                                                                                                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#collapse_2" aria-expanded="false">
+                                                                                                                                    NABC special package </a>
+                                                                                                                            </h4>
+                                                                                                                        </div>
+                                                                                                                        <div id="collapse_2" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                                                                                                            <div class="panel-body">
+                                                                                
+                                                                                
+                                                                                
+                                                                                
                                 <?php
                                 foreach ($packages_special as $package):
                                     echo $package['psettings']['offer'];
                                     $pid1 = $package['psettings']['id'];
                                     ?>
-                                                                                                                                                                        <input class="PSID" type="hidden" value="<?php echo $pid1; ?>">
-                                                                                                                    
-                                                                                                                                                                    </div>
-                                                                                                                                                                </div>
-                                                                                                                    
+                                                                                                                                                                                        <input class="PSID" type="hidden" value="<?php echo $pid1; ?>">
+                                                                                                                                    
+                                                                                                                                                                                    </div>
+                                                                                                                                                                                </div>
+                                                                                                                                    
                                 <?php endforeach; ?> 
-                                                                        
+                                                                                
+                                                                                                                    </div>
+                                                                                                                </div>
                                                                                                             </div>
-                                                                                                        </div>
+                                                                                
+                                                                                                        </div> 
                                                                                                     </div>
-                                                                        
-                                                                                                </div> 
-                                                                                            </div>
-                                                                        
-                                                                        
-                                                                        
-                                                                                        </div>
+                                                                                
+                                                                                
+                                                                                
+                                                                                                </div>
                                 <?php
                             }
                             ?>
