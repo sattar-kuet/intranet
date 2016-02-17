@@ -1627,3 +1627,78 @@ Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
 Stack Trace:
 #0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
+2016-02-17 13:36:52 Error: [MissingTableException] Table messages for model Message was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'messages',
+  'class' => 'Message',
+  'ds' => 'default',
+)
+Request URL: /intranet/admins/servicemanage/
+Stack Trace:
+#0 D:\Server\htdocs\intranet\lib\Cake\Model\Model.php(3644): Model->setSource('messages')
+#1 D:\Server\htdocs\intranet\lib\Cake\Model\Model.php(3022): Model->getDataSource()
+#2 D:\Server\htdocs\intranet\lib\Cake\Model\Model.php(2994): Model->_readDataSource('all', Array)
+#3 D:\Server\htdocs\intranet\app\Controller\AdminsController.php(287): Model->find('all', Array)
+#4 [internal function]: AdminsController->servicemanage()
+#5 D:\Server\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#6 D:\Server\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#7 D:\Server\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#8 D:\Server\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#9 {main}
+2016-02-17 13:40:39 Error: [MissingTableException] Table messages for model Message was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'messages',
+  'class' => 'Message',
+  'ds' => 'default',
+)
+Request URL: /intranet/admins/servicemanage/
+Stack Trace:
+#0 D:\Server\htdocs\intranet\lib\Cake\Model\Model.php(3644): Model->setSource('messages')
+#1 D:\Server\htdocs\intranet\lib\Cake\Model\Model.php(3022): Model->getDataSource()
+#2 D:\Server\htdocs\intranet\lib\Cake\Model\Model.php(2994): Model->_readDataSource('all', Array)
+#3 D:\Server\htdocs\intranet\app\Controller\AdminsController.php(287): Model->find('all', Array)
+#4 [internal function]: AdminsController->servicemanage()
+#5 D:\Server\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#6 D:\Server\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#7 D:\Server\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#8 D:\Server\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#9 {main}
+2016-02-17 13:41:34 Error: [MissingTableException] Table paid_customers for model PaidCustomer was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'paid_customers',
+  'class' => 'PaidCustomer',
+  'ds' => 'default',
+)
+Request URL: /intranet/admins/servicemanage/
+Stack Trace:
+#0 D:\Server\htdocs\intranet\lib\Cake\Model\Model.php(3644): Model->setSource('paid_customers')
+#1 D:\Server\htdocs\intranet\lib\Cake\Model\Model.php(3022): Model->getDataSource()
+#2 D:\Server\htdocs\intranet\lib\Cake\Model\Model.php(2994): Model->_readDataSource('list', Array)
+#3 D:\Server\htdocs\intranet\app\Controller\AdminsController.php(288): Model->find('list', Array)
+#4 [internal function]: AdminsController->servicemanage()
+#5 D:\Server\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#6 D:\Server\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#7 D:\Server\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#8 D:\Server\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#9 {main}
+2016-02-17 14:39:05 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1049] Unknown database \'totalcableusa\'',
+  'enabled' => true,
+)
+Request URL: /intranet/tickets/manage
+Stack Trace:
+#0 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(260): Mysql->connect()
+#1 E:\Appxampp\htdocs\intranet\lib\Cake\Model\ConnectionManager.php(105): DboSource->__construct(Array)
+#2 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Model.php(3617): ConnectionManager::getDataSource('default')
+#3 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Model.php(1155): Model->setDataSource('default')
+#4 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Model.php(3644): Model->setSource('tracks')
+#5 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Model.php(3446): Model->getDataSource()
+#6 E:\Appxampp\htdocs\intranet\app\Controller\TicketsController.php(155): Model->query('SELECT * FROM t...')
+#7 [internal function]: TicketsController->manage()
+#8 E:\Appxampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(TicketsController), Array)
+#9 E:\Appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 E:\Appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(TicketsController), Object(CakeRequest))
+#11 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
