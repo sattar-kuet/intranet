@@ -128,10 +128,7 @@ class TransactionsController extends AppController {
          $this->loadModel('PackageCustomer');
         $this->loadModel('CustomPackage');
         $customer_info = $this->PackageCustomer->findById($id);
-
-        
         $this->tariffplan(); //Call tarrifplan fuction to show packagese
-
         //FOR CUSTOMER TABLE
         $this->loadModel('PaidCustomer');
         $clicked = false;

@@ -25,7 +25,7 @@
                     <div class="portlet-body form">
                         <!-- BEGIN FORM-->
                         <?php
-                        echo $this->Form->create('PaidCustomer', array(
+                        echo $this->Form->create('PackageCustomer', array(
                             'inputDefaults' => array(
                                 'label' => false,
                                 'div' => false
@@ -146,11 +146,11 @@
                     </thead>
                     <tbody>
                         <?php
-                        $info = $customer_info['PaidCustomer'];
+                        $info = $customer_info['PackageCustomer'];
                         ?>
                         <tr class="odd gradeX">
 
-                            <td><?php echo $info['lname']; ?></td>
+                            <td><?php echo $info['first_name'].' '.$info['middle_name'].' '. $info['last_name']; ?></td>
                             <td><?php echo $info['cell']; ?></td>
                             <td><?php echo $info['psetting_id']; ?></td>
                             <td><?php echo $info['status']; ?></td>
