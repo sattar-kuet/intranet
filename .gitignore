@@ -8,7 +8,7 @@
 /build
 /dist
 /tags
-/tmp
+/app/tmp
 *.mo
 
 # IDE and editor specific files #
