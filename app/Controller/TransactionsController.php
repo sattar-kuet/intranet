@@ -8,7 +8,6 @@ App::uses('HttpSocket', 'Network/Http');
 
 App::uses('AppController', 'Controller');
 
-
 class TransactionsController extends AppController {
 
     var $layout = 'admin';
@@ -55,28 +54,28 @@ class TransactionsController extends AppController {
         $this->loadModel('Transaction');
         ;
         $clicked = false;
-        
-            $datrange = json_decode($this->request->data['Transaction']['daterange'], true);
-            //$conditions = array('Transaction.created >=' => $datrange['start'], 'Transaction.created <=' => $datrange['end']);
-            $transactions = $this->Transaction->find('all');
 
-            $clicked = true;
-            $this->set(compact('transactions'));
-        
+        $datrange = json_decode($this->request->data['Transaction']['daterange'], true);
+        //$conditions = array('Transaction.created >=' => $datrange['start'], 'Transaction.created <=' => $datrange['end']);
+        $transactions = $this->Transaction->find('all');
+
+        $clicked = true;
+        $this->set(compact('transactions'));
+
         $this->set(compact('clicked'));
     }
 
     function expire_customer($id = null) {
         $this->loadModel('PaidCustomer');
         $clicked = false;
-        
-            //$datrange = json_decode($this->request->data['paidcustomer']['daterange'], true);
-            //$conditions = array('PaidCustomer.package_exp_date >=' => $datrange['start'], 'PaidCustomer.package_exp_date <=' => $datrange['end']);
-            $paidcustomers = $this->PaidCustomer->find('first', array('conditions' => array('PaidCustomer.id' => $id)) );
-            //pr($paidcustomers); exit;
-            $clicked = true;
-            $this->set(compact('paidcustomers'));
-        
+
+        //$datrange = json_decode($this->request->data['paidcustomer']['daterange'], true);
+        //$conditions = array('PaidCustomer.package_exp_date >=' => $datrange['start'], 'PaidCustomer.package_exp_date <=' => $datrange['end']);
+        $paidcustomers = $this->PaidCustomer->find('first', array('conditions' => array('PaidCustomer.id' => $id)));
+        //pr($paidcustomers); exit;
+        $clicked = true;
+        $this->set(compact('paidcustomers'));
+
         $this->set(compact('clicked'));
     }
 
@@ -85,7 +84,7 @@ class TransactionsController extends AppController {
         $data_info = $this->Transaction->find('all');
         $this->set(compact('data_info'));
     }
-    
+
     function tariffplan() {
         $this->loadModel('Psetting');
         $this->loadModel('Package');
@@ -122,27 +121,29 @@ class TransactionsController extends AppController {
         // pr($filteredPackage);exit;
         $this->set(compact('filteredPackage'));
     }
-    
-    
+
     function edit_customer_data($id = null) {
-         $this->loadModel('PackageCustomer');
+        $this->loadModel('PackageCustomer');
         $this->loadModel('CustomPackage');
         $customer_info = $this->PackageCustomer->findById($id);
         $this->tariffplan(); //Call tarrifplan fuction to show packagese
         //FOR CUSTOMER TABLE
         $clicked = false;
-        
-            //$datrange = json_decode($this->request->data['paidcustomer']['daterange'], true);
-            //$conditions = array('PaidCustomer.package_exp_date >=' => $datrange['start'], 'PaidCustomer.package_exp_date <=' => $datrange['end']);
-            $paidcustomers = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $id)) );
-            //pr($paidcustomers); exit;
-            $clicked = true;
-            $this->set(compact('paidcustomers'));
-        
+
+        //$datrange = json_decode($this->request->data['paidcustomer']['daterange'], true);
+        //$conditions = array('PaidCustomer.package_exp_date >=' => $datrange['start'], 'PaidCustomer.package_exp_date <=' => $datrange['end']);
+        $paidcustomers = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $id)));
+        //pr($paidcustomers); exit;
+        $clicked = true;
+        $this->set(compact('paidcustomers'));
+
         $this->set(compact('clicked'));
         //FOR EDIT DATA
         if ($this->request->is('post') || $this->request->is('put')) {
-           pr($this->request->data); exit;
+            $dateObj = $this->request->data['PackageCustomer']['exp_date'];
+            $this->request->data['PackageCustomer']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
+           // pr($this->request->data);
+           // exit;
 
             $this->PackageCustomer->id = $customer_info['PackageCustomer']['id'];
             $this->PackageCustomer->save($this->request->data['PackageCustomer']);
