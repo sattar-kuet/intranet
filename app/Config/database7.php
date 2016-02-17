@@ -74,7 +74,7 @@ class DATABASE_CONFIG {
 		'host' => 'localhost',
 		'login' => 'root',
 		'password' => '',
-		'database' => 'totalcable',
+		'database' => 'totalcableusa',
 		'prefix' => '',
 		//'encoding' => 'utf8',
 	);
