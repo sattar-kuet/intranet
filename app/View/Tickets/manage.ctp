@@ -60,7 +60,7 @@
                                         <td><?php echo $issue['i']['name']; ?></td>
                                         <td>
                                             <ul>
-                                                <li> Name: <?php echo $customer['fname'].' '.$customer['lname']; ?> </li> 
+                                                <li> Name: <?php echo $customer['first_name'].' '.$customer['middle_name'].' '.$customer['last_name']; ?> </li> 
                                                 <li> Cell: <?php echo $customer['cell']; ?> </li> 
                                             </ul>
                                         </td>
