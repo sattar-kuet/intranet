@@ -63,7 +63,7 @@
                                         <td><div class="form-group">
 
                                                 <?php
-                                                echo $this->Form->create('PaidCustomer', array(
+                                                echo $this->Form->create('PackageCustomer', array(
                                                     'inputDefaults' => array(
                                                         'label' => false,
                                                         'div' => false
