@@ -290,19 +290,23 @@ class AdminsController extends AppController {
     }
 
     function changeservice($id = null) {
-        $this->loadModel('PaidCustomer');
+        $this->loadModel('PackageCustomer');
         // pr($this->request->data); exit;
-        if ($this->request->data['PaidCustomer']['status'] == 'ticket') {
-            return $this->redirect('/tickets/create/' . $this->request->data['PaidCustomer']['id']);
+        if ($this->request->data['PackageCustomer']['status'] == 'ticket') {
+            return $this->redirect('/tickets/create/' . $this->request->data['PackageCustomer']['id']);
         }
-        if ($this->request->data['PaidCustomer']['status'] == 'payment') {
+        if ($this->request->data['PackageCustomer']['status'] == 'payment') {
             //return $this->redirect('/transactions/expire_customer/' . $this->request->data['PaidCustomer']['id']);
-            return $this->redirect('/transactions/edit_customer_data/' . $this->request->data['PaidCustomer']['id']);
+            return $this->redirect('/transactions/edit_customer_data/' . $this->request->data['PackageCustomer']['id']);
         }
-        $this->PaidCustomer->id = $this->request->data['PaidCustomer']['id'];
-        $this->PaidCustomer->status = $this->request->data['PaidCustomer']['status'];
-        $this->PaidCustomer->save($this->request->data['PaidCustomer']);
-        return $this->redirect('servicemanage' . DS . $this->request->data['PaidCustomer']['id']);
+        
+         if ($this->request->data['PackageCustomer']['status'] == 'history') {
+            return $this->redirect('/tickets/customerhistory/' . $this->request->data['PackageCustomer']['id']);
+        }
+        $this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
+        $this->PackageCustomer->status = $this->request->data['PackageCustomer']['status'];
+        $this->PackageCustomer->save($this->request->data['PackageCustomer']);
+        return $this->redirect('servicemanage' . DS . $this->request->data['PackageCustomer']['id']);
     }
 
 }

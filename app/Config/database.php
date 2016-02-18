@@ -78,7 +78,6 @@ class DATABASE_CONFIG {
 		'prefix' => '',
 		//'encoding' => 'utf8',
 	);
-
 	public $test = array(
 		'datasource' => 'Database/Mysql',
 		'persistent' => false,
