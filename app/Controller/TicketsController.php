@@ -152,7 +152,7 @@ class TicketsController extends AppController {
                         left JOIN roles fd ON tr.role_id = fd.id
                         left JOIN users fi ON tr.user_id = fi.id
                         left JOIN issues i ON tr.issue_id = i.id
-			left join paid_customers pc on tr.paid_customer_id = pc.id order by tr.created DESC");
+			left join package_customers pc on tr.package_customer_id = pc.id order by tr.created DESC");
         } else {
             $tickets = $this->Track->query("SELECT * FROM tracks tr
                         left JOIN tickets t ON tr.ticket_id = t.id
@@ -160,7 +160,7 @@ class TicketsController extends AppController {
                         left JOIN roles fd ON tr.role_id = fd.id
                         left JOIN users fi ON tr.user_id = fi.id
                         left JOIN issues i ON tr.issue_id = i.id
-                        left join paid_customers pc on tr.paid_customer_id = pc.id
+                        left join package_customers pc on tr.package_customer_id = pc.id
                         WHERE tr.role_id =" . $loggedUser['Role']['id'] . " OR tr.user_id =" . $loggedUser['Role']['id'] . " ORDER BY tr.created DESC");
         }
         $filteredTicket = array();

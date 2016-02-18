@@ -159,7 +159,8 @@ echo $this->Html->script(
             'tree',
             'multipleImgUpload',
             'singleImgUpload',
-            'ticket'
+            'ticket',
+            'sum'
         )
 );
 ?>
