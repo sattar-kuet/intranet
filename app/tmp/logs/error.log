@@ -1790,6 +1790,7 @@ Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
 Stack Trace:
 #0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
+<<<<<<< HEAD
 2016-02-18 14:44:03 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tr.package_customer_id' in 'on clause'
 Request URL: /intranet/admins/servicemanage
 Stack Trace:
@@ -1876,20 +1877,33 @@ Stack Trace:
 #11 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #12 {main}
 2016-02-18 16:48:19 Error: [MissingControllerException] Controller class PluginsController could not be found.
+=======
+2016-02-18 17:53:30 Error: [MissingControllerException] Controller class PluginsController could not be found.
+>>>>>>> 36d8419a50dd5fda75053ce918cb7f4271792716
 Exception Attributes: array (
   'class' => 'PluginsController',
   'plugin' => NULL,
 )
 Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
 Stack Trace:
+<<<<<<< HEAD
 #0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
 2016-02-18 16:48:19 Error: [MissingControllerException] Controller class PluginsController could not be found.
+=======
+#0 D:\Server\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-18 17:53:30 Error: [MissingControllerException] Controller class PluginsController could not be found.
+>>>>>>> 36d8419a50dd5fda75053ce918cb7f4271792716
 Exception Attributes: array (
   'class' => 'PluginsController',
   'plugin' => NULL,
 )
 Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
 Stack Trace:
+<<<<<<< HEAD
 #0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+=======
+#0 D:\Server\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+>>>>>>> 36d8419a50dd5fda75053ce918cb7f4271792716
 #1 {main}
