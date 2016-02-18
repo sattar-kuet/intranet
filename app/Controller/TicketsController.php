@@ -43,7 +43,7 @@ class TicketsController extends AppController {
                 $tickect = $this->Ticket->save($this->request->data['Ticket']); // Data save in Ticket
                 $trackData['Track'] = array(
                     'issue_id' => $this->request->data['Ticket']['issue_id'],
-                    'paid_customer_id' => $customer_id,
+                    'package_customer_id' => $customer_id,
                     'user_id' => $this->request->data['Ticket']['user_id'],
                     'role_id' => $this->request->data['Ticket']['role_id'],
                     'issue_id' => $this->request->data['Ticket']['issue_id'],
