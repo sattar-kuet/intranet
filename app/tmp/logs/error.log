@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 2016-02-11 12:06:29 Error: [MissingDatasourceConfigException] The datasource configuration "default" was not found in database.php
 Exception Attributes: array (
   'config' => 'default',
@@ -1918,3 +1919,5 @@ Stack Trace:
 #1 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(TicketsController), Object(CakeRequest))
 #2 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #3 {main}
+=======
+>>>>>>> b8e58160e7bf2661d5147a352238f6e165d88c0b
