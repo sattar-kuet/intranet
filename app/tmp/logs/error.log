@@ -1790,3 +1790,106 @@ Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
 Stack Trace:
 #0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
+2016-02-18 14:44:03 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tr.package_customer_id' in 'on clause'
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT * FROM t...', Array)
+#2 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT * FROM t...', Array, Array)
+#3 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('SELECT * FROM t...')
+#4 [internal function]: DboSource->query('SELECT * FROM t...')
+#5 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Model.php(3447): call_user_func_array(Array, Array)
+#6 E:\Appxampp\htdocs\intranet\app\Controller\AdminsController.php(261): Model->query('SELECT * FROM t...')
+#7 [internal function]: AdminsController->servicemanage()
+#8 E:\Appxampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 E:\Appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 E:\Appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-18 15:07:21 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tr.package_customer_id' in 'on clause'
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT * FROM t...', Array)
+#2 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT * FROM t...', Array, Array)
+#3 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('SELECT * FROM t...')
+#4 [internal function]: DboSource->query('SELECT * FROM t...')
+#5 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Model.php(3447): call_user_func_array(Array, Array)
+#6 E:\Appxampp\htdocs\intranet\app\Controller\AdminsController.php(261): Model->query('SELECT * FROM t...')
+#7 [internal function]: AdminsController->servicemanage()
+#8 E:\Appxampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 E:\Appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 E:\Appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-18 15:07:32 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY tr.created DESC' at line 8
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT * FROM t...', Array)
+#2 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT * FROM t...', Array, Array)
+#3 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('SELECT * FROM t...')
+#4 [internal function]: DboSource->query('SELECT * FROM t...')
+#5 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Model.php(3447): call_user_func_array(Array, Array)
+#6 E:\Appxampp\htdocs\intranet\app\Controller\AdminsController.php(261): Model->query('SELECT * FROM t...')
+#7 [internal function]: AdminsController->servicemanage()
+#8 E:\Appxampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 E:\Appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 E:\Appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-18 16:45:21 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY tr.created DESC' at line 8
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT * FROM t...', Array)
+#2 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT * FROM t...', Array, Array)
+#3 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('SELECT * FROM t...')
+#4 [internal function]: DboSource->query('SELECT * FROM t...')
+#5 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Model.php(3447): call_user_func_array(Array, Array)
+#6 E:\Appxampp\htdocs\intranet\app\Controller\AdminsController.php(261): Model->query('SELECT * FROM t...')
+#7 [internal function]: AdminsController->servicemanage()
+#8 E:\Appxampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 E:\Appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 E:\Appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-18 16:47:59 Error: [MissingTableException] Table users for model User was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'users',
+  'class' => 'User',
+  'ds' => 'default',
+)
+Request URL: /intranet/
+Stack Trace:
+#0 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Model.php(3644): Model->setSource('users')
+#1 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Model.php(1387): Model->getDataSource()
+#2 E:\Appxampp\htdocs\intranet\lib\Cake\View\Helper\FormHelper.php(215): Model->schema()
+#3 E:\Appxampp\htdocs\intranet\lib\Cake\View\Helper\FormHelper.php(468): FormHelper->_introspectModel('User', 'fields')
+#4 E:\Appxampp\htdocs\intranet\app\View\Admins\login.ctp(15): FormHelper->create('User', Array)
+#5 E:\Appxampp\htdocs\intranet\lib\Cake\View\View.php(961): include('E:\\Appxampp\\htd...')
+#6 E:\Appxampp\htdocs\intranet\lib\Cake\View\View.php(923): View->_evaluate('E:\\Appxampp\\htd...', Array)
+#7 E:\Appxampp\htdocs\intranet\lib\Cake\View\View.php(473): View->_render('E:\\Appxampp\\htd...')
+#8 E:\Appxampp\htdocs\intranet\lib\Cake\Controller\Controller.php(960): View->render(NULL, NULL)
+#9 E:\Appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(200): Controller->render()
+#10 E:\Appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-18 16:48:19 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
+Stack Trace:
+#0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-18 16:48:19 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
+Stack Trace:
+#0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
