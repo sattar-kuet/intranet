@@ -1790,3 +1790,21 @@ Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
 Stack Trace:
 #0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
+2016-02-18 17:53:30 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
+Stack Trace:
+#0 D:\Server\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-18 17:53:30 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
+Stack Trace:
+#0 D:\Server\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
