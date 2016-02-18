@@ -212,8 +212,11 @@ class PaymentsController extends AppController {
         $this->set(compact('msg'));
     }
 
-    public function individual_transaction($id = null) {
-
+    public function individual_transaction() {
+        //Get ID and Input amount from edit_customer page
+        $id = $this->request->data['PackageCustomer']['id'];
+        $charged_amount = $this->request->data['PackageCustomer']['amount'];
+        
 
         $this->layout = 'ajax';
 
@@ -234,9 +237,7 @@ class PaymentsController extends AppController {
 
         $loggedUser = $this->Auth->user();
         $pcustomers = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $id)));
-//
-//        pr($pcustomers);
-//        exit;
+        
         $msg = '<ul>';
         //foreach ($pcustomers as $pcustomer):
         $pc = $pcustomers['PackageCustomer'];
@@ -261,7 +262,7 @@ class PaymentsController extends AppController {
         // Create a transaction
         $transactionRequestType = new AnetAPI\TransactionRequestType();
         $transactionRequestType->setTransactionType("authCaptureTransaction");
-        $transactionRequestType->setAmount(1.00); // to do set amount from form
+        $transactionRequestType->setAmount($charged_amount); // to do set amount from form
         $transactionRequestType->setPayment($paymentOne);
         $request = new AnetAPI\CreateTransactionRequest();
         $request->setMerchantAuthentication($merchantAuthentication);
@@ -291,6 +292,13 @@ class PaymentsController extends AppController {
                     'status' => 'closed',
                     'forwarded_by' => $loggedUser['id']
                 );
+                // INCREASE CHARGED AMOUNT IF TRANSACTION IS SUCCESSFUL
+                $this->PackageCustomer->id = $id;
+                $data = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $id)));
+                $present_due['PackageCustomer']['charge_amount'] = (float)$data['PackageCustomer']['charge_amount'] + (float)$charged_amount;
+                $this->PackageCustomer->save($present_due);
+                $this->PackageCustomer->save($this->request->data['PackageCustomer']);
+                //END OF DUE UPDATE
                 $this->Track->save($trackData);
             } else {
                 $transactionData['status'] = 'error';
@@ -304,7 +312,7 @@ class PaymentsController extends AppController {
                     'ticket_id' => $tickect['Ticket']['id'],
                     'status' => 'open',
                     'forwarded_by' => $loggedUser['id']
-                );
+                );              
                 $this->Track->save($trackData);
             }
         } else {

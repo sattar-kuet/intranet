@@ -51,13 +51,18 @@
                             </thead>
                             <tbody>
                                 <?php
-                                foreach ($paidcustomers as $single):
-                                    $info = $single;
-//                        pr($single); exit;
+                                
+                                    $info = $paidcustomers['PackageCustomer'];
+                                
+                                //pr($info);exit;
                                     ?>
                                     <tr class="odd gradeX"> 
-                                        <td><?php echo 'full package'; ?></td>
-                                        <td><?php echo $info['charge_amount']; ?></td>
+                                        <td><?php if($info['custom_package_id']== null){
+                                            echo $packageInfo['p']['name'].' '.$packageInfo['vbpc']['duration'].' Months ('.$packageInfo['vbpc']['amount'].'$)';
+                                        }  else {
+                                            echo 'Custom '.$paidcustomers['CustomPackage']['duration'].' ('.$paidcustomers['CustomPackage']['charge'].'$)';
+                                        }  ?></td>
+                                        <td><?php if($info['custom_package_id']== null){echo (float)$packageInfo['vbpc']['amount']-(float)$info['charge_amount'];} else{(float)$paidcustomers['CustomPackage']['charge']-(float)$info['charge_amount'];}  ?></td>
                                         <td><?php echo $info['exp_date']; ?></td>
                                         <!--<td><?php echo $info['package_exp_date']; ?></td>-->
                                         <td><div class="form-group">
@@ -71,7 +76,16 @@
                                                     'id' => 'form-validate',
                                                     'class' => 'form-horizontal',
                                                     'novalidate' => 'novalidate',
-                                                    'enctype' => 'multipart/form-data'
+                                                    'enctype' => 'multipart/form-data',
+                                                    'url' => array('controller' => 'payments', 'action' => 'individual_transaction')
+                                                        )
+                                                );
+                                                ?>
+
+                                                <?php
+                                                echo $this->Form->input('id', array(
+                                                    'type' => 'hidden',
+                                                    'value' => $info['id']
                                                         )
                                                 );
                                                 ?>
@@ -79,31 +93,29 @@
                                                     <?php
                                                     echo $this->Form->input('amount', array(
                                                         'type' => 'number',
-                                                        'class' => 'form-control input-inline input-medium',
+                                                        'class' => 'form-control input-inline input-medium required',
                                                         'placeholder' => 'Enter Amount'
                                                             )
                                                     );
                                                     ?>
                                                 </div>
-                                                <?php echo $this->Form->end(); ?>
-                                            </div></td>
-                                        <td>   
-                                            <div class="controls center text-center">                                               
-                                                <a onclick="if (confirm( & quot; Are you sure to complete this transaction? & quot)) {
-                                                            return true;
-                                                        }
-                                                        return false;" href="<?php
-                                                   echo Router::url(array('controller' => 'payments', 'action' => 'individual_transaction', $info['id'])
-                                                   )
-                                                   ?>" class="tip"><span class="fa fa-download fa-lg" title="Make transaction for this customer"></span></a>
 
                                             </div>
-
+                                        </td>
+                                        <td>   
+                                            <div class="controls center text-center">                                               
+                                                <?php
+                                                echo $this->Form->button(
+                                                        'Submit Payment', array(
+                                                    'class' => 'btn btn-primary submitbtn',
+                                                    'type' => 'submit',
+                                                ));
+                                                ?>
+                                            </div>
+                                            <?php echo $this->Form->end(); ?>
                                         </td>
                                     </tr>
-                                    <?php
-                                endforeach;
-                                ?>
+                                  <?php ?> 
                             </tbody>
                         </table>
                     </div>
@@ -384,6 +396,30 @@
                                 </div>
                             </div>
                             &nbsp;
+                            <div class="row">
+                                <div class="col-md-12 ">
+
+                                    <div class="col-md-2 signupfont">
+                                        Mac no:
+                                    </div>
+                                    <div class="col-md-10">
+                                        <div class="input-list style-4 clearfix">
+                                            <div>
+                                                <?php
+                                                echo $this->Form->input(
+                                                        'mac', array(
+                                                    'class' => 'required',
+                                                           'placeholder' => 'Use comma (,) to seperate multiple mac'
+                                                        )
+                                                );
+                                                ?> 
+                                            </div>                            
+                                        </div>
+                                    </div> 
+
+                                </div>
+                            </div>
+                            &nbsp;
 
                             <div class="row">
                                 <div class="col-md-12 ">
@@ -432,90 +468,90 @@
                             <?php
                             if ($isloggedin == true) {
                                 ?>
-                                                                                
-                                                                                                    <div class="row">
-                                                                                                        <div class="col-md-12 ">
-                                                                                                             BEGIN SAMPLE FORM PORTLET
-                                                                                                            <div class="portlet box"  style=" text-align: center; background-color: black;">
-                                                                                                                <div class="portlet-title">
-                                                                                                                    <div class="caption" id="blackcaption" >
-                                                                                                                        Package Information
+                                                                                        
+                                                                                                            <div class="row">
+                                                                                                                <div class="col-md-12 ">
+                                                                                                                     BEGIN SAMPLE FORM PORTLET
+                                                                                                                    <div class="portlet box"  style=" text-align: center; background-color: black;">
+                                                                                                                        <div class="portlet-title">
+                                                                                                                            <div class="caption" id="blackcaption" >
+                                                                                                                                Package Information
+                                                                                                                            </div>
+                                                                                        
+                                                                                                                        </div>
                                                                                                                     </div>
-                                                                                
                                                                                                                 </div>
                                                                                                             </div>
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                
-                                                                                
-                                                                                                    <div class="row">
-                                                                                                        <div class="col-md-12">
-                                                                                                            <div class="panel-group accordion" id="accordion1">
-                                                                                                                <div class="panel panel-default">
-                                                                                                                    <div class="panel-heading">
-                                                                                                                        <h4 class="panel-title">
-                                                                                                                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#collapse_1" aria-expanded="false">
-                                                                                                                                Full package </a>
-                                                                                                                        </h4>
-                                                                                                                    </div>
-                                                                                                                    <div id="collapse_1" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
-                                                                                                                        <div class="panel-body">
-                                                                                                                            <div class="">
-                                                                                                                                <div class="">
+                                                                                        
+                                                                                        
+                                                                                                            <div class="row">
+                                                                                                                <div class="col-md-12">
+                                                                                                                    <div class="panel-group accordion" id="accordion1">
+                                                                                                                        <div class="panel panel-default">
+                                                                                                                            <div class="panel-heading">
+                                                                                                                                <h4 class="panel-title">
+                                                                                                                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#collapse_1" aria-expanded="false">
+                                                                                                                                        Full package </a>
+                                                                                                                                </h4>
+                                                                                                                            </div>
+                                                                                                                            <div id="collapse_1" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                                                                                                                <div class="panel-body">
                                                                                                                                     <div class="">
-                                                                                
+                                                                                                                                        <div class="">
+                                                                                                                                            <div class="">
+                                                                                        
                                 <?php
                                 foreach ($packages_full as $package):
                                     echo $package['psettings']['offer'];
                                     $pid = $package['psettings']['id'];
                                     ?>
-                                                                                                                                                                                                <input class="PSID" type="hidden" value="<?php echo $pid; ?>">
-                                                                                                                                    
-                                                                                                                                                                                            </div>
-                                                                                                                                                                                        </div>
-                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                <input class="PSID" type="hidden" value="<?php echo $pid; ?>">
+                                                                                                                                                    
+                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                    </div>
                                 <?php endforeach; ?>
-                                                                                                                        </div>
-                                                                                                                    </div>
-                                                                                
-                                                                                
-                                                                                
-                                                                                
-                                                                                                                    <div class="panel panel-default">
-                                                                                                                        <div class="panel-heading">
-                                                                                                                            <h4 class="panel-title">
-                                                                                                                                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#collapse_2" aria-expanded="false">
-                                                                                                                                    NABC special package </a>
-                                                                                                                            </h4>
-                                                                                                                        </div>
-                                                                                                                        <div id="collapse_2" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
-                                                                                                                            <div class="panel-body">
-                                                                                
-                                                                                
-                                                                                
-                                                                                
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                        
+                                                                                        
+                                                                                        
+                                                                                        
+                                                                                                                            <div class="panel panel-default">
+                                                                                                                                <div class="panel-heading">
+                                                                                                                                    <h4 class="panel-title">
+                                                                                                                                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#collapse_2" aria-expanded="false">
+                                                                                                                                            NABC special package </a>
+                                                                                                                                    </h4>
+                                                                                                                                </div>
+                                                                                                                                <div id="collapse_2" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                                                                                                                    <div class="panel-body">
+                                                                                        
+                                                                                        
+                                                                                        
+                                                                                        
                                 <?php
                                 foreach ($packages_special as $package):
                                     echo $package['psettings']['offer'];
                                     $pid1 = $package['psettings']['id'];
                                     ?>
-                                                                                                                                                                                        <input class="PSID" type="hidden" value="<?php echo $pid1; ?>">
-                                                                                                                                    
-                                                                                                                                                                                    </div>
-                                                                                                                                                                                </div>
-                                                                                                                                    
+                                                                                                                                                                                                        <input class="PSID" type="hidden" value="<?php echo $pid1; ?>">
+                                                                                                                                                    
+                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                </div>
+                                                                                                                                                    
                                 <?php endforeach; ?> 
-                                                                                
+                                                                                        
+                                                                                                                            </div>
+                                                                                                                        </div>
                                                                                                                     </div>
-                                                                                                                </div>
+                                                                                        
+                                                                                                                </div> 
                                                                                                             </div>
-                                                                                
-                                                                                                        </div> 
-                                                                                                    </div>
-                                                                                
-                                                                                
-                                                                                
-                                                                                                </div>
+                                                                                        
+                                                                                        
+                                                                                        
+                                                                                                        </div>
                                 <?php
                             }
                             ?>
@@ -554,9 +590,9 @@
                                                                     $tab = $single['packages'];
                                                                     ?>
                                                                     <li <?php
-                                                                    if (!$n) {
-                                                                        echo 'class="active"';
-                                                                    }
+                                                                if (!$n) {
+                                                                    echo 'class="active"';
+                                                                }
                                                                     ?>><a data-toggle="tab" href="#<?php echo $tab['id']; ?>"><?php echo $tab['name']; ?></a>
 
                                                                     <?php endforeach; ?>
@@ -572,9 +608,9 @@
                                                                 $content = $single['psettings'];
                                                                 ?>
                                                                 <div class="tab-pane <?php
-                                                                if (!$n) {
-                                                                    echo 'active';
-                                                                }
+                                                            if (!$n) {
+                                                                echo 'active';
+                                                            }
                                                                 ?>" id="<?php echo $tab['id']; ?>" >
 
 
@@ -584,17 +620,17 @@
                                                                                 <div class="pricing hover-effect" data-id="<?php echo $package['id'] ?>">
                                                                                     <div id="fariff" class="pricing-head">
                                                                                         <h3><?php
-                                                                                            echo ($package['duration'] == 12) ? '1 Year' : $package['duration'] . ' Month';
-                                                                                            ?>  <span> Billing Package </span></h3>
+                                                                            echo ($package['duration'] == 12) ? '1 Year' : $package['duration'] . ' Month';
+                                                                            ?>  <span> Billing Package </span></h3>
                                                                                         <h4><?php
-                                                                                            if (strtolower($tab['name']) == 'uk') {
-                                                                                                echo '£';
-                                                                                            } else if (strtolower($tab['name']) == 'canada') {
-                                                                                                echo 'c$';
-                                                                                            } else {
-                                                                                                echo '$';
-                                                                                            }
-                                                                                            ?>
+                                                                                    if (strtolower($tab['name']) == 'uk') {
+                                                                                        echo '£';
+                                                                                    } else if (strtolower($tab['name']) == 'canada') {
+                                                                                        echo 'c$';
+                                                                                    } else {
+                                                                                        echo '$';
+                                                                                    }
+                                                                            ?>
                                                                                             <?php echo $package['amount']; ?> <span> For 1st Box </span>
                                                                                         </h4>
                                                                                     </div>
