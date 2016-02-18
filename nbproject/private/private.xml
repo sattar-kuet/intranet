@@ -3,6 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
+            <file>file:/D:/Server/htdocs/intranet/app/Controller/PaymentsController.php</file>
+            <file>file:/D:/Server/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
+            <file>file:/D:/Server/htdocs/intranet/app/Controller/TransactionsController.php</file>
+            <file>file:/D:/Server/htdocs/intranet/app/Controller/TicketsController.php</file>
+            <file>file:/D:/Server/htdocs/intranet/app/Config/database.php</file>
+=======
             <file>file:/E:/Appxampp/htdocs/intranet/app/Model/Message.php</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/View/Elements/sadmin-sidebar.ctp</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/Config/database.php</file>
@@ -13,6 +20,7 @@
             <file>file:/E:/Appxampp/htdocs/intranet/app/Controller/TicketsController.php</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/Controller/AppController.php</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/View/Admins/servicemanage.ctp</file>
+>>>>>>> e59a6ee47712fd3f6b721b987cbddc6ae5986b2a
         </group>
     </open-files>
 </project-private>
