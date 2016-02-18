@@ -180,7 +180,7 @@
                             <?php
                             echo $this->Form->input('status', array(
                                 'type' => 'select',
-                                'options' => Array('ticket' => 'Generate Ticket','payment' => 'Payment'),
+                                'options' => Array('ticket' => 'Generate Ticket','payment' => 'Payment','history' => 'Ticket History'),
                                 'empty' => 'Select Action',
                                 'class' => 'form-control form-filter input-sm',
                                     )
