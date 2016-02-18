@@ -1907,3 +1907,14 @@ Stack Trace:
 #0 D:\Server\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 >>>>>>> 36d8419a50dd5fda75053ce918cb7f4271792716
 #1 {main}
+2016-02-18 19:36:04 Error: [MissingActionException] Action TicketsController::customerhistory() could not be found.
+Exception Attributes: array (
+  'controller' => 'TicketsController',
+  'action' => 'customerhistory',
+)
+Request URL: /intranet/tickets/customerhistory/3
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#1 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(TicketsController), Object(CakeRequest))
+#2 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}

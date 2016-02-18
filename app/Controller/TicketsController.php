@@ -189,7 +189,7 @@ class TicketsController extends AppController {
         $this->set(compact('data', 'users', 'roles'));
     }    
     
-    function customerhistory($id = null) {
+    function customertickethistory($id = null) {
         $this->loadModel('Track');
         $this->loadModel('User');
         $this->loadModel('Role');

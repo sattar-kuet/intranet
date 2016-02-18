@@ -301,7 +301,7 @@ class AdminsController extends AppController {
         }
         
          if ($this->request->data['PackageCustomer']['status'] == 'history') {
-            return $this->redirect('/tickets/customerhistory/' . $this->request->data['PackageCustomer']['id']);
+            return $this->redirect('/tickets/customertickethistory/' . $this->request->data['PackageCustomer']['id']);
         }
         $this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
         $this->PackageCustomer->status = $this->request->data['PackageCustomer']['status'];
