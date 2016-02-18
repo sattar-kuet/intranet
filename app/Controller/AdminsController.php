@@ -299,6 +299,10 @@ class AdminsController extends AppController {
             //return $this->redirect('/transactions/expire_customer/' . $this->request->data['PaidCustomer']['id']);
             return $this->redirect('/transactions/edit_customer_data/' . $this->request->data['PackageCustomer']['id']);
         }
+        
+         if ($this->request->data['PackageCustomer']['status'] == 'history') {
+            return $this->redirect('/tickets/customerhistory/' . $this->request->data['PackageCustomer']['id']);
+        }
         $this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
         $this->PackageCustomer->status = $this->request->data['PackageCustomer']['status'];
         $this->PackageCustomer->save($this->request->data['PackageCustomer']);

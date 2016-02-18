@@ -189,7 +189,67 @@ class TicketsController extends AppController {
         //   pr($data); exit;
         //  pr($roles); exit;
         $this->set(compact('data', 'users', 'roles'));
+    }    
+    
+    function customerhistory($id = null) {
+        $this->loadModel('Track');
+        $this->loadModel('User');
+        $this->loadModel('Role');
+        
+//        $tickets = $this->Track->query("SELECT * FROM tracks tr 
+//                    inner join tickets t on tr.ticket_id = t.id
+//                    inner join users fb on tr.forwarded_by = fb.id
+//                    inner join roles r on  tr.role_id = r.id
+//                    inner join users ft on  tr.user_id = ft.id order by tr.created desc");
+        $loggedUser = $this->Auth->user();
+        if ($loggedUser['Role']['name'] == 'sadmin') {
+            $tickets = $this->Track->query("SELECT * FROM tracks tr
+                        left JOIN tickets t ON tr.ticket_id = t.id
+                        left JOIN users fb ON tr.forwarded_by = fb.id
+                        left JOIN roles fd ON tr.role_id = fd.id
+                        left JOIN users fi ON tr.user_id = fi.id
+                        left JOIN issues i ON tr.issue_id = i.id
+			left join package_customers pc on tr.package_customer_id = pc.id where pc.id = $id order by tr.created DESC");
+//            pr($tickets);
+//        exit;
+        } else {
+            $tickets = $this->Track->query("SELECT * FROM tracks tr
+                        left JOIN tickets t ON tr.ticket_id = t.id
+                        left JOIN users fb ON tr.forwarded_by = fb.id
+                        left JOIN roles fd ON tr.role_id = fd.id
+                        left JOIN users fi ON tr.user_id = fi.id
+                        left JOIN issues i ON tr.issue_id = i.id
+                        left join package_customers pc on tr.package_customer_id = pc.id where pc.id = $id
+                        and tr.role_id =" . $loggedUser['Role']['id'] . " OR tr.user_id =" . $loggedUser['Role']['id'] . " ORDER BY tr.created DESC");
+        }
+//        pr('here');
+//        exit;
+        $filteredTicket = array();
+        $unique = array();
+        $index = 0;
+        foreach ($tickets as $key => $ticket) {
+            $t = $ticket['t']['id'];
+            if (isset($unique[$t])) {
+                //  echo 'already exist'.$key.'<br/>';
+                $temp = array('tr' => $ticket['tr'], 'fb' => $ticket['fb'], 'fd' => $ticket['fd'], 'fi' => $ticket['fi'], 'i' => $ticket['i'], 'pc' => $ticket['pc']);
+                $filteredTicket[$index]['history'][] = $temp;
+            } else {
+                if ($key != 0)
+                    $index++;
+                $unique[$t] = 'set';
+                $filteredTicket[$index]['ticket'] = $ticket['t'];
+                $temp = array('tr' => $ticket['tr'], 'fb' => $ticket['fb'], 'fd' => $ticket['fd'], 'fi' => $ticket['fi'], 'i' => $ticket['i'], 'pc' => $ticket['pc']);
+                $filteredTicket[$index]['history'][] = $temp;
+            }
+        }
+        $data = $filteredTicket;
+        $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
+        $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
+        //   pr($data); exit;
+        //  pr($roles); exit;
+        $this->set(compact('data', 'users', 'roles'));
     }
+    
     function forward() {
         $this->loadModel('Track');
         $loggedUser = $this->Auth->user();
