@@ -4,6 +4,7 @@
  * 
  */
 App::uses('SimplePasswordHasher', 'Controller/Component/Auth');
+App::import('Controller', 'Transactions'); // mention at top
 
 class AdminsController extends AppController {
 
@@ -240,7 +241,13 @@ class AdminsController extends AppController {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Track');
         $this->loadModel('Message');
+        $this->loadModel('CustomPackage');
+        $this->loadModel('Psetting');
+        $this->loadModel('Pakage');
         $clicked = false;
+        
+        
+
         if ($id) {
             $customer_info = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $id)));
             $clicked = true;
@@ -281,8 +288,19 @@ class AdminsController extends AppController {
                 }
             }
             $data = $filteredTicket;
-
-            $this->set(compact('customer_info', 'data'));
+            
+        //FIND PACKAGE DETAILS
+            $cust_id = $customer_info['PackageCustomer']['id'];
+                $sql = "SELECT * 
+            FROM vbpackage_customers vbpc
+            INNER JOIN packages p ON vbpc.package_id = p.id
+            WHERE vbpc.id = $cust_id";
+                $temp_packageInfo = $this->PackageCustomer->query($sql);
+                $packageInfo = $temp_packageInfo[0];
+                //pr($packageInfo); exit;
+                $paidcustomers = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $cust_id)));
+         //END OF PACKAGE DETAILS       
+            $this->set(compact('customer_info', 'data','packageInfo', 'paidcustomers'));
         }
         $admin_messages = $this->Message->find('all', array('order' => array('Message.created' => 'DESC')));
         $cells = $this->PackageCustomer->find('list', array('fields' => array('cell', 'cell')));
