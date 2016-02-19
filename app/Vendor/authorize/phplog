@@ -1,0 +1,27 @@
+
+Fri, 19 Feb 2016 13:50:26 +0000: Request Serialization Begin
+Fri, 19 Feb 2016 13:50:26 +0000: Request  Serialization End
+Fri, 19 Feb 2016 13:50:26 +0000: Url: https://apitest.authorize.net/xml/v1/request.api
+Fri, 19 Feb 2016 13:50:26 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[95x9PuD6b2]]></name>
+    <transactionKey><![CDATA[547z56Vcbs3Nz9R9]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1455889826]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <payment>
+      <creditCard/>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Fri, 19 Feb 2016 13:50:26 +0000:Sending http request via Curl
+Fri, 19 Feb 2016 13:50:29 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The element 'creditCard' in namespace 'AnetApi/xml/v1/schema/AnetApiSchema.xsd' has incomplete content. List of possible elements expected: 'cardNumber' in namespace 'AnetApi/xml/v1/schema/AnetApiSchema.xsd'.</text></message></messages></ErrorResponse>
+
+Fri, 19 Feb 2016 13:50:29 +0000: Response De-Serialization Begin
+Fri, 19 Feb 2016 13:50:29 +0000: Response De-Serialization End
