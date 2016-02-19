@@ -118,7 +118,8 @@
                                                                         'card_username', array(
                                                                     'type' => 'text',
                                                                     'class' => 'form-control input-sm required',
-                                                                    'placeholder' => 'first name'
+                                                                    'placeholder' => 'first name',
+                                                                      
                                                                 ));
                                                                 ?>
                                                             </div>
