@@ -1,5 +1,4 @@
 <?php
-
 /**
  * 
  */
@@ -269,7 +268,6 @@ class TicketsController extends AppController {
         $this->Session->setFlash($msg);
         return $this->redirect($this->referer());
     }
-
     function adddepartment() {
         $this->loadModel('TicketDepartment');
         if ($this->request->is('post')) {
