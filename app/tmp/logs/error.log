@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 2016-02-19 14:00:41 Error: [MissingControllerException] Controller class PluginsController could not be found.
 =======
 <<<<<<< HEAD
@@ -2135,3 +2136,5 @@ Stack Trace:
 #10 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #11 {main}
 >>>>>>> 3aeee7a2006cb5ca7d5eb42510ee0c9caf3558da
+=======
+>>>>>>> 0b9e275df26101735b791dc28bd386d21265e698

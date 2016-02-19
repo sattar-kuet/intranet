@@ -1,5 +1,4 @@
 <?php
-
 /**
  * 
  */
@@ -89,7 +88,7 @@ class TicketsController extends AppController {
     function unsolve() {
         $this->loadModel('Track');
         $this->request->data['Track']['status'] = 'unresolved';
-         $loggedUser = $this->Auth->user();
+        $loggedUser = $this->Auth->user();
         $this->request->data['Track']['forwarded_by'] = $loggedUser['id'];
         $this->Track->save($this->request->data['Track']);
         $msg = '<div class="alert alert-warning">
@@ -189,13 +188,12 @@ class TicketsController extends AppController {
         //   pr($data); exit;
         //  pr($roles); exit;
         $this->set(compact('data', 'users', 'roles'));
-    }    
-    
+    }
+
     function customertickethistory($id = null) {
         $this->loadModel('Track');
         $this->loadModel('User');
         $this->loadModel('Role');
-        
 //        $tickets = $this->Track->query("SELECT * FROM tracks tr 
 //                    inner join tickets t on tr.ticket_id = t.id
 //                    inner join users fb on tr.forwarded_by = fb.id
@@ -249,7 +247,7 @@ class TicketsController extends AppController {
         //  pr($roles); exit;
         $this->set(compact('data', 'users', 'roles'));
     }
-    
+
     function forward() {
         $this->loadModel('Track');
         $loggedUser = $this->Auth->user();
@@ -270,7 +268,6 @@ class TicketsController extends AppController {
         $this->Session->setFlash($msg);
         return $this->redirect($this->referer());
     }
-
     function adddepartment() {
         $this->loadModel('TicketDepartment');
         if ($this->request->is('post')) {
@@ -330,6 +327,7 @@ class TicketsController extends AppController {
             }
         }
     }
+
     function editissue() {
         $this->loadModel('Issue');
         if ($this->request->is('post')) {
@@ -352,7 +350,8 @@ class TicketsController extends AppController {
         $this->set(compact('Issue'));
         $this->set(compact('roles'));
     }
- function addmassage() {
+
+    function addmassage() {
         $this->loadModel('Message');
         if ($this->request->is('post')) {
             $this->Message->set($this->request->data);
@@ -372,6 +371,7 @@ class TicketsController extends AppController {
             }
         }
     }
+
 }
 
 ?>

@@ -1,4 +1,3 @@
-       
 <style type="text/css">
     .alert {
         padding: 6px;
@@ -8,7 +7,6 @@
         text-align: center;
     }
     .txtArea { width:300px; }
-
 </style>
 
 <div class="page-content-wrapper">
@@ -23,110 +21,7 @@
         <div class="row">
             <div class="col-md-12">
                 <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                <div class="portlet box blue">
-                    <div class="portlet-title">
-                        <div class="caption">
-                            <i class="fa fa-list-ul"></i>List of transactions to be processed
-                        </div>
 
-                        <div class="tools">
-                            <a href="javascript:;" class="reload">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="portlet-body">
-
-                        <?php echo $this->Session->flash(); ?>
-
-                        <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
-                            <thead>
-                                <tr> 
-                                    <th>Package</th>
-                                    <th>Total due</th>
-                                    <th>Card Exp Date</th>
-                                    <!--<th>Package Exp Date</th>-->
-                                    <th>Amount to be charged</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                $info = $paidcustomers['PackageCustomer'];
-
-                                //pr($info);exit;
-                                ?>
-                                <tr class="odd gradeX"> 
-                                    <td><?php
-                                        if ($info['custom_package_id'] == null) {
-                                            echo $packageInfo['p']['name'] . ' ' . $packageInfo['vbpc']['duration'] . ' Months (' . $packageInfo['vbpc']['amount'] . '$)';
-                                        } else {
-                                            echo 'Custom ' . $paidcustomers['CustomPackage']['duration'] . ' (' . $paidcustomers['CustomPackage']['charge'] . '$)';
-                                        }
-                                        ?></td>
-                                    <td><?php
-                                        if ($info['custom_package_id'] == null) {
-                                            echo (float) $packageInfo['vbpc']['amount'] - (float) $info['charge_amount'];
-                                        } else {
-                                            (float) $paidcustomers['CustomPackage']['charge'] - (float) $info['charge_amount'];
-                                        }
-                                        ?></td>
-                                    <td><?php echo $info['exp_date']; ?></td>
-                                    <!--<td><?php echo $info['package_exp_date']; ?></td>-->
-                                    <td><div class="form-group">
-
-                                            <?php
-                                            echo $this->Form->create('PackageCustomer', array(
-                                                'inputDefaults' => array(
-                                                    'label' => false,
-                                                    'div' => false
-                                                ),
-                                                'id' => 'form-validate',
-                                                'class' => 'form-horizontal',
-                                                'novalidate' => 'novalidate',
-                                                'enctype' => 'multipart/form-data',
-                                                'url' => array('controller' => 'payments', 'action' => 'individual_transaction')
-                                                    )
-                                            );
-                                            ?>
-
-                                            <?php
-                                            echo $this->Form->input('id', array(
-                                                'type' => 'hidden',
-                                                'value' => $info['id']
-                                                    )
-                                            );
-                                            ?>
-                                            <div class="col-md-9">
-                                                <?php
-                                                echo $this->Form->input('amount', array(
-                                                    'type' => 'number',
-                                                    'class' => 'form-control input-inline input-medium required',
-                                                    'placeholder' => 'Enter Amount'
-                                                        )
-                                                );
-                                                ?>
-                                            </div>
-
-                                        </div>
-                                    </td>
-                                    <td>   
-                                        <div class="controls center text-center">                                               
-                                            <?php
-                                            echo $this->Form->button(
-                                                    'Submit Payment', array(
-                                                'class' => 'btn btn-primary submitbtn',
-                                                'type' => 'submit',
-                                            ));
-                                            ?>
-                                        </div>
-                                <?php echo $this->Form->end(); ?>
-                                    </td>
-                                </tr>
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
                 <!-- END EXAMPLE TABLE PORTLET-->
                 <!-- BEGIN EXAMPLE TABLE PORTLET-->
                 <div class="portlet box blue">
@@ -200,19 +95,19 @@
                                                 <td>
                                                     <div id="option_card">
                                                         <?php
-                                            echo $this->Form->create('PackageCustomer', array(
-                                                'inputDefaults' => array(
-                                                    'label' => false,
-                                                    'div' => false
-                                                ),
-                                                'id' => 'form-validate',
-                                                'class' => 'form-horizontal',
-                                                'novalidate' => 'novalidate',
-                                                'enctype' => 'multipart/form-data',
-                                                'url' => array('controller' => 'payments', 'action' => 'individual_transaction')
-                                                    )
-                                            );
-                                            ?>
+                                                        echo $this->Form->create('PackageCustomer', array(
+                                                            'inputDefaults' => array(
+                                                                'label' => false,
+                                                                'div' => false
+                                                            ),
+                                                            'id' => 'form-validate',
+                                                            'class' => 'form-horizontal',
+                                                            'novalidate' => 'novalidate',
+                                                            'enctype' => 'multipart/form-data',
+                                                            'url' => array('controller' => 'payments', 'action' => 'individual_transaction')
+                                                                )
+                                                        );
+                                                        ?>
                                                         <div class="row">
                                                             <div class="col-md-3 signupfont">
                                                                 Name: 
@@ -359,24 +254,24 @@
 
                                                             </div>
                                                         </div>
-<?php echo $this->Form->end(); ?>
+                                                        <?php echo $this->Form->end(); ?>
                                                     </div>
                                                     &nbsp;
                                                     <div id="option_check">
                                                         <?php
-                                            echo $this->Form->create('PackageCustomer', array(
-                                                'inputDefaults' => array(
-                                                    'label' => false,
-                                                    'div' => false
-                                                ),
-                                                'id' => 'form-validate',
-                                                'class' => 'form-horizontal',
-                                                'novalidate' => 'novalidate',
-                                                'enctype' => 'multipart/form-data',
-                                                'url' => array('controller' => 'payments', 'action' => 'individual_transaction')
-                                                    )
-                                            );
-                                            ?>
+                                                        echo $this->Form->create('PackageCustomer', array(
+                                                            'inputDefaults' => array(
+                                                                'label' => false,
+                                                                'div' => false
+                                                            ),
+                                                            'id' => 'form-validate',
+                                                            'class' => 'form-horizontal',
+                                                            'novalidate' => 'novalidate',
+                                                            'enctype' => 'multipart/form-data',
+                                                            'url' => array('controller' => 'payments', 'action' => 'individual_transaction')
+                                                                )
+                                                        );
+                                                        ?>
                                                         <div class="row">
                                                             <div class="col-md-3 signupfont">
                                                                 Copy of check: 
@@ -439,7 +334,7 @@
                                                             </div>
                                                         </div>
                                                         &nbsp;
-<?php echo $this->Form->end(); ?>
+                                                        <?php echo $this->Form->end(); ?>
                                                         <div class="row">
                                                             <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20"> 
 
@@ -458,20 +353,20 @@
                                                     &nbsp;
                                                     <div id="option_cash">
                                                         <?php
-                                            echo $this->Form->create('PackageCustomer', array(
-                                                'inputDefaults' => array(
-                                                    'label' => false,
-                                                    'div' => false
-                                                ),
-                                                'id' => 'form-validate',
-                                                'class' => 'form-horizontal',
-                                                'novalidate' => 'novalidate',
-                                                'enctype' => 'multipart/form-data',
-                                                'url' => array('controller' => 'payments', 'action' => 'individual_transaction')
-                                                    )
-                                            );
-                                            ?>
-                                                        
+                                                        echo $this->Form->create('PackageCustomer', array(
+                                                            'inputDefaults' => array(
+                                                                'label' => false,
+                                                                'div' => false
+                                                            ),
+                                                            'id' => 'form-validate',
+                                                            'class' => 'form-horizontal',
+                                                            'novalidate' => 'novalidate',
+                                                            'enctype' => 'multipart/form-data',
+                                                            'url' => array('controller' => 'payments', 'action' => 'individual_transaction')
+                                                                )
+                                                        );
+                                                        ?>
+
                                                         <div class="row">
                                                             <div class="col-md-3 signupfont">
                                                                 Charged Amount: 
@@ -516,14 +411,14 @@
 
                                                             </div>
                                                         </div>
-<?php echo $this->Form->end(); ?>
+                                                        <?php echo $this->Form->end(); ?>
                                                     </div>
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -889,7 +784,7 @@
                                                                 }
                                                                 ?>><a data-toggle="tab" href="#<?php echo $tab['id']; ?>"><?php echo $tab['name']; ?></a>
 
-<?php endforeach; ?>
+                                                                <?php endforeach; ?>
                                                             <li><a data-toggle="tab" href="#custom">Custom</a></li>
                                                         </ul>
                                                     </div>
@@ -909,13 +804,13 @@
 
 
                                                                 <div class="panel-body">
-    <?php foreach ($content as $package): ?>
+                                                                    <?php foreach ($content as $package): ?>
                                                                         <div class="col-md-3">
                                                                             <div class="pricing hover-effect" data-id="<?php echo $package['id'] ?>">
                                                                                 <div id="fariff" class="pricing-head">
                                                                                     <h3><?php
-        echo ($package['duration'] == 12) ? '1 Year' : $package['duration'] . ' Month';
-        ?>  <span> Billing Package </span></h3>
+                                                                                        echo ($package['duration'] == 12) ? '1 Year' : $package['duration'] . ' Month';
+                                                                                        ?>  <span> Billing Package </span></h3>
                                                                                     <h4><?php
                                                                                         if (strtolower($tab['name']) == 'uk') {
                                                                                             echo '£';
@@ -925,19 +820,19 @@
                                                                                             echo '$';
                                                                                         }
                                                                                         ?>
-        <?php echo $package['amount']; ?> <span> For 1st Box </span>
+                                                                                        <?php echo $package['amount']; ?> <span> For 1st Box </span>
                                                                                     </h4>
                                                                                 </div>
                                                                                 <ul class="pricing-content list-unstyled">
-        <?php echo $package['offer']; ?>
+                                                                                    <?php echo $package['offer']; ?>
                                                                                 </ul>
 
                                                                             </div>
 
                                                                         </div>
 
-    <?php endforeach;
-    ?>
+                                                                    <?php endforeach;
+                                                                    ?>
                                                                 </div>
 
                                                             </div>
@@ -1025,7 +920,7 @@
 
 
 
-<?php echo $this->Form->end(); ?>  
+                        <?php echo $this->Form->end(); ?>  
 
                     </div>
                 </div>
@@ -1037,7 +932,7 @@
         <div class="row">
             <div class="main">
                 <div class="container">
-<?php echo $this->Session->flash() ?>
+                    <?php echo $this->Session->flash() ?>
                     <div class="col-md-12 col-sm-12" id="block-quicktabs-3">
 
 
@@ -1071,3 +966,5 @@
     </div>
 </div>
 <!-- END CONTENT -->        
+Status API Training Shop Blog About Pricing
+© 2016 GitHub, Inc. Terms Privacy Security Contact Help

@@ -15,7 +15,8 @@ echo $this->Html->script(
         array(
             'admin/ajaxLoad',
             'admin/orderManagement',
-            'admin/menu'
+            'admin/menu',
+            'customerinfo',
             )
 );
 ?>

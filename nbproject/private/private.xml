@@ -4,6 +4,18 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
 <<<<<<< HEAD
+            <file>file:/D:/Server/htdocs/intranet/app/Controller/AdminsController.php</file>
+            <file>file:/D:/Server/htdocs/intranet/app/View/Tickets/manage.ctp</file>
+            <file>file:/D:/Server/htdocs/intranet/app/Controller/PaymentsController.php</file>
+            <file>file:/D:/Server/htdocs/intranet/app/View/Tickets/customerhistory.ctp</file>
+            <file>file:/D:/Server/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
+            <file>file:/D:/Server/htdocs/intranet/app/View/Admins/servicemanage.ctp</file>
+            <file>file:/D:/Server/htdocs/intranet/app/Vendor/authorize/phplog</file>
+            <file>file:/D:/Server/htdocs/intranet/app/Controller/TransactionsController.php</file>
+            <file>file:/D:/Server/htdocs/intranet/app/Controller/TicketsController.php</file>
+            <file>file:/D:/Server/htdocs/intranet/app/Model/PaidCustomer.php</file>
+=======
+<<<<<<< HEAD
             <file>file:/D:/appxampp/htdocs/intranet/app/Controller/PaymentsController.php</file>
             <file>file:/D:/appxampp/htdocs/intranet/app/Controller/TransactionsController.php</file>
             <file>file:/D:/appxampp/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
@@ -20,6 +32,7 @@
             <file>file:/E:/Appxampp/htdocs/intranet/app/Controller/AppController.php</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/View/Admins/servicemanage.ctp</file>
 >>>>>>> 0283d6a67ca374afc7a9c57db525f1139a08824f
+>>>>>>> dafd21cc435a71bf62198797e95e82e34a697069
         </group>
     </open-files>
 </project-private>
