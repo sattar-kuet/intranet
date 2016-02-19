@@ -115,7 +115,7 @@
                                                             <div class="col-md-4">
                                                                 <?php
                                                                 echo $this->Form->input(
-                                                                        'card_username', array(
+                                                                        'fname', array(
                                                                     'type' => 'text',
                                                                     'class' => 'form-control input-sm required',
                                                                     'placeholder' => 'first name',
@@ -126,7 +126,7 @@
                                                             <div class="col-md-5">
                                                                 <?php
                                                                 echo $this->Form->input(
-                                                                        'card_username', array(
+                                                                        'lname', array(
                                                                     'type' => 'text',
                                                                     'class' => 'form-control input-sm required',
                                                                     'placeholder' => 'last name'
@@ -145,7 +145,7 @@
                                                             <div class="col-md-9">
                                                                 <?php
                                                                 echo $this->Form->input(
-                                                                        'card_check_no', array(
+                                                                        'card_no', array(
                                                                     'type' => 'text',
                                                                     'class' => 'form-control input-sm required'
                                                                 ));
@@ -200,7 +200,7 @@
                                                             <div class="col-md-4">
                                                                 <?php
                                                                 echo $this->Form->input(
-                                                                        'address_on_card', array(
+                                                                        'zip_code', array(
                                                                     'type' => 'text',
                                                                     'class' => 'form-control input-sm',
                                                                     'placeholder' => 'zip code'
@@ -211,7 +211,7 @@
                                                             <div class="col-md-5">
                                                                 <?php
                                                                 echo $this->Form->input(
-                                                                        'address_on_card', array(
+                                                                        'address', array(
                                                                     'type' => 'text',
                                                                     'class' => 'form-control input-sm',
                                                                     'placeholder' => 'detail (optional)'
