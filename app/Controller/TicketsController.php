@@ -191,11 +191,10 @@ class TicketsController extends AppController {
         $this->set(compact('data', 'users', 'roles'));
     }
 
-    function customerhistory($id = null) {
+    function customertickethistory($id = null) {
         $this->loadModel('Track');
         $this->loadModel('User');
         $this->loadModel('Role');
-
 //        $tickets = $this->Track->query("SELECT * FROM tracks tr 
 //                    inner join tickets t on tr.ticket_id = t.id
 //                    inner join users fb on tr.forwarded_by = fb.id
@@ -289,7 +288,6 @@ class TicketsController extends AppController {
             }
         }
     }
-
     function editdepartment() {
         $this->loadModel('TicketDepartment');
         if ($this->request->is('post')) {
