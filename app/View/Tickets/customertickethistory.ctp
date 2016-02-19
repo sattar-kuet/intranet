@@ -14,7 +14,7 @@
     <div class="page-content">
         <!-- BEGIN PAGE HEADER-->
         <h3 class="page-title">
-           Individual  customer  tickets history<small></small>
+           Inidvidual  Customer  tickets history<small></small>
         </h3>
 
         <!-- END PAGE HEADER-->
@@ -45,7 +45,7 @@
                                     <th>Open Time</th>
                                     <th>Detail</th>
                                     <th>History</th>
-                                    <!--<th>Action</th>-->
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -102,7 +102,7 @@
                                         </td>
 
 
-<!--                                        <td>   
+                                        <td>   
                                             <div class="controls center text-center">
 
 
@@ -133,7 +133,7 @@
                                                     <div id="forward_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
 
 
-                                                         BEGIN FORM
+                                                         <!--BEGIN FORM-->
                                                         <?php
                                                         echo $this->Form->create('Track', array(
                                                             'inputDefaults' => array(
@@ -432,7 +432,7 @@
 
 
                                             </div>
-                                        </td>-->
+                                        </td>
                                     </tr>
 
                                     <?php

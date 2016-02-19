@@ -3,25 +3,6 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/D:/appxampp/htdocs/intranet/app/Controller/PaymentsController.php</file>
-            <file>file:/D:/appxampp/htdocs/intranet/app/View/Elements/common-footer.ctp</file>
-            <file>file:/D:/appxampp/htdocs/intranet/app/Controller/TransactionsController.php</file>
-            <file>file:/D:/appxampp/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
-=======
-<<<<<<< HEAD
-            <file>file:/D:/xampp/htdocs/intranet/app/Controller/TransactionsController.php</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/Controller/TicketsController.php</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Tickets/manage.ctp</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/Controller/PaymentsController.php</file>
-=======
-<<<<<<< HEAD
-            <file>file:/D:/Server/htdocs/intranet/app/Controller/PaymentsController.php</file>
-            <file>file:/D:/Server/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
-            <file>file:/D:/Server/htdocs/intranet/app/Controller/TransactionsController.php</file>
-            <file>file:/D:/Server/htdocs/intranet/app/Controller/TicketsController.php</file>
-            <file>file:/D:/Server/htdocs/intranet/app/Config/database.php</file>
-=======
             <file>file:/E:/Appxampp/htdocs/intranet/app/Model/Message.php</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/View/Elements/sadmin-sidebar.ctp</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/Config/database.php</file>
@@ -32,9 +13,6 @@
             <file>file:/E:/Appxampp/htdocs/intranet/app/Controller/TicketsController.php</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/Controller/AppController.php</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/View/Admins/servicemanage.ctp</file>
->>>>>>> e59a6ee47712fd3f6b721b987cbddc6ae5986b2a
->>>>>>> fe0924b5cd7291ada9e689ea86721c1d09391be3
->>>>>>> 6c764d33ba2125decf8e84860db39140cadad242
         </group>
     </open-files>
 </project-private>
