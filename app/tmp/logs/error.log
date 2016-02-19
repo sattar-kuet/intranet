@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 2016-02-11 12:06:29 Error: [MissingDatasourceConfigException] The datasource configuration "default" was not found in database.php
 Exception Attributes: array (
   'config' => 'default',
@@ -1957,3 +1958,5 @@ Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
 Stack Trace:
 #0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
+=======
+>>>>>>> 275b320484a596557660d495044ba8689c9960f1

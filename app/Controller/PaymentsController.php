@@ -212,8 +212,12 @@ class PaymentsController extends AppController {
         $this->set(compact('msg'));
     }
 
-    public function individual_transaction() {
+    public function individual_transaction($cid=null) {
         //Get ID and Input amount from edit_customer page
+        $this->loadModel('PackageCustomer');
+        $cinfo = $this->PackageCustomer->findById($cid);
+        pr($cinfo); exit;
+        pr($this->request->data['PackageCustomer']); exit;
         $id = $this->request->data['PackageCustomer']['id'];
         $charged_amount = $this->request->data['PackageCustomer']['amount'];
         
