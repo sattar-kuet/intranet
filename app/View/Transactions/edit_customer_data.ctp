@@ -1000,7 +1000,7 @@
 
                                     <?php
                                     echo $this->Form->button(
-                                            'Done', array(
+                                            'Update', array(
                                         'class' => 'btn btn-primary submitbtn',
                                         'type' => 'submit',
                                         'id' => ''
