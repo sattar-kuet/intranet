@@ -320,7 +320,7 @@ class TicketsController extends AppController {
                 $this->Issue->save($this->request->data['Issue']);
                 $msg = '<div class="alert alert-success">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
-				<strong> Added New Department  </strong>
+				<strong> Added New Issue </strong>
 			</div>';
                 $this->Session->setFlash($msg);
                 return $this->redirect('addissue');
