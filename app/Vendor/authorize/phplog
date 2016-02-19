@@ -729,3 +729,34 @@ Thu, 18 Feb 2016 13:13:28 +0000: Response De-Serialization End
 Thu, 18 Feb 2016 11:13:57 +0000: Response De-Serialization Begin
 Thu, 18 Feb 2016 11:13:57 +0000: Response De-Serialization End
 >>>>>>> 6c764d33ba2125decf8e84860db39140cadad242
+
+Thu, 18 Feb 2016 13:50:34 +0000: Request Serialization Begin
+Thu, 18 Feb 2016 13:50:34 +0000: Request  Serialization End
+Thu, 18 Feb 2016 13:50:34 +0000: Url: https://apitest.authorize.net/xml/v1/request.api
+Thu, 18 Feb 2016 13:50:34 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[95x9PuD6b2]]></name>
+    <transactionKey><![CDATA[547z56Vcbs3Nz9R9]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1455803433]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>10</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1243]]></cardNumber>
+        <expirationDate><![CDATA[09/17]]></expirationDate>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 18 Feb 2016 13:50:34 +0000:Sending http request via Curl
+Thu, 18 Feb 2016 13:50:42 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1455803433</refId><messages><resultCode>Error</resultCode><message><code>E00027</code><text>The transaction was unsuccessful.</text></message></messages><transactionResponse><responseCode>3</responseCode><authCode /><avsResultCode>P</avsResultCode><cvvResultCode /><cavvResultCode /><transId>0</transId><refTransID /><transHash>2A5D032D4809D1AA671CCA324858DF94</transHash><testRequest>0</testRequest><accountNumber>XXXX1243</accountNumber><accountType /><errors><error><errorCode>6</errorCode><errorText>The credit card number is invalid.</errorText></error></errors></transactionResponse></createTransactionResponse>
+
+Thu, 18 Feb 2016 13:50:42 +0000: Response De-Serialization Begin
+Thu, 18 Feb 2016 13:50:42 +0000: Response De-Serialization End
