@@ -1960,3 +1960,81 @@ Stack Trace:
 #1 {main}
 =======
 >>>>>>> 275b320484a596557660d495044ba8689c9960f1
+2016-02-19 21:39:09 Error: Fatal Error (1): Call to a member function query() on a non-object in [D:\xampp\htdocs\intranet\app\Controller\AdminsController.php, line 299]
+2016-02-19 21:39:09 Error: [FatalErrorException] Call to a member function query() on a non-object
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(1, 'Call to a membe...', 'D:\xampp\htdocs...', 299)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', 'D:\xampp\htdocs...', 299, Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', 'D:\xampp\htdocs...', 299, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-02-19 21:40:14 Error: [MissingTableException] Table pakages for model Pakage was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'pakages',
+  'class' => 'Pakage',
+  'ds' => 'default',
+)
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3644): Model->setSource('pakages')
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3446): Model->getDataSource()
+#2 D:\xampp\htdocs\intranet\app\Controller\AdminsController.php(299): Model->query('SELECT * ??    ...')
+#3 [internal function]: AdminsController->servicemanage()
+#4 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#5 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#6 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#7 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#8 {main}
+2016-02-19 21:43:41 Error: [MissingTableException] Table pakages for model Pakage was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'pakages',
+  'class' => 'Pakage',
+  'ds' => 'default',
+)
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3644): Model->setSource('pakages')
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3446): Model->getDataSource()
+#2 D:\xampp\htdocs\intranet\app\Controller\AdminsController.php(295): Model->query('SELECT * FROM p...')
+#3 [internal function]: AdminsController->servicemanage()
+#4 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#5 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#6 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#7 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#8 {main}
+2016-02-19 21:43:58 Error: [MissingTableException] Table pakages for model Pakage was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'pakages',
+  'class' => 'Pakage',
+  'ds' => 'default',
+)
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3644): Model->setSource('pakages')
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3446): Model->getDataSource()
+#2 D:\xampp\htdocs\intranet\app\Controller\AdminsController.php(295): Model->query('SELECT * FROM p...')
+#3 [internal function]: AdminsController->servicemanage()
+#4 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#5 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#6 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#7 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#8 {main}
+2016-02-19 21:48:59 Error: [MissingTableException] Table pakages for model Pakage was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'pakages',
+  'class' => 'Pakage',
+  'ds' => 'default',
+)
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3644): Model->setSource('pakages')
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3446): Model->getDataSource()
+#2 D:\xampp\htdocs\intranet\app\Controller\AdminsController.php(296): Model->query('SELECT * FROM p...')
+#3 [internal function]: AdminsController->servicemanage()
+#4 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#5 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#6 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#7 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#8 {main}

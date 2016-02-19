@@ -243,7 +243,7 @@ class AdminsController extends AppController {
         $this->loadModel('Message');
         $this->loadModel('CustomPackage');
         $this->loadModel('Psetting');
-        $this->loadModel('Pakage');
+        $this->loadModel('Package');
         $clicked = false;
         
         
@@ -291,12 +291,13 @@ class AdminsController extends AppController {
             
         //FIND PACKAGE DETAILS
             $cust_id = $customer_info['PackageCustomer']['id'];
-                $sql = "SELECT * 
-            FROM vbpackage_customers vbpc
-            INNER JOIN packages p ON vbpc.package_id = p.id
-            WHERE vbpc.id = $cust_id";
-                $temp_packageInfo = $this->PackageCustomer->query($sql);
+            
+                $sql = "SELECT * FROM packages p inner join vbpackage_customers vbpc on vbpc.package_id = p.id WHERE vbpc.id = $cust_id";                
+               
+                $temp_packageInfo = $this->Package->query($sql);
+                 
                 $packageInfo = $temp_packageInfo[0];
+                
                 //pr($packageInfo); exit;
                 $paidcustomers = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $cust_id)));
          //END OF PACKAGE DETAILS       
