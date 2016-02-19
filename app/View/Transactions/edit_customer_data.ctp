@@ -121,6 +121,216 @@
                     </div>
                 </div>
                 <!-- END EXAMPLE TABLE PORTLET-->
+                <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                <div class="portlet box blue">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-list-ul"></i>List of transactions to be processed
+                        </div>
+
+                        <div class="tools">
+                            <a href="javascript:;" class="reload">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="row">
+                                <div class="col-md-12 ">
+                                    <!-- BEGIN SAMPLE FORM PORTLET-->
+                                    <div class="portlet box"  style=" text-align: center; background-color: black;">
+                                        <div class="portlet-title">
+                                            <div class="caption" id="blackcaption" >
+                                                Payment
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th class="tablehead">
+                                                        PAYMENT METHOD
+                                                    </th>
+                                                    <th>
+
+                                                    </th>
+                                                    <th class="tablehead">
+                                                        CARD/CHECK INFORMATION
+                                                    </th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="signupfont" style="min-width: 200px;">
+                                                        <div class="form-group" style="margin-left: 0px;">
+                                                            <div class="">
+                                                                <label><input id="sig1" type="radio" value="CARD (DEBIT/CREDIT)" name="data[PackageCustomer][payment_type]">CARD (DEBIT/CREDIT)</label>
+                                                            </div>
+                                                            <div class="">
+                                                                <label><input id="sig1" type="radio" value="PERSONAL CHECK" name="data[PackageCustomer][payment_type]">PERSONAL CHECK</label>
+                                                            </div>
+                                                            <div class="">
+                                                                <label><input id="sig1" type="radio" value="CERTIFIED CHECK" name="data[PackageCustomer][payment_type]">CERTIFIED CHECK</label>
+                                                            </div>
+                                                            <div class="">
+                                                                <label><input id="sig2" type="radio" value="MONEY ORDER" name="data[PackageCustomer][payment_type]">MONEY ORDER</label>
+                                                            </div>
+
+                                                        </div>
+
+
+                                                    </td>
+                                                    <td>
+
+                                                    </td>
+                                                    <td>
+                                                        <div class="row">
+                                                            <div class="col-md-8 col-md-offset-3">
+                                                                <div class="form-group" style="margin-left: 0px;">
+
+                                                                    <div class="radio-list">
+                                                                        <label style="padding-top: 0px;" class="radio-inline"><input type="radio" value="VISA" name="data[PackageCustomer][card_type]">VISA</label>
+                                                                        <label style="padding-top: 0px;" class="radio-inline"><input type="radio" value="MASTER Card" name="data[PackageCustomer][card_type]">MASTER Card </label>
+                                                                        <label style="padding-top: 0px;" class="radio-inline"><input type="radio" value="MASTER Card" name="data[PackageCustomer][card_type]">BANK </label>
+                                                                    </div>
+                                                                </div>     
+
+                                                            </div>
+
+                                                        </div>
+
+
+
+                                                        <div class="row">
+                                                            <div class="col-md-3 signupfont">
+                                                                Name: 
+                                                            </div>
+                                                            <div class="col-md-9">
+                                                                <?php
+                                                                echo $this->Form->input(
+                                                                        'card_username', array(
+                                                                    'type' => 'text',
+                                                                    'class' => 'form-control input-sm required'
+                                                                ));
+                                                                ?>
+                                                            </div>
+
+                                                        </div>
+
+                                                        &nbsp;
+
+                                                        <div class="row">
+                                                            <div class="col-md-3 signupfont" style="padding-right: 0px;">
+                                                                Card/Check No: 
+                                                            </div>
+                                                            <div class="col-md-9">
+                                                                <?php
+                                                                echo $this->Form->input(
+                                                                        'card_check_no', array(
+                                                                    'type' => 'text',
+                                                                    'class' => 'form-control input-sm required'
+                                                                ));
+                                                                ?>
+                                                            </div>
+
+                                                        </div>
+
+                                                        &nbsp;
+
+                                                        <div class="row">
+                                                            <div class="col-md-3 signupfont">
+                                                                Exp. Date:
+                                                            </div>
+                                                            <div class="col-md-9">
+                                                                <div>
+                                                                    <?php
+                                                                    echo $this->Form->input(
+                                                                            'exp_date', array(
+                                                                        'type' => 'date',
+                                                                    ));
+                                                                    ?>
+                                                                </div>
+                                                                <!--   exp_date     -->
+                                                            </div>
+
+                                                        </div>
+
+                                                        &nbsp;
+                                                        <div class="row">
+                                                            <div class="col-md-3 signupfont">
+                                                                CVV Code: 
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <?php
+                                                                echo $this->Form->input(
+                                                                        'cvv_code', array(
+                                                                    'type' => 'text',
+                                                                    'class' => 'form-control input-sm required'
+                                                                ));
+                                                                ?>
+                                                            </div>
+                                                            <div class="col-md-3 signupfont">
+                                                                Charged Amount: 
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <?php
+                                                                echo $this->Form->input(
+                                                                        'charge_amount', array(
+                                                                    'class' => 'form-control input-sm total',
+                                                                    'type' => 'text',
+                                                                        )
+                                                                );
+                                                                ?>
+                                                            </div>
+                                                        </div>
+                                                        &nbsp;
+                                                        <div class="row">
+                                                            <div class="col-md-3 signupfont">
+                                                                Address on Card: 
+                                                            </div>
+                                                            <div class="col-md-9">
+                                                                <?php
+                                                                echo $this->Form->input(
+                                                                        'address_on_card', array(
+                                                                    'type' => 'text',
+                                                                    'class' => 'form-control input-sm'
+                                                                ));
+                                                                ?>
+                                                            </div>
+                                                        </div>
+                                                        &nbsp;
+                                                        <div class="row">
+                                                            <div class="col-md-10 col-md-offset-3">
+                                                                <input type="checkbox" name="data[PackageCustomer][same_address]" value="YES" id="PostPublished" /> <span class="signupfont">SAME AS BILLING ADDRESS </span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </div>
+                <!-- END EXAMPLE TABLE PORTLET-->
             </div>
         </div>
 
