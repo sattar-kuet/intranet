@@ -30,7 +30,7 @@
 
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-list-ul"></i>Payment processed
+                            <i class="fa fa-list-ul"></i>Payment process
                         </div>
 
                         <div class="tools">
@@ -647,7 +647,7 @@
                 <div class="portlet box blue">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-list-ul"></i>List of transactions to be processed
+                            <i class="fa fa-list-ul"></i>Customer Information
                         </div>
 
                         <div class="tools">
@@ -670,9 +670,9 @@
                                 )
                         );
                         ?>
-                        <div class="row">
+<!--                        <div class="row">
                             <div class="col-md-12 ">
-                                <!-- BEGIN SAMPLE FORM PORTLET-->
+                                 BEGIN SAMPLE FORM PORTLET
                                 <div class="portlet box"  style=" text-align: center; background-color: black;">
                                     <div class="portlet-title">
                                         <div class="caption" id="blackcaption" >
@@ -682,7 +682,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="row">
                             <div class="col-md-12 ">
 
@@ -1024,12 +1024,12 @@
                             <div class="col-md-12">
                                 <div class="panel-group accordion" id="accordion1">
                                     <div class="panel panel-default">
-                                        <div class="panel-heading">
+<!--                                        <div class="panel-heading">
                                             <h4 class="panel-title">
                                                 <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#collapse_1" aria-expanded="false">
                                                     <span style="font-weight: 700;">Select a package </span><span class="text-danger">(required)</span> </a>
                                             </h4>
-                                        </div>
+                                        </div>-->
                                         <div id="collapse_1" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
                                             <div class="panel-body">
 

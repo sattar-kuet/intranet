@@ -118,10 +118,8 @@ class TransactionsController extends AppController {
                 }
             }
         }
-        // pr($filteredPackage);exit;
         $this->set(compact('filteredPackage'));
     }
-
     function edit_customer_data($id = null) {
         if ($this->request->is('post') || $this->request->is('put')) {
             $dateObj = $this->request->data['PackageCustomer']['exp_date'];
@@ -133,7 +131,6 @@ class TransactionsController extends AppController {
             <strong> Customer information updated successfully </strong>
             </div>';
             $this->Session->setFlash($msg);
-            //return $this->redirect('manage_user');
         } else {
             $this->loadModel('PackageCustomer');
             $customer_info = $this->PackageCustomer->findById($id);
