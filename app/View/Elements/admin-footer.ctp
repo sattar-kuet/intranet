@@ -16,7 +16,15 @@ echo $this->Html->script(
             'admin/ajaxLoad',
             'admin/orderManagement',
             'admin/menu',
-            'customerinfo',
+            
+            //div view by payment category
+            'customerinfo',     
+            
+            // datepicker range            
+            '/jquery-ui-daterangepicker-0.4.3/jquery-ui',
+            '/jquery-ui-daterangepicker-0.4.3/moment.min',
+            '/jquery-ui-daterangepicker-0.4.3/jquery.comiseo.daterangepicker'
+            
             )
 );
 ?>

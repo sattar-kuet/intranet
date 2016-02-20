@@ -170,6 +170,19 @@ class TransactionsController extends AppController {
             $this->request->data = $customer_info;
         }
     }
+    
+    function payment_history() {
+        $this->loadModel('Transaction');
+        $clicked = false;
+        if ($this->request->is('post') || $this->request->is('put')) {
+            $datrange = json_decode($this->request->data['paidcustomer']['daterange'], true);
+            $conditions = array('PaidCustomer.package_exp_date >=' => $datrange['start'], 'PaidCustomer.package_exp_date <=' => $datrange['end']);
+            $paidcustomers = $this->PaidCustomer->find('all', array('conditions' => $conditions));
+            $clicked = true;
+            $this->set(compact('paidcustomers'));
+        }
+        $this->set(compact('clicked'));
+    }
 
 }
 

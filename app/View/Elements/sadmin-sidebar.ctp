@@ -110,6 +110,25 @@
                     <span class="arrow "></span>
                 </a>
             </li>
+            
+             <li 
+            <?php
+
+            $payment = array('paymenthistory');
+            if (in_array($this->name . '' . $this->action, $payment)):
+                ?>
+                    class="active"
+                    <?php
+                endif;
+                ?>
+                >                 
+                <a href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'payment_history')) ?>">
+                    <i class="fa fa-support"></i>
+                    <span class="title">Payment History</span>
+                    <span class="arrow "></span>
+                </a>
+            </li>
+            
             <li 
             <?php
 
