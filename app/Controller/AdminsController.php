@@ -244,6 +244,7 @@ class AdminsController extends AppController {
         $this->loadModel('CustomPackage');
         $this->loadModel('Psetting');
         $this->loadModel('Package');
+        $clicked = false;
         if ($id) {
             $customer_info = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $id)));
             $clicked = true;
