@@ -123,9 +123,12 @@ class TransactionsController extends AppController {
     }
 
     function edit_customer_data($id = null) {
+//        pr($this->request->data);
+//        exit;
         $this->loadModel('PackageCustomer');
         $this->loadModel('CustomPackage');
         $this->loadModel('Psetting');
+
         $this->loadModel('Package');
 
 //         pr($this->request->data);exit;
@@ -180,6 +183,25 @@ class TransactionsController extends AppController {
         pr($data);
         exit;
 
+        $this->loadModel('Pakage');
+        $customer_info = $this->PackageCustomer->findById($id);
+        $this->tariffplan(); //Call tarrifplan fuction to show packagese
+        //FIND PACKAGE DETAILS
+        
+        
+        $sql = "SELECT * 
+            FROM vbpackage_customers vbpc
+            INNER JOIN packages p ON vbpc.package_id = p.id
+            WHERE vbpc.id = $id ";
+        $temp_packageInfo = $this->PackageCustomer->query($sql);
+        //pr($temp_packageInfo); exit;
+        $packageInfo = array();
+        if (array_key_exists(0, $temp_packageInfo)) {
+            $packageInfo = $temp_packageInfo[0];
+        }
+        $clicked = false;
+        $paidcustomers = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $id)));
+        //pr($paidcustomers); exit;
 
         $clicked = true;
         $this->set(compact('paidcustomers', 'packageInfo'));

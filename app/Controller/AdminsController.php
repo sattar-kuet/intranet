@@ -292,7 +292,7 @@ class AdminsController extends AppController {
             $data = $filteredTicket;
 
             //FIND PACKAGE DETAILS
-            // $cust_id = $customer_info['PackageCustomer']['id'];
+
             $sql = "SELECT * FROM package_customers "
                     . "LEFT JOIN psettings ON package_customers.psetting_id = psettings.id"
                     . " LEFT JOIN packages ON psettings.package_id = packages.id"
@@ -303,22 +303,22 @@ class AdminsController extends AppController {
             $data = array();
             if (array_key_exists(0, $temp))
                 $data = $temp[0];
+            $customer = $data['package_customers'];
+            $package = array();
+            if (isset($data['packages']['id'])) {
+                $psetting = $data['psettings'];
+                $data['packages']['duration'] = $psetting['duration'];
+                $data['packages']['charge'] = $psetting['amount'];
+                $package = $data['packages'];
+            } else {
+                $data['custom_packages']['name'] = 'Custom';
+                $package = $data['custom_packages'];
+            }
+            $data = array();
+            $data['customer'] = $customer;
+            $data['package'] = $package;
+            $this->set(compact('data'));
         }
-        $customer = $data['package_customers'];
-        $package = array();
-        if (isset($data['packages']['id'])) {
-            $psetting = $data['psettings'];
-            $data['packages']['duration'] = $psetting['duration'];
-            $data['packages']['charge'] = $psetting['amount'];
-            $package = $data['packages'];
-        } else {
-            $data['custom_packages']['name'] = 'Custom';
-            $package = $data['custom_packages'];
-        }
-        $data = array();
-        $data['customer'] = $customer;
-        $data['package'] = $package;
-        $this->set(compact('data'));
         $admin_messages = $this->Message->find('all', array('order' => array('Message.created' => 'DESC')));
         $cells = $this->PackageCustomer->find('list', array('fields' => array('cell', 'cell')));
         $this->set(compact('cells', 'clicked', 'admin_messages'));
