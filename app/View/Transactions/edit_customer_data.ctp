@@ -15,7 +15,9 @@
         <h3 class="page-title">
             Complete the transactions <small>(individually)</small>
         </h3>
-
+      
+      <?php echo $this->Session->flash(); ?>
+       
         <!-- END PAGE HEADER-->
         <!-- BEGIN PAGE CONTENT-->
         <div class="row">
@@ -95,7 +97,7 @@
                                                 <td>
                                                     <div id="option_card">
                                                         <?php
-                                                        echo $this->Form->create('PackageCustomer', array(
+                                                        echo $this->Form->create('Transaction', array(
                                                             'inputDefaults' => array(
                                                                 'label' => false,
                                                                 'div' => false
@@ -107,6 +109,14 @@
                                                             'url' => array('controller' => 'payments', 'action' => 'individual_transaction')
                                                                 )
                                                         );
+                                                        ?>
+
+                                                        <?php
+                                                        echo $this->Form->input(
+                                                                'cid', array(
+                                                            'type' => 'hidden',
+                                                            'value' => $this->params['pass'][0]
+                                                        ));
                                                         ?>
                                                         <div class="row">
                                                             <div class="col-md-3 signupfont">
@@ -232,7 +242,7 @@
                                                             <div class="col-md-9">
                                                                 <?php
                                                                 echo $this->Form->input(
-                                                                        'charge_amount', array(
+                                                                        'paid_amount', array(
                                                                     'type' => 'number',
                                                                     'class' => 'form-control input-sm required'
                                                                 ));
@@ -259,7 +269,7 @@
                                                     &nbsp;
                                                     <div id="option_check">
                                                         <?php
-                                                        echo $this->Form->create('PackageCustomer', array(
+                                                        echo $this->Form->create('Transaction', array(
                                                             'inputDefaults' => array(
                                                                 'label' => false,
                                                                 'div' => false
@@ -353,7 +363,7 @@
                                                     &nbsp;
                                                     <div id="option_cash">
                                                         <?php
-                                                        echo $this->Form->create('PackageCustomer', array(
+                                                        echo $this->Form->create('Transaction', array(
                                                             'inputDefaults' => array(
                                                                 'label' => false,
                                                                 'div' => false
