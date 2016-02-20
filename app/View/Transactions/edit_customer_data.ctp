@@ -15,9 +15,9 @@
         <h3 class="page-title">
             Complete the transactions <small>(individually)</small>
         </h3>
-      
-      <?php echo $this->Session->flash(); ?>
-       
+
+        <?php echo $this->Session->flash(); ?>
+
         <!-- END PAGE HEADER-->
         <!-- BEGIN PAGE CONTENT-->
         <div class="row">
@@ -288,22 +288,30 @@
                                                             'class' => 'form-horizontal',
                                                             'novalidate' => 'novalidate',
                                                             'enctype' => 'multipart/form-data',
-                                                            'url' => array('controller' => 'payments', 'action' => 'individual_transaction')
+                                                            'url' => array('controller' => 'payments', 'action' => 'individual_transaction_by_check')
                                                                 )
                                                         );
                                                         ?>
+
+                                                        <?php
+                                                        echo $this->Form->input(
+                                                                'pay_mode', array(
+                                                            'type' => 'hidden',
+                                                            'value' => 'check'
+                                                        ));
+                                                        ?>
                                                         <div class="row">
                                                             <div class="col-md-3 signupfont">
-                                                                Copy of check: 
+                                                                Attachment: 
                                                             </div>
                                                             <div class="col-md-9">
                                                                 <?php
                                                                 echo $this->Form->input(
-                                                                        'id_card', array(
+                                                                        'check_image', array(
                                                                     'type' => 'file',
-                                                                    'id' => ''
-                                                                        )
-                                                                );
+                                                                    'class' => 'form-control input-sm required',
+                                                                    'value' => ''
+                                                                ));
                                                                 ?>
                                                             </div>
                                                         </div>
@@ -316,7 +324,7 @@
                                                             <div class="col-md-9">
                                                                 <?php
                                                                 echo $this->Form->input(
-                                                                        'charge_amount', array(
+                                                                        'paid_amount', array(
                                                                     'type' => 'text',
                                                                     'class' => 'form-control input-sm required',
                                                                     'value' => '',
@@ -325,23 +333,25 @@
                                                             </div>
                                                         </div>
                                                         &nbsp;
+
                                                         <div class="row">
                                                             <div class="col-md-3 signupfont">
-                                                                Charged Amount: 
+                                                                Check Info: 
                                                             </div>
                                                             <div class="col-md-9">
                                                                 <?php
                                                                 echo $this->Form->input(
-                                                                        'charge_amount', array(
+                                                                        'check_info', array(
                                                                     'type' => 'text',
                                                                     'class' => 'form-control input-sm required',
-                                                                            'value'=>''
+                                                                    'placeholder' => 'Check No, Bank Name',
+                                                                    'value' => '',
                                                                 ));
                                                                 ?>
                                                             </div>
                                                         </div>
-                                                        &nbsp;
-                                                        <?php echo $this->Form->end(); ?>
+
+
                                                         <div class="row">
                                                             <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20"> 
 
@@ -356,6 +366,8 @@
 
                                                             </div>
                                                         </div>
+
+                                                        <?php echo $this->Form->end(); ?>
                                                     </div>
                                                     &nbsp;
                                                     <div id="option_cash" class="display-none">
@@ -369,9 +381,16 @@
                                                             'class' => 'form-horizontal',
                                                             'novalidate' => 'novalidate',
                                                             'enctype' => 'multipart/form-data',
-                                                            'url' => array('controller' => 'payments', 'action' => 'individual_transaction')
+                                                            'url' => array('controller' => 'payments', 'action' => 'individual_transaction_by_cash')
                                                                 )
                                                         );
+                                                        ?>
+                                                        <?php
+                                                        echo $this->Form->input(
+                                                                'pay_mode', array(
+                                                            'type' => 'hidden',
+                                                            'value' => 'cash'
+                                                        ));
                                                         ?>
 
                                                         <div class="row">

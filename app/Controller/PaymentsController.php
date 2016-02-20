@@ -1,7 +1,7 @@
 <?php
 
 require_once(APP . 'Vendor' . DS . 'authorize' . DS . 'autoload.php');
-
+require_once(APP . 'Vendor' . DS . 'class.upload.php');
 //App::uses('AnetAPI', 'net\authorize\api\contract\v1');
 //App::uses('AnetController', 'net\authorize\api\controller');
 
@@ -25,12 +25,48 @@ class PaymentsController extends AppController {
         parent::beforeFilter();
         // Allow users to register and logout.
         $this->Auth->allow('process');
+
+        $this->img_config = array(
+            'check_image' => array(
+                'image_ratio_crop' => false,
+            ),
+            'parent_dir' => 'check_images',
+            'target_path' => array(
+                'check_image' => WWW_ROOT . 'check_images' . DS
+            )
+        );
+
+        if (!is_dir($this->img_config['parent_dir'])) {
+            mkdir($this->img_config['parent_dir']);
+        }
+        foreach ($this->img_config['target_path'] as $img_dir) {
+            if (!is_dir($img_dir)) {
+                mkdir($img_dir);
+            }
+        }
     }
 
+    function processImg($img, $type) {
+//         pr($img); 
+//         echo $type;
+//         exit;
+        $upload = new Upload($img[$type]);
+        $upload->file_new_name_body = time();
+        foreach ($this->img_config[$type] as $key => $value) {
+            $upload->$key = $value;
+        }
+        $upload->process($this->img_config['target_path'][$type]);
+        if (!$upload->processed) {
+            $msg = $this->generateError($upload->error);
+            $this->Session->setFlash($msg);
+            return $this->redirect($this->referer());
+        }
+        $return['file_dst_name'] = $upload->file_dst_name;
+        return $return;
+    }
 
     public function individual_transaction_by_card() {
         //Get ID and Input amount from edit_customer page
-       
         $cid = $this->request->data['Transaction']['cid'];
         $this->request->data['Transaction']['package_customer_id'] = $cid;
         $this->loadModel('PackageCustomer');
@@ -40,17 +76,10 @@ class PaymentsController extends AppController {
         } else {
             $packagePrice = $cinfo['CustomPackage']['charge'];
         }
-
-
         $dateObj = $this->request->data['Transaction']['exp_date'];
         $this->request->data['Transaction']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
         //pr($this->request->data['Transaction']);
-
-
-
-
         $this->layout = 'ajax';
-
         // Common setup for API credentials  
         $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
         $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
@@ -69,7 +98,6 @@ class PaymentsController extends AppController {
         $loggedUser = $this->Auth->user();
         $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
         $pcustomers = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $cid)));
-
         $msg = '<ul>';
         //foreach ($pcustomers as $pcustomer):
         $pc = $this->request->data['Transaction'];
@@ -173,10 +201,31 @@ class PaymentsController extends AppController {
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <strong>' . $msg . '</strong>
     </div>';
-         $this->Session->setFlash($transactionMsg);
-        
+        $this->Session->setFlash($transactionMsg);
+
         return $this->redirect($this->referer());
         //$this->set(compact('msg'));
+    }
+
+    public function individual_transaction_by_check() {
+        $this->loadModel('Transaction');
+        $result = array();
+        if (!empty($this->request->data['Transaction']['check_image']['name'])) {
+            $result = $this->processImg($this->request->data['Transaction'], 'check_image');
+            $this->request->data['Transaction']['check_image'] = (string) $result['file_dst_name'];
+        } else {
+            $this->request->data['Transaction']['check_image'] = '';
+        }
+       $this->Transaction->save($this->request->data['Transaction']);
+       
+         $transactionMsg = '<div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong> Payment record saved successfully</strong>
+    </div>';
+        $this->Session->setFlash($transactionMsg);
+
+        return $this->redirect($this->referer());
+      
     }
 
 }

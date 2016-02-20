@@ -4,10 +4,10 @@ $(document).ready(function () {
         if (this.checked) {
             //get the values of the filled fields
             var name = $("#first").val();
-            alert(name);
+           
             var last  = $("#last").val();
             var zipcode=$("#zip").val();
-            var addressdetails=$("#address").val();
+            var addressdetails =$("#address").val();
             addressdetails+=' '+$("#street").val();
             addressdetails+=' '+$("#apartment").val();
             addressdetails+=' '+$("#city").val();

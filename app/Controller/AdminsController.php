@@ -245,8 +245,8 @@ class AdminsController extends AppController {
         $this->loadModel('Psetting');
         $this->loadModel('Package');
         $clicked = false;
-        
-        
+
+
 
         if ($id) {
             $customer_info = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $id)));
@@ -255,7 +255,7 @@ class AdminsController extends AppController {
         }
 
         if ($this->request->is('post')) {
-            
+
             $cell = $this->request->data['PackageCustomer']['cell'];
             $customer_info = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.cell' => $cell)));
             $clicked = true;
@@ -289,17 +289,16 @@ class AdminsController extends AppController {
                 }
             }
             $data = $filteredTicket;
-            
-        //FIND PACKAGE DETAILS
+
+            //FIND PACKAGE DETAILS
             $cust_id = $customer_info['PackageCustomer']['id'];
-            
-                $sql = "SELECT * FROM packages p inner join vbpackage_customers vbpc on vbpc.package_id = p.id WHERE vbpc.id = $cust_id";                
-                $temp_packageInfo = $this->Package->query($sql);
-                $packageInfo = $temp_packageInfo[0];
-                //pr($packageInfo); exit;
-                $paidcustomers = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $cust_id)));
-         //END OF PACKAGE DETAILS       
-            $this->set(compact('customer_info', 'data','packageInfo', 'paidcustomers'));
+            $sql = "SELECT * FROM packages p inner join vbpackage_customers vbpc on vbpc.package_id = p.id WHERE vbpc.id = $cust_id";
+            $temp_packageInfo = $this->Package->query($sql);
+            $packageInfo = $temp_packageInfo[0];
+            //pr($packageInfo); exit;
+            $paidcustomers = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $cust_id)));
+            //END OF PACKAGE DETAILS       
+            $this->set(compact('customer_info', 'data', 'packageInfo', 'paidcustomers'));
         }
         $admin_messages = $this->Message->find('all', array('order' => array('Message.created' => 'DESC')));
         $cells = $this->PackageCustomer->find('list', array('fields' => array('cell', 'cell')));
@@ -316,8 +315,8 @@ class AdminsController extends AppController {
             //return $this->redirect('/transactions/expire_customer/' . $this->request->data['PaidCustomer']['id']);
             return $this->redirect('/transactions/edit_customer_data/' . $this->request->data['PackageCustomer']['id']);
         }
-        
-         if ($this->request->data['PackageCustomer']['status'] == 'history') {
+
+        if ($this->request->data['PackageCustomer']['status'] == 'history') {
             return $this->redirect('/tickets/customertickethistory/' . $this->request->data['PackageCustomer']['id']);
         }
         $this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
