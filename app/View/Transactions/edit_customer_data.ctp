@@ -252,7 +252,7 @@
                                                                 <?php
                                                                 echo $this->Form->input(
                                                                         'paid_amount', array(
-                                                                    'type' => 'number',
+                                                                    'type' => 'text',
                                                                     'value' => '',
                                                                     'class' => 'form-control input-sm required'
                                                                 ));
