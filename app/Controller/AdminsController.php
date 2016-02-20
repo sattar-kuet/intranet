@@ -255,6 +255,7 @@ class AdminsController extends AppController {
         }
 
         if ($this->request->is('post')) {
+            
             $cell = $this->request->data['PackageCustomer']['cell'];
             $customer_info = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.cell' => $cell)));
             $clicked = true;

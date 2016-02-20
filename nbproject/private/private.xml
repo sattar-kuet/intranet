@@ -31,6 +31,8 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
             <file>file:/E:/Appxampp/htdocs/intranet/app/webroot/js/widgets.js</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/webroot/js/ticket.js</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
@@ -48,16 +50,21 @@
             <file>file:/D:/xampp/htdocs/intranet/app/View/Tickets/customertickethistory.ctp</file>
 =======
 <<<<<<< HEAD
+>>>>>>> 7103a73faca52001666cf02f499d6a894452822a
             <file>file:/D:/Server/htdocs/intranet/app/Controller/AdminsController.php</file>
             <file>file:/D:/Server/htdocs/intranet/app/View/Tickets/manage.ctp</file>
             <file>file:/D:/Server/htdocs/intranet/app/Controller/PaymentsController.php</file>
-            <file>file:/D:/Server/htdocs/intranet/app/View/Tickets/customerhistory.ctp</file>
             <file>file:/D:/Server/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
+            <file>file:/D:/Server/htdocs/intranet/app/Model/PackageCustomer.php</file>
             <file>file:/D:/Server/htdocs/intranet/app/View/Admins/servicemanage.ctp</file>
-            <file>file:/D:/Server/htdocs/intranet/app/Vendor/authorize/phplog</file>
+            <file>file:/D:/Server/htdocs/intranet/app/View/Elements/admin-footer.ctp</file>
+            <file>file:/D:/Server/htdocs/intranet/app/tmp/logs/error.log</file>
             <file>file:/D:/Server/htdocs/intranet/app/Controller/TransactionsController.php</file>
+            <file>file:/D:/Server/htdocs/intranet/app/webroot/js/customerinfo.js</file>
             <file>file:/D:/Server/htdocs/intranet/app/Controller/TicketsController.php</file>
             <file>file:/D:/Server/htdocs/intranet/app/Model/PaidCustomer.php</file>
+<<<<<<< HEAD
+=======
 =======
 <<<<<<< HEAD
             <file>file:/D:/appxampp/htdocs/intranet/app/Controller/PaymentsController.php</file>
@@ -79,6 +86,7 @@
 >>>>>>> dafd21cc435a71bf62198797e95e82e34a697069
 >>>>>>> 275b320484a596557660d495044ba8689c9960f1
 >>>>>>> b864f6dbcc2272044bdc506ed7067a5f9c0b696f
+>>>>>>> 7103a73faca52001666cf02f499d6a894452822a
         </group>
     </open-files>
 </project-private>

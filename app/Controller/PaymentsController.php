@@ -212,15 +212,24 @@ class PaymentsController extends AppController {
         $this->set(compact('msg'));
     }
 
-    public function individual_transaction($cid=null) {
+    public function individual_transaction() {
         //Get ID and Input amount from edit_customer page
+        $cid = $this->request->data['Transaction']['cid'];
         $this->loadModel('PackageCustomer');
         $cinfo = $this->PackageCustomer->findById($cid);
-        pr($cinfo); exit;
-        pr($this->request->data['PackageCustomer']); exit;
-        $id = $this->request->data['PackageCustomer']['id'];
-        $charged_amount = $this->request->data['PackageCustomer']['amount'];
-        
+        if (isset($cinfo['Psetting']['id'])) {
+            $packagePrice = $cinfo['Psetting']['amount'];
+        } else {
+            $packagePrice = $cinfo['CustomPackage']['charge'];
+        }
+
+
+        $dateObj = $this->request->data['Transaction']['exp_date'];
+        $this->request->data['Transaction']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
+        //pr($this->request->data['Transaction']);
+
+
+
 
         $this->layout = 'ajax';
 
@@ -240,33 +249,32 @@ class PaymentsController extends AppController {
         $this->loadModel('Track');
 
         $loggedUser = $this->Auth->user();
-        $pcustomers = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $id)));
-        
+        $pcustomers = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $cid)));
+
         $msg = '<ul>';
         //foreach ($pcustomers as $pcustomer):
-        $pc = $pcustomers['PackageCustomer'];
+        $pc = $this->request->data['Transaction'];
         // pr($pc); exit;
-        $creditCard->setCardNumber($pc['card_check_no']); // testing
+        $creditCard->setCardNumber($pc['card_no']); // testing
         $creditCard->setExpirationDate($pc['exp_date']); // testing
         //     $creditCard->setCardNumber("4117733943147221"); // live
         //  $creditCard->setExpirationDate("07-2019"); //live
         $paymentOne = new AnetAPI\PaymentType();
         $paymentOne->setCreditCard($creditCard);
-        $transactionData['package_customer_id'] = $pc['id'];
         //    Bill To
         $billto = new AnetAPI\CustomerAddressType();
-        $billto->setFirstName($pc['first_name']);
-        $billto->setLastName($pc['last_name']);
+        $billto->setFirstName($pc['fname']);
+        $billto->setLastName($pc['lname']);
         // $billto->setCompany("Souveniropolis");
         //$billto->setAddress("14 Main Street");
         //$billto->setCity("Pecan Springs");
         //$billto->setState("TX");
-        $billto->setZip($pc['zip']);
+        $billto->setZip($pc['zip_code']);
         //$billto->setCountry("USA");
         // Create a transaction
         $transactionRequestType = new AnetAPI\TransactionRequestType();
         $transactionRequestType->setTransactionType("authCaptureTransaction");
-        $transactionRequestType->setAmount($charged_amount); // to do set amount from form
+        $transactionRequestType->setAmount($pc['paid_amount']); // to do set amount from form
         $transactionRequestType->setPayment($paymentOne);
         $request = new AnetAPI\CreateTransactionRequest();
         $request->setMerchantAuthentication($merchantAuthentication);
@@ -276,58 +284,62 @@ class PaymentsController extends AppController {
         $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX); //Testing
         //$response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION); // live
         //  pr($response); exit;
-        $transactionData['error_msg'] = '';
-        $transactionData['status'] = '';
-        $transactionData['trx_id'] = '';
-        $transactionData['auth_code'] = '';
+        $this->request->data['Transaction']['error_msg'] = '';
+        $this->request->data['Transaction']['status'] = '';
+        $this->request->data['Transaction']['trx_id'] = '';
+        $this->request->data['Transaction']['auth_code'] = '';
         if ($response != null) {
             $tresponse = $response->getTransactionResponse();
             // pr($tresponse ); exit;
             if (($tresponse != null) && ($tresponse->getResponseCode() == "1")) {
-                $transactionData['status'] = 'success';
-                $transactionData['trx_id'] = $tresponse->getTransId();
-                $transactionData['auth_code'] = $tresponse->getAuthCode();
-                $msg .='<li> Transaction for ' . $pc['first_name'] . ' '.$pc['middle_name'].' '. $pc['last_name'] . ' successfull</li>';
-                $tdata['Ticket'] = array('content' => 'Transaction for ' .  $pc['first_name'] . ' '.$pc['middle_name'].' '. $pc['last_name'] . ' successfull');
+                $this->request->data['Transaction']['status'] = 'success';
+                $this->request->data['Transaction']['trx_id'] = $tresponse->getTransId();
+                $this->request->data['Transaction']['auth_code'] = $tresponse->getAuthCode();
+                $msg .='<li> Transaction for ' . $pc['fname'] . ' ' . $pc['lname'] . ' successfull</li>';
+                $tdata['Ticket'] = array('content' => 'Transaction for ' . $pc['fname'] . ' ' . $pc['lname'] . ' successfull');
                 $tickect = $this->Ticket->save($tdata); // Data save in Ticket
                 $trackData['Track'] = array(
-                    'package_customer_id' => $id,
+                    'package_customer_id' => $cid,
                     'ticket_id' => $tickect['Ticket']['id'],
                     'status' => 'closed',
                     'forwarded_by' => $loggedUser['id']
                 );
                 // INCREASE CHARGED AMOUNT IF TRANSACTION IS SUCCESSFUL
-                $this->PackageCustomer->id = $id;
-                $data = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $id)));
-                $present_due['PackageCustomer']['charge_amount'] = (float)$data['PackageCustomer']['charge_amount'] + (float)$charged_amount;
-                $this->PackageCustomer->save($present_due);
-                $this->PackageCustomer->save($this->request->data['PackageCustomer']);
+                $due = $packagePrice - $this->request->data['Transaction']['paid_amount'];
+                $this->request->data['Transaction']['due'] = $due;
+                // $this->PackageCustomer->id = $cid;
+                //$data = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $cid)));
+                // $present_due['PackageCustomer']['charge_amount'] = (float) $data['PackageCustomer']['charge_amount'] + (float) $charged_amount;
+                //  $this->PackageCustomer->save($present_due);
+                // $this->PackageCustomer->save($this->request->data['PackageCustomer']);
                 //END OF DUE UPDATE
                 $this->Track->save($trackData);
             } else {
-                $transactionData['status'] = 'error';
-                $transactionData['error_msg'] = "Charge Credit Card ERROR :  Invalid response";
-                $msg .='<li> Transaction for ' .  $pc['first_name'] . ' '.$pc['middle_name'].' '. $pc['last_name'] . ' failed for Charge Credit Card ERROR</li>';
+                $this->request->data['Transaction']['paid_amount'] = 0;
+                $this->request->data['Transaction']['status'] = 'error';
+                $this->request->data['Transaction']['error_msg'] = "Charge Credit Card ERROR :  Invalid response";
+                $msg .='<li> Transaction for ' . $pc['fname'] . ' ' . $pc['lname'] . ' failed for Charge Credit Card ERROR</li>';
 
-                $tdata['Ticket'] = array('content' => 'Transaction for ' .  $pc['first_name'] . ' '.$pc['middle_name'].' '. $pc['last_name'] . ' failed for Charge Credit Card ERROR');
+                $tdata['Ticket'] = array('content' => 'Transaction for ' . $pc['fname'] . ' ' . $pc['lname'] . ' failed for Charge Credit Card ERROR');
                 $tickect = $this->Ticket->save($tdata); // Data save in Ticket
                 $trackData['Track'] = array(
-                    'package_customer_id' => $id,
+                    'package_customer_id' => $cid,
                     'ticket_id' => $tickect['Ticket']['id'],
                     'status' => 'open',
                     'forwarded_by' => $loggedUser['id']
-                );              
+                );
                 $this->Track->save($trackData);
             }
         } else {
-            $transactionData['status'] = 'error';
-            $transactionData['error_msg'] = "Charge Credit card Null response returned";
-            $msg .='<li> Transaction for ' . $pc['first_name'] . ' '.$pc['middle_name'].' '. $pc['last_name'] . ' failed for Charge Credit card Null response</li>';
+            $this->request->data['Transaction']['paid_amount'] = 0;
+            $this->request->data['Transaction']['status'] = 'error';
+            $this->request->data['Transaction']['error_msg'] = "Charge Credit card Null response returned";
+            $msg .='<li> Transaction for ' . $pc['fname'] . ' ' . $pc['lname'] . ' failed for Charge Credit card Null response</li>';
 
-            $tdata['Ticket'] = array('content' => 'Transaction for ' .  $pc['first_name'] . ' '.$pc['middle_name'].' '. $pc['last_name']  . ' failed for Charge Credit card Null response');
+            $tdata['Ticket'] = array('content' => 'Transaction for ' . $pc['fname'] . ' ' . $pc['lname'] . ' failed for Charge Credit card Null response');
             $tickect = $this->Ticket->save($tdata); // Data save in Ticket
             $trackData['Track'] = array(
-                'package_customer_id' => $id,
+                'package_customer_id' => $cid,
                 'ticket_id' => $tickect['Ticket']['id'],
                 'status' => 'open',
                 'forwarded_by' => $loggedUser['id']
@@ -335,14 +347,15 @@ class PaymentsController extends AppController {
             $this->Track->save($trackData);
         }
         $this->Transaction->create();
-        $this->Transaction->save($transactionData);
+        $this->Transaction->save($this->request->data['Transaction']);
         // endforeach;
         //$msg .='</ul>';
-        $msg1 = '<div class="alert alert-success">
+        $transactionMsg = '<div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <strong>' . $msg . '</strong>
     </div>';
-        $this->Session->setFlash($msg1);
+         $this->Session->setFlash($transactionMsg);
+        
         return $this->redirect($this->referer());
         //$this->set(compact('msg'));
     }

@@ -15,7 +15,9 @@
         <h3 class="page-title">
             Complete the transactions <small>(individually)</small>
         </h3>
-
+      
+      <?php echo $this->Session->flash(); ?>
+       
         <!-- END PAGE HEADER-->
         <!-- BEGIN PAGE CONTENT-->
         <div class="row">
@@ -108,7 +110,17 @@
                                                                 )
                                                         );
                                                         ?>
-                                                        <div class="row ">
+
+
+                                                        <?php
+                                                        echo $this->Form->input(
+                                                                'cid', array(
+                                                            'type' => 'hidden',
+                                                            'value' => $this->params['pass'][0]
+                                                        ));
+                                                        ?>
+                                                        <div class="row">
+
                                                             <div class="col-md-3 signupfont">
                                                                 Name: 
                                                             </div>
@@ -267,7 +279,7 @@
                                                     &nbsp;
                                                     <div id="option_check" class="display-none">
                                                         <?php
-                                                        echo $this->Form->create('PackageCustomer', array(
+                                                        echo $this->Form->create('Transaction', array(
                                                             'inputDefaults' => array(
                                                                 'label' => false,
                                                                 'div' => false
@@ -348,7 +360,7 @@
                                                     &nbsp;
                                                     <div id="option_cash" class="display-none">
                                                         <?php
-                                                        echo $this->Form->create('PackageCustomer', array(
+                                                        echo $this->Form->create('Transaction', array(
                                                             'inputDefaults' => array(
                                                                 'label' => false,
                                                                 'div' => false
@@ -1005,5 +1017,3 @@
     </div>
 </div>
 <!-- END CONTENT -->        
-Status API Training Shop Blog About Pricing
-© 2016 GitHub, Inc. Terms Privacy Security Contact Help
