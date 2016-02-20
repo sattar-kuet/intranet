@@ -257,3 +257,14 @@ Stack Trace:
 #3 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
 #4 [internal function]: App::shutdown()
 #5 {main}
+2016-02-20 22:12:44 Error: [MissingActionException] Action TransactionsController::extra_search.html() could not be found.
+Exception Attributes: array (
+  'controller' => 'TransactionsController',
+  'action' => 'extra_search.html',
+)
+Request URL: /intranet/transactions/extra_search.html
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#1 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(TransactionsController), Object(CakeRequest))
+#2 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
