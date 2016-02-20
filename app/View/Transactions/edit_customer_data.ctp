@@ -252,7 +252,7 @@
                                                                 <?php
                                                                 echo $this->Form->input(
                                                                         'paid_amount', array(
-                                                                    'type' => 'number',
+                                                                    'type' => 'text',
                                                                     'value' => '',
                                                                     'class' => 'form-control input-sm required'
                                                                 ));
@@ -317,6 +317,7 @@
                                                         </div>
                                                         &nbsp;
 
+
                                                         <div class="row">
                                                             <div class="col-md-3 signupfont">
                                                                 Charged Amount: 
@@ -333,6 +334,7 @@
                                                             </div>
                                                         </div>
                                                         &nbsp;
+
 
                                                         <div class="row">
                                                             <div class="col-md-3 signupfont">
