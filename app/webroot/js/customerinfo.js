@@ -37,16 +37,40 @@ $(document).ready(function () {
       $("#option_card").show();
       $("#option_cash").hide();
       $("#option_check").hide();
+       $("#option_moneyorder").hide();
+        $("#option_onlinebill").hide();
+      
   }
   if(pmode=='cash'){
       $("#option_card").hide();
       $("#option_cash").show();
       $("#option_check").hide();
+       $("#option_onlinebill").hide();
+      $("#option_moneyorder").hide();
   }
   if(pmode=='check'){
       $("#option_card").hide();
       $("#option_cash").hide();
       $("#option_check").show();
+      $("#option_onlinebill").hide();
+      $("#option_moneyorder").hide();
+  }
+  
+  if(pmode=='money order'){
+      $("#option_card").hide();
+      $("#option_cash").hide();
+      $("#option_check").hide();
+       $("#option_moneyorder").show();
+        $("#option_onlinebill").hide();
+      
+  }
+  if(pmode=='online bill'){
+      $("#option_card").hide();
+      $("#option_cash").hide();
+      $("#option_check").hide();
+       $("#option_moneyorder").hide();
+        $("#option_onlinebill").show();
+      
   }
   
    console.log(pmode);
