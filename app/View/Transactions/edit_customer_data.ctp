@@ -75,7 +75,7 @@
                                                 <td class="signupfont" style="min-width: 200px;">
                                                     <div class="form-group" style="margin-left: 0px;">
                                                         <div class="">
-                                                            <label><input class="pmode" type="radio" value="card" name="pmode">CARD (DEBIT/CREDIT)</label>
+                                                            <label><input class="pmode" checked="checked" type="radio" value="card" name="pmode">CARD (DEBIT/CREDIT)</label>
                                                         </div>
                                                         <div class="">
                                                             <label><input class="pmode" type="radio" value="check" name="pmode">CHECK</label>
@@ -179,7 +179,7 @@
                                                                     <?php
                                                                     echo $this->Form->input(
                                                                             'exp_date', array(
-                                                                        'type' => 'date',
+                                                                        'dateFormat' => 'MY',
                                                                     ));
                                                                     ?>
                                                                 </div>
@@ -218,7 +218,8 @@
                                                                         'zip_code', array(
                                                                     'type' => 'text',
                                                                     'class' => 'form-control input-sm',
-                                                                    'placeholder' => 'zip code'
+                                                                    'placeholder' => 'zip code',
+                                                                    'id' => 'zip_code'
                                                                 ));
                                                                 ?>
                                                             </div>
@@ -230,7 +231,8 @@
                                                                     'type' => 'text',
                                                                     'value' => '',
                                                                     'class' => 'form-control input-sm',
-                                                                    'placeholder' => 'detail (optional)'
+                                                                    'placeholder' => 'detail (optional)',
+                                                                    'id' => 'addressdetail'
                                                                 ));
                                                                 ?>
                                                             </div>
@@ -306,9 +308,10 @@
                                                             </div>
                                                         </div>
                                                         &nbsp;
+
                                                         <div class="row">
                                                             <div class="col-md-3 signupfont">
-                                                                Customer info: 
+                                                                Charged Amount: 
                                                             </div>
                                                             <div class="col-md-9">
                                                                 <?php
@@ -316,7 +319,7 @@
                                                                         'charge_amount', array(
                                                                     'type' => 'text',
                                                                     'class' => 'form-control input-sm required',
-                                                                    'placeholder' => 'Bank name, Check number'
+                                                                    'value' => '',
                                                                 ));
                                                                 ?>
                                                             </div>
@@ -330,23 +333,9 @@
                                                                 <?php
                                                                 echo $this->Form->input(
                                                                         'charge_amount', array(
-                                                                    'type' => 'number',
+                                                                    'type' => 'text',
                                                                     'class' => 'form-control input-sm required',
-                                                                ));
-                                                                ?>
-                                                            </div>
-                                                        </div>
-                                                        &nbsp;
-                                                        <div class="row">
-                                                            <div class="col-md-3 signupfont">
-                                                                Charged Amount: 
-                                                            </div>
-                                                            <div class="col-md-9">
-                                                                <?php
-                                                                echo $this->Form->input(
-                                                                        'charge_amount', array(
-                                                                    'type' => 'number',
-                                                                    'class' => 'form-control input-sm required',
+                                                                            'value'=>''
                                                                 ));
                                                                 ?>
                                                             </div>
@@ -393,8 +382,9 @@
                                                                 <?php
                                                                 echo $this->Form->input(
                                                                         'charge_amount', array(
-                                                                    'type' => 'number',
+                                                                    'type' => 'text',
                                                                     'class' => 'form-control input-sm required',
+                                                                    'value' => ''
                                                                 ));
                                                                 ?>
                                                             </div>
@@ -410,6 +400,7 @@
                                                                         'charge_amount', array(
                                                                     'type' => 'text',
                                                                     'class' => 'form-control input-sm required',
+                                                                    'value' => '',
                                                                 ));
                                                                 ?>
                                                             </div>
@@ -544,22 +535,59 @@
                                 <div class="col-md-2 signupfont">
                                     Address:
                                 </div>
-                                <div class="col-md-10">
+                                <div class="col-md-2">
                                     <div class="input-list style-4 clearfix">
                                         <div>
                                             <?php
                                             echo $this->Form->input(
                                                     'address', array(
                                                 'class' => 'required',
+                                                'id' => 'address',
+                                                "class" => ''
                                                     )
                                             );
                                             ?> 
                                         </div>                            
                                     </div>
-                                </div> 
+                                </div>
+                                <div class="col-md-1 signupfont">
+                                    Street:
 
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="input-list style-4 clearfix">
+                                        <div>
+                                            <?php
+                                            echo $this->Form->input(
+                                                    'street', array(
+                                                'class' => 'required',
+                                                'id' => 'street'
+                                                    )
+                                            );
+                                            ?> 
+                                        </div>                            
+                                    </div>
+                                </div>
+                                <div class="col-md-1 signupfont">
+                                    Apartment: 
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="input-list style-4 clearfix">
+                                        <div>
+                                            <?php
+                                            echo $this->Form->input(
+                                                    'apartment', array(
+                                                'class' => 'required',
+                                                'id' => 'apartment'
+                                                    )
+                                            );
+                                            ?> 
+                                        </div>                            
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
                         &nbsp;
                         <div class="row">
                             <div class="col-md-12 ">
@@ -574,6 +602,7 @@
                                             echo $this->Form->input(
                                                     'city', array(
                                                 'class' => 'required',
+                                                'id' => 'city'
                                                     )
                                             );
                                             ?> 
@@ -590,7 +619,8 @@
                                             <?php
                                             echo $this->Form->input(
                                                     'state', array(
-                                                'class' => 'required'
+                                                'class' => 'required',
+                                                'id' => 'state'
                                                     )
                                             );
                                             ?> 
@@ -607,6 +637,7 @@
                                             echo $this->Form->input(
                                                     'zip', array(
                                                 'class' => 'required',
+                                                'id' => 'zip'
                                                     )
                                             );
                                             ?>  
