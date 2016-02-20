@@ -123,40 +123,40 @@ class TransactionsController extends AppController {
     }
 
     function edit_customer_data($id = null) {
+//        pr($this->request->data);
+//        exit;
         $this->loadModel('PackageCustomer');
         $this->loadModel('CustomPackage');
         $this->loadModel('Psetting');
         $this->loadModel('Pakage');
         $customer_info = $this->PackageCustomer->findById($id);
         $this->tariffplan(); //Call tarrifplan fuction to show packagese
-        
         //FIND PACKAGE DETAILS
-                $sql = "SELECT * 
+        
+        
+        $sql = "SELECT * 
             FROM vbpackage_customers vbpc
             INNER JOIN packages p ON vbpc.package_id = p.id
-            WHERE vbpc.id = $id";
-                $temp_packageInfo = $this->PackageCustomer->query($sql);
-                $packageInfo = $temp_packageInfo[0];
-                //pr($packageInfo); exit;
-                
-                        
-        //FOR CUSTOMER TABLE
+            WHERE vbpc.id = $id ";
+        $temp_packageInfo = $this->PackageCustomer->query($sql);
+        //pr($temp_packageInfo); exit;
+        $packageInfo = array();
+        if (array_key_exists(0, $temp_packageInfo)) {
+            $packageInfo = $temp_packageInfo[0];
+        }
         $clicked = false;
-
-        //$datrange = json_decode($this->request->data['paidcustomer']['daterange'], true);
-        //$conditions = array('PaidCustomer.package_exp_date >=' => $datrange['start'], 'PaidCustomer.package_exp_date <=' => $datrange['end']);
         $paidcustomers = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $id)));
         //pr($paidcustomers); exit;
         $clicked = true;
-        $this->set(compact('paidcustomers','packageInfo'));
+        $this->set(compact('paidcustomers', 'packageInfo'));
 
         $this->set(compact('clicked'));
         //FOR EDIT DATA
         if ($this->request->is('post') || $this->request->is('put')) {
             $dateObj = $this->request->data['PackageCustomer']['exp_date'];
             $this->request->data['PackageCustomer']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
-           // pr($this->request->data);
-           // exit;
+            // pr($this->request->data);
+            // exit;
 
             $this->PackageCustomer->id = $customer_info['PackageCustomer']['id'];
             $this->PackageCustomer->save($this->request->data['PackageCustomer']);
