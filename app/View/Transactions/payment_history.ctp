@@ -1,71 +1,37 @@
 
-<!-- Start css for table design and icon-->
-
 <style>
     .ui-datepicker-multi-3 {
         display: table-row-group !important;
 
     }
 </style>
+<style type="text/css">
+    .alert {
+        padding: 6px;
+        margin-bottom: 5px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        text-align: center;
+    }
 
-<!-- End css for table design and icon-->
-
-<div id="content" class="clearfix">
-
-    <div class="contentwrapper"><!--Content wrapper-->
-
-        <div class="heading">
-
-            <h3>Search transaction</h3>                    
-
-            <div class="resBtnSearch">
-                <a href="#"><span class="icon16 icomoon-icon-search-3"></span></a>
-            </div>
-
-            <div class="search">
-
-                <form id="searchform" action="search.html">
-                    <input type="text" id="tipue_search_input" class="top-search text" placeholder="Search here ...">
-                    <input type="submit" id="tipue_search_button" class="search-btn nostyle" value="">
-                </form>
-
-            </div><!-- End search -->
-
-            <ul class="breadcrumb">
-                <li>You are here:</li>
-                <li>
-                    <a href="#" class="tip" oldtitle="back to dashboard" title="" data-hasqtip="true">
-                        <span class="icon16 icomoon-icon-screen-2"></span>
-                    </a> 
-                    <span class="divider">
-                        <span class="icon16 icomoon-icon-arrow-right-2"></span>
-                    </span>
-                </li>
-                <li class="active">Fill up </li>
-            </ul>
-
-        </div><!-- End .heading--> 
-
-        <div class="row-fluid">
-
-            <div class="span12">
-
-                <div class="box">
-
-                    <div class="title">
-                        <h4>
-                            <span>Search paid customer information</span>
-                        </h4>
-
-                        <?php echo $this->Session->flash(); ?>
-
-                        <?php
-                        if (isset($errors)):
-                            echo $errors;
-                        endif;
-                        ?>   
+</style>
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <!-- BEGIN PAGE CONTENT-->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet box green">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-plus"></i>Search payment history
+                        </div>
+                        <div class="tools">
+                            <a href="javascript:;" class="reload">
+                            </a>
+                        </div>
                     </div>
-                    <div class="content">
+                    <div class="portlet-body form">
+                        <!-- BEGIN FORM-->
                         <?php
                         echo $this->Form->create('Transaction', array(
                             'inputDefaults' => array(
@@ -78,10 +44,17 @@
                                 )
                         );
                         ?>
-                        <div class="form-row row-fluid">
-                            <div class="span12">
-                                <div class="row-fluid">
-                                    <label class="form-label span3" for="required">Select date</label>
+                        <div class="form-body">
+                            <div class="alert alert-danger display-hide">
+                                <button class="close" data-close="alert"></button>
+                                You have some form errors. Please check below.
+                            </div>
+                            <?php echo $this->Session->flash(); ?>
+
+
+                            <div class="form-group">                                
+                                <label class="control-label col-md-3" for="required">Select date</label>
+                                <div class="col-md-4">
                                     <?php
                                     echo $this->Form->input(
                                             'daterange', array(
@@ -92,79 +65,29 @@
                                     ?>
                                 </div>
                             </div>
-                        </div> 
-                        <div class="form-row row-fluid">
-                            <div class="span12">
-                                <div class="row-fluid">
-                                    <div class="form-actions">
-                                        <div class="span3"></div>
-                                        <div class="span9 controls">
-                                            <?php
-                                            echo $this->Form->button(
-                                                    'Search', array('class' => 'btn btn-success','type' => 'submit')
-                                            );
-                                            ?>
 
-                                        </div>
-                                    </div>
+
+                        </div>
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-6 col-md-4">
+                                    <?php
+                                    echo $this->Form->button(
+                                            'Search', array('class' => 'btn btn-success', 'type' => 'submit')
+                                    );
+                                    ?>
                                 </div>
-                            </div> 
+                            </div>
                         </div>
                         <?php echo $this->Form->end(); ?>
-                        
-                  <?php echo $this->Session->flash(); ?> <!-- Successful or failed message -->
+                        <!-- END FORM-->
                     </div>
-
-                </div><!-- End .box -->
-
-            </div><!-- End .span12 -->
-
-        </div><!-- End .row-fluid -->  
-
-        <?php if ($clicked): ?>       
-
-            <div class="row-fluid">
-                <table cellpadding="0" cellspacing="0" border="0" class="responsive dynamicTable display table table-bordered" width="100%">
-                    <thead>
-                        <tr>                                          
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Card No</th>
-                            <th>Zip Code</th>
-                            <th>Amount</th>
-                            <th>Card Exp Date</th>
-                            <th>Package Exp Date</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        foreach ($paidcustomers as $single):
-                            $info = $single['PaidCustomer'];
-                            ?>
-                            <tr class="odd gradeX">
-                                <td><?php echo $info['fname']; ?></td>
-                                <td><?php echo $info['lname']; ?></td>
-                                <td><?php echo $info['card_no']; ?></td>
-                                <td><?php echo $info['zip_code']; ?></td>
-                                <td><?php echo $info['amount']; ?></td>
-                                <td><?php echo $info['exp_date']; ?></td>
-                                <td><?php echo $info['package_exp_date']; ?></td>
-                                <td>   
-                                            <div class="controls center">                                               
-                                        <a onclick="if (confirm(&quot;Are you sure to complete this transaction?&quot)) { return true; } return false;" href="<?php echo Router::url(array('controller'=>'payments','action'=>'individual_transaction', $info['id'])
-                                                )?>" class="tip"><span class="icon16 icomoon-icon-coins" title="Make transaction for this customer"></span></a>
-                                                
-                                            </div>
-                                            
-                                        </td>
-                            </tr>
-                            <?php
-                        endforeach;
-                        ?>
-                    </tbody>
-
-                </table>
+                    <!-- END VALIDATION STATES-->
+                </div>
             </div>
+        </div>
+        <!-- END PAGE CONTENT -->
+    </div>
+</div>
+<!-- END CONTENT -->
 
-        <?php endif; ?>

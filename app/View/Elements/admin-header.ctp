@@ -76,4 +76,4 @@ echo $this->Html->css(
     <div class="clearfix">
     </div>
     <!-- BEGIN CONTAINER -->
-    <div class="page-container">
+    <!--<div class="page-container">-->
