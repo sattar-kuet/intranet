@@ -30,7 +30,7 @@
 
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-list-ul"></i>List of transactions to be processed
+                            <i class="fa fa-list-ul"></i>Payment process
                         </div>
 
                         <div class="tools">
@@ -39,19 +39,19 @@
                         </div>
                     </div>
                     <div class="portlet-body">
-                        <div class="row">
-                            <div class="col-md-12 ">
-                                <!-- BEGIN SAMPLE FORM PORTLET-->
-                                <div class="portlet box"  style=" text-align: center; background-color: black;">
-                                    <div class="portlet-title">
-                                        <div class="caption" id="blackcaption" >
-                                            Payment
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <!--                        <div class="row">
+                                                    <div class="col-md-12 ">
+                                                         BEGIN SAMPLE FORM PORTLET
+                                                        <div class="portlet box"  style=" text-align: center; background-color: black;">
+                                                            <div class="portlet-title">
+                                                                <div class="caption" id="blackcaption" >
+                                                                    Payment
+                                                                </div>
+                        
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>-->
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="table-responsive">
@@ -175,14 +175,15 @@
                                                                 Exp. Date:
                                                             </div>
                                                             <div class="col-md-9">
-                                                                <div>
-                                                                    <?php
-                                                                    echo $this->Form->input(
-                                                                            'exp_date', array(
-                                                                        'dateFormat' => 'MY',
-                                                                    ));
-                                                                    ?>
-                                                                </div>
+
+                                                               <?php
+                                                                echo $this->Form->input(
+                                                                        'exp_date', array(
+                                                                    'type' => 'text',
+                                                                    'value' => '',
+                                                                    'class' => 'form-control input-sm required'
+                                                                ));
+                                                                ?>
                                                                 <!--   exp_date     -->
                                                             </div>
 
@@ -353,7 +354,7 @@
                                                             </div>
                                                         </div>
 
-                                                         &nbsp;
+                                                        &nbsp;
                                                         <div class="row">
                                                             <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20"> 
 
@@ -372,7 +373,7 @@
                                                         <?php echo $this->Form->end(); ?>
                                                     </div>
                                                     &nbsp;
-                                                     <div id="option_moneyorder" class="display-none">
+                                                    <div id="option_moneyorder" class="display-none">
                                                         <?php
                                                         echo $this->Form->create('Transaction', array(
                                                             'inputDefaults' => array(
@@ -383,7 +384,7 @@
                                                             'class' => 'form-horizontal',
                                                             'novalidate' => 'novalidate',
                                                             'enctype' => 'multipart/form-data',
-                                                            'url' => array('controller' => 'payments', 'action' => 'individual_transaction_by_check')
+                                                            'url' => array('controller' => 'payments', 'action' => 'individual_transaction_by_morder')
                                                                 )
                                                         );
                                                         ?>
@@ -448,7 +449,7 @@
                                                             </div>
                                                         </div>
 
-                                                     &nbsp;
+                                                        &nbsp;
                                                         <div class="row">
                                                             <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20"> 
 
@@ -467,7 +468,7 @@
                                                         <?php echo $this->Form->end(); ?>
                                                     </div>
                                                     &nbsp;
-                                                     <div id="option_onlinebill" class="display-none">
+                                                    <div id="option_onlinebill" class="display-none">
                                                         <?php
                                                         echo $this->Form->create('Transaction', array(
                                                             'inputDefaults' => array(
@@ -478,7 +479,7 @@
                                                             'class' => 'form-horizontal',
                                                             'novalidate' => 'novalidate',
                                                             'enctype' => 'multipart/form-data',
-                                                            'url' => array('controller' => 'payments', 'action' => 'individual_transaction_by_check')
+                                                            'url' => array('controller' => 'payments', 'action' => 'individual_transaction_by_online_bil')
                                                                 )
                                                         );
                                                         ?>
@@ -543,7 +544,7 @@
                                                             </div>
                                                         </div>
 
-                                                         &nbsp;
+                                                        &nbsp;
                                                         <div class="row">
                                                             <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20"> 
 
@@ -592,7 +593,7 @@
                                                             <div class="col-md-9">
                                                                 <?php
                                                                 echo $this->Form->input(
-                                                                        'charge_amount', array(
+                                                                        'paid_amount', array(
                                                                     'type' => 'text',
                                                                     'class' => 'form-control input-sm required',
                                                                     'value' => ''
@@ -608,7 +609,7 @@
                                                             <div class="col-md-9">
                                                                 <?php
                                                                 echo $this->Form->input(
-                                                                        'charge_amount', array(
+                                                                        'cash_by', array(
                                                                     'type' => 'text',
                                                                     'class' => 'form-control input-sm required',
                                                                     'value' => '',
@@ -647,7 +648,7 @@
                 <div class="portlet box blue">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-list-ul"></i>List of transactions to be processed
+                            <i class="fa fa-list-ul"></i>Customer Information
                         </div>
 
                         <div class="tools">
@@ -670,19 +671,19 @@
                                 )
                         );
                         ?>
-                        <div class="row">
-                            <div class="col-md-12 ">
-                                <!-- BEGIN SAMPLE FORM PORTLET-->
-                                <div class="portlet box"  style=" text-align: center; background-color: black;">
-                                    <div class="portlet-title">
-                                        <div class="caption" id="blackcaption" >
-                                            Customer Information
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <!--                        <div class="row">
+                                                    <div class="col-md-12 ">
+                                                         BEGIN SAMPLE FORM PORTLET
+                                                        <div class="portlet box"  style=" text-align: center; background-color: black;">
+                                                            <div class="portlet-title">
+                                                                <div class="caption" id="blackcaption" >
+                                                                    Customer Information
+                                                                </div>
+                        
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>-->
                         <div class="row">
                             <div class="col-md-12 ">
 
@@ -1024,12 +1025,12 @@
                             <div class="col-md-12">
                                 <div class="panel-group accordion" id="accordion1">
                                     <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h4 class="panel-title">
-                                                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#collapse_1" aria-expanded="false">
-                                                    <span style="font-weight: 700;">Select a package </span><span class="text-danger">(required)</span> </a>
-                                            </h4>
-                                        </div>
+                                        <!--                                        <div class="panel-heading">
+                                                                                    <h4 class="panel-title">
+                                                                                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#collapse_1" aria-expanded="false">
+                                                                                            <span style="font-weight: 700;">Select a package </span><span class="text-danger">(required)</span> </a>
+                                                                                    </h4>
+                                                                                </div>-->
                                         <div id="collapse_1" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
                                             <div class="panel-body">
 

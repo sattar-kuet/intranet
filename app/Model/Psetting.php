@@ -2,7 +2,7 @@
 class Psetting extends AppModel
 {
 	var $name = "psetting";
-	 var $belongsTo = array('Product');
+	 var $belongsTo = array('Package');
 
 }
 
