@@ -309,22 +309,7 @@
                                                         </div>
                                                         &nbsp;
 
-                                                        <div class="row">
-                                                            <div class="col-md-3 signupfont">
-                                                                Charged Amount: 
-                                                            </div>
-                                                            <div class="col-md-9">
-                                                                <?php
-                                                                echo $this->Form->input(
-                                                                        'charge_amount', array(
-                                                                    'type' => 'text',
-                                                                    'class' => 'form-control input-sm required',
-                                                                    'value' => '',
-                                                                ));
-                                                                ?>
-                                                            </div>
-                                                        </div>
-                                                        &nbsp;
+                                                     
                                                         <div class="row">
                                                             <div class="col-md-3 signupfont">
                                                                 Charged Amount: 
