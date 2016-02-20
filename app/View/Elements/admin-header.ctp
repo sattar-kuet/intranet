@@ -5,13 +5,7 @@ echo $this->Html->css(
             '/assets/admin/layout/css/themes/darkblue',
             '/assets/admin/layout/css/custom',
             
-            // date range picker css
-            '/jquery-ui-daterangepicker-0.4.3/jquery-ui.min',
-            '/jquery-ui-daterangepicker-0.4.3/bootstrap.min',
-            '/jquery-ui-daterangepicker-0.4.3/bootstrap-theme.min',
-            '/jquery-ui-daterangepicker-0.4.3/styles',
-            '/jquery-ui-daterangepicker-0.4.3/prettify',
-            '/jquery-ui-daterangepicker-0.4.3/jquery.comiseo.daterangepicker'
+           
         )
 );
 ?>
