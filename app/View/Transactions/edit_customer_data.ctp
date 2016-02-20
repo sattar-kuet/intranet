@@ -119,7 +119,7 @@
                                                                     'type' => 'text',
                                                                     'class' => 'form-control input-sm required',
                                                                     'placeholder' => 'first name',
-                                                                      
+                                                                      'id'=>'firstname'
                                                                 ));
                                                                 ?>
                                                             </div>
@@ -129,7 +129,8 @@
                                                                         'lname', array(
                                                                     'type' => 'text',
                                                                     'class' => 'form-control input-sm required',
-                                                                    'placeholder' => 'last name'
+                                                                    'placeholder' => 'last name',
+                                                                    'id'=>'lastname',
                                                                 ));
                                                                 ?>
                                                             </div>
@@ -222,7 +223,7 @@
                                                         &nbsp;
                                                         <div class="row">
                                                             <div class="col-md-10 col-md-offset-3">
-                                                                <input type="checkbox" name="data[PackageCustomer][same_address]" value="YES" id="PostPublished" /> <span class="signupfont">SAME AS BILLING ADDRESS </span>
+                                                                <input type="checkbox" id="autofillAddrCheck"  /> <span class="signupfont">SAME AS BILLING ADDRESS </span>
                                                             </div>
                                                         </div>
                                                         &nbsp;
@@ -258,7 +259,7 @@
                                                         <?php echo $this->Form->end(); ?>
                                                     </div>
                                                     &nbsp;
-                                                    <div id="option_check">
+                                                    <div id="option_check" class="display-none">
                                                         <?php
                                                         echo $this->Form->create('PackageCustomer', array(
                                                             'inputDefaults' => array(
@@ -352,7 +353,7 @@
                                                         </div>
                                                     </div>
                                                     &nbsp;
-                                                    <div id="option_cash">
+                                                    <div id="option_cash" class="display-none">
                                                         <?php
                                                         echo $this->Form->create('PackageCustomer', array(
                                                             'inputDefaults' => array(
@@ -477,6 +478,7 @@
                                             echo $this->Form->input(
                                                     'first_name', array(
                                                 'class' => 'required',
+                                                        'id'=>'first'
                                                     )
                                             );
                                             ?> 
@@ -509,7 +511,8 @@
                                             <?php
                                             echo $this->Form->input(
                                                     'last_name', array(
-                                                'class' => 'required'
+                                                'class' => 'required',
+                                                    'id'=>'last'    
                                                     )
                                             );
                                             ?> 
