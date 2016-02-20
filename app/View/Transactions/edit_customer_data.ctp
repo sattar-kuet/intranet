@@ -106,7 +106,7 @@
                                                             'class' => 'form-horizontal',
                                                             'novalidate' => 'novalidate',
                                                             'enctype' => 'multipart/form-data',
-                                                            'url' => array('controller' => 'payments', 'action' => 'individual_transaction')
+                                                            'url' => array('controller' => 'payments', 'action' => 'individual_transaction_by_card')
                                                                 )
                                                         );
                                                         ?>

@@ -294,11 +294,8 @@ class AdminsController extends AppController {
             $cust_id = $customer_info['PackageCustomer']['id'];
             
                 $sql = "SELECT * FROM packages p inner join vbpackage_customers vbpc on vbpc.package_id = p.id WHERE vbpc.id = $cust_id";                
-               
                 $temp_packageInfo = $this->Package->query($sql);
-                 
                 $packageInfo = $temp_packageInfo[0];
-                
                 //pr($packageInfo); exit;
                 $paidcustomers = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $cust_id)));
          //END OF PACKAGE DETAILS       
