@@ -138,6 +138,7 @@
                     <tr>                                           
                         <th>Name</th>
                         <th>Cell</th>
+                        <!--<th>Package1</th>-->
                         <th>Package</th>
                         <th>Status</th>
                         <th>Action</th>
@@ -152,10 +153,11 @@
 
                         <td><?php echo $info['first_name'] . ' ' . $info['middle_name'] . ' ' . $info['last_name']; ?></td>
                         <td><?php echo $info['cell']; ?></td>
+                         <!--<td><?php echo $packageInfo['p']['name']; ?></td>-->
                         <td><?php if($info['custom_package_id']== null){
                                             echo $packageInfo['p']['name'].' '.$packageInfo['vbpc']['duration'].' Months ('.$packageInfo['vbpc']['amount'].'$)';
                                         }  else {
-                                            echo 'Custom '.$paidcustomers['CustomPackage']['duration'].' ('.$paidcustomers['CustomPackage']['charge'].'$)';
+                                            echo $packageInfo['p']['name'].$paidcustomers['CustomPackage']['duration'].' ('.$paidcustomers['CustomPackage']['charge'].'$)';
                                         }  ?></td>
                         <td><?php echo $info['status']; ?></td>
                         <td>
@@ -184,7 +186,7 @@
                             <?php
                             echo $this->Form->input('status', array(
                                 'type' => 'select',
-                                'options' => Array('ticket' => 'Generate Ticket','payment' => 'Payment','history' => 'Ticket History'),
+                                'options' => Array('ticket' => 'Generate Ticket','payment' => 'Customer  Information','history' => 'Ticket History'),
                                 'empty' => 'Select Action',
                                 'class' => 'form-control form-filter input-sm',
                                     )

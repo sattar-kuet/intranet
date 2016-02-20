@@ -1,13 +1,1771 @@
+<<<<<<< HEAD
 2016-02-19 22:39:45 Error: [MissingControllerException] Controller class UsersController could not be found.
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+2016-02-11 12:06:29 Error: [MissingDatasourceConfigException] The datasource configuration "default" was not found in database.php
+Exception Attributes: array (
+  'config' => 'default',
+)
+Request URL: /intranet/
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\ConnectionManager.php(91): ConnectionManager::_getConnectionObject('default')
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3617): ConnectionManager::getDataSource('default')
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(1155): Model->setDataSource('default')
+#3 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3644): Model->setSource('users')
+#4 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(1387): Model->getDataSource()
+#5 D:\xampp\htdocs\intranet\lib\Cake\View\Helper\FormHelper.php(215): Model->schema()
+#6 D:\xampp\htdocs\intranet\lib\Cake\View\Helper\FormHelper.php(468): FormHelper->_introspectModel('User', 'fields')
+#7 D:\xampp\htdocs\intranet\app\View\Admins\login.ctp(15): FormHelper->create('User', Array)
+#8 D:\xampp\htdocs\intranet\lib\Cake\View\View.php(961): include('D:\xampp\htdocs...')
+#9 D:\xampp\htdocs\intranet\lib\Cake\View\View.php(923): View->_evaluate('D:\xampp\htdocs...', Array)
+#10 D:\xampp\htdocs\intranet\lib\Cake\View\View.php(473): View->_render('D:\xampp\htdocs...')
+#11 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(960): View->render(NULL, NULL)
+#12 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(200): Controller->render()
+#13 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#14 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2016-02-11 12:06:50 Error: [MissingDatasourceConfigException] The datasource configuration "default" was not found in database.php
+Exception Attributes: array (
+  'config' => 'default',
+)
+Request URL: /intranet/
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\ConnectionManager.php(91): ConnectionManager::_getConnectionObject('default')
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3617): ConnectionManager::getDataSource('default')
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(1155): Model->setDataSource('default')
+#3 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3644): Model->setSource('users')
+#4 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(1387): Model->getDataSource()
+#5 D:\xampp\htdocs\intranet\lib\Cake\View\Helper\FormHelper.php(215): Model->schema()
+#6 D:\xampp\htdocs\intranet\lib\Cake\View\Helper\FormHelper.php(468): FormHelper->_introspectModel('User', 'fields')
+#7 D:\xampp\htdocs\intranet\app\View\Admins\login.ctp(15): FormHelper->create('User', Array)
+#8 D:\xampp\htdocs\intranet\lib\Cake\View\View.php(961): include('D:\xampp\htdocs...')
+#9 D:\xampp\htdocs\intranet\lib\Cake\View\View.php(923): View->_evaluate('D:\xampp\htdocs...', Array)
+#10 D:\xampp\htdocs\intranet\lib\Cake\View\View.php(473): View->_render('D:\xampp\htdocs...')
+#11 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(960): View->render(NULL, NULL)
+#12 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(200): Controller->render()
+#13 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#14 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2016-02-11 12:06:51 Error: [MissingDatasourceConfigException] The datasource configuration "default" was not found in database.php
+Exception Attributes: array (
+  'config' => 'default',
+)
+Request URL: /intranet/
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\ConnectionManager.php(91): ConnectionManager::_getConnectionObject('default')
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3617): ConnectionManager::getDataSource('default')
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(1155): Model->setDataSource('default')
+#3 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3644): Model->setSource('users')
+#4 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(1387): Model->getDataSource()
+#5 D:\xampp\htdocs\intranet\lib\Cake\View\Helper\FormHelper.php(215): Model->schema()
+#6 D:\xampp\htdocs\intranet\lib\Cake\View\Helper\FormHelper.php(468): FormHelper->_introspectModel('User', 'fields')
+#7 D:\xampp\htdocs\intranet\app\View\Admins\login.ctp(15): FormHelper->create('User', Array)
+#8 D:\xampp\htdocs\intranet\lib\Cake\View\View.php(961): include('D:\xampp\htdocs...')
+#9 D:\xampp\htdocs\intranet\lib\Cake\View\View.php(923): View->_evaluate('D:\xampp\htdocs...', Array)
+#10 D:\xampp\htdocs\intranet\lib\Cake\View\View.php(473): View->_render('D:\xampp\htdocs...')
+#11 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(960): View->render(NULL, NULL)
+#12 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(200): Controller->render()
+#13 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#14 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2016-02-11 12:08:23 Error: [MissingDatasourceConfigException] The datasource configuration "default" was not found in database.php
+Exception Attributes: array (
+  'config' => 'default',
+)
+Request URL: /intranet/
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\ConnectionManager.php(91): ConnectionManager::_getConnectionObject('default')
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3617): ConnectionManager::getDataSource('default')
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(1155): Model->setDataSource('default')
+#3 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3644): Model->setSource('users')
+#4 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(1387): Model->getDataSource()
+#5 D:\xampp\htdocs\intranet\lib\Cake\View\Helper\FormHelper.php(215): Model->schema()
+#6 D:\xampp\htdocs\intranet\lib\Cake\View\Helper\FormHelper.php(468): FormHelper->_introspectModel('User', 'fields')
+#7 D:\xampp\htdocs\intranet\app\View\Admins\login.ctp(15): FormHelper->create('User', Array)
+#8 D:\xampp\htdocs\intranet\lib\Cake\View\View.php(961): include('D:\xampp\htdocs...')
+#9 D:\xampp\htdocs\intranet\lib\Cake\View\View.php(923): View->_evaluate('D:\xampp\htdocs...', Array)
+#10 D:\xampp\htdocs\intranet\lib\Cake\View\View.php(473): View->_render('D:\xampp\htdocs...')
+#11 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(960): View->render(NULL, NULL)
+#12 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(200): Controller->render()
+#13 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#14 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2016-02-11 12:09:03 Error: [MissingDatasourceConfigException] The datasource configuration "default" was not found in database.php
+Exception Attributes: array (
+  'config' => 'default',
+)
+Request URL: /intranet/
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\ConnectionManager.php(91): ConnectionManager::_getConnectionObject('default')
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3617): ConnectionManager::getDataSource('default')
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(1155): Model->setDataSource('default')
+#3 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3644): Model->setSource('users')
+#4 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(1387): Model->getDataSource()
+#5 D:\xampp\htdocs\intranet\lib\Cake\View\Helper\FormHelper.php(215): Model->schema()
+#6 D:\xampp\htdocs\intranet\lib\Cake\View\Helper\FormHelper.php(468): FormHelper->_introspectModel('User', 'fields')
+#7 D:\xampp\htdocs\intranet\app\View\Admins\login.ctp(15): FormHelper->create('User', Array)
+#8 D:\xampp\htdocs\intranet\lib\Cake\View\View.php(961): include('D:\xampp\htdocs...')
+#9 D:\xampp\htdocs\intranet\lib\Cake\View\View.php(923): View->_evaluate('D:\xampp\htdocs...', Array)
+#10 D:\xampp\htdocs\intranet\lib\Cake\View\View.php(473): View->_render('D:\xampp\htdocs...')
+#11 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(960): View->render(NULL, NULL)
+#12 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(200): Controller->render()
+#13 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#14 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2016-02-11 12:11:27 Error: [MissingDatasourceConfigException] The datasource configuration "default" was not found in database.php
+Exception Attributes: array (
+  'config' => 'default',
+)
+Request URL: /intranet/
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\ConnectionManager.php(91): ConnectionManager::_getConnectionObject('default')
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3617): ConnectionManager::getDataSource('default')
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(1155): Model->setDataSource('default')
+#3 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3644): Model->setSource('users')
+#4 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(1387): Model->getDataSource()
+#5 D:\xampp\htdocs\intranet\lib\Cake\View\Helper\FormHelper.php(215): Model->schema()
+#6 D:\xampp\htdocs\intranet\lib\Cake\View\Helper\FormHelper.php(468): FormHelper->_introspectModel('User', 'fields')
+#7 D:\xampp\htdocs\intranet\app\View\Admins\login.ctp(15): FormHelper->create('User', Array)
+#8 D:\xampp\htdocs\intranet\lib\Cake\View\View.php(961): include('D:\xampp\htdocs...')
+#9 D:\xampp\htdocs\intranet\lib\Cake\View\View.php(923): View->_evaluate('D:\xampp\htdocs...', Array)
+#10 D:\xampp\htdocs\intranet\lib\Cake\View\View.php(473): View->_render('D:\xampp\htdocs...')
+#11 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(960): View->render(NULL, NULL)
+#12 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(200): Controller->render()
+#13 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#14 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2016-02-11 12:12:13 Error: [MissingDatasourceConfigException] The datasource configuration "default" was not found in database.php
+Exception Attributes: array (
+  'config' => 'default',
+)
+Request URL: /intranet/
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\ConnectionManager.php(91): ConnectionManager::_getConnectionObject('default')
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3617): ConnectionManager::getDataSource('default')
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(1155): Model->setDataSource('default')
+#3 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3644): Model->setSource('users')
+#4 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(1387): Model->getDataSource()
+#5 D:\xampp\htdocs\intranet\lib\Cake\View\Helper\FormHelper.php(215): Model->schema()
+#6 D:\xampp\htdocs\intranet\lib\Cake\View\Helper\FormHelper.php(468): FormHelper->_introspectModel('User', 'fields')
+#7 D:\xampp\htdocs\intranet\app\View\Admins\login.ctp(15): FormHelper->create('User', Array)
+#8 D:\xampp\htdocs\intranet\lib\Cake\View\View.php(961): include('D:\xampp\htdocs...')
+#9 D:\xampp\htdocs\intranet\lib\Cake\View\View.php(923): View->_evaluate('D:\xampp\htdocs...', Array)
+#10 D:\xampp\htdocs\intranet\lib\Cake\View\View.php(473): View->_render('D:\xampp\htdocs...')
+#11 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(960): View->render(NULL, NULL)
+#12 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(200): Controller->render()
+#13 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#14 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2016-02-11 12:14:59 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-11 12:14:59 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-11 12:17:03 Error: [MissingTableException] Table admins for model Admin was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'admins',
+  'class' => 'Admin',
+  'ds' => 'default',
+)
+Request URL: /intranet/admins/create
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3644): Model->setSource('admins')
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(1387): Model->getDataSource()
+#2 D:\xampp\htdocs\intranet\lib\Cake\View\Helper\FormHelper.php(215): Model->schema()
+#3 D:\xampp\htdocs\intranet\lib\Cake\View\Helper\FormHelper.php(468): FormHelper->_introspectModel('Admin', 'fields')
+#4 D:\xampp\htdocs\intranet\app\View\Admins\create.ctp(38): FormHelper->create('Admin', Array)
+#5 D:\xampp\htdocs\intranet\lib\Cake\View\View.php(961): include('D:\xampp\htdocs...')
+#6 D:\xampp\htdocs\intranet\lib\Cake\View\View.php(923): View->_evaluate('D:\xampp\htdocs...', Array)
+#7 D:\xampp\htdocs\intranet\lib\Cake\View\View.php(473): View->_render('D:\xampp\htdocs...')
+#8 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(960): View->render(NULL, NULL)
+#9 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(200): Controller->render()
+#10 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-11 13:41:55 Error: Fatal Error (1): Call to undefined function str() in [D:\xampp\htdocs\intranet\app\Controller\AdminsController.php, line 247]
+2016-02-11 13:41:55 Error: [FatalErrorException] Call to undefined function str()
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(1, 'Call to undefin...', 'D:\xampp\htdocs...', 247)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to undefin...', 'D:\xampp\htdocs...', 247, Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 1, 'Call to undefin...', 'D:\xampp\htdocs...', 247, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-02-11 13:42:34 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT * FROM p...', Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT * FROM p...', Array, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('SELECT * FROM p...')
+#4 [internal function]: DboSource->query('SELECT * FROM p...')
+#5 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3447): call_user_func_array(Array, Array)
+#6 D:\xampp\htdocs\intranet\app\Controller\AdminsController.php(249): Model->query('SELECT * FROM p...')
+#7 [internal function]: AdminsController->servicemanage()
+#8 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-11 16:16:11 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-11 17:03:57 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'fields' in 'where clause'
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT `PaidCus...', Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT `PaidCus...', Array, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(1106): DboSource->fetchAll('SELECT `PaidCus...', false)
+#4 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3022): DboSource->read(Object(PaidCustomer), Array)
+#5 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(2994): Model->_readDataSource('all', Array)
+#6 D:\xampp\htdocs\intranet\app\Controller\AdminsController.php(251): Model->find('all', Array)
+#7 [internal function]: AdminsController->servicemanage()
+#8 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-11 17:15:31 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT * FROM `...', Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT * FROM `...', Array, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('SELECT * FROM `...')
+#4 [internal function]: DboSource->query('SELECT * FROM `...')
+#5 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3447): call_user_func_array(Array, Array)
+#6 D:\xampp\htdocs\intranet\app\Controller\AdminsController.php(251): Model->query('SELECT * FROM `...')
+#7 [internal function]: AdminsController->servicemanage()
+#8 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-11 17:16:00 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT * FROM p...', Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT * FROM p...', Array, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('SELECT * FROM p...')
+#4 [internal function]: DboSource->query('SELECT * FROM p...')
+#5 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3447): call_user_func_array(Array, Array)
+#6 D:\xampp\htdocs\intranet\app\Controller\AdminsController.php(251): Model->query('SELECT * FROM p...')
+#7 [internal function]: AdminsController->servicemanage()
+#8 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-11 17:22:01 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Array' in 'where clause'
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT * FROM p...', Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT * FROM p...', Array, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('SELECT * FROM p...')
+#4 [internal function]: DboSource->query('SELECT * FROM p...')
+#5 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3447): call_user_func_array(Array, Array)
+#6 D:\xampp\htdocs\intranet\app\Controller\AdminsController.php(255): Model->query('SELECT * FROM p...')
+#7 [internal function]: AdminsController->servicemanage()
+#8 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-11 17:23:51 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Array' in 'where clause'
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT `PaidCus...', Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT `PaidCus...', Array, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(1106): DboSource->fetchAll('SELECT `PaidCus...', false)
+#4 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3022): DboSource->read(Object(PaidCustomer), Array)
+#5 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(2994): Model->_readDataSource('all', Array)
+#6 D:\xampp\htdocs\intranet\app\Controller\AdminsController.php(255): Model->find('all', Array)
+#7 [internal function]: AdminsController->servicemanage()
+#8 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-11 17:32:21 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Array' in 'where clause'
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT `PaidCus...', Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT `PaidCus...', Array, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(1106): DboSource->fetchAll('SELECT `PaidCus...', false)
+#4 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3022): DboSource->read(Object(PaidCustomer), Array)
+#5 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(2994): Model->_readDataSource('all', Array)
+#6 D:\xampp\htdocs\intranet\app\Controller\AdminsController.php(255): Model->find('all', Array)
+#7 [internal function]: AdminsController->servicemanage()
+#8 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-11 17:34:15 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Array' in 'where clause'
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT `PaidCus...', Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT `PaidCus...', Array, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(1106): DboSource->fetchAll('SELECT `PaidCus...', false)
+#4 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3022): DboSource->read(Object(PaidCustomer), Array)
+#5 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(2994): Model->_readDataSource('all', Array)
+#6 D:\xampp\htdocs\intranet\app\Controller\AdminsController.php(255): Model->find('all', Array)
+#7 [internal function]: AdminsController->servicemanage()
+#8 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-11 17:36:33 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Array' in 'where clause'
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT `PaidCus...', Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT `PaidCus...', Array, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(1106): DboSource->fetchAll('SELECT `PaidCus...', false)
+#4 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3022): DboSource->read(Object(PaidCustomer), Array)
+#5 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(2994): Model->_readDataSource('all', Array)
+#6 D:\xampp\htdocs\intranet\app\Controller\AdminsController.php(255): Model->find('all', Array)
+#7 [internal function]: AdminsController->servicemanage()
+#8 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-11 17:36:40 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Array' in 'where clause'
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT `PaidCus...', Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT `PaidCus...', Array, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(1106): DboSource->fetchAll('SELECT `PaidCus...', false)
+#4 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3022): DboSource->read(Object(PaidCustomer), Array)
+#5 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(2994): Model->_readDataSource('all', Array)
+#6 D:\xampp\htdocs\intranet\app\Controller\AdminsController.php(255): Model->find('all', Array)
+#7 [internal function]: AdminsController->servicemanage()
+#8 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-11 17:38:52 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Array' in 'where clause'
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT `PaidCus...', Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT `PaidCus...', Array, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(1106): DboSource->fetchAll('SELECT `PaidCus...', false)
+#4 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3022): DboSource->read(Object(PaidCustomer), Array)
+#5 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(2994): Model->_readDataSource('all', Array)
+#6 D:\xampp\htdocs\intranet\app\Controller\AdminsController.php(257): Model->find('all', Array)
+#7 [internal function]: AdminsController->servicemanage()
+#8 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-11 17:40:03 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Array' in 'where clause'
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT `PaidCus...', Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT `PaidCus...', Array, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(1106): DboSource->fetchAll('SELECT `PaidCus...', false)
+#4 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3022): DboSource->read(Object(PaidCustomer), Array)
+#5 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(2994): Model->_readDataSource('all', Array)
+#6 D:\xampp\htdocs\intranet\app\Controller\AdminsController.php(257): Model->find('all', Array)
+#7 [internal function]: AdminsController->servicemanage()
+#8 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-11 17:42:00 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '>data['PaidCustomer']['cell'] = Array' at line 1
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT * FROM p...', Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT * FROM p...', Array, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('SELECT * FROM p...')
+#4 [internal function]: DboSource->query('SELECT * FROM p...')
+#5 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3447): call_user_func_array(Array, Array)
+#6 D:\xampp\htdocs\intranet\app\Controller\AdminsController.php(257): Model->query('SELECT * FROM p...')
+#7 [internal function]: AdminsController->servicemanage()
+#8 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-11 17:47:30 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DISTINCT `PaidCustomer`.``, `PaidCustomer`.`` FROM `totalcable`.`paid_customers`' at line 1
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT `PaidCus...', Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT `PaidCus...', Array, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(1106): DboSource->fetchAll('SELECT `PaidCus...', false)
+#4 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3022): DboSource->read(Object(PaidCustomer), Array)
+#5 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(2994): Model->_readDataSource('list', Array)
+#6 D:\xampp\htdocs\intranet\app\Controller\AdminsController.php(257): Model->find('list', Array)
+#7 [internal function]: AdminsController->servicemanage()
+#8 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-11 17:48:07 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'PaidCustomer.$cell' in 'field list'
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT `PaidCus...', Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT `PaidCus...', Array, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(1106): DboSource->fetchAll('SELECT `PaidCus...', false)
+#4 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3022): DboSource->read(Object(PaidCustomer), Array)
+#5 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(2994): Model->_readDataSource('list', Array)
+#6 D:\xampp\htdocs\intranet\app\Controller\AdminsController.php(257): Model->find('list', Array)
+#7 [internal function]: AdminsController->servicemanage()
+#8 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-11 17:58:19 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DISTINCT `PaidCustomer`.``, `PaidCustomer`.`` FROM `totalcable`.`paid_customers`' at line 1
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT `PaidCus...', Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT `PaidCus...', Array, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(1106): DboSource->fetchAll('SELECT `PaidCus...', false)
+#4 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3022): DboSource->read(Object(PaidCustomer), Array)
+#5 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(2994): Model->_readDataSource('list', Array)
+#6 D:\xampp\htdocs\intranet\app\Controller\AdminsController.php(256): Model->find('list', Array)
+#7 [internal function]: AdminsController->servicemanage()
+#8 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-11 18:03:33 Error: Fatal Error (1): Call to a member function query() on a non-object in [D:\xampp\htdocs\intranet\app\Controller\AdminsController.php, line 265]
+2016-02-11 18:03:33 Error: [FatalErrorException] Call to a member function query() on a non-object
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(1, 'Call to a membe...', 'D:\xampp\htdocs...', 265)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', 'D:\xampp\htdocs...', 265, Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', 'D:\xampp\htdocs...', 265, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-02-11 18:04:22 Error: Fatal Error (1): Call to a member function query() on a non-object in [D:\xampp\htdocs\intranet\app\Controller\AdminsController.php, line 265]
+2016-02-11 18:04:22 Error: [FatalErrorException] Call to a member function query() on a non-object
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(1, 'Call to a membe...', 'D:\xampp\htdocs...', 265)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', 'D:\xampp\htdocs...', 265, Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', 'D:\xampp\htdocs...', 265, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-02-11 18:04:58 Error: Fatal Error (1): Call to a member function query() on a non-object in [D:\xampp\htdocs\intranet\app\Controller\AdminsController.php, line 265]
+2016-02-11 18:04:58 Error: [FatalErrorException] Call to a member function query() on a non-object
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(1, 'Call to a membe...', 'D:\xampp\htdocs...', 265)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', 'D:\xampp\htdocs...', 265, Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', 'D:\xampp\htdocs...', 265, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-02-11 18:07:06 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Array' in 'where clause'
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT * FROM p...', Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT * FROM p...', Array, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('SELECT * FROM p...')
+#4 [internal function]: DboSource->query('SELECT * FROM p...')
+#5 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3447): call_user_func_array(Array, Array)
+#6 D:\xampp\htdocs\intranet\app\Controller\AdminsController.php(263): Model->query('SELECT * FROM p...')
+#7 [internal function]: AdminsController->servicemanage()
+#8 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-11 18:08:50 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Array' in 'where clause'
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT * FROM p...', Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT * FROM p...', Array, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('SELECT * FROM p...')
+#4 [internal function]: DboSource->query('SELECT * FROM p...')
+#5 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3447): call_user_func_array(Array, Array)
+#6 D:\xampp\htdocs\intranet\app\Controller\AdminsController.php(263): Model->query('SELECT * FROM p...')
+#7 [internal function]: AdminsController->servicemanage()
+#8 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-11 18:10:59 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Array' in 'where clause'
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT * FROM p...', Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT * FROM p...', Array, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('SELECT * FROM p...')
+#4 [internal function]: DboSource->query('SELECT * FROM p...')
+#5 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3447): call_user_func_array(Array, Array)
+#6 D:\xampp\htdocs\intranet\app\Controller\AdminsController.php(263): Model->query('SELECT * FROM p...')
+#7 [internal function]: AdminsController->servicemanage()
+#8 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-11 18:20:35 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Array' in 'where clause'
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT `PaidCus...', Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT `PaidCus...', Array, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(1106): DboSource->fetchAll('SELECT `PaidCus...', false)
+#4 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3022): DboSource->read(Object(PaidCustomer), Array)
+#5 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(2994): Model->_readDataSource('all', Array)
+#6 D:\xampp\htdocs\intranet\app\Controller\AdminsController.php(252): Model->find('all', Array)
+#7 [internal function]: AdminsController->servicemanage()
+#8 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-11 18:26:11 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'PaidCustomer.$cell' in 'field list'
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT `PaidCus...', Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT `PaidCus...', Array, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(1106): DboSource->fetchAll('SELECT `PaidCus...', false)
+#4 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3022): DboSource->read(Object(PaidCustomer), Array)
+#5 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(2994): Model->_readDataSource('first', Array)
+#6 D:\xampp\htdocs\intranet\app\Controller\AdminsController.php(254): Model->find('first', Array)
+#7 [internal function]: AdminsController->servicemanage()
+#8 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-11 18:31:21 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Array' in 'where clause'
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT `PaidCus...', Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT `PaidCus...', Array, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(1106): DboSource->fetchAll('SELECT `PaidCus...', false)
+#4 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3022): DboSource->read(Object(PaidCustomer), Array)
+#5 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(2994): Model->_readDataSource('first', Array)
+#6 D:\xampp\htdocs\intranet\app\Controller\AdminsController.php(250): Model->find('first', Array)
+#7 [internal function]: AdminsController->servicemanage()
+#8 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-11 18:54:52 Error: [MissingControllerException] Controller class PaidCustomersController could not be found.
+Exception Attributes: array (
+  'class' => 'PaidCustomersController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/paid_customers/changeservice/controler:Admins
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-11 18:56:50 Error: [MissingControllerException] Controller class PaidCustomersController could not be found.
+Exception Attributes: array (
+  'class' => 'PaidCustomersController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/paid_customers/changeservice/controler:Admins
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-11 18:57:02 Error: [MissingControllerException] Controller class PaidCustomersController could not be found.
+Exception Attributes: array (
+  'class' => 'PaidCustomersController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/paid_customers/changeservice/controler:Admins
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-11 19:02:41 Error: [MissingActionException] Action AdminsController::servicemanage() could not be found.
+Exception Attributes: array (
+  'controller' => 'AdminsController',
+  'action' => 'servicemanage',
+)
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#1 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#2 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2016-02-11 19:02:42 Error: [MissingActionException] Action AdminsController::servicemanage() could not be found.
+Exception Attributes: array (
+  'controller' => 'AdminsController',
+  'action' => 'servicemanage',
+)
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#1 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#2 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2016-02-11 19:04:17 Error: [MissingActionException] Action AdminsController::servicemanage() could not be found.
+Exception Attributes: array (
+  'controller' => 'AdminsController',
+  'action' => 'servicemanage',
+)
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#1 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#2 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2016-02-11 19:04:27 Error: [MissingActionException] Action AdminsController::servicemanage() could not be found.
+Exception Attributes: array (
+  'controller' => 'AdminsController',
+  'action' => 'servicemanage',
+)
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#1 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#2 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2016-02-11 19:04:38 Error: [MissingActionException] Action AdminsController::servicemanage() could not be found.
+Exception Attributes: array (
+  'controller' => 'AdminsController',
+  'action' => 'servicemanage',
+)
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#1 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#2 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2016-02-11 19:04:45 Error: [MissingControllerException] Controller class ServicemanageController could not be found.
+Exception Attributes: array (
+  'class' => 'ServicemanageController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/servicemanage/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-11 19:04:50 Error: [MissingActionException] Action FrontendsController::servicemanage() could not be found.
+Exception Attributes: array (
+  'controller' => 'FrontendsController',
+  'action' => 'servicemanage',
+)
+Request URL: /intranet/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#1 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(FrontendsController), Object(CakeRequest))
+#2 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2016-02-11 19:06:03 Error: [MissingActionException] Action PaidCustomersController::manage() could not be found.
+Exception Attributes: array (
+  'controller' => 'PaidCustomersController',
+  'action' => 'manage',
+)
+Request URL: /intranet/paid_customers/manage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#1 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(PaidCustomersController), Object(CakeRequest))
+#2 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2016-02-11 19:12:29 Error: [MissingActionException] Action PaidCustomersController::manage() could not be found.
+Exception Attributes: array (
+  'controller' => 'PaidCustomersController',
+  'action' => 'manage',
+)
+Request URL: /intranet/paid_customers/manage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#1 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(PaidCustomersController), Object(CakeRequest))
+#2 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2016-02-11 19:13:04 Error: [MissingActionException] Action PaidCustomersController::manage() could not be found.
+Exception Attributes: array (
+  'controller' => 'PaidCustomersController',
+  'action' => 'manage',
+)
+Request URL: /intranet/paid_customers/manage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#1 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(PaidCustomersController), Object(CakeRequest))
+#2 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2016-02-11 19:13:11 Error: [MissingActionException] Action PaidCustomersController::manage() could not be found.
+Exception Attributes: array (
+  'controller' => 'PaidCustomersController',
+  'action' => 'manage',
+)
+Request URL: /intranet/paid_customers/manage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#1 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(PaidCustomersController), Object(CakeRequest))
+#2 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2016-02-11 19:13:52 Error: [MissingControllerException] Controller class PaidCustomersController could not be found.
+Exception Attributes: array (
+  'class' => 'PaidCustomersController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/paid_customers/changeservice/controler:Admins
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-11 19:37:21 Error: [MissingTableException] Table ticket_departments for model TicketDepartment was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'ticket_departments',
+  'class' => 'TicketDepartment',
+  'ds' => 'default',
+)
+Request URL: /intranet/tickets/editdepartment
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3644): Model->setSource('ticket_departme...')
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(1387): Model->getDataSource()
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(1483): Model->schema()
+#3 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(1470): Model->hasField('title', false)
+#4 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(907): Model->hasField(Array)
+#5 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3190): Model->__get('displayField')
+#6 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3055): Model->_findList('before', Array)
+#7 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(2989): Model->buildQuery('list', Array)
+#8 D:\xampp\htdocs\intranet\app\Controller\TicketsController.php(109): Model->find('list', Array)
+#9 [internal function]: TicketsController->editdepartment()
+#10 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(TicketsController), Array)
+#11 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#12 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(TicketsController), Object(CakeRequest))
+#13 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#14 {main}
+2016-02-11 19:42:20 Error: [MissingTableException] Table ticket_departments for model TicketDepartment was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'ticket_departments',
+  'class' => 'TicketDepartment',
+  'ds' => 'default',
+)
+Request URL: /intranet/tickets/adddepartment
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3644): Model->setSource('ticket_departme...')
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(1387): Model->getDataSource()
+#2 D:\xampp\htdocs\intranet\lib\Cake\View\Helper\FormHelper.php(215): Model->schema()
+#3 D:\xampp\htdocs\intranet\lib\Cake\View\Helper\FormHelper.php(468): FormHelper->_introspectModel('TicketDepartmen...', 'fields')
+#4 D:\xampp\htdocs\intranet\app\View\Tickets\adddepartment.ctp(39): FormHelper->create('TicketDepartmen...', Array)
+#5 D:\xampp\htdocs\intranet\lib\Cake\View\View.php(961): include('D:\xampp\htdocs...')
+#6 D:\xampp\htdocs\intranet\lib\Cake\View\View.php(923): View->_evaluate('D:\xampp\htdocs...', Array)
+#7 D:\xampp\htdocs\intranet\lib\Cake\View\View.php(473): View->_render('D:\xampp\htdocs...')
+#8 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(960): View->render(NULL, NULL)
+#9 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(200): Controller->render()
+#10 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(TicketsController), Object(CakeRequest))
+#11 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-11 19:42:47 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-11 19:42:47 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-11 19:43:23 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-11 19:43:23 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-11 19:43:36 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-11 19:43:36 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-11 20:04:21 Error: [MissingControllerException] Controller class PaidCustomersController could not be found.
+Exception Attributes: array (
+  'class' => 'PaidCustomersController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/paid_customers/changeservice/controler:Admins
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-11 20:04:27 Error: [MissingControllerException] Controller class PaidCustomersController could not be found.
+Exception Attributes: array (
+  'class' => 'PaidCustomersController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/paid_customers/changeservice/controler:Admins
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-11 20:06:45 Error: [MissingControllerException] Controller class PaidCustomersController could not be found.
+Exception Attributes: array (
+  'class' => 'PaidCustomersController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/paid_customers/changeservice/controler:Admins
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-11 20:06:52 Error: [MissingControllerException] Controller class PaidCustomersController could not be found.
+Exception Attributes: array (
+  'class' => 'PaidCustomersController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/paid_customers/changeservice/controler:Admins
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-11 20:07:11 Error: [MissingControllerException] Controller class PaidCustomersController could not be found.
+Exception Attributes: array (
+  'class' => 'PaidCustomersController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/paid_customers/changeservice/controler:Admins
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-11 20:07:53 Error: [MissingControllerException] Controller class PaidCustomersController could not be found.
+Exception Attributes: array (
+  'class' => 'PaidCustomersController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/paid_customers/changeservice/controler:Admins
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-11 20:18:32 Error: [MissingControllerException] Controller class PaidCustomersController could not be found.
+Exception Attributes: array (
+  'class' => 'PaidCustomersController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/paid_customers/changeservice/controler:Admins
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-11 20:18:50 Error: [MissingControllerException] Controller class PaidCustomersController could not be found.
+Exception Attributes: array (
+  'class' => 'PaidCustomersController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/paid_customers/changeservice/controler:Admins
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-11 20:25:22 Error: [MissingControllerException] Controller class PaidCustomersController could not be found.
+Exception Attributes: array (
+  'class' => 'PaidCustomersController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/paid_customers/changeservice/controler:Admins
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-11 20:27:40 Error: Fatal Error (4): syntax error, unexpected 'endif' (T_ENDIF) in [D:\xampp\htdocs\intranet\app\View\Admins\servicemanage.ctp, line 155]
+2016-02-11 20:27:40 Error: [FatalErrorException] syntax error, unexpected 'endif' (T_ENDIF)
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'D:\xampp\htdocs...', 155)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'D:\xampp\htdocs...', 155, Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'D:\xampp\htdocs...', 155, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-02-11 20:29:11 Error: [MissingControllerException] Controller class PaidCustomersController could not be found.
+Exception Attributes: array (
+  'class' => 'PaidCustomersController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/paid_customers/changeservice/controler:Admins
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-11 20:29:27 Error: [MissingControllerException] Controller class PaidCustomersController could not be found.
+Exception Attributes: array (
+  'class' => 'PaidCustomersController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/paid_customers/changeservice/controler:Admins
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-11 20:37:39 Error: [MissingControllerException] Controller class PaidCustomersController could not be found.
+Exception Attributes: array (
+  'class' => 'PaidCustomersController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/paid_customers/changeservice/controler:admins
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-11 21:35:42 Error: [MissingTableException] Table ticket_departments for model TicketDepartment was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'ticket_departments',
+  'class' => 'TicketDepartment',
+  'ds' => 'default',
+)
+Request URL: /intranet/tickets/editdepartment
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3644): Model->setSource('ticket_departme...')
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(1387): Model->getDataSource()
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(1483): Model->schema()
+#3 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(1470): Model->hasField('title', false)
+#4 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(907): Model->hasField(Array)
+#5 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3190): Model->__get('displayField')
+#6 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3055): Model->_findList('before', Array)
+#7 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(2989): Model->buildQuery('list', Array)
+#8 D:\xampp\htdocs\intranet\app\Controller\TicketsController.php(109): Model->find('list', Array)
+#9 [internal function]: TicketsController->editdepartment()
+#10 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(TicketsController), Array)
+#11 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#12 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(TicketsController), Object(CakeRequest))
+#13 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#14 {main}
+2016-02-11 21:35:49 Error: [MissingTableException] Table ticket_departments for model TicketDepartment was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'ticket_departments',
+  'class' => 'TicketDepartment',
+  'ds' => 'default',
+)
+Request URL: /intranet/tickets/create
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3644): Model->setSource('ticket_departme...')
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3022): Model->getDataSource()
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(2994): Model->_readDataSource('list', Array)
+#3 D:\xampp\htdocs\intranet\app\Controller\TicketsController.php(38): Model->find('list', Array)
+#4 [internal function]: TicketsController->create()
+#5 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(TicketsController), Array)
+#6 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#7 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(TicketsController), Object(CakeRequest))
+#8 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#9 {main}
+2016-02-11 22:13:22 Error: [MissingTableException] Table ticket_departments for model TicketDepartment was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'ticket_departments',
+  'class' => 'TicketDepartment',
+  'ds' => 'default',
+)
+Request URL: /intranet/tickets/create
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3644): Model->setSource('ticket_departme...')
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3022): Model->getDataSource()
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(2994): Model->_readDataSource('list', Array)
+#3 D:\xampp\htdocs\intranet\app\Controller\TicketsController.php(38): Model->find('list', Array)
+#4 [internal function]: TicketsController->create()
+#5 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(TicketsController), Array)
+#6 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#7 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(TicketsController), Object(CakeRequest))
+#8 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#9 {main}
+2016-02-11 22:15:25 Error: [MissingTableException] Table ticket_departments for model TicketDepartment was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'ticket_departments',
+  'class' => 'TicketDepartment',
+  'ds' => 'default',
+)
+Request URL: /intranet/tickets/adddepartment
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3644): Model->setSource('ticket_departme...')
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(1387): Model->getDataSource()
+#2 D:\xampp\htdocs\intranet\lib\Cake\View\Helper\FormHelper.php(215): Model->schema()
+#3 D:\xampp\htdocs\intranet\lib\Cake\View\Helper\FormHelper.php(468): FormHelper->_introspectModel('TicketDepartmen...', 'fields')
+#4 D:\xampp\htdocs\intranet\app\View\Tickets\adddepartment.ctp(39): FormHelper->create('TicketDepartmen...', Array)
+#5 D:\xampp\htdocs\intranet\lib\Cake\View\View.php(961): include('D:\xampp\htdocs...')
+#6 D:\xampp\htdocs\intranet\lib\Cake\View\View.php(923): View->_evaluate('D:\xampp\htdocs...', Array)
+#7 D:\xampp\htdocs\intranet\lib\Cake\View\View.php(473): View->_render('D:\xampp\htdocs...')
+#8 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(960): View->render(NULL, NULL)
+#9 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(200): Controller->render()
+#10 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(TicketsController), Object(CakeRequest))
+#11 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-12 14:36:27 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-12 15:17:49 Error: [MissingTableException] Table tickets for model Ticket was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'tickets',
+  'class' => 'Ticket',
+  'ds' => 'default',
+)
+Request URL: /intranet/tickets/create
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3644): Model->setSource('tickets')
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(1387): Model->getDataSource()
+#2 D:\xampp\htdocs\intranet\lib\Cake\View\Helper\FormHelper.php(215): Model->schema()
+#3 D:\xampp\htdocs\intranet\lib\Cake\View\Helper\FormHelper.php(468): FormHelper->_introspectModel('Ticket', 'fields')
+#4 D:\xampp\htdocs\intranet\app\View\Tickets\create.ctp(38): FormHelper->create('Ticket', Array)
+#5 D:\xampp\htdocs\intranet\lib\Cake\View\View.php(961): include('D:\xampp\htdocs...')
+#6 D:\xampp\htdocs\intranet\lib\Cake\View\View.php(923): View->_evaluate('D:\xampp\htdocs...', Array)
+#7 D:\xampp\htdocs\intranet\lib\Cake\View\View.php(473): View->_render('D:\xampp\htdocs...')
+#8 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(960): View->render(NULL, NULL)
+#9 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(200): Controller->render()
+#10 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(TicketsController), Object(CakeRequest))
+#11 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-12 15:41:34 Error: Fatal Error (4): syntax error, unexpected '===' (T_IS_IDENTICAL) in [D:\xampp\htdocs\intranet\app\View\Admins\edit_admin.ctp, line 154]
+2016-02-12 15:41:34 Error: [FatalErrorException] syntax error, unexpected '===' (T_IS_IDENTICAL)
+Request URL: /intranet/admins/edit_admin/6
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'D:\xampp\htdocs...', 154)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'D:\xampp\htdocs...', 154, Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'D:\xampp\htdocs...', 154, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-02-12 15:43:50 Error: Fatal Error (4): syntax error, unexpected '/' in [D:\xampp\htdocs\intranet\app\View\Admins\edit_admin.ctp, line 154]
+2016-02-12 15:43:50 Error: [FatalErrorException] syntax error, unexpected '/'
+Request URL: /intranet/admins/edit_admin/6
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'D:\xampp\htdocs...', 154)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'D:\xampp\htdocs...', 154, Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'D:\xampp\htdocs...', 154, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-02-12 15:44:55 Error: Fatal Error (4): syntax error, unexpected '<<' (T_SL) in [D:\xampp\htdocs\intranet\app\View\Elements\sadmin-sidebar.ctp, line 98]
+2016-02-12 15:44:56 Error: [FatalErrorException] syntax error, unexpected '<<' (T_SL)
+Request URL: /intranet/admins/edit_admin/6
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'D:\xampp\htdocs...', 98)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'D:\xampp\htdocs...', 98, Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'D:\xampp\htdocs...', 98, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-02-12 16:06:43 Error: Fatal Error (4): syntax error, unexpected '<<' (T_SL) in [D:\xampp\htdocs\intranet\app\Controller\TicketsController.php, line 50]
+2016-02-12 16:06:43 Error: [FatalErrorException] syntax error, unexpected '<<' (T_SL)
+Request URL: /intranet/tickets/create
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'D:\xampp\htdocs...', 50)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'D:\xampp\htdocs...', 50, Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'D:\xampp\htdocs...', 50, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-02-12 16:07:45 Error: [MissingTableException] Table ticket_departments for model TicketDepartment was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'ticket_departments',
+  'class' => 'TicketDepartment',
+  'ds' => 'default',
+)
+Request URL: /intranet/tickets/adddepartment
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3644): Model->setSource('ticket_departme...')
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(1387): Model->getDataSource()
+#2 D:\xampp\htdocs\intranet\lib\Cake\View\Helper\FormHelper.php(215): Model->schema()
+#3 D:\xampp\htdocs\intranet\lib\Cake\View\Helper\FormHelper.php(468): FormHelper->_introspectModel('TicketDepartmen...', 'fields')
+#4 D:\xampp\htdocs\intranet\app\View\Tickets\adddepartment.ctp(39): FormHelper->create('TicketDepartmen...', Array)
+#5 D:\xampp\htdocs\intranet\lib\Cake\View\View.php(961): include('D:\xampp\htdocs...')
+#6 D:\xampp\htdocs\intranet\lib\Cake\View\View.php(923): View->_evaluate('D:\xampp\htdocs...', Array)
+#7 D:\xampp\htdocs\intranet\lib\Cake\View\View.php(473): View->_render('D:\xampp\htdocs...')
+#8 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(960): View->render(NULL, NULL)
+#9 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(200): Controller->render()
+#10 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(TicketsController), Object(CakeRequest))
+#11 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-12 16:18:05 Error: Fatal Error (4): syntax error, unexpected '<<' (T_SL) in [D:\xampp\htdocs\intranet\app\Controller\TicketsController.php, line 50]
+2016-02-12 16:18:06 Error: [FatalErrorException] syntax error, unexpected '<<' (T_SL)
+Request URL: /intranet/tickets/editdepartment
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'D:\xampp\htdocs...', 50)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'D:\xampp\htdocs...', 50, Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'D:\xampp\htdocs...', 50, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-02-12 18:52:09 Error: [MissingControllerException] Controller class UsersController could not be found.
 Exception Attributes: array (
   'class' => 'UsersController',
   'plugin' => NULL,
 )
 Request URL: /intranet/users/login
 Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-12 18:52:21 Error: [MissingControllerException] Controller class UsersController could not be found.
+Exception Attributes: array (
+  'class' => 'UsersController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/users/login
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-12 18:52:22 Error: [MissingControllerException] Controller class UsersController could not be found.
+Exception Attributes: array (
+  'class' => 'UsersController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/users/login
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-12 18:52:35 Error: [MissingTableException] Table levels for model Level was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'levels',
+  'class' => 'Level',
+  'ds' => 'default',
+)
+Request URL: /intranet/login
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3644): Model->setSource('levels')
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(1387): Model->getDataSource()
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(1483): Model->schema()
+#3 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(1470): Model->hasField('title', false)
+#4 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(907): Model->hasField(Array)
+#5 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3190): Model->__get('displayField')
+#6 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3055): Model->_findList('before', Array)
+#7 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(2989): Model->buildQuery('list', Array)
+#8 D:\xampp\htdocs\intranet\app\Controller\FrontendsController.php(88): Model->find('list')
+#9 [internal function]: FrontendsController->login()
+#10 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(FrontendsController), Array)
+#11 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#12 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(FrontendsController), Object(CakeRequest))
+#13 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#14 {main}
+2016-02-13 12:12:25 Error: [MissingControllerException] Controller class UsersController could not be found.
+Exception Attributes: array (
+  'class' => 'UsersController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/users/login
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-13 12:12:38 Error: [MissingControllerException] Controller class UsersController could not be found.
+Exception Attributes: array (
+  'class' => 'UsersController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/users/login
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-13 12:12:44 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-13 12:12:44 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-13 13:55:54 Error: [PDOException] SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'role_id' cannot be null
+Request URL: /intranet/tickets/create
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('INSERT INTO `to...', Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(1012): DboSource->execute('INSERT INTO `to...')
+#3 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(1928): DboSource->create(Object(Track), Array, Array)
+#4 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(1751): Model->_doSave(Array, Array)
+#5 D:\xampp\htdocs\intranet\app\Controller\TicketsController.php(51): Model->save(Array)
+#6 [internal function]: TicketsController->create()
+#7 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(TicketsController), Array)
+#8 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#9 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(TicketsController), Object(CakeRequest))
+#10 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#11 {main}
+2016-02-13 16:40:02 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-13 16:40:02 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-13 16:40:29 Error: Fatal Error (4): syntax error, unexpected '<<' (T_SL) in [D:\xampp\htdocs\intranet\app\View\Elements\sadmin-sidebar.ctp, line 203]
+2016-02-13 16:40:30 Error: [FatalErrorException] syntax error, unexpected '<<' (T_SL)
+Request URL: /intranet/admins/dashboard
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'D:\xampp\htdocs...', 203)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'D:\xampp\htdocs...', 203, Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'D:\xampp\htdocs...', 203, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-02-13 17:13:51 Error: Fatal Error (4): syntax error, unexpected '<<' (T_SL) in [D:\xampp\htdocs\intranet\app\View\Elements\sadmin-sidebar.ctp, line 203]
+2016-02-13 17:13:51 Error: [FatalErrorException] syntax error, unexpected '<<' (T_SL)
+Request URL: /intranet/admins/dashboard
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'D:\xampp\htdocs...', 203)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'D:\xampp\htdocs...', 203, Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'D:\xampp\htdocs...', 203, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-02-13 21:11:18 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-13 21:11:18 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-14 19:21:46 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-14 19:21:46 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-14 19:23:54 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-14 19:23:54 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-15 12:24:08 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-15 12:24:08 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-15 17:35:14 Error: [MissingControllerException] Controller class UsersController could not be found.
+Exception Attributes: array (
+  'class' => 'UsersController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/users/login
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-15 17:36:35 Error: [MissingControllerException] Controller class UsersController could not be found.
+>>>>>>> b864f6dbcc2272044bdc506ed7067a5f9c0b696f
+Exception Attributes: array (
+  'class' => 'UsersController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/users/login
+Stack Trace:
+<<<<<<< HEAD
 #0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
 2016-02-19 22:40:00 Error: [MissingControllerException] Controller class PluginsController could not be found.
+=======
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-15 17:36:43 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-15 17:36:43 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-15 18:38:45 Error: Fatal Error (64): Cannot redeclare class Message in [D:\xampp\htdocs\intranet\app\Model\Massage.php, line 5]
+2016-02-15 18:38:45 Error: [FatalErrorException] Cannot redeclare class Message
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(64, 'Cannot redeclar...', 'D:\xampp\htdocs...', 5)
+#1 [internal function]: ErrorHandler::handleError(64, 'Cannot redeclar...', 'D:\xampp\htdocs...', 5, Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 64, 'Cannot redeclar...', 'D:\xampp\htdocs...', 5, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-02-15 18:39:10 Error: Fatal Error (64): Cannot redeclare class Message in [D:\xampp\htdocs\intranet\app\Model\Massage.php, line 5]
+2016-02-15 18:39:10 Error: [FatalErrorException] Cannot redeclare class Message
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(64, 'Cannot redeclar...', 'D:\xampp\htdocs...', 5)
+#1 [internal function]: ErrorHandler::handleError(64, 'Cannot redeclar...', 'D:\xampp\htdocs...', 5, Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 64, 'Cannot redeclar...', 'D:\xampp\htdocs...', 5, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-02-15 18:39:20 Error: Fatal Error (64): Cannot redeclare class Message in [D:\xampp\htdocs\intranet\app\Model\Massage.php, line 5]
+2016-02-15 18:39:20 Error: [FatalErrorException] Cannot redeclare class Message
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(64, 'Cannot redeclar...', 'D:\xampp\htdocs...', 5)
+#1 [internal function]: ErrorHandler::handleError(64, 'Cannot redeclar...', 'D:\xampp\htdocs...', 5, Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 64, 'Cannot redeclar...', 'D:\xampp\htdocs...', 5, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-02-15 18:42:21 Error: Fatal Error (64): Cannot redeclare class Message in [D:\xampp\htdocs\intranet\app\Model\Massage.php, line 5]
+2016-02-15 18:42:21 Error: [FatalErrorException] Cannot redeclare class Message
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(64, 'Cannot redeclar...', 'D:\xampp\htdocs...', 5)
+#1 [internal function]: ErrorHandler::handleError(64, 'Cannot redeclar...', 'D:\xampp\htdocs...', 5, Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 64, 'Cannot redeclar...', 'D:\xampp\htdocs...', 5, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-02-15 18:42:48 Error: Fatal Error (1): Call to a member function find() on a non-object in [D:\xampp\htdocs\intranet\app\Controller\AdminsController.php, line 287]
+2016-02-15 18:42:48 Error: [FatalErrorException] Call to a member function find() on a non-object
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(1, 'Call to a membe...', 'D:\xampp\htdocs...', 287)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', 'D:\xampp\htdocs...', 287, Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', 'D:\xampp\htdocs...', 287, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-02-15 18:44:24 Error: Fatal Error (1): Call to a member function find() on a non-object in [D:\xampp\htdocs\intranet\app\Controller\AdminsController.php, line 287]
+2016-02-15 18:44:24 Error: [FatalErrorException] Call to a member function find() on a non-object
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(1, 'Call to a membe...', 'D:\xampp\htdocs...', 287)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', 'D:\xampp\htdocs...', 287, Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', 'D:\xampp\htdocs...', 287, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-02-15 18:45:17 Error: [MissingTableException] Table messages for model Message was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'messages',
+  'class' => 'Message',
+  'ds' => 'default',
+)
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3644): Model->setSource('messages')
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3022): Model->getDataSource()
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(2994): Model->_readDataSource('All', Array)
+#3 D:\xampp\htdocs\intranet\app\Controller\AdminsController.php(287): Model->find('All', Array)
+#4 [internal function]: AdminsController->servicemanage()
+#5 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#6 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#7 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#8 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#9 {main}
+2016-02-15 18:54:42 Error: [MissingTableException] Table messages for model Message was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'messages',
+  'class' => 'Message',
+  'ds' => 'default',
+)
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3644): Model->setSource('messages')
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3022): Model->getDataSource()
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(2994): Model->_readDataSource('All', Array)
+#3 D:\xampp\htdocs\intranet\app\Controller\AdminsController.php(287): Model->find('All', Array)
+#4 [internal function]: AdminsController->servicemanage()
+#5 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#6 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#7 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#8 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#9 {main}
+2016-02-15 19:14:12 Error: Fatal Error (4): syntax error, unexpected end of file in [D:\xampp\htdocs\intranet\app\View\Admins\servicemanage.ctp, line 628]
+2016-02-15 19:14:12 Error: [FatalErrorException] syntax error, unexpected end of file
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'D:\xampp\htdocs...', 628)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'D:\xampp\htdocs...', 628, Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'D:\xampp\htdocs...', 628, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-02-15 19:23:56 Error: Fatal Error (4): syntax error, unexpected '[' in [D:\xampp\htdocs\intranet\app\View\Admins\servicemanage.ctp, line 117]
+2016-02-15 19:23:56 Error: [FatalErrorException] syntax error, unexpected '['
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'D:\xampp\htdocs...', 117)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'D:\xampp\htdocs...', 117, Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'D:\xampp\htdocs...', 117, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-02-15 19:26:27 Error: Fatal Error (1): Call to a member function format() on a non-object in [D:\xampp\htdocs\intranet\app\View\Admins\servicemanage.ctp, line 116]
+2016-02-15 19:26:27 Error: [FatalErrorException] Call to a member function format() on a non-object
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(1, 'Call to a membe...', 'D:\xampp\htdocs...', 116)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', 'D:\xampp\htdocs...', 116, Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', 'D:\xampp\htdocs...', 116, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-02-15 19:55:22 Error: Fatal Error (1): Call to a member function format() on a non-object in [D:\xampp\htdocs\intranet\app\View\Admins\servicemanage.ctp, line 114]
+2016-02-15 19:55:22 Error: [FatalErrorException] Call to a member function format() on a non-object
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(1, 'Call to a membe...', 'D:\xampp\htdocs...', 114)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', 'D:\xampp\htdocs...', 114, Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', 'D:\xampp\htdocs...', 114, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-02-15 20:05:08 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'dsc' at line 1
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT `Message...', Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT `Message...', Array, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(1106): DboSource->fetchAll('SELECT `Message...', false)
+#4 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3022): DboSource->read(Object(Message), Array)
+#5 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(2994): Model->_readDataSource('all', Array)
+#6 D:\xampp\htdocs\intranet\app\Controller\AdminsController.php(290): Model->find('all', Array)
+#7 [internal function]: AdminsController->servicemanage()
+#8 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-15 20:05:23 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DSC' at line 1
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT `Message...', Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT `Message...', Array, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(1106): DboSource->fetchAll('SELECT `Message...', false)
+#4 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3022): DboSource->read(Object(Message), Array)
+#5 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(2994): Model->_readDataSource('all', Array)
+#6 D:\xampp\htdocs\intranet\app\Controller\AdminsController.php(290): Model->find('all', Array)
+#7 [internal function]: AdminsController->servicemanage()
+#8 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-15 20:05:24 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DSC' at line 1
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT `Message...', Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT `Message...', Array, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(1106): DboSource->fetchAll('SELECT `Message...', false)
+#4 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3022): DboSource->read(Object(Message), Array)
+#5 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(2994): Model->_readDataSource('all', Array)
+#6 D:\xampp\htdocs\intranet\app\Controller\AdminsController.php(290): Model->find('all', Array)
+#7 [internal function]: AdminsController->servicemanage()
+#8 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-15 20:05:30 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DSC' at line 1
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT `Message...', Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT `Message...', Array, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(1106): DboSource->fetchAll('SELECT `Message...', false)
+#4 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3022): DboSource->read(Object(Message), Array)
+#5 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(2994): Model->_readDataSource('all', Array)
+#6 D:\xampp\htdocs\intranet\app\Controller\AdminsController.php(290): Model->find('all', Array)
+#7 [internal function]: AdminsController->servicemanage()
+#8 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-15 21:02:26 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-15 21:02:26 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-15 21:02:26 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-15 21:02:26 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-17 13:36:52 Error: [MissingTableException] Table messages for model Message was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'messages',
+  'class' => 'Message',
+  'ds' => 'default',
+)
+Request URL: /intranet/admins/servicemanage/
+Stack Trace:
+#0 D:\Server\htdocs\intranet\lib\Cake\Model\Model.php(3644): Model->setSource('messages')
+#1 D:\Server\htdocs\intranet\lib\Cake\Model\Model.php(3022): Model->getDataSource()
+#2 D:\Server\htdocs\intranet\lib\Cake\Model\Model.php(2994): Model->_readDataSource('all', Array)
+#3 D:\Server\htdocs\intranet\app\Controller\AdminsController.php(287): Model->find('all', Array)
+#4 [internal function]: AdminsController->servicemanage()
+#5 D:\Server\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#6 D:\Server\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#7 D:\Server\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#8 D:\Server\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#9 {main}
+2016-02-17 13:40:39 Error: [MissingTableException] Table messages for model Message was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'messages',
+  'class' => 'Message',
+  'ds' => 'default',
+)
+Request URL: /intranet/admins/servicemanage/
+Stack Trace:
+#0 D:\Server\htdocs\intranet\lib\Cake\Model\Model.php(3644): Model->setSource('messages')
+#1 D:\Server\htdocs\intranet\lib\Cake\Model\Model.php(3022): Model->getDataSource()
+#2 D:\Server\htdocs\intranet\lib\Cake\Model\Model.php(2994): Model->_readDataSource('all', Array)
+#3 D:\Server\htdocs\intranet\app\Controller\AdminsController.php(287): Model->find('all', Array)
+#4 [internal function]: AdminsController->servicemanage()
+#5 D:\Server\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#6 D:\Server\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#7 D:\Server\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#8 D:\Server\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#9 {main}
+2016-02-17 13:41:34 Error: [MissingTableException] Table paid_customers for model PaidCustomer was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'paid_customers',
+  'class' => 'PaidCustomer',
+  'ds' => 'default',
+)
+Request URL: /intranet/admins/servicemanage/
+Stack Trace:
+#0 D:\Server\htdocs\intranet\lib\Cake\Model\Model.php(3644): Model->setSource('paid_customers')
+#1 D:\Server\htdocs\intranet\lib\Cake\Model\Model.php(3022): Model->getDataSource()
+#2 D:\Server\htdocs\intranet\lib\Cake\Model\Model.php(2994): Model->_readDataSource('list', Array)
+#3 D:\Server\htdocs\intranet\app\Controller\AdminsController.php(288): Model->find('list', Array)
+#4 [internal function]: AdminsController->servicemanage()
+#5 D:\Server\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#6 D:\Server\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#7 D:\Server\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#8 D:\Server\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#9 {main}
+2016-02-17 14:39:05 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1049] Unknown database \'totalcableusa\'',
+  'enabled' => true,
+)
+Request URL: /intranet/tickets/manage
+Stack Trace:
+#0 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(260): Mysql->connect()
+#1 E:\Appxampp\htdocs\intranet\lib\Cake\Model\ConnectionManager.php(105): DboSource->__construct(Array)
+#2 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Model.php(3617): ConnectionManager::getDataSource('default')
+#3 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Model.php(1155): Model->setDataSource('default')
+#4 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Model.php(3644): Model->setSource('tracks')
+#5 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Model.php(3446): Model->getDataSource()
+#6 E:\Appxampp\htdocs\intranet\app\Controller\TicketsController.php(155): Model->query('SELECT * FROM t...')
+#7 [internal function]: TicketsController->manage()
+#8 E:\Appxampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(TicketsController), Array)
+#9 E:\Appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 E:\Appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(TicketsController), Object(CakeRequest))
+#11 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-18 12:49:38 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.
+',
+  'enabled' => true,
+)
+Request URL: /intranet/
+Stack Trace:
+#0 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(260): Mysql->connect()
+#1 E:\Appxampp\htdocs\intranet\lib\Cake\Model\ConnectionManager.php(105): DboSource->__construct(Array)
+#2 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Model.php(3617): ConnectionManager::getDataSource('default')
+#3 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Model.php(1155): Model->setDataSource('default')
+#4 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Model.php(3644): Model->setSource('users')
+#5 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Model.php(1387): Model->getDataSource()
+#6 E:\Appxampp\htdocs\intranet\lib\Cake\View\Helper\FormHelper.php(215): Model->schema()
+#7 E:\Appxampp\htdocs\intranet\lib\Cake\View\Helper\FormHelper.php(468): FormHelper->_introspectModel('User', 'fields')
+#8 E:\Appxampp\htdocs\intranet\app\View\Admins\login.ctp(15): FormHelper->create('User', Array)
+#9 E:\Appxampp\htdocs\intranet\lib\Cake\View\View.php(961): include('E:\\Appxampp\\htd...')
+#10 E:\Appxampp\htdocs\intranet\lib\Cake\View\View.php(923): View->_evaluate('E:\\Appxampp\\htd...', Array)
+#11 E:\Appxampp\htdocs\intranet\lib\Cake\View\View.php(473): View->_render('E:\\Appxampp\\htd...')
+#12 E:\Appxampp\htdocs\intranet\lib\Cake\Controller\Controller.php(960): View->render(NULL, NULL)
+#13 E:\Appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(200): Controller->render()
+#14 E:\Appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#15 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#16 {main}
+2016-02-18 12:49:39 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.
+',
+  'enabled' => true,
+)
+Request URL: /intranet/
+Stack Trace:
+#0 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(260): Mysql->connect()
+#1 E:\Appxampp\htdocs\intranet\lib\Cake\Model\ConnectionManager.php(105): DboSource->__construct(Array)
+#2 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Model.php(3617): ConnectionManager::getDataSource('default')
+#3 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Model.php(1155): Model->setDataSource('default')
+#4 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Model.php(3644): Model->setSource('users')
+#5 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Model.php(1387): Model->getDataSource()
+#6 E:\Appxampp\htdocs\intranet\lib\Cake\View\Helper\FormHelper.php(215): Model->schema()
+#7 E:\Appxampp\htdocs\intranet\lib\Cake\View\Helper\FormHelper.php(468): FormHelper->_introspectModel('User', 'fields')
+#8 E:\Appxampp\htdocs\intranet\app\View\Admins\login.ctp(15): FormHelper->create('User', Array)
+#9 E:\Appxampp\htdocs\intranet\lib\Cake\View\View.php(961): include('E:\\Appxampp\\htd...')
+#10 E:\Appxampp\htdocs\intranet\lib\Cake\View\View.php(923): View->_evaluate('E:\\Appxampp\\htd...', Array)
+#11 E:\Appxampp\htdocs\intranet\lib\Cake\View\View.php(473): View->_render('E:\\Appxampp\\htd...')
+#12 E:\Appxampp\htdocs\intranet\lib\Cake\Controller\Controller.php(960): View->render(NULL, NULL)
+#13 E:\Appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(200): Controller->render()
+#14 E:\Appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#15 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#16 {main}
+2016-02-18 12:53:45 Error: [MissingControllerException] Controller class PluginsController could not be found.
 Exception Attributes: array (
   'class' => 'PluginsController',
   'plugin' => NULL,
@@ -16,7 +1774,7 @@ Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
 Stack Trace:
 #0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
-2016-02-19 22:40:00 Error: [MissingControllerException] Controller class PluginsController could not be found.
+2016-02-18 12:53:45 Error: [MissingControllerException] Controller class PluginsController could not be found.
 Exception Attributes: array (
   'class' => 'PluginsController',
   'plugin' => NULL,
@@ -25,7 +1783,8 @@ Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
 Stack Trace:
 #0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
-2016-02-20 11:58:49 Error: [MissingControllerException] Controller class PluginsController could not be found.
+2016-02-18 13:02:20 Error: [MissingControllerException] Controller class PluginsController could not be found.
+>>>>>>> b864f6dbcc2272044bdc506ed7067a5f9c0b696f
 Exception Attributes: array (
   'class' => 'PluginsController',
   'plugin' => NULL,
@@ -34,7 +1793,11 @@ Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
 Stack Trace:
 #0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
-2016-02-20 11:58:49 Error: [MissingControllerException] Controller class PluginsController could not be found.
+<<<<<<< HEAD
+2016-02-19 22:40:00 Error: [MissingControllerException] Controller class PluginsController could not be found.
+=======
+2016-02-18 13:02:20 Error: [MissingControllerException] Controller class PluginsController could not be found.
+>>>>>>> b864f6dbcc2272044bdc506ed7067a5f9c0b696f
 Exception Attributes: array (
   'class' => 'PluginsController',
   'plugin' => NULL,
@@ -43,3 +1806,264 @@ Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
 Stack Trace:
 #0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
+<<<<<<< HEAD
+2016-02-20 11:58:49 Error: [MissingControllerException] Controller class PluginsController could not be found.
+=======
+<<<<<<< HEAD
+2016-02-18 14:44:03 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tr.package_customer_id' in 'on clause'
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT * FROM t...', Array)
+#2 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT * FROM t...', Array, Array)
+#3 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('SELECT * FROM t...')
+#4 [internal function]: DboSource->query('SELECT * FROM t...')
+#5 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Model.php(3447): call_user_func_array(Array, Array)
+#6 E:\Appxampp\htdocs\intranet\app\Controller\AdminsController.php(261): Model->query('SELECT * FROM t...')
+#7 [internal function]: AdminsController->servicemanage()
+#8 E:\Appxampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 E:\Appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 E:\Appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-18 15:07:21 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tr.package_customer_id' in 'on clause'
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT * FROM t...', Array)
+#2 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT * FROM t...', Array, Array)
+#3 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('SELECT * FROM t...')
+#4 [internal function]: DboSource->query('SELECT * FROM t...')
+#5 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Model.php(3447): call_user_func_array(Array, Array)
+#6 E:\Appxampp\htdocs\intranet\app\Controller\AdminsController.php(261): Model->query('SELECT * FROM t...')
+#7 [internal function]: AdminsController->servicemanage()
+#8 E:\Appxampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 E:\Appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 E:\Appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-18 15:07:32 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY tr.created DESC' at line 8
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT * FROM t...', Array)
+#2 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT * FROM t...', Array, Array)
+#3 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('SELECT * FROM t...')
+#4 [internal function]: DboSource->query('SELECT * FROM t...')
+#5 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Model.php(3447): call_user_func_array(Array, Array)
+#6 E:\Appxampp\htdocs\intranet\app\Controller\AdminsController.php(261): Model->query('SELECT * FROM t...')
+#7 [internal function]: AdminsController->servicemanage()
+#8 E:\Appxampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 E:\Appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 E:\Appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-18 16:45:21 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY tr.created DESC' at line 8
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT * FROM t...', Array)
+#2 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT * FROM t...', Array, Array)
+#3 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('SELECT * FROM t...')
+#4 [internal function]: DboSource->query('SELECT * FROM t...')
+#5 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Model.php(3447): call_user_func_array(Array, Array)
+#6 E:\Appxampp\htdocs\intranet\app\Controller\AdminsController.php(261): Model->query('SELECT * FROM t...')
+#7 [internal function]: AdminsController->servicemanage()
+#8 E:\Appxampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 E:\Appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 E:\Appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-18 16:47:59 Error: [MissingTableException] Table users for model User was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'users',
+  'class' => 'User',
+  'ds' => 'default',
+)
+Request URL: /intranet/
+Stack Trace:
+#0 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Model.php(3644): Model->setSource('users')
+#1 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Model.php(1387): Model->getDataSource()
+#2 E:\Appxampp\htdocs\intranet\lib\Cake\View\Helper\FormHelper.php(215): Model->schema()
+#3 E:\Appxampp\htdocs\intranet\lib\Cake\View\Helper\FormHelper.php(468): FormHelper->_introspectModel('User', 'fields')
+#4 E:\Appxampp\htdocs\intranet\app\View\Admins\login.ctp(15): FormHelper->create('User', Array)
+#5 E:\Appxampp\htdocs\intranet\lib\Cake\View\View.php(961): include('E:\\Appxampp\\htd...')
+#6 E:\Appxampp\htdocs\intranet\lib\Cake\View\View.php(923): View->_evaluate('E:\\Appxampp\\htd...', Array)
+#7 E:\Appxampp\htdocs\intranet\lib\Cake\View\View.php(473): View->_render('E:\\Appxampp\\htd...')
+#8 E:\Appxampp\htdocs\intranet\lib\Cake\Controller\Controller.php(960): View->render(NULL, NULL)
+#9 E:\Appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(200): Controller->render()
+#10 E:\Appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-18 16:48:19 Error: [MissingControllerException] Controller class PluginsController could not be found.
+=======
+2016-02-18 17:53:30 Error: [MissingControllerException] Controller class PluginsController could not be found.
+>>>>>>> 36d8419a50dd5fda75053ce918cb7f4271792716
+>>>>>>> b864f6dbcc2272044bdc506ed7067a5f9c0b696f
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
+Stack Trace:
+<<<<<<< HEAD
+#0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-20 11:58:49 Error: [MissingControllerException] Controller class PluginsController could not be found.
+=======
+<<<<<<< HEAD
+#0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-18 16:48:19 Error: [MissingControllerException] Controller class PluginsController could not be found.
+=======
+#0 D:\Server\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-18 17:53:30 Error: [MissingControllerException] Controller class PluginsController could not be found.
+>>>>>>> 36d8419a50dd5fda75053ce918cb7f4271792716
+>>>>>>> b864f6dbcc2272044bdc506ed7067a5f9c0b696f
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
+Stack Trace:
+<<<<<<< HEAD
+#0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+=======
+<<<<<<< HEAD
+#0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+=======
+#0 D:\Server\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+>>>>>>> 36d8419a50dd5fda75053ce918cb7f4271792716
+#1 {main}
+2016-02-18 19:36:04 Error: [MissingActionException] Action TicketsController::customerhistory() could not be found.
+Exception Attributes: array (
+  'controller' => 'TicketsController',
+  'action' => 'customerhistory',
+)
+Request URL: /intranet/tickets/customerhistory/3
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#1 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(TicketsController), Object(CakeRequest))
+#2 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+=======
+>>>>>>> b8e58160e7bf2661d5147a352238f6e165d88c0b
+2016-02-19 14:02:11 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-19 14:02:11 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-19 21:30:41 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-19 21:30:41 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+=======
+>>>>>>> 275b320484a596557660d495044ba8689c9960f1
+2016-02-19 21:39:09 Error: Fatal Error (1): Call to a member function query() on a non-object in [D:\xampp\htdocs\intranet\app\Controller\AdminsController.php, line 299]
+2016-02-19 21:39:09 Error: [FatalErrorException] Call to a member function query() on a non-object
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(1, 'Call to a membe...', 'D:\xampp\htdocs...', 299)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', 'D:\xampp\htdocs...', 299, Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', 'D:\xampp\htdocs...', 299, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-02-19 21:40:14 Error: [MissingTableException] Table pakages for model Pakage was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'pakages',
+  'class' => 'Pakage',
+  'ds' => 'default',
+)
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3644): Model->setSource('pakages')
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3446): Model->getDataSource()
+#2 D:\xampp\htdocs\intranet\app\Controller\AdminsController.php(299): Model->query('SELECT * ??    ...')
+#3 [internal function]: AdminsController->servicemanage()
+#4 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#5 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#6 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#7 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#8 {main}
+2016-02-19 21:43:41 Error: [MissingTableException] Table pakages for model Pakage was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'pakages',
+  'class' => 'Pakage',
+  'ds' => 'default',
+)
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3644): Model->setSource('pakages')
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3446): Model->getDataSource()
+#2 D:\xampp\htdocs\intranet\app\Controller\AdminsController.php(295): Model->query('SELECT * FROM p...')
+#3 [internal function]: AdminsController->servicemanage()
+#4 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#5 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#6 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#7 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#8 {main}
+2016-02-19 21:43:58 Error: [MissingTableException] Table pakages for model Pakage was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'pakages',
+  'class' => 'Pakage',
+  'ds' => 'default',
+)
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3644): Model->setSource('pakages')
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3446): Model->getDataSource()
+#2 D:\xampp\htdocs\intranet\app\Controller\AdminsController.php(295): Model->query('SELECT * FROM p...')
+#3 [internal function]: AdminsController->servicemanage()
+#4 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#5 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#6 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#7 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#8 {main}
+2016-02-19 21:48:59 Error: [MissingTableException] Table pakages for model Pakage was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'pakages',
+  'class' => 'Pakage',
+  'ds' => 'default',
+)
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3644): Model->setSource('pakages')
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(3446): Model->getDataSource()
+#2 D:\xampp\htdocs\intranet\app\Controller\AdminsController.php(296): Model->query('SELECT * FROM p...')
+#3 [internal function]: AdminsController->servicemanage()
+#4 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#5 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#6 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#7 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#8 {main}
+>>>>>>> b864f6dbcc2272044bdc506ed7067a5f9c0b696f
