@@ -244,21 +244,13 @@ class AdminsController extends AppController {
         $this->loadModel('CustomPackage');
         $this->loadModel('Psetting');
         $this->loadModel('Package');
-        $clicked = false;
-
-
-
         if ($id) {
             $customer_info = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $id)));
-
             $clicked = true;
             $this->set(compact('customer_info'));
         }
-
         if ($this->request->is('post')) {
-
             $cell = $this->request->data['PackageCustomer']['cell'];
-
             $clicked = true;
             $tickets = $this->Track->query("SELECT * FROM tracks tr
                         left JOIN tickets t ON tr.ticket_id = t.id
@@ -277,7 +269,6 @@ class AdminsController extends AppController {
                 $t = $ticket['t']['id'];
                 if (isset($unique[$t])) {
                     //  echo 'already exist'.$key.'<br/>';
-
                     $temp = array('tr' => $ticket['tr'], 'fb' => $ticket['fb'], 'fd' => $ticket['fd'], 'fi' => $ticket['fi'], 'i' => $ticket['i'], 'pc' => $ticket['pc']);
                     $filteredTicket[$index]['history'][] = $temp;
                 } else {
@@ -334,7 +325,6 @@ class AdminsController extends AppController {
             //return $this->redirect('/transactions/expire_customer/' . $this->request->data['PaidCustomer']['id']);
             return $this->redirect('/transactions/edit_customer_data/' . $this->request->data['PackageCustomer']['id']);
         }
-
         if ($this->request->data['PackageCustomer']['status'] == 'history') {
             return $this->redirect('/tickets/customertickethistory/' . $this->request->data['PackageCustomer']['id']);
         }
