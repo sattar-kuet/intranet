@@ -73,19 +73,19 @@
                                                 <td class="signupfont" style="min-width: 200px;">
                                                     <div class="form-group" style="margin-left: 0px;">
                                                         <div class="">
-                                                            <label><input id="sig1" type="radio" value="CARD (DEBIT/CREDIT)" name="data[PackageCustomer][payment_type]">CARD (DEBIT/CREDIT)</label>
+                                                            <label><input class="pmode" type="radio" value="card" name="pmode">CARD (DEBIT/CREDIT)</label>
                                                         </div>
                                                         <div class="">
-                                                            <label><input id="sig1" type="radio" value="PERSONAL CHECK" name="data[PackageCustomer][payment_type]">CHECK</label>
+                                                            <label><input class="pmode" type="radio" value="check" name="pmode">CHECK</label>
                                                         </div>
                                                         <div class="">
-                                                            <label><input id="sig2" type="radio" value="MONEY ORDER" name="data[PackageCustomer][payment_type]">MONEY ORDER</label>
+                                                            <label><input class="pmode" type="radio" value="check" name="pmode">MONEY ORDER</label>
                                                         </div>
                                                         <div class="">
-                                                            <label><input id="sig2" type="radio" value="MONEY ORDER" name="data[PackageCustomer][payment_type]">ONLINE BILL</label>
+                                                            <label><input class="pmode" type="radio" value="check" name="pmode">ONLINE BILL</label>
                                                         </div>
                                                         <div class="">
-                                                            <label><input id="sig2" type="radio" value="MONEY ORDER" name="data[PackageCustomer][payment_type]">CASH</label>
+                                                            <label><input class="pmode" type="radio" value="cash" name="pmode">CASH</label>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -95,7 +95,7 @@
                                                 <td>
                                                     <div id="option_card">
                                                         <?php
-                                                        echo $this->Form->create('PackageCustomer', array(
+                                                        echo $this->Form->create('Transaction', array(
                                                             'inputDefaults' => array(
                                                                 'label' => false,
                                                                 'div' => false
@@ -108,7 +108,7 @@
                                                                 )
                                                         );
                                                         ?>
-                                                        <div class="row">
+                                                        <div class="row ">
                                                             <div class="col-md-3 signupfont">
                                                                 Name: 
                                                             </div>
@@ -119,7 +119,7 @@
                                                                     'type' => 'text',
                                                                     'class' => 'form-control input-sm required',
                                                                     'placeholder' => 'first name',
-                                                                      'id'=>'firstname'
+                                                                    'id' => 'firstname'
                                                                 ));
                                                                 ?>
                                                             </div>
@@ -130,7 +130,7 @@
                                                                     'type' => 'text',
                                                                     'class' => 'form-control input-sm required',
                                                                     'placeholder' => 'last name',
-                                                                    'id'=>'lastname',
+                                                                    'id' => 'lastname',
                                                                 ));
                                                                 ?>
                                                             </div>
@@ -148,6 +148,7 @@
                                                                 echo $this->Form->input(
                                                                         'card_no', array(
                                                                     'type' => 'text',
+                                                                    'value' => '',
                                                                     'class' => 'form-control input-sm required'
                                                                 ));
                                                                 ?>
@@ -185,6 +186,7 @@
                                                                 echo $this->Form->input(
                                                                         'cvv_code', array(
                                                                     'type' => 'text',
+                                                                    'value' => '',
                                                                     'class' => 'form-control input-sm required'
                                                                 ));
                                                                 ?>
@@ -214,6 +216,7 @@
                                                                 echo $this->Form->input(
                                                                         'address', array(
                                                                     'type' => 'text',
+                                                                    'value' => '',
                                                                     'class' => 'form-control input-sm',
                                                                     'placeholder' => 'detail (optional)'
                                                                 ));
@@ -234,8 +237,9 @@
                                                             <div class="col-md-9">
                                                                 <?php
                                                                 echo $this->Form->input(
-                                                                        'charge_amount', array(
+                                                                        'paid_amount', array(
                                                                     'type' => 'number',
+                                                                    'value' => '',
                                                                     'class' => 'form-control input-sm required'
                                                                 ));
                                                                 ?>
@@ -478,7 +482,7 @@
                                             echo $this->Form->input(
                                                     'first_name', array(
                                                 'class' => 'required',
-                                                        'id'=>'first'
+                                                'id' => 'first'
                                                     )
                                             );
                                             ?> 
@@ -512,7 +516,7 @@
                                             echo $this->Form->input(
                                                     'last_name', array(
                                                 'class' => 'required',
-                                                    'id'=>'last'    
+                                                'id' => 'last'
                                                     )
                                             );
                                             ?> 
