@@ -16,11 +16,45 @@ echo $this->Html->script(
             'admin/ajaxLoad',
             'admin/orderManagement',
             'admin/menu',
-            'customerinfo',
+            
+            //div view by payment category
+            'customerinfo',     
+            
+            // datepicker range            
+            '/jquery-ui-daterangepicker-0.4.3/jquery-ui',
+            '/jquery-ui-daterangepicker-0.4.3/moment.min',
+            '/jquery-ui-daterangepicker-0.4.3/jquery.comiseo.daterangepicker'
+            
             )
 );
 ?>
 
+<script>
+    $(function() { $("#e1").daterangepicker(); });
+     $("#e2").daterangepicker({
+     presetRanges: [{
+         text: 'Today',
+         dateStart: function() { return moment() },
+         dateEnd: function() { return moment() }
+     }, {
+         text: 'Tomorrow',
+         dateStart: function() { return moment().add('days', 1) },
+         dateEnd: function() { return moment().add('days', 1) }
+     }, {
+         text: 'Next 7 Days',
+         dateStart: function() { return moment() },
+         dateEnd: function() { return moment().add('days', 6) }
+     }, {
+         text: 'Next Week',
+         dateStart: function() { return moment().add('weeks', 1).startOf('week') },
+         dateEnd: function() { return moment().add('weeks', 1).endOf('week') }
+     }],
+     applyOnMenuSelect: false,
+     datepickerOptions: {
+         maxDate: null
+     }
+ });
+</script>
 </body>
 <!-- END BODY -->
 </html>

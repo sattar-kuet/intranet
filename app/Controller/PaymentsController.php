@@ -202,7 +202,6 @@ class PaymentsController extends AppController {
         <strong>' . $msg . '</strong>
     </div>';
         $this->Session->setFlash($transactionMsg);
-
         return $this->redirect($this->referer());
         //$this->set(compact('msg'));
     }
@@ -217,15 +216,59 @@ class PaymentsController extends AppController {
             $this->request->data['Transaction']['check_image'] = '';
         }
        $this->Transaction->save($this->request->data['Transaction']);
-       
          $transactionMsg = '<div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <strong> Payment record saved successfully</strong>
     </div>';
         $this->Session->setFlash($transactionMsg);
-
         return $this->redirect($this->referer());
-      
+    }
+    public function individual_transaction_by_morder() {
+        $this->loadModel('Transaction');
+        $result = array();
+        if (!empty($this->request->data['Transaction']['check_image']['name'])) {
+            $result = $this->processImg($this->request->data['Transaction'], 'check_image');
+            $this->request->data['Transaction']['check_image'] = (string) $result['file_dst_name'];
+        } else {
+            $this->request->data['Transaction']['check_image'] = '';
+        }
+       $this->Transaction->save($this->request->data['Transaction']);
+         $transactionMsg = '<div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong> Payment record saved successfully</strong>
+    </div>';
+        $this->Session->setFlash($transactionMsg);
+        return $this->redirect($this->referer());
+    }
+    public function individual_transaction_by_online_bil() {
+        $this->loadModel('Transaction');
+        $result = array();
+        if (!empty($this->request->data['Transaction']['check_image']['name'])) {
+            $result = $this->processImg($this->request->data['Transaction'], 'check_image');
+            $this->request->data['Transaction']['check_image'] = (string) $result['file_dst_name'];
+        } else {
+            $this->request->data['Transaction']['check_image'] = '';
+        }
+       $this->Transaction->save($this->request->data['Transaction']);
+         $transactionMsg = '<div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong> Payment record saved successfully</strong>
+    </div>';
+        $this->Session->setFlash($transactionMsg);
+        return $this->redirect($this->referer());
+    }
+    public function individual_transaction_by_cash() {
+        
+       // pr($this->request->data); exit;
+        $this->loadModel('Transaction');
+     
+       $this->Transaction->save($this->request->data['Transaction']);
+         $transactionMsg = '<div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong> Payment record saved successfully</strong>
+    </div>';
+        $this->Session->setFlash($transactionMsg);
+        return $this->redirect($this->referer());
     }
 
 }

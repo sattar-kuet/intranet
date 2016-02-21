@@ -1,6 +1,6 @@
 <!-- BEGIN SIDEBAR -->
 <div class="page-sidebar-wrapper">
-    <div class="page-sidebar navbar-collapse collapse">
+    <div class="page-sidebar navbar-collapse collapse" style="width: 247px; margin-top: 11px;">
         <!-- BEGIN SIDEBAR MENU -->
         <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
             <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
@@ -110,6 +110,25 @@
                     <span class="arrow "></span>
                 </a>
             </li>
+            
+             <li 
+            <?php
+
+            $payment = array('paymenthistory');
+            if (in_array($this->name . '' . $this->action, $payment)):
+                ?>
+                    class="active"
+                    <?php
+                endif;
+                ?>
+                >                 
+                <a href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'payment_history')) ?>">
+                    <i class="fa fa-support"></i>
+                    <span class="title">Payment History</span>
+                    <span class="arrow "></span>
+                </a>
+            </li>
+            
             <li 
             <?php
 
@@ -338,5 +357,5 @@
         </ul>
         <!-- END SIDEBAR MENU -->
     </div>
-</div>
+
 <!-- END SIDEBAR -->
