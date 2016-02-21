@@ -15,17 +15,12 @@
         <h3 class="page-title">
             Complete the transactions <small>(individually)</small>
         </h3>
-
         <?php echo $this->Session->flash(); ?>
-
         <!-- END PAGE HEADER-->
         <!-- BEGIN PAGE CONTENT-->
         <div class="row">
             <div class="col-md-12">
-                <!-- BEGIN EXAMPLE TABLE PORTLET-->
-
-                <!-- END EXAMPLE TABLE PORTLET-->
-
+                <!-- BEGIN EXAMPLE TABLE PORTLET-->           
                 <!-- END EXAMPLE TABLE PORTLET-->
                 <div class="portlet box blue">
                     <div class="portlet-title">
@@ -375,7 +370,7 @@
                                     Referred by:
 
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="input-list style-4 clearfix">
                                         <div>
                                             <?php
@@ -391,9 +386,28 @@
                                 </div>
 
                                 <div class="col-md-1 signupfont">
+                                    Bonus:
+
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="input-list style-4 clearfix">
+                                        <div>
+                                            <?php
+                                            echo $this->Form->input(
+                                                    'bonus', array(
+                                                'class' => '',
+                                                    )
+                                            );
+                                            ?>
+
+                                        </div>                            
+                                    </div>
+                                </div>
+
+                                <div class="col-md-1 signupfont">
                                     Phone: 
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-md-3">
                                     <div class="input-list style-4 clearfix">
                                         <div>
                                             <?php
@@ -492,21 +506,16 @@
                                                                                 <ul class="pricing-content list-unstyled">
                                                                                     <?php echo $package['offer']; ?>
                                                                                 </ul>
-
                                                                             </div>
-
                                                                         </div>
-
                                                                     <?php endforeach;
                                                                     ?>
                                                                 </div>
-
                                                             </div>
 
                                                             <?php
                                                         endforeach;
                                                         ?>
-
 
                                                         <div class="tab-pane" id="custom">
                                                             <div class="panel-body">
@@ -514,7 +523,6 @@
                                                                     <div class="pricing hover-effect" data-id="0">
                                                                         <div class="pricing-head">
                                                                             <h3>Custom<span> Billing Package </span></h3>
-
                                                                         </div>
                                                                         <div style="padding: 10px;">
                                                                             <div class="form-group">
@@ -532,9 +540,7 @@
                                                                                     );
                                                                                     ?>
                                                                                 </div>
-
                                                                             </div>
-
                                                                             <div class="form-group">
                                                                                 <label class="col-md-4 control-label">Charged Amount</label>
                                                                                 <div class="col-md-8">
@@ -549,76 +555,49 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-
                                                                     </div>
                                                                 </div>
-
                                                             </div>
-
                                                         </div>
                                                     </div>
                                                 </div>
-
-
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
-
                             </div> 
                         </div>
 
                         <div class="row">
                             <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20"> 
-
                                 <?php
                                 echo $this->Form->button(
-                                        'Update', array(
+                                        'Update Customer Information', array(
                                     'class' => 'btn btn-primary submitbtn',
                                     'type' => 'submit',
                                     'id' => ''
                                 ));
                                 ?>
-
                             </div>
                         </div>
-
-
-
                         <?php echo $this->Form->end(); ?>  
-
                     </div>
                 </div>
 
                 <!-- BEGIN EXAMPLE TABLE PORTLET-->
                 <div class="portlet box blue">
-
                     <div class="portlet-title">
                         <div class="caption">
                             <i class="fa fa-list-ul"></i>Payment process
                         </div>
 
                         <div class="tools">
-                            <a href="javascript:;" class="reload">
+                            <a  class="reload toggle" data-id="paymentprocess">
                             </a>
                         </div>
                     </div>
                     <div class="portlet-body">
-                        <!--                        <div class="row">
-                                                    <div class="col-md-12 ">
-                                                         BEGIN SAMPLE FORM PORTLET
-                                                        <div class="portlet box"  style=" text-align: center; background-color: black;">
-                                                            <div class="portlet-title">
-                                                                <div class="caption" id="blackcaption" >
-                                                                    Payment
-                                                                </div>
-                        
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>-->
-                        <div class="row">
+                        <div class="row display-hide" id="paymentprocess">
                             <div class="col-md-12">
                                 <div class="table-responsive">
                                     <table class="table table-striped table-hover table-bordered">
@@ -628,12 +607,10 @@
                                                     PAYMENT METHOD
                                                 </th>
                                                 <th>
-
                                                 </th>
                                                 <th class="tablehead">
                                                     CARD/CHECK INFORMATION
                                                 </th>
-
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -676,8 +653,6 @@
                                                                 )
                                                         );
                                                         ?>
-
-
                                                         <?php
                                                         echo $this->Form->input(
                                                                 'cid', array(
@@ -712,9 +687,7 @@
                                                                 ));
                                                                 ?>
                                                             </div>
-
                                                         </div>
-
                                                         &nbsp;
 
                                                         <div class="row">
@@ -731,7 +704,6 @@
                                                                 ));
                                                                 ?>
                                                             </div>
-
                                                         </div>
 
                                                         &nbsp;
@@ -770,9 +742,6 @@
                                                                 ));
                                                                 ?>
                                                             </div>
-
-
-
                                                         </div>
                                                         &nbsp;
                                                         <div class="row">
@@ -883,8 +852,6 @@
                                                             </div>
                                                         </div>
                                                         &nbsp;
-
-
                                                         <div class="row">
                                                             <div class="col-md-3 signupfont">
                                                                 Charged Amount: 
@@ -901,8 +868,6 @@
                                                             </div>
                                                         </div>
                                                         &nbsp;
-
-
                                                         <div class="row">
                                                             <div class="col-md-3 signupfont">
                                                                 Check Info: 
@@ -979,7 +944,6 @@
                                                         </div>
                                                         &nbsp;
 
-
                                                         <div class="row">
                                                             <div class="col-md-3 signupfont">
                                                                 Charged Amount: 
@@ -996,7 +960,6 @@
                                                             </div>
                                                         </div>
                                                         &nbsp;
-
 
                                                         <div class="row">
                                                             <div class="col-md-3 signupfont">
@@ -1030,7 +993,6 @@
 
                                                             </div>
                                                         </div>
-
                                                         <?php echo $this->Form->end(); ?>
                                                     </div>
                                                     &nbsp;
@@ -1200,12 +1162,462 @@
                                     </table>
                                 </div>
                             </div>
-                        </div>
+                        </div> 
                     </div>
                 </div>
                 <!-- end -->
             </div>
         </div>
+
+        <!-------------payment history start----------------->
+
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-list-ul"></i>Payment History
+                </div>
+                <div class="tools">
+                    <a  class="reload toggle" data-id="paymenthistory">
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="row display-hide" id="paymenthistory">
+                    <table cellpadding="0" cellspacing="0" border="0" class="responsive dynamicTable display table table-bordered" width="100%" >
+                        <thead>
+                            <tr >  
+                                <th>Pay Mode</th>
+                                <th>Error Msg</th>
+                                <th>Paid Amount</th>
+                                <th>Due</th>
+                                <th>Exp Date</th>
+                                <th>CVV Code</th>
+                                <th>Zip Code</th>
+                                <th>Address</th>
+                                <th>Check Info</th>
+                                <th>Cash By</th>
+                                <th>Trans Action Time</th>
+                                <!--<th>Action</th>-->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            foreach ($transactions as $single):
+                                $info = $single['Transaction'];
+                                ?>
+                                <tr class="odd gradeX">
+                                    <td><?php echo $info['pay_mode']; ?></td>
+                                    <td><?php echo $info['error_msg']; ?></td>
+                                    <td><?php echo $info['paid_amount']; ?></td>
+                                    <td><?php echo $info['due']; ?></td>
+                                    <td><?php echo $info['exp_date']; ?></td>
+                                    <td><?php echo $info['cvv_code']; ?></td>
+                                    <td><?php echo $info['zip_code']; ?></td>
+                                    <td><?php echo $info['address']; ?></td>
+                                    <td><?php echo $info['check_info']; ?></td>
+                                    <td><?php echo $info['cash_by']; ?></td>
+                                    <td><?php echo $info['created']; ?></td>
+    <!--                                <td>   
+                                                <div class="controls center">                                               
+                                            <a onclick="if (confirm(&quot;Are you sure to complete this transaction?&quot)) { return true; } return false;" href="<?php
+                                    echo Router::url(array('controller' => 'payments', 'action' => 'individual_transaction', $info['id'])
+                                    )
+                                    ?>" class="tip"><span class="icon16 icomoon-icon-coins" title="Make transaction for this customer"></span></a>
+                                                    
+                                                </div>
+                                                
+                                            </td>-->
+                                </tr>
+                                <?php
+                            endforeach;
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-------------payment history end----------------->
+
+        <!-------------ticket history start----------------->
+
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-list-ul"></i>Ticket History
+                </div>
+                <div class="tools">
+                    <a  class="reload toggle" data-id="tickethistory">
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="row display-hide" id="tickethistory">
+                    <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+                        <thead>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Customer Info</th>
+                                <th>Open Time</th>
+                                <th>Detail</th>
+                                <th>History</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            foreach ($data as $single):
+                                $issue = end($single['history']);
+                                $customer = end($single['history']);
+                                $customer = $customer['pc'];
+                                $ticket = $single['ticket'];
+                                ?>
+                                <tr >
+                                    <td><?php echo $issue['i']['name']; ?></td>
+                                    <td>
+                                        <ul>
+                                            <li> Name: <?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?> </li> 
+                                            <li> Cell: <?php echo $customer['cell']; ?> </li> 
+                                        </ul>
+                                    </td>
+                                    <td><?php echo $ticket['created']; ?></td>
+                                    <td><?php echo $ticket['content']; ?></td>
+                                    <td>
+                                        <ol>
+                                            <?php
+                                            $lasthistory = $single['history'][0]['tr'];
+                                            foreach ($single['history'] as $history):
+                                                ?>
+                                                <li>
+                                                    <?php if ($history['tr']['status'] != 'open') { ?>
+                                                        <strong><?php echo ucfirst($history['tr']['status']); ?> By:</strong>
+                                                    <?php } else {
+                                                        ?>
+                                                        <strong>Forwarded By:</strong>
+                                                        <?php
+                                                    }
+                                                    ?>
+                                                    <?php echo $history['fb']['name']; ?>
+                                                    <p><strong>Forwarded To:</strong><ul><li><?php echo $history['fi']['name']; ?> </li><li><?php echo $history['fd']['name']; ?> </li></ul>
+                                                    <strong>Time:</strong> <?php echo $history['tr']['created']; ?>
+
+                                                    &nbsp;&nbsp;<strong>Status:</strong> <?php echo $history['tr']['status']; ?><br>
+                                                    <?php
+                                                    if (!empty($history['tr']['comment'])):
+                                                        echo '<strong>';
+                                                        echo 'Comment : ';
+                                                        echo '</strong>';
+                                                        echo $history['tr']['comment'];
+                                                    endif;
+                                                    ?> 
+                                                </li>
+                                                <br>
+                                            <?php endforeach; ?>
+                                        </ol>
+                                    </td>
+                                    <td>   
+                                        <div class="controls center text-center">
+                                            <?php if ($lasthistory['status'] == 'open') { ?>
+                                                <a 
+                                                    href="#" title="Solved">
+                                                    <span id="<?php echo $ticket['id']; ?>" class="fa fa-check fa-lg solve_ticket"></span>
+                                                </a>
+                                                &nbsp;
+                                                <a 
+                                                    href="#" title="Unresolved">
+                                                    <span id="<?php echo $ticket['id']; ?>" class="fa fa-times fa-lg unsolve_ticket"></span>
+                                                </a>
+                                                &nbsp;
+                                                <a 
+                                                    href="#" title="Forward">
+
+                                                    <span id="<?php echo $ticket['id']; ?>" class="fa fa-mail-forward fa-lg forward_ticket"></span>
+                                                </a>
+                                                <div id="forward_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
+                                                    <!-- BEGIN FORM-->
+                                                    <?php
+                                                    echo $this->Form->create('Track', array(
+                                                        'inputDefaults' => array(
+                                                            'label' => false,
+                                                            'div' => false
+                                                        ),
+                                                        'id' => 'form_sample_3',
+                                                        'class' => 'form-horizontal',
+                                                        'novalidate' => 'novalidate',
+                                                        'url' => array('controller' => 'tickets', 'action' => 'forward')
+                                                            )
+                                                    );
+                                                    ?>
+
+                                                    <?php
+                                                    echo $this->Form->input('ticket_id', array(
+                                                        'type' => 'hidden',
+                                                        'value' => $ticket['id'],
+                                                            )
+                                                    );
+                                                    ?>
+                                                    <div class="form-body">
+                                                        <div class="alert alert-danger display-hide">
+                                                            <button class="close" data-close="alert"></button>
+                                                            You have some form errors. Please check below.
+                                                        </div>
+                                                        <?php echo $this->Session->flash(); ?>
+                                                        <div class="form-group">
+                                                            <div class="form-group">
+                                                                <div class="col-md-12">
+                                                                    <?php
+                                                                    echo $this->Form->input('user_id', array(
+                                                                        'type' => 'select',
+                                                                        'options' => $users,
+                                                                        'empty' => 'Select From Existing admins panel user',
+                                                                        'class' => 'form-control select2me',
+                                                                            )
+                                                                    );
+                                                                    ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+
+                                                            <div class="form-group">
+
+                                                                <div class="col-md-12">
+                                                                    <?php
+                                                                    echo $this->Form->input('role_id', array(
+                                                                        'type' => 'select',
+                                                                        'options' => $roles,
+                                                                        'empty' => 'Select Department or Role',
+                                                                        'class' => 'form-control select2me',
+                                                                            )
+                                                                    );
+                                                                    ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="form-group">
+                                                                <div class="col-md-12">
+                                                                    <?php
+                                                                    echo $this->Form->input('priority', array(
+                                                                        'type' => 'select',
+                                                                        'options' => array('low' => 'Low', 'medium' => 'Medium', 'high' => 'High'),
+                                                                        'empty' => 'Select Priority',
+                                                                        'class' => 'form-control select2me required pclass',
+                                                                            )
+                                                                    );
+                                                                    ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="form-group">
+                                                                <div class="col-md-12">
+                                                                    <?php
+                                                                    echo $this->Form->input('comment', array(
+                                                                        'type' => 'textarea',
+                                                                        'class' => 'form-control required',
+                                                                        'placeholder' => 'Write your comments'
+                                                                            )
+                                                                    );
+                                                                    ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-actions">
+                                                        <div class="row">
+                                                            <div class="col-md-offset-7 col-md-4">
+                                                                <?php
+                                                                echo $this->Form->button(
+                                                                        'Forward', array('class' => 'btn green', 'type' => 'submit')
+                                                                );
+                                                                ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <?php echo $this->Form->end(); ?>
+                                                    <!-- END FORM-->
+                                                </div>
+
+                                                <div id="solve_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
+
+                                                    <!-- BEGIN FORM-->
+                                                    <?php
+                                                    echo $this->Form->create('Track', array(
+                                                        'inputDefaults' => array(
+                                                            'label' => false,
+                                                            'div' => false
+                                                        ),
+                                                        'id' => 'form_sample_3',
+                                                        'class' => 'form-horizontal',
+                                                        'novalidate' => 'novalidate',
+                                                        'url' => array('controller' => 'tickets', 'action' => 'solve')
+                                                            )
+                                                    );
+                                                    ?>
+
+                                                    <?php
+                                                    echo $this->Form->input('ticket_id', array(
+                                                        'type' => 'hidden',
+                                                        'value' => $ticket['id'],
+                                                            )
+                                                    );
+                                                    ?>
+                                                    <?php
+                                                    echo $this->Form->input('user_id', array(
+                                                        'type' => 'hidden',
+                                                        'value' => $lasthistory['user_id'],
+                                                            )
+                                                    );
+                                                    ?>
+                                                    <?php
+                                                    echo $this->Form->input('role_id', array(
+                                                        'type' => 'hidden',
+                                                        'value' => $lasthistory['role_id'],
+                                                            )
+                                                    );
+                                                    ?>
+                                                    <?php
+                                                    echo $this->Form->input('issue_id', array(
+                                                        'type' => 'hidden',
+                                                        'value' => $lasthistory['issue_id'],
+                                                            )
+                                                    );
+                                                    ?>
+                                                    <div class="form-body">
+                                                        <div class="alert alert-danger display-hide">
+                                                            <button class="close" data-close="alert"></button>
+                                                            You have some form errors. Please check below.
+                                                        </div>
+                                                        <?php echo $this->Session->flash(); ?>
+                                                        <div class="form-group">
+                                                            <div class="form-group">
+                                                                <div class="col-md-12">
+                                                                    <?php
+                                                                    echo $this->Form->input('comment', array(
+                                                                        'type' => 'textarea',
+                                                                        'class' => 'form-control required txtArea',
+                                                                        'placeholder' => 'Write your comments'
+                                                                            )
+                                                                    );
+                                                                    ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-actions">
+                                                        <div class="row">
+                                                            <div class="col-md-offset-7 col-md-4">
+                                                                <?php
+                                                                echo $this->Form->button(
+                                                                        'Done', array('class' => 'btn green', 'type' => 'submit')
+                                                                );
+                                                                ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <?php echo $this->Form->end(); ?>
+                                                    <!-- END FORM-->
+                                                </div> 
+
+                                                <div id="unsolve_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
+
+                                                    <!-- BEGIN FORM-->
+                                                    <?php
+                                                    echo $this->Form->create('Track', array(
+                                                        'inputDefaults' => array(
+                                                            'label' => false,
+                                                            'div' => false
+                                                        ),
+                                                        'id' => 'form_sample_3',
+                                                        'class' => 'form-horizontal',
+                                                        'novalidate' => 'novalidate',
+                                                        'url' => array('controller' => 'tickets', 'action' => 'unsolve')
+                                                            )
+                                                    );
+                                                    ?>
+
+                                                    <?php
+                                                    echo $this->Form->input('ticket_id', array(
+                                                        'type' => 'hidden',
+                                                        'value' => $ticket['id'],
+                                                            )
+                                                    );
+                                                    ?>
+                                                    <?php
+                                                    echo $this->Form->input('user_id', array(
+                                                        'type' => 'hidden',
+                                                        'value' => $lasthistory['user_id'],
+                                                            )
+                                                    );
+                                                    ?>
+                                                    <?php
+                                                    echo $this->Form->input('role_id', array(
+                                                        'type' => 'hidden',
+                                                        'value' => $lasthistory['role_id'],
+                                                            )
+                                                    );
+                                                    ?>
+                                                    <?php
+                                                    echo $this->Form->input('issue_id', array(
+                                                        'type' => 'hidden',
+                                                        'value' => $lasthistory['issue_id'],
+                                                            )
+                                                    );
+                                                    ?>
+                                                    <div class="form-body">
+                                                        <div class="alert alert-danger display-hide">
+                                                            <button class="close" data-close="alert"></button>
+                                                            You have some form errors. Please check below.
+                                                        </div>
+                                                        <?php echo $this->Session->flash(); ?>
+                                                        <div class="form-group">
+                                                            <div class="form-group">
+                                                                <div class="col-md-12">
+                                                                    <?php
+                                                                    echo $this->Form->input('comment', array(
+                                                                        'type' => 'textarea',
+                                                                        'class' => 'form-control required txtArea',
+                                                                        'placeholder' => 'Write your comments'
+                                                                            )
+                                                                    );
+                                                                    ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-actions">
+                                                        <div class="row">
+                                                            <div class="col-md-offset-7 col-md-4">
+                                                                <?php
+                                                                echo $this->Form->button(
+                                                                        'Done', array('class' => 'btn green', 'type' => 'submit')
+                                                                );
+                                                                ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <?php echo $this->Form->end(); ?>
+                                                    <!-- END FORM-->
+                                                </div> 
+                                                <?php
+                                            } else {
+                                                echo 'Nothing to do';
+                                            }
+                                            ?>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <?php
+                            endforeach;
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-------------ticket history end----------------->
 
         <!-- CUSTOMER DATA STARTED-->
         <div class="row">
@@ -1213,8 +1625,6 @@
                 <div class="container">
                     <?php echo $this->Session->flash() ?>
                     <div class="col-md-12 col-sm-12" id="block-quicktabs-3">
-
-
                         <?php
                         echo $this->Form->create('PackageCustomer', array(
                             'inputDefaults' => array(
@@ -1228,15 +1638,9 @@
                                 )
                         );
                         ?>
-
-
-
                         <ul class="">
-
                         </ul>
                         <!-- BEGIN SIDEBAR & CONTENT -->
-
-
                     </div>
                 </div>
             </div>

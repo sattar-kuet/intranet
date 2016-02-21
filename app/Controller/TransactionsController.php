@@ -120,6 +120,7 @@ class TransactionsController extends AppController {
         }
         $this->set(compact('filteredPackage'));
     }
+
     function edit_customer_data($id = null) {
         if ($this->request->is('post') || $this->request->is('put')) {
             $dateObj = $this->request->data['PackageCustomer']['exp_date'];
@@ -134,7 +135,19 @@ class TransactionsController extends AppController {
         } else {
             $this->loadModel('PackageCustomer');
             $customer_info = $this->PackageCustomer->findById($id);
-            $this->request->data = $customer_info;
+//                pr($transactions);exit;  
+            $pcustomer_id = $this->request->data = $customer_info;    //transaction history view by customer id
+            $transactions = $this->Transaction->find('all', array('conditions' => $pcustomer_id['PackageCustomer']['id']));    
+            $this->set(compact('transactions'));
+            
+            $response =$this->getAllTickectsByRole(); 
+            $data = $response['data'];
+            $users = $response['users'];
+            $roles = $response['roles'];
+            $this->set(compact('data', 'users', 'roles'));
+                    //$this->Transaction->manage($id);
+//            $response = $this->requestAction('tickets/manage/'.$id); //For ticket history
+        
             $this->tariffplan(); //Call tarrifplan fuction to show packagese
         }
     }
