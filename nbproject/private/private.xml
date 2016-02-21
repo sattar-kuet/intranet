@@ -1,37 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="5">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="4">
         <file>
-            <url>app/View/Transactions/edit_customer_data.ctp</url>
-            <bookmark id="1">
-                <name/>
-                <line>70</line>
-                <key/>
-            </bookmark>
-            <bookmark id="3">
-                <name/>
-                <line>284</line>
-                <key/>
-            </bookmark>
+            <url>app/Controller/TransactionsController.php</url>
             <bookmark id="4">
                 <name/>
-                <line>333</line>
+                <line>122</line>
                 <key/>
             </bookmark>
         </file>
         <file>
-            <url>app/View/Tickets/manage.ctp</url>
+            <url>app/View/Transactions/edit_customer_data.ctp</url>
+            <bookmark id="1">
+                <name/>
+<<<<<<< HEAD
+                <line>95</line>
+=======
+                <line>284</line>
+>>>>>>> 775a97079b695b1488871c301fc7e451aded0f2b
+                <key/>
+            </bookmark>
             <bookmark id="2">
                 <name/>
-                <line>117</line>
+<<<<<<< HEAD
+                <line>259</line>
+=======
+                <line>333</line>
+>>>>>>> 775a97079b695b1488871c301fc7e451aded0f2b
+                <key/>
+            </bookmark>
+            <bookmark id="3">
+                <name/>
+                <line>353</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/Controller/TransactionsController.php</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Elements/admin-header.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Layouts/admin.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Elements/admin-footer.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/Controller/AdminsController.php</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Admins/servicemanage.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Elements/sadmin-sidebar.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/Controller/PaymentsController.php</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Layouts/public-login.ctp</file>
+=======
             <file>file:/E:/Appxampp/htdocs/intranet/app/webroot/js/widgets.js</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/View/Tickets/manage.ctp</file>
+>>>>>>> 775a97079b695b1488871c301fc7e451aded0f2b
         </group>
     </open-files>
 </project-private>

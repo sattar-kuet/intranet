@@ -176,7 +176,7 @@
                                                             </div>
                                                             <div class="col-md-9">
 
-                                                               <?php
+                                                                <?php
                                                                 echo $this->Form->input(
                                                                         'exp_date', array(
                                                                     'type' => 'text',
@@ -942,7 +942,7 @@
                         </div>
                         &nbsp;
                         <div class="row">
-                            <div class="col-md-12 ">
+                            <div class="col-md-6 ">
 
                                 <div class="col-md-2 signupfont">
                                     Mac no:
@@ -961,8 +961,29 @@
                                         </div>                            
                                     </div>
                                 </div> 
+                            </div>
+
+                            <div class = "col-md-6 ">
+
+                                <div class = "col-md-2 signupfont">
+                                    Package:
+                                </div>
+                                <div class = "col-md-10">
+                                    <div class = "input-list style-4 clearfix">
+                                        <div>
+                                            <?php
+                                            echo $this->Form->input(
+                                                    'duration', array(
+                                                'class' => 'required',
+                                                    )
+                                            );
+                                            ?> 
+                                        </div>                            
+                                    </div>
+                                </div> 
 
                             </div>
+
                         </div>
                         &nbsp;
 
@@ -1011,7 +1032,7 @@
                         <div class="row">
                             <div class="col-md-12 ">
                                 <!-- BEGIN SAMPLE FORM PORTLET-->
-                                <div class="portlet box"  style=" text-align: center; background-color: black;">
+                                <div class="portlet box blue"">
                                     <div class="portlet-title">
                                         <div class="caption" id="blackcaption" >
                                             Package Information
@@ -1025,12 +1046,12 @@
                             <div class="col-md-12">
                                 <div class="panel-group accordion" id="accordion1">
                                     <div class="panel panel-default">
-                                        <!--                                        <div class="panel-heading">
-                                                                                    <h4 class="panel-title">
-                                                                                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#collapse_1" aria-expanded="false">
-                                                                                            <span style="font-weight: 700;">Select a package </span><span class="text-danger">(required)</span> </a>
-                                                                                    </h4>
-                                                                                </div>-->
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#collapse_1" aria-expanded="false">
+                                                    <span style="font-weight: 700;">Select a package </span><span class="text-danger">(required)</span> </a>
+                                            </h4>
+                                        </div>
                                         <div id="collapse_1" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
                                             <div class="panel-body">
 
