@@ -87,7 +87,66 @@
             </div>
         </div>
         <!-- END PAGE CONTENT -->
+         <?php if ($clicked): ?>       
+
+            <div class="row-fluid">
+                <table cellpadding="0" cellspacing="0" border="0" class="responsive dynamicTable display table table-bordered" width="100%" style="border: green solid 3px;">
+                    <thead>
+                        <tr style="background-color:green; color:white; ">  
+                            <th>Pay Mode</th>
+                            <th>Error Msg</th>
+                            <th>Paid Amount</th>
+                            <th>Due</th>
+                            
+                            <th>Exp Date</th>
+                            <th>CVV Code</th>
+                            <th>Zip Code</th>
+                            <th>Address</th>
+                            <th>Check Info</th>
+                            <th>Cash By</th>
+                            <th>Trans Action Time</th>
+                            <!--<th>Action</th>-->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        foreach ($transactions as $single):
+                            $info = $single['Transaction'];
+                            ?>
+                            <tr class="odd gradeX">
+                                <td><?php echo $info['pay_mode']; ?></td>
+                                <td><?php echo $info['error_msg']; ?></td>
+                                <td><?php echo $info['paid_amount']; ?></td>
+                                <td><?php echo $info['due']; ?></td>
+                                <td><?php echo $info['exp_date']; ?></td>
+                                <td><?php echo $info['cvv_code']; ?></td>
+                                <td><?php echo $info['zip_code']; ?></td>
+                                <td><?php echo $info['address']; ?></td>
+                                <td><?php echo $info['check_info']; ?></td>
+                                <td><?php echo $info['cash_by']; ?></td>
+                                <td><?php echo $info['created']; ?></td>
+<!--                                <td>   
+                                            <div class="controls center">                                               
+                                        <a onclick="if (confirm(&quot;Are you sure to complete this transaction?&quot)) { return true; } return false;" href="<?php echo Router::url(array('controller'=>'payments','action'=>'individual_transaction', $info['id'])
+                                                )?>" class="tip"><span class="icon16 icomoon-icon-coins" title="Make transaction for this customer"></span></a>
+                                                
+                                            </div>
+                                            
+                                        </td>-->
+                            </tr>
+                            <?php
+                        endforeach;
+                        ?>
+                    </tbody>
+
+                </table>
+            </div>
+
+        <?php endif; ?>
     </div>
+   
 </div>
 <!-- END CONTENT -->
+
+
 
