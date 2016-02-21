@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+<<<<<<< HEAD
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/Server/htdocs/intranet/app/tmp/cache/persistent/myapp_cake_core_method_cache</file>
+            <file>file:/D:/Server/htdocs/intranet/app/Controller/PaymentsController.php</file>
+            <file>file:/D:/Server/htdocs/intranet/app/Model/PackageCustomer.php</file>
+            <file>file:/D:/Server/htdocs/intranet/app/tmp/cache/persistent/myapp_cake_core_cake_en-us</file>
+            <file>file:/D:/Server/htdocs/intranet/app/Controller/TransactionsController.php</file>
+            <file>file:/D:/Server/htdocs/intranet/app/tmp/cache/models/myapp_cake_model_default_totalcable_package_customers</file>
+            <file>file:/D:/Server/htdocs/intranet/app/Controller/AdminsController.php</file>
+            <file>file:/D:/Server/htdocs/intranet/app/tmp/cache/models/myapp_cake_model_default_totalcable_list</file>
+            <file>file:/D:/Server/htdocs/intranet/app/tmp/cache/persistent/myapp_cake_core_file_map</file>
+            <file>file:/D:/Server/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
+            <file>file:/D:/Server/htdocs/intranet/app/tmp/cache/models/myapp_cake_model_default_totalcable_messages</file>
+            <file>file:/D:/Server/htdocs/intranet/app/tmp/logs/error.log</file>
+            <file>file:/D:/Server/htdocs/intranet/app/tmp/cache/models/myapp_cake_model_default_totalcable_users</file>
+=======
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="4">
         <file>
             <url>app/Controller/TransactionsController.php</url>
@@ -53,6 +71,7 @@
             <file>file:/E:/Appxampp/htdocs/intranet/app/webroot/js/widgets.js</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/View/Tickets/manage.ctp</file>
 >>>>>>> 775a97079b695b1488871c301fc7e451aded0f2b
+>>>>>>> 0a4e99138c68d3c7674c9cf6fe9b12215196b8c3
         </group>
     </open-files>
 </project-private>

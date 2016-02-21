@@ -132,7 +132,7 @@
             <li 
             <?php
 
-            $tickets = array('Ticketscreate', 'Ticketsmanage',);
+            $tickets = array('Ticketscreate', 'Ticketsmanage','Ticketsmy');
             if (in_array($this->name . '' . $this->action, $tickets)):
                 ?>
                     class="active"
@@ -169,7 +169,19 @@
                         >
                         <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'manage')) ?>">
                             <i class="fa fa-wrench"></i>
-                            Manage</a>
+                            All Tickets</a>
+                    </li>
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Ticketsmy'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'my')) ?>">
+                            <i class="fa fa-wrench"></i>
+                            My Tickets</a>
                     </li>
                 </ul>
             <li 

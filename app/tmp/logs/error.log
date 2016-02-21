@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 2016-02-20 17:14:39 Error: [MissingControllerException] Controller class UsersController could not be found.
 Exception Attributes: array (
   'class' => 'UsersController',
@@ -3238,3 +3239,5 @@ Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_888888_25
 Stack Trace:
 #0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
+=======
+>>>>>>> 0961b7f7d69e6fd2491347f0012667763a6f39f6

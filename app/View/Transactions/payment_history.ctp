@@ -92,7 +92,8 @@
             <div class="row-fluid">
                 <table cellpadding="0" cellspacing="0" border="0" class="responsive dynamicTable display table table-bordered" width="100%" style="border: green solid 3px;">
                     <thead>
-                        <tr style="background-color:green; color:white; ">    
+                        <tr style="background-color:green; color:white; ">  
+                            <th>Pay Mode</th>
                             <th>Error Msg</th>
                             <th>Paid Amount</th>
                             <th>Due</th>
@@ -103,7 +104,7 @@
                             <th>Address</th>
                             <th>Check Info</th>
                             <th>Cash By</th>
-                            <th>Created</th>
+                            <th>Trans Action Time</th>
                             <!--<th>Action</th>-->
                         </tr>
                     </thead>
@@ -113,6 +114,7 @@
                             $info = $single['Transaction'];
                             ?>
                             <tr class="odd gradeX">
+                                <td><?php echo $info['pay_mode']; ?></td>
                                 <td><?php echo $info['error_msg']; ?></td>
                                 <td><?php echo $info['paid_amount']; ?></td>
                                 <td><?php echo $info['due']; ?></td>
