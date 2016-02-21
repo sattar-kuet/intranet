@@ -48,6 +48,7 @@ Stack Trace:
 #1 E:\Appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(PaymentsController), Object(CakeRequest))
 #2 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #3 {main}
+<<<<<<< HEAD
 2016-02-20 20:49:02 Error: Fatal Error (1): Call to a member function findById() on a non-object in [D:\xampp\htdocs\intranet\app\Controller\TransactionsController.php, line 136]
 2016-02-20 20:49:02 Error: [FatalErrorException] Call to a member function findById() on a non-object
 Request URL: /intranet/transactions/edit_customer_data/3
@@ -308,12 +309,16 @@ Stack Trace:
 #0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
 2016-02-21 11:33:20 Error: [MissingControllerException] Controller class UsersController could not be found.
+=======
+2016-02-21 12:21:48 Error: [MissingControllerException] Controller class UsersController could not be found.
+>>>>>>> 775a97079b695b1488871c301fc7e451aded0f2b
 Exception Attributes: array (
   'class' => 'UsersController',
   'plugin' => NULL,
 )
 Request URL: /intranet/users/login
 Stack Trace:
+<<<<<<< HEAD
 #0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
 2016-02-21 11:33:27 Error: [MissingControllerException] Controller class UsersController could not be found.
@@ -335,12 +340,18 @@ Stack Trace:
 #0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
 2016-02-21 11:33:29 Error: [MissingControllerException] Controller class PluginsController could not be found.
+=======
+#0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-21 12:22:02 Error: [MissingControllerException] Controller class PluginsController could not be found.
+>>>>>>> 775a97079b695b1488871c301fc7e451aded0f2b
 Exception Attributes: array (
   'class' => 'PluginsController',
   'plugin' => NULL,
 )
 Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
 Stack Trace:
+<<<<<<< HEAD
 #0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
 2016-02-21 12:13:35 Error: Fatal Error (4): syntax error, unexpected '}' in [D:\xampp\htdocs\intranet\app\View\Transactions\edit_customer_data.ctp, line 1016]
@@ -454,3 +465,18 @@ Stack Trace:
 #3 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
 #4 [internal function]: App::shutdown()
 #5 {main}
+=======
+#0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-21 12:22:02 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
+Stack Trace:
+#0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+=======
+>>>>>>> 25140b870fce64c9b36581f5ec6de917240c3271
+>>>>>>> 775a97079b695b1488871c301fc7e451aded0f2b

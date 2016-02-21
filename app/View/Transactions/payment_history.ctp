@@ -96,8 +96,9 @@
                             <th>Error Msg</th>
                             <th>Paid Amount</th>
                             <th>Due</th>
-                            <th>Due</th>
+                            
                             <th>Exp Date</th>
+                            <th>CVV Code</th>
                             <th>Zip Code</th>
                             <th>Address</th>
                             <th>Check Info</th>
