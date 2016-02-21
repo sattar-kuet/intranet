@@ -10,12 +10,12 @@
             </bookmark>
             <bookmark id="3">
                 <name/>
-                <line>278</line>
+                <line>284</line>
                 <key/>
             </bookmark>
             <bookmark id="4">
                 <name/>
-                <line>355</line>
+                <line>333</line>
                 <key/>
             </bookmark>
         </file>
@@ -30,63 +30,8 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
             <file>file:/E:/Appxampp/htdocs/intranet/app/webroot/js/widgets.js</file>
-            <file>file:/E:/Appxampp/htdocs/intranet/app/webroot/js/ticket.js</file>
-            <file>file:/E:/Appxampp/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
-            <file>file:/E:/Appxampp/htdocs/intranet/app/webroot/js/customerinfo.js</file>
-            <file>file:/E:/Appxampp/htdocs/intranet/app/webroot/js/orderManagement.js</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/View/Tickets/manage.ctp</file>
-=======
-<<<<<<< HEAD
-            <file>file:/D:/xampp/htdocs/intranet/app/Controller/TransactionsController.php</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/Controller/TicketsController.php</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/webroot/js/ticket.js</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/Controller/AdminsController.php</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Admins/servicemanage.ctp</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Tickets/manage.ctp</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Tickets/customertickethistory.ctp</file>
-=======
-<<<<<<< HEAD
->>>>>>> 7103a73faca52001666cf02f499d6a894452822a
-            <file>file:/D:/Server/htdocs/intranet/app/Controller/AdminsController.php</file>
-            <file>file:/D:/Server/htdocs/intranet/app/View/Tickets/manage.ctp</file>
-            <file>file:/D:/Server/htdocs/intranet/app/Controller/PaymentsController.php</file>
-            <file>file:/D:/Server/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
-            <file>file:/D:/Server/htdocs/intranet/app/Model/PackageCustomer.php</file>
-            <file>file:/D:/Server/htdocs/intranet/app/View/Admins/servicemanage.ctp</file>
-            <file>file:/D:/Server/htdocs/intranet/app/View/Elements/admin-footer.ctp</file>
-            <file>file:/D:/Server/htdocs/intranet/app/tmp/logs/error.log</file>
-            <file>file:/D:/Server/htdocs/intranet/app/Controller/TransactionsController.php</file>
-            <file>file:/D:/Server/htdocs/intranet/app/webroot/js/customerinfo.js</file>
-            <file>file:/D:/Server/htdocs/intranet/app/Controller/TicketsController.php</file>
-            <file>file:/D:/Server/htdocs/intranet/app/Model/PaidCustomer.php</file>
-<<<<<<< HEAD
-=======
-=======
-<<<<<<< HEAD
-            <file>file:/D:/appxampp/htdocs/intranet/app/Controller/PaymentsController.php</file>
-            <file>file:/D:/appxampp/htdocs/intranet/app/Controller/TransactionsController.php</file>
-            <file>file:/D:/appxampp/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
-            <file>file:/D:/appxampp/htdocs/intranet/app/Model/Package.php</file>
-=======
-            <file>file:/E:/Appxampp/htdocs/intranet/app/Model/Message.php</file>
-            <file>file:/E:/Appxampp/htdocs/intranet/app/View/Elements/sadmin-sidebar.ctp</file>
-            <file>file:/E:/Appxampp/htdocs/intranet/app/Config/database.php</file>
-            <file>file:/E:/Appxampp/htdocs/intranet/app/Controller/FrontendsController.php</file>
-            <file>file:/E:/Appxampp/htdocs/intranet/app/View/Admins/edit.ctp</file>
-            <file>file:/E:/Appxampp/htdocs/intranet/app/Controller/AdminsController.php</file>
-            <file>file:/E:/Appxampp/htdocs/intranet/app/Model/Role.php</file>
-            <file>file:/E:/Appxampp/htdocs/intranet/app/Controller/TicketsController.php</file>
-            <file>file:/E:/Appxampp/htdocs/intranet/app/Controller/AppController.php</file>
-            <file>file:/E:/Appxampp/htdocs/intranet/app/View/Admins/servicemanage.ctp</file>
->>>>>>> 0283d6a67ca374afc7a9c57db525f1139a08824f
->>>>>>> dafd21cc435a71bf62198797e95e82e34a697069
->>>>>>> 275b320484a596557660d495044ba8689c9960f1
->>>>>>> b864f6dbcc2272044bdc506ed7067a5f9c0b696f
->>>>>>> 7103a73faca52001666cf02f499d6a894452822a
         </group>
     </open-files>
 </project-private>
