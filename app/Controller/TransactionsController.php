@@ -120,23 +120,44 @@ class TransactionsController extends AppController {
         }
         $this->set(compact('filteredPackage'));
     }
+
     function edit_customer_data($id = null) {
         if ($this->request->is('post') || $this->request->is('put')) {
-            $dateObj = $this->request->data['PackageCustomer']['exp_date'];
-            $this->request->data['PackageCustomer']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
-            $this->PackageCustomer->id = $customer_info['PackageCustomer']['id'];
+            $this->loadModel('PackageCustomer');
+//            $dateObj = $this->request->data['PackageCustomer']['exp_date'];
+//            $this->request->data['PackageCustomer']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
+            $this->PackageCustomer->id = $id;//$customer_info['PackageCustomer']['id'];
             $this->PackageCustomer->save($this->request->data['PackageCustomer']);
             $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <strong> Customer information updated successfully </strong>
             </div>';
             $this->Session->setFlash($msg);
-        } else {
+        } 
             $this->loadModel('PackageCustomer');
             $customer_info = $this->PackageCustomer->findById($id);
+
             $this->request->data = $customer_info;
-            $this->tariffplan(); //Call tarrifplan fuction to show packagese
-        }
+            //   $this->tariffplan(); //Call tarrifplan fuction to show packagese in our old style
+            $this->loadModel('Package');
+            $this->loadModel('Psetting');
+            
+            
+            $packages = $this->Package->find('list');
+            $psettings = $this->Psetting->find('list', array('fields' => array('id', 'name', 'package_id'), 'order' => array('Psetting.name' => 'ASC')));
+             
+            $sql = "SELECT * FROM package_customers "
+                    . "LEFT JOIN psettings ON package_customers.psetting_id = psettings.id"
+                    . " LEFT JOIN packages ON psettings.package_id = packages.id"
+                    . " LEFT JOIN custom_packages ON package_customers.custom_package_id = custom_packages.id" .
+                    " WHERE package_customers.id = '" . $id . "'";
+
+            $temp = $this->PackageCustomer->query($sql);
+            //pr($temp[0]['psettings']); exit;
+            $selected['psetting'] = $temp[0]['psettings']['id'];
+            $selected['package'] = $temp[0]['packages']['id'];
+            $this->set(compact('packages','psettings','selected'));
+        
     }
 
     function payment_history() {
