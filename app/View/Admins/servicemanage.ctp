@@ -145,14 +145,19 @@
                 </thead>
                 <tbody>
                     <?php
-                    //  pr($data);
+//                      pr($data);
                     $customer = $data['customer'];
                     $package = $data['package'];
                     ?>
                     <tr class="odd gradeX">
 
                         <td><?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?></td>
-                        <td><?php echo $customer['cell']; ?></td>
+                        <td>
+                            <ul>
+                                <li><?php echo $customer['cell']; ?></li>
+                                <li><?php echo $customer['address']?></li>
+                        </ul>
+                        </td>
                         <td>
                             <ul>
                                 <li> Name: <?php echo $package['name']; ?></li>
