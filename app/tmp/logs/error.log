@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 2016-02-20 17:14:39 Error: [MissingControllerException] Controller class UsersController could not be found.
 Exception Attributes: array (
   'class' => 'UsersController',
@@ -777,3 +778,48 @@ Stack Trace:
 #10 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(TransactionsController), Object(CakeRequest))
 #11 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #12 {main}
+=======
+>>>>>>> f10c3cc774ce3794507e2c2bf8c2aa6ee68ad1bd
+2016-02-21 06:30:37 Error: Fatal Error (4): syntax error, unexpected '<<' (T_SL) in [D:\xampp\htdocs\intranet\app\Controller\TransactionsController.php, line 139]
+2016-02-21 06:30:37 Error: [FatalErrorException] syntax error, unexpected '<<' (T_SL)
+Request URL: /intranet/transactions/edit_customer_data/24
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'D:\xampp\htdocs...', 139)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'D:\xampp\htdocs...', 139, Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'D:\xampp\htdocs...', 139, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-02-21 12:00:49 Error: [PDOException] SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'package_customer_id' cannot be null
+Request URL: /intranet/payments/individual_transaction_by_card
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('INSERT INTO `to...', Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(1012): DboSource->execute('INSERT INTO `to...')
+#3 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(1928): DboSource->create(Object(Transaction), Array, Array)
+#4 D:\xampp\htdocs\intranet\lib\Cake\Model\Model.php(1751): Model->_doSave(Array, Array)
+#5 D:\xampp\htdocs\intranet\app\Controller\PaymentsController.php(197): Model->save(Array)
+#6 [internal function]: PaymentsController->individual_transaction_by_card()
+#7 D:\xampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(PaymentsController), Array)
+#8 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#9 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(PaymentsController), Object(CakeRequest))
+#10 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#11 {main}
+2016-02-21 08:04:01 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-21 08:04:01 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}

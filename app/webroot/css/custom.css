@@ -420,3 +420,28 @@ input[type="email"]:focus {
 .pricing-content li {
     padding: 0px 15px;
 }
+
+.page-logo {
+    margin-top: -48px;
+}
+/*by abdullah*/
+.time{
+    width: 400px;
+    height: 46px;
+    background: #000 !important;
+    margin: 0 auto !important;
+    color: #FFF;
+    background: #0e8dbc;
+    color: white;
+    border-radius: 17px !important;
+    margin-bottom: 10px;
+    font-size: 33px;  
+    text-align: center;
+  
+}
+
+li.dropdown.dropdown-user {
+    margin-top: -48px !important;
+}
+
+  /*by abdullah*/
