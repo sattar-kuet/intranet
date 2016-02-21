@@ -4,7 +4,6 @@ echo $this->Html->css(
             '/assets/admin/layout/css/layout',
             '/assets/admin/layout/css/themes/darkblue',
             '/assets/admin/layout/css/custom',
-            
             // date range picker css
             '/jquery-ui-daterangepicker-0.4.3/jquery-ui.min',
             '/jquery-ui-daterangepicker-0.4.3/bootstrap.min',
@@ -32,15 +31,19 @@ echo $this->Html->css(
     <div class="page-header navbar navbar-fixed-top"> 
         <!-- BEGIN HEADER INNER -->
         <div class="page-header-inner">
+            <div class="time">
+                <?php
+                $dt = new DateTime();
+                echo $dt->format('l,F t, Y');
+                ?> <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+            </div>
             <div class="page-logo">
 
                 <a href="#">
 
                     <img src="<?php echo $this->webroot; ?>images/support_icon_headset_orange.png" alt="logo" class="logo-default" style="margin: 9px 0 0 0;">
                 </a>
-                <div class="menu-toggler sidebar-toggler hide">
-                    <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
-                </div>
+
             </div>
             <div class="top-menu">
                 <ul class="nav navbar-nav pull-right">
