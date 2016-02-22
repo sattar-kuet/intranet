@@ -31,6 +31,7 @@
                                 'label' => false,
                                 'div' => false
                             ),
+                            'id' => 'form_sample_3',
                             'class' => 'form-horizontal',
                             'novalidate' => 'novalidate'
                                 )
@@ -39,11 +40,12 @@
                         <div class="form-body">
                             <div class="alert alert-danger display-hide">
                                 <button class="close" data-close="alert"></button>
-                                You have some form errors. Please check below.
+                                This field cannot be blank. Please check below.
                             </div>
                             <?php echo $this->Session->flash(); ?>
                             <div class="form-group">
-                                <label class="control-label col-md-3">Message
+                                <label class="control-label col-md-3">Message:<span class="required">
+                                        *</span>
                                 </label>
                                 <div class="col-md-9">
                                     <?php

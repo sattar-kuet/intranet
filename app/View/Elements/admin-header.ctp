@@ -34,7 +34,7 @@ echo $this->Html->css(
             <div class="time">
                 <?php
                 $dt = new DateTime();
-                echo $dt->format('l,F t, Y');
+                echo $dt->format('l, F d, Y');
                 ?> <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
             </div>
             <div class="page-logo">

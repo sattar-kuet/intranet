@@ -426,12 +426,12 @@ input[type="email"]:focus {
 }
 /*by abdullah*/
 .time{
-    width: 400px;
+    //width: 400px;
     height: 46px;
-    background: #000 !important;
+   // background: #000 !important;
     margin: 0 auto !important;
     color: #FFF;
-    background: #0e8dbc;
+    //background: #0e8dbc;
     color: white;
     border-radius: 17px !important;
     margin-bottom: 10px;
