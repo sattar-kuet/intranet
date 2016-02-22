@@ -221,7 +221,7 @@
                                                                         <?php
                                                                         echo $this->Form->input('comment', array(
                                                                             'type' => 'textarea',
-                                                                            'class' => 'form-control required',
+                                                                            'class' => 'form-control required txtArea',
                                                                             'placeholder' => 'Write your comments'
                                                                                 )
                                                                         );
