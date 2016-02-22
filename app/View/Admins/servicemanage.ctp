@@ -82,9 +82,9 @@
             <div class="col-md-6 col-sm-6">
                 <!-- BEGIN PORTLET-->
                 <div class="portlet">
-                    <div class="portlet-title line">
+                    <div class="portlet-title line" style="color:red;">
                         <div class="caption">
-                            <i class="fa fa-envelope-o fa-lg"></i>Message from Admin
+                            <i class="fa fa-envelope-o fa-lg" style="color:red;"></i>Message From Admin
                         </div>
                         <div class="tools">
 
@@ -105,7 +105,7 @@
                                         <!--<div class="message">-->
     <!--                                            <span class="arrow">
                                             </span>-->
-                                        <a href="#" class="name">
+                                        <a style="color: #E02222; font-weight: bold;" href="#" class="name">
                                             <?php echo $message['User']['name']; ?> </a>                                                
                                         <span class="datetime">
                                             at
