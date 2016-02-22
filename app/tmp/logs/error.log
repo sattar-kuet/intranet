@@ -3326,6 +3326,7 @@ Stack Trace:
 =======
 #0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
+<<<<<<< HEAD
 >>>>>>> a03689951a1c10d5205bd71003fb246e63a4a1d4
 2016-02-22 02:20:40 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
 Exception Attributes: array (
@@ -3417,3 +3418,58 @@ Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_65_fff
 Stack Trace:
 #0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
+=======
+<<<<<<< HEAD
+in}
+>>>>>>> 0283d6a67ca374afc7a9c57db525f1139a08824f
+2016-02-19 13:35:26 Error: [PDOException] SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'package_customer_id' cannot be null
+Request URL: /intranet/payments/individual_transaction/54
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('INSERT INTO `to...', Array)
+#2 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(1012): DboSource->execute('INSERT INTO `to...')
+#3 D:\appxampp\htdocs\intranet\lib\Cake\Model\Model.php(1928): DboSource->create(Object(AppModel), Array, Array)
+#4 D:\appxampp\htdocs\intranet\lib\Cake\Model\Model.php(1751): Model->_doSave(Array, Array)
+#5 D:\appxampp\htdocs\intranet\app\Controller\PaymentsController.php(334): Model->save(Array)
+#6 [internal function]: PaymentsController->individual_transaction('54')
+#7 D:\appxampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(PaymentsController), Array)
+#8 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#9 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(PaymentsController), Object(CakeRequest))
+#10 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#11 {main}
+2016-02-19 13:35:51 Error: [PDOException] SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'package_customer_id' cannot be null
+Request URL: /intranet/payments/individual_transaction/54
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('INSERT INTO `to...', Array)
+#2 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(1012): DboSource->execute('INSERT INTO `to...')
+#3 D:\appxampp\htdocs\intranet\lib\Cake\Model\Model.php(1928): DboSource->create(Object(AppModel), Array, Array)
+#4 D:\appxampp\htdocs\intranet\lib\Cake\Model\Model.php(1751): Model->_doSave(Array, Array)
+#5 D:\appxampp\htdocs\intranet\app\Controller\PaymentsController.php(334): Model->save(Array)
+#6 [internal function]: PaymentsController->individual_transaction('54')
+#7 D:\appxampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(PaymentsController), Array)
+#8 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#9 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(PaymentsController), Object(CakeRequest))
+#10 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#11 {main}
+2016-02-22 12:26:08 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-22 12:26:08 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+=======
+>>>>>>> a03689951a1c10d5205bd71003fb246e63a4a1d4
+>>>>>>> ddbfdbfac12f7328804fd20b64a0b83fb3755e43
