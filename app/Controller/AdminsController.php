@@ -243,20 +243,15 @@ class AdminsController extends AppController {
         $this->loadModel('Message');
         $this->loadModel('CustomPackage');
         $this->loadModel('Psetting');
-        $this->loadModel('Pakage');
+        $this->loadModel('Package');
         $clicked = false;
-        
-        
-
         if ($id) {
             $customer_info = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $id)));
             $clicked = true;
             $this->set(compact('customer_info'));
         }
-
         if ($this->request->is('post')) {
             $cell = $this->request->data['PackageCustomer']['cell'];
-            $customer_info = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.cell' => $cell)));
             $clicked = true;
             $tickets = $this->Track->query("SELECT * FROM tracks tr
                         left JOIN tickets t ON tr.ticket_id = t.id
@@ -275,7 +270,6 @@ class AdminsController extends AppController {
                 $t = $ticket['t']['id'];
                 if (isset($unique[$t])) {
                     //  echo 'already exist'.$key.'<br/>';
-
                     $temp = array('tr' => $ticket['tr'], 'fb' => $ticket['fb'], 'fd' => $ticket['fd'], 'fi' => $ticket['fi'], 'i' => $ticket['i'], 'pc' => $ticket['pc']);
                     $filteredTicket[$index]['history'][] = $temp;
                 } else {
@@ -288,19 +282,34 @@ class AdminsController extends AppController {
                 }
             }
             $data = $filteredTicket;
-            
-        //FIND PACKAGE DETAILS
-            $cust_id = $customer_info['PackageCustomer']['id'];
-                $sql = "SELECT * 
-            FROM vbpackage_customers vbpc
-            INNER JOIN packages p ON vbpc.package_id = p.id
-            WHERE vbpc.id = $cust_id";
-                $temp_packageInfo = $this->PackageCustomer->query($sql);
-                $packageInfo = $temp_packageInfo[0];
-                //pr($packageInfo); exit;
-                $paidcustomers = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $cust_id)));
-         //END OF PACKAGE DETAILS       
-            $this->set(compact('customer_info', 'data','packageInfo', 'paidcustomers'));
+
+            //FIND PACKAGE DETAILS
+
+            $sql = "SELECT * FROM package_customers "
+                    . "LEFT JOIN psettings ON package_customers.psetting_id = psettings.id"
+                    . " LEFT JOIN packages ON psettings.package_id = packages.id"
+                    . " LEFT JOIN custom_packages ON package_customers.custom_package_id = custom_packages.id" .
+                    " WHERE package_customers.cell = '" . $cell . "'";
+
+            $temp = $this->PackageCustomer->query($sql);
+            $data = array();
+            if (array_key_exists(0, $temp))
+                $data = $temp[0];
+            $customer = $data['package_customers'];
+            $package = array();
+            if (isset($data['packages']['id'])) {
+                $psetting = $data['psettings'];
+                $data['packages']['duration'] = $psetting['duration'];
+                $data['packages']['charge'] = $psetting['amount'];
+                $package = $data['packages'];
+            } else {
+                $data['custom_packages']['name'] = 'Custom';
+                $package = $data['custom_packages'];
+            }
+            $data = array();
+            $data['customer'] = $customer;
+            $data['package'] = $package;
+            $this->set(compact('data'));
         }
         $admin_messages = $this->Message->find('all', array('order' => array('Message.created' => 'DESC')));
         $cells = $this->PackageCustomer->find('list', array('fields' => array('cell', 'cell')));
@@ -317,8 +326,7 @@ class AdminsController extends AppController {
             //return $this->redirect('/transactions/expire_customer/' . $this->request->data['PaidCustomer']['id']);
             return $this->redirect('/transactions/edit_customer_data/' . $this->request->data['PackageCustomer']['id']);
         }
-        
-         if ($this->request->data['PackageCustomer']['status'] == 'history') {
+        if ($this->request->data['PackageCustomer']['status'] == 'history') {
             return $this->redirect('/tickets/customertickethistory/' . $this->request->data['PackageCustomer']['id']);
         }
         $this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];

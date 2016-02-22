@@ -1,6 +1,6 @@
 <!-- BEGIN SIDEBAR -->
 <div class="page-sidebar-wrapper">
-    <div class="page-sidebar navbar-collapse collapse">
+    <div class="page-sidebar navbar-collapse collapse" style="width: 247px; margin-top: 11px;">
         <!-- BEGIN SIDEBAR MENU -->
         <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
             <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
@@ -110,10 +110,29 @@
                     <span class="arrow "></span>
                 </a>
             </li>
+            
+             <li 
+            <?php
+
+            $payment = array('paymenthistory');
+            if (in_array($this->name . '' . $this->action, $payment)):
+                ?>
+                    class="active"
+                    <?php
+                endif;
+                ?>
+                >                 
+                <a href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'payment_history')) ?>">
+                    <i class="fa fa-support"></i>
+                    <span class="title">Payment History</span>
+                    <span class="arrow "></span>
+                </a>
+            </li>
+            
             <li 
             <?php
 
-            $tickets = array('Ticketscreate', 'Ticketsmanage',);
+            $tickets = array('Ticketscreate', 'Ticketsmanage','Ticketsmy');
             if (in_array($this->name . '' . $this->action, $tickets)):
                 ?>
                     class="active"
@@ -150,7 +169,19 @@
                         >
                         <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'manage')) ?>">
                             <i class="fa fa-wrench"></i>
-                            Manage</a>
+                            All Tickets</a>
+                    </li>
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Ticketsmy'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'my')) ?>">
+                            <i class="fa fa-wrench"></i>
+                            My Tickets</a>
                     </li>
                 </ul>
             <li 
@@ -338,5 +369,5 @@
         </ul>
         <!-- END SIDEBAR MENU -->
     </div>
-</div>
+
 <!-- END SIDEBAR -->

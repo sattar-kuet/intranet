@@ -118,57 +118,105 @@ class TransactionsController extends AppController {
                 }
             }
         }
-        // pr($filteredPackage);exit;
         $this->set(compact('filteredPackage'));
     }
 
     function edit_customer_data($id = null) {
-        $this->loadModel('PackageCustomer');
-        $this->loadModel('CustomPackage');
-        $this->loadModel('Psetting');
-        $this->loadModel('Pakage');
-        $customer_info = $this->PackageCustomer->findById($id);
-        $this->tariffplan(); //Call tarrifplan fuction to show packagese
-        
-        //FIND PACKAGE DETAILS
-                $sql = "SELECT * 
-            FROM vbpackage_customers vbpc
-            INNER JOIN packages p ON vbpc.package_id = p.id
-            WHERE vbpc.id = $id";
-                $temp_packageInfo = $this->PackageCustomer->query($sql);
-                $packageInfo = $temp_packageInfo[0];
-                //pr($packageInfo); exit;
-                
-                        
-        //FOR CUSTOMER TABLE
-        $clicked = false;
-
-        //$datrange = json_decode($this->request->data['paidcustomer']['daterange'], true);
-        //$conditions = array('PaidCustomer.package_exp_date >=' => $datrange['start'], 'PaidCustomer.package_exp_date <=' => $datrange['end']);
-        $paidcustomers = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $id)));
-        //pr($paidcustomers); exit;
-        $clicked = true;
-        $this->set(compact('paidcustomers','packageInfo'));
-
-        $this->set(compact('clicked'));
-        //FOR EDIT DATA
         if ($this->request->is('post') || $this->request->is('put')) {
-            $dateObj = $this->request->data['PackageCustomer']['exp_date'];
-            $this->request->data['PackageCustomer']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
-           // pr($this->request->data);
-           // exit;
-
-            $this->PackageCustomer->id = $customer_info['PackageCustomer']['id'];
+            $this->loadModel('PackageCustomer');
+//            $dateObj = $this->request->data['PackageCustomer']['exp_date'];
+//            $this->request->data['PackageCustomer']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
+            $this->PackageCustomer->id = $id;//$customer_info['PackageCustomer']['id'];
             $this->PackageCustomer->save($this->request->data['PackageCustomer']);
             $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <strong> Customer information updated successfully </strong>
             </div>';
             $this->Session->setFlash($msg);
-            //return $this->redirect('manage_user');
-        } else {
+        } 
+            $this->loadModel('PackageCustomer');
+            $customer_info = $this->PackageCustomer->findById($id);
+
+//                pr($transactions);exit;  
+            $pcustomer_id = $this->request->data = $customer_info;    //transaction history view by customer id
+            $transactions = $this->Transaction->find('all', array('conditions' =>array('Transaction.package_customer_id' => $id)));    
+            $this->set(compact('transactions'));
+            
+            $response =$this->getAllTickectsByCustomer($id); 
+            $data = $response['data'];
+            $users = $response['users'];
+            $roles = $response['roles'];
+            $this->set(compact('data', 'users', 'roles'));
+                    //$this->Transaction->manage($id);
+//            $response = $this->requestAction('tickets/manage/'.$id); //For ticket history
+        
+          //  $this->tariffplan(); //Call tarrifplan fuction to show packagese
+        
             $this->request->data = $customer_info;
+            //   $this->tariffplan(); //Call tarrifplan fuction to show packagese in our old style
+            $this->loadModel('Package');
+            $this->loadModel('Psetting');
+            
+            
+            $packages = $this->Package->find('list');
+            $psettings = $this->Psetting->find('list', array('fields' => array('id', 'name', 'package_id'), 'order' => array('Psetting.name' => 'ASC')));
+             
+            $sql = "SELECT * FROM package_customers "
+                    . "LEFT JOIN psettings ON package_customers.psetting_id = psettings.id"
+                    . " LEFT JOIN packages ON psettings.package_id = packages.id"
+                    . " LEFT JOIN custom_packages ON package_customers.custom_package_id = custom_packages.id" .
+                    " WHERE package_customers.id = '" . $id . "'";
+
+            $temp = $this->PackageCustomer->query($sql);
+            //pr($temp[0]['psettings']); exit;
+            $selected['psetting'] = $temp[0]['psettings']['id'];
+            $selected['package'] = $temp[0]['packages']['id'];
+            $ym = $this->getYm();
+            $this->set(compact('packages','psettings','selected','ym'));
+        
+    }
+    function getYM(){
+        $cy=date('Y');
+        $cm =date('m');
+        $y= array();
+        $n=0;
+        for($i=$cy;$n<40;$i++){
+           $y[$i] = $i; 
+           $n++;
         }
+      
+        $return['year'] = $y; 
+        $return['month'] = array(
+            '01'=>'01',
+            '02'=>'02',
+            '03'=>'03',
+            '04'=>'04',
+            '05'=>'05',
+            '06'=>'06',
+            '07'=>'07',
+            '08'=>'08',
+            '09'=>'09',
+            '10'=>'10',
+            '11'=>'11',
+            '12'=>'12'
+            ); 
+        
+        return $return;
+       
+    }
+    function payment_history() {
+        $this->loadModel('Transaction');
+        $clicked = false;
+        if ($this->request->is('post') || $this->request->is('put')) {
+            $datrange = json_decode($this->request->data['Transaction']['daterange'], true);
+            $conditions = array('Transaction.created >=' => $datrange['start'], 'Transaction.created <=' => $datrange['end']);
+            $transactions = $this->Transaction->find('all', array('conditions' => $conditions));
+//            pr($transactions);
+//            exit;
+            $clicked = true;
+            $this->set(compact('transactions'));
+        }
+        $this->set(compact('clicked'));
     }
 
 }
