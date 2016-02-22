@@ -261,5 +261,52 @@ class AppController extends Controller {
             return false;
         }
     }
+    
+    function getAllTickectsByCustomer($pcid) {
+        $this->loadModel('Track');
+        $this->loadModel('User');
+        $this->loadModel('Role');
+//        $tickets = $this->Track->query("SELECT * FROM tracks tr 
+//                    inner join tickets t on tr.ticket_id = t.id
+//                    inner join users fb on tr.forwarded_by = fb.id
+//                    inner join roles r on  tr.role_id = r.id
+//                    inner join users ft on  tr.user_id = ft.id order by tr.created desc");
+    
+            $tickets = $this->Track->query("SELECT * FROM tracks tr
+                        left JOIN tickets t ON tr.ticket_id = t.id
+                        left JOIN users fb ON tr.forwarded_by = fb.id
+                        left JOIN roles fd ON tr.role_id = fd.id
+                        left JOIN users fi ON tr.user_id = fi.id
+                        left JOIN issues i ON tr.issue_id = i.id
+                        left join package_customers pc on tr.package_customer_id = pc.id
+                        WHERE tr.package_customer_id =" . $pcid . " ORDER BY tr.created DESC");
+        
+        $filteredTicket = array();
+        $unique = array();
+        $index = 0;
+        foreach ($tickets as $key => $ticket) {
+            $t = $ticket['t']['id'];
+            if (isset($unique[$t])) {
+                //  echo 'already exist'.$key.'<br/>';
+                $temp = array('tr' => $ticket['tr'], 'fb' => $ticket['fb'], 'fd' => $ticket['fd'], 'fi' => $ticket['fi'], 'i' => $ticket['i'], 'pc' => $ticket['pc']);
+                $filteredTicket[$index]['history'][] = $temp;
+            } else {
+                if ($key != 0)
+                    $index++;
+                $unique[$t] = 'set';
+                $filteredTicket[$index]['ticket'] = $ticket['t'];
+                $temp = array('tr' => $ticket['tr'], 'fb' => $ticket['fb'], 'fd' => $ticket['fd'], 'fi' => $ticket['fi'], 'i' => $ticket['i'], 'pc' => $ticket['pc']);
+                $filteredTicket[$index]['history'][] = $temp;
+            }
+        }
+        $data = $filteredTicket;
+        $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
+        $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
+        $return['data'] = $data;
+        $return['users'] = $users;
+        $return['roles'] = $roles;
+        return $return;
+        
+    }
 
 }
