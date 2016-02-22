@@ -22,7 +22,7 @@
             <div class="col-md-12">
                 <!-- BEGIN EXAMPLE TABLE PORTLET-->           
                 <!-- END EXAMPLE TABLE PORTLET-->
-                <div class="portlet box blue">
+                <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
                             <i class="fa fa-list-ul"></i>Customer Information
@@ -442,7 +442,7 @@
                         <!--                        <div class="row">
                                                     <div class="col-md-12 ">
                                                          BEGIN SAMPLE FORM PORTLET
-                                                        <div class="portlet box blue"">
+                                                        <div class="portlet box green"">
                                                             <div class="portlet-title">
                                                                 <div class="caption" id="blackcaption" >
                                                                     Package Information
@@ -603,7 +603,7 @@
                                 <?php
                                 echo $this->Form->button(
                                         'Update Customer Information', array(
-                                    'class' => 'btn btn-primary submitbtn',
+                                    'class' => 'btn btn-primary submitbtn green',
                                     'type' => 'submit',
                                     'id' => ''
                                 ));
@@ -615,7 +615,7 @@
                 </div>
 
                 <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                <div class="portlet box blue">
+                <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
                             <i class="fa fa-list-ul"></i>Payment process
@@ -851,7 +851,7 @@
                                                                 <?php
                                                                 echo $this->Form->button(
                                                                         'Submit Payment', array(
-                                                                    'class' => 'btn btn-primary submitbtn',
+                                                                    'class' => 'btn btn-primary submitbtn green',
                                                                     'type' => 'submit',
                                                                     'id' => ''
                                                                 ));
@@ -948,7 +948,7 @@
                                                                 <?php
                                                                 echo $this->Form->button(
                                                                         'Submit Payment', array(
-                                                                    'class' => 'btn btn-primary submitbtn',
+                                                                    'class' => 'btn btn-primary submitbtn green',
                                                                     'type' => 'submit',
                                                                     'id' => ''
                                                                 ));
@@ -1048,7 +1048,7 @@
                                                                 <?php
                                                                 echo $this->Form->button(
                                                                         'Submit Payment', array(
-                                                                    'class' => 'btn btn-primary submitbtn',
+                                                                    'class' => 'btn btn-primary submitbtn green',
                                                                     'type' => 'submit',
                                                                     'id' => ''
                                                                 ));
@@ -1145,7 +1145,7 @@
                                                                 <?php
                                                                 echo $this->Form->button(
                                                                         'Submit Payment', array(
-                                                                    'class' => 'btn btn-primary submitbtn',
+                                                                    'class' => 'btn btn-primary submitbtn green',
                                                                     'type' => 'submit',
                                                                     'id' => ''
                                                                 ));
@@ -1224,7 +1224,7 @@
                                                                 <?php
                                                                 echo $this->Form->button(
                                                                         'Submit Payment', array(
-                                                                    'class' => 'btn btn-primary submitbtn',
+                                                                    'class' => 'btn btn-primary submitbtn green',
                                                                     'type' => 'submit',
                                                                     'id' => ''
                                                                 ));
@@ -1249,7 +1249,7 @@
 
         <!-------------payment history start----------------->
 
-        <div class="portlet box blue">
+        <div class="portlet box green">
             <div class="portlet-title">
                 <div class="caption">
                     <i class="fa fa-list-ul"></i>Payment History
@@ -1319,7 +1319,7 @@
 
         <!-------------ticket history start----------------->
 
-        <div class="portlet box blue">
+        <div class="portlet box green">
             <div class="portlet-title">
                 <div class="caption">
                     <i class="fa fa-list-ul"></i>Ticket History
@@ -1691,7 +1691,7 @@
                             ?>
                         </tbody>
                     </table>
-                    <div style="background-color: whitesmoke; "><a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'create', $this->request->params['pass'][0])) ?>">Generate Ticket</a></div>
+                    <div class="col-md-2" style=" margin-left: 27px;"><a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'create', $this->request->params['pass'][0])) ?>" style="color:  deeppink;">Generate Ticket</a></div>
                 </div>
             </div>
         </div>
