@@ -7,6 +7,11 @@ class Role extends AppModel
             'rule' => 'isUnique',
             'required' => true,
             'message' => 'This Role already exist'
+        ),
+              'name' => array(
+            'rule' => 'notEmpty',
+            'required' => true,
+            'message' => 'This field cannot be empty'
         )
     );
 	
