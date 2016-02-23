@@ -127,8 +127,8 @@ class TransactionsController extends AppController {
             $this->loadModel('PackageCustomer');
             $this->loadModel('Ticket');
             $this->loadModel('Track');
-            $tmsg ='Information of '.$this->request->data['PackageCustomer']['first_name'] .' '.
-                    $this->request->data['PackageCustomer']['middle_name'] .' '.
+            $tmsg ='Information of  '.$this->request->data['PackageCustomer']['first_name'] .'  '.
+                    $this->request->data['PackageCustomer']['middle_name'] .'  '.
                     $this->request->data['PackageCustomer']['last_name'].' has been updated';
 //            $dateObj = $this->request->data['PackageCustomer']['exp_date'];
 //            $this->request->data['PackageCustomer']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
@@ -145,7 +145,7 @@ class TransactionsController extends AppController {
                 'package_customer_id' => $id,
                 'role_id' => 100,
                 'ticket_id' => $tickect['Ticket']['id'],
-                'status' => 'open',
+                'status' => 'close',
                 'issue_id' => 100,
                 'forwarded_by' => $loggedUser['id']
             );
