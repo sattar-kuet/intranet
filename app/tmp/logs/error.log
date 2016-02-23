@@ -1,471 +1,57 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-2016-02-20 17:14:39 Error: [MissingControllerException] Controller class UsersController could not be found.
-Exception Attributes: array (
-  'class' => 'UsersController',
-  'plugin' => NULL,
-)
-Request URL: /intranet/users/login
-Stack Trace:
-#0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-20 17:14:51 Error: [MissingControllerException] Controller class PluginsController could not be found.
-Exception Attributes: array (
-  'class' => 'PluginsController',
-  'plugin' => NULL,
-)
-Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
-Stack Trace:
-#0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-20 17:14:51 Error: [MissingControllerException] Controller class PluginsController could not be found.
+2016-02-23 06:21:12 Error: [MissingControllerException] Controller class PluginsController could not be found.
 Exception Attributes: array (
   'class' => 'PluginsController',
   'plugin' => NULL,
 )
 Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
 Stack Trace:
-#0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#0 D:\Server\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
-2016-02-20 18:43:19 Error: [MissingActionException] Action PaymentsController::individual_transaction() could not be found.
+2016-02-23 06:21:12 Error: [MissingControllerException] Controller class PluginsController could not be found.
 Exception Attributes: array (
-  'controller' => 'PaymentsController',
-  'action' => 'individual_transaction',
+  'class' => 'PluginsController',
+  'plugin' => NULL,
 )
-Request URL: /intranet/payments/individual_transaction
+Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
 Stack Trace:
-#0 E:\Appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
-#1 E:\Appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(PaymentsController), Object(CakeRequest))
-#2 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#3 {main}
-2016-02-20 19:23:43 Error: [MissingActionException] Action PaymentsController::individual_transaction_by_cash() could not be found.
-Exception Attributes: array (
-  'controller' => 'PaymentsController',
-  'action' => 'individual_transaction_by_cash',
-)
-Request URL: /intranet/payments/individual_transaction_by_cash
-Stack Trace:
-#0 E:\Appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
-#1 E:\Appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(PaymentsController), Object(CakeRequest))
-#2 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#3 {main}
-<<<<<<< HEAD
-2016-02-20 20:49:02 Error: Fatal Error (1): Call to a member function findById() on a non-object in [D:\xampp\htdocs\intranet\app\Controller\TransactionsController.php, line 136]
-2016-02-20 20:49:02 Error: [FatalErrorException] Call to a member function findById() on a non-object
+#0 D:\Server\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-23 07:02:24 Error: Fatal Error (1): Call to a member function save() on a non-object in [D:\Server\htdocs\intranet\app\Controller\TransactionsController.php, line 142]
+2016-02-23 07:02:24 Error: [FatalErrorException] Call to a member function save() on a non-object
 Request URL: /intranet/transactions/edit_customer_data/3
 Stack Trace:
-#0 D:\xampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(1, 'Call to a membe...', 'D:\xampp\htdocs...', 136)
-#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', 'D:\xampp\htdocs...', 136, Array)
-#2 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', 'D:\xampp\htdocs...', 136, Array)
-#3 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#0 D:\Server\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(1, 'Call to a membe...', 'D:\\Server\\htdoc...', 142)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', 'D:\\Server\\htdoc...', 142, Array)
+#2 D:\Server\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', 'D:\\Server\\htdoc...', 142, Array)
+#3 D:\Server\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
 #4 [internal function]: App::shutdown()
 #5 {main}
-2016-02-20 21:01:18 Error: Fatal Error (1): Call to a member function findById() on a non-object in [D:\xampp\htdocs\intranet\app\Controller\TransactionsController.php, line 136]
-2016-02-20 21:01:18 Error: [FatalErrorException] Call to a member function findById() on a non-object
-Request URL: /intranet/transactions/edit_customer_data/24
+2016-02-23 07:03:07 Error: [PDOException] SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'forwarded_by' cannot be null
+Request URL: /intranet/transactions/edit_customer_data/3
 Stack Trace:
-#0 D:\xampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(1, 'Call to a membe...', 'D:\xampp\htdocs...', 136)
-#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', 'D:\xampp\htdocs...', 136, Array)
-#2 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', 'D:\xampp\htdocs...', 136, Array)
-#3 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#0 D:\Server\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\Server\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('INSERT INTO `to...', Array)
+#2 D:\Server\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(1012): DboSource->execute('INSERT INTO `to...')
+#3 D:\Server\htdocs\intranet\lib\Cake\Model\Model.php(1928): DboSource->create(Object(Track), Array, Array)
+#4 D:\Server\htdocs\intranet\lib\Cake\Model\Model.php(1751): Model->_doSave(Array, Array)
+#5 D:\Server\htdocs\intranet\app\Controller\TransactionsController.php(161): Model->save(Array)
+#6 [internal function]: TransactionsController->edit_customer_data('3')
+#7 D:\Server\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(TransactionsController), Array)
+#8 D:\Server\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#9 D:\Server\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(TransactionsController), Object(CakeRequest))
+#10 D:\Server\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#11 {main}
+2016-02-23 07:08:46 Error: Fatal Error (1): Call to a member function user() on a non-object in [D:\Server\htdocs\intranet\app\Controller\TransactionsController.php, line 125]
+2016-02-23 07:08:46 Error: [FatalErrorException] Call to a member function user() on a non-object
+Request URL: /intranet/transactions/edit_customer_data/3
+Stack Trace:
+#0 D:\Server\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(1, 'Call to a membe...', 'D:\\Server\\htdoc...', 125)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', 'D:\\Server\\htdoc...', 125, Array)
+#2 D:\Server\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', 'D:\\Server\\htdoc...', 125, Array)
+#3 D:\Server\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
 #4 [internal function]: App::shutdown()
 #5 {main}
-2016-02-20 21:39:33 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_75_e6e6e6_1x400.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-20 21:39:33 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_888888_256x240.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-20 21:39:33 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_222222_256x240.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-20 21:39:33 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_flat_75_ffffff_40x100.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-20 21:39:33 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_highlight-soft_75_cccccc_1x100.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-20 21:39:33 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_55_fbf9ee_1x400.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-20 21:39:35 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_454545_256x240.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-20 21:39:35 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_75_dadada_1x400.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-20 21:39:35 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_454545_256x240.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-20 21:39:35 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_65_ffffff_1x400.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-20 21:50:58 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_55_fbf9ee_1x400.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-20 21:50:58 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_222222_256x240.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-20 21:50:58 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_highlight-soft_75_cccccc_1x100.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-20 21:50:58 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_888888_256x240.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-20 21:50:58 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_75_e6e6e6_1x400.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-20 21:50:58 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_flat_75_ffffff_40x100.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-20 22:04:54 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_75_dadada_1x400.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-20 22:04:54 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_454545_256x240.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-20 22:04:54 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_65_ffffff_1x400.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-20 22:04:54 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_454545_256x240.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-20 22:07:49 Error: Fatal Error (1): Call to a member function find() on a non-object in [D:\xampp\htdocs\intranet\app\Controller\TransactionsController.php, line 147]
-2016-02-20 22:07:49 Error: [FatalErrorException] Call to a member function find() on a non-object
-Request URL: /intranet/transactions/payment_history
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(1, 'Call to a membe...', 'D:\xampp\htdocs...', 147)
-#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', 'D:\xampp\htdocs...', 147, Array)
-#2 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', 'D:\xampp\htdocs...', 147, Array)
-#3 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
-#4 [internal function]: App::shutdown()
-#5 {main}
-2016-02-20 22:12:44 Error: [MissingActionException] Action TransactionsController::extra_search.html() could not be found.
-Exception Attributes: array (
-  'controller' => 'TransactionsController',
-  'action' => 'extra_search.html',
-)
-Request URL: /intranet/transactions/extra_search.html
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
-#1 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(TransactionsController), Object(CakeRequest))
-#2 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#3 {main}
-=======
->>>>>>> 25140b870fce64c9b36581f5ec6de917240c3271
-2016-02-20 22:29:09 Error: [MissingControllerException] Controller class PluginsController could not be found.
-Exception Attributes: array (
-  'class' => 'PluginsController',
-  'plugin' => NULL,
-)
-Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-20 22:29:09 Error: [MissingControllerException] Controller class PluginsController could not be found.
-Exception Attributes: array (
-  'class' => 'PluginsController',
-  'plugin' => NULL,
-)
-Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-21 11:13:34 Error: [MissingControllerException] Controller class PluginsController could not be found.
-Exception Attributes: array (
-  'class' => 'PluginsController',
-  'plugin' => NULL,
-)
-Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-21 11:13:34 Error: [MissingControllerException] Controller class PluginsController could not be found.
-Exception Attributes: array (
-  'class' => 'PluginsController',
-  'plugin' => NULL,
-)
-Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-21 11:33:20 Error: [MissingControllerException] Controller class UsersController could not be found.
-=======
-2016-02-21 12:21:48 Error: [MissingControllerException] Controller class UsersController could not be found.
->>>>>>> 775a97079b695b1488871c301fc7e451aded0f2b
-Exception Attributes: array (
-  'class' => 'UsersController',
-  'plugin' => NULL,
-)
-Request URL: /intranet/users/login
-Stack Trace:
 <<<<<<< HEAD
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-21 11:33:27 Error: [MissingControllerException] Controller class UsersController could not be found.
-Exception Attributes: array (
-  'class' => 'UsersController',
-  'plugin' => NULL,
-)
-Request URL: /intranet/users/login
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-21 11:33:29 Error: [MissingControllerException] Controller class PluginsController could not be found.
-Exception Attributes: array (
-  'class' => 'PluginsController',
-  'plugin' => NULL,
-)
-Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-21 11:33:29 Error: [MissingControllerException] Controller class PluginsController could not be found.
-=======
-#0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-21 12:22:02 Error: [MissingControllerException] Controller class PluginsController could not be found.
->>>>>>> 775a97079b695b1488871c301fc7e451aded0f2b
-Exception Attributes: array (
-  'class' => 'PluginsController',
-  'plugin' => NULL,
-)
-Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
-Stack Trace:
-<<<<<<< HEAD
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-21 12:13:35 Error: Fatal Error (4): syntax error, unexpected '}' in [D:\xampp\htdocs\intranet\app\View\Transactions\edit_customer_data.ctp, line 1016]
-2016-02-21 12:13:35 Error: [FatalErrorException] syntax error, unexpected '}'
-Request URL: /intranet/transactions/edit_customer_data/24
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'D:\xampp\htdocs...', 1016)
-#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'D:\xampp\htdocs...', 1016, Array)
-#2 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'D:\xampp\htdocs...', 1016, Array)
-#3 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
-#4 [internal function]: App::shutdown()
-#5 {main}
-2016-02-21 12:14:04 Error: Fatal Error (4): syntax error, unexpected '}' in [D:\xampp\htdocs\intranet\app\View\Transactions\edit_customer_data.ctp, line 1016]
-2016-02-21 12:14:04 Error: [FatalErrorException] syntax error, unexpected '}'
-Request URL: /intranet/transactions/edit_customer_data/24
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'D:\xampp\htdocs...', 1016)
-#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'D:\xampp\htdocs...', 1016, Array)
-#2 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'D:\xampp\htdocs...', 1016, Array)
-#3 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
-#4 [internal function]: App::shutdown()
-#5 {main}
-2016-02-21 12:15:43 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_flat_75_ffffff_40x100.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-21 12:15:43 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_75_e6e6e6_1x400.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-21 12:15:43 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_55_fbf9ee_1x400.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-21 12:15:43 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_highlight-soft_75_cccccc_1x100.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-21 12:15:43 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_222222_256x240.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-21 12:15:44 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_75_dadada_1x400.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-21 12:15:44 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_454545_256x240.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-21 12:15:44 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_65_ffffff_1x400.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-21 12:15:44 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_454545_256x240.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-21 12:15:49 Error: Fatal Error (1): Call to a member function find() on a non-object in [D:\xampp\htdocs\intranet\app\Controller\TransactionsController.php, line 150]
-2016-02-21 12:15:49 Error: [FatalErrorException] Call to a member function find() on a non-object
-Request URL: /intranet/transactions/payment_history
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(1, 'Call to a membe...', 'D:\xampp\htdocs...', 150)
-#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', 'D:\xampp\htdocs...', 150, Array)
-#2 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', 'D:\xampp\htdocs...', 150, Array)
-#3 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
-#4 [internal function]: App::shutdown()
-#5 {main}
 =======
 #0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
@@ -4153,329 +3739,259 @@ Stack Trace:
 =======
 >>>>>>> 4bfdeba5ce075087e56cf5830113fbbee97d16db
 #1 {main}
-<<<<<<< HEAD
-2016-02-22 05:17:36 Error: [MissingControllerException] Controller class UsersController could not be found.
-Exception Attributes: array (
-  'class' => 'UsersController',
-  'plugin' => NULL,
-)
-Request URL: /intranet/users/login
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-22 05:23:18 Error: [MissingControllerException] Controller class PluginsController could not be found.
-=======
-2016-02-22 05:40:29 Error: [MissingControllerException] Controller class PluginsController could not be found.
->>>>>>> bfe8aa04d83aa528fce65071a245f788c116e0c1
-Exception Attributes: array (
-  'class' => 'PluginsController',
-  'plugin' => NULL,
-)
-Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
-Stack Trace:
-<<<<<<< HEAD
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-22 05:23:18 Error: [MissingControllerException] Controller class PluginsController could not be found.
-=======
-#0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-22 05:40:29 Error: [MissingControllerException] Controller class PluginsController could not be found.
->>>>>>> bfe8aa04d83aa528fce65071a245f788c116e0c1
-Exception Attributes: array (
-  'class' => 'PluginsController',
-  'plugin' => NULL,
-)
-Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
-Stack Trace:
-<<<<<<< HEAD
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-22 05:24:07 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-=======
-#0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-22 05:41:49 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '403-927 ORDER BY tr.created DESC' at line 8
-Request URL: /intranet/admins/servicemanage
-Stack Trace:
-#0 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
-#1 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT * FROM t...', Array)
-#2 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT * FROM t...', Array, Array)
-#3 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('SELECT * FROM t...')
-#4 [internal function]: DboSource->query('SELECT * FROM t...')
-#5 E:\Appxampp\htdocs\intranet\lib\Cake\Model\Model.php(3447): call_user_func_array(Array, Array)
-#6 E:\Appxampp\htdocs\intranet\app\Controller\AdminsController.php(263): Model->query('SELECT * FROM t...')
-#7 [internal function]: AdminsController->servicemanage()
-#8 E:\Appxampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
-#9 E:\Appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
-#10 E:\Appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
-#11 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#12 {main}
-2016-02-22 06:17:24 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
->>>>>>> bfe8aa04d83aa528fce65071a245f788c116e0c1
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_flat_75_ffffff_40x100.png
-Stack Trace:
-<<<<<<< HEAD
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-22 05:24:07 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-=======
-#0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-22 06:17:24 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
->>>>>>> bfe8aa04d83aa528fce65071a245f788c116e0c1
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_75_e6e6e6_1x400.png
-Stack Trace:
-<<<<<<< HEAD
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-22 05:24:07 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_888888_256x240.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-22 05:24:07 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_222222_256x240.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-22 05:24:08 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+2016-02-22 08:02:56 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
 Exception Attributes: array (
   'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
   'plugin' => NULL,
 )
 Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_55_fbf9ee_1x400.png
 Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
-2016-02-22 05:24:08 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-=======
-#0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+2016-02-22 08:02:56 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_222222_256x240.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
-2016-02-22 06:17:24 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
->>>>>>> bfe8aa04d83aa528fce65071a245f788c116e0c1
+2016-02-22 08:02:56 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_flat_75_ffffff_40x100.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-22 08:02:56 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
 Exception Attributes: array (
   'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
   'plugin' => NULL,
 )
 Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_highlight-soft_75_cccccc_1x100.png
 Stack Trace:
-<<<<<<< HEAD
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
-2016-02-22 05:24:12 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_75_dadada_1x400.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-22 05:24:12 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_454545_256x240.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-22 05:24:12 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_454545_256x240.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-22 05:24:12 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_65_ffffff_1x400.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-22 05:45:04 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_flat_75_ffffff_40x100.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-22 05:45:04 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_55_fbf9ee_1x400.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-22 05:45:04 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_888888_256x240.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-22 05:45:04 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+2016-02-22 08:02:56 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
 Exception Attributes: array (
   'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
   'plugin' => NULL,
 )
 Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_75_e6e6e6_1x400.png
 Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
-1 {main}
-2016-02-22 05:45:04 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-=======
-#0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+2016-02-22 08:03:04 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_454545_256x240.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
-2016-02-22 06:17:24 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
->>>>>>> bfe8aa04d83aa528fce65071a245f788c116e0c1
+2016-02-22 08:03:04 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_75_dadada_1x400.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-22 08:03:05 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_65_ffffff_1x400.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-22 08:03:05 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_454545_256x240.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-22 08:03:49 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_flat_75_ffffff_40x100.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-22 08:03:49 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_highlight-soft_75_cccccc_1x100.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-22 08:03:49 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_55_fbf9ee_1x400.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-22 08:03:49 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
 Exception Attributes: array (
   'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
   'plugin' => NULL,
 )
 Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_222222_256x240.png
 Stack Trace:
-<<<<<<< HEAD
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
-2016-02-22 06:21:05 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_75_dadada_1x400.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-22 06:21:05 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_454545_256x240.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-22 06:21:05 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-=======
-#0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-22 06:17:24 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
->>>>>>> bfe8aa04d83aa528fce65071a245f788c116e0c1
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-<<<<<<< HEAD
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_65_ffffff_1x400.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-22 06:21:05 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-=======
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_888888_256x240.png
-Stack Trace:
-#0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-22 06:17:24 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
->>>>>>> bfe8aa04d83aa528fce65071a245f788c116e0c1
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-<<<<<<< HEAD
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_454545_256x240.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-22 06:49:58 Error: [MissingControllerException] Controller class UsersController could not be found.
-Exception Attributes: array (
-  'class' => 'UsersController',
-  'plugin' => NULL,
-)
-Request URL: /intranet/users/login
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-22 06:50:03 Error: [MissingControllerException] Controller class PluginsController could not be found.
-Exception Attributes: array (
-  'class' => 'PluginsController',
-  'plugin' => NULL,
-)
-Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-22 06:50:03 Error: [MissingControllerException] Controller class PluginsController could not be found.
-Exception Attributes: array (
-  'class' => 'PluginsController',
-  'plugin' => NULL,
-)
-Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-=======
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_55_fbf9ee_1x400.png
-Stack Trace:
-#0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
->>>>>>> bfe8aa04d83aa528fce65071a245f788c116e0c1
-#1 {main}
-2016-02-22 09:07:34 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+2016-02-22 08:03:49 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
 Exception Attributes: array (
   'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
   'plugin' => NULL,
 )
 Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_75_e6e6e6_1x400.png
 Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
-2016-02-22 09:07:34 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
-Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
-  'plugin' => NULL,
-)
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_flat_75_ffffff_40x100.png
-Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-22 09:07:34 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+2016-02-22 08:03:49 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
 Exception Attributes: array (
   'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
   'plugin' => NULL,
 )
 Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_888888_256x240.png
 Stack Trace:
-#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
+2016-02-22 08:04:27 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_454545_256x240.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-22 08:04:27 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_75_dadada_1x400.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-22 08:05:13 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_65_ffffff_1x400.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-22 08:05:13 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_454545_256x240.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-22 09:40:49 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-22 09:40:49 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-22 09:50:32 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_flat_75_ffffff_40x100.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-22 09:50:32 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_222222_256x240.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-22 09:50:32 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_55_fbf9ee_1x400.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-22 09:50:32 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_highlight-soft_75_cccccc_1x100.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-22 09:50:32 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_888888_256x240.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-22 09:50:32 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_75_e6e6e6_1x400.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-22 09:50:32 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_454545_256x240.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+<<<<<<< HEAD
 <<<<<<< HEAD
 2016-02-22 07:43:03 Error: [MissingControllerException] Controller class PluginsController could not be found.
 Exception Attributes: array (
@@ -4532,37 +4048,63 @@ Stack Trace:
 #0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
 2016-02-22 09:20:32 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+=======
+2016-02-22 09:50:32 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+>>>>>>> f52ef61bd0229540011f1b746758160bf2ee1355
 Exception Attributes: array (
   'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
   'plugin' => NULL,
 )
+<<<<<<< HEAD
 Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_flat_75_ffffff_40x100.png
 Stack Trace:
 #0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
 2016-02-22 09:20:32 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+=======
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_75_dadada_1x400.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-22 09:50:33 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+>>>>>>> f52ef61bd0229540011f1b746758160bf2ee1355
 Exception Attributes: array (
   'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
   'plugin' => NULL,
 )
+<<<<<<< HEAD
 Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_888888_256x240.png
 Stack Trace:
 #0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
 2016-02-22 09:20:32 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+=======
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_65_ffffff_1x400.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-22 09:50:33 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+>>>>>>> f52ef61bd0229540011f1b746758160bf2ee1355
 Exception Attributes: array (
   'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
   'plugin' => NULL,
 )
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_highlight-soft_75_cccccc_1x100.png
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_454545_256x240.png
 Stack Trace:
+<<<<<<< HEAD
 #0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
 2016-02-22 09:20:32 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+=======
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-23 02:28:56 Error: [MissingControllerException] Controller class PluginsController could not be found.
+>>>>>>> f52ef61bd0229540011f1b746758160bf2ee1355
 Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'class' => 'PluginsController',
   'plugin' => NULL,
 )
+<<<<<<< HEAD
 Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_75_e6e6e6_1x400.png
 Stack Trace:
 #0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
@@ -4571,10 +4113,18 @@ Stack Trace:
 =======
 2016-02-22 09:07:34 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
 >>>>>>> d6cae4d325fab409a809e1c37a59004e7244ab40
+=======
+Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-23 02:28:56 Error: [MissingControllerException] Controller class PluginsController could not be found.
+>>>>>>> f52ef61bd0229540011f1b746758160bf2ee1355
 Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'class' => 'PluginsController',
   'plugin' => NULL,
 )
+<<<<<<< HEAD
 Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_55_fbf9ee_1x400.png
 Stack Trace:
 <<<<<<< HEAD
@@ -4586,10 +4136,18 @@ Stack Trace:
 #1 {main}
 2016-02-22 09:07:34 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
 >>>>>>> d6cae4d325fab409a809e1c37a59004e7244ab40
+=======
+Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-23 07:40:08 Error: [MissingControllerException] Controller class UsersController could not be found.
+>>>>>>> f52ef61bd0229540011f1b746758160bf2ee1355
 Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'class' => 'UsersController',
   'plugin' => NULL,
 )
+<<<<<<< HEAD
 Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_222222_256x240.png
 Stack Trace:
 <<<<<<< HEAD
@@ -4605,12 +4163,20 @@ Stack Trace:
 #0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
 2016-02-22 09:20:33 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+=======
+Request URL: /intranet/users/login
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-23 07:40:23 Error: [MissingControllerException] Controller class PluginsController could not be found.
+>>>>>>> f52ef61bd0229540011f1b746758160bf2ee1355
 Exception Attributes: array (
-  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'class' => 'PluginsController',
   'plugin' => NULL,
 )
-Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_454545_256x240.png
+Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
 Stack Trace:
+<<<<<<< HEAD
 #0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
 2016-02-22 09:25:32 Error: [MissingControllerException] Controller class PluginsController could not be found.
@@ -4740,12 +4306,18 @@ Stack Trace:
 #0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
 2016-02-22 09:28:54 Error: [MissingControllerException] Controller class PluginsController could not be found.
+=======
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-23 07:40:23 Error: [MissingControllerException] Controller class PluginsController could not be found.
+>>>>>>> f52ef61bd0229540011f1b746758160bf2ee1355
 Exception Attributes: array (
   'class' => 'PluginsController',
   'plugin' => NULL,
 )
 Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
 Stack Trace:
+<<<<<<< HEAD
 #0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
 2016-02-22 09:29:29 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
@@ -5248,3 +4820,9 @@ Stack Trace:
 #10 E:\Appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
 #11 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #12 {main}
+=======
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+=======
+>>>>>>> be7ab40ca412bc67cfb35c5b4d60734f07461dad
+>>>>>>> f52ef61bd0229540011f1b746758160bf2ee1355

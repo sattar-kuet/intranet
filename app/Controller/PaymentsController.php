@@ -2,6 +2,7 @@
 
 require_once(APP . 'Vendor' . DS . 'authorize' . DS . 'autoload.php');
 require_once(APP . 'Vendor' . DS . 'class.upload.php');
+
 //App::uses('AnetAPI', 'net\authorize\api\contract\v1');
 //App::uses('AnetController', 'net\authorize\api\controller');
 
@@ -87,14 +88,12 @@ class PaymentsController extends AppController {
         $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
         //$merchantAuthentication->setTransactionKey("6468X36RkrKGm3k6"); // live mode
         $refId = 'ref' . time();
-
 // Create the payment data for a credit card
         $creditCard = new AnetAPI\CreditCardType();
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
         $this->loadModel('Ticket');
         $this->loadModel('Track');
-
         $loggedUser = $this->Auth->user();
         $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
         $pcustomers = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $cid)));
@@ -208,7 +207,7 @@ class PaymentsController extends AppController {
 
     public function individual_transaction_by_check() {
         $this->loadModel('Transaction');
-         $loggedUser = $this->Auth->user();
+        $loggedUser = $this->Auth->user();
         $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
         $result = array();
         if (!empty($this->request->data['Transaction']['check_image']['name'])) {
@@ -217,60 +216,63 @@ class PaymentsController extends AppController {
         } else {
             $this->request->data['Transaction']['check_image'] = '';
         }
-       $this->Transaction->save($this->request->data['Transaction']);
-         $transactionMsg = '<div class="alert alert-success">
+        $this->Transaction->save($this->request->data['Transaction']);
+        $transactionMsg = '<div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <strong> Payment record saved successfully</strong>
     </div>';
         $this->Session->setFlash($transactionMsg);
         return $this->redirect($this->referer());
     }
+
     public function individual_transaction_by_morder() {
-        $this->loadModel('Transaction');
-         $loggedUser = $this->Auth->user();
-        $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
-        $result = array();
-        if (!empty($this->request->data['Transaction']['check_image']['name'])) {
-            $result = $this->processImg($this->request->data['Transaction'], 'check_image');
-            $this->request->data['Transaction']['check_image'] = (string) $result['file_dst_name'];
-        } else {
-            $this->request->data['Transaction']['check_image'] = '';
-        }
-       $this->Transaction->save($this->request->data['Transaction']);
-         $transactionMsg = '<div class="alert alert-success">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong> Payment record saved successfully</strong>
-    </div>';
-        $this->Session->setFlash($transactionMsg);
-        return $this->redirect($this->referer());
-    }
-    public function individual_transaction_by_online_bil() {
-        $this->loadModel('Transaction');
-         $loggedUser = $this->Auth->user();
-        $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
-        $result = array();
-        if (!empty($this->request->data['Transaction']['check_image']['name'])) {
-            $result = $this->processImg($this->request->data['Transaction'], 'check_image');
-            $this->request->data['Transaction']['check_image'] = (string) $result['file_dst_name'];
-        } else {
-            $this->request->data['Transaction']['check_image'] = '';
-        }
-       $this->Transaction->save($this->request->data['Transaction']);
-         $transactionMsg = '<div class="alert alert-success">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong> Payment record saved successfully</strong>
-    </div>';
-        $this->Session->setFlash($transactionMsg);
-        return $this->redirect($this->referer());
-    }
-    public function individual_transaction_by_cash() {
-        
-       // pr($this->request->data); exit;
         $this->loadModel('Transaction');
         $loggedUser = $this->Auth->user();
         $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
-       $this->Transaction->save($this->request->data['Transaction']);
-         $transactionMsg = '<div class="alert alert-success">
+        $result = array();
+        if (!empty($this->request->data['Transaction']['check_image']['name'])) {
+            $result = $this->processImg($this->request->data['Transaction'], 'check_image');
+            $this->request->data['Transaction']['check_image'] = (string) $result['file_dst_name'];
+        } else {
+            $this->request->data['Transaction']['check_image'] = '';
+        }
+        $this->Transaction->save($this->request->data['Transaction']);
+        $transactionMsg = '<div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong> Payment record saved successfully</strong>
+    </div>';
+        $this->Session->setFlash($transactionMsg);
+        return $this->redirect($this->referer());
+    }
+
+    public function individual_transaction_by_online_bil() {
+        $this->loadModel('Transaction');
+        $loggedUser = $this->Auth->user();
+        $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
+        $result = array();
+        if (!empty($this->request->data['Transaction']['check_image']['name'])) {
+            $result = $this->processImg($this->request->data['Transaction'], 'check_image');
+            $this->request->data['Transaction']['check_image'] = (string) $result['file_dst_name'];
+        } else {
+            $this->request->data['Transaction']['check_image'] = '';
+        }
+        $this->Transaction->save($this->request->data['Transaction']);
+        $transactionMsg = '<div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong> Payment record saved successfully</strong>
+    </div>';
+        $this->Session->setFlash($transactionMsg);
+        return $this->redirect($this->referer());
+    }
+
+    public function individual_transaction_by_cash() {
+
+        // pr($this->request->data); exit;
+        $this->loadModel('Transaction');
+        $loggedUser = $this->Auth->user();
+        $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
+        $this->Transaction->save($this->request->data['Transaction']);
+        $transactionMsg = '<div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <strong> Payment record saved successfully</strong>
     </div>';
