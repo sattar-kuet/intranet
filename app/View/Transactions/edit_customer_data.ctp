@@ -350,31 +350,31 @@
                                     Package:
                                 </div>
                                 <div class="col-md-5">
-                                            <?php
-                                            echo $this->Form->input('package_id', array(
-                                                'type' => 'select',
-                                                'options' => $packages,
-                                                'default' => $selected['package'],
-                                                'empty' => 'Select Package Type',
-                                                'class' => 'span12 uniform nostyle select1 pclass required',
-                                                'div' => array('class' => 'span12 required')
-                                                    )
-                                            );
-                                            ?>
+                                    <?php
+                                    echo $this->Form->input('package_id', array(
+                                        'type' => 'select',
+                                        'options' => $packages,
+                                        'default' => $selected['package'],
+                                        'empty' => 'Select Package Type',
+                                        'class' => 'span12 uniform nostyle select1 pclass required',
+                                        'div' => array('class' => 'span12 required')
+                                            )
+                                    );
+                                    ?>
                                 </div> 
                                 <div class="col-md-5">
-                                            <?php
-                                            echo $this->Form->input('psetting_id', array(
-                                                'type' => 'select',
-                                                'options' => $psettings,
-                                                 'default' => $selected['psetting'],
-                                                'empty' => 'Select Package',
-                                                'class' => 'span12 uniform nostyle  cclass select1 required',
-                                                'id' => 'cid',
-                                                'div' => array('class' => 'span12 required')
-                                                    )
-                                            );
-                                            ?>
+                                    <?php
+                                    echo $this->Form->input('psetting_id', array(
+                                        'type' => 'select',
+                                        'options' => $psettings,
+                                        'default' => $selected['psetting'],
+                                        'empty' => 'Select Package',
+                                        'class' => 'span12 uniform nostyle  cclass select1 required',
+                                        'id' => 'cid',
+                                        'div' => array('class' => 'span12 required')
+                                            )
+                                    );
+                                    ?>
                                 </div> 
                             </div>
 
@@ -456,12 +456,12 @@
                         foreach ($filteredPackage as $n => $single):
                             $tab = $single['packages'];
                             ?>
-                                                                                                    <li <?php
+                                                                                                        <li <?php
                             if (!$n) {
                                 echo 'class="active"';
                             }
                             ?>><a data-toggle="tab" href="#<?php echo $tab['id']; ?>"><?php echo $tab['name']; ?></a>
-                                    
+                                        
                         <?php endforeach; ?>
                                                                                     <li><a data-toggle="tab" href="#custom">Custom</a></li>
                                                                                 </ul>
@@ -474,22 +474,22 @@
                             $tab = $single['packages'];
                             $content = $single['psettings'];
                             ?>
-                                                                                                <div class="tab-pane <?php
+                                                                                                    <div class="tab-pane <?php
                             if (!$n) {
                                 echo 'active';
                             }
                             ?>" id="<?php echo $tab['id']; ?>" >
-                                    
-                                    
-                                                                                                    <div class="panel-body">
+                                        
+                                        
+                                                                                                        <div class="panel-body">
                             <?php foreach ($content as $package): ?>
-                                                                                                                        <div class="col-md-3">
-                                                                                                                            <div class="pricing hover-effect" data-id="<?php echo $package['id'] ?>">
-                                                                                                                                <div id="fariff" class="pricing-head">
-                                                                                                                                    <h3><?php
+                                                                                                                                <div class="col-md-3">
+                                                                                                                                    <div class="pricing hover-effect" data-id="<?php echo $package['id'] ?>">
+                                                                                                                                        <div id="fariff" class="pricing-head">
+                                                                                                                                            <h3><?php
                                 echo ($package['duration'] == 12) ? '1 Year' : $package['duration'] . ' Month';
                                 ?>  <span> Billing Package </span></h3>
-                                                                                                                                    <h4><?php
+                                                                                                                                            <h4><?php
                                 if (strtolower($tab['name']) == 'uk') {
                                     echo '£';
                                 } else if (strtolower($tab['name']) == 'canada') {
@@ -499,22 +499,22 @@
                                 }
                                 ?>
                                 <?php echo $package['amount']; ?> <span> For 1st Box </span>
-                                                                                                                                    </h4>
-                                                                                                                                </div>
-                                                                                                                                <ul class="pricing-content list-unstyled">
+                                                                                                                                            </h4>
+                                                                                                                                        </div>
+                                                                                                                                        <ul class="pricing-content list-unstyled">
                                 <?php echo $package['offer']; ?>
-                                                                                                                                </ul>
-                                                
-                                                                                                                            </div>
-                                                
-                                                                                                                        </div>
-                                                
+                                                                                                                                        </ul>
+                                                        
+                                                                                                                                    </div>
+                                                        
+                                                                                                                                </div>
+                                                        
                             <?php endforeach;
                             ?>
+                                                                                                        </div>
+                                        
                                                                                                     </div>
-                                    
-                                                                                                </div>
-                                    
+                                        
                             <?php
                         endforeach;
                         ?>

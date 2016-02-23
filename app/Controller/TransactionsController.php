@@ -157,7 +157,6 @@ class TransactionsController extends AppController {
             $selected['psetting'] = $temp[0]['psettings']['id'];
             $selected['package'] = $temp[0]['packages']['id'];
             $this->set(compact('packages','psettings','selected'));
-        
     }
 
     function payment_history() {
