@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+<<<<<<< HEAD
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="5">
         <file>
             <url>app/View/Transactions/edit_customer_data.ctp</url>
@@ -16,20 +17,51 @@
             <bookmark id="4">
                 <name/>
                 <line>0</line>
+=======
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="10">
+        <file>
+            <url>app/Controller/TransactionsController.php</url>
+            <bookmark id="4">
+                <name/>
+                <line>121</line>
+>>>>>>> d6cae4d325fab409a809e1c37a59004e7244ab40
                 <key/>
             </bookmark>
         </file>
         <file>
+<<<<<<< HEAD
             <url>app/View/Tickets/manage.ctp</url>
             <bookmark id="2">
                 <name/>
                 <line>117</line>
+=======
+            <url>app/View/Transactions/edit_customer_data.ctp</url>
+            <bookmark id="9">
+                <name/>
+                <line>345</line>
+                <key/>
+            </bookmark>
+            <bookmark id="10">
+                <name/>
+                <line>375</line>
+                <key/>
+            </bookmark>
+            <bookmark id="8">
+                <name/>
+                <line>460</line>
+                <key/>
+            </bookmark>
+            <bookmark id="7">
+                <name/>
+                <line>1071</line>
+>>>>>>> d6cae4d325fab409a809e1c37a59004e7244ab40
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/E:/Appxampp/htdocs/intranet/app/View/Admins/create.ctp</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/webroot/css/custom.css</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/webroot/js/widgets.js</file>
@@ -42,6 +74,11 @@
             <file>file:/E:/Appxampp/htdocs/intranet/app/Controller/TicketsController.php</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/View/Elements/admin-header.ctp</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/View/Tickets/manage.ctp</file>
+=======
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Tickets/my.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Tickets/manage.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Admins/manage.ctp</file>
+>>>>>>> d6cae4d325fab409a809e1c37a59004e7244ab40
         </group>
     </open-files>
 </project-private>
