@@ -82,44 +82,48 @@
             <div class="col-md-6 col-sm-6">
                 <!-- BEGIN PORTLET-->
                 <div class="portlet">
-                    <div class="portlet-title line">
+                    <div class="portlet-title line" style="color:red;">
                         <div class="caption">
-                            <i class="fa fa-envelope-o fa-lg"></i>Message from Admin
+                            <i class="fa fa-envelope-o fa-lg" style="color:red;"></i>Message From Admin
                         </div>
-                        <div class="tools">
-
-                            <a href="" class="reload" data-original-title="" title="">
-                            </a>
-
-                        </div>
+                        <!--                        <div class="tools">
+                        
+                                                    <a href="" class="reload" data-original-title="" title="">
+                                                    </a>
+                        
+                                                </div>-->
                     </div>
                     <!--  <div class="portlet-body" id="chats" style="overflow-y: scroll; max-height: 300px;"/> -->
                     <div class="portlet-body" id="chats"/>
                     <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto;"><div class="scroller" style="overflow: hidden; width: auto;" data-always-visible="1" data-rail-visible1="1" data-initialized="1">
-                            <ul class="chats">
+                            <ul class="chats ">
+
                                 <?php
                                 foreach ($admin_messages as $message):
                                     ?>
+
                                     <li class="in">
-                                        <!--<img class="avatar" alt="" src="<?php echo $this->webroot; ?>/assets/admin/layout/img/avatar1.jpg">-->
+                                        <!--<line style="border-bottom: 1px solid #999; display: block;">-->
+                                           <!--<img class="avatar" alt="" src="<?php echo $this->webroot; ?>/assets/admin/layout/img/avatar1.jpg">-->
                                         <!--<div class="message">-->
     <!--                                            <span class="arrow">
                                             </span>-->
-                                        <a href="#" class="name">
+
+                                        <a style="color: #E02222; font-weight: bold;" href="#" class="name">
                                             <?php echo $message['User']['name']; ?> </a>                                                
                                         <span class="datetime">
                                             at
-
                                             <?php
                                             $dt = new DateTime($message['Message']['created']);
                                             echo $dt->format('g:i A');
-
-//                                                 echo $message['Message']['created']; 
-                                            ?>  </span>
+                                            ;
+                                            ?>  
+                                        </span>
                                         <span class="body">
-                                            <?php echo $message['Message']['message']; ?> </span>
-                                        <!--</div>-->
-                                    </li>                                    
+                                            <?php echo $message['Message']['message']; ?> 
+                                        </span>                                      
+                                    </li> 
+                                    <span class="devider"></span>
                                 <?php endforeach ?>
                             </ul>
                         </div><div class="slimScrollBar" style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px; height: 185.485px; background: rgb(187, 187, 187);"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(234, 234, 234);"></div></div>
@@ -155,8 +159,8 @@
                         <td>
                             <ul>
                                 <li><?php echo $customer['cell']; ?></li>
-                                <li><?php echo $customer['address']?></li>
-                        </ul>
+                                <li><?php echo $customer['address'] ?></li>
+                            </ul>
                         </td>
                         <td>
                             <ul>
@@ -164,23 +168,23 @@
                                 <li> Duration: <?php echo $package['duration']; ?></li>
                                 <li> Charge: <?php echo $package['charge']; ?></li>
                             </ul>
-    <?php ?>
+                            <?php ?>
                         </td>
                         <td>
 
-    <?php
-    echo $this->Form->create('PackageCustomer', array(
-        'inputDefaults' => array(
-            'label' => false,
-            'div' => false
-        ),
-        'id' => 'form_sample_3',
-        'class' => 'form-horizontal',
-        'novalidate' => 'novalidate',
-        'url' => array('controller' => 'admins', 'action' => 'changeservice')
-            )
-    );
-    ?>
+                            <?php
+                            echo $this->Form->create('PackageCustomer', array(
+                                'inputDefaults' => array(
+                                    'label' => false,
+                                    'div' => false
+                                ),
+                                'id' => 'form_sample_3',
+                                'class' => 'form-horizontal',
+                                'novalidate' => 'novalidate',
+                                'url' => array('controller' => 'admins', 'action' => 'changeservice')
+                                    )
+                            );
+                            ?>
 
                             <?php
                             echo $this->Form->input('id', array(
@@ -207,13 +211,13 @@
                             <?php echo $this->Form->end(); ?>
                         </td>
                     </tr>
-    <?php ?>
+                    <?php ?>
                 </tbody>
 
             </table>
         </div>
 
-    <?php ?>
+        <?php ?>
     </tbody>
 
 
@@ -255,36 +259,36 @@
         $customer = $customer['pc'];
         $ticket = $single['ticket'];
         ?>
-                                                                        <tr >
-                                                                            <td><?php echo $issue['i']['name']; ?></td>
-                                                                            <td>
-                                                                                <ul>
-                                                                                    <li> Name: <?php echo $customer['fname'] . ' ' . $customer['lname']; ?> </li> 
-                                                                                    <li> Cell: <?php echo $customer['cell']; ?> </li> 
-                                                                                </ul>
-                                                                            </td>
-                                                                            <td><?php echo $ticket['created']; ?></td>
-                                                                            <td><?php echo $ticket['content']; ?></td>
-                                                                            <td>
-                                                                                <ol>
+                                                                                <tr >
+                                                                                    <td><?php echo $issue['i']['name']; ?></td>
+                                                                                    <td>
+                                                                                        <ul>
+                                                                                            <li> Name: <?php echo $customer['fname'] . ' ' . $customer['lname']; ?> </li> 
+                                                                                            <li> Cell: <?php echo $customer['cell']; ?> </li> 
+                                                                                        </ul>
+                                                                                    </td>
+                                                                                    <td><?php echo $ticket['created']; ?></td>
+                                                                                    <td><?php echo $ticket['content']; ?></td>
+                                                                                    <td>
+                                                                                        <ol>
         <?php
         $lasthistory = $single['history'][0]['tr'];
         foreach ($single['history'] as $history):
             ?>
-                                                                                                                        <li>
+                                                                                                                                        <li>
             <?php if ($history['tr']['status'] != 'open') { ?>
-                                                                                                                                                                <strong><?php echo ucfirst($history['tr']['status']); ?> By:</strong>
+                                                                                                                                                                                        <strong><?php echo ucfirst($history['tr']['status']); ?> By:</strong>
             <?php } else {
                 ?>
-                                                                                                                                                                <strong>Forwarded By:</strong>
+                                                                                                                                                                                        <strong>Forwarded By:</strong>
                 <?php
             }
             ?>
             <?php echo $history['fb']['name']; ?>
-                                                                                                                            &nbsp;&nbsp;<strong>Forwarded To:</strong> <?php echo $history['fi']['name']; ?> <?php echo $history['fd']['name']; ?><br>
-                                                                                                                            <strong>Time:</strong> <?php echo $history['tr']['created']; ?>
-                                                                    
-                                                                                                                            &nbsp;&nbsp;<strong>Status:</strong> <?php echo $history['tr']['status']; ?><br>
+                                                                                                                                            &nbsp;&nbsp;<strong>Forwarded To:</strong> <?php echo $history['fi']['name']; ?> <?php echo $history['fd']['name']; ?><br>
+                                                                                                                                            <strong>Time:</strong> <?php echo $history['tr']['created']; ?>
+                                                                                    
+                                                                                                                                            &nbsp;&nbsp;<strong>Status:</strong> <?php echo $history['tr']['status']; ?><br>
             <?php
             if (!empty($history['tr']['comment'])):
                 echo '<strong>';
@@ -293,45 +297,45 @@
                 echo $history['tr']['comment'];
             endif;
             ?> 
-                                                                                                                        </li>
-                                                                                                                        <br>
+                                                                                                                                        </li>
+                                                                                                                                        <br>
         <?php endforeach; ?>
-                                                                                </ol>
-                                                                            </td>
-                                    
-                                    
-                                                                            <td>   
-                                                                                <div class="controls center text-center">
-                                    
-                                    
+                                                                                        </ol>
+                                                                                    </td>
+                                            
+                                            
+                                                                                    <td>   
+                                                                                        <div class="controls center text-center">
+                                            
+                                            
         <?php if ($lasthistory['status'] == 'open') { ?>
-                                                                    
-                                                                    
-                                                                                                                        <a 
-                                                                                                                            href="#" title="Solved">
-                                                                                                                            <span id="<?php echo $ticket['id']; ?>" class="fa fa-check fa-lg solve_ticket"></span>
-                                                                                                                        </a>
-                                                                                                                        &nbsp;
-                                                                                                                        <a 
-                                                                                                                            href="#" title="Unresolved">
-                                                                                                                            <span id="<?php echo $ticket['id']; ?>" class="fa fa-times fa-lg unsolve_ticket"></span>
-                                                                    
-                                                                    
-                                                                                                                        </a>
-                                                                                                                        &nbsp;
-                                                                    
-                                                                                                                        <a 
-                                                                                                                            href="#" title="Forward">
-                                                                    
-                                                                                                                            <span id="<?php echo $ticket['id']; ?>" class="fa fa-mail-forward fa-lg forward_ticket"></span>
-                                                                                                                        </a>
-                                                                    
-                                                                    
-                                                                    
-                                                                                                                        <div id="forward_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
-                                                                    
-                                                                    
-                                                                                                                             BEGIN FORM
+                                                                                    
+                                                                                    
+                                                                                                                                        <a 
+                                                                                                                                            href="#" title="Solved">
+                                                                                                                                            <span id="<?php echo $ticket['id']; ?>" class="fa fa-check fa-lg solve_ticket"></span>
+                                                                                                                                        </a>
+                                                                                                                                        &nbsp;
+                                                                                                                                        <a 
+                                                                                                                                            href="#" title="Unresolved">
+                                                                                                                                            <span id="<?php echo $ticket['id']; ?>" class="fa fa-times fa-lg unsolve_ticket"></span>
+                                                                                    
+                                                                                    
+                                                                                                                                        </a>
+                                                                                                                                        &nbsp;
+                                                                                    
+                                                                                                                                        <a 
+                                                                                                                                            href="#" title="Forward">
+                                                                                    
+                                                                                                                                            <span id="<?php echo $ticket['id']; ?>" class="fa fa-mail-forward fa-lg forward_ticket"></span>
+                                                                                                                                        </a>
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                                                                        <div id="forward_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
+                                                                                    
+                                                                                    
+                                                                                                                                             BEGIN FORM
             <?php
             echo $this->Form->create('Track', array(
                 'inputDefaults' => array(
@@ -345,7 +349,7 @@
                     )
             );
             ?>
-                                                                    
+                                                                                    
             <?php
             echo $this->Form->input('ticket_id', array(
                 'type' => 'hidden',
@@ -353,18 +357,18 @@
                     )
             );
             ?>
-                                                                                                                            <div class="form-body">
-                                                                                                                                <div class="alert alert-danger display-hide">
-                                                                                                                                    <button class="close" data-close="alert"></button>
-                                                                                                                                    You have some form errors. Please check below.
-                                                                                                                                </div>
+                                                                                                                                            <div class="form-body">
+                                                                                                                                                <div class="alert alert-danger display-hide">
+                                                                                                                                                    <button class="close" data-close="alert"></button>
+                                                                                                                                                    You have some form errors. Please check below.
+                                                                                                                                                </div>
             <?php echo $this->Session->flash(); ?>
-                                                                    
-                                                                                                                                <div class="form-group">
-                                                                    
-                                                                                                                                    <div class="form-group">
-                                                                    
-                                                                                                                                        <div class="col-md-12">
+                                                                                    
+                                                                                                                                                <div class="form-group">
+                                                                                    
+                                                                                                                                                    <div class="form-group">
+                                                                                    
+                                                                                                                                                        <div class="col-md-12">
             <?php
             echo $this->Form->input('user_id', array(
                 'type' => 'select',
@@ -374,14 +378,14 @@
                     )
             );
             ?>
-                                                                                                                                        </div>
-                                                                                                                                    </div>
-                                                                                                                                </div>
-                                                                                                                                <div class="form-group">
-                                                                    
-                                                                                                                                    <div class="form-group">
-                                                                    
-                                                                                                                                        <div class="col-md-12">
+                                                                                                                                                        </div>
+                                                                                                                                                    </div>
+                                                                                                                                                </div>
+                                                                                                                                                <div class="form-group">
+                                                                                    
+                                                                                                                                                    <div class="form-group">
+                                                                                    
+                                                                                                                                                        <div class="col-md-12">
             <?php
             echo $this->Form->input('role_id', array(
                 'type' => 'select',
@@ -391,14 +395,14 @@
                     )
             );
             ?>
-                                                                                                                                        </div>
-                                                                                                                                    </div>
-                                                                                                                                </div>
-                                                                                                                                <div class="form-group">
-                                                                    
-                                                                                                                                    <div class="form-group">
-                                                                    
-                                                                                                                                        <div class="col-md-12">
+                                                                                                                                                        </div>
+                                                                                                                                                    </div>
+                                                                                                                                                </div>
+                                                                                                                                                <div class="form-group">
+                                                                                    
+                                                                                                                                                    <div class="form-group">
+                                                                                    
+                                                                                                                                                        <div class="col-md-12">
             <?php
             echo $this->Form->input('priority', array(
                 'type' => 'select',
@@ -408,14 +412,14 @@
                     )
             );
             ?>
-                                                                                                                                        </div>
-                                                                                                                                    </div>
-                                                                                                                                </div>
-                                                                                                                                <div class="form-group">
-                                                                    
-                                                                                                                                    <div class="form-group">
-                                                                    
-                                                                                                                                        <div class="col-md-12">
+                                                                                                                                                        </div>
+                                                                                                                                                    </div>
+                                                                                                                                                </div>
+                                                                                                                                                <div class="form-group">
+                                                                                    
+                                                                                                                                                    <div class="form-group">
+                                                                                    
+                                                                                                                                                        <div class="col-md-12">
             <?php
             echo $this->Form->input('comment', array(
                 'type' => 'textarea',
@@ -424,30 +428,30 @@
                     )
             );
             ?>
-                                                                                                                                        </div>
-                                                                                                                                    </div>
-                                                                                                                                </div>
-                                                                    
-                                                                                                                            </div>
-                                                                    
-                                                                                                                            <div class="form-actions">
-                                                                                                                                <div class="row">
-                                                                                                                                    <div class="col-md-offset-7 col-md-4">
+                                                                                                                                                        </div>
+                                                                                                                                                    </div>
+                                                                                                                                                </div>
+                                                                                    
+                                                                                                                                            </div>
+                                                                                    
+                                                                                                                                            <div class="form-actions">
+                                                                                                                                                <div class="row">
+                                                                                                                                                    <div class="col-md-offset-7 col-md-4">
             <?php
             echo $this->Form->button(
                     'Forward', array('class' => 'btn green', 'type' => 'submit')
             );
             ?>
-                                                                                                                                    </div>
-                                                                                                                                </div>
-                                                                                                                            </div>
+                                                                                                                                                    </div>
+                                                                                                                                                </div>
+                                                                                                                                            </div>
             <?php echo $this->Form->end(); ?>
-                                                                                                                             END FORM
-                                                                                                                        </div>
-                                                                    
-                                                                                                                        <div id="solve_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
-                                                                    
-                                                                                                                             BEGIN FORM
+                                                                                                                                             END FORM
+                                                                                                                                        </div>
+                                                                                    
+                                                                                                                                        <div id="solve_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
+                                                                                    
+                                                                                                                                             BEGIN FORM
             <?php
             echo $this->Form->create('Track', array(
                 'inputDefaults' => array(
@@ -461,7 +465,7 @@
                     )
             );
             ?>
-                                                                    
+                                                                                    
             <?php
             echo $this->Form->input('ticket_id', array(
                 'type' => 'hidden',
@@ -490,20 +494,20 @@
                     )
             );
             ?>
-                                                                    
-                                                                                                                            <div class="form-body">
-                                                                                                                                <div class="alert alert-danger display-hide">
-                                                                                                                                    <button class="close" data-close="alert"></button>
-                                                                                                                                    You have some form errors. Please check below.
-                                                                                                                                </div>
+                                                                                    
+                                                                                                                                            <div class="form-body">
+                                                                                                                                                <div class="alert alert-danger display-hide">
+                                                                                                                                                    <button class="close" data-close="alert"></button>
+                                                                                                                                                    You have some form errors. Please check below.
+                                                                                                                                                </div>
             <?php echo $this->Session->flash(); ?>
-                                                                    
-                                                                    
-                                                                                                                                <div class="form-group">
-                                                                    
-                                                                                                                                    <div class="form-group">
-                                                                    
-                                                                                                                                        <div class="col-md-12">
+                                                                                    
+                                                                                    
+                                                                                                                                                <div class="form-group">
+                                                                                    
+                                                                                                                                                    <div class="form-group">
+                                                                                    
+                                                                                                                                                        <div class="col-md-12">
             <?php
             echo $this->Form->input('comment', array(
                 'type' => 'textarea',
@@ -512,30 +516,30 @@
                     )
             );
             ?>
-                                                                                                                                        </div>
-                                                                                                                                    </div>
-                                                                                                                                </div>
-                                                                    
-                                                                                                                            </div>
-                                                                    
-                                                                                                                            <div class="form-actions">
-                                                                                                                                <div class="row">
-                                                                                                                                    <div class="col-md-offset-7 col-md-4">
+                                                                                                                                                        </div>
+                                                                                                                                                    </div>
+                                                                                                                                                </div>
+                                                                                    
+                                                                                                                                            </div>
+                                                                                    
+                                                                                                                                            <div class="form-actions">
+                                                                                                                                                <div class="row">
+                                                                                                                                                    <div class="col-md-offset-7 col-md-4">
             <?php
             echo $this->Form->button(
                     'Done', array('class' => 'btn green', 'type' => 'submit')
             );
             ?>
-                                                                                                                                    </div>
-                                                                                                                                </div>
-                                                                                                                            </div>
+                                                                                                                                                    </div>
+                                                                                                                                                </div>
+                                                                                                                                            </div>
             <?php echo $this->Form->end(); ?>
-                                                                                                                             END FORM
-                                                                                                                        </div> 
-                                                                    
-                                                                                                                        <div id="unsolve_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
-                                                                    
-                                                                                                                             BEGIN FORM
+                                                                                                                                             END FORM
+                                                                                                                                        </div> 
+                                                                                    
+                                                                                                                                        <div id="unsolve_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
+                                                                                    
+                                                                                                                                             BEGIN FORM
             <?php
             echo $this->Form->create('Track', array(
                 'inputDefaults' => array(
@@ -549,7 +553,7 @@
                     )
             );
             ?>
-                                                                    
+                                                                                    
             <?php
             echo $this->Form->input('ticket_id', array(
                 'type' => 'hidden',
@@ -578,15 +582,15 @@
                     )
             );
             ?>
-                                                                                                                            <div class="form-body">
-                                                                                                                                <div class="alert alert-danger display-hide">
-                                                                                                                                    <button class="close" data-close="alert"></button>
-                                                                                                                                    You have some form errors. Please check below.
-                                                                                                                                </div>
+                                                                                                                                            <div class="form-body">
+                                                                                                                                                <div class="alert alert-danger display-hide">
+                                                                                                                                                    <button class="close" data-close="alert"></button>
+                                                                                                                                                    You have some form errors. Please check below.
+                                                                                                                                                </div>
             <?php echo $this->Session->flash(); ?>
-                                                                                                                                <div class="form-group">
-                                                                                                                                    <div class="form-group">
-                                                                                                                                        <div class="col-md-12">
+                                                                                                                                                <div class="form-group">
+                                                                                                                                                    <div class="form-group">
+                                                                                                                                                        <div class="col-md-12">
             <?php
             echo $this->Form->input('comment', array(
                 'type' => 'textarea',
@@ -595,33 +599,33 @@
                     )
             );
             ?>
-                                                                                                                                        </div>
-                                                                                                                                    </div>
-                                                                                                                                </div>
-                                                                                                                            </div>
-                                                                                                                            <div class="form-actions">
-                                                                                                                                <div class="row">
-                                                                                                                                    <div class="col-md-offset-7 col-md-4">
+                                                                                                                                                        </div>
+                                                                                                                                                    </div>
+                                                                                                                                                </div>
+                                                                                                                                            </div>
+                                                                                                                                            <div class="form-actions">
+                                                                                                                                                <div class="row">
+                                                                                                                                                    <div class="col-md-offset-7 col-md-4">
             <?php
             echo $this->Form->button(
                     'Done', array('class' => 'btn green', 'type' => 'submit')
             );
             ?>
-                                                                                                                                    </div>
-                                                                                                                                </div>
-                                                                                                                            </div>
+                                                                                                                                                    </div>
+                                                                                                                                                </div>
+                                                                                                                                            </div>
             <?php echo $this->Form->end(); ?>
-                                                                                                                             END FORM
-                                                                                                                        </div> 
-                                                                    
+                                                                                                                                             END FORM
+                                                                                                                                        </div> 
+                                                                                    
             <?php
         } else {
             echo 'Nothing to do';
         }
         ?>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                </tr>
         <?php
     endforeach;
     ?>

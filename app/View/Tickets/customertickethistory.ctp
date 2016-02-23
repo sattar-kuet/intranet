@@ -133,7 +133,7 @@
                                                     <div id="forward_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
 
 
-                                                         <!--BEGIN FORM-->
+                                                        
                                                         <?php
                                                         echo $this->Form->create('Track', array(
                                                             'inputDefaults' => array(
@@ -244,12 +244,12 @@
                                                             </div>
                                                         </div>
                                                         <?php echo $this->Form->end(); ?>
-                                                         END FORM
+                                                        
                                                     </div>
 
                                                     <div id="solve_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
 
-                                                         BEGIN FORM
+                                                         
                                                         <?php
                                                         echo $this->Form->create('Track', array(
                                                             'inputDefaults' => array(
@@ -332,12 +332,12 @@
                                                             </div>
                                                         </div>
                                                         <?php echo $this->Form->end(); ?>
-                                                         END FORM
+                                                         
                                                     </div> 
 
                                                     <div id="unsolve_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
 
-                                                         BEGIN FORM
+                                                         
                                                         <?php
                                                         echo $this->Form->create('Track', array(
                                                             'inputDefaults' => array(
@@ -420,7 +420,7 @@
                                                             </div>
                                                         </div>
                                                         <?php echo $this->Form->end(); ?>
-                                                         END FORM
+                                                         
                                                     </div> 
 
                                                     <?php

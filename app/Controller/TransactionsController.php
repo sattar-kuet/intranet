@@ -137,6 +137,21 @@ class TransactionsController extends AppController {
             $this->loadModel('PackageCustomer');
             $customer_info = $this->PackageCustomer->findById($id);
 
+//                pr($transactions);exit;  
+            $pcustomer_id = $this->request->data = $customer_info;    //transaction history view by customer id
+            $transactions = $this->Transaction->find('all', array('conditions' =>array('Transaction.package_customer_id' => $id)));    
+            $this->set(compact('transactions'));
+            
+            $response =$this->getAllTickectsByCustomer($id); 
+            $data = $response['data'];
+            $users = $response['users'];
+            $roles = $response['roles'];
+            $this->set(compact('data', 'users', 'roles'));
+                    //$this->Transaction->manage($id);
+//            $response = $this->requestAction('tickets/manage/'.$id); //For ticket history
+        
+          //  $this->tariffplan(); //Call tarrifplan fuction to show packagese
+        
             $this->request->data = $customer_info;
             //   $this->tariffplan(); //Call tarrifplan fuction to show packagese in our old style
             $this->loadModel('Package');
@@ -156,9 +171,39 @@ class TransactionsController extends AppController {
             //pr($temp[0]['psettings']); exit;
             $selected['psetting'] = $temp[0]['psettings']['id'];
             $selected['package'] = $temp[0]['packages']['id'];
-            $this->set(compact('packages','psettings','selected'));
+            $ym = $this->getYm();
+            $this->set(compact('packages','psettings','selected','ym'));
+        
     }
-
+    function getYM(){
+        $cy=date('Y');
+        $cm =date('m');
+        $y= array();
+        $n=0;
+        for($i=$cy;$n<40;$i++){
+           $y[$i] = $i; 
+           $n++;
+        }
+      
+        $return['year'] = $y; 
+        $return['month'] = array(
+            '01'=>'01',
+            '02'=>'02',
+            '03'=>'03',
+            '04'=>'04',
+            '05'=>'05',
+            '06'=>'06',
+            '07'=>'07',
+            '08'=>'08',
+            '09'=>'09',
+            '10'=>'10',
+            '11'=>'11',
+            '12'=>'12'
+            ); 
+        
+        return $return;
+       
+    }
     function payment_history() {
         $this->loadModel('Transaction');
         $clicked = false;
