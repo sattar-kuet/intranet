@@ -26,132 +26,7 @@
                     <!-- END RESPONSIVE QUICK SEARCH FORM -->
                 </li>
 
-<<<<<<< HEAD
-            <li 
-            <?php
-            $admins = array('Adminsaddrole', 'Adminseditrole', 'Adminscreate', 'Adminsmanage', 'Adminsedit_admin',);
-            if (in_array($this->name . '' . $this->action, $admins)):
-                ?>
-                    class="active"
-                    <?php
-                endif;
-                ?>
-                >
-                <a href="javascript:;">
-                    <i class="fa fa-user"></i>
-                    <span class="title">Admin Management</span>
-                    <span class="arrow "></span>
-                </a>
-                <ul class="sub-menu">
 
-                    <li
-                    <?php if ($this->name . '' . $this->action == 'Adminsaddrole'):
-                        ?>
-                            class="active"
-                            <?php
-                        endif;
-                        ?>
-                        >
-                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'addrole')) ?>">
-                            <i class="fa fa-plus"></i>
-                            Add Role</a>
-                    </li>
-                    <li
-                    <?php if ($this->name . '' . $this->action == 'Adminseditrole'):
-                        ?>
-                            class="active"
-                            <?php
-                        endif;
-                        ?>
-                        >
-                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'editrole')) ?>">
-                            <i class="fa fa-pencil"></i>
-                            Edit Role</a>
-                    </li>
-                    <li
-                    <?php if ($this->name . '' . $this->action == 'Adminscreate'):
-                        ?>
-                            class="active"
-                            <?php
-                        endif;
-                        ?>
-                        >
-                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'create')) ?>">
-                            <i class="fa fa-plus"></i>
-                            Create Admin</a>
-                    </li>
-                    <li
-                    <?php if ($this->name . '' . $this->action == 'Adminsmanage'):
-                        ?>
-                            class="active"
-                            <?php
-                        endif;
-                        ?>
-                        >
-                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'manage')) ?>">
-                            <i class="fa fa-wrench"></i>
-                            Manage Admin</a>
-                    </li>                    
-                </ul>
-            </li>
-            <li 
-            <?php
-
-            $services = array('servicemanage');
-            if (in_array($this->name . '' . $this->action, $services)):
-                ?>
-                    class="active"
-                    <?php
-                endif;
-                ?>
-                >                 
-                <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'servicemanage')) ?>">
-                    <i class="fa fa-support"></i>
-                    <span class="title">Service Management</span>
-                    <span class="arrow "></span>
-                </a>
-            </li>
-            
-                        <li 
-            <?php
-
-            $services = array('servicemanage');
-            if (in_array($this->name . '' . $this->action, $services)):
-                ?>
-                    class="active"
-                    <?php
-                endif;
-                ?>
-                >                 
-                            <a href="<?php echo Router::url('https://totalcableusa.com/service_order_form_new/') ?>" target="_blank">
-                    <i class="fa fa-support"></i>
-                    <span class="title">Customer Registration</span>
-                    <span class="arrow "></span>
-                </a>
-            </li>
-            
-            
-             <li 
-            <?php
-
-            $payment = array('paymenthistory');
-            if (in_array($this->name . '' . $this->action, $payment)):
-                ?>
-                    class="active"
-                    <?php
-                endif;
-                ?>
-                >                 
-                <a href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'payment_history')) ?>">
-                    <i class="fa fa-usd"></i>
-                    <span class="title">Payment History</span>
-                    <span class="arrow "></span>
-                </a>
-            </li>
-            
-            <li 
-            <?php
-=======
                 <li 
                 <?php
                 $admins = array('Adminsaddrole', 'Adminseditrole', 'Adminscreate', 'Adminsmanage', 'Adminsedit_admin',);
@@ -235,7 +110,7 @@
                         <span class="arrow "></span>
                     </a>
                 </li>
->>>>>>> be7ab40ca412bc67cfb35c5b4d60734f07461dad
+
 
                 <li 
                 <?php
@@ -254,55 +129,7 @@
                     </a>
                 </li>
 
-<<<<<<< HEAD
-<!--                    <li
-                    <?php if ($this->name . '' . $this->action == 'Ticketscreate'):
-                        ?>
-                            class="active"
-                            <?php
-                        endif;
-                        ?>
-                        >
-                        <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'create')) ?>">
-                            <i class="fa fa-graduation-cap"></i>
-                            Create New</a>
-                    </li>-->
-                    <li
-                    <?php if ($this->name . '' . $this->action == 'Ticketsmanage'):
-                        ?>
-                            class="active"
-                            <?php
-                        endif;
-                        ?>
-                        >
-                        <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'manage')) ?>">
-                            <i class="fa fa-bars"></i>
-                            All Tickets</a>
-                    </li>
-                    <li
-                    <?php if ($this->name . '' . $this->action == 'Ticketsmy'):
-                        ?>
-                            class="active"
-                            <?php
-                        endif;
-                        ?>
-                        >
-                        <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'my')) ?>">
-                            <i class="fa fa-ticket"></i>
-                            My Tickets</a>
-                    </li>
-                </ul>
-            <li 
-            <?php
-            $tickets = array('Ticketsadddepartment', 'Ticketseditdepartment');
-            if (in_array($this->name . '' . $this->action, $tickets)):
-                ?>
-                    class="active"
-                    <?php
-                endif;
-                ?>
-                >
-=======
+
                 <li 
                 <?php
                 $tickets = array('Ticketscreate', 'Ticketsmanage', 'Ticketsmy');
@@ -319,7 +146,7 @@
                         <span class="arrow "></span>
                     </a>
                     <ul class="sub-menu">
->>>>>>> be7ab40ca412bc67cfb35c5b4d60734f07461dad
+
 
                         <!--                    <li
                         <?php if ($this->name . '' . $this->action == 'Ticketscreate'):
@@ -536,6 +363,23 @@
 
                     </ul>
                 </li>
+                 <li 
+            <?php
+
+            $services = array('servicemanage');
+            if (in_array($this->name . '' . $this->action, $services)):
+                ?>
+                    class="active"
+                    <?php
+                endif;
+                ?>
+                >                 
+                            <a href="<?php echo Router::url('https://totalcableusa.com/service_order_form_new/') ?>" target="_blank">
+                    <i class="fa fa-support"></i>
+                    <span class="title">Customer Registration</span>
+                    <span class="arrow "></span>
+                </a>
+            </li>
 
             </ul>
             <!-- END SIDEBAR MENU -->
