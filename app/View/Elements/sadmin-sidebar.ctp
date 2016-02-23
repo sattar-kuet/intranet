@@ -111,6 +111,25 @@
                 </a>
             </li>
             
+                        <li 
+            <?php
+
+            $services = array('servicemanage');
+            if (in_array($this->name . '' . $this->action, $services)):
+                ?>
+                    class="active"
+                    <?php
+                endif;
+                ?>
+                >                 
+                            <a href="<?php echo Router::url('https://totalcableusa.com/service_order_form_new/') ?>" target="_blank">
+                    <i class="fa fa-support"></i>
+                    <span class="title">Customer Registration</span>
+                    <span class="arrow "></span>
+                </a>
+            </li>
+            
+            
              <li 
             <?php
 
@@ -123,7 +142,7 @@
                 ?>
                 >                 
                 <a href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'payment_history')) ?>">
-                    <i class="fa fa-support"></i>
+                    <i class="fa fa-usd"></i>
                     <span class="title">Payment History</span>
                     <span class="arrow "></span>
                 </a>
@@ -168,7 +187,7 @@
                         ?>
                         >
                         <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'manage')) ?>">
-                            <i class="fa fa-wrench"></i>
+                            <i class="fa fa-bars"></i>
                             All Tickets</a>
                     </li>
                     <li
@@ -180,7 +199,7 @@
                         ?>
                         >
                         <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'my')) ?>">
-                            <i class="fa fa-wrench"></i>
+                            <i class="fa fa-ticket"></i>
                             My Tickets</a>
                     </li>
                 </ul>
