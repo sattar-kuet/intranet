@@ -334,6 +334,150 @@ class AdminsController extends AppController {
         $this->PackageCustomer->save($this->request->data['PackageCustomer']);
         return $this->redirect('servicemanage' . DS . $this->request->data['PackageCustomer']['id']);
     }
+    
+     function tariffplan() {
+        $this->loadModel('Psetting');
+        $this->loadModel('Package');
+        $sql = "SELECT *  FROM packages
+                LEFT JOIN psettings ON packages.id=psettings.package_id ORDER BY packages.id ASC";
+        $info = $this->Package->query($sql);
+
+        $filteredPackage = array();
+        $unique = array();
+        $index = 0;
+        foreach ($info as $key => $menu) {
+            //pr($menu); exit;
+            $pm = $menu['packages']['name'];
+
+            if (isset($unique[$pm])) {
+                //  echo 'already exist'.$key.'<br/>';
+                if (!empty($menu['psettings']['duration'])) {
+                    $temp = array('id' => $menu['psettings']['id'], 'duration' => $menu['psettings']['duration'], 'amount' => $menu['psettings']['amount'], 'offer' => $menu['psettings']['offer']);
+                    //pr($temp); exit;
+                    $filteredPackage[$index]['psettings'][] = $temp;
+                }
+            } else {
+                if ($key != 0)
+                    $index++;
+                $unique[$pm] = 'set';
+                $temp = array('name' => $pm, 'id' => $menu['packages']['id']);
+                $filteredPackage[$index]['packages'] = $temp;
+                if (!empty($menu['psettings']['duration'])) {
+                    $temp = array('id' => $menu['psettings']['id'], 'duration' => $menu['psettings']['duration'], 'amount' => $menu['psettings']['amount'], 'offer' => $menu['psettings']['offer']);
+                    $filteredPackage[$index]['psettings'][] = $temp;
+                }
+            }
+        }
+        // pr($filteredPackage);exit;
+        $this->set(compact('filteredPackage'));
+    }
+    
+    function customer_registration() {
+        $this->loadModel('PackageCustomer');
+        $this->loadModel('CustomPackage');
+        $this->loadModel('PaidCustomer');
+        $this->loadModel('Country');
+        //$this->loadModel('Role');
+        //  $role = $this->Role->findByName('customer');
+        //$this->layout = 'technician';
+
+        $this->tariffplan(); //Call tarrifplan fuction to show packagese
+
+        if ($this->request->is('post')) {
+            $this->PackageCustomer->set($this->request->data);
+            $this->CustomPackage->set($this->request->data);
+            $msg = '';
+
+            if ($this->PackageCustomer->validates()) {
+
+                $result = array();
+                if (!empty($this->request->data['PackageCustomer']['ch_signature']['name'])) {
+                    $result = $this->processImg($this->request->data['PackageCustomer'], 'ch_signature');
+                    $this->request->data['PackageCustomer']['ch_signature'] = (string) $result['file_dst_name'];
+                } else {
+                    $this->request->data['PackageCustomer']['ch_signature'] = '';
+                }
+
+                //ID Card Upload
+                if (!empty($this->request->data['PackageCustomer']['id_card']['name'])) {
+                    $result = $this->processImg($this->request->data['PackageCustomer'], 'id_card');
+                    $this->request->data['PackageCustomer']['id_card'] = (string) $result['file_dst_name'];
+                } else {
+                    $this->request->data['PackageCustomer']['id_card'] = '';
+                }
+                
+                //Money order Upload
+                if (!empty($this->request->data['PackageCustomer']['money_order']['name'])) {
+                    $result = $this->processImg($this->request->data['PackageCustomer'], 'money_order');
+                    $this->request->data['PackageCustomer']['money_order'] = (string) $result['file_dst_name'];
+                } else {
+                    $this->request->data['PackageCustomer']['money_order'] = '';
+                }
+
+                if ($this->Auth->loggedIn()) {
+                    //$this->request->data['User']['psetting_id']='';
+                    $admin = $this->Auth->user();
+
+                    // todo count();
+                    $this->request->data['PackageCustomer']['user_id'] = $admin['id'];
+                } else {
+                    // $value = $this->request->params['pass'][0];
+                    // $this->request->data['PackageCustomer']['psetting_id'] = $value;
+                    $this->request->data['PackageCustomer']['filled-by'] = '0';
+                }
+
+
+                //$dateObj = $this->request->data['PackageCustomer']['exp_date'];
+                //$this->request->data['PackageCustomer']['exp_date'] = $dateObj['year'] . '-' . $dateObj['month'] . '-' . $dateObj['day'];
+                //$this->request->data['PackageCustomer']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
+                
+                //Input mac address...
+                //$mac1 = $this->request->data['PackageCustomer']['mac_1'];
+                //$mac2 = $this->request->data['PackageCustomer']['mac_2'];
+                //$mac3 = $this->request->data['PackageCustomer']['mac_3'];
+                //$this->request->data['PackageCustomer']['mac'] = $mac1. ', ' . $mac2 . ', ' . $mac3;
+                
+                //For Custom Package data insert
+                $data4CustomPackage['CustomPackage']['duration'] = $this->request->data['PackageCustomer']['duration'];
+                $data4CustomPackage['CustomPackage']['charge'] = $this->request->data['PackageCustomer']['charge'];
+
+                if (!empty($this->request->data['PackageCustomer']['charge'])) {
+                    $cp = $this->CustomPackage->save($data4CustomPackage);
+
+                    unset($cp['CustomPackage']['PackageCustomer']);
+                    $this->request->data['PackageCustomer']['custom_package_id'] = $cp['CustomPackage']['id'];
+                }
+                //For Paid Customer data insert 
+                //$data4PaidCustomers['PaidCustomer']['fname'] = $this->request->data['PackageCustomer']['first_name'];
+                //$data4PaidCustomers['PaidCustomer']['lname'] = $this->request->data['PackageCustomer']['last_name'];
+                //$data4PaidCustomers['PaidCustomer']['card_no'] = $this->request->data['PackageCustomer']['card_check_no'];
+                //$data4PaidCustomers['PaidCustomer']['zip_code'] = $this->request->data['PackageCustomer']['zip'];
+                //$data4PaidCustomers['PaidCustomer']['amount'] = $this->request->data['PackageCustomer']['charge_amount'];
+                //$data4PaidCustomers['PaidCustomer']['exp_date'] = $this->request->data['PackageCustomer']['exp_date'];
+                //$data4PaidCustomers['PaidCustomer']['psetting_id'] = $this->request->data['PackageCustomer']['psetting_id'];
+
+                //$this->PaidCustomer->save($data4PaidCustomers);
+                $duration = $this->PackageCustomer->save($this->request->data['PackageCustomer']);
+                $duration1 = $duration['PackageCustomer']['psetting_id'];
+
+                $duration_time = $this->PackageCustomer->query("SELECT psetting_id,duration FROM package_customers inner 
+                        join psettings on package_customers.psetting_id = psettings.id WHERE psetting_id = $duration1 limit 0,1");      
+                $additionalTime = "+".$duration_time[0]['psettings']['duration']."months";
+             
+                //$dataPackageDate['PaidCustomer']['package_exp_date'] = date("Y-m-d", strtotime($additionalTime));
+                //$this->PaidCustomer->save($dataPackageDate);
+
+                $msg = '<div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong> Your sign up process completed succeesfully </strong>
+            </div>';
+            } else {
+                $msg = $this->generateError($this->PackageCustomer->validationErrors);
+            }
+            $this->Session->setFlash($msg);
+            return $this->redirect($this->referer());
+        }
+    }
 
 }
 

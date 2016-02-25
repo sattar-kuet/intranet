@@ -4958,6 +4958,7 @@ Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_454545_25
 Stack Trace:
 #0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
+<<<<<<< HEAD
 >>>>>>> e83d535c7880c11eace17246e1c71cc28a7fae8e
 2016-02-23 10:04:42 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '482-121 ORDER BY tr.created DESC' at line 8
 Request URL: /intranet/admins/servicemanage
@@ -4976,21 +4977,40 @@ Stack Trace:
 #11 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #12 {main}
 2016-02-24 03:31:55 Error: [MissingControllerException] Controller class PluginsController could not be found.
-Exception Attributes: array (
-  'class' => 'PluginsController',
-  'plugin' => NULL,
-)
-Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
-Stack Trace:
-#0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#1 {main}
-2016-02-24 03:31:55 Error: [MissingControllerException] Controller class PluginsController could not be found.
+=======
+2016-02-24 08:18:10 Error: [MissingControllerException] Controller class PluginsController could not be found.
 Exception Attributes: array (
   'class' => 'PluginsController',
   'plugin' => NULL,
 )
 Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
 Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-24 08:18:11 Error: [MissingControllerException] Controller class PluginsController could not be found.
+>>>>>>> 5b357f6f3708abd8e91f09b91a66ae4653de8bfa
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
+Stack Trace:
+<<<<<<< HEAD
+#0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-24 03:31:55 Error: [MissingControllerException] Controller class PluginsController could not be found.
+=======
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-25 01:30:00 Error: [MissingControllerException] Controller class PluginsController could not be found.
+>>>>>>> 5b357f6f3708abd8e91f09b91a66ae4653de8bfa
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
+Stack Trace:
+<<<<<<< HEAD
 #0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
 2016-02-24 03:32:43 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '482-121 ORDER BY tr.created DESC' at line 8
@@ -5010,30 +5030,140 @@ Stack Trace:
 #11 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #12 {main}
 2016-02-25 04:40:58 Error: [MissingControllerException] Controller class PluginsController could not be found.
+=======
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-25 01:30:00 Error: [MissingControllerException] Controller class PluginsController could not be found.
+>>>>>>> 5b357f6f3708abd8e91f09b91a66ae4653de8bfa
 Exception Attributes: array (
   'class' => 'PluginsController',
   'plugin' => NULL,
 )
+<<<<<<< HEAD
 Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
 Stack Trace:
 #0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
 2016-02-25 04:40:58 Error: [MissingControllerException] Controller class PluginsController could not be found.
+=======
+Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-25 02:07:25 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_75_e6e6e6_1x400.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-25 02:07:25 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_888888_256x240.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-25 02:07:25 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_flat_75_ffffff_40x100.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-25 02:07:25 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_55_fbf9ee_1x400.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-25 02:07:25 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_222222_256x240.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-25 02:07:25 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_highlight-soft_75_cccccc_1x100.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-25 02:07:26 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_454545_256x240.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-25 02:07:26 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_75_dadada_1x400.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-25 02:07:26 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_454545_256x240.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-25 02:07:26 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_65_ffffff_1x400.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-25 05:36:34 Error: [MissingControllerException] Controller class PluginsController could not be found.
+>>>>>>> 5b357f6f3708abd8e91f09b91a66ae4653de8bfa
 Exception Attributes: array (
   'class' => 'PluginsController',
   'plugin' => NULL,
 )
 Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
 Stack Trace:
+<<<<<<< HEAD
 #0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
 2016-02-25 06:34:58 Error: [MissingControllerException] Controller class PluginsController could not be found.
+=======
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-25 05:36:34 Error: [MissingControllerException] Controller class PluginsController could not be found.
+>>>>>>> 5b357f6f3708abd8e91f09b91a66ae4653de8bfa
 Exception Attributes: array (
   'class' => 'PluginsController',
   'plugin' => NULL,
 )
 Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
 Stack Trace:
+<<<<<<< HEAD
 #0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
 2016-02-25 06:34:58 Error: [MissingControllerException] Controller class PluginsController could not be found.
@@ -5045,3 +5175,199 @@ Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
 Stack Trace:
 #0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
+=======
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-25 05:37:37 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '293-381 ORDER BY tr.created DESC' at line 8
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT * FROM t...', Array)
+#2 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT * FROM t...', Array, Array)
+#3 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('SELECT * FROM t...')
+#4 [internal function]: DboSource->query('SELECT * FROM t...')
+#5 D:\appxampp\htdocs\intranet\lib\Cake\Model\Model.php(3447): call_user_func_array(Array, Array)
+#6 D:\appxampp\htdocs\intranet\app\Controller\AdminsController.php(263): Model->query('SELECT * FROM t...')
+#7 [internal function]: AdminsController->servicemanage()
+#8 D:\appxampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-25 05:38:47 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '293-381 ORDER BY tr.created DESC' at line 8
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT * FROM t...', Array)
+#2 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT * FROM t...', Array, Array)
+#3 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('SELECT * FROM t...')
+#4 [internal function]: DboSource->query('SELECT * FROM t...')
+#5 D:\appxampp\htdocs\intranet\lib\Cake\Model\Model.php(3447): call_user_func_array(Array, Array)
+#6 D:\appxampp\htdocs\intranet\app\Controller\AdminsController.php(263): Model->query('SELECT * FROM t...')
+#7 [internal function]: AdminsController->servicemanage()
+#8 D:\appxampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-25 05:44:41 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '293-381 ORDER BY tr.created DESC' at line 8
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT * FROM t...', Array)
+#2 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT * FROM t...', Array, Array)
+#3 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('SELECT * FROM t...')
+#4 [internal function]: DboSource->query('SELECT * FROM t...')
+#5 D:\appxampp\htdocs\intranet\lib\Cake\Model\Model.php(3447): call_user_func_array(Array, Array)
+#6 D:\appxampp\htdocs\intranet\app\Controller\AdminsController.php(263): Model->query('SELECT * FROM t...')
+#7 [internal function]: AdminsController->servicemanage()
+#8 D:\appxampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-25 05:46:30 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '293-381 ORDER BY tr.created DESC' at line 8
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT * FROM t...', Array)
+#2 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT * FROM t...', Array, Array)
+#3 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('SELECT * FROM t...')
+#4 [internal function]: DboSource->query('SELECT * FROM t...')
+#5 D:\appxampp\htdocs\intranet\lib\Cake\Model\Model.php(3447): call_user_func_array(Array, Array)
+#6 D:\appxampp\htdocs\intranet\app\Controller\AdminsController.php(263): Model->query('SELECT * FROM t...')
+#7 [internal function]: AdminsController->servicemanage()
+#8 D:\appxampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-25 06:00:55 Error: [MissingLayoutException] Layout file "Layouts\technician.ctp" is missing.
+Exception Attributes: array (
+  'file' => 'Layouts\\technician.ctp',
+)
+Request URL: /intranet/admins/customer_registration
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\lib\Cake\View\View.php(514): View->_getLayoutFileName('technician')
+#1 D:\appxampp\htdocs\intranet\lib\Cake\View\View.php(481): View->renderLayout('', 'technician')
+#2 D:\appxampp\htdocs\intranet\lib\Cake\Controller\Controller.php(960): View->render(NULL, NULL)
+#3 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(200): Controller->render()
+#4 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#5 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#6 {main}
+2016-02-25 06:01:28 Error: [MissingControllerException] Controller class ImagesController could not be found.
+Exception Attributes: array (
+  'class' => 'ImagesController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/images/totalcableusalogo.jpg
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-25 06:06:00 Error: [PDOException] SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'deposit' cannot be null
+Request URL: /intranet/admins/customer_registration
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('INSERT INTO `to...', Array)
+#2 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(1012): DboSource->execute('INSERT INTO `to...')
+#3 D:\appxampp\htdocs\intranet\lib\Cake\Model\Model.php(1928): DboSource->create(Object(PackageCustomer), Array, Array)
+#4 D:\appxampp\htdocs\intranet\lib\Cake\Model\Model.php(1751): Model->_doSave(Array, Array)
+#5 D:\appxampp\htdocs\intranet\app\Controller\AdminsController.php(460): Model->save(Array)
+#6 [internal function]: AdminsController->customer_registration()
+#7 D:\appxampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#8 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#9 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#10 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#11 {main}
+2016-02-25 06:08:06 Error: [PDOException] SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'deposit' cannot be null
+Request URL: /intranet/admins/customer_registration
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('INSERT INTO `to...', Array)
+#2 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(1012): DboSource->execute('INSERT INTO `to...')
+#3 D:\appxampp\htdocs\intranet\lib\Cake\Model\Model.php(1928): DboSource->create(Object(PackageCustomer), Array, Array)
+#4 D:\appxampp\htdocs\intranet\lib\Cake\Model\Model.php(1751): Model->_doSave(Array, Array)
+#5 D:\appxampp\htdocs\intranet\app\Controller\AdminsController.php(460): Model->save(Array)
+#6 [internal function]: AdminsController->customer_registration()
+#7 D:\appxampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#8 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#9 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#10 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#11 {main}
+2016-02-25 06:08:35 Error: [PDOException] SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'deposit' cannot be null
+Request URL: /intranet/admins/customer_registration
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('INSERT INTO `to...', Array)
+#2 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(1012): DboSource->execute('INSERT INTO `to...')
+#3 D:\appxampp\htdocs\intranet\lib\Cake\Model\Model.php(1928): DboSource->create(Object(PackageCustomer), Array, Array)
+#4 D:\appxampp\htdocs\intranet\lib\Cake\Model\Model.php(1751): Model->_doSave(Array, Array)
+#5 D:\appxampp\htdocs\intranet\app\Controller\AdminsController.php(460): Model->save(Array)
+#6 [internal function]: AdminsController->customer_registration()
+#7 D:\appxampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#8 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#9 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#10 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#11 {main}
+2016-02-25 06:08:56 Error: [PDOException] SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'deposit' cannot be null
+Request URL: /intranet/admins/customer_registration
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('INSERT INTO `to...', Array)
+#2 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(1012): DboSource->execute('INSERT INTO `to...')
+#3 D:\appxampp\htdocs\intranet\lib\Cake\Model\Model.php(1928): DboSource->create(Object(PackageCustomer), Array, Array)
+#4 D:\appxampp\htdocs\intranet\lib\Cake\Model\Model.php(1751): Model->_doSave(Array, Array)
+#5 D:\appxampp\htdocs\intranet\app\Controller\AdminsController.php(460): Model->save(Array)
+#6 [internal function]: AdminsController->customer_registration()
+#7 D:\appxampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#8 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#9 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#10 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#11 {main}
+2016-02-25 06:11:12 Error: [PDOException] SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'deposit' cannot be null
+Request URL: /intranet/admins/customer_registration
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('INSERT INTO `to...', Array)
+#2 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(1012): DboSource->execute('INSERT INTO `to...')
+#3 D:\appxampp\htdocs\intranet\lib\Cake\Model\Model.php(1928): DboSource->create(Object(PackageCustomer), Array, Array)
+#4 D:\appxampp\htdocs\intranet\lib\Cake\Model\Model.php(1751): Model->_doSave(Array, Array)
+#5 D:\appxampp\htdocs\intranet\app\Controller\AdminsController.php(460): Model->save(Array)
+#6 [internal function]: AdminsController->customer_registration()
+#7 D:\appxampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#8 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#9 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#10 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#11 {main}
+2016-02-25 06:12:14 Error: [PDOException] SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'deposit' cannot be null
+Request URL: /intranet/admins/customer_registration
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('INSERT INTO `to...', Array)
+#2 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(1012): DboSource->execute('INSERT INTO `to...')
+#3 D:\appxampp\htdocs\intranet\lib\Cake\Model\Model.php(1928): DboSource->create(Object(PackageCustomer), Array, Array)
+#4 D:\appxampp\htdocs\intranet\lib\Cake\Model\Model.php(1751): Model->_doSave(Array, Array)
+#5 D:\appxampp\htdocs\intranet\app\Controller\AdminsController.php(460): Model->save(Array)
+#6 [internal function]: AdminsController->customer_registration()
+#7 D:\appxampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#8 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#9 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#10 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#11 {main}
+2016-02-25 06:12:41 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'limit 0,1' at line 2
+Request URL: /intranet/admins/customer_registration
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT psetting...', Array)
+#2 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT psetting...', Array, Array)
+#3 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('SELECT psetting...')
+#4 [internal function]: DboSource->query('SELECT psetting...')
+#5 D:\appxampp\htdocs\intranet\lib\Cake\Model\Model.php(3447): call_user_func_array(Array, Array)
+#6 D:\appxampp\htdocs\intranet\app\Controller\AdminsController.php(464): Model->query('SELECT psetting...')
+#7 [internal function]: AdminsController->customer_registration()
+#8 D:\appxampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+>>>>>>> 5b357f6f3708abd8e91f09b91a66ae4653de8bfa
