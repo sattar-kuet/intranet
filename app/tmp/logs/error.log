@@ -5370,6 +5370,7 @@ Stack Trace:
 #10 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
 #11 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #12 {main}
+<<<<<<< HEAD
 >>>>>>> 5b357f6f3708abd8e91f09b91a66ae4653de8bfa
 2016-02-25 07:00:41 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '825-246 ORDER BY tr.created DESC' at line 8
 Request URL: /intranet/admins/servicemanage
@@ -5405,3 +5406,235 @@ Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
 Stack Trace:
 #0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
+=======
+2016-02-25 06:59:05 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '482-12 ORDER BY tr.created DESC' at line 8
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT * FROM t...', Array)
+#2 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT * FROM t...', Array, Array)
+#3 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('SELECT * FROM t...')
+#4 [internal function]: DboSource->query('SELECT * FROM t...')
+#5 D:\appxampp\htdocs\intranet\lib\Cake\Model\Model.php(3447): call_user_func_array(Array, Array)
+#6 D:\appxampp\htdocs\intranet\app\Controller\AdminsController.php(263): Model->query('SELECT * FROM t...')
+#7 [internal function]: AdminsController->servicemanage()
+#8 D:\appxampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-25 07:03:02 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '482-12 ORDER BY tr.created DESC' at line 8
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT * FROM t...', Array)
+#2 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT * FROM t...', Array, Array)
+#3 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('SELECT * FROM t...')
+#4 [internal function]: DboSource->query('SELECT * FROM t...')
+#5 D:\appxampp\htdocs\intranet\lib\Cake\Model\Model.php(3447): call_user_func_array(Array, Array)
+#6 D:\appxampp\htdocs\intranet\app\Controller\AdminsController.php(263): Model->query('SELECT * FROM t...')
+#7 [internal function]: AdminsController->servicemanage()
+#8 D:\appxampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-25 07:08:33 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '482-12 ORDER BY tr.created DESC' at line 8
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT * FROM t...', Array)
+#2 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT * FROM t...', Array, Array)
+#3 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('SELECT * FROM t...')
+#4 [internal function]: DboSource->query('SELECT * FROM t...')
+#5 D:\appxampp\htdocs\intranet\lib\Cake\Model\Model.php(3447): call_user_func_array(Array, Array)
+#6 D:\appxampp\htdocs\intranet\app\Controller\AdminsController.php(263): Model->query('SELECT * FROM t...')
+#7 [internal function]: AdminsController->servicemanage()
+#8 D:\appxampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-25 08:00:07 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '482-12 ORDER BY tr.created DESC' at line 8
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT * FROM t...', Array)
+#2 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT * FROM t...', Array, Array)
+#3 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('SELECT * FROM t...')
+#4 [internal function]: DboSource->query('SELECT * FROM t...')
+#5 D:\appxampp\htdocs\intranet\lib\Cake\Model\Model.php(3447): call_user_func_array(Array, Array)
+#6 D:\appxampp\htdocs\intranet\app\Controller\AdminsController.php(263): Model->query('SELECT * FROM t...')
+#7 [internal function]: AdminsController->servicemanage()
+#8 D:\appxampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-25 08:03:22 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY tr.created DESC' at line 8
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT * FROM t...', Array)
+#2 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT * FROM t...', Array, Array)
+#3 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('SELECT * FROM t...')
+#4 [internal function]: DboSource->query('SELECT * FROM t...')
+#5 D:\appxampp\htdocs\intranet\lib\Cake\Model\Model.php(3447): call_user_func_array(Array, Array)
+#6 D:\appxampp\htdocs\intranet\app\Controller\AdminsController.php(263): Model->query('SELECT * FROM t...')
+#7 [internal function]: AdminsController->servicemanage()
+#8 D:\appxampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-25 08:05:56 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY tr.created DESC' at line 8
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT * FROM t...', Array)
+#2 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT * FROM t...', Array, Array)
+#3 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('SELECT * FROM t...')
+#4 [internal function]: DboSource->query('SELECT * FROM t...')
+#5 D:\appxampp\htdocs\intranet\lib\Cake\Model\Model.php(3447): call_user_func_array(Array, Array)
+#6 D:\appxampp\htdocs\intranet\app\Controller\AdminsController.php(263): Model->query('SELECT * FROM t...')
+#7 [internal function]: AdminsController->servicemanage()
+#8 D:\appxampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-25 08:10:14 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_flat_75_ffffff_40x100.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-25 08:10:14 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_888888_256x240.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-25 08:10:14 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_55_fbf9ee_1x400.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-25 08:10:14 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_75_e6e6e6_1x400.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-25 08:10:14 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_222222_256x240.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-25 08:10:14 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_highlight-soft_75_cccccc_1x100.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-25 08:13:09 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_flat_75_ffffff_40x100.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-25 08:13:09 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_888888_256x240.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-25 08:13:09 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_highlight-soft_75_cccccc_1x100.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-25 08:13:09 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_75_e6e6e6_1x400.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-25 08:13:09 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-bg_glass_55_fbf9ee_1x400.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-25 08:13:09 Error: [MissingControllerException] Controller class Jquery-ui-daterangepicker-0.4.3Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Jquery-ui-daterangepicker-0.4.3Controller',
+  'plugin' => NULL,
+)
+Request URL: /intranet/jquery-ui-daterangepicker-0.4.3/images/ui-icons_222222_256x240.png
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-25 08:26:43 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '\(929\) 293-381 ORDER BY tr.created DESC' at line 8
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT * FROM t...', Array)
+#2 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('SELECT * FROM t...', Array, Array)
+#3 D:\appxampp\htdocs\intranet\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('SELECT * FROM t...')
+#4 [internal function]: DboSource->query('SELECT * FROM t...')
+#5 D:\appxampp\htdocs\intranet\lib\Cake\Model\Model.php(3447): call_user_func_array(Array, Array)
+#6 D:\appxampp\htdocs\intranet\app\Controller\AdminsController.php(265): Model->query('SELECT * FROM t...')
+#7 [internal function]: AdminsController->servicemanage()
+#8 D:\appxampp\htdocs\intranet\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdminsController), Array)
+#9 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
+#11 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-02-25 08:32:35 Error: Fatal Error (1): Call to undefined function clean() in [D:\appxampp\htdocs\intranet\app\Controller\AdminsController.php, line 261]
+2016-02-25 08:32:35 Error: [FatalErrorException] Call to undefined function clean()
+Request URL: /intranet/admins/servicemanage
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(1, 'Call to undefin...', 'D:\\appxampp\\htd...', 261)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to undefin...', 'D:\\appxampp\\htd...', 261, Array)
+#2 D:\appxampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 1, 'Call to undefin...', 'D:\\appxampp\\htd...', 261, Array)
+#3 D:\appxampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+>>>>>>> 31368e5ecc59c0f7ce996fc88ec88bf8ca0597e3
