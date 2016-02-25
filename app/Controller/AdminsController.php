@@ -334,7 +334,7 @@ class AdminsController extends AppController {
         $this->PackageCustomer->save($this->request->data['PackageCustomer']);
         return $this->redirect('servicemanage' . DS . $this->request->data['PackageCustomer']['id']);
     }
-
+    
 }
 
 ?>
