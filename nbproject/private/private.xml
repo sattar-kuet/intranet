@@ -1,5 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+<<<<<<< HEAD
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/appxampp/htdocs/intranet/app/Controller/TransactionsController.php</file>
+            <file>file:/D:/appxampp/htdocs/intranet/app/View/Tickets/customertickethistory.ctp</file>
+            <file>file:/D:/appxampp/htdocs/intranet/app/View/Tickets/manage.ctp</file>
+            <file>file:/D:/appxampp/htdocs/intranet/app/Controller/TicketsController.php</file>
+            <file>file:/D:/appxampp/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/Server/htdocs/intranet/app/Controller/AdminsController.php</file>
+            <file>file:/D:/Server/htdocs/intranet/app/View/Admins/editrole.ctp</file>
+            <file>file:/D:/Server/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
+            <file>file:/D:/Server/htdocs/intranet/app/Controller/TransactionsController.php</file>
+=======
+<<<<<<< HEAD
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="5">
+=======
+=======
+>>>>>>> d6cae4d325fab409a809e1c37a59004e7244ab40
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="10">
         <file>
             <url>app/Controller/TransactionsController.php</url>
@@ -39,9 +64,20 @@
             <file>file:/D:/xampp/htdocs/intranet/app/View/Tickets/my.ctp</file>
             <file>file:/D:/xampp/htdocs/intranet/app/View/Tickets/manage.ctp</file>
             <file>file:/D:/xampp/htdocs/intranet/app/View/Admins/manage.ctp</file>
+<<<<<<< HEAD
             <file>file:/D:/xampp/htdocs/intranet/app/View/Helper/csv.php</file>
             <file>file:/D:/xampp/htdocs/intranet/app/View/Elements/sadmin-sidebar.ctp</file>
             <file>file:/D:/xampp/htdocs/intranet/app/Model/Customer.php</file>
+=======
+<<<<<<< HEAD
+            <file>file:/D:/xampp/htdocs/intranet/app/Controller/AppController.php</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/Controller/PaymentsController.php</file>
+>>>>>>> a03689951a1c10d5205bd71003fb246e63a4a1d4
+>>>>>>> 0a5033c95339054d8b48dfd928cd5a50f2e3a8f6
+=======
+>>>>>>> d6cae4d325fab409a809e1c37a59004e7244ab40
+>>>>>>> be7ab40ca412bc67cfb35c5b4d60734f07461dad
+>>>>>>> e83d535c7880c11eace17246e1c71cc28a7fae8e
         </group>
     </open-files>
 </project-private>

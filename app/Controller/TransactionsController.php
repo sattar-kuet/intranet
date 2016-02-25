@@ -122,88 +122,106 @@ class TransactionsController extends AppController {
     }
 
     function edit_customer_data($id = null) {
+        $loggedUser = $this->Auth->user();
         if ($this->request->is('post') || $this->request->is('put')) {
             $this->loadModel('PackageCustomer');
+            $this->loadModel('Ticket');
+            $this->loadModel('Track');
+            $tmsg ='Information of '.$this->request->data['PackageCustomer']['first_name'] .' '.
+                    $this->request->data['PackageCustomer']['middle_name'] .' '.
+                    $this->request->data['PackageCustomer']['last_name'].' has been updated';
 //            $dateObj = $this->request->data['PackageCustomer']['exp_date'];
 //            $this->request->data['PackageCustomer']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
-            $this->PackageCustomer->id = $id;//$customer_info['PackageCustomer']['id'];
+            $this->PackageCustomer->id = $id; //$customer_info['PackageCustomer']['id'];
             $this->PackageCustomer->save($this->request->data['PackageCustomer']);
             $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <strong> Customer information updated successfully </strong>
             </div>';
             $this->Session->setFlash($msg);
-        } 
-            $this->loadModel('PackageCustomer');
-            $customer_info = $this->PackageCustomer->findById($id);
-
-//                pr($transactions);exit;  
-            $pcustomer_id = $this->request->data = $customer_info;    //transaction history view by customer id
-            $transactions = $this->Transaction->find('all', array('conditions' =>array('Transaction.package_customer_id' => $id)));    
-            $this->set(compact('transactions'));
-            
-            $response =$this->getAllTickectsByCustomer($id); 
-            $data = $response['data'];
-            $users = $response['users'];
-            $roles = $response['roles'];
-            $this->set(compact('data', 'users', 'roles'));
-                    //$this->Transaction->manage($id);
-//            $response = $this->requestAction('tickets/manage/'.$id); //For ticket history
-        
-          //  $this->tariffplan(); //Call tarrifplan fuction to show packagese
-        
-            $this->request->data = $customer_info;
-            //   $this->tariffplan(); //Call tarrifplan fuction to show packagese in our old style
-            $this->loadModel('Package');
-            $this->loadModel('Psetting');
-            
-            
-            $packages = $this->Package->find('list');
-            $psettings = $this->Psetting->find('list', array('fields' => array('id', 'name', 'package_id'), 'order' => array('Psetting.name' => 'ASC')));
-             
-            $sql = "SELECT * FROM package_customers "
-                    . "LEFT JOIN psettings ON package_customers.psetting_id = psettings.id"
-                    . " LEFT JOIN packages ON psettings.package_id = packages.id"
-                    . " LEFT JOIN custom_packages ON package_customers.custom_package_id = custom_packages.id" .
-                    " WHERE package_customers.id = '" . $id . "'";
-
-            $temp = $this->PackageCustomer->query($sql);
-            //pr($temp[0]['psettings']); exit;
-            $selected['psetting'] = $temp[0]['psettings']['id'];
-            $selected['package'] = $temp[0]['packages']['id'];
-            $ym = $this->getYm();
-            $this->set(compact('packages','psettings','selected','ym'));
-        
-    }
-    function getYM(){
-        $cy=date('Y');
-        $cm =date('m');
-        $y= array();
-        $n=0;
-        for($i=$cy;$n<40;$i++){
-           $y[$i] = $i; 
-           $n++;
+            $tdata['Ticket'] = array('content' => $tmsg);
+            $tickect = $this->Ticket->save($tdata); // Data save in Ticket
+            $trackData['Track'] = array(
+                'package_customer_id' => $id,
+                'role_id' => 100,
+                'ticket_id' => $tickect['Ticket']['id'],
+                'status' => 'open',
+                'issue_id' => 100,
+                'forwarded_by' => $loggedUser['id']
+            );
+            // INCREASE CHARGED AMOUNT IF TRANSACTION IS SUCCESSFUL
+            // $this->PackageCustomer->id = $cid;
+            //$data = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $cid)));
+            // $present_due['PackageCustomer']['charge_amount'] = (float) $data['PackageCustomer']['charge_amount'] + (float) $charged_amount;
+            //  $this->PackageCustomer->save($present_due);
+            // $this->PackageCustomer->save($this->request->data['PackageCustomer']);
+            //END OF DUE UPDATE
+            $this->Track->save($trackData);
         }
-      
-        $return['year'] = $y; 
-        $return['month'] = array(
-            '01'=>'01',
-            '02'=>'02',
-            '03'=>'03',
-            '04'=>'04',
-            '05'=>'05',
-            '06'=>'06',
-            '07'=>'07',
-            '08'=>'08',
-            '09'=>'09',
-            '10'=>'10',
-            '11'=>'11',
-            '12'=>'12'
-            ); 
-        
-        return $return;
-       
+        $this->loadModel('PackageCustomer');
+        $customer_info = $this->PackageCustomer->findById($id);
+//                pr($transactions);exit;  
+        $pcustomer_id = $this->request->data = $customer_info;    //transaction history view by customer id
+        $transactions = $this->Transaction->find('all', array('conditions' => array('Transaction.package_customer_id' => $id)));
+        $this->set(compact('transactions'));
+        $response = $this->getAllTickectsByCustomer($id);
+        $data = $response['data'];
+        $users = $response['users'];
+        $roles = $response['roles'];
+        $this->set(compact('data', 'users', 'roles'));
+        //$this->Transaction->manage($id);
+//            $response = $this->requestAction('tickets/manage/'.$id); //For ticket history
+        //  $this->tariffplan(); //Call tarrifplan fuction to show packagese
+        $this->request->data = $customer_info;
+        //   $this->tariffplan(); //Call tarrifplan fuction to show packagese in our old style
+        $this->loadModel('Package');
+        $this->loadModel('Psetting');
+        $packages = $this->Package->find('list');
+        $psettings = $this->Psetting->find('list', array('fields' => array('id', 'name', 'package_id'), 'order' => array('Psetting.name' => 'ASC')));
+
+        $sql = "SELECT * FROM package_customers "
+                . "LEFT JOIN psettings ON package_customers.psetting_id = psettings.id"
+                . " LEFT JOIN packages ON psettings.package_id = packages.id"
+                . " LEFT JOIN custom_packages ON package_customers.custom_package_id = custom_packages.id" .
+                " WHERE package_customers.id = '" . $id . "'";
+
+        $temp = $this->PackageCustomer->query($sql);
+        //pr($temp[0]['psettings']); exit;
+        $selected['psetting'] = $temp[0]['psettings']['id'];
+        $selected['package'] = $temp[0]['packages']['id'];
+        $ym = $this->getYm();
+        $this->set(compact('packages', 'psettings', 'selected', 'ym'));
     }
+
+    function getYM() {
+        $cy = date('Y');
+        $cm = date('m');
+        $y = array();
+        $n = 0;
+        for ($i = $cy; $n < 40; $i++) {
+            $y[$i] = $i;
+            $n++;
+        }
+
+        $return['year'] = $y;
+        $return['month'] = array(
+            '01' => '01',
+            '02' => '02',
+            '03' => '03',
+            '04' => '04',
+            '05' => '05',
+            '06' => '06',
+            '07' => '07',
+            '08' => '08',
+            '09' => '09',
+            '10' => '10',
+            '11' => '11',
+            '12' => '12'
+        );
+
+        return $return;
+    }
+
     function payment_history() {
         $this->loadModel('Transaction');
         $clicked = false;

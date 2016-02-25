@@ -141,7 +141,7 @@
                 <thead>
                     <tr>                                           
                         <th>Name</th>
-                        <th>Cell</th>
+                        <th>Customer Detail</th>
                         <th>Package</th>
                         <th>Action</th>
 
@@ -158,14 +158,14 @@
                         <td><?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?></td>
                         <td>
                             <ul>
-                                <li><?php echo $customer['cell']; ?></li>
-                                <li><?php echo $customer['address'] ?></li>
+                                <li>Cell:<?php echo $customer['cell']; ?></li>
+                                <li>Address:<?php echo $customer['address'] ?></li>
                             </ul>
                         </td>
                         <td>
                             <ul>
-                                <li> Name: <?php echo $package['name']; ?></li>
-                                <li> Duration: <?php echo $package['duration']; ?></li>
+                                <li> Package Name: <?php echo $package['name']; ?></li>
+                                <li> Month: <?php echo $package['duration']; ?></li>
                                 <li> Charge: <?php echo $package['charge']; ?></li>
                             </ul>
                             <?php ?>
@@ -365,7 +365,7 @@
             <?php echo $this->Session->flash(); ?>
                                                                                     
                                                                                                                                                 <div class="form-group">
-                                                                                    
+                                                                  Cell                  
                                                                                                                                                     <div class="form-group">
                                                                                     
                                                                                                                                                         <div class="col-md-12">
