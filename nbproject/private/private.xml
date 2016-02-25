@@ -3,25 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
+            <file>file:/E:/Appxampp/htdocs/intranet/app/View/Csvs/export_customer_mobile.ctp</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/View/Admins/create.ctp</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/webroot/css/custom.css</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/View/Elements/sadmin-sidebar.ctp</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/Model/Issue.php</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/Controller/AdminsController.php</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/View/Transactions/payment_history.ctp</file>
-            <file>file:/E:/Appxampp/htdocs/intranet/app/View/Elements/admin-sidebar.ctp</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
+            <file>file:/E:/Appxampp/htdocs/intranet/app/View/Elements/common-header2.ctp</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/Controller/TicketsController.php</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/View/Elements/admin-header.ctp</file>
-=======
-            <file>file:/D:/appxampp/htdocs/intranet/app/View/Elements/sadmin-sidebar.ctp</file>
-            <file>file:/D:/appxampp/htdocs/intranet/app/Controller/TransactionsController.php</file>
-            <file>file:/D:/appxampp/htdocs/intranet/app/View/Tickets/customertickethistory.ctp</file>
-            <file>file:/D:/appxampp/htdocs/intranet/app/View/Tickets/manage.ctp</file>
-            <file>file:/D:/appxampp/htdocs/intranet/app/Controller/TicketsController.php</file>
-            <file>file:/D:/appxampp/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
->>>>>>> 5b357f6f3708abd8e91f09b91a66ae4653de8bfa
+            <file>file:/E:/Appxampp/htdocs/intranet/app/View/Elements/public-header.ctp</file>
         </group>
     </open-files>
 </project-private>
