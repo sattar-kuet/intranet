@@ -1,2 +1,2 @@
-1456238460
-a:3:{i:0;b:0;s:4:"name";a:6:{s:32:"a1784ca9abdb4d4bd809401e043642d7";s:12:"`totalcable`";s:32:"5c61c133d4f9e272a58d4750bf3b584b";s:10:"`messages`";s:32:"d2665d38304e7d4c88b6995520ae9965";s:20:"`ticket_departments`";s:32:"0f1e6165daf91c794b752c3149bc15b7";s:23:"`TicketDepartment`.`id`";s:32:"2ed493ae63f1b40ff2f48482a7c5338d";s:25:"`TicketDepartment`.`name`";s:32:"20a89cbaa767e6df93c6a22097fe265f";s:18:"`TicketDepartment`";}s:6:"fields";a:1:{s:32:"12d4e8907c345096853f54538156218f";a:2:{i:0;s:23:"`TicketDepartment`.`id`";i:1;s:25:"`TicketDepartment`.`name`";}}}
+1456401172
+a:2:{i:0;b:0;s:4:"name";a:2:{s:32:"a1784ca9abdb4d4bd809401e043642d7";s:12:"`totalcable`";s:32:"11407640d886977abf8d95b5d8069c9b";s:19:"`package_customers`";}}
