@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 
  */
@@ -80,22 +81,23 @@ class TicketsController extends AppController {
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
 	<strong> Ticket is closed succeesfully </strong>
-</div>';
+        </div>';
         $this->Session->setFlash($msg);
         return $this->redirect($this->referer());
     }
 
     function unsolve() {
         $this->loadModel('Track');
+        pr($this->request->data);
+        exit;
         $this->request->data['Track']['status'] = 'unresolved';
         $loggedUser = $this->Auth->user();
         $this->request->data['Track']['forwarded_by'] = $loggedUser['id'];
         $this->Track->save($this->request->data['Track']);
         $msg = '<div class="alert alert-warning">
- <button type="button" class="close" data-dismiss="alert">&times;</button>
- <strong> Ticket is closed without solution </strong>
-</div>';
-
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong> Ticket is closed without solution </strong>
+        </div>';
         $this->Session->setFlash($msg);
         return $this->redirect($this->referer());
     }
@@ -107,9 +109,9 @@ class TicketsController extends AppController {
         $this->request->data['Track']['forwarded_by'] = $loggedUser['id'];
         $this->Track->save($this->request->data['Track']);
         $msg = '<div class="alert alert-success">
- <button type="button" class="close" data-dismiss="alert">&times;</button>
- <strong> Ticket is Solved succeesfully </strong>
-</div>';
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong> Ticket is Solved succeesfully </strong>
+        </div>';
         $this->Session->setFlash($msg);
         return $this->redirect($this->referer());
     }
@@ -122,9 +124,9 @@ class TicketsController extends AppController {
                 $this->Role->id = $this->request->data['Role']['id'];
                 $this->Role->save($this->request->data['Role']);
                 $msg = '<div class="alert alert-success">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong> Role edited succeesfully </strong>
-        </div>';
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong> Role edited succeesfully </strong>
+                </div>';
                 $this->Session->setFlash($msg);
                 return $this->redirect($this->referer());
             } else {
@@ -185,10 +187,11 @@ class TicketsController extends AppController {
         $data = $filteredTicket;
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
-        //   pr($data); exit;
+
         //  pr($roles); exit;
         $this->set(compact('data', 'users', 'roles'));
     }
+
     function my() {
         $this->loadModel('Track');
         $this->loadModel('User');
@@ -199,8 +202,8 @@ class TicketsController extends AppController {
 //                    inner join roles r on  tr.role_id = r.id
 //                    inner join users ft on  tr.user_id = ft.id order by tr.created desc");
         $loggedUser = $this->Auth->user();
-     
-            $tickets = $this->Track->query("SELECT * FROM tracks tr
+
+        $tickets = $this->Track->query("SELECT * FROM tracks tr
                         left JOIN tickets t ON tr.ticket_id = t.id
                         left JOIN users fb ON tr.forwarded_by = fb.id
                         left JOIN roles fd ON tr.role_id = fd.id
@@ -208,7 +211,7 @@ class TicketsController extends AppController {
                         left JOIN issues i ON tr.issue_id = i.id
                         left join package_customers pc on tr.package_customer_id = pc.id
                         WHERE tr.role_id =" . $loggedUser['Role']['id'] . " OR tr.user_id =" . $loggedUser['Role']['id'] . " ORDER BY tr.created DESC");
-       
+
         $filteredTicket = array();
         $unique = array();
         $index = 0;
@@ -296,6 +299,10 @@ class TicketsController extends AppController {
     function forward() {
         $this->loadModel('Track');
         $loggedUser = $this->Auth->user();
+
+//        pr($this->request->data);
+//        exit;
+
         $this->request->data['Track']['forwarded_by'] = $loggedUser['id'];
         if (empty($this->request->data['Track']['user_id']) && empty($this->request->data['Track']['role_id'])) {
             $msg = '<div class="alert alert-error">
@@ -313,6 +320,7 @@ class TicketsController extends AppController {
         $this->Session->setFlash($msg);
         return $this->redirect($this->referer());
     }
+
     function adddepartment() {
         $this->loadModel('TicketDepartment');
         if ($this->request->is('post')) {
@@ -331,6 +339,7 @@ class TicketsController extends AppController {
             }
         }
     }
+
     function editdepartment() {
         $this->loadModel('TicketDepartment');
         if ($this->request->is('post')) {
