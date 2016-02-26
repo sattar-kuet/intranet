@@ -122,6 +122,8 @@ class TransactionsController extends AppController {
     }
 
     function edit_customer_data($id = null) {
+//        pr($this->request->data);
+//        exit;
         $loggedUser = $this->Auth->user();
         if ($this->request->is('post') || $this->request->is('put')) {
             $this->loadModel('PackageCustomer');
