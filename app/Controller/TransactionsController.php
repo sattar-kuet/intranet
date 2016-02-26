@@ -191,8 +191,10 @@ class TransactionsController extends AppController {
             }
             $pckagename =  $package['Package']['name'];
             $packageList[$pckagename] = $psettingList;
-          //  pr($packageList); exit;
+            
+           
         }
+     //   pr($packageList); exit;
        // pr($packages);
        // exit;
 

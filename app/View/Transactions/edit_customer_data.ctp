@@ -349,7 +349,7 @@
                                         'options' => $packageList,
                                         //'default' => $selected['package'],
                                         'empty' => 'Select Package Type',
-                                        'class' => 'span12 uniform nostyle select1 pclass required',
+                                        'class' => 'span12 uniform nostyle select1 required',
                                         'div' => array('class' => 'span12 required')
                                             )
                                     );
