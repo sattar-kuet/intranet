@@ -1,15 +1,11 @@
 <?php
-
 /**
  * 
  */
 App::uses('CakeEmail', 'Network/Email');
 App::uses('HttpSocket', 'Network/Http');
-
 App::uses('AppController', 'Controller');
-
 class TransactionsController extends AppController {
-
     var $layout = 'admin';
     // public $components = array('Auth');
     public $components = array(
@@ -34,14 +30,11 @@ class TransactionsController extends AppController {
             'authorize' => 'Controller'
         )
     );
-
     public function isAuthorized($user = null) {
         $sidebar = $user['Role']['name'];
         $this->set(compact('sidebar'));
-
         return true;
     }
-
     function registered($id = null) {
         $this->loadModel('PackageCustomer');
         $this->loadModel('User');
@@ -49,56 +42,45 @@ class TransactionsController extends AppController {
         $customer_info = $this->PackageCustomer->find('all', array('conditions' => array('user_id' => $id)));
         $this->set(compact('customer_info'));
     }
-
     function search() {
         $this->loadModel('Transaction');
         ;
         $clicked = false;
-
         $datrange = json_decode($this->request->data['Transaction']['daterange'], true);
         //$conditions = array('Transaction.created >=' => $datrange['start'], 'Transaction.created <=' => $datrange['end']);
         $transactions = $this->Transaction->find('all');
-
         $clicked = true;
         $this->set(compact('transactions'));
-
         $this->set(compact('clicked'));
     }
-
     function expire_customer($id = null) {
         $this->loadModel('PaidCustomer');
         $clicked = false;
-
         //$datrange = json_decode($this->request->data['paidcustomer']['daterange'], true);
         //$conditions = array('PaidCustomer.package_exp_date >=' => $datrange['start'], 'PaidCustomer.package_exp_date <=' => $datrange['end']);
         $paidcustomers = $this->PaidCustomer->find('first', array('conditions' => array('PaidCustomer.id' => $id)));
         //pr($paidcustomers); exit;
         $clicked = true;
         $this->set(compact('paidcustomers'));
-
         $this->set(compact('clicked'));
     }
-
     function manage() {
         $this->loadModel('Transaction');
         $data_info = $this->Transaction->find('all');
         $this->set(compact('data_info'));
     }
-
     function tariffplan() {
         $this->loadModel('Psetting');
         $this->loadModel('Package');
         $sql = "SELECT *  FROM packages
                 LEFT JOIN psettings ON packages.id=psettings.package_id ORDER BY packages.id ASC";
         $info = $this->Package->query($sql);
-
         $filteredPackage = array();
         $unique = array();
         $index = 0;
         foreach ($info as $key => $menu) {
             //pr($menu); exit;
             $pm = $menu['packages']['name'];
-
             if (isset($unique[$pm])) {
                 //  echo 'already exist'.$key.'<br/>';
                 if (!empty($menu['psettings']['duration'])) {
@@ -120,7 +102,6 @@ class TransactionsController extends AppController {
         }
         $this->set(compact('filteredPackage'));
     }
-
     function edit_customer_data($id = null) {
 //        pr($this->request->data);
 //        exit;
@@ -195,14 +176,12 @@ class TransactionsController extends AppController {
         }
        // pr($packages);
        // exit;
-
         // pr($psettings); exit;
         $sql = "SELECT * FROM package_customers "
                 . "LEFT JOIN psettings ON package_customers.psetting_id = psettings.id"
                 . " LEFT JOIN packages ON psettings.package_id = packages.id"
                 . " LEFT JOIN custom_packages ON package_customers.custom_package_id = custom_packages.id" .
                 " WHERE package_customers.id = '" . $id . "'";
-
         $temp = $this->PackageCustomer->query($sql);
         //pr($temp[0]['psettings']); exit;
       //  $selected['psetting'] = $temp[0]['psettings']['id'];
@@ -210,7 +189,6 @@ class TransactionsController extends AppController {
         $ym = $this->getYm();
         $this->set(compact('packageList', 'psettings', 'selected', 'ym'));
     }
-
     function getYM() {
         $cy = date('Y');
         $cm = date('m');
@@ -237,7 +215,6 @@ class TransactionsController extends AppController {
         );
         return $return;
     }
-
     function payment_history() {
         $this->loadModel('Transaction');
         $clicked = false;
@@ -252,7 +229,5 @@ class TransactionsController extends AppController {
         }
         $this->set(compact('clicked'));
     }
-
 }
-
 ?>
