@@ -4340,3 +4340,84 @@ Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
 Stack Trace:
 #0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
+2016-02-26 05:26:17 Error: [MissingControllerException] Controller class UsersController could not be found.
+Exception Attributes: array (
+  'class' => 'UsersController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/users/login
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-26 05:26:24 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-26 05:26:25 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-26 05:56:47 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/js/formValidationJs/formValidation.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-26 05:56:47 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/js/formValidationJs/2.jquery.validate.min.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-26 05:56:47 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/js/formValidationJs/3.additional-methods.min.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-26 05:56:54 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/js/formValidationJs/2.jquery.validate.min.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-26 05:56:54 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/js/formValidationJs/3.additional-methods.min.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-26 05:56:54 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/js/formValidationJs/formValidation.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
