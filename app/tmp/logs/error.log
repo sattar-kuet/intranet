@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 2016-02-25 05:35:26 Error: [MissingControllerException] Controller class UsersController could not be found.
 Exception Attributes: array (
   'class' => 'UsersController',
@@ -5311,3 +5312,5 @@ Stack Trace:
 #0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 >>>>>>> 87d2f9928e355731a2899c000085bb75ed953d63
 #1 {main}
+=======
+>>>>>>> 8c35c3fbe6910139e44bc83bf767d98b2470508b

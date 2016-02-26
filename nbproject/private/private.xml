@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+<<<<<<< HEAD
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/Server/htdocs/intranet/app/Controller/AdminsController.php</file>
+            <file>file:/D:/Server/htdocs/intranet/app/Controller/AppController.php</file>
+            <file>file:/D:/Server/htdocs/intranet/app/Controller/PaymentsController.php</file>
+            <file>file:/D:/Server/htdocs/intranet/app/View/Admins/editrole.ctp</file>
+            <file>file:/D:/Server/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
+            <file>file:/D:/Server/htdocs/intranet/app/View/Admins/servicemanage.ctp</file>
+            <file>file:/D:/Server/htdocs/intranet/app/Controller/TransactionsController.php</file>
+            <file>file:/D:/Server/htdocs/intranet/app/Controller/TicketsController.php</file>
+=======
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="11">
         <file>
             <url>app/Controller/TransactionsController.php</url>
@@ -67,7 +80,11 @@
             <file>file:/D:/xampp/htdocs/intranet/app/View/Tickets/manage.ctp</file>
             <file>file:/D:/xampp/htdocs/intranet/app/View/Admins/manage.ctp</file>
             <file>file:/D:/xampp/htdocs/intranet/app/View/Elements/sadmin-sidebar.ctp</file>
+<<<<<<< HEAD
 >>>>>>> 87d2f9928e355731a2899c000085bb75ed953d63
+=======
+>>>>>>> 8c1dc7cda728177d001022183148172f4127eed5
+>>>>>>> 8c35c3fbe6910139e44bc83bf767d98b2470508b
         </group>
     </open-files>
 </project-private>
