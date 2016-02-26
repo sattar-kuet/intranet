@@ -374,7 +374,7 @@
                 endif;
                 ?>
                 >                 
-                            <a href="<?php echo Router::url('https://totalcableusa.com/service_order_form_new/') ?>" target="_blank">
+                            <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'customer_registration')) ?>" target="_blank">
                     <i class="fa fa-support"></i>
                     <span class="title">Customer Registration</span>
                     <span class="arrow "></span>

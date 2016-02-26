@@ -348,10 +348,10 @@
                                 </div>
                                 <div class="col-md-5">
                                     <?php
-                                    echo $this->Form->input('package_id', array(
+                                    echo $this->Form->input('psetting_id', array(
                                         'type' => 'select',
-                                        'options' => $packages,
-                                        'default' => $selected['package'],
+                                        'options' => $packageList,
+                                        //'default' => $selected['package'],
                                         'empty' => 'Select Package Type',
                                         'class' => 'span12 uniform nostyle select1 pclass required',
                                         'div' => array('class' => 'span12 required')
@@ -359,20 +359,7 @@
                                     );
                                     ?>
                                 </div> 
-                                <div class="col-md-5">
-                                    <?php
-                                    echo $this->Form->input('psetting_id', array(
-                                        'type' => 'select',
-                                        'options' => $psettings,
-                                        'default' => $selected['psetting'],
-                                        'empty' => 'Select Package',
-                                        'class' => 'span12 uniform nostyle  cclass select1 required',
-                                        'id' => 'cid',
-                                        'div' => array('class' => 'span12 required')
-                                            )
-                                    );
-                                    ?>
-                                </div> 
+                               
                             </div>
 
                         </div>

@@ -122,8 +122,12 @@ class TransactionsController extends AppController {
     }
 
     function edit_customer_data($id = null) {
+//        pr($this->request->data);
+//        exit;
         $loggedUser = $this->Auth->user();
         if ($this->request->is('post') || $this->request->is('put')) {
+            
+            pr($this->request->data); exit;
             $this->loadModel('PackageCustomer');
             $this->loadModel('Ticket');
             $this->loadModel('Track');
@@ -176,8 +180,23 @@ class TransactionsController extends AppController {
         //   $this->tariffplan(); //Call tarrifplan fuction to show packagese in our old style
         $this->loadModel('Package');
         $this->loadModel('Psetting');
-        $packages = $this->Package->find('list');
-        $psettings = $this->Psetting->find('list', array('fields' => array('id', 'name', 'package_id'), 'order' => array('Psetting.name' => 'ASC')));
+        $packages = $this->Package->find('all');
+        $packageList = array();
+        foreach ($packages as $index=>$package) {
+            $psettings = $this->Psetting->find('all', array('conditions' => array('package_id' => $package['Package']['id'])));
+            $psettingList = array();
+            foreach($psettings as $psetting){
+                $id = $psetting['Psetting']['id'];
+                $psettingList[$id] = $psetting['Psetting']['name'];
+            }
+            $pckagename =  $package['Package']['name'];
+            $packageList[$pckagename] = $psettingList;
+          //  pr($packageList); exit;
+        }
+       // pr($packages);
+       // exit;
+
+        // pr($psettings); exit;
         $sql = "SELECT * FROM package_customers "
                 . "LEFT JOIN psettings ON package_customers.psetting_id = psettings.id"
                 . " LEFT JOIN packages ON psettings.package_id = packages.id"
@@ -186,10 +205,10 @@ class TransactionsController extends AppController {
 
         $temp = $this->PackageCustomer->query($sql);
         //pr($temp[0]['psettings']); exit;
-        $selected['psetting'] = $temp[0]['psettings']['id'];
-        $selected['package'] = $temp[0]['packages']['id'];
+      //  $selected['psetting'] = $temp[0]['psettings']['id'];
+    //    $selected['package'] = $temp[0]['packages']['id'];
         $ym = $this->getYm();
-        $this->set(compact('packages', 'psettings', 'selected', 'ym'));
+        $this->set(compact('packageList', 'psettings', 'selected', 'ym'));
     }
 
     function getYM() {
