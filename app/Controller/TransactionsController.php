@@ -127,9 +127,9 @@ class TransactionsController extends AppController {
             $this->loadModel('PackageCustomer');
             $this->loadModel('Ticket');
             $this->loadModel('Track');
-            $tmsg ='Information of  '.$this->request->data['PackageCustomer']['first_name'] .'  '.
-                    $this->request->data['PackageCustomer']['middle_name'] .'  '.
-                    $this->request->data['PackageCustomer']['last_name'].' has been updated';
+            $tmsg = 'Information of  ' . $this->request->data['PackageCustomer']['first_name'] . '  ' .
+                    $this->request->data['PackageCustomer']['middle_name'] . '  ' .
+                    $this->request->data['PackageCustomer']['last_name'] . ' has been updated';
 //            $dateObj = $this->request->data['PackageCustomer']['exp_date'];
 //            $this->request->data['PackageCustomer']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
             $this->PackageCustomer->id = $id; //$customer_info['PackageCustomer']['id'];
@@ -145,7 +145,7 @@ class TransactionsController extends AppController {
                 'package_customer_id' => $id,
                 'role_id' => 100,
                 'ticket_id' => $tickect['Ticket']['id'],
-                'status' => 'close',
+                'status' => 'closed',
                 'issue_id' => 100,
                 'forwarded_by' => $loggedUser['id']
             );
@@ -178,7 +178,6 @@ class TransactionsController extends AppController {
         $this->loadModel('Psetting');
         $packages = $this->Package->find('list');
         $psettings = $this->Psetting->find('list', array('fields' => array('id', 'name', 'package_id'), 'order' => array('Psetting.name' => 'ASC')));
-
         $sql = "SELECT * FROM package_customers "
                 . "LEFT JOIN psettings ON package_customers.psetting_id = psettings.id"
                 . " LEFT JOIN packages ON psettings.package_id = packages.id"
@@ -202,7 +201,6 @@ class TransactionsController extends AppController {
             $y[$i] = $i;
             $n++;
         }
-
         $return['year'] = $y;
         $return['month'] = array(
             '01' => '01',
@@ -218,7 +216,6 @@ class TransactionsController extends AppController {
             '11' => '11',
             '12' => '12'
         );
-
         return $return;
     }
 

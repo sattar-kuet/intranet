@@ -26,6 +26,7 @@
                     <!-- END RESPONSIVE QUICK SEARCH FORM -->
                 </li>
 
+
                 <li 
                 <?php
                 $admins = array('Adminsaddrole', 'Adminseditrole', 'Adminscreate', 'Adminsmanage', 'Adminsedit_admin',);
@@ -110,6 +111,7 @@
                     </a>
                 </li>
 
+
                 <li 
                 <?php
                 $payment = array('paymenthistory');
@@ -127,6 +129,7 @@
                     </a>
                 </li>
 
+
                 <li 
                 <?php
                 $tickets = array('Ticketscreate', 'Ticketsmanage', 'Ticketsmy');
@@ -143,6 +146,7 @@
                         <span class="arrow "></span>
                     </a>
                     <ul class="sub-menu">
+
 
                         <!--                    <li
                         <?php if ($this->name . '' . $this->action == 'Ticketscreate'):
@@ -359,6 +363,23 @@
 
                     </ul>
                 </li>
+                 <li 
+            <?php
+
+            $services = array('servicemanage');
+            if (in_array($this->name . '' . $this->action, $services)):
+                ?>
+                    class="active"
+                    <?php
+                endif;
+                ?>
+                >                 
+                            <a href="<?php echo Router::url('https://totalcableusa.com/service_order_form_new/') ?>" target="_blank">
+                    <i class="fa fa-support"></i>
+                    <span class="title">Customer Registration</span>
+                    <span class="arrow "></span>
+                </a>
+            </li>
 
             </ul>
             <!-- END SIDEBAR MENU -->

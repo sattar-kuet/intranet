@@ -70,7 +70,7 @@
                         </div>
                         <div class="form-actions">
                             <div class="row">
-                                <div class="col-md-offset-6 col-md-4">
+                                <div class="col-md-offset-5 col-md-4">
                                     <?php
                                     echo $this->Form->button(
                                             'Search', array('class' => 'btn btn-success', 'type' => 'submit')
