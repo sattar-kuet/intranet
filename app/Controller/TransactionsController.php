@@ -108,7 +108,7 @@ class TransactionsController extends AppController {
         $loggedUser = $this->Auth->user();
         if ($this->request->is('post') || $this->request->is('put')) {
             
-            pr($this->request->data); exit;
+            //pr($this->request->data); exit;
             $this->loadModel('PackageCustomer');
             $this->loadModel('Ticket');
             $this->loadModel('Track');
@@ -172,8 +172,10 @@ class TransactionsController extends AppController {
             }
             $pckagename =  $package['Package']['name'];
             $packageList[$pckagename] = $psettingList;
-          //  pr($packageList); exit;
+            
+           
         }
+     //   pr($packageList); exit;
        // pr($packages);
        // exit;
         // pr($psettings); exit;
