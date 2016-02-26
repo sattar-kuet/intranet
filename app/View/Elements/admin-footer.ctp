@@ -3,7 +3,7 @@
 <!-- BEGIN FOOTER -->
 <div class="page-footer">
     <div class="page-footer-inner">
-      
+
     </div>
     <div class="scroll-to-top">
         <i class="icon-arrow-up"></i>
@@ -16,44 +16,64 @@ echo $this->Html->script(
             'admin/ajaxLoad',
             'admin/orderManagement',
             'admin/menu',
-            
             //div view by payment category
-            'customerinfo',     
-            
+            'customerinfo',
             // datepicker range            
             '/jquery-ui-daterangepicker-0.4.3/jquery-ui',
             '/jquery-ui-daterangepicker-0.4.3/moment.min',
-            '/jquery-ui-daterangepicker-0.4.3/jquery.comiseo.daterangepicker'
-            
-            )
+            '/jquery-ui-daterangepicker-0.4.3/jquery.comiseo.daterangepicker',
+            //  'formValidationJs/1.jquery-1.11.1.min',
+            'formValidationJs/2.jquery.validate.min',
+            'formValidationJs/3.additional-methods.min',
+            'formValidationJs/formValidation',
+//            '/smartMenusPlugin/jquery',
+        )
 );
 ?>
 
 <script>
-    $(function() { $("#e1").daterangepicker(); });
-     $("#e2").daterangepicker({
-     presetRanges: [{
-         text: 'Today',
-         dateStart: function() { return moment() },
-         dateEnd: function() { return moment() }
-     }, {
-         text: 'Tomorrow',
-         dateStart: function() { return moment().add('days', 1) },
-         dateEnd: function() { return moment().add('days', 1) }
-     }, {
-         text: 'Next 7 Days',
-         dateStart: function() { return moment() },
-         dateEnd: function() { return moment().add('days', 6) }
-     }, {
-         text: 'Next Week',
-         dateStart: function() { return moment().add('weeks', 1).startOf('week') },
-         dateEnd: function() { return moment().add('weeks', 1).endOf('week') }
-     }],
-     applyOnMenuSelect: false,
-     datepickerOptions: {
-         maxDate: null
-     }
- });
+    $(function () {
+        $("#e1").daterangepicker();
+    });
+    $("#e2").daterangepicker({
+        presetRanges: [{
+                text: 'Today',
+                dateStart: function () {
+                    return moment()
+                },
+                dateEnd: function () {
+                    return moment()
+                }
+            }, {
+                text: 'Tomorrow',
+                dateStart: function () {
+                    return moment().add('days', 1)
+                },
+                dateEnd: function () {
+                    return moment().add('days', 1)
+                }
+            }, {
+                text: 'Next 7 Days',
+                dateStart: function () {
+                    return moment()
+                },
+                dateEnd: function () {
+                    return moment().add('days', 6)
+                }
+            }, {
+                text: 'Next Week',
+                dateStart: function () {
+                    return moment().add('weeks', 1).startOf('week')
+                },
+                dateEnd: function () {
+                    return moment().add('weeks', 1).endOf('week')
+                }
+            }],
+        applyOnMenuSelect: false,
+        datepickerOptions: {
+            maxDate: null
+        }
+    });
 </script>
 </body>
 <!-- END BODY -->
