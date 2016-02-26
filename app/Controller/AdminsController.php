@@ -435,7 +435,16 @@ class AdminsController extends AppController {
                     // $this->request->data['PackageCustomer']['psetting_id'] = $value;
                     $this->request->data['PackageCustomer']['filled-by'] = '0';
                 }
-
+                
+                //remove parenthesis from cell number
+                $cell_input = $this->request->data['PackageCustomer']['cell'];                
+                $cell = preg_replace('/\s+/', '', (str_replace(array( '(', ')' ), '', $cell_input)));
+                $this->request->data['PackageCustomer']['cell'] = $cell;
+                
+                $home_input = $this->request->data['PackageCustomer']['home'];                
+                $home = preg_replace('/\s+/', '', (str_replace(array( '(', ')' ), '', $home_input)));
+                $this->request->data['PackageCustomer']['home'] = $home;
+                //pr($this->request->data['PackageCustomer']['cell']);exit;
 
                 //$dateObj = $this->request->data['PackageCustomer']['exp_date'];
                 //$this->request->data['PackageCustomer']['exp_date'] = $dateObj['year'] . '-' . $dateObj['month'] . '-' . $dateObj['day'];
