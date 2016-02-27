@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="11">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="12">
         <file>
             <url>app/Controller/TransactionsController.php</url>
             <bookmark id="4">
@@ -28,7 +28,12 @@
             </bookmark>
             <bookmark id="7">
                 <name/>
-                <line>1071</line>
+                <line>1070</line>
+                <key/>
+            </bookmark>
+            <bookmark id="12">
+                <name/>
+                <line>1536</line>
                 <key/>
             </bookmark>
         </file>
@@ -46,13 +51,8 @@
             <file>file:/D:/xampp/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
             <file>file:/D:/xampp/htdocs/intranet/app/Controller/TransactionsController.php</file>
             <file>file:/D:/xampp/htdocs/intranet/app/View/Elements/admin-header.ctp</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Tickets/my.ctp</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/webroot/js/ticket.js</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Admins/servicemanage.ctp</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/Controller/AdminsController.php</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Tickets/manage.ctp</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Admins/manage.ctp</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Elements/sadmin-sidebar.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/webroot/js/formValidationJs/readme.txt</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Elements/admin-footer.ctp</file>
         </group>
     </open-files>
 </project-private>
