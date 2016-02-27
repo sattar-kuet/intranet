@@ -27,8 +27,9 @@
                     <div class="portlet box green">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-list-ul"></i>Customer Information
-                            </div>
+                                <i class="fa fa-list-ul"></i>Customer Information 
+                                    
+                            </div><div class="text-center">hello</div>
 
                             <div class="tools">
                                 <a href="javascript:;" class="reload">
@@ -63,6 +64,7 @@
                                                             </div>
                                                         </div>
                                                     </div>-->
+                            <br>
                             <div class="row">
                                 <div class="col-md-12 ">
 
@@ -93,7 +95,7 @@
                                                 <?php
                                                 echo $this->Form->input(
                                                         'middle_name', array(
-                                                    'class' => 'required'
+                                                    'class' => ''
                                                         )
                                                 );
                                                 ?> 
@@ -267,7 +269,7 @@
                                                 <?php
                                                 echo $this->Form->input(
                                                         'cell', array(
-                                                    'class' => 'required'
+                                                    'class' => ''
                                                         )
                                                 );
                                                 ?>
@@ -638,15 +640,19 @@
                                                             <div class="">
                                                                 <label><input class="pmode" checked="checked" type="radio" value="card" name="pmode">CARD (DEBIT/CREDIT)</label>
                                                             </div>
+                                                            <br>
                                                             <div class="">
                                                                 <label><input class="pmode" type="radio" value="check" name="pmode">CHECK</label>
                                                             </div>
+                                                            <br>
                                                             <div class="">
                                                                 <label><input class="pmode" type="radio" value="money order" name="pmode">MONEY ORDER</label>
                                                             </div>
+                                                            <br>
                                                             <div class="">
                                                                 <label><input class="pmode" type="radio" value="online bill" name="pmode">ONLINE BILL</label>
                                                             </div>
+                                                            <br>
                                                             <div class="">
                                                                 <label><input class="pmode" type="radio" value="cash" name="pmode">CASH</label>
                                                             </div>
@@ -678,6 +684,7 @@
                                                                 'value' => $this->params['pass'][0]
                                                             ));
                                                             ?>
+                                                            <br>
                                                             <div class="row">
 
                                                                 <div class="col-md-3 signupfont">
@@ -762,7 +769,7 @@
                                                                 <div class="col-md-3 signupfont">
                                                                     CVV Code: 
                                                                 </div>
-                                                                <div class="col-md-3">
+                                                                <div class="col-md-4">
                                                                     <?php
                                                                     echo $this->Form->input(
                                                                             'cvv_code', array(
@@ -796,7 +803,7 @@
                                                                             'address', array(
                                                                         'type' => 'text',
                                                                         'value' => '',
-                                                                        'class' => 'form-control input-sm required',
+                                                                        'class' => 'form-control input-sm',
                                                                         'placeholder' => 'detail (optional)',
                                                                         'id' => 'addressdetail'
                                                                     ));
@@ -880,6 +887,7 @@
                                                                 'value' => 'check'
                                                             ));
                                                             ?>
+                                                            <br>
                                                             <div class="row">
                                                                 <div class="col-md-3 signupfont">
                                                                     Attachment: 
@@ -978,6 +986,7 @@
                                                                 'value' => 'money order'
                                                             ));
                                                             ?>
+                                                            <br>
                                                             <div class="row">
                                                                 <div class="col-md-3 signupfont">
                                                                     Attachment: 
@@ -1078,6 +1087,7 @@
                                                                 'value' => 'online bill'
                                                             ));
                                                             ?>
+                                                            <br>
                                                             <div class="row">
                                                                 <div class="col-md-3 signupfont">
                                                                     Attachment: 
@@ -1174,7 +1184,7 @@
                                                                 'value' => 'cash'
                                                             ));
                                                             ?>
-
+                                                            <br>
                                                             <div class="row">
                                                                 <div class="col-md-3 signupfont">
                                                                     Charged Amount: 

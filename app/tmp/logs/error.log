@@ -4629,3 +4629,32 @@ Stack Trace:
 #10 D:\appxampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
 #11 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #12 {main}
+2016-02-27 02:51:48 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-27 05:35:01 Error: Fatal Error (1): Cannot use object of type DateTime as array in [D:\appxampp\htdocs\intranet\app\View\Transactions\edit_customer_data.ctp, line 35]
+2016-02-27 05:35:01 Error: [FatalErrorException] Cannot use object of type DateTime as array
+Request URL: /intranet/transactions/edit_customer_data/2
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(1, 'Cannot use obje...', 'D:\\appxampp\\htd...', 35)
+#1 [internal function]: ErrorHandler::handleError(1, 'Cannot use obje...', 'D:\\appxampp\\htd...', 35, Array)
+#2 D:\appxampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 1, 'Cannot use obje...', 'D:\\appxampp\\htd...', 35, Array)
+#3 D:\appxampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-02-27 05:55:20 Error: Fatal Error (1): Call to a member function diff() on a non-object in [D:\appxampp\htdocs\intranet\app\View\Transactions\edit_customer_data.ctp, line 38]
+2016-02-27 05:55:20 Error: [FatalErrorException] Call to a member function diff() on a non-object
+Request URL: /intranet/transactions/edit_customer_data/3
+Stack Trace:
+#0 D:\appxampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(1, 'Call to a membe...', 'D:\\appxampp\\htd...', 38)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', 'D:\\appxampp\\htd...', 38, Array)
+#2 D:\appxampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', 'D:\\appxampp\\htd...', 38, Array)
+#3 D:\appxampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
