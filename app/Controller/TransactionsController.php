@@ -1,11 +1,14 @@
 <?php
+
 /**
  * 
  */
 App::uses('CakeEmail', 'Network/Email');
 App::uses('HttpSocket', 'Network/Http');
 App::uses('AppController', 'Controller');
+
 class TransactionsController extends AppController {
+
     var $layout = 'admin';
     // public $components = array('Auth');
     public $components = array(
@@ -30,11 +33,13 @@ class TransactionsController extends AppController {
             'authorize' => 'Controller'
         )
     );
+
     public function isAuthorized($user = null) {
         $sidebar = $user['Role']['name'];
         $this->set(compact('sidebar'));
         return true;
     }
+
     function registered($id = null) {
         $this->loadModel('PackageCustomer');
         $this->loadModel('User');
@@ -42,6 +47,7 @@ class TransactionsController extends AppController {
         $customer_info = $this->PackageCustomer->find('all', array('conditions' => array('user_id' => $id)));
         $this->set(compact('customer_info'));
     }
+
     function search() {
         $this->loadModel('Transaction');
         ;
@@ -53,6 +59,7 @@ class TransactionsController extends AppController {
         $this->set(compact('transactions'));
         $this->set(compact('clicked'));
     }
+
     function expire_customer($id = null) {
         $this->loadModel('PaidCustomer');
         $clicked = false;
@@ -64,11 +71,13 @@ class TransactionsController extends AppController {
         $this->set(compact('paidcustomers'));
         $this->set(compact('clicked'));
     }
+
     function manage() {
         $this->loadModel('Transaction');
         $data_info = $this->Transaction->find('all');
         $this->set(compact('data_info'));
     }
+
     function tariffplan() {
         $this->loadModel('Psetting');
         $this->loadModel('Package');
@@ -102,12 +111,12 @@ class TransactionsController extends AppController {
         }
         $this->set(compact('filteredPackage'));
     }
+
     function edit_customer_data($id = null) {
-//        pr($this->request->data);
-//        exit;
+
         $loggedUser = $this->Auth->user();
         if ($this->request->is('post') || $this->request->is('put')) {
-            
+
             //pr($this->request->data); exit;
             $this->loadModel('PackageCustomer');
             $this->loadModel('Ticket');
@@ -145,12 +154,17 @@ class TransactionsController extends AppController {
         }
         $this->loadModel('PackageCustomer');
         $customer_info = $this->PackageCustomer->findById($id);
-//                pr($transactions);exit;  
+        $c_acc_no = $customer_info['PackageCustomer']['c_acc_no'];
+
+
+
         $pcustomer_id = $this->request->data = $customer_info;    //transaction history view by customer id
         $transactions = $this->Transaction->find('all', array('conditions' => array('Transaction.package_customer_id' => $id)));
-        $this->set(compact('transactions'));
+        
+        $this->set(compact('transactions','c_acc_no'));
         $response = $this->getAllTickectsByCustomer($id);
         $data = $response['data'];
+//        pr($data);        exit;
         $users = $response['users'];
         $roles = $response['roles'];
         $this->set(compact('data', 'users', 'roles', 'customer_info'));
@@ -163,34 +177,32 @@ class TransactionsController extends AppController {
         $this->loadModel('Psetting');
         $packages = $this->Package->find('all');
         $packageList = array();
-        foreach ($packages as $index=>$package) {
+        foreach ($packages as $index => $package) {
             $psettings = $this->Psetting->find('all', array('conditions' => array('package_id' => $package['Package']['id'])));
             $psettingList = array();
-            foreach($psettings as $psetting){
+            foreach ($psettings as $psetting) {
                 $id = $psetting['Psetting']['id'];
                 $psettingList[$id] = $psetting['Psetting']['name'];
             }
-            $pckagename =  $package['Package']['name'];
+            $pckagename = $package['Package']['name'];
             $packageList[$pckagename] = $psettingList;
-            
-           
         }
-     //   pr($packageList); exit;
-       // pr($packages);
-       // exit;
-        // pr($psettings); exit;
+        //   pr($packageList); exit;
+
         $sql = "SELECT * FROM package_customers "
                 . "LEFT JOIN psettings ON package_customers.psetting_id = psettings.id"
                 . " LEFT JOIN packages ON psettings.package_id = packages.id"
                 . " LEFT JOIN custom_packages ON package_customers.custom_package_id = custom_packages.id" .
                 " WHERE package_customers.id = '" . $id . "'";
+
         $temp = $this->PackageCustomer->query($sql);
-        //pr($temp[0]['psettings']); exit;
-      //  $selected['psetting'] = $temp[0]['psettings']['id'];
-    //    $selected['package'] = $temp[0]['packages']['id'];
+//        pr($selected); exit;
+        //  $selected['psetting'] = $temp[0]['psettings']['id'];
+        //    $selected['package'] = $temp[0]['packages']['id'];
         $ym = $this->getYm();
         $this->set(compact('packageList', 'psettings', 'selected', 'ym'));
     }
+
     function getYM() {
         $cy = date('Y');
         $cm = date('m');
@@ -217,6 +229,7 @@ class TransactionsController extends AppController {
         );
         return $return;
     }
+
     function payment_history() {
         $this->loadModel('Transaction');
         $clicked = false;
@@ -231,5 +244,7 @@ class TransactionsController extends AppController {
         }
         $this->set(compact('clicked'));
     }
+
 }
+
 ?>
