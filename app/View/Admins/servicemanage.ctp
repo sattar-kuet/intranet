@@ -53,12 +53,28 @@
                                         'type' => 'select',
                                         'options' => $cells,
                                         'empty' => 'Select Cell No',
-                                        'class' => 'form-control select2me required pclass',
+                                        'class' => 'form-control select2me pclass',
                                             )
                                     );
                                     ?>
                                 </div>
                             </div>
+                            
+<!--                            <div class="form-group">
+                                <label class="control-label col-md-3">
+                                </label>
+                                <div class="col-md-6">
+                                    <?php
+                                    echo $this->Form->input('home', array(
+                                        'type' => 'select',
+                                        'options' => $homes,
+                                        'empty' => 'Select Home No',
+                                        'class' => 'form-control select2me pclass',
+                                            )
+                                    );
+                                    ?>
+                                </div>
+                            </div>-->
 
                         </div>
                         <div class="form-actions">

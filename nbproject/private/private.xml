@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+<<<<<<< HEAD
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="12">
         <file>
             <url>app/Controller/TransactionsController.php</url>
@@ -53,6 +54,16 @@
             <file>file:/D:/xampp/htdocs/intranet/app/View/Elements/admin-header.ctp</file>
             <file>file:/D:/xampp/htdocs/intranet/app/webroot/js/formValidationJs/readme.txt</file>
             <file>file:/D:/xampp/htdocs/intranet/app/View/Elements/admin-footer.ctp</file>
+=======
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/appxampp/htdocs/intranet/app/Config/core.php</file>
+            <file>file:/D:/appxampp/htdocs/intranet/app/Controller/TransactionsController.php</file>
+            <file>file:/D:/appxampp/htdocs/intranet/app/Controller/AdminsController.php</file>
+            <file>file:/D:/appxampp/htdocs/intranet/app/View/Admins/servicemanage.ctp</file>
+            <file>file:/D:/appxampp/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
+>>>>>>> 8124f4a9e9b6ab89d700d2d0501678a5c674166c
         </group>
     </open-files>
 </project-private>

@@ -15,6 +15,7 @@
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
                 Complete the transactions <small>(individually)</small>
+
             </h3>
             <?php echo $this->Session->flash(); ?>
             <!-- END PAGE HEADER-->
@@ -28,7 +29,10 @@
                         <div class="portlet-title">
                             <div class="caption">
                                 <i class="fa fa-list-ul"></i>Customer Information
+                                <strong style=" color: #E02222;">ACCT NO.  <?php echo $c_acc_no; ?></strong>
                             </div>
+                            
+
 
                             <div class="tools">
                                 <a href="javascript:;" class="reload">
@@ -168,7 +172,7 @@
                                                 <?php
                                                 echo $this->Form->input(
                                                         'apartment', array(
-                                                    'class' => 'required',
+                                                    'class' => '',
                                                     'id' => 'apartment'
                                                         )
                                                 );
@@ -289,7 +293,7 @@
                                                 <?php
                                                 echo $this->Form->input(
                                                         'email', array(
-                                                    'class' => 'required',
+                                                    'class' => '',
                                                         )
                                                 );
                                                 ?>
@@ -307,7 +311,7 @@
                                                 <?php
                                                 echo $this->Form->input(
                                                         'fax', array(
-                                                    'class' => 'required',
+                                                    'class' => '',
                                                     'placeholder' => 'Optional'
                                                         )
                                                 );
@@ -321,12 +325,12 @@
                             </div>
                             &nbsp;
                             <div class="row">
-                                <div class="col-md-6 ">
+                                <div class="col-md-12 ">
 
                                     <div class="col-md-2 signupfont">
                                         Mac no:
                                     </div>
-                                    <div class="col-md-10">
+                                    <div class="col-md-5">
                                         <div class="input-list style-4 clearfix">
                                             <div>
                                                 <?php
@@ -340,40 +344,26 @@
                                             </div>                            
                                         </div>
                                     </div> 
-                                </div>
 
-                                <div class = "col-md-6 ">
-                                    <div class = "col-md-2 signupfont">
+                                    <div class="col-md-2 signupfont">
                                         Package:
                                     </div>
-                                    <div class="col-md-5">
-                                        <?php
-                                        echo $this->Form->input('package_id', array(
-                                            'type' => 'select',
-                                            'options' => $packages,
-                                            'default' => $selected['package'],
-                                            'empty' => 'Select Package Type',
-                                            'class' => 'span12 uniform nostyle select1 pclass required',
-                                            'div' => array('class' => 'span12')
-                                                )
-                                        );
-                                        ?>
-                                    </div> 
-                                    <div class="col-md-5">
+                                    <div class="col-md-3">
                                         <?php
                                         echo $this->Form->input('psetting_id', array(
                                             'type' => 'select',
-                                            'options' => $psettings,
-                                            'default' => $selected['psetting'],
-                                            'empty' => 'Select Package',
-                                            'class' => 'span12 uniform nostyle  cclass select1 required',
-                                            'id' => 'cid',
+                                            'options' => $packageList,
+                                            //'default' => $selected['package'],
+                                            'empty' => 'Select Package Type',
+                                            'class' => 'span12 uniform nostyle select1 required',
                                             'div' => array('class' => 'span12')
                                                 )
                                         );
                                         ?>
                                     </div> 
                                 </div>
+
+
 
                             </div>
                             &nbsp;
@@ -390,7 +380,7 @@
                                                 <?php
                                                 echo $this->Form->input(
                                                         'referred_name', array(
-                                                    'class' => 'required',
+                                                    'class' => '',
                                                         )
                                                 );
                                                 ?>
@@ -409,7 +399,7 @@
                                                 <?php
                                                 echo $this->Form->input(
                                                         'bonus', array(
-                                                    'class' => 'required',
+                                                    'class' => '',
                                                         )
                                                 );
                                                 ?>
@@ -427,7 +417,7 @@
                                                 <?php
                                                 echo $this->Form->input(
                                                         'referred_phone', array(
-                                                    'class' => 'required',
+                                                    'class' => '',
                                                         )
                                                 );
                                                 ?> 
@@ -474,12 +464,12 @@
                             foreach ($filteredPackage as $n => $single):
                                 $tab = $single['packages'];
                                 ?>
-                                                                                                                                    <li <?php
+                                                                                                                                                    <li <?php
                                 if (!$n) {
                                     echo 'class="active"';
                                 }
                                 ?>><a data-toggle="tab" href="#<?php echo $tab['id']; ?>"><?php echo $tab['name']; ?></a>
-                                                                    
+                                                                                    
                             <?php endforeach; ?>
                                                                                         <li><a data-toggle="tab" href="#custom">Custom</a></li>
                                                                                     </ul>
@@ -492,22 +482,22 @@
                                 $tab = $single['packages'];
                                 $content = $single['psettings'];
                                 ?>
-                                                                                                                                <div class="tab-pane <?php
+                                                                                                                                                <div class="tab-pane <?php
                                 if (!$n) {
                                     echo 'active';
                                 }
                                 ?>" id="<?php echo $tab['id']; ?>" >
-                                                                    
-                                                                    
-                                                                                                                                    <div class="panel-body">
+                                                                                    
+                                                                                    
+                                                                                                                                                    <div class="panel-body">
                                 <?php foreach ($content as $package): ?>
-                                                                                                                                                                                    <div class="col-md-3">
-                                                                                                                                                                                        <div class="pricing hover-effect" data-id="<?php echo $package['id'] ?>">
-                                                                                                                                                                                            <div id="fariff" class="pricing-head">
-                                                                                                                                                                                                <h3><?php
+                                                                                                                                                                                                                    <div class="col-md-3">
+                                                                                                                                                                                                                        <div class="pricing hover-effect" data-id="<?php echo $package['id'] ?>">
+                                                                                                                                                                                                                            <div id="fariff" class="pricing-head">
+                                                                                                                                                                                                                                <h3><?php
                                     echo ($package['duration'] == 12) ? '1 Year' : $package['duration'] . ' Month';
                                     ?>  <span> Billing Package </span></h3>
-                                                                                                                                                                                                <h4><?php
+                                                                                                                                                                                                                                <h4><?php
                                     if (strtolower($tab['name']) == 'uk') {
                                         echo '£';
                                     } else if (strtolower($tab['name']) == 'canada') {
@@ -517,22 +507,22 @@
                                     }
                                     ?>
                                     <?php echo $package['amount']; ?> <span> For 1st Box </span>
-                                                                                                                                                                                                </h4>
-                                                                                                                                                                                            </div>
-                                                                                                                                                                                            <ul class="pricing-content list-unstyled">
+                                                                                                                                                                                                                                </h4>
+                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                            <ul class="pricing-content list-unstyled">
                                     <?php echo $package['offer']; ?>
-                                                                                                                                                                                            </ul>
-                                                                                                            
-                                                                                                                                                                                        </div>
-                                                                                                            
-                                                                                                                                                                                    </div>
-                                                                                                            
+                                                                                                                                                                                                                            </ul>
+                                                                                                                                            
+                                                                                                                                                                                                                        </div>
+                                                                                                                                            
+                                                                                                                                                                                                                    </div>
+                                                                                                                                            
                                 <?php endforeach;
                                 ?>
-                                                                                                                                    </div>
-                                                                    
-                                                                                                                                </div>
-                                                                    
+                                                                                                                                                    </div>
+                                                                                    
+                                                                                                                                                </div>
+                                                                                    
                                 <?php
                             endforeach;
                             ?>
@@ -713,7 +703,7 @@
                                                                     echo $this->Form->input(
                                                                             'lname', array(
                                                                         'type' => 'text',
-                                                                        'class' => 'form-control input-sm required',                                                                                
+                                                                        'class' => 'form-control input-sm required',
                                                                         'placeholder' => 'last name',
                                                                         'id' => 'lastname',
                                                                     ));
@@ -1368,8 +1358,8 @@
                                                 <td>
                                                     <ol>
                                                         <?php
-                                                        
                                                         $lasthistory = $single['history'][0]['tr'];
+//                                                         pr($lasthistory); exit;
                                                         foreach ($single['history'] as $history):
                                                             ?>
                                                             <li>
@@ -1436,6 +1426,13 @@
                                                                 echo $this->Form->input('ticket_id', array(
                                                                     'type' => 'hidden',
                                                                     'value' => $ticket['id'],
+                                                                        )
+                                                                );
+                                                                ?>
+                                                                <?php
+                                                                echo $this->Form->input('package_customer_id', array(
+                                                                    'type' => 'hidden',
+                                                                    'value' => $lasthistory['package_customer_id'],
                                                                         )
                                                                 );
                                                                 ?>
@@ -1546,6 +1543,7 @@
                                                                         )
                                                                 );
                                                                 ?>
+
                                                                 <?php
                                                                 echo $this->Form->input('user_id', array(
                                                                     'type' => 'hidden',
@@ -1567,6 +1565,14 @@
                                                                         )
                                                                 );
                                                                 ?>
+                                                                <?php
+                                                                echo $this->Form->input('package_customer_id', array(
+                                                                    'type' => 'hidden',
+                                                                    'value' => $lasthistory['package_customer_id'],
+                                                                        )
+                                                                );
+                                                                ?>
+
                                                                 <div class="form-body">
                                                                     <div class="alert alert-danger display-hide">
                                                                         <button class="close" data-close="alert"></button>
@@ -1645,6 +1651,13 @@
                                                                 echo $this->Form->input('issue_id', array(
                                                                     'type' => 'hidden',
                                                                     'value' => $lasthistory['issue_id'],
+                                                                        )
+                                                                );
+                                                                ?>
+                                                                <?php
+                                                                echo $this->Form->input('package_customer_id', array(
+                                                                    'type' => 'hidden',
+                                                                    'value' => $lasthistory['package_customer_id'],
                                                                         )
                                                                 );
                                                                 ?>
