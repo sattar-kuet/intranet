@@ -5756,6 +5756,44 @@ Stack Trace:
 #0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 >>>>>>> 87d2f9928e355731a2899c000085bb75ed953d63
 #1 {main}
+<<<<<<< HEAD
+2016-02-26 06:22:32 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-26 06:22:32 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-27 01:09:08 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-27 01:09:08 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+=======
 =======
 <<<<<<< HEAD
 >>>>>>> 8c35c3fbe6910139e44bc83bf767d98b2470508b
@@ -5950,3 +5988,64 @@ Stack Trace:
 #11 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #12 {main}
 >>>>>>> 8124f4a9e9b6ab89d700d2d0501678a5c674166c
+<<<<<<< HEAD
+=======
+2016-02-27 05:25:37 Error: Fatal Error (1): Call to undefined method AdminsController::processImg() in [D:\xampp\htdocs\intranet\app\Controller\AdminsController.php, line 406]
+2016-02-27 05:25:37 Error: [FatalErrorException] Call to undefined method AdminsController::processImg()
+Request URL: /intranet/admins/customer_registration
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(1, 'Call to undefin...', 'D:\xampp\htdocs...', 406)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to undefin...', 'D:\xampp\htdocs...', 406, Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 1, 'Call to undefin...', 'D:\xampp\htdocs...', 406, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-02-27 05:30:42 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-27 05:30:42 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-27 05:33:16 Error: Fatal Error (1): Unsupported operand types in [D:\xampp\htdocs\intranet\app\Controller\AdminsController.php, line 479]
+2016-02-27 05:33:16 Error: [FatalErrorException] Unsupported operand types
+Request URL: /intranet/admins/customer_registration
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(1, 'Unsupported ope...', 'D:\xampp\htdocs...', 479)
+#1 [internal function]: ErrorHandler::handleError(1, 'Unsupported ope...', 'D:\xampp\htdocs...', 479, Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 1, 'Unsupported ope...', 'D:\xampp\htdocs...', 479, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-02-27 05:34:28 Error: Fatal Error (1): Unsupported operand types in [D:\xampp\htdocs\intranet\app\Controller\AdminsController.php, line 482]
+2016-02-27 05:34:28 Error: [FatalErrorException] Unsupported operand types
+Request URL: /intranet/admins/customer_registration
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(1, 'Unsupported ope...', 'D:\xampp\htdocs...', 482)
+#1 [internal function]: ErrorHandler::handleError(1, 'Unsupported ope...', 'D:\xampp\htdocs...', 482, Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 1, 'Unsupported ope...', 'D:\xampp\htdocs...', 482, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-02-27 05:34:34 Error: Fatal Error (1): Unsupported operand types in [D:\xampp\htdocs\intranet\app\Controller\AdminsController.php, line 482]
+2016-02-27 05:34:34 Error: [FatalErrorException] Unsupported operand types
+Request URL: /intranet/admins/customer_registration
+Stack Trace:
+#0 D:\xampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(1, 'Unsupported ope...', 'D:\xampp\htdocs...', 482)
+#1 [internal function]: ErrorHandler::handleError(1, 'Unsupported ope...', 'D:\xampp\htdocs...', 482, Array)
+#2 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 1, 'Unsupported ope...', 'D:\xampp\htdocs...', 482, Array)
+#3 D:\xampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+>>>>>>> b445ffc89de372277d17188f648e959b097274f1

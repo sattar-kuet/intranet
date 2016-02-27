@@ -323,6 +323,7 @@ class AdminsController extends AppController {
         }
         $admin_messages = $this->Message->find('all', array('order' => array('Message.created' => 'DESC')));
         $cells = $this->PackageCustomer->find('list', array('fields' => array('cell', 'cell')));
+//        $homes = $this->PackageCustomer->find('list', array('fields' => array('home', 'home')));
         $this->set(compact('cells', 'clicked', 'admin_messages'));
     }
 
@@ -473,6 +474,15 @@ class AdminsController extends AppController {
                 //$data4PaidCustomers['PaidCustomer']['exp_date'] = $this->request->data['PackageCustomer']['exp_date'];
                 //$data4PaidCustomers['PaidCustomer']['psetting_id'] = $this->request->data['PackageCustomer']['psetting_id'];
                 //$this->PaidCustomer->save($data4PaidCustomers);
+//                $this->Model->find('all', array('fields' => 'MAX(PackageCustomer.c_acc_no)));
+//                $customer_account = $this->PackageCustomer->query("SELECT MAX(`c_acc_no`) FROM package_customers");
+                
+                $customer_account = $this->PackageCustomer->query("SELECT MAX(c_acc_no) FROM package_customers");                
+               $this->request->data['PackageCustomer']['c_acc_no'] = $customer_account['0']['0']['MAX(c_acc_no)']+1;
+               
+               
+//                pr($this->request->data['c_acc_no']);
+//                exit;
                 $duration = $this->PackageCustomer->save($this->request->data['PackageCustomer']);
                 $duration1 = $duration['PackageCustomer']['psetting_id'];
 
