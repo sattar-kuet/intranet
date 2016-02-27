@@ -168,7 +168,7 @@
                                                 <?php
                                                 echo $this->Form->input(
                                                         'apartment', array(
-                                                    'class' => 'required',
+                                                    'class' => '',
                                                     'id' => 'apartment'
                                                         )
                                                 );
@@ -289,7 +289,7 @@
                                                 <?php
                                                 echo $this->Form->input(
                                                         'email', array(
-                                                    'class' => 'required',
+                                                    'class' => '',
                                                         )
                                                 );
                                                 ?>
@@ -307,7 +307,7 @@
                                                 <?php
                                                 echo $this->Form->input(
                                                         'fax', array(
-                                                    'class' => 'required',
+                                                    'class' => '',
                                                     'placeholder' => 'Optional'
                                                         )
                                                 );
@@ -321,12 +321,12 @@
                             </div>
                             &nbsp;
                             <div class="row">
-                                <div class="col-md-6 ">
+                                <div class="col-md-12 ">
 
                                     <div class="col-md-2 signupfont">
                                         Mac no:
                                     </div>
-                                    <div class="col-md-10">
+                                    <div class="col-md-5">
                                         <div class="input-list style-4 clearfix">
                                             <div>
                                                 <?php
@@ -340,9 +340,11 @@
                                             </div>                            
                                         </div>
                                     </div> 
+                                    
+                                    <div class="col-md-2 signupfont">
+                                        Package:
                                 </div>
-
-                                <div class="col-md-5">
+                                <div class="col-md-3">
                                     <?php
                                     echo $this->Form->input('psetting_id', array(
                                         'type' => 'select',
@@ -350,13 +352,17 @@
                                         //'default' => $selected['package'],
                                         'empty' => 'Select Package Type',
                                         'class' => 'span12 uniform nostyle select1 required',
-                                        'div' => array('class' => 'span12 required')
+                                        'div' => array('class' => 'span12')
                                             )
                                     );
                                     ?>
                                 </div> 
+                                </div>
+                                
+                                
                                
                             </div>
+                            &nbsp;
 
                             <div class="row">
                                 <div class="col-md-12 ">
@@ -370,7 +376,7 @@
                                                 <?php
                                                 echo $this->Form->input(
                                                         'referred_name', array(
-                                                    'class' => 'required',
+                                                    'class' => '',
                                                         )
                                                 );
                                                 ?>
@@ -389,7 +395,7 @@
                                                 <?php
                                                 echo $this->Form->input(
                                                         'bonus', array(
-                                                    'class' => 'required',
+                                                    'class' => '',
                                                         )
                                                 );
                                                 ?>
@@ -407,7 +413,7 @@
                                                 <?php
                                                 echo $this->Form->input(
                                                         'referred_phone', array(
-                                                    'class' => 'required',
+                                                    'class' => '',
                                                         )
                                                 );
                                                 ?> 
