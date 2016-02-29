@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/E:/Appxampp/htdocs/intranet/app/View/Csvs/export_customer_mobile.ctp</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/View/Admins/create.ctp</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/webroot/css/custom.css</file>
@@ -15,6 +16,15 @@
             <file>file:/E:/Appxampp/htdocs/intranet/app/Controller/TicketsController.php</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/View/Elements/admin-header.ctp</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/View/Elements/public-header.ctp</file>
+=======
+            <file>file:/D:/appxampp/htdocs/intranet/app/Config/core.php</file>
+            <file>file:/D:/appxampp/htdocs/intranet/app/View/Admins/customer_registration.ctp</file>
+            <file>file:/D:/appxampp/htdocs/intranet/app/webroot/js/formValidationJs/formValidation.js</file>
+            <file>file:/D:/appxampp/htdocs/intranet/app/Controller/TransactionsController.php</file>
+            <file>file:/D:/appxampp/htdocs/intranet/app/Controller/AdminsController.php</file>
+            <file>file:/D:/appxampp/htdocs/intranet/app/View/Admins/servicemanage.ctp</file>
+            <file>file:/D:/appxampp/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
+>>>>>>> 05451beb794902a3a1794fe9f1f1921ad0770f35
         </group>
     </open-files>
 </project-private>
