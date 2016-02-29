@@ -6368,3 +6368,73 @@ Stack Trace:
 #0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 >>>>>>> da769f0018db17962c1da2d7e7fa677b1fc4bb29
 #1 {main}
+2016-02-29 06:33:51 Error: Fatal Error (4): syntax error, unexpected '===' (T_IS_IDENTICAL) in [E:\Appxampp\htdocs\intranet\app\View\Transactions\edit_customer_data.ctp, line 39]
+2016-02-29 06:33:51 Error: [FatalErrorException] syntax error, unexpected '===' (T_IS_IDENTICAL)
+Request URL: /intranet/transactions/edit_customer_data/1
+Stack Trace:
+#0 E:\Appxampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'E:\\Appxampp\\htd...', 39)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'E:\\Appxampp\\htd...', 39, Array)
+#2 E:\Appxampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'E:\\Appxampp\\htd...', 39, Array)
+#3 E:\Appxampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-02-29 06:33:52 Error: Fatal Error (4): syntax error, unexpected '===' (T_IS_IDENTICAL) in [E:\Appxampp\htdocs\intranet\app\View\Transactions\edit_customer_data.ctp, line 39]
+2016-02-29 06:33:53 Error: [FatalErrorException] syntax error, unexpected '===' (T_IS_IDENTICAL)
+Request URL: /intranet/transactions/edit_customer_data/1
+Stack Trace:
+#0 E:\Appxampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'E:\\Appxampp\\htd...', 39)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'E:\\Appxampp\\htd...', 39, Array)
+#2 E:\Appxampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'E:\\Appxampp\\htd...', 39, Array)
+#3 E:\Appxampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-02-29 06:33:54 Error: Fatal Error (4): syntax error, unexpected '===' (T_IS_IDENTICAL) in [E:\Appxampp\htdocs\intranet\app\View\Transactions\edit_customer_data.ctp, line 39]
+2016-02-29 06:33:54 Error: [FatalErrorException] syntax error, unexpected '===' (T_IS_IDENTICAL)
+Request URL: /intranet/transactions/edit_customer_data/1
+Stack Trace:
+#0 E:\Appxampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'E:\\Appxampp\\htd...', 39)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'E:\\Appxampp\\htd...', 39, Array)
+#2 E:\Appxampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'E:\\Appxampp\\htd...', 39, Array)
+#3 E:\Appxampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-02-29 06:33:55 Error: Fatal Error (4): syntax error, unexpected '===' (T_IS_IDENTICAL) in [E:\Appxampp\htdocs\intranet\app\View\Transactions\edit_customer_data.ctp, line 39]
+2016-02-29 06:33:55 Error: [FatalErrorException] syntax error, unexpected '===' (T_IS_IDENTICAL)
+Request URL: /intranet/transactions/edit_customer_data/1
+Stack Trace:
+#0 E:\Appxampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'E:\\Appxampp\\htd...', 39)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'E:\\Appxampp\\htd...', 39, Array)
+#2 E:\Appxampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'E:\\Appxampp\\htd...', 39, Array)
+#3 E:\Appxampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-02-29 06:33:56 Error: Fatal Error (4): syntax error, unexpected '===' (T_IS_IDENTICAL) in [E:\Appxampp\htdocs\intranet\app\View\Transactions\edit_customer_data.ctp, line 39]
+2016-02-29 06:33:56 Error: [FatalErrorException] syntax error, unexpected '===' (T_IS_IDENTICAL)
+Request URL: /intranet/transactions/edit_customer_data/1
+Stack Trace:
+#0 E:\Appxampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'E:\\Appxampp\\htd...', 39)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'E:\\Appxampp\\htd...', 39, Array)
+#2 E:\Appxampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'E:\\Appxampp\\htd...', 39, Array)
+#3 E:\Appxampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-02-29 06:33:57 Error: Fatal Error (4): syntax error, unexpected '===' (T_IS_IDENTICAL) in [E:\Appxampp\htdocs\intranet\app\View\Transactions\edit_customer_data.ctp, line 39]
+2016-02-29 06:33:57 Error: [FatalErrorException] syntax error, unexpected '===' (T_IS_IDENTICAL)
+Request URL: /intranet/transactions/edit_customer_data/1
+Stack Trace:
+#0 E:\Appxampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'E:\\Appxampp\\htd...', 39)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'E:\\Appxampp\\htd...', 39, Array)
+#2 E:\Appxampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'E:\\Appxampp\\htd...', 39, Array)
+#3 E:\Appxampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-02-29 06:34:29 Error: Fatal Error (4): syntax error, unexpected '===' (T_IS_IDENTICAL) in [E:\Appxampp\htdocs\intranet\app\View\Transactions\edit_customer_data.ctp, line 39]
+2016-02-29 06:34:30 Error: [FatalErrorException] syntax error, unexpected '===' (T_IS_IDENTICAL)
+Request URL: /intranet/transactions/edit_customer_data/1
+Stack Trace:
+#0 E:\Appxampp\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'E:\\Appxampp\\htd...', 39)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'E:\\Appxampp\\htd...', 39, Array)
+#2 E:\Appxampp\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'E:\\Appxampp\\htd...', 39, Array)
+#3 E:\Appxampp\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
