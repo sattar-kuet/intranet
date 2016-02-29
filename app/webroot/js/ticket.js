@@ -29,16 +29,16 @@ $(document).ready(function () {
     });
 
     //Terms and Conditions 
-    $(function () {
-        $("#signup").click(function (e) {
-            if ($('#agree').prop('checked')) {
-
-            } else {
-                alert("You must agree with our Terms and Conditons");
-                e.preventDefault(); // this will prevent from submitting the form.
-            }
-        });
-    });
+//    $(function () {
+//        $("#signup").click(function (e) {
+//            if ($('#agree').prop('checked')) {
+//
+//            } else {
+//                alert("You must agree with our Terms and Conditons");
+//                e.preventDefault(); // this will prevent from submitting the form.
+//            }
+//        });
+//    });
 
     //partial payment
     $(document).on("change", ".partial", function () {

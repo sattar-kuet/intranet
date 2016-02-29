@@ -45,6 +45,11 @@
                                         echo "Gold Customer";
                                     }
 
+
+                                    if ($years > 1 && $years < 3) {
+                                        echo "Gold Customer";
+                                    }
+
                                     if ($years > 1 && $years < 3) {
                                         echo "Gold Customer";
                                     }
@@ -534,13 +539,13 @@
                             foreach ($filteredPackage as $n => $single):
                                 $tab = $single['packages'];
                                 ?>
-                                                                                                                                                            <li <?php
+                                                                                                                                                                <li <?php
                                 if (!$n) {
                                     echo 'class="active"';
                                 }
                                 ?>><a data-toggle="tab" href="#<?php echo $tab['id']; ?>"><?php echo $tab['name']; ?></a>
-                                                                                            
-<?php endforeach; ?>
+                                                                                                
+                            <?php endforeach; ?>
                                                                                         <li><a data-toggle="tab" href="#custom">Custom</a></li>
                                                                                     </ul>
                                                                                 </div>
@@ -552,22 +557,22 @@
                                 $tab = $single['packages'];
                                 $content = $single['psettings'];
                                 ?>
-                                                                                                                                                        <div class="tab-pane <?php
+                                                                                                                                                            <div class="tab-pane <?php
                                 if (!$n) {
                                     echo 'active';
                                 }
                                 ?>" id="<?php echo $tab['id']; ?>" >
-                                                                                            
-                                                                                            
-                                                                                                                                                            <div class="panel-body">
-    <?php foreach ($content as $package): ?>
-                                                                                                                                                                                                                                    <div class="col-md-3">
-                                                                                                                                                                                                                                        <div class="pricing hover-effect" data-id="<?php echo $package['id'] ?>">
-                                                                                                                                                                                                                                            <div id="fariff" class="pricing-head">
-                                                                                                                                                                                                                                                <h3><?php
+                                                                                                
+                                                                                                
+                                                                                                                                                                <div class="panel-body">
+                                <?php foreach ($content as $package): ?>
+                                                                                                                                                                                                                                            <div class="col-md-3">
+                                                                                                                                                                                                                                                <div class="pricing hover-effect" data-id="<?php echo $package['id'] ?>">
+                                                                                                                                                                                                                                                    <div id="fariff" class="pricing-head">
+                                                                                                                                                                                                                                                        <h3><?php
                                     echo ($package['duration'] == 12) ? '1 Year' : $package['duration'] . ' Month';
                                     ?>  <span> Billing Package </span></h3>
-                                                                                                                                                                                                                                                <h4><?php
+                                                                                                                                                                                                                                                        <h4><?php
                                     if (strtolower($tab['name']) == 'uk') {
                                         echo '£';
                                     } else if (strtolower($tab['name']) == 'canada') {
@@ -577,25 +582,25 @@
                                     }
                                     ?>
                                     <?php echo $package['amount']; ?> <span> For 1st Box </span>
-                                                                                                                                                                                                                                                </h4>
+                                                                                                                                                                                                                                                        </h4>
+                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                                    <ul class="pricing-content list-unstyled">
+                                    <?php echo $package['offer']; ?>
+                                                                                                                                                                                                                                                    </ul>
+                                                                                                                                                                    
+                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                    
                                                                                                                                                                                                                                             </div>
-                                                                                                                                                                                                                                            <ul class="pricing-content list-unstyled">
-        <?php echo $package['offer']; ?>
-                                                                                                                                                                                                                                            </ul>
-                                                                                                                                                            
-                                                                                                                                                                                                                                        </div>
-                                                                                                                                                            
-                                                                                                                                                                                                                                    </div>
-                                                                                                                                                            
-    <?php endforeach;
-    ?>
+                                                                                                                                                                    
+                                <?php endforeach;
+                                ?>
+                                                                                                                                                                </div>
+                                                                                                
                                                                                                                                                             </div>
-                                                                                            
-                                                                                                                                                        </div>
-                                                                                            
-    <?php
-endforeach;
-?>
+                                                                                                
+                                <?php
+                            endforeach;
+                            ?>
                             
                             
                                                                                     <div class="tab-pane" id="custom">
@@ -672,7 +677,7 @@ endforeach;
                                     ?>
                                 </div>
                             </div>
-<?php echo $this->Form->end(); ?>  
+                            <?php echo $this->Form->end(); ?>  
                         </div>
                     </div>
 
@@ -1302,7 +1307,7 @@ endforeach;
 
                                                                 </div>
                                                             </div>
-<?php echo $this->Form->end(); ?>
+                                                            <?php echo $this->Form->end(); ?>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -1369,17 +1374,17 @@ endforeach;
         <!--                                <td>   
                                                     <div class="controls center">                                               
                                                 <a onclick="if (confirm(&quot;Are you sure to complete this transaction?&quot)) { return true; } return false;" href="<?php
-                                    echo Router::url(array('controller' => 'payments', 'action' => 'individual_transaction', $info['id'])
-                                    )
-                                    ?>" class="tip"><span class="icon16 icomoon-icon-coins" title="Make transaction for this customer"></span></a>
+                                        echo Router::url(array('controller' => 'payments', 'action' => 'individual_transaction', $info['id'])
+                                        )
+                                        ?>" class="tip"><span class="icon16 icomoon-icon-coins" title="Make transaction for this customer"></span></a>
                                                         
                                                     </div>
                                                     
                                                 </td>-->
                                     </tr>
-    <?php
-endforeach;
-?>
+                                    <?php
+                                endforeach;
+                                ?>
                             </tbody>
                         </table>
 
@@ -1449,7 +1454,7 @@ endforeach;
                                                                     <?php
                                                                 }
                                                                 ?>
-        <?php echo $history['fb']['name']; ?>
+                                                                <?php echo $history['fb']['name']; ?>
                                                                 <p><strong>Forwarded To:</strong><ul><li><?php echo $history['fi']['name']; ?> </li><li><?php echo $history['fd']['name']; ?> </li></ul>
                                                                 <strong>Time:</strong> <?php echo $history['tr']['created']; ?>
 
@@ -1464,12 +1469,12 @@ endforeach;
                                                                 ?> 
                                                             </li>
                                                             <br>
-    <?php endforeach; ?>
+                                                        <?php endforeach; ?>
                                                     </ol>
                                                 </td>
                                                 <td>   
                                                     <div class="controls center text-center">
-    <?php if ($lasthistory['status'] == 'open') { ?>
+                                                        <?php if ($lasthistory['status'] == 'open') { ?>
                                                             <a 
                                                                 href="#" title="Solved">
                                                                 <span id="<?php echo $ticket['id']; ?>" class="fa fa-check fa-lg solve_ticket"></span>
@@ -1519,7 +1524,7 @@ endforeach;
                                                                         <button class="close" data-close="alert"></button>
                                                                         You have some form errors. Please check below.
                                                                     </div>
-                                                                                <?php echo $this->Session->flash(); ?>
+                                                                    <?php echo $this->Session->flash(); ?>
                                                                     <div class="form-group">
                                                                         <div class="form-group">
                                                                             <div class="col-md-12">
@@ -1593,7 +1598,7 @@ endforeach;
                                                                         </div>
                                                                     </div>
                                                                 </div>
-        <?php echo $this->Form->end(); ?>
+                                                                <?php echo $this->Form->end(); ?>
                                                                 <!-- END FORM-->
                                                             </div>
 
@@ -1656,7 +1661,7 @@ endforeach;
                                                                         <button class="close" data-close="alert"></button>
                                                                         You have some form errors. Please check below.
                                                                     </div>
-                                                                                <?php echo $this->Session->flash(); ?>
+                                                                    <?php echo $this->Session->flash(); ?>
                                                                     <div class="form-group">
                                                                         <div class="form-group">
                                                                             <div class="col-md-12">
@@ -1683,7 +1688,7 @@ endforeach;
                                                                         </div>
                                                                     </div>
                                                                 </div>
-        <?php echo $this->Form->end(); ?>
+                                                                <?php echo $this->Form->end(); ?>
                                                                 <!-- END FORM-->
                                                             </div> 
 
@@ -1744,7 +1749,7 @@ endforeach;
                                                                         <button class="close" data-close="alert"></button>
                                                                         You have some form errors. Please check below.
                                                                     </div>
-                                                                                <?php echo $this->Session->flash(); ?>
+                                                                    <?php echo $this->Session->flash(); ?>
                                                                     <div class="form-group">
                                                                         <div class="form-group">
                                                                             <div class="col-md-12">
@@ -1771,7 +1776,7 @@ endforeach;
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            <?php echo $this->Form->end(); ?>
+                                                                <?php echo $this->Form->end(); ?>
                                                                 <!-- END FORM-->
                                                             </div> 
                                                             <?php
@@ -1782,9 +1787,9 @@ endforeach;
                                                     </div>
                                                 </td>
                                             </tr>
-    <?php
-endforeach;
-?>
+                                            <?php
+                                        endforeach;
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -1799,7 +1804,7 @@ endforeach;
                 <div class="row">
                     <div class="main">
                         <div class="container">
-                                <?php echo $this->Session->flash() ?>
+                            <?php echo $this->Session->flash() ?>
                             <div class="col-md-12 col-sm-12" id="block-quicktabs-3">
                                 <?php
                                 echo $this->Form->create('PackageCustomer', array(

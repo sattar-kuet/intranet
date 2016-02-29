@@ -64,6 +64,22 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
 <<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+            <file>file:/E:/Appxampp/htdocs/intranet/app/View/Csvs/export_customer_mobile.ctp</file>
+            <file>file:/E:/Appxampp/htdocs/intranet/app/View/Admins/create.ctp</file>
+            <file>file:/E:/Appxampp/htdocs/intranet/app/webroot/css/custom.css</file>
+            <file>file:/E:/Appxampp/htdocs/intranet/app/View/Elements/sadmin-sidebar.ctp</file>
+            <file>file:/E:/Appxampp/htdocs/intranet/app/Model/Issue.php</file>
+            <file>file:/E:/Appxampp/htdocs/intranet/app/Controller/AdminsController.php</file>
+            <file>file:/E:/Appxampp/htdocs/intranet/app/View/Transactions/payment_history.ctp</file>
+            <file>file:/E:/Appxampp/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
+            <file>file:/E:/Appxampp/htdocs/intranet/app/View/Elements/common-header2.ctp</file>
+            <file>file:/E:/Appxampp/htdocs/intranet/app/Controller/TicketsController.php</file>
+            <file>file:/E:/Appxampp/htdocs/intranet/app/View/Elements/admin-header.ctp</file>
+            <file>file:/E:/Appxampp/htdocs/intranet/app/View/Elements/public-header.ctp</file>
+=======
+=======
             <file>file:/D:/Server/htdocs/intranet/app/Controller/AdminsController.php</file>
             <file>file:/D:/Server/htdocs/intranet/app/Controller/AppController.php</file>
             <file>file:/D:/Server/htdocs/intranet/app/Controller/PaymentsController.php</file>
@@ -72,8 +88,10 @@
             <file>file:/D:/Server/htdocs/intranet/app/View/Admins/servicemanage.ctp</file>
             <file>file:/D:/Server/htdocs/intranet/app/Controller/TransactionsController.php</file>
             <file>file:/D:/Server/htdocs/intranet/app/Controller/TicketsController.php</file>
+>>>>>>> eee5ca9ffd62a45797def1b57226d2fdc8b6bbcd
 =======
             <file>file:/D:/appxampp/htdocs/intranet/app/View/Elements/sadmin-sidebar.ctp</file>
+>>>>>>> da769f0018db17962c1da2d7e7fa677b1fc4bb29
             <file>file:/D:/appxampp/htdocs/intranet/app/Config/core.php</file>
             <file>file:/D:/appxampp/htdocs/intranet/app/View/Elements/admin-sidebar.ctp</file>
             <file>file:/D:/appxampp/htdocs/intranet/app/View/Admins/customer_registration.ctp</file>
@@ -82,6 +100,9 @@
             <file>file:/D:/appxampp/htdocs/intranet/app/Controller/AdminsController.php</file>
             <file>file:/D:/appxampp/htdocs/intranet/app/View/Admins/servicemanage.ctp</file>
             <file>file:/D:/appxampp/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
+<<<<<<< HEAD
+>>>>>>> 05451beb794902a3a1794fe9f1f1921ad0770f35
+=======
 >>>>>>> da769f0018db17962c1da2d7e7fa677b1fc4bb29
 >>>>>>> a9ea9e7eb09bafc22a1308100148947184c066b3
         </group>

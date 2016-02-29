@@ -503,6 +503,9 @@ class AdminsController extends AppController {
             $this->Session->setFlash($msg);
             return $this->redirect($this->referer());
         }
+        
+          $ym = $this->getYm();
+        $this->set(compact('ym'));
     }
 
 }

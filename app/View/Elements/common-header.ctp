@@ -74,5 +74,5 @@
         );
         ?>
 
-    <p class="hide" id="webroot">    <?php echo $this->webroot; ?></p>
+    <p class="hide" id="webroot"><?php echo $this->webroot; ?></p>
 
