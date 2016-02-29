@@ -34,12 +34,11 @@
                                 <strong style="color: gold;"><?php 
                                     $created = date("Y-m-d", strtotime($customer_info['PackageCustomer']['created']));
                                     $curr_date = date('Y-m-d');
-                                    
+                                    //pr($created);exit;
                                     $diff = abs(strtotime($curr_date) - strtotime($created));
                                     $years = floor($diff / (365*60*60*24));
                                     //pr($years);exit;
-                                    if($years<3){echo "Gold Customer";}
-                                    
+                                    if($years>1 && $years<3){echo "Gold Customer";}
                                     ?>
                                 </strong>
                                 <strong style="color: #E5E4E2;">
