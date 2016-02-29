@@ -117,7 +117,7 @@ class TransactionsController extends AppController {
         $loggedUser = $this->Auth->user();
         if ($this->request->is('post') || $this->request->is('put')) {
 
-            //pr($this->request->data); exit;
+           
             $this->loadModel('PackageCustomer');
             $this->loadModel('Ticket');
             $this->loadModel('Track');
@@ -127,6 +127,7 @@ class TransactionsController extends AppController {
 //            $dateObj = $this->request->data['PackageCustomer']['exp_date'];
 //            $this->request->data['PackageCustomer']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
             $this->PackageCustomer->id = $id; //$customer_info['PackageCustomer']['id'];
+//             pr($this->request->data); exit;
             $this->PackageCustomer->save($this->request->data['PackageCustomer']);
             $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
