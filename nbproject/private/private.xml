@@ -4,6 +4,7 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
 <<<<<<< HEAD
+<<<<<<< HEAD
             <file>file:/E:/Appxampp/htdocs/intranet/app/View/Csvs/export_customer_mobile.ctp</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/View/Admins/create.ctp</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/webroot/css/custom.css</file>
@@ -17,7 +18,11 @@
             <file>file:/E:/Appxampp/htdocs/intranet/app/View/Elements/admin-header.ctp</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/View/Elements/public-header.ctp</file>
 =======
+=======
+            <file>file:/D:/appxampp/htdocs/intranet/app/View/Elements/sadmin-sidebar.ctp</file>
+>>>>>>> da769f0018db17962c1da2d7e7fa677b1fc4bb29
             <file>file:/D:/appxampp/htdocs/intranet/app/Config/core.php</file>
+            <file>file:/D:/appxampp/htdocs/intranet/app/View/Elements/admin-sidebar.ctp</file>
             <file>file:/D:/appxampp/htdocs/intranet/app/View/Admins/customer_registration.ctp</file>
             <file>file:/D:/appxampp/htdocs/intranet/app/webroot/js/formValidationJs/formValidation.js</file>
             <file>file:/D:/appxampp/htdocs/intranet/app/Controller/TransactionsController.php</file>
