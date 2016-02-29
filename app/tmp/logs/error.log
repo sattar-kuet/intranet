@@ -5025,3 +5025,68 @@ Stack Trace:
 #0 D:\appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
 >>>>>>> a9ea9e7eb09bafc22a1308100148947184c066b3
+2016-02-29 07:03:56 Error: [MissingControllerException] Controller class UsersController could not be found.
+Exception Attributes: array (
+  'class' => 'UsersController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/users/login
+Stack Trace:
+#0 D:\Server\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-29 07:04:03 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
+Stack Trace:
+#0 D:\Server\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-29 07:04:03 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
+Stack Trace:
+#0 D:\Server\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-29 07:04:08 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
+Stack Trace:
+#0 D:\Server\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-29 07:04:08 Error: [MissingControllerException] Controller class PluginsController could not be found.
+Exception Attributes: array (
+  'class' => 'PluginsController',
+  'plugin' => NULL,
+)
+Request URL: /intranet/plugins/misc/ios-fix/ios-orientationchange-fix.js
+Stack Trace:
+#0 D:\Server\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-02-29 07:04:28 Error: Fatal Error (4): syntax error, unexpected '===' (T_IS_IDENTICAL) in [D:\Server\htdocs\intranet\app\View\Transactions\edit_customer_data.ctp, line 39]
+2016-02-29 07:04:28 Error: [FatalErrorException] syntax error, unexpected '===' (T_IS_IDENTICAL)
+Request URL: /intranet/transactions/edit_customer_data/4
+Stack Trace:
+#0 D:\Server\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'D:\\Server\\htdoc...', 39)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'D:\\Server\\htdoc...', 39, Array)
+#2 D:\Server\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'D:\\Server\\htdoc...', 39, Array)
+#3 D:\Server\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-02-29 08:24:21 Error: Fatal Error (1): Call to a member function user() on a non-object in [D:\Server\htdocs\intranet\app\Controller\AppController.php, line 72]
+2016-02-29 08:24:21 Error: [FatalErrorException] Call to a member function user() on a non-object
+Request URL: /intranet/transactions/edit_customer_data/4
+Stack Trace:
+#0 D:\Server\htdocs\intranet\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(1, 'Call to a membe...', 'D:\\Server\\htdoc...', 72)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', 'D:\\Server\\htdoc...', 72, Array)
+#2 D:\Server\htdocs\intranet\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', 'D:\\Server\\htdoc...', 72, Array)
+#3 D:\Server\htdocs\intranet\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}

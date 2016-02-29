@@ -69,7 +69,9 @@ class AppController extends Controller {
             $this->set(compact('sidebar'));
         }
 
+        $loggedUser = $this->Auth->user();
 
+        $this->set('loggedUser', $loggedUser['name']);
         //   $this->loadMenu();
         // $this->loadLeftMenu();
         // $this->loadFooter();
@@ -261,7 +263,7 @@ class AppController extends Controller {
             return false;
         }
     }
-    
+
     function getAllTickectsByCustomer($pcid) {
         $this->loadModel('Track');
         $this->loadModel('User');
@@ -271,8 +273,8 @@ class AppController extends Controller {
 //                    inner join users fb on tr.forwarded_by = fb.id
 //                    inner join roles r on  tr.role_id = r.id
 //                    inner join users ft on  tr.user_id = ft.id order by tr.created desc");
-    
-            $tickets = $this->Track->query("SELECT * FROM tracks tr
+
+        $tickets = $this->Track->query("SELECT * FROM tracks tr
                         left JOIN tickets t ON tr.ticket_id = t.id
                         left JOIN users fb ON tr.forwarded_by = fb.id
                         left JOIN roles fd ON tr.role_id = fd.id
@@ -280,7 +282,7 @@ class AppController extends Controller {
                         left JOIN issues i ON tr.issue_id = i.id
                         left join package_customers pc on tr.package_customer_id = pc.id
                         WHERE tr.package_customer_id =" . $pcid . " ORDER BY tr.created DESC");
-        
+
         $filteredTicket = array();
         $unique = array();
         $index = 0;
@@ -306,7 +308,6 @@ class AppController extends Controller {
         $return['users'] = $users;
         $return['roles'] = $roles;
         return $return;
-        
     }
 
 }
