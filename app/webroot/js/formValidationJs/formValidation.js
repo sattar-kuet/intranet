@@ -42,7 +42,7 @@ $('.info-container').remove();
         if (error) {
 
 //            var msg = '<p class ="warning_msg"> You did not fill up ' + error + ' required field(s). Fill up these and try again</p>';
-             var msg = '<div class="info-container"> <p class ="warning_msg"> You did not fill up ' + error + '</p> </div>';
+             var msg = '<div class="info-container"> <p class ="warning_msg"> You did not fill up ' + error + ' field(s)</p> </div>';
             $(this).closest('form').before(msg);
             event.preventDefault();
         }

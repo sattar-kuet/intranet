@@ -94,14 +94,14 @@
                 
                 
 
-                <div class="row">
+<!--                <div class="row">
                     <div class="text-center">
                         <div class="radio-list" style="margin-left: 20px;">
                             <label class="radio-inline"><input type="radio" value="NEW INSTALLATION" name="data[PackageCustomer][service_type]">NEW INSTALLATION</label>
                             <label class="radio-inline"><input type="radio" value="SERVICE REPAIR" name="data[PackageCustomer][service_type]">SERVICE REPAIR</label>
                         </div>
                     </div>
-                </div>
+                </div>-->
                 <div id="info-container"><?php echo $this->Session->flash(); ?></div>
 
                 <!-- BEGIN SAMPLE FORM PORTLET-->
@@ -966,7 +966,7 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
+<!--                                    <tr>
                                         <td>
                                             <span class="signupfont">AV CABLE</span> 
                                         </td>
@@ -982,10 +982,10 @@
                                                 </div>
                                             </div>
                                         </td>
-                                    </tr>
+                                    </tr>-->
                                     <tr>
                                         <td>
-                                            <span class="signupfont">ETHERNET</span>
+                                            <span class="signupfont">Wi-fi Adapter</span>
                                         </td>
                                         <td>
                                             <div class="row">
@@ -1000,7 +1000,7 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
+<!--                                    <tr>
                                         <td>
                                             <span class="signupfont">REMOTE</span>
                                         </td>
@@ -1033,7 +1033,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                    </tr>
+                                    </tr>-->
                                     
                                 </tbody>
                             </table>
@@ -1048,7 +1048,7 @@
 
 
                 &nbsp; &nbsp; &nbsp;
-                <div class="row">
+<!--                <div class="row">
                     <div class="col-md-12 col-sm-12" style="text-align: justify;">  
 
                         <div class="checkbox-list">
@@ -1062,7 +1062,7 @@
                             <div class="col-md-3">
                                 <label  class="signupfont" for="exampleInputFile1">Card Holder's Signature:</label>&nbsp;
 
-                                                <!--<input type="file" name="data[PackageCustomer][ch_signature]" id="required">-->  
+                                                <input type="file" name="data[PackageCustomer][ch_signature]" id="required">  
                                 <?php
                                 echo $this->Form->input(
                                         'ch_signature', array(
@@ -1075,7 +1075,7 @@
                             <div class="col-md-3">
                                 <label  class="signupfont" for="exampleInputFile1">Card Holder's ID Card:</label>&nbsp;
 
-                                                <!--<input type="file" name="data[PackageCustomer][ch_signature]" id="required">-->  
+                                                <input type="file" name="data[PackageCustomer][ch_signature]" id="required">  
                                 <?php
                                 echo $this->Form->input(
                                         'id_card', array(
@@ -1105,7 +1105,7 @@
                         </div>
 
                     </div>
-                </div>
+                </div>-->
 
                 &nbsp;
 
