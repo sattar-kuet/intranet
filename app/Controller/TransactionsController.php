@@ -167,7 +167,7 @@ class TransactionsController extends AppController {
 //        pr($data);        exit;
         $users = $response['users'];
         $roles = $response['roles'];
-        $this->set(compact('data', 'users', 'roles'));
+        $this->set(compact('data', 'users', 'roles', 'customer_info'));
         //$this->Transaction->manage($id);
 //            $response = $this->requestAction('tickets/manage/'.$id); //For ticket history
         //  $this->tariffplan(); //Call tarrifplan fuction to show packagese

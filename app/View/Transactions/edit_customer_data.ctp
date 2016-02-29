@@ -28,10 +28,26 @@
                     <div class="portlet box green">
                         <div class="portlet-title">
                             <div class="caption">
+
                                 <i class="fa fa-list-ul"></i>Customer Information
-                                <strong style=" color: #E02222;">ACCT NO.  <?php echo $c_acc_no; ?></strong>
+                                <strong style="color: #E02222;">ACCT NO. 5345345 <?php echo $c_acc_no; ?></strong>
+                                <strong style="color: gold;"><?php 
+                                    $created = date("Y-m-d", strtotime($customer_info['PackageCustomer']['created']));
+                                    $curr_date = date('Y-m-d');
+                                    
+                                    $diff = abs(strtotime($curr_date) - strtotime($created));
+                                    $years = floor($diff / (365*60*60*24));
+                                    //pr($years);exit;
+                                    if($years<3){echo "Gold Customer";}
+                                    
+                                    ?>
+                                </strong>
+                                <strong style="color: #E5E4E2;">
+                                <?php if($years>2){echo "Platinum Customer";} ?>
+                                </strong>
                             </div>
                             
+
 
 
                             <div class="tools">
@@ -67,6 +83,7 @@
                                                             </div>
                                                         </div>
                                                     </div>-->
+                            <br>
                             <div class="row">
                                 <div class="col-md-12 ">
 
@@ -97,7 +114,7 @@
                                                 <?php
                                                 echo $this->Form->input(
                                                         'middle_name', array(
-                                                    'class' => 'required'
+                                                    'class' => ''
                                                         )
                                                 );
                                                 ?> 
@@ -271,7 +288,7 @@
                                                 <?php
                                                 echo $this->Form->input(
                                                         'cell', array(
-                                                    'class' => 'required'
+                                                    'class' => ''
                                                         )
                                                 );
                                                 ?>
@@ -642,15 +659,19 @@
                                                             <div class="">
                                                                 <label><input class="pmode" checked="checked" type="radio" value="card" name="pmode">CARD (DEBIT/CREDIT)</label>
                                                             </div>
+                                                            <br>
                                                             <div class="">
                                                                 <label><input class="pmode" type="radio" value="check" name="pmode">CHECK</label>
                                                             </div>
+                                                            <br>
                                                             <div class="">
                                                                 <label><input class="pmode" type="radio" value="money order" name="pmode">MONEY ORDER</label>
                                                             </div>
+                                                            <br>
                                                             <div class="">
                                                                 <label><input class="pmode" type="radio" value="online bill" name="pmode">ONLINE BILL</label>
                                                             </div>
+                                                            <br>
                                                             <div class="">
                                                                 <label><input class="pmode" type="radio" value="cash" name="pmode">CASH</label>
                                                             </div>
@@ -682,6 +703,7 @@
                                                                 'value' => $this->params['pass'][0]
                                                             ));
                                                             ?>
+                                                            <br>
                                                             <div class="row">
 
                                                                 <div class="col-md-3 signupfont">
@@ -766,7 +788,7 @@
                                                                 <div class="col-md-3 signupfont">
                                                                     CVV Code: 
                                                                 </div>
-                                                                <div class="col-md-3">
+                                                                <div class="col-md-4">
                                                                     <?php
                                                                     echo $this->Form->input(
                                                                             'cvv_code', array(
@@ -800,7 +822,7 @@
                                                                             'address', array(
                                                                         'type' => 'text',
                                                                         'value' => '',
-                                                                        'class' => 'form-control input-sm required',
+                                                                        'class' => 'form-control input-sm',
                                                                         'placeholder' => 'detail (optional)',
                                                                         'id' => 'addressdetail'
                                                                     ));
@@ -884,6 +906,7 @@
                                                                 'value' => 'check'
                                                             ));
                                                             ?>
+                                                            <br>
                                                             <div class="row">
                                                                 <div class="col-md-3 signupfont">
                                                                     Attachment: 
@@ -982,6 +1005,7 @@
                                                                 'value' => 'money order'
                                                             ));
                                                             ?>
+                                                            <br>
                                                             <div class="row">
                                                                 <div class="col-md-3 signupfont">
                                                                     Attachment: 
@@ -1082,6 +1106,7 @@
                                                                 'value' => 'online bill'
                                                             ));
                                                             ?>
+                                                            <br>
                                                             <div class="row">
                                                                 <div class="col-md-3 signupfont">
                                                                     Attachment: 
@@ -1178,7 +1203,7 @@
                                                                 'value' => 'cash'
                                                             ));
                                                             ?>
-
+                                                            <br>
                                                             <div class="row">
                                                                 <div class="col-md-3 signupfont">
                                                                     Charged Amount: 
