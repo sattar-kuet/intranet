@@ -5,7 +5,6 @@
  */
 App::uses('CakeEmail', 'Network/Email');
 App::uses('HttpSocket', 'Network/Http');
-
 App::uses('AppController', 'Controller');
 
 class TransactionsController extends AppController {
@@ -38,7 +37,6 @@ class TransactionsController extends AppController {
     public function isAuthorized($user = null) {
         $sidebar = $user['Role']['name'];
         $this->set(compact('sidebar'));
-
         return true;
     }
 
@@ -54,28 +52,23 @@ class TransactionsController extends AppController {
         $this->loadModel('Transaction');
         ;
         $clicked = false;
-
         $datrange = json_decode($this->request->data['Transaction']['daterange'], true);
         //$conditions = array('Transaction.created >=' => $datrange['start'], 'Transaction.created <=' => $datrange['end']);
         $transactions = $this->Transaction->find('all');
-
         $clicked = true;
         $this->set(compact('transactions'));
-
         $this->set(compact('clicked'));
     }
 
     function expire_customer($id = null) {
         $this->loadModel('PaidCustomer');
         $clicked = false;
-
         //$datrange = json_decode($this->request->data['paidcustomer']['daterange'], true);
         //$conditions = array('PaidCustomer.package_exp_date >=' => $datrange['start'], 'PaidCustomer.package_exp_date <=' => $datrange['end']);
         $paidcustomers = $this->PaidCustomer->find('first', array('conditions' => array('PaidCustomer.id' => $id)));
         //pr($paidcustomers); exit;
         $clicked = true;
         $this->set(compact('paidcustomers'));
-
         $this->set(compact('clicked'));
     }
 
@@ -91,14 +84,12 @@ class TransactionsController extends AppController {
         $sql = "SELECT *  FROM packages
                 LEFT JOIN psettings ON packages.id=psettings.package_id ORDER BY packages.id ASC";
         $info = $this->Package->query($sql);
-
         $filteredPackage = array();
         $unique = array();
         $index = 0;
         foreach ($info as $key => $menu) {
             //pr($menu); exit;
             $pm = $menu['packages']['name'];
-
             if (isset($unique[$pm])) {
                 //  echo 'already exist'.$key.'<br/>';
                 if (!empty($menu['psettings']['duration'])) {
@@ -122,12 +113,11 @@ class TransactionsController extends AppController {
     }
 
     function edit_customer_data($id = null) {
-//        pr($this->request->data);
-//        exit;
+
         $loggedUser = $this->Auth->user();
         if ($this->request->is('post') || $this->request->is('put')) {
-            
-            pr($this->request->data); exit;
+
+            //pr($this->request->data); exit;
             $this->loadModel('PackageCustomer');
             $this->loadModel('Ticket');
             $this->loadModel('Track');
@@ -164,15 +154,20 @@ class TransactionsController extends AppController {
         }
         $this->loadModel('PackageCustomer');
         $customer_info = $this->PackageCustomer->findById($id);
-//                pr($transactions);exit;  
+        $c_acc_no = $customer_info['PackageCustomer']['c_acc_no'];
+
+
+
         $pcustomer_id = $this->request->data = $customer_info;    //transaction history view by customer id
         $transactions = $this->Transaction->find('all', array('conditions' => array('Transaction.package_customer_id' => $id)));
-        $this->set(compact('transactions'));
+        
+        $this->set(compact('transactions','c_acc_no'));
         $response = $this->getAllTickectsByCustomer($id);
         $data = $response['data'];
+//        pr($data);        exit;
         $users = $response['users'];
         $roles = $response['roles'];
-        $this->set(compact('data', 'users', 'roles'));
+        $this->set(compact('data', 'users', 'roles', 'customer_info'));
         //$this->Transaction->manage($id);
 //            $response = $this->requestAction('tickets/manage/'.$id); //For ticket history
         //  $this->tariffplan(); //Call tarrifplan fuction to show packagese
@@ -182,23 +177,18 @@ class TransactionsController extends AppController {
         $this->loadModel('Psetting');
         $packages = $this->Package->find('all');
         $packageList = array();
-        foreach ($packages as $index=>$package) {
+        foreach ($packages as $index => $package) {
             $psettings = $this->Psetting->find('all', array('conditions' => array('package_id' => $package['Package']['id'])));
             $psettingList = array();
-            foreach($psettings as $psetting){
+            foreach ($psettings as $psetting) {
                 $id = $psetting['Psetting']['id'];
                 $psettingList[$id] = $psetting['Psetting']['name'];
             }
-            $pckagename =  $package['Package']['name'];
+            $pckagename = $package['Package']['name'];
             $packageList[$pckagename] = $psettingList;
-            
-           
         }
-     //   pr($packageList); exit;
-       // pr($packages);
-       // exit;
+        //   pr($packageList); exit;
 
-        // pr($psettings); exit;
         $sql = "SELECT * FROM package_customers "
                 . "LEFT JOIN psettings ON package_customers.psetting_id = psettings.id"
                 . " LEFT JOIN packages ON psettings.package_id = packages.id"
@@ -206,9 +196,9 @@ class TransactionsController extends AppController {
                 " WHERE package_customers.id = '" . $id . "'";
 
         $temp = $this->PackageCustomer->query($sql);
-        //pr($temp[0]['psettings']); exit;
-      //  $selected['psetting'] = $temp[0]['psettings']['id'];
-    //    $selected['package'] = $temp[0]['packages']['id'];
+//        pr($selected); exit;
+        //  $selected['psetting'] = $temp[0]['psettings']['id'];
+        //    $selected['package'] = $temp[0]['packages']['id'];
         $ym = $this->getYm();
         $this->set(compact('packageList', 'psettings', 'selected', 'ym'));
     }

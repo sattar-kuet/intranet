@@ -87,10 +87,8 @@ class TicketsController extends AppController {
     }
 
     function unsolve() {
-        $this->loadModel('Track');
-        pr($this->request->data);
-        exit;
-        $this->request->data['Track']['status'] = 'unresolved';
+        $this->loadModel('Track');        
+        $this->request->data['Track']['status'] = 'unsolved';
         $loggedUser = $this->Auth->user();
         $this->request->data['Track']['forwarded_by'] = $loggedUser['id'];
         $this->Track->save($this->request->data['Track']);
@@ -106,7 +104,7 @@ class TicketsController extends AppController {
         $this->loadModel('Track');
         $this->request->data['Track']['status'] = 'solved';
         $loggedUser = $this->Auth->user();
-        $this->request->data['Track']['forwarded_by'] = $loggedUser['id'];
+        $this->request->data['Track']['forwarded_by'] = $loggedUser['id'];     
         $this->Track->save($this->request->data['Track']);
         $msg = '<div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
