@@ -8,7 +8,6 @@ App::uses('HttpSocket', 'Network/Http');
 App::uses('AppController', 'Controller');
 
 class TransactionsController extends AppController {
-
     var $layout = 'admin';
     // public $components = array('Auth');
     public $components = array(
