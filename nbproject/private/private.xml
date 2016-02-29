@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-<<<<<<< HEAD
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
@@ -12,61 +11,6 @@
             <file>file:/D:/Server/htdocs/intranet/app/View/Admins/servicemanage.ctp</file>
             <file>file:/D:/Server/htdocs/intranet/app/Controller/TransactionsController.php</file>
             <file>file:/D:/Server/htdocs/intranet/app/Controller/TicketsController.php</file>
-=======
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="11">
-        <file>
-            <url>app/Controller/TransactionsController.php</url>
-            <bookmark id="4">
-                <name/>
-                <line>121</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
-            <url>app/View/Transactions/edit_customer_data.ctp</url>
-            <bookmark id="9">
-                <name/>
-                <line>345</line>
-                <key/>
-            </bookmark>
-            <bookmark id="10">
-                <name/>
-                <line>375</line>
-                <key/>
-            </bookmark>
-            <bookmark id="8">
-                <name/>
-                <line>460</line>
-                <key/>
-            </bookmark>
-            <bookmark id="7">
-                <name/>
-                <line>1071</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
-            <url>app/View/Tickets/manage.ctp</url>
-            <bookmark id="11">
-                <name/>
-                <line>311</line>
-                <key/>
-            </bookmark>
-        </file>
-    </editor-bookmarks>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/Controller/TransactionsController.php</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Elements/admin-header.ctp</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Tickets/my.ctp</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/webroot/js/ticket.js</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Admins/servicemanage.ctp</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/Controller/AdminsController.php</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Tickets/manage.ctp</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Admins/manage.ctp</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Elements/sadmin-sidebar.ctp</file>
->>>>>>> 8c1dc7cda728177d001022183148172f4127eed5
         </group>
     </open-files>
 </project-private>
