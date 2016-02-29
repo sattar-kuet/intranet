@@ -367,7 +367,7 @@
             <?php
 
             $services = array('servicemanage');
-            if (in_array($this->name . '' . $this->action, $services)):
+            if (in_array($this->name. '' . $this->action, $services)):
                 ?>
                     class="active"
                     <?php

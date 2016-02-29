@@ -40,13 +40,22 @@
                                     $diff = abs(strtotime($curr_date) - strtotime($created));
                                     $years = floor($diff / (365 * 60 * 60 * 24));
                                     //pr($years);exit;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 90ff4541e182cacebc32007959286e6d8fb21561
                                     if ($years < 3) {
                                         echo "Gold Customer";
                                     }
 
+<<<<<<< HEAD
                                     if ($years > 1 && $years < 3) {
                                         echo "Gold Customer";
                                     }
+=======
+                                    if($years>1 && $years<3){echo "Gold Customer";}
+
+>>>>>>> 90ff4541e182cacebc32007959286e6d8fb21561
                                     ?>
                                 </strong>
                                 <strong style="color: #E5E4E2;">
