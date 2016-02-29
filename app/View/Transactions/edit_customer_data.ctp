@@ -30,17 +30,29 @@
                             <div class="caption">
 
                                 <i class="fa fa-list-ul"></i>Customer Information
+<<<<<<< HEAD
                                 <strong style="color: #E02222;">ACCT NO.<?php echo $c_acc_no; ?></strong>
                                 <strong style="color: gold;"><?php
                                     $created = date("Y-m-d", strtotime($customer_info['PackageCustomer']['created']));
                                     $curr_date = date('Y-m-d');
 
+=======
+                                <strong style="color: #E02222;">ACCT NO. <?php echo $c_acc_no; ?></strong>
+                                <strong style="color: gold;"><?php 
+                                    $created = date("Y-m-d", strtotime($customer_info['PackageCustomer']['created']));
+                                    $curr_date = date('Y-m-d');
+                                    //pr($created);exit;
+>>>>>>> da769f0018db17962c1da2d7e7fa677b1fc4bb29
                                     $diff = abs(strtotime($curr_date) - strtotime($created));
                                     $years = floor($diff / (365 * 60 * 60 * 24));
                                     //pr($years);exit;
+<<<<<<< HEAD
                                     if ($years < 3) {
                                         echo "Gold Customer";
                                     }
+=======
+                                    if($years>1 && $years<3){echo "Gold Customer";}
+>>>>>>> da769f0018db17962c1da2d7e7fa677b1fc4bb29
                                     ?>
                                 </strong>
                                 <strong style="color: #E5E4E2;">

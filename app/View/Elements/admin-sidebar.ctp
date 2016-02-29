@@ -29,7 +29,7 @@
             
             <li 
             <?php
-
+            
             $services = array('servicemanage');
             if (in_array($this->name . '' . $this->action, $services)):
                 ?>
@@ -47,7 +47,7 @@
             <li 
             <?php
 
-            $tickets = array('Ticketscreate', 'Ticketsmanage',);
+            $tickets = array('Ticketscreate', 'Ticketsmanage', 'my');
             if (in_array($this->name . '' . $this->action, $tickets)):
                 ?>
                     class="active"
@@ -86,8 +86,37 @@
                             <i class="fa fa-wrench"></i>
                             Manage</a>
                     </li>
+                    <li
+                        <?php if ($this->name . '' . $this->action == 'Ticketsmy'):
+                            ?>
+                                class="active"
+                                <?php
+                            endif;
+                            ?>
+                            >
+                            <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'my')) ?>">
+                                <i class="fa fa-wrench"></i>
+                                My Tickets</a>
+                        </li>
                 </ul>
-            
+            </li>
+             <li 
+            <?php
+
+            $services = array('servicemanage');
+            if (in_array($this->name . '' . $this->action, $services)):
+                ?>
+                    class="active"
+                    <?php
+                endif;
+                ?>
+                >                 
+                            <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'customer_registration')) ?>" target="_blank">
+                    <i class="fa fa-support"></i>
+                    <span class="title">Customer Registration</span>
+                    <span class="arrow "></span>
+                </a>
+            </li>
    
         </ul>
         <!-- END SIDEBAR MENU -->
