@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-<<<<<<< HEAD
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="12">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="13">
         <file>
             <url>app/Controller/TransactionsController.php</url>
             <bookmark id="4">
                 <name/>
-                <line>121</line>
+                <line>130</line>
                 <key/>
             </bookmark>
         </file>
@@ -14,27 +13,32 @@
             <url>app/View/Transactions/edit_customer_data.ctp</url>
             <bookmark id="9">
                 <name/>
-                <line>345</line>
+                <line>349</line>
                 <key/>
             </bookmark>
             <bookmark id="10">
                 <name/>
-                <line>375</line>
+                <line>379</line>
                 <key/>
             </bookmark>
             <bookmark id="8">
                 <name/>
-                <line>460</line>
+                <line>464</line>
                 <key/>
             </bookmark>
             <bookmark id="7">
                 <name/>
-                <line>1070</line>
+                <line>1074</line>
+                <key/>
+            </bookmark>
+            <bookmark id="13">
+                <name/>
+                <line>1361</line>
                 <key/>
             </bookmark>
             <bookmark id="12">
                 <name/>
-                <line>1536</line>
+                <line>1548</line>
                 <key/>
             </bookmark>
         </file>
@@ -51,19 +55,9 @@
         <group>
             <file>file:/D:/xampp/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
             <file>file:/D:/xampp/htdocs/intranet/app/Controller/TransactionsController.php</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Elements/admin-header.ctp</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/webroot/js/formValidationJs/readme.txt</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Elements/admin-footer.ctp</file>
-=======
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/appxampp/htdocs/intranet/app/Config/core.php</file>
-            <file>file:/D:/appxampp/htdocs/intranet/app/Controller/TransactionsController.php</file>
-            <file>file:/D:/appxampp/htdocs/intranet/app/Controller/AdminsController.php</file>
-            <file>file:/D:/appxampp/htdocs/intranet/app/View/Admins/servicemanage.ctp</file>
-            <file>file:/D:/appxampp/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
->>>>>>> 8124f4a9e9b6ab89d700d2d0501678a5c674166c
+            <file>file:/D:/xampp/htdocs/intranet/app/Controller/AdminsController.php</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Admins/servicemanage.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/Controller/FrontendsController.php</file>
         </group>
     </open-files>
 </project-private>
