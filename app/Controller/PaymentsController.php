@@ -83,10 +83,10 @@ class PaymentsController extends AppController {
         $this->layout = 'ajax';
         // Common setup for API credentials  
         $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
-        $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
-        //$merchantAuthentication->setName("42UHbr9Qa9B"); // live mode
-        $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
-        //$merchantAuthentication->setTransactionKey("6468X36RkrKGm3k6"); // live mode
+     //   $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
+        $merchantAuthentication->setName("42UHbr9Qa9B"); // live mode
+       // $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
+        $merchantAuthentication->setTransactionKey("6468X36RkrKGm3k6"); // live mode
         $refId = 'ref' . time();
 // Create the payment data for a credit card
         $creditCard = new AnetAPI\CreditCardType();

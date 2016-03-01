@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 2016-02-29 03:06:37 Error: [MissingActionException] Action TransactionsController::assets() could not be found.
 Exception Attributes: array (
   'controller' => 'TransactionsController',
@@ -7942,3 +7943,5 @@ Request URL: /intranet/plugins/misc/touch-punch/jquery.ui.touch-punch.min.js
 Stack Trace:
 #0 E:\Appxampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
+=======
+>>>>>>> ff07d0593802a2adb7178269d957c8f863ea296c

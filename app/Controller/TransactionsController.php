@@ -42,6 +42,7 @@ class TransactionsController extends AppController {
     function registered($id = null) {
         $this->loadModel('PackageCustomer');
         $this->loadModel('User');
+       
         $user_id = $this->Auth->user(['id']);
         $customer_info = $this->PackageCustomer->find('all', array('conditions' => array('user_id' => $id)));
         $this->set(compact('customer_info'));

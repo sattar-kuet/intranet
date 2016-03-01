@@ -257,11 +257,11 @@ class AdminsController extends AppController {
             $this->set(compact('customer_info'));
         }
         if ($this->request->is('post')) {
-           // $search_input = $this->request->data['PackageCustomer']['cell'];
+            // $search_input = $this->request->data['PackageCustomer']['cell'];
             //remove parenthesis from string
             //$cell = preg_replace('/\s+/', '', (str_replace(array( '(', ')' ), '', $search_input)));
             $cell = $this->request->data['PackageCustomer']['cell'];
-           // pr($cell);exit;
+            // pr($cell);exit;
             $clicked = true;
             $tickets = $this->Track->query("SELECT * FROM tracks tr
                         left JOIN tickets t ON tr.ticket_id = t.id
@@ -395,7 +395,7 @@ class AdminsController extends AppController {
         $this->tariffplan(); //Call tarrifplan fuction to show packagese
 
         if ($this->request->is('post')) {
-            
+
             $this->request->data['PackageCustomer']['psetting_id'] = $this->request->data['psetting_id'];
             unset($this->request->data['psetting_id']);
             $this->PackageCustomer->set($this->request->data);
@@ -439,17 +439,16 @@ class AdminsController extends AppController {
                     // $this->request->data['PackageCustomer']['psetting_id'] = $value;
                     $this->request->data['PackageCustomer']['filled-by'] = '0';
                 }
-                
+
                 //remove parenthesis from cell number
-                $cell_input = $this->request->data['PackageCustomer']['cell'];                
-                $cell = preg_replace('/\s+/', '', (str_replace(array( '(', ')' ), '', $cell_input)));
+                $cell_input = $this->request->data['PackageCustomer']['cell'];
+                $cell = preg_replace('/\s+/', '', (str_replace(array('(', ')'), '', $cell_input)));
                 $this->request->data['PackageCustomer']['cell'] = $cell;
-                
-                $home_input = $this->request->data['PackageCustomer']['home'];                
-                $home = preg_replace('/\s+/', '', (str_replace(array( '(', ')' ), '', $home_input)));
+
+                $home_input = $this->request->data['PackageCustomer']['home'];
+                $home = preg_replace('/\s+/', '', (str_replace(array('(', ')'), '', $home_input)));
                 $this->request->data['PackageCustomer']['home'] = $home;
                 //pr($this->request->data['PackageCustomer']['cell']);exit;
-
                 //$dateObj = $this->request->data['PackageCustomer']['exp_date'];
                 //$this->request->data['PackageCustomer']['exp_date'] = $dateObj['year'] . '-' . $dateObj['month'] . '-' . $dateObj['day'];
                 //$this->request->data['PackageCustomer']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
@@ -479,23 +478,16 @@ class AdminsController extends AppController {
                 //$this->PaidCustomer->save($data4PaidCustomers);
 //                $this->Model->find('all', array('fields' => 'MAX(PackageCustomer.c_acc_no)));
 //                $customer_account = $this->PackageCustomer->query("SELECT MAX(`c_acc_no`) FROM package_customers");
-                
-                $customer_account = $this->PackageCustomer->query("SELECT MAX(c_acc_no) FROM package_customers");                
-               $this->request->data['PackageCustomer']['c_acc_no'] = $customer_account['0']['0']['MAX(c_acc_no)']+1;
-               
-               
-//                pr($this->request->data['c_acc_no']);
-//                exit;
+
+                $customer_account = $this->PackageCustomer->query("SELECT MAX(c_acc_no) FROM package_customers");
+                $this->request->data['PackageCustomer']['c_acc_no'] = $customer_account['0']['0']['MAX(c_acc_no)'] + 1;
+
+
                 $duration = $this->PackageCustomer->save($this->request->data['PackageCustomer']);
                 $duration1 = $duration['PackageCustomer']['psetting_id'];
-
                 $duration_time = $this->PackageCustomer->query("SELECT psetting_id,duration FROM package_customers inner 
                         join psettings on package_customers.psetting_id = psettings.id WHERE psetting_id = $duration1 limit 0,1");
                 $additionalTime = "+" . $duration_time[0]['psettings']['duration'] . "months";
-
-                //$dataPackageDate['PaidCustomer']['package_exp_date'] = date("Y-m-d", strtotime($additionalTime));
-                //$this->PaidCustomer->save($dataPackageDate);
-
                 $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <strong> Your sign up process completed succeesfully </strong>
@@ -504,10 +496,10 @@ class AdminsController extends AppController {
                 $msg = $this->generateError($this->PackageCustomer->validationErrors);
             }
             $this->Session->setFlash($msg);
+            return $this->redirect('/transactions/edit_customer_data/' . $duration['PackageCustomer']['id']);
             return $this->redirect($this->referer());
         }
-        
-          $ym = $this->getYm();
+        $ym = $this->getYm();
         $this->set(compact('ym'));
     }
 
