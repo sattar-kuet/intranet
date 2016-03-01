@@ -53,7 +53,7 @@
                                         'type' => 'select',
                                         'options' => $cells,
                                         'empty' => 'Select Cell No',
-                                        'class' => 'form-control select2me pclass required ',
+                                        'class' => 'form-control select2me pclass required',
                                             )
                                     );
                                     ?>
