@@ -45,15 +45,13 @@
                             <?php echo $this->Session->flash(); ?>
 
                             <div class="form-group">
-                                <label class="control-label col-md-3">
-                                </label>
-                                <div class="col-md-6">
+                                
+                                <div class="col-md-12">
                                     <?php
-                                    echo $this->Form->input('cell', array(
-                                        'type' => 'select',
-                                        'options' => $cells,
-                                        'empty' => 'Select Cell No',
-                                        'class' => 'form-control select2me pclass required',
+                                    echo $this->Form->input('param', array(
+                                        'type' => 'text',
+                                        'placeholder' => 'Type first name or last name or cell number or mac',
+                                        'class' => 'form-control   required',
                                             )
                                     );
                                     ?>
