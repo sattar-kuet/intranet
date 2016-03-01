@@ -32,7 +32,7 @@
                                 <i class="fa fa-list-ul"></i>Customer Information
 
                                 <strong style="color: #E02222;">ACCT NO. <?php echo $c_acc_no; ?></strong>
-                                <strong style="color: gold;"><?php
+                                <?php
                                     $created = date("Y-m-d", strtotime($customer_info['PackageCustomer']['created']));
                                     $curr_date = date('Y-m-d');
                                     //pr($created);exit;
@@ -40,28 +40,22 @@
                                     $diff = abs(strtotime($curr_date) - strtotime($created));
                                     $years = floor($diff / (365 * 60 * 60 * 24));
                                     //pr($years);exit;
-
-                                    if ($years < 3) {
-                                        echo "Gold Customer";
+                                    $status ='';
+                                    $color ='';
+                                    if ($years > 2 && $years < 3) {
+                                        $status = "Gold Customer";
+                                        $color = 'gold;';
                                     }
-
-
-                                    if ($years > 1 && $years < 3) {
-                                        echo "Gold Customer";
-                                    }
-
-                                    if ($years > 1 && $years < 3) {
-                                        echo "Gold Customer";
+                                    else if ($years >= 3) {
+                                        $status = "Platinum Customer";
+                                        $color = '#E5E4E2;';
                                     }
                                     ?>
+                                <strong style="color: <?php $color;?>">
+                                    <?php echo $status; ?>
                                 </strong>
-                                <strong style="color: #E5E4E2;">
-                                    <?php
-                                    if ($years > 2) {
-                                        echo "Platinum Customer";
-                                    }
-                                    ?>
-                                </strong>
+                               
+                               
                             </div>
 
 
@@ -820,7 +814,7 @@
                                                                         'type' => 'select',
                                                                         'options' => $ym['year'],
                                                                         'empty' => 'Select Year',
-                                                                        'class' => 'span12 uniform nostyle select1 pclass required',
+                                                                        'class' => 'span12 uniform nostyle select1  required',
                                                                         'div' => array('class' => 'span12 ')
                                                                             )
                                                                     );
@@ -832,8 +826,7 @@
                                                                         'type' => 'select',
                                                                         'options' => $ym['month'],
                                                                         'empty' => 'Select Month',
-                                                                        'class' => 'span12 uniform nostyle  cclass select1 required',
-                                                                        'id' => 'cid',
+                                                                        'class' => 'span12 uniform nostyle   select1 required',
                                                                         'div' => array('class' => 'span12 ')
                                                                             )
                                                                     );

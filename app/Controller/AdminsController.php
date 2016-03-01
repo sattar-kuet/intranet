@@ -395,6 +395,9 @@ class AdminsController extends AppController {
         $this->tariffplan(); //Call tarrifplan fuction to show packagese
 
         if ($this->request->is('post')) {
+            
+            $this->request->data['PackageCustomer']['psetting_id'] = $this->request->data['psetting_id'];
+            unset($this->request->data['psetting_id']);
             $this->PackageCustomer->set($this->request->data);
             $this->CustomPackage->set($this->request->data);
             $msg = '';
