@@ -213,7 +213,7 @@
                             echo $this->Form->input('status', array(
                                 'type' => 'select',
                                 'options' => Array('ticket' => 'Generate Ticket', 'payment' => 'Customer  Information', 'history' => 'Ticket History'),
-                                'empty' => 'Select Action',
+                                "empty"=>'Select Action',
                                 'class' => 'form-control form-filter input-sm requaried',
                                     )
                             );
