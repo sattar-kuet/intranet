@@ -482,12 +482,16 @@ class AdminsController extends AppController {
                 $customer_account = $this->PackageCustomer->query("SELECT MAX(c_acc_no) FROM package_customers");
                 $this->request->data['PackageCustomer']['c_acc_no'] = $customer_account['0']['0']['MAX(c_acc_no)'] + 1;
 
-
                 $duration = $this->PackageCustomer->save($this->request->data['PackageCustomer']);
                 $duration1 = $duration['PackageCustomer']['psetting_id'];
+
                 $duration_time = $this->PackageCustomer->query("SELECT psetting_id,duration FROM package_customers inner 
                         join psettings on package_customers.psetting_id = psettings.id WHERE psetting_id = $duration1 limit 0,1");
                 $additionalTime = "+" . $duration_time[0]['psettings']['duration'] . "months";
+
+                //$dataPackageDate['PaidCustomer']['package_exp_date'] = date("Y-m-d", strtotime($additionalTime));
+                //$this->PaidCustomer->save($dataPackageDate);
+
                 $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <strong> Your sign up process completed succeesfully </strong>
@@ -497,8 +501,9 @@ class AdminsController extends AppController {
             }
             $this->Session->setFlash($msg);
             return $this->redirect('/transactions/edit_customer_data/' . $duration['PackageCustomer']['id']);
-            return $this->redirect($this->referer());
+//            return $this->redirect($this->referer());
         }
+
         $ym = $this->getYm();
         $this->set(compact('ym'));
     }
