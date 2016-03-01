@@ -116,7 +116,7 @@
 
                 <li 
                 <?php
-                $tickets = array('Ticketscreate', 'Ticketsmanage', 'Ticketsmy');
+                $tickets = array('Ticketscreate', 'Ticketsmanage', 'TicketsAssigned_to_me', 'TicketsForwarded_by');
                 if (in_array($this->name . '' . $this->action, $tickets)):
                     ?>
                         class="active"
@@ -157,16 +157,28 @@
                                 All Tickets</a>
                         </li>
                         <li
-                        <?php if ($this->name . '' . $this->action == 'Ticketsmy'):
+                        <?php if ($this->name . '' . $this->action == 'Assigned_to_me'):
                             ?>
                                 class="active"
                                 <?php
                             endif;
                             ?>
                             >
-                            <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'my')) ?>">
+                            <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'Assigned_to_me')) ?>">
                                 <i class="fa fa-wrench"></i>
-                                My Tickets</a>
+                                Inform to Me</a>
+                        </li>
+                        <li
+                        <?php if ($this->name . '' . $this->action == 'Forwarded_by'):
+                            ?>
+                                class="active"
+                                <?php
+                            endif;
+                            ?>
+                            >
+                            <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'Forwarded_by')) ?>">
+                                <i class="fa fa-wrench"></i>
+                                Forwarded by</a>
                         </li>
                     </ul>
                 <li 

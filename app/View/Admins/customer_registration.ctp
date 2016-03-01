@@ -1560,7 +1560,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="table-responsive">
-                                            <table class="table table-striped table-hover table-bordered">
+                                            <table class="table table-striped table-hover table-bordered table-responsive">
                                                 <thead>
                                                     <tr>
                                                         <th class="tablehead">
@@ -1645,12 +1645,146 @@
                                                         </td>
                                                     </tr>
 
+                                                    <tr>
+                                                        <td>
+                                                            <span class="signupfont">Current ISP and Speed</span>
+                                                        </td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="text-center" style="margin-left: 0px;">
+                                                                        <div class="radio-list">
+                                                                            <?php
+                                                                            echo $this->Form->input(
+                                                                                    'current_isp_speed', array(
+                                                                                        'name' => 'data[PackageCustomer][current_isp_speed]',
+                                                                                'class' => '',
+                                                                                    )
+                                                                            );
+                                                                            ?>    
+                                                                        </div>
+                                                                    </div>     
+                                                                </div>
+                                                            </div>
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="signupfont">Service Provider</span>
+                                                        </td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="text-center" style="margin-left: 0px;">
+                                                                        <div class="radio-list">                                                                             
+                                                                            <?php
+                                                                            echo $this->Form->input(
+                                                                                    'current_service_provider', array(
+                                                                                        'name' => 'data[PackageCustomer][current_service_provider]',
+                                                                                'class' => '',
+                                                                                    )
+                                                                            );
+                                                                            ?>  
+                                                                        </div>
+                                                                    </div>     
+                                                                </div>
+                                                            </div>
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="signupfont">Ethernet Wire</span>
+                                                        </td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="text-center" style="margin-left: 0px;">
+                                                                        <div class="radio-list"> 
+                                                                             <?php
+                                                                            echo $this->Form->input(
+                                                                                    'ethernet_wire', array(
+                                                                                        'name' => 'data[PackageCustomer][ethernet_wire]',
+                                                                                'class' => '',
+                                                                                    )
+                                                                            );
+                                                                            ?> 
+                                                                        </div>
+                                                                    </div>     
+                                                                </div>
+                                                            </div>
+
+                                                        </td>
+                                                    </tr>
 
                                                 </tbody>
+
                                             </table>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 ">
+                                                <!--                                                <div class="col-md-2 signupfont">
+                                                                                                    Current ISP Speed:
+                                                
+                                                                                                </div>
+                                                                                                <div class="col-md-2">
+                                                                                                    <div class="input-list style-4 clearfix">
+                                                                                                        <div>
+                                                <?php
+                                                echo $this->Form->input(
+                                                        'current_isp_speed', array(
+                                                    'class' => '',
+                                                        )
+                                                );
+                                                ?>
+                                                
+                                                                                                        </div>                            
+                                                                                                    </div>
+                                                                                                </div>-->
+
+                                                <!--                                                <div class="col-md-2 signupfont">
+                                                                                                    Service Provider:
+                                                
+                                                                                                </div>
+                                                                                                <div class="col-md-2">
+                                                                                                    <div class="input-list style-4 clearfix">
+                                                                                                        <div>
+                                                <?php
+                                                echo $this->Form->input(
+                                                        'current_service_provider', array(
+                                                    'class' => '',
+                                                        )
+                                                );
+                                                ?>
+                                                
+                                                                                                        </div>                            
+                                                                                                    </div>
+                                                                                                </div>-->
+
+                                                <!--                                                <div class="col-md-2 signupfont">
+                                                                                                    Ethernet Wire: 
+                                                                                                </div>
+                                                                                                <div class="col-md-2">
+                                                                                                    <div class="input-list style-4 clearfix">
+                                                                                                        <div>
+                                                <?php
+                                                echo $this->Form->input(
+                                                        'ethernet_wire', array(
+                                                    'class' => '',
+                                                        )
+                                                );
+                                                ?> 
+                                                                                                        </div>                            
+                                                                                                    </div>
+                                                                                                </div>                        -->
+                                            </div>
                                         </div>
                                     </div>
+
                                 </div>
+
                             </div> 
                             <!--                           end portlet body-->
                         </div>
