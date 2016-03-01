@@ -53,7 +53,7 @@
                                         'type' => 'select',
                                         'options' => $cells,
                                         'empty' => 'Select Cell No',
-                                        'class' => 'form-control select2me pclass required ',
+                                        'class' => 'form-control select2me pclass required',
                                             )
                                     );
                                     ?>
@@ -194,7 +194,7 @@
                                     'label' => false,
                                     'div' => false
                                 ),
-                                'id' => 'form_sample_3',
+                                'id' => 'form_sample_1',
                                 'class' => 'form-horizontal',
                                 'novalidate' => 'novalidate',
                                 'url' => array('controller' => 'admins', 'action' => 'changeservice')
@@ -214,7 +214,7 @@
                                 'type' => 'select',
                                 'options' => Array('ticket' => 'Generate Ticket', 'payment' => 'Customer  Information', 'history' => 'Ticket History'),
                                 'empty' => 'Select Action',
-                                'class' => 'form-control form-filter input-sm',
+                                'class' => 'form-control form-filter input-sm required'                                
                                     )
                             );
                             ?>
