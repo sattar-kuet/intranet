@@ -194,6 +194,7 @@ class TicketsController extends AppController {
         $this->loadModel('Track');
         $this->loadModel('User');
         $this->loadModel('Role');
+        
 //        $tickets = $this->Track->query("SELECT * FROM tracks tr 
 //                    inner join tickets t on tr.ticket_id = t.id
 //                    inner join users fb on tr.forwarded_by = fb.id
@@ -208,8 +209,9 @@ class TicketsController extends AppController {
                         left JOIN users fi ON tr.user_id = fi.id
                         left JOIN issues i ON tr.issue_id = i.id
                         left join package_customers pc on tr.package_customer_id = pc.id
-                        WHERE tr.role_id =" . $loggedUser['Role']['id'] . " OR tr.user_id =" . $loggedUser['Role']['id'] . " ORDER BY tr.created DESC");
+                        WHERE tr.user_id ="$loggedUser['User']['id'] . " ORDER BY tr.created DESC");
 
+       
         $filteredTicket = array();
         $unique = array();
         $index = 0;
