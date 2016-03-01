@@ -69,7 +69,9 @@ class AppController extends Controller {
             $this->set(compact('sidebar'));
         }
 
+        $loggedUser = $this->Auth->user();
 
+        $this->set('loggedUser', $loggedUser['name']);
         //   $this->loadMenu();
         // $this->loadLeftMenu();
         // $this->loadFooter();
@@ -261,6 +263,7 @@ class AppController extends Controller {
             return false;
         }
     }
+
 
     public function getYM() {
         $cy = date('Y');

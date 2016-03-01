@@ -9,8 +9,7 @@
                     <div class="sidebar-toggler">
                     </div>
                     <!-- END SIDEBAR TOGGLER BUTTON -->
-                </li><br>
-                &nbsp;&nbsp; 
+                </li>               
 
                 <li 
                 <?php

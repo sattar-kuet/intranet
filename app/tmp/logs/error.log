@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 2016-02-29 03:06:37 Error: [MissingActionException] Action TransactionsController::assets() could not be found.
 Exception Attributes: array (
   'controller' => 'TransactionsController',
@@ -8186,3 +8187,5 @@ Stack Trace:
 #9 D:\xampp\htdocs\intranet\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdminsController), Object(CakeRequest))
 #10 D:\xampp\htdocs\intranet\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #11 {main}
+=======
+>>>>>>> ff07d0593802a2adb7178269d957c8f863ea296c
