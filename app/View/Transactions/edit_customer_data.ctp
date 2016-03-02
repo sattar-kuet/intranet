@@ -31,7 +31,7 @@
 
                                 <i class="fa fa-list-ul"></i>Customer Information
 
-                                <strong style="color: #E02222;">ACCT NO. <?php echo $c_acc_no; ?></strong>
+                                <strong style="color: #191818;">ACCT NO. <?php echo $c_acc_no; ?></strong>
                                 <?php
                                     $created = date("Y-m-d", strtotime($customer_info['PackageCustomer']['created']));
                                     $curr_date = date('Y-m-d');

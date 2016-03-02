@@ -160,7 +160,8 @@ echo $this->Html->script(
             'multipleImgUpload',
             'singleImgUpload',
             'ticket',
-            'sum'
+            'sum',
+            
         )
 );
 ?>
