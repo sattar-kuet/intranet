@@ -480,10 +480,8 @@ class AdminsController extends AppController {
 //                $customer_account = $this->PackageCustomer->query("SELECT MAX(`c_acc_no`) FROM package_customers");
 
                 $customer_account = $this->PackageCustomer->query("SELECT MAX(c_acc_no) FROM package_customers");
-               $this->request->data['PackageCustomer']['c_acc_no'] = $customer_account['0']['0']['MAX(c_acc_no)'] + 1;
-                
-//                $this->request->data['PackageCustomer']['current_isp_speed'] =  $this->request->data;
-//                pr($this->request->data); exit;
+                $this->request->data['PackageCustomer']['c_acc_no'] = $customer_account['0']['0']['MAX(c_acc_no)'] + 1;
+
                 $duration = $this->PackageCustomer->save($this->request->data['PackageCustomer']);
                 $duration1 = $duration['PackageCustomer']['psetting_id'];
 
