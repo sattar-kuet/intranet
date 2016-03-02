@@ -30,32 +30,30 @@
                             <div class="caption">
 
                                 <i class="fa fa-list-ul"></i>Customer Information
-
-                                <strong style="color: #191818;">ACCT NO. <?php echo $c_acc_no; ?></strong>
+                                <strong style="color: #191818;;">ACCT NO. <?php echo $c_acc_no; ?></strong>
                                 <?php
-                                    $created = date("Y-m-d", strtotime($customer_info['PackageCustomer']['created']));
-                                    $curr_date = date('Y-m-d');
-                                    //pr($created);exit;
+                                $created = date("Y-m-d", strtotime($customer_info['PackageCustomer']['created']));
+                                $curr_date = date('Y-m-d');
+                                //pr($created);exit;
 
-                                    $diff = abs(strtotime($curr_date) - strtotime($created));
-                                    $years = floor($diff / (365 * 60 * 60 * 24));
-                                    //pr($years);exit;
-                                    $status ='';
-                                    $color ='';
-                                    if ($years > 2 && $years < 3) {
-                                        $status = "Gold Customer";
-                                        $color = 'gold;';
-                                    }
-                                    else if ($years >= 3) {
-                                        $status = "Platinum Customer";
-                                        $color = '#E5E4E2;';
-                                    }
-                                    ?>
-                                <strong style="color: <?php $color;?>">
+                                $diff = abs(strtotime($curr_date) - strtotime($created));
+                                $years = floor($diff / (365 * 60 * 60 * 24));
+                                //pr($years);exit;
+                                $status = '';
+                                $color = '';
+                                if ($years > 2 && $years < 3) {
+                                    $status = "Gold Customer";
+                                    $color = 'gold;';
+                                } else if ($years >= 3) {
+                                    $status = "Platinum Customer";
+                                    $color = '#E5E4E2;';
+                                }
+                                ?>
+                                <strong style="color: <?php $color; ?>">
                                     <?php echo $status; ?>
                                 </strong>
-                               
-                               
+
+
                             </div>
 
 
@@ -533,12 +531,12 @@
                             foreach ($filteredPackage as $n => $single):
                                 $tab = $single['packages'];
                                 ?>
-                                                                                                                                                                <li <?php
-                                if (!$n) {
-                                    echo 'class="active"';
-                                }
+                                                                                                                                                                    <li <?php
+                            if (!$n) {
+                                echo 'class="active"';
+                            }
                                 ?>><a data-toggle="tab" href="#<?php echo $tab['id']; ?>"><?php echo $tab['name']; ?></a>
-                                                                                                
+                                                                                                    
                             <?php endforeach; ?>
                                                                                         <li><a data-toggle="tab" href="#custom">Custom</a></li>
                                                                                     </ul>
@@ -551,47 +549,47 @@
                                 $tab = $single['packages'];
                                 $content = $single['psettings'];
                                 ?>
-                                                                                                                                                            <div class="tab-pane <?php
-                                if (!$n) {
-                                    echo 'active';
-                                }
+                                                                                                                                                                <div class="tab-pane <?php
+                            if (!$n) {
+                                echo 'active';
+                            }
                                 ?>" id="<?php echo $tab['id']; ?>" >
-                                                                                                
-                                                                                                
-                                                                                                                                                                <div class="panel-body">
+                                                                                                    
+                                                                                                    
+                                                                                                                                                                    <div class="panel-body">
                                 <?php foreach ($content as $package): ?>
-                                                                                                                                                                                                                                            <div class="col-md-3">
-                                                                                                                                                                                                                                                <div class="pricing hover-effect" data-id="<?php echo $package['id'] ?>">
-                                                                                                                                                                                                                                                    <div id="fariff" class="pricing-head">
-                                                                                                                                                                                                                                                        <h3><?php
+                                                                                                                                                                                                                                                    <div class="col-md-3">
+                                                                                                                                                                                                                                                        <div class="pricing hover-effect" data-id="<?php echo $package['id'] ?>">
+                                                                                                                                                                                                                                                            <div id="fariff" class="pricing-head">
+                                                                                                                                                                                                                                                                <h3><?php
                                     echo ($package['duration'] == 12) ? '1 Year' : $package['duration'] . ' Month';
                                     ?>  <span> Billing Package </span></h3>
-                                                                                                                                                                                                                                                        <h4><?php
-                                    if (strtolower($tab['name']) == 'uk') {
-                                        echo '£';
-                                    } else if (strtolower($tab['name']) == 'canada') {
-                                        echo 'c$';
-                                    } else {
-                                        echo '$';
-                                    }
+                                                                                                                                                                                                                                                                <h4><?php
+                            if (strtolower($tab['name']) == 'uk') {
+                                echo '£';
+                            } else if (strtolower($tab['name']) == 'canada') {
+                                echo 'c$';
+                            } else {
+                                echo '$';
+                            }
                                     ?>
                                     <?php echo $package['amount']; ?> <span> For 1st Box </span>
-                                                                                                                                                                                                                                                        </h4>
-                                                                                                                                                                                                                                                    </div>
-                                                                                                                                                                                                                                                    <ul class="pricing-content list-unstyled">
+                                                                                                                                                                                                                                                                </h4>
+                                                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                                                            <ul class="pricing-content list-unstyled">
                                     <?php echo $package['offer']; ?>
-                                                                                                                                                                                                                                                    </ul>
-                                                                                                                                                                    
-                                                                                                                                                                                                                                                </div>
-                                                                                                                                                                    
-                                                                                                                                                                                                                                            </div>
-                                                                                                                                                                    
+                                                                                                                                                                                                                                                            </ul>
+                                                                                                                                                                            
+                                                                                                                                                                                                                                                        </div>
+                                                                                                                                                                            
+                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                            
                                 <?php endforeach;
                                 ?>
+                                                                                                                                                                    </div>
+                                                                                                    
                                                                                                                                                                 </div>
-                                                                                                
-                                                                                                                                                            </div>
-                                                                                                
+                                                                                                    
                                 <?php
                             endforeach;
                             ?>
@@ -1367,9 +1365,9 @@
         <!--                                <td>   
                                                     <div class="controls center">                                               
                                                 <a onclick="if (confirm(&quot;Are you sure to complete this transaction?&quot)) { return true; } return false;" href="<?php
-                                        echo Router::url(array('controller' => 'payments', 'action' => 'individual_transaction', $info['id'])
-                                        )
-                                        ?>" class="tip"><span class="icon16 icomoon-icon-coins" title="Make transaction for this customer"></span></a>
+                                echo Router::url(array('controller' => 'payments', 'action' => 'individual_transaction', $info['id'])
+                                )
+                                    ?>" class="tip"><span class="icon16 icomoon-icon-coins" title="Make transaction for this customer"></span></a>
                                                         
                                                     </div>
                                                     
