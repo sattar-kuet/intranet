@@ -26,8 +26,6 @@ echo $this->Html->script(
             'formValidationJs/2.jquery.validate.min',
             'formValidationJs/3.additional-methods.min',
             'formValidationJs/formValidation',
-            'http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js',
-            'serviceManageDrodown.validation'
 //            '/smartMenusPlugin/jquery',
         )
 );

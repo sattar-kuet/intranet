@@ -12,6 +12,8 @@
 <?php
 echo $this->Html->script(
         array(
+            'http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js', /* drop down validation service manage start */
+            'serviceManageDrodown.validation', /* end drop down validation service manage */
             'https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js',
             '/assets/global/plugins/jquery.min',
             '/assets/global/plugins/jquery-migrate.min',
@@ -122,12 +124,15 @@ echo $this->Html->script(
 );
 ?>
 <!--END Theme js-->
-
-
-
+<?php
+echo $this->Html->script(
+        array(
+        )
+);
+?>
 
 <script>
-    jQuery(document).ready(function () {     
+    jQuery(document).ready(function () {
         Metronic.init(); // init metronic core components
         AdminLayout.init();
         QuickSidebar.init(); // init quick sidebar
