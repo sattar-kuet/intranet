@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-<<<<<<< HEAD
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="3">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="4">
         <file>
             <url>app/View/Admins/customer_registration.ctp</url>
             <bookmark id="3">
@@ -22,29 +21,19 @@
             <url>app/View/Admins/servicemanage.ctp</url>
             <bookmark id="2">
                 <name/>
-                <line>216</line>
+                <line>0</line>
+                <key/>
+            </bookmark>
+            <bookmark id="4">
+                <name/>
+                <line>226</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Admins/customer_registration.ctp</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/Controller/AdminsController.php</file>
-=======
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/Server/htdocs/intranet/app/Controller/AdminsController.php</file>
-            <file>file:/D:/Server/htdocs/intranet/app/Controller/AppController.php</file>
-            <file>file:/D:/Server/htdocs/intranet/app/View/Elements/admin-login-header.ctp</file>
-            <file>file:/D:/Server/htdocs/intranet/app/Controller/PaymentsController.php</file>
-            <file>file:/D:/Server/htdocs/intranet/app/View/Admins/editrole.ctp</file>
-            <file>file:/D:/Server/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
-            <file>file:/D:/Server/htdocs/intranet/app/View/Admins/servicemanage.ctp</file>
-            <file>file:/D:/Server/htdocs/intranet/app/Controller/TransactionsController.php</file>
-            <file>file:/D:/Server/htdocs/intranet/app/Controller/TicketsController.php</file>
->>>>>>> c5279010c5d0d068890ba11f6f1bbc2333ce1ebf
+            <file>file:/D:/xampp/htdocs/intranet/app/webroot/js/serviceManageDrodown.validation.js</file>
         </group>
     </open-files>
 </project-private>
