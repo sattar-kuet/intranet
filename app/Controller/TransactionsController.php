@@ -155,6 +155,7 @@ class TransactionsController extends AppController {
         }
         $this->loadModel('PackageCustomer');
         $customer_info = $this->PackageCustomer->findById($id);
+//        pr($customer_info);exit;
         $c_acc_no = $customer_info['PackageCustomer']['c_acc_no'];
 
 
