@@ -46,3 +46,6 @@
  * the built-in default routes.
  */
 	require CAKE . 'Config' . DS . 'routes.php';
+        
+        /* for pdf reports*/
+        Router::parseExtensions('pdf');
