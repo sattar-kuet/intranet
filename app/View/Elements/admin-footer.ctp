@@ -35,6 +35,7 @@ echo $this->Html->script(
     $(function () {
         $("#e1").daterangepicker();
     });
+        
     $("#e2").daterangepicker({
         presetRanges: [{
                 text: 'Today',
