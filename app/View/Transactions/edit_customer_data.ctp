@@ -15,7 +15,6 @@
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
                 Complete the transactions <small>(individually)</small>
-
             </h3>
             <?php echo $this->Session->flash(); ?>
             <!-- END PAGE HEADER-->
