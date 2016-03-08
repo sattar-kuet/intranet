@@ -98,7 +98,7 @@
                 <div class="portlet">
                     <div class="portlet-title line" style="color:red;">
                         <div class="caption">
-                            <i class="fa fa-envelope-o fa-lg" style="color:red;"></i>Message From Admin
+                            <i class="fa fa-envelope-o fa-lg" style="color:red;"></i>Announcements from admin
                         </div>
                         <!--                        <div class="tools">
                         
