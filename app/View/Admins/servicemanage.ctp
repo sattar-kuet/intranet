@@ -216,17 +216,17 @@
                                 <?php
                                 echo $this->Form->input('status', array(
                                     'type' => 'select',
-                                    'id' => 'ddlist',
+                                    
                                     'options' => Array('ticket' => 'Generate Ticket', 'payment' => 'Customer  Information', 'history' => 'Ticket History'),
                                     'empty' => 'Select Action',
-                                    'class' => 'form-control form-filter input-sm',
+                                    'class' => 'form-control form-filter input-sm required',
                                         )
                                 );
                                 ?>
                                 <br>
                                 <?php
                                 echo $this->Form->button(
-                                        'Go', array('class' => 'btn blue', 'id' => 'btnddlist', 'title' => 'Do this selected action', 'type' => 'submit')
+                                        'Go', array('class' => 'btn blue required', 'title' => 'Do this selected action', 'type' => 'submit')
                                 );
                                 ?>
 

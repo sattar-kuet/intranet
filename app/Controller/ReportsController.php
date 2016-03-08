@@ -5,10 +5,7 @@
  */
 App::uses('SimplePasswordHasher', 'Controller/Component/Auth');
 
-
 class ReportsController extends AppController {
-    
-public $components = array('RequestHandler');
 
     var $layout = 'admin';
 
@@ -23,23 +20,31 @@ public $components = array('RequestHandler');
     function active() {
         $this->loadModel('PackageCustomer');
         $active_customers = $this->PackageCustomer->find('all', array('conditions' => array('PackageCustomer.status' => 'active')));
+//        pr($active_customers);
+//        exit;
         $this->set(compact('active_customers'));
     }
 
     function block() {
-        // increase memory limit in PHP 
-        ini_set('memory_limit', '256M');
         $this->loadModel('PackageCustomer');
         $block_customers = $this->PackageCustomer->find('all', array('conditions' => array('PackageCustomer.status' => 'blocked')));
         $this->set(compact('block_customers'));
     }
-    
-//    public function view(){
-//// increase memory limit in PHP 
-//ini_set('memory_limit', '256M');
-// $reports = $this->Report->find('all');
-//$this->set(compact('reports');
-//} 
+
+     function payment_history() {
+        $this->loadModel('Transaction');
+        $clicked = false;
+        if ($this->request->is('post') || $this->request->is('put')) {
+            $datrange = json_decode($this->request->data['Transaction']['daterange'], true);
+            $conditions = array('Transaction.created >=' => $datrange['start'], 'Transaction.created <=' => $datrange['end']);
+            $transactions = $this->Transaction->find('all', array('conditions' => $conditions));
+//            pr($transactions);
+//            exit;
+            $clicked = true;
+            $this->set(compact('transactions'));
+        }
+        $this->set(compact('clicked'));
+    }
 
 }
 

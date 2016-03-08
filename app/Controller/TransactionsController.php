@@ -205,23 +205,6 @@ class TransactionsController extends AppController {
         $this->set(compact('packageList', 'psettings', 'selected', 'ym'));
     }
 
-
-
-    function payment_history() {
-        $this->loadModel('Transaction');
-        $clicked = false;
-        if ($this->request->is('post') || $this->request->is('put')) {
-            $datrange = json_decode($this->request->data['Transaction']['daterange'], true);
-            $conditions = array('Transaction.created >=' => $datrange['start'], 'Transaction.created <=' => $datrange['end']);
-            $transactions = $this->Transaction->find('all', array('conditions' => $conditions));
-//            pr($transactions);
-//            exit;
-            $clicked = true;
-            $this->set(compact('transactions'));
-        }
-        $this->set(compact('clicked'));
-    }
-
 }
 
 ?>
