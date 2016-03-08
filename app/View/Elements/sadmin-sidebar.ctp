@@ -96,7 +96,7 @@
             </li>
 
 
-            <li 
+<!--            <li 
             <?php
             $payment = array('paymenthistory');
             if (in_array($this->name . '' . $this->action, $payment)):
@@ -111,7 +111,7 @@
                     <span class="title">Payment History</span>
                     <span class="arrow "></span>
                 </a>
-            </li>
+            </li>-->
 
 
             <li 
@@ -135,7 +135,7 @@
                     <!--                    <li
                     <?php if ($this->name . '' . $this->action == 'Ticketscreate'):
                         ?>
-                                                                    class="active"
+                                                                        class="active"
                         <?php
                     endif;
                     ?>
@@ -281,7 +281,7 @@
 
             if (in_array($this->name . '' . $this->action, $transactions)):
                 ?>
-                                        class="active"
+                                            class="active"
                 <?php
             endif;
             ?>
@@ -296,7 +296,7 @@
                     <li
             <?php if ($this->name . '' . $this->action == 'Transactionssearch'):
                 ?>
-                                                class="active"
+                                                    class="active"
                 <?php
             endif;
             ?>
@@ -309,7 +309,7 @@
                     <li
             <?php if ($this->name . '' . $this->action == 'Transactionsexpire_customer'):
                 ?>
-                                                class="active"
+                                                    class="active"
                 <?php
             endif;
             ?>
@@ -378,7 +378,7 @@
 
             <li 
             <?php
-            $reports = array('Reportsactive', 'Reportsblock');
+            $reports = array('Reportsactive', 'Reportsblock','Reportspayment');
 
             if (in_array($this->name . '' . $this->action, $reports)):
                 ?>
@@ -418,6 +418,19 @@
                         <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'block')) ?>">
                             <i class="fa fa-support"></i>
                             Block </a>
+                    </li>
+
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Reportspayment'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'payment_history')) ?>">
+                            <i class="fa fa-support"></i>
+                            Payment History </a>
                     </li>
 
                 </ul>
