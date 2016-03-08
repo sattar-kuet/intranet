@@ -118,16 +118,21 @@ echo $this->Html->script(
             '/assets/admin/pages/scripts/table-editable',
             '/assets/admin/pages/scripts/form-validation',
             'my_form_validation',
+            'http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js', /* drop down validation service manage start */
+            'serviceManageDrodown.validation', /* end drop down validation service manage */
         )
 );
 ?>
 <!--END Theme js-->
-
-
-
+<?php
+echo $this->Html->script(
+        array(
+        )
+);
+?>
 
 <script>
-    jQuery(document).ready(function () {     
+    jQuery(document).ready(function () {
         Metronic.init(); // init metronic core components
         AdminLayout.init();
         QuickSidebar.init(); // init quick sidebar

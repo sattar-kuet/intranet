@@ -8,7 +8,6 @@ App::uses('HttpSocket', 'Network/Http');
 App::uses('AppController', 'Controller');
 
 class TransactionsController extends AppController {
-
     var $layout = 'admin';
     // public $components = array('Auth');
     public $components = array(
@@ -43,6 +42,7 @@ class TransactionsController extends AppController {
     function registered($id = null) {
         $this->loadModel('PackageCustomer');
         $this->loadModel('User');
+       
         $user_id = $this->Auth->user(['id']);
         $customer_info = $this->PackageCustomer->find('all', array('conditions' => array('user_id' => $id)));
         $this->set(compact('customer_info'));
@@ -117,7 +117,7 @@ class TransactionsController extends AppController {
         $loggedUser = $this->Auth->user();
         if ($this->request->is('post') || $this->request->is('put')) {
 
-            //pr($this->request->data); exit;
+           
             $this->loadModel('PackageCustomer');
             $this->loadModel('Ticket');
             $this->loadModel('Track');
@@ -127,6 +127,7 @@ class TransactionsController extends AppController {
 //            $dateObj = $this->request->data['PackageCustomer']['exp_date'];
 //            $this->request->data['PackageCustomer']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
             $this->PackageCustomer->id = $id; //$customer_info['PackageCustomer']['id'];
+//             pr($this->request->data); exit;
             $this->PackageCustomer->save($this->request->data['PackageCustomer']);
             $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -154,6 +155,7 @@ class TransactionsController extends AppController {
         }
         $this->loadModel('PackageCustomer');
         $customer_info = $this->PackageCustomer->findById($id);
+//        pr($customer_info);exit;
         $c_acc_no = $customer_info['PackageCustomer']['c_acc_no'];
 
 
@@ -201,48 +203,6 @@ class TransactionsController extends AppController {
         //    $selected['package'] = $temp[0]['packages']['id'];
         $ym = $this->getYm();
         $this->set(compact('packageList', 'psettings', 'selected', 'ym'));
-    }
-
-    function getYM() {
-        $cy = date('Y');
-        $cm = date('m');
-        $y = array();
-        $n = 0;
-        for ($i = $cy; $n < 40; $i++) {
-            $y[$i] = $i;
-            $n++;
-        }
-        $return['year'] = $y;
-        $return['month'] = array(
-            '01' => '01',
-            '02' => '02',
-            '03' => '03',
-            '04' => '04',
-            '05' => '05',
-            '06' => '06',
-            '07' => '07',
-            '08' => '08',
-            '09' => '09',
-            '10' => '10',
-            '11' => '11',
-            '12' => '12'
-        );
-        return $return;
-    }
-
-    function payment_history() {
-        $this->loadModel('Transaction');
-        $clicked = false;
-        if ($this->request->is('post') || $this->request->is('put')) {
-            $datrange = json_decode($this->request->data['Transaction']['daterange'], true);
-            $conditions = array('Transaction.created >=' => $datrange['start'], 'Transaction.created <=' => $datrange['end']);
-            $transactions = $this->Transaction->find('all', array('conditions' => $conditions));
-//            pr($transactions);
-//            exit;
-            $clicked = true;
-            $this->set(compact('transactions'));
-        }
-        $this->set(compact('clicked'));
     }
 
 }

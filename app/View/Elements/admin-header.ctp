@@ -56,7 +56,7 @@ echo $this->Html->css(
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                             <img alt="" class="img-circle" src="<?php echo $this->webroot; ?>images/support-512.png">
                             <span class="username username-hide-on-mobile">
-                                You</span>
+                                <?php echo $loggedUser;?></span>
                             <i class="fa fa-angle-down"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-default">

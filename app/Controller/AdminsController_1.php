@@ -243,46 +243,6 @@ class AdminsController extends AppController {
         return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
     }
 
-    function getCustomerByParam($param, $field) {
-
-        $condition = $field . " LIKE '%" . $param . "%'";
-        $name = array('first_name', 'last_name', 'middle_name');
-
-        if (in_array($field, $name)) {
-            $condition = " first_name LIKE '%" . $param . "%' OR middle_name LIKE '%" . $param . "%' OR last_name LIKE '%" . $param . "%'";
-        }
-
-        $sql = "SELECT * FROM package_customers "
-                . "LEFT JOIN psettings ON package_customers.psetting_id = psettings.id"
-                . " LEFT JOIN packages ON psettings.package_id = packages.id"
-                . " LEFT JOIN custom_packages ON package_customers.custom_package_id = custom_packages.id" .
-                " WHERE package_customers." . $condition;
-
-   //     echo $sql;
-        $temp = $this->PackageCustomer->query($sql);
-       // pr($temp);
-        $data = array();
-        $customer = array();
-        $package = array();
-        foreach ($temp as $t) {
-            $customer[] = $t['package_customers'];
-            if (isset($data['packages']['id'])) {
-                $psetting = $data['psettings'];
-                $data['packages']['duration'] = $psetting['duration'];
-                $data['packages']['charge'] = $psetting['amount'];
-                $package[] = $data['packages'];
-             }
-//            else {
-//                $data['custom_packages']['name'] = 'Custom';
-//                $package[] = $data['custom_packages'];
-//            }
-        }
-        $data = array();
-        $data['customer'] = $customer;
-        $data['package'] = $package;
-        return $data;
-    }
-
     function servicemanage($id = null) {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Track');
@@ -297,23 +257,68 @@ class AdminsController extends AppController {
             $this->set(compact('customer_info'));
         }
         if ($this->request->is('post')) {
-            $param = $this->request->data['PackageCustomer']['param'];
-            $data['customer'] = array();
-            $data['package'] = array();
-            $data = $this->getCustomerByParam($param, 'cell');
-            if (count($data['customer']) == 0) {
-                $data = $this->getCustomerByParam($param, 'first_name');
-            }
-            if (count($data['customer']) == 0) {
-                $data = $this->getCustomerByParam($param, 'last_name');
-            }
-            if (count($data['customer']) == 0) {
-                $data = $this->getCustomerByParam($param, 'mac');
-            }
-          //  pr($data);
+            // $search_input = $this->request->data['PackageCustomer']['cell'];
+            //remove parenthesis from string
+            //$cell = preg_replace('/\s+/', '', (str_replace(array( '(', ')' ), '', $search_input)));
+            $cell = $this->request->data['PackageCustomer']['cell'];
+            // pr($cell);exit;
             $clicked = true;
-            //FIND customer DETAILS
+            $tickets = $this->Track->query("SELECT * FROM tracks tr
+                        left JOIN tickets t ON tr.ticket_id = t.id
+                        left JOIN users fb ON tr.forwarded_by = fb.id
+                        left JOIN roles fd ON tr.role_id = fd.id
+                        left JOIN users fi ON tr.user_id = fi.id
+                        left JOIN issues i ON tr.issue_id = i.id
+                        left join package_customers pc on tr.package_customer_id = pc.id
+                        WHERE pc.cell = " . $cell . " ORDER BY tr.created DESC");
+            // pr($tickets); exit;
+            $filteredTicket = array();
+            $data = array();
+            $unique = array();
+            $index = 0;
+            foreach ($tickets as $key => $ticket) {
+                $t = $ticket['t']['id'];
+                if (isset($unique[$t])) {
+                    //  echo 'already exist'.$key.'<br/>';
+                    $temp = array('tr' => $ticket['tr'], 'fb' => $ticket['fb'], 'fd' => $ticket['fd'], 'fi' => $ticket['fi'], 'i' => $ticket['i'], 'pc' => $ticket['pc']);
+                    $filteredTicket[$index]['history'][] = $temp;
+                } else {
+                    if ($key != 0)
+                        $index++;
+                    $unique[$t] = 'set';
+                    $filteredTicket[$index]['ticket'] = $ticket['t'];
+                    $temp = array('tr' => $ticket['tr'], 'fb' => $ticket['fb'], 'fd' => $ticket['fd'], 'fi' => $ticket['fi'], 'i' => $ticket['i'], 'pc' => $ticket['pc']);
+                    $filteredTicket[$index]['history'][] = $temp;
+                }
+            }
+            $data = $filteredTicket;
 
+            //FIND PACKAGE DETAILS
+
+            $sql = "SELECT * FROM package_customers "
+                    . "LEFT JOIN psettings ON package_customers.psetting_id = psettings.id"
+                    . " LEFT JOIN packages ON psettings.package_id = packages.id"
+                    . " LEFT JOIN custom_packages ON package_customers.custom_package_id = custom_packages.id" .
+                    " WHERE package_customers.cell = '" . $cell . "'";
+
+            $temp = $this->PackageCustomer->query($sql);
+            $data = array();
+            if (array_key_exists(0, $temp))
+                $data = $temp[0];
+            $customer = $data['package_customers'];
+            $package = array();
+            if (isset($data['packages']['id'])) {
+                $psetting = $data['psettings'];
+                $data['packages']['duration'] = $psetting['duration'];
+                $data['packages']['charge'] = $psetting['amount'];
+                $package = $data['packages'];
+            } else {
+                $data['custom_packages']['name'] = 'Custom';
+                $package = $data['custom_packages'];
+            }
+            $data = array();
+            $data['customer'] = $customer;
+            $data['package'] = $package;
             $this->set(compact('data'));
         }
         $admin_messages = $this->Message->find('all', array('order' => array('Message.created' => 'DESC')));
@@ -475,10 +480,8 @@ class AdminsController extends AppController {
 //                $customer_account = $this->PackageCustomer->query("SELECT MAX(`c_acc_no`) FROM package_customers");
 
                 $customer_account = $this->PackageCustomer->query("SELECT MAX(c_acc_no) FROM package_customers");
-               $this->request->data['PackageCustomer']['c_acc_no'] = $customer_account['0']['0']['MAX(c_acc_no)'] + 1;
-                
-//                $this->request->data['PackageCustomer']['current_isp_speed'] =  $this->request->data;
-//                pr($this->request->data); exit;
+                $this->request->data['PackageCustomer']['c_acc_no'] = $customer_account['0']['0']['MAX(c_acc_no)'] + 1;
+
                 $duration = $this->PackageCustomer->save($this->request->data['PackageCustomer']);
                 $duration1 = $duration['PackageCustomer']['psetting_id'];
 
