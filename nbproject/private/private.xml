@@ -35,6 +35,7 @@
         <group>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             <file>file:/E:/Appxampp/htdocs/intranet/app/View/Admins/customer_registration.ctp</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/View/Elements/sadmin-sidebar.ctp</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
@@ -50,6 +51,8 @@
             <file>file:/D:/xampp/htdocs/intranet/app/View/reports/block.ctp</file>
             <file>file:/D:/xampp/htdocs/intranet/app/View/reports/active.ctp</file>
             <file>file:/D:/xampp/htdocs/intranet/app/Controller/ReportsController.php</file>
+=======
+>>>>>>> d7d0aee73eab42877bcb8f6f7d7278ca79cfe63c
             <file>file:/D:/xampp/htdocs/intranet/app/View/Elements/sadmin-sidebar.ctp</file>
 >>>>>>> 323b423b677195f9773cc78bd806d14e20bdc603
         </group>

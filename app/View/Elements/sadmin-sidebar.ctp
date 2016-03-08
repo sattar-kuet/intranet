@@ -326,7 +326,7 @@
 
             <li 
             <?php
-            $tickets = array('Ticketsaddmassage',);
+            $tickets = array('Ticketsaddmassage','Ticketsmanagemassage');
 
             if (in_array($this->name . '' . $this->action, $tickets)):
                 ?>
@@ -354,6 +354,19 @@
                         <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'addmassage')) ?>">
                             <i class="fa fa-plus"></i>
                             Add Massage</a>
+                    </li>
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Ticketsmanagemassage'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+
+                        <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'managemassage')) ?>">
+                            <i class="fa fa-plus"></i>
+                            Manage Massage</a>
                     </li>
 
 
