@@ -1,19 +1,11 @@
 <div class="page-content-wrapper">
     <div class="page-content">
         <!-- BEGIN PAGE HEADER-->
-
         <div class="page-bar">
             <ul class="page-breadcrumb">
-                <li>
-
-                </li>
-                <li>
-
-
-                </li>
-                <li>
-
-                </li>
+                <li>   </li>
+                <li>   </li>
+                <li>   </li>
             </ul>
             <script></script>
             <div class="page-toolbar">
@@ -31,8 +23,6 @@
             <div class="row invoice-logo">
                 <div class="col-xs-12 invoice-logo-space">
                     <!--<img src="../../assets/admin/pages/media/invoice/walmart.png" class="img-responsive" alt="">-->
-
-
                     <div class="row">
                         <div class="col-xs-6">
                             <h3 class="page-title">
@@ -142,23 +132,6 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-4">
-                    <div class="well">
-                        <address>
-                            <strong>Loop, Inc.</strong><br>
-                            795 Park Ave, Suite 120<br>
-                            San Francisco, CA 94107<br>
-                            <abbr title="Phone">P:</abbr> (234) 145-1810 </address>
-                        <address>
-                            <strong>Full Name</strong><br>
-                            <a href="mailto:#">
-                                first.last@email.com </a>
-                        </address>
-                    </div>
-                </div>
-                
             </div>
         </div>
     </div>
