@@ -43,6 +43,46 @@
                                 This field cannot be blank. Please check below.
                             </div>
                             <?php echo $this->Session->flash(); ?>
+                            
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Assign to (individual)
+                                </label>
+                                <div class="form-group">
+
+                                    <div class="col-md-4">
+                                        <?php
+                                       
+                                        echo $this->Form->input('assign_id', array(
+                                            'type' => 'select',
+                                            'options' => $users,
+                                            'empty' => 'Select From Existing admins panel user',
+                                            'class' => 'form-control select2me',
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Assign to (Department)
+                                </label>
+                                <div class="form-group">
+
+                                    <div class="col-md-4">
+                                        <?php
+                                        echo $this->Form->input('role_id', array(
+                                            'type' => 'select',
+                                            'options' => $roles,
+                                            'empty' => 'Select Department or Role',
+                                            'class' => 'form-control select2me',
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
                             <div class="form-group">
                                 <label class="control-label col-md-3">Message:<span class="required">
                                         *</span>
