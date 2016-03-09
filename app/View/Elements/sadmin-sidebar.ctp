@@ -365,7 +365,7 @@
                         >
 
                         <a href="<?php echo Router::url(array('controller' => 'messages', 'action' => 'manage')) ?>">
-                            <i class="fa fa-plus"></i>
+                            <i class="fa fa-wrench"></i>
                             Manage Message</a>
                     </li>
 

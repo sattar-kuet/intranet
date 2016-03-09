@@ -33,6 +33,7 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/D:/xampp/htdocs/intranet/app/Controller/MessagesController.php</file>
             <file>file:/D:/xampp/htdocs/intranet/app/View/Messages/add.ctp</file>
             <file>file:/D:/xampp/htdocs/intranet/app/View/Messages/manage.ctp</file>
@@ -40,6 +41,30 @@
             <file>file:/D:/xampp/htdocs/intranet/app/Model/User.php</file>
             <file>file:/D:/xampp/htdocs/intranet/app/Controller/AdminsController.php</file>
             <file>file:/D:/xampp/htdocs/intranet/app/View/Messages/edit.ctp</file>
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+            <file>file:/E:/Appxampp/htdocs/intranet/app/View/Admins/customer_registration.ctp</file>
+            <file>file:/E:/Appxampp/htdocs/intranet/app/View/Elements/sadmin-sidebar.ctp</file>
+            <file>file:/E:/Appxampp/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
+            <file>file:/E:/Appxampp/htdocs/intranet/app/View/Admins/servicemanage.ctp</file>
+            <file>file:/E:/Appxampp/htdocs/intranet/app/View/Elements/common-footer.ctp</file>
+=======
+            <file>file:/D:/xampp/htdocs/intranet/app/webroot/js/serviceManageDrodown.validation.js</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/Controller/AdminsController.php</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Admins/servicemanage.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Admins/manage.ctp</file>
+>>>>>>> b7314c08fdb48f0946d395616155a703d1e8b7d3
+=======
+            <file>file:/D:/xampp/htdocs/intranet/app/View/reports/block.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/reports/active.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/Controller/ReportsController.php</file>
+=======
+>>>>>>> d7d0aee73eab42877bcb8f6f7d7278ca79cfe63c
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Elements/sadmin-sidebar.ctp</file>
+>>>>>>> 323b423b677195f9773cc78bd806d14e20bdc603
+>>>>>>> e3d22bd9740bf49e24e57f8c5c66e751eff268e0
         </group>
     </open-files>
 </project-private>

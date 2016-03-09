@@ -124,17 +124,17 @@
                                             </span>-->
 
                                         <a style="color: #E02222; font-weight: bold;" href="#" class="name">
-                                            <?php echo $message['User']['name']; ?> </a>                                                
+                                            <?php echo $message['u']['name']; ?> </a>                                                
                                         <span class="datetime">
                                             at
                                             <?php
-                                            $dt = new DateTime($message['Message']['created']);
+                                            $dt = new DateTime($message['m']['created']);
                                             echo $dt->format('g:i A');
                                             ;
                                             ?>  
                                         </span>
                                         <span class="body">
-                                            <?php echo $message['Message']['message']; ?> 
+                                            <?php echo $message['m']['message']; ?> 
                                         </span>                                      
                                     </li> 
                                     <span class="devider"></span>

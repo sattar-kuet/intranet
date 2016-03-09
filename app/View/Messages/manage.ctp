@@ -14,8 +14,7 @@
         <!-- BEGIN PAGE HEADER-->
         <h3 class="page-title">
             Manage Messages <small>You can edit, delete or block</small>
-        </h3>
-        
+        </h3>        
         <!-- END PAGE HEADER-->
         <!-- BEGIN PAGE CONTENT-->
         <div class="row">
@@ -36,6 +35,7 @@
                         <table class="table table-striped table-hover table-bordered" id="sample_editable_1">                            
                             <thead>
                                 <tr>
+                                    <th>Announcements Date</th>
                                     <th>Announcements</th>
                                     <th>Assign Individual</th>
                                     <th>Assign Department</th>
@@ -46,16 +46,13 @@
                             <tbody>
                                 <?php
                                 foreach ($data as $result):
-//                                    pr($data); exit;
-//                                    $agent = $single['User'];
                                     ?>
                                     <tr >
+                                        <td><?php echo $result['m']['created']; ?></td>
                                         <td><?php echo $result['m']['message']; ?></td>
                                         <td><?php echo $result['u']['individual']; ?></td>
                                         <td><?php echo $result['r']['department']; ?></td>
-                                        <td><?php echo $result['m']['status']; ?></td>
-                                       
-
+                                        <td><?php echo $result['m']['status']; ?></td>                                      
                                         <td>   
                                             <div class="controls center text-center">
                                                 <a  target="_blank" title="edit" href="<?php echo Router::url(array('controller' => 'messages', 'action' => 'edit', $result['m']['id'])) ?>" >
