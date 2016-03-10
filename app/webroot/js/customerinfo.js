@@ -1,16 +1,13 @@
 $(document).ready(function () {
-    $('.toggle').click(function(){
-       var toggleElementID =  $(this).data('id');
-       $('#'+toggleElementID).toggle();
+    $('.toggle').click(function () {
+        var toggleElementID = $(this).data('id');
+        $('#' + toggleElementID).toggle();
     });
-    
-    
     $("#autofillAddrCheck").change(function () {
 
         if (this.checked) {
-            //get the values of the filled fields
+//get the values of the filled fields
             var name = $("#first").val();
-
             var last = $("#last").val();
             var zipcode = $("#zip").val();
             var addressdetails = $("#address").val();
@@ -25,7 +22,6 @@ $(document).ready(function () {
             $("#lastname").val(last);
             $("#zip_code").val(zipcode);
             $("#addressdetail").val(addressdetails);
-
             // then form will be automatically filled .. 
 
         }
@@ -36,7 +32,6 @@ $(document).ready(function () {
             $("#addressdetail").val('');
         }
     });
-
     $('.pmode').change(function () {
         var pmode = $(this).filter(':checked').val();
         if (pmode == 'card') {
@@ -45,9 +40,8 @@ $(document).ready(function () {
             $("#option_check").hide();
             $("#option_moneyorder").hide();
             $("#option_onlinebill").hide();
-
         }
-        if (pmode =='cash') {
+        if (pmode == 'cash') {
             $("#option_card").hide();
             $("#option_cash").show();
             $("#option_check").hide();
@@ -68,7 +62,6 @@ $(document).ready(function () {
             $("#option_check").hide();
             $("#option_moneyorder").show();
             $("#option_onlinebill").hide();
-
         }
         if (pmode == 'online bill') {
             $("#option_card").hide();
@@ -76,9 +69,22 @@ $(document).ready(function () {
             $("#option_check").hide();
             $("#option_moneyorder").hide();
             $("#option_onlinebill").show();
-
         }
 
         console.log(pmode);
     });
+    $('select[name=stb]').change(function () {
+        var value = $(this).val();
+        var htmlContent="";
+        for (var i = 0; i < value; i++) {
+
+            htmlContent = htmlContent + "<div class='row'><div class='col-md-12'><div class='col-md-2 signupfont '>Mac no:</div><div class='col-md-4'><div class='input-list style-4 clearfix'><div><input name='data[PackageCustomer][mac][]' maxlength='220' type='text' id='PackageCustomerMac' class='required' ></div></div></div><div class='col-md-2 signupfont'>System:</div> <div class='col-md-4'><div class='input-list style-4 clearfix'><div><select name='data[PackageCustomer][system][]' class='span12 uniform nostyle select1 required' id='PackageCustomerNumberOfSTBs:s' ><option value=''>Select System</option><option value='CMS1'>CMS1</option><option value='CMS2'>CMS2</option><option value='CMS3'>CMS3</option><option value='PORTAL'>PORTAL</option><option value='PORTAL1'>PORTAL1</option></select></div></div></div>  </div></div>&nbsp;";
+        }
+        
+        $("#addmac").html(htmlContent);
+
+    });
+
+
+
 });

@@ -349,31 +349,33 @@
                                 </div>
                             </div>
                             &nbsp;
-                            <div class="row">
+                            <div class="row" >
                                 <div class="col-md-12 ">
+                                    <!--
+                                                                        <div class="col-md-2 signupfont">
+                                                                            Mac no:
+                                                                        </div>
+                                                                        <div class="col-md-5">
+                                                                            <div class="input-list style-4 clearfix">
+                                                                                <div>
+                                    <?php
+                                    echo $this->Form->input(
+                                            'mac', array(
+                                        'class' => 'required',
+                                        'placeholder' => 'Use comma (,) to seperate multiple mac'
+                                            )
+                                    );
+                                    ?> 
+                                                                                </div>                            
+                                                                            </div>
+                                                                        </div> -->
+
+
 
                                     <div class="col-md-2 signupfont">
-                                        Mac no:
+                                        Select package:
                                     </div>
-                                    <div class="col-md-5">
-                                        <div class="input-list style-4 clearfix">
-                                            <div>
-                                                <?php
-                                                echo $this->Form->input(
-                                                        'mac', array(
-                                                    'class' => 'required',
-                                                    'placeholder' => 'Use comma (,) to seperate multiple mac'
-                                                        )
-                                                );
-                                                ?> 
-                                            </div>                            
-                                        </div>
-                                    </div> 
-
-                                    <div class="col-md-2 signupfont">
-                                        Package:
-                                    </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <?php
                                         echo $this->Form->input('psetting_id', array(
                                             'type' => 'select',
@@ -385,13 +387,90 @@
                                                 )
                                         );
                                         ?>
-                                    </div> 
+                                    </div>
+                                    <div class="col-md-2 signupfont">
+                                        Add New STBs:
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="input-list style-4 clearfix">
+                                            <div>
+                                                <?php
+                                                echo $this->Form->input('stbs', array(
+                                                    'type' => 'select',
+                                                    'options' => array('1' => 1, '2' => 2, '3' => 3, '4' => 4, '5' => 5, '6' => 6, '7' => 7, '8' => 8, '9' => 9, '10' => 10, '11' => 11, '12' => 12),
+                                                    //'default' => $selected['package'],
+                                                    'empty' => 'Select Stbs',
+                                                    'class' => 'span12 uniform nostyle select1',
+                                                    'name' => 'stb'
+                                                        //'id'=>'stbn',
+                                                        )
+                                                );
+                                                ?>
+                                            </div>                            
+                                        </div>
+                                    </div>
                                 </div>
+                            </div>
+                            &nbsp; 
+                            <div class="row">
+                            <?php 
+                            if(is_array($macstb['mac'])):
+                                
+                            
+                            foreach ($macstb['mac'] as $index => $mac):
+                                $system = $macstb['system'][$index];
+                                ?>
+                            <div class="col-md-12">
+                                <div class="col-md-2 signupfont ">Mac no:</div>
+                                <div class="col-md-4">
+                                    <div class="input-list style-4 clearfix">
+                                        <div>
 
+                                            <?php
+                                            echo $this->Form->input(
+                                                    'mac.', array(
+                                                'class' => 'required',
+                                                'placeholder' => 'Optional',
+                                                'value' => $mac
+                                                    )
+                                            );
+                                            ?> 
 
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 signupfont">System:</div>
+                                <div class="col-md-4">
+                                    <div class="input-list style-4 clearfix">
+                                        <div>
+                                            <?php
+                                            echo $this->Form->input('system.', array(
+                                                'type' => 'select',
+                                                'options' => array('CMS1' => 'CMS1', 'CMS2' => 'CMS2', 'CMS3' => 'CMS3', 'PORTAL' => 'PORTAL', 'PORTAL1' => 'PORTAL1'),
+                                                'default' => $system,
+                                                'empty' => 'Select Stbs',
+                                                'class' => 'span12 uniform nostyle select1 required'
+                                                
+                                                    //'id'=>'stbn',
+                                                    )
+                                            );
+                                            ?>
+
+                                        </div>
+                                    </div>
+                                </div>  
+                            </div>
+                            
+                            
+                                <?php
+                            endforeach;
+                            endif;
+                            ?>
+                            </div>
+                            
+                            <div class="" id="addmac">
 
                             </div>
-                            &nbsp;
 
                             <div class="row">
                                 <div class="col-md-12 ">
@@ -530,12 +609,12 @@
                             foreach ($filteredPackage as $n => $single):
                                 $tab = $single['packages'];
                                 ?>
-                                                                                                                                                                    <li <?php
-                            if (!$n) {
-                                echo 'class="active"';
-                            }
+                                                                                                                                                                                    <li <?php
+                                if (!$n) {
+                                    echo 'class="active"';
+                                }
                                 ?>><a data-toggle="tab" href="#<?php echo $tab['id']; ?>"><?php echo $tab['name']; ?></a>
-                                                                                                    
+                                                                                                                    
                             <?php endforeach; ?>
                                                                                         <li><a data-toggle="tab" href="#custom">Custom</a></li>
                                                                                     </ul>
@@ -548,47 +627,47 @@
                                 $tab = $single['packages'];
                                 $content = $single['psettings'];
                                 ?>
-                                                                                                                                                                <div class="tab-pane <?php
-                            if (!$n) {
-                                echo 'active';
-                            }
+                                                                                                                                                                                <div class="tab-pane <?php
+                                if (!$n) {
+                                    echo 'active';
+                                }
                                 ?>" id="<?php echo $tab['id']; ?>" >
-                                                                                                    
-                                                                                                    
-                                                                                                                                                                    <div class="panel-body">
+                                                                                                                    
+                                                                                                                    
+                                                                                                                                                                                    <div class="panel-body">
                                 <?php foreach ($content as $package): ?>
-                                                                                                                                                                                                                                                    <div class="col-md-3">
-                                                                                                                                                                                                                                                        <div class="pricing hover-effect" data-id="<?php echo $package['id'] ?>">
-                                                                                                                                                                                                                                                            <div id="fariff" class="pricing-head">
-                                                                                                                                                                                                                                                                <h3><?php
+                                                                                                                                                                                                                                                                                    <div class="col-md-3">
+                                                                                                                                                                                                                                                                                        <div class="pricing hover-effect" data-id="<?php echo $package['id'] ?>">
+                                                                                                                                                                                                                                                                                            <div id="fariff" class="pricing-head">
+                                                                                                                                                                                                                                                                                                <h3><?php
                                     echo ($package['duration'] == 12) ? '1 Year' : $package['duration'] . ' Month';
                                     ?>  <span> Billing Package </span></h3>
-                                                                                                                                                                                                                                                                <h4><?php
-                            if (strtolower($tab['name']) == 'uk') {
-                                echo '£';
-                            } else if (strtolower($tab['name']) == 'canada') {
-                                echo 'c$';
-                            } else {
-                                echo '$';
-                            }
+                                                                                                                                                                                                                                                                                                <h4><?php
+                                    if (strtolower($tab['name']) == 'uk') {
+                                        echo '£';
+                                    } else if (strtolower($tab['name']) == 'canada') {
+                                        echo 'c$';
+                                    } else {
+                                        echo '$';
+                                    }
                                     ?>
                                     <?php echo $package['amount']; ?> <span> For 1st Box </span>
-                                                                                                                                                                                                                                                                </h4>
-                                                                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                                                                            <ul class="pricing-content list-unstyled">
+                                                                                                                                                                                                                                                                                                </h4>
+                                                                                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                                                                                            <ul class="pricing-content list-unstyled">
                                     <?php echo $package['offer']; ?>
-                                                                                                                                                                                                                                                            </ul>
-                                                                                                                                                                            
-                                                                                                                                                                                                                                                        </div>
-                                                                                                                                                                            
-                                                                                                                                                                                                                                                    </div>
-                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                            </ul>
+                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                            
                                 <?php endforeach;
                                 ?>
-                                                                                                                                                                    </div>
-                                                                                                    
-                                                                                                                                                                </div>
-                                                                                                    
+                                                                                                                                                                                    </div>
+                                                                                                                    
+                                                                                                                                                                                </div>
+                                                                                                                    
                                 <?php
                             endforeach;
                             ?>
@@ -1364,9 +1443,9 @@
         <!--                                <td>   
                                                     <div class="controls center">                                               
                                                 <a onclick="if (confirm(&quot;Are you sure to complete this transaction?&quot)) { return true; } return false;" href="<?php
-                                echo Router::url(array('controller' => 'payments', 'action' => 'individual_transaction', $info['id'])
-                                )
-                                    ?>" class="tip"><span class="icon16 icomoon-icon-coins" title="Make transaction for this customer"></span></a>
+                                        echo Router::url(array('controller' => 'payments', 'action' => 'individual_transaction', $info['id'])
+                                        )
+                                        ?>" class="tip"><span class="icon16 icomoon-icon-coins" title="Make transaction for this customer"></span></a>
                                                         
                                                     </div>
                                                     
