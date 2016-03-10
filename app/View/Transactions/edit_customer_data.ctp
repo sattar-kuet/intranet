@@ -51,16 +51,16 @@
                                 <strong style="color: <?php $color; ?>">
                                     <?php echo $status; ?>
                                 </strong>
-
-
                             </div>
 
-
-
-
                             <div class="tools">
-                                <a href="javascript:;" class="reload">
+                                <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'servicemanage')) ?>" class="btnPrev"  style="color:  #E02222;">Back
                                 </a>
+                            </div>
+                            <div class="tools">
+                                <?php $created = date("Y-m-d", strtotime($customer_info['PackageCustomer']['created'])); ?>
+                                <strong style="color: #191818;;">Since. <?php echo $created; ?></strong>
+                                <?php ?>
                             </div>
                         </div>
                         <div class="portlet-body">
@@ -610,9 +610,15 @@
                                 $tab = $single['packages'];
                                 ?>
                                                                                                                                                                                     <li <?php
+<<<<<<< HEAD
                                 if (!$n) {
                                     echo 'class="active"';
                                 }
+=======
+                            if (!$n) {
+                                echo 'class="active"';
+                            }
+>>>>>>> 359d4e44195913dddee8efd8bacae188b16d457c
                                 ?>><a data-toggle="tab" href="#<?php echo $tab['id']; ?>"><?php echo $tab['name']; ?></a>
                                                                                                                     
                             <?php endforeach; ?>
@@ -628,9 +634,15 @@
                                 $content = $single['psettings'];
                                 ?>
                                                                                                                                                                                 <div class="tab-pane <?php
+<<<<<<< HEAD
                                 if (!$n) {
                                     echo 'active';
                                 }
+=======
+                            if (!$n) {
+                                echo 'active';
+                            }
+>>>>>>> 359d4e44195913dddee8efd8bacae188b16d457c
                                 ?>" id="<?php echo $tab['id']; ?>" >
                                                                                                                     
                                                                                                                     
@@ -643,6 +655,7 @@
                                     echo ($package['duration'] == 12) ? '1 Year' : $package['duration'] . ' Month';
                                     ?>  <span> Billing Package </span></h3>
                                                                                                                                                                                                                                                                                                 <h4><?php
+<<<<<<< HEAD
                                     if (strtolower($tab['name']) == 'uk') {
                                         echo '£';
                                     } else if (strtolower($tab['name']) == 'canada') {
@@ -650,6 +663,15 @@
                                     } else {
                                         echo '$';
                                     }
+=======
+                            if (strtolower($tab['name']) == 'uk') {
+                                echo '£';
+                            } else if (strtolower($tab['name']) == 'canada') {
+                                echo 'c$';
+                            } else {
+                                echo '$';
+                            }
+>>>>>>> 359d4e44195913dddee8efd8bacae188b16d457c
                                     ?>
                                     <?php echo $package['amount']; ?> <span> For 1st Box </span>
                                                                                                                                                                                                                                                                                                 </h4>

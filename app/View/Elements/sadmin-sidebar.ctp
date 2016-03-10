@@ -326,9 +326,9 @@
 
             <li 
             <?php
-            $tickets = array('Ticketsaddmassage','Ticketsmanagemassage');
+            $messages = array('Messagesadd','Messagesmanage');
 
-            if (in_array($this->name . '' . $this->action, $tickets)):
+            if (in_array($this->name . '' . $this->action, $messages)):
                 ?>
                     class="active"
                     <?php
@@ -338,12 +338,12 @@
 
                 <a href="javascript:;">
                     <i class="fa fa-envelope"></i>
-                    <span class="title">Massage  Management</span>
+                    <span class="title">Message  Management</span>
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
                     <li
-                    <?php if ($this->name . '' . $this->action == 'Ticketsaddmassage'):
+                    <?php if ($this->name . '' . $this->action == 'Messagesadd'):
                         ?>
                             class="active"
                             <?php
@@ -351,12 +351,12 @@
                         ?>
                         >
 
-                        <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'addmassage')) ?>">
+                        <a href="<?php echo Router::url(array('controller' => 'messages', 'action' => 'add')) ?>">
                             <i class="fa fa-plus"></i>
-                            Add Massage</a>
+                            Add Message</a>
                     </li>
                     <li
-                    <?php if ($this->name . '' . $this->action == 'Ticketsmanagemassage'):
+                    <?php if ($this->name . '' . $this->action == 'Messagesmanage'):
                         ?>
                             class="active"
                             <?php
@@ -364,9 +364,9 @@
                         ?>
                         >
 
-                        <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'managemassage')) ?>">
-                            <i class="fa fa-plus"></i>
-                            Manage Massage</a>
+                        <a href="<?php echo Router::url(array('controller' => 'messages', 'action' => 'manage')) ?>">
+                            <i class="fa fa-wrench"></i>
+                            Manage Message</a>
                     </li>
 
 

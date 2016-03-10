@@ -258,9 +258,9 @@ class AdminsController extends AppController {
                 . " LEFT JOIN custom_packages ON package_customers.custom_package_id = custom_packages.id" .
                 " WHERE package_customers." . $condition;
 
-   //     echo $sql;
+        //     echo $sql;
         $temp = $this->PackageCustomer->query($sql);
-       // pr($temp);
+        // pr($temp);
         $data = array();
         $customer = array();
         $package = array();
@@ -271,7 +271,7 @@ class AdminsController extends AppController {
                 $data['packages']['duration'] = $psetting['duration'];
                 $data['packages']['charge'] = $psetting['amount'];
                 $package[] = $data['packages'];
-             }
+            }
 //            else {
 //                $data['custom_packages']['name'] = 'Custom';
 //                $package[] = $data['custom_packages'];
@@ -310,15 +310,16 @@ class AdminsController extends AppController {
             if (count($data['customer']) == 0) {
                 $data = $this->getCustomerByParam($param, 'mac');
             }
-          //  pr($data);
             $clicked = true;
             //FIND customer DETAILS
-
             $this->set(compact('data'));
         }
-        $admin_messages = $this->Message->find('all', array('order' => array('Message.created' => 'DESC')));
+        $loggedUser = $this->Auth->user();
+        $uid = $loggedUser['id'];
+        $rid = $loggedUser['Role']['id'];
+        $admin_messages = $this->Message->query("SELECT * FROM messages m
+        LEFT JOIN users u ON u.id = m.user_id  WHERE assign_id = $uid OR m.role_id = $rid");
         $cells = $this->PackageCustomer->find('list', array('fields' => array('cell', 'cell')));
-//        $homes = $this->PackageCustomer->find('list', array('fields' => array('home', 'home')));
         $this->set(compact('cells', 'clicked', 'admin_messages'));
     }
 
@@ -475,8 +476,8 @@ class AdminsController extends AppController {
 //                $customer_account = $this->PackageCustomer->query("SELECT MAX(`c_acc_no`) FROM package_customers");
 
                 $customer_account = $this->PackageCustomer->query("SELECT MAX(c_acc_no) FROM package_customers");
-               $this->request->data['PackageCustomer']['c_acc_no'] = $customer_account['0']['0']['MAX(c_acc_no)'] + 1;
-                
+                $this->request->data['PackageCustomer']['c_acc_no'] = $customer_account['0']['0']['MAX(c_acc_no)'] + 1;
+
 //                $this->request->data['PackageCustomer']['current_isp_speed'] =  $this->request->data;
 //                pr($this->request->data); exit;
                 $duration = $this->PackageCustomer->save($this->request->data['PackageCustomer']);
