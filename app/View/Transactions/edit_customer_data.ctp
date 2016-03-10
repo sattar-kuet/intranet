@@ -51,16 +51,16 @@
                                 <strong style="color: <?php $color; ?>">
                                     <?php echo $status; ?>
                                 </strong>
-
-
                             </div>
 
-
-
-
                             <div class="tools">
-                                <a href="javascript:;" class="reload">
+                                <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'servicemanage')) ?>" class="btnPrev"  style="color:  #E02222;">Back
                                 </a>
+                            </div>
+                            <div class="tools">
+                                <?php $created = date("Y-m-d", strtotime($customer_info['PackageCustomer']['created'])); ?>
+                                <strong style="color: #191818;;">Since. <?php echo $created; ?></strong>
+                                <?php ?>
                             </div>
                         </div>
                         <div class="portlet-body">
@@ -530,12 +530,12 @@
                             foreach ($filteredPackage as $n => $single):
                                 $tab = $single['packages'];
                                 ?>
-                                                                                                                                                                    <li <?php
+                                                                                                                                                                                    <li <?php
                             if (!$n) {
                                 echo 'class="active"';
                             }
                                 ?>><a data-toggle="tab" href="#<?php echo $tab['id']; ?>"><?php echo $tab['name']; ?></a>
-                                                                                                    
+                                                                                                                    
                             <?php endforeach; ?>
                                                                                         <li><a data-toggle="tab" href="#custom">Custom</a></li>
                                                                                     </ul>
@@ -548,22 +548,22 @@
                                 $tab = $single['packages'];
                                 $content = $single['psettings'];
                                 ?>
-                                                                                                                                                                <div class="tab-pane <?php
+                                                                                                                                                                                <div class="tab-pane <?php
                             if (!$n) {
                                 echo 'active';
                             }
                                 ?>" id="<?php echo $tab['id']; ?>" >
-                                                                                                    
-                                                                                                    
-                                                                                                                                                                    <div class="panel-body">
+                                                                                                                    
+                                                                                                                    
+                                                                                                                                                                                    <div class="panel-body">
                                 <?php foreach ($content as $package): ?>
-                                                                                                                                                                                                                                                    <div class="col-md-3">
-                                                                                                                                                                                                                                                        <div class="pricing hover-effect" data-id="<?php echo $package['id'] ?>">
-                                                                                                                                                                                                                                                            <div id="fariff" class="pricing-head">
-                                                                                                                                                                                                                                                                <h3><?php
+                                                                                                                                                                                                                                                                                    <div class="col-md-3">
+                                                                                                                                                                                                                                                                                        <div class="pricing hover-effect" data-id="<?php echo $package['id'] ?>">
+                                                                                                                                                                                                                                                                                            <div id="fariff" class="pricing-head">
+                                                                                                                                                                                                                                                                                                <h3><?php
                                     echo ($package['duration'] == 12) ? '1 Year' : $package['duration'] . ' Month';
                                     ?>  <span> Billing Package </span></h3>
-                                                                                                                                                                                                                                                                <h4><?php
+                                                                                                                                                                                                                                                                                                <h4><?php
                             if (strtolower($tab['name']) == 'uk') {
                                 echo '£';
                             } else if (strtolower($tab['name']) == 'canada') {
@@ -573,22 +573,22 @@
                             }
                                     ?>
                                     <?php echo $package['amount']; ?> <span> For 1st Box </span>
-                                                                                                                                                                                                                                                                </h4>
-                                                                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                                                                            <ul class="pricing-content list-unstyled">
+                                                                                                                                                                                                                                                                                                </h4>
+                                                                                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                                                                                            <ul class="pricing-content list-unstyled">
                                     <?php echo $package['offer']; ?>
-                                                                                                                                                                                                                                                            </ul>
-                                                                                                                                                                            
-                                                                                                                                                                                                                                                        </div>
-                                                                                                                                                                            
-                                                                                                                                                                                                                                                    </div>
-                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                            </ul>
+                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                            
                                 <?php endforeach;
                                 ?>
-                                                                                                                                                                    </div>
-                                                                                                    
-                                                                                                                                                                </div>
-                                                                                                    
+                                                                                                                                                                                    </div>
+                                                                                                                    
+                                                                                                                                                                                </div>
+                                                                                                                    
                                 <?php
                             endforeach;
                             ?>
