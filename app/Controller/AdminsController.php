@@ -310,15 +310,17 @@ class AdminsController extends AppController {
             if (count($data['customer']) == 0) {
                 $data = $this->getCustomerByParam($param, 'mac');
             }
-            //  pr($data);
+
             $clicked = true;
             //FIND customer DETAILS
-
             $this->set(compact('data'));
         }
-        $admin_messages = $this->Message->find('all', array('order' => array('Message.created' => 'DESC')));
+        $loggedUser = $this->Auth->user();
+        $uid = $loggedUser['id'];
+        $rid = $loggedUser['Role']['id'];
+        $admin_messages = $this->Message->query("SELECT * FROM messages m
+        LEFT JOIN users u ON u.id = m.user_id  WHERE assign_id = $uid OR m.role_id = $rid");
         $cells = $this->PackageCustomer->find('list', array('fields' => array('cell', 'cell')));
-//        $homes = $this->PackageCustomer->find('list', array('fields' => array('home', 'home')));
         $this->set(compact('cells', 'clicked', 'admin_messages'));
     }
 
@@ -455,7 +457,7 @@ class AdminsController extends AppController {
                 //For Custom Package data insert
                 $data4CustomPackage['CustomPackage']['duration'] = $this->request->data['PackageCustomer']['duration'];
                 $data4CustomPackage['CustomPackage']['charge'] = $this->request->data['PackageCustomer']['charge'];
-
+                
                 if (!empty($this->request->data['PackageCustomer']['charge'])) {
                     $cp = $this->CustomPackage->save($data4CustomPackage);
 

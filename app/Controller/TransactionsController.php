@@ -117,8 +117,13 @@ class TransactionsController extends AppController {
         $loggedUser = $this->Auth->user();
         if ($this->request->is('post') || $this->request->is('put')) {
 
+          // pr($this->request->data['PackageCustomer']);  exit;
+           $this->request->data['PackageCustomer']['mac'] = json_encode($this->request->data['PackageCustomer']['mac']);
+           $this->request->data['PackageCustomer']['system'] = json_encode($this->request->data['PackageCustomer']['system']);
            
+         
             $this->loadModel('PackageCustomer');
+            $this->loadModel('CustomPackage');
             $this->loadModel('Ticket');
             $this->loadModel('Track');
             $tmsg = 'Information of  ' . $this->request->data['PackageCustomer']['first_name'] . '  ' .
@@ -128,6 +133,20 @@ class TransactionsController extends AppController {
 //            $this->request->data['PackageCustomer']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
             $this->PackageCustomer->id = $id; //$customer_info['PackageCustomer']['id'];
 //             pr($this->request->data); exit;
+            
+
+            //For Custom Package data insert
+            $data4CustomPackage['CustomPackage']['duration'] = $this->request->data['PackageCustomer']['duration'];
+            $data4CustomPackage['CustomPackage']['charge'] = $this->request->data['PackageCustomer']['charge'];
+            if (!empty($this->request->data['PackageCustomer']['charge'])) {
+                //save data into custom_package table
+                    $cp = $this->CustomPackage->save($data4CustomPackage);
+                    unset($cp['CustomPackage']['PackageCustomer']);
+                    //from custom_package table, save custom package id to package_customer table
+                    $this->request->data['PackageCustomer']['custom_package_id'] = $cp['CustomPackage']['id'];
+                }   
+            //Ends Custom_package data entry  
+                
             $this->PackageCustomer->save($this->request->data['PackageCustomer']);
             $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -155,7 +174,10 @@ class TransactionsController extends AppController {
         }
         $this->loadModel('PackageCustomer');
         $customer_info = $this->PackageCustomer->findById($id);
-//        pr($customer_info);exit;
+        
+        $macstb['mac'] = json_decode($customer_info['PackageCustomer']['mac']);
+        $macstb['system'] = json_decode($customer_info['PackageCustomer']['system']);
+       // pr($macstb);exit;
         $c_acc_no = $customer_info['PackageCustomer']['c_acc_no'];
 
 
@@ -163,7 +185,7 @@ class TransactionsController extends AppController {
         $pcustomer_id = $this->request->data = $customer_info;    //transaction history view by customer id
         $transactions = $this->Transaction->find('all', array('conditions' => array('Transaction.package_customer_id' => $id)));
         
-        $this->set(compact('transactions','c_acc_no'));
+        $this->set(compact('transactions','c_acc_no','macstb'));
         $response = $this->getAllTickectsByCustomer($id);
         $data = $response['data'];
 //        pr($data);        exit;

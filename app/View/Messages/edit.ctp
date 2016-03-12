@@ -16,7 +16,7 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-plus"></i>Add Message
+                            <i class="fa fa-plus"></i>Edit message information
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="reload">
@@ -25,7 +25,7 @@
                     </div>
                     <div class="portlet-body form">
                         <!-- BEGIN FORM-->
-                        <?php
+                      <?php
                         echo $this->Form->create('Message', array(
                             'inputDefaults' => array(
                                 'label' => false,
@@ -34,20 +34,54 @@
                             'id' => 'form_sample_3',
                             'class' => 'form-horizontal',
                             'novalidate' => 'novalidate'
+                            
                                 )
                         );
                         ?>
                         <div class="form-body">
                             <div class="alert alert-danger display-hide">
                                 <button class="close" data-close="alert"></button>
-                                This field cannot be blank. Please check below.
+                                You have some form errors. Please check below.
                             </div>
                             <?php echo $this->Session->flash(); ?>
+                             
                             <div class="form-group">
-                                <label class="control-label col-md-3">Message:<span class="required">
-                                        *</span>
+                                <label class="control-label col-md-3">Assign to (individual) :
                                 </label>
-                                <div class="col-md-9">
+                                <div class="col-md-4">
+                                      <?php
+                                    echo $this->Form->input('assign_id', array(
+                                        'type' => 'select',
+                                        'options' => $users,
+                                        'empty' => 'Select Category',
+                                        'class' => 'form-control select2me required pclass',
+                                            )
+                                    );
+                                    ?>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Assign to (Department) :
+                                </label>
+                                <div class="col-md-4">
+                                   
+                                     <?php
+                                    echo $this->Form->input('role_id', array(
+                                        'type' => 'select',
+                                        'options' => $roles,
+                                        'empty' => 'Select Category',
+                                        'class' => 'form-control select2me required pclass',
+                                            )
+                                    );
+                                    ?>
+                                </div>
+                            </div>                          
+                            
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Message :
+                                </label>
+                                <div class="col-md-4">
                                     <?php
                                     echo $this->Form->input(
                                             'message', array(
@@ -64,10 +98,10 @@
                         </div>
                         <div class="form-actions">
                             <div class="row">
-                                <div class="col-md-offset-6 col-md-4">
+                                <div class="col-md-offset-7 col-md-4" style=" float: left; margin: 0px; padding: 0px; text-align: right;">
                                     <?php
                                     echo $this->Form->button(
-                                            'Add', array('class' => 'btn green', 'type' => 'submit')
+                                            'Upadate', array('class' => 'btn green', 'type' => 'submit')
                                     );
                                     ?>
                                 </div>

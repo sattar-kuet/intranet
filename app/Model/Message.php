@@ -2,7 +2,7 @@
 
 class Message extends AppModel {
 
-    var $belongsTo = array('User');
+    var $belongsTo = array('User','Role');
     
 }
 
