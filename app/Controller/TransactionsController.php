@@ -117,7 +117,11 @@ class TransactionsController extends AppController {
         $loggedUser = $this->Auth->user();
         if ($this->request->is('post') || $this->request->is('put')) {
 
+          // pr($this->request->data['PackageCustomer']);  exit;
+           $this->request->data['PackageCustomer']['mac'] = json_encode($this->request->data['PackageCustomer']['mac']);
+           $this->request->data['PackageCustomer']['system'] = json_encode($this->request->data['PackageCustomer']['system']);
            
+         
             $this->loadModel('PackageCustomer');
             $this->loadModel('Ticket');
             $this->loadModel('Track');
@@ -155,7 +159,10 @@ class TransactionsController extends AppController {
         }
         $this->loadModel('PackageCustomer');
         $customer_info = $this->PackageCustomer->findById($id);
-//        pr($customer_info);exit;
+        
+        $macstb['mac'] = json_decode($customer_info['PackageCustomer']['mac']);
+        $macstb['system'] = json_decode($customer_info['PackageCustomer']['system']);
+       // pr($macstb);exit;
         $c_acc_no = $customer_info['PackageCustomer']['c_acc_no'];
 
 
@@ -163,7 +170,7 @@ class TransactionsController extends AppController {
         $pcustomer_id = $this->request->data = $customer_info;    //transaction history view by customer id
         $transactions = $this->Transaction->find('all', array('conditions' => array('Transaction.package_customer_id' => $id)));
         
-        $this->set(compact('transactions','c_acc_no'));
+        $this->set(compact('transactions','c_acc_no','macstb'));
         $response = $this->getAllTickectsByCustomer($id);
         $data = $response['data'];
 //        pr($data);        exit;

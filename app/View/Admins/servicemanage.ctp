@@ -98,7 +98,7 @@
                 <div class="portlet">
                     <div class="portlet-title line" style="color:red;">
                         <div class="caption">
-                            <i class="fa fa-envelope-o fa-lg" style="color:red;"></i>Message From Admin
+                            <i class="fa fa-envelope-o fa-lg" style="color:red;"></i>Announcements From Admin 
                         </div>
                         <!--                        <div class="tools">
                         
@@ -124,17 +124,17 @@
                                             </span>-->
 
                                         <a style="color: #E02222; font-weight: bold;" href="#" class="name">
-                                            <?php echo $message['User']['name']; ?> </a>                                                
+                                            <?php echo $message['u']['name']; ?> </a>                                                
                                         <span class="datetime">
                                             at
                                             <?php
-                                            $dt = new DateTime($message['Message']['created']);
+                                            $dt = new DateTime($message['m']['created']);
                                             echo $dt->format('g:i A');
                                             ;
                                             ?>  
                                         </span>
                                         <span class="body">
-                                            <?php echo $message['Message']['message']; ?> 
+                                            <?php echo $message['m']['message']; ?> 
                                         </span>                                      
                                     </li> 
                                     <span class="devider"></span>
