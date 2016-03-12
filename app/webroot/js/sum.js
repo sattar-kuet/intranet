@@ -94,6 +94,7 @@ $(document).ready(function() {
         $("div#regularpackage").show();
         $("#selctMonth").removeClass("required");
         $("#inputAmount").removeClass("required");
+        $('#inputAmount').val('');
     }
   });
  
