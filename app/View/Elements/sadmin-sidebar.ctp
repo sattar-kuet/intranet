@@ -391,7 +391,7 @@
 
             <li 
             <?php
-            $reports = array('Reportsactive', 'Reportsblock','Reportspayment');
+            $reports = array('Reportsactive', 'Reportsblock','Reportspayment','Reportsnewcustomers');
 
             if (in_array($this->name . '' . $this->action, $reports)):
                 ?>
@@ -428,9 +428,9 @@
                         endif;
                         ?>
                         >
-                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'block')) ?>">
+                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'cancel')) ?>">
                             <i class="fa fa-support"></i>
-                            Block </a>
+                            Cancel </a>
                     </li>
 
                     <li
@@ -445,13 +445,22 @@
                             <i class="fa fa-support"></i>
                             Payment History </a>
                     </li>
-
+                    
+                     <li
+                    <?php if ($this->name . '' . $this->action == 'Reportsnewcustomers'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'newcustomers')) ?>">
+                            <i class="fa fa-support"></i>
+                            New Customers</a>
+                    </li>
                 </ul>
             </li>
-
         </ul>
         <!-- END SIDEBAR MENU -->
     </div>
-
-
     <!-- END SIDEBAR -->
