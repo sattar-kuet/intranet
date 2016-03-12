@@ -258,9 +258,9 @@ class AdminsController extends AppController {
                 . " LEFT JOIN custom_packages ON package_customers.custom_package_id = custom_packages.id" .
                 " WHERE package_customers." . $condition;
 
-   //     echo $sql;
+        //     echo $sql;
         $temp = $this->PackageCustomer->query($sql);
-       // pr($temp);
+        // pr($temp);
         $data = array();
         $customer = array();
         $package = array();
@@ -271,7 +271,7 @@ class AdminsController extends AppController {
                 $data['packages']['duration'] = $psetting['duration'];
                 $data['packages']['charge'] = $psetting['amount'];
                 $package[] = $data['packages'];
-             }
+            }
 //            else {
 //                $data['custom_packages']['name'] = 'Custom';
 //                $package[] = $data['custom_packages'];
@@ -310,7 +310,7 @@ class AdminsController extends AppController {
             if (count($data['customer']) == 0) {
                 $data = $this->getCustomerByParam($param, 'mac');
             }
-          //  pr($data);
+            //  pr($data);
             $clicked = true;
             //FIND customer DETAILS
 
@@ -475,8 +475,8 @@ class AdminsController extends AppController {
 //                $customer_account = $this->PackageCustomer->query("SELECT MAX(`c_acc_no`) FROM package_customers");
 
                 $customer_account = $this->PackageCustomer->query("SELECT MAX(c_acc_no) FROM package_customers");
-               $this->request->data['PackageCustomer']['c_acc_no'] = $customer_account['0']['0']['MAX(c_acc_no)'] + 1;
-                
+                $this->request->data['PackageCustomer']['c_acc_no'] = $customer_account['0']['0']['MAX(c_acc_no)'] + 1;
+
 //                $this->request->data['PackageCustomer']['current_isp_speed'] =  $this->request->data;
 //                pr($this->request->data); exit;
                 $duration = $this->PackageCustomer->save($this->request->data['PackageCustomer']);
@@ -503,6 +503,19 @@ class AdminsController extends AppController {
 
         $ym = $this->getYm();
         $this->set(compact('ym'));
+    }
+
+    public function print_queue() {
+        $this->loadModel('PackageCustomer');
+        $current_date = date('Y-m-d');
+        $future_date = date('Y-m-d', strtotime("+25 days"));
+        $expire_customer = $this->PackageCustomer->find('all', array('conditions' => array('package_exp_date >' => $future_date)));
+        $this->set(compact('expire_customer'));
+        //pr($expire_customer);exit;
+    }
+
+    function pdf() {
+        $this->layout = 'blank';
     }
 
 }
