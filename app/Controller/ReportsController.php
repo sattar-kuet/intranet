@@ -29,7 +29,19 @@ class ReportsController extends AppController {
         $this->set(compact('block_customers'));
     }
 
-     function payment_history() {
+    function paidcustomers() {
+        $this->loadModel('Transaction');
+        $paid_customers = $this->Transaction->find('all', array('conditions' => array('Transaction.due' => '0')));
+        $this->set(compact('paid_customers'));
+    }
+    
+     function duecustomers() {
+        $this->loadModel('Transaction');
+        $due_customers = $this->Transaction->find('all', array('conditions' => array('NOT' => array('Transaction.due' => array(0)))));
+        $this->set(compact('due_customers'));
+    }
+
+    function payment_history() {
         $this->loadModel('Transaction');
         $clicked = false;
         if ($this->request->is('post') || $this->request->is('put')) {
@@ -41,8 +53,27 @@ class ReportsController extends AppController {
         }
         $this->set(compact('clicked'));
     }
-    
-     function newcustomers() {
+
+    function expcustomers() {
+        $this->loadModel('Transaction');
+        $clicked = false;
+        if ($this->request->is('post') || $this->request->is('put')) {
+            $datrange = json_decode($this->request->data['Transaction']['daterange'], true);
+            $ds = new DateTime($datrange['start']);
+            $timestamp = $ds->getTimestamp(); // Unix timestamp
+            $startd = $ds->format('m/y'); // 2003-10-16
+            $de = new DateTime($datrange['end']);
+            $timestamp = $de->getTimestamp(); // Unix timestamp
+            $endd = $de->format('m/y'); // 2003-10-16
+            $conditions = array('Transaction.exp_date >=' => $startd, 'Transaction.exp_date <=' => $endd);
+            $transactions = $this->Transaction->find('all', array('conditions' => $conditions));
+            $clicked = true;
+            $this->set(compact('transactions'));
+        }
+        $this->set(compact('clicked'));
+    }
+
+    function newcustomers() {
         $this->loadModel('Transaction');
         $clicked = false;
         if ($this->request->is('post') || $this->request->is('put')) {

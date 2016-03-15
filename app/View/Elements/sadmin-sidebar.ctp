@@ -391,7 +391,7 @@
 
             <li 
             <?php
-            $reports = array('Reportsactive', 'Reportsblock','Reportspayment','Reportsnewcustomers');
+            $reports = array('Reportsduecustomers', 'Reportspaidcustomers','Reportsactive', 'Reportsblock','Reportspayment','Reportsnewcustomers','Reportsexpcustomers');
 
             if (in_array($this->name . '' . $this->action, $reports)):
                 ?>
@@ -457,6 +457,46 @@
                         <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'newcustomers')) ?>">
                             <i class="fa fa-support"></i>
                             New Customers</a>
+                    </li>
+                    
+                    
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Reportspaidcustomers'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'paidcustomers')) ?>">
+                            <i class="fa fa-support"></i>
+                            Paid Customers</a>
+                    </li>
+                    
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Reportsduecustomers'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'duecustomers')) ?>">
+                            <i class="fa fa-support"></i>
+                            Due Customers</a>
+                    </li>
+                    
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Reportsexpcustomers'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'expcustomers')) ?>">
+                            <i class="fa fa-support"></i>
+                            Expire Customers</a>
                     </li>
                 </ul>
             </li>

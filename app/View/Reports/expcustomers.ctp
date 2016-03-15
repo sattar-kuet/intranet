@@ -23,7 +23,7 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-plus"></i>New Customers
+                            <i class="fa fa-plus"></i>Expired Customers
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="reload">
@@ -50,7 +50,6 @@
                                 You have some form errors. Please check below.
                             </div>
                             <?php echo $this->Session->flash(); ?>
-
                             <div class="form-group">                                
                                 <label class="control-label col-md-3" for="required">Select date</label>
                                 <div class="col-md-4">
@@ -86,7 +85,6 @@
         </div>
         <!-- END PAGE CONTENT -->
         <?php if ($clicked): ?>    
-
             <div class="page-content-wrapper" style="margin: 0px; padding: 0px;">
                 <div class="">
                     <!-- BEGIN PAGE HEADER-->
@@ -112,11 +110,11 @@
                             <div class="col-xs-12 invoice-logo-space">
                                 <div class="row">
                                     <div class="col-xs-12" style="text-align: center; margin-bottom: 41px;">
-                                        <h4 class="page-title"  style="color: #353535; font-weight: bold;"><u>New Customers</u></h4>
+                                        <h4 class="page-title"  style="color: #353535; font-weight: bold;"><u>Expired Customers</u></h4>
                                         <div>Total Cable USA</div>
                                         <div>P.O. BOX 770068,</div>
                                         <div>WOODSIDE, NY 11377</div>
-                                    </div>                                   
+                                   </div>                                   
                                 </div>
                             </div>
                             <div class="col-xs-6">
@@ -163,6 +161,7 @@
                                             <th class="hidden-480">
                                                 Address
                                             </th>
+
                                         </tr>
                                     </thead>
                                     <tbody>                                    
@@ -177,7 +176,7 @@
                                                 <td><?php echo $info['Transaction']['due']; ?></td>
                                                 <td><?php echo $info['Transaction']['exp_date']; ?></td>
                                                 <td><?php echo $info['Transaction']['zip_code']; ?></td>
-                                                <td><?php echo $info['Transaction']['address']; ?></td>                                                
+                                                <td><?php echo $info['Transaction']['address']; ?></td>                                                 
                                             </tr>
                                         <?php endforeach; ?>                           
                                     </tbody>
@@ -186,7 +185,7 @@
                         </div>
                     </div>
                 </div>
-            </div>                             
+            </div>                            
         <?php endif; ?>
     </div>
 </div>

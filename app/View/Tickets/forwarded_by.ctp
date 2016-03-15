@@ -278,6 +278,15 @@
                                                                 )
                                                         );
                                                         ?>
+                                                        
+                                                         <?php
+                                                        echo $this->Form->input('forwarded_by', array(
+                                                            'type' => 'hidden',
+                                                            'value' => $lasthistory['forwarded_by'],
+                                                                )
+                                                        );
+                                                        ?>
+                                                        
                                                         <?php
                                                         echo $this->Form->input('role_id', array(
                                                             'type' => 'hidden',
@@ -366,6 +375,16 @@
                                                                 )
                                                         );
                                                         ?>
+                                                        
+                                                         <?php
+                                                        echo $this->Form->input('forwarded_by', array(
+                                                            'type' => 'hidden',
+                                                            'value' => $lasthistory['forwarded_by'],
+                                                                )
+                                                        );
+                                                        ?>
+                                                        
+                                                        
                                                         <?php
                                                         echo $this->Form->input('role_id', array(
                                                             'type' => 'hidden',
