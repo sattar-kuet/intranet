@@ -70,6 +70,7 @@
                                             <ol>
                                                 <?php
                                                 $lasthistory = $single['history'][0]['tr'];
+//                                                 pr($lasthistory); exit;
                                                 foreach ($single['history'] as $history):
                                                     ?>
                                                     <li>
@@ -251,6 +252,7 @@
 
                                                         <!-- BEGIN FORM-->
                                                         <?php
+                                                            
                                                         echo $this->Form->create('Track', array(
                                                             'inputDefaults' => array(
                                                                 'label' => false,
@@ -271,6 +273,15 @@
                                                                 )
                                                         );
                                                         ?>
+                                                        
+                                                        <?php
+                                                        echo $this->Form->input('forwarded_by', array(
+                                                            'type' => 'hidden',
+                                                            'value' => $lasthistory['forwarded_by'],
+                                                                )
+                                                        );
+                                                        ?>
+                                                        
                                                         <?php
                                                         echo $this->Form->input('user_id', array(
                                                             'type' => 'hidden',
@@ -359,6 +370,16 @@
                                                                 )
                                                         );
                                                         ?>
+                                                        
+                                                         
+                                                        <?php
+                                                        echo $this->Form->input('forwarded_by', array(
+                                                            'type' => 'hidden',
+                                                            'value' => $lasthistory['forwarded_by'],
+                                                                )
+                                                        );
+                                                        ?>
+                                                        
                                                         <?php
                                                         echo $this->Form->input('user_id', array(
                                                             'type' => 'hidden',
