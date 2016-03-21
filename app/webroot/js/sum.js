@@ -88,6 +88,8 @@ $(document).ready(function() {
         $("div#regularpackage").hide();
         $("#selctMonth").addClass("required");
         $("#inputAmount").addClass("required");
+        $("#psettingId").removeClass("required");
+        $('#psettingId').val('');
     }
     else{
         $("div#custompackage").hide();
