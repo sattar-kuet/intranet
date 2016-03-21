@@ -540,6 +540,7 @@
                             </div>
                             &nbsp;
                             <div class="row">
+                                <div class="col-md-12 ">
                                     <div class="col-md-2 signupfont">
                                         Account No.
 
@@ -590,7 +591,8 @@
                                     ?>
                                 </div>
                             </div>
-                            <?php echo $this->Form->end(); ?>  
+                            <?php echo $this->Form->end(); ?> 
+                            </div>
                         </div>
                     </div>
 
