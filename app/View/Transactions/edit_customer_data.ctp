@@ -540,7 +540,6 @@
                             </div>
                             &nbsp;
                             <div class="row">
-                                <div class="col-md-12 ">
                                     <div class="col-md-2 signupfont">
                                         Account No.
 
@@ -560,10 +559,10 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-1 signupfont">
-                                        Created
+                                    <div class="col-md-2 signupfont">
+                                        Installation Date:
                                     </div>
-                                    <div class="col-md-5">
+                                    <div class="col-md-4">
                                         <div class="input-list style-4 clearfix">
                                             <div>
                                                 <?php
@@ -576,9 +575,6 @@
                                             </div>                            
                                         </div>
                                     </div>
-
-
-                                </div>
                             </div>
                             &nbsp;
 
