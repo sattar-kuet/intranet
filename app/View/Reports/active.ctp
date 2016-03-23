@@ -10,7 +10,7 @@
             <script></script>
             <div class="page-toolbar">
                 <div class="btn-group pull-right">
-                    <a class="btn btn-lg blue hidden-print margin-bottom-5" target="_blank" onclick="window.print();">
+                    <a class="btn btn-lg blue hidden-print margin-bottom-5" target="_blank" onclick="printDiv('printableArea')">
                         Print <i class="fa fa-print"></i>
                     </a>
                 </div>
@@ -19,7 +19,7 @@
         <!-- END PAGE HEADER-->
         <!-- BEGIN PAGE CONTENT-->
 
-        <div class="invoice">
+        <div class="invoice" id="printableArea">
             <div class="row invoice-logo">
                 <div class="col-xs-12 invoice-logo-space">
                     <!--<img src="../../assets/admin/pages/media/invoice/walmart.png" class="img-responsive" alt="">-->
@@ -89,9 +89,6 @@
                                 <th class="hidden-480">
                                     Registration Date
                                 </th>
-                                <th>
-                                    Status
-                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -123,9 +120,6 @@
                                     </td>
                                     <td>
                                         <?php echo $results['PackageCustomer']['created']; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $results['PackageCustomer']['status']; ?>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>                           

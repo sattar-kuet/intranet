@@ -421,7 +421,7 @@
                             Active</a>
                     </li>
                     <li
-                    <?php if ($this->name . '' . $this->action == 'Reportsblocked'):
+                    <?php if ($this->name . '' . $this->action == 'Reportscancel'):
                         ?>
                             class="active"
                             <?php
@@ -434,7 +434,7 @@
                     </li>
 
                     <li
-                    <?php if ($this->name . '' . $this->action == 'Reportspayment'):
+                    <?php if ($this->name . '' . $this->action == 'Reportspayment_history'):
                         ?>
                             class="active"
                             <?php
