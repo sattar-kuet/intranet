@@ -211,6 +211,31 @@ class TransactionsController extends AppController {
         $ym = $this->getYm();
         $this->set(compact('packageList', 'psettings', 'selected', 'ym'));
     }
+    
+    function updatecardinfo($id = null){
+        
+        $this->loadModel('PackageCustomer');
+         if ($this->request->is('post')){
+            $upadatecard=$this->request->data['PackageCustomer'] ;
+            
+        $dateObj = $this->request->data['PackageCustomer']['exp_date'];
+//        pr($dateObj);
+//                exit();
+        $this->request->data['PackageCustomer']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
+        //$this->PackageCustomer->id = $id; //$customer_info['PackageCustomer']['id'];
+//             pr($this->request->data); exit;
+            $this->PackageCustomer->save($this->request->data['PackageCustomer']);
+            
+            $msg = '<div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong> Customer information updated successfully </strong>
+            </div>';
+            return $this->redirect($this->referer());
+          //  $this->Session->setFlash($msg);
+//        pr($this->request->data);
+//        exit;
+    }
+    }
 
 }
 
