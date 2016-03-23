@@ -3,8 +3,44 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/E:/Appxampp/htdocs/intranet/app/Controller/TransactionsController.php</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
+=======
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/Controller/TransactionsController.php</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/Controller/ReportsController.php</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Transactions/expire_customer.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/Controller/TicketsController.php</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Elements/sadmin-sidebar.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Reports/expcustomers.ctp</file>
+=======
+<<<<<<< HEAD
+            <file>file:/D:/appxampp/htdocs/intranet/app/View/Admins/print_queue.ctp</file>
+>>>>>>> b0cd25581df3196eb9955c873a06145cbca883e1
+            <file>file:/D:/appxampp/htdocs/intranet/app/View/Elements/sadmin-sidebar.ctp</file>
+            <file>file:/D:/appxampp/htdocs/intranet/app/Controller/TransactionsController.php</file>
+            <file>file:/D:/appxampp/htdocs/intranet/app/View/Layouts/blank.ctp</file>
+            <file>file:/D:/appxampp/htdocs/intranet/app/Controller/AdminsController.php</file>
+<<<<<<< HEAD
+            <file>file:/D:/appxampp/htdocs/intranet/app/webroot/js/sum.js</file>
+            <file>file:/D:/appxampp/htdocs/intranet/app/View/Admins/servicemanage.ctp</file>
+            <file>file:/D:/appxampp/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
+=======
+            <file>file:/D:/appxampp/htdocs/intranet/app/View/Admins/pdf.ctp</file>
+=======
+            <file>file:/D:/Server/htdocs/intranet/app/Controller/AdminsController.php</file>
+            <file>file:/D:/Server/htdocs/intranet/app/View/Messages/add.ctp</file>
+            <file>file:/D:/Server/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
+            <file>file:/D:/Server/htdocs/intranet/app/View/Admins/editrole.ctp</file>
+            <file>file:/D:/Server/htdocs/intranet/app/View/Tickets/assigned_to_me.ctp</file>
+>>>>>>> ba472d1be46ff9cbc1ffed6748f8f0af4ffd3b61
+>>>>>>> f98d9ec3e6892f1e41708bb1944b4aa844a08684
+>>>>>>> b0cd25581df3196eb9955c873a06145cbca883e1
+>>>>>>> a1886a6d4016e906ad72b2ca9900b4a21b06df47
         </group>
     </open-files>
 </project-private>

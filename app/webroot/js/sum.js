@@ -78,4 +78,27 @@ $(document).ready(function(){
       
 });
 });
+
+//in edit coustomer info page, showing custom package option 
+$(document).ready(function() {
+    
+  $('#customcheckbox').click(function(){
+    if($(this).is(":checked")){
+        $("div#custompackage").show();
+        $("div#regularpackage").hide();
+        $("#selctMonth").addClass("required");
+        $("#inputAmount").addClass("required");
+        $("#psettingId").removeClass("required");
+        $('#psettingId').val('');
+    }
+    else{
+        $("div#custompackage").hide();
+        $("div#regularpackage").show();
+        $("#selctMonth").removeClass("required");
+        $("#inputAmount").removeClass("required");
+        $('#inputAmount').val('');
+    }
+  });
+ 
+});
     
