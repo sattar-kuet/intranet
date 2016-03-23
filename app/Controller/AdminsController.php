@@ -247,18 +247,30 @@ class AdminsController extends AppController {
 
         $condition = $field . " LIKE '%" . $param . "%'";
         $name = array('first_name', 'last_name', 'middle_name');
-
-        if (in_array($field, $name)) {
-            $condition = " first_name LIKE '%" . $param . "%' OR middle_name LIKE '%" . $param . "%' OR last_name LIKE '%" . $param . "%'";
-        }
-
         $sql = "SELECT * FROM package_customers "
                 . "LEFT JOIN psettings ON package_customers.psetting_id = psettings.id"
                 . " LEFT JOIN packages ON psettings.package_id = packages.id"
                 . " LEFT JOIN custom_packages ON package_customers.custom_package_id = custom_packages.id" .
                 " WHERE package_customers." . $condition;
+       
+        if (in_array($field, $name)) {
+            $condition = " first_name LIKE '%" . $param . "%' OR middle_name LIKE '%" . $param . "%' OR last_name LIKE '%" . $param . "%'";
+            $sql = "SELECT * FROM package_customers "
+                    . "LEFT JOIN psettings ON package_customers.psetting_id = psettings.id"
+                    . " LEFT JOIN packages ON psettings.package_id = packages.id"
+                    . " LEFT JOIN custom_packages ON package_customers.custom_package_id = custom_packages.id" .
+                    " WHERE package_customers." . $condition;
+        } else if ($field == "full_name") {
+            $condition = " CONCAT(package_customers.first_name,' ',package_customers.middle_name,' ',package_customers.last_name) = '" . $param . "'";
+            $sql = "SELECT * FROM package_customers "
+                    . "LEFT JOIN psettings ON package_customers.psetting_id = psettings.id"
+                    . " LEFT JOIN packages ON psettings.package_id = packages.id"
+                    . " LEFT JOIN custom_packages ON package_customers.custom_package_id = custom_packages.id" .
+                    " WHERE " . $condition;
+        }
 
-        //     echo $sql;
+
+         //    echo '<br/>'.$sql.'<br/>';
         $temp = $this->PackageCustomer->query($sql);
         // pr($temp);
         $data = array();
@@ -307,6 +319,9 @@ class AdminsController extends AppController {
             if (count($data['customer']) == 0) {
                 $data = $this->getCustomerByParam($param, 'last_name');
             }
+            if (count($data['customer']) == 0) {
+               $data = $this->getCustomerByParam($param, 'full_name');
+           }
             if (count($data['customer']) == 0) {
                 $data = $this->getCustomerByParam($param, 'mac');
             }
@@ -391,15 +406,12 @@ class AdminsController extends AppController {
         $this->tariffplan(); //Call tarrifplan fuction to show packagese
 
         if ($this->request->is('post')) {
-
             $this->request->data['PackageCustomer']['psetting_id'] = $this->request->data['psetting_id'];
             unset($this->request->data['psetting_id']);
             $this->PackageCustomer->set($this->request->data);
             $this->CustomPackage->set($this->request->data);
             $msg = '';
-
             if ($this->PackageCustomer->validates()) {
-
                 $result = array();
                 if (!empty($this->request->data['PackageCustomer']['ch_signature']['name'])) {
                     $result = $this->processImg($this->request->data['PackageCustomer'], 'ch_signature');
@@ -407,7 +419,6 @@ class AdminsController extends AppController {
                 } else {
                     $this->request->data['PackageCustomer']['ch_signature'] = '';
                 }
-
                 //ID Card Upload
                 if (!empty($this->request->data['PackageCustomer']['id_card']['name'])) {
                     $result = $this->processImg($this->request->data['PackageCustomer'], 'id_card');
@@ -415,7 +426,6 @@ class AdminsController extends AppController {
                 } else {
                     $this->request->data['PackageCustomer']['id_card'] = '';
                 }
-
                 //Money order Upload
                 if (!empty($this->request->data['PackageCustomer']['money_order']['name'])) {
                     $result = $this->processImg($this->request->data['PackageCustomer'], 'money_order');

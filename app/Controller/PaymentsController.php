@@ -5,7 +5,6 @@ require_once(APP . 'Vendor' . DS . 'class.upload.php');
 
 //App::uses('AnetAPI', 'net\authorize\api\contract\v1');
 //App::uses('AnetController', 'net\authorize\api\controller');
-
 use net\authorize\api\contract\v1 as AnetAPI;
 use net\authorize\api\controller as AnetController;
 
@@ -36,7 +35,6 @@ class PaymentsController extends AppController {
                 'check_image' => WWW_ROOT . 'check_images' . DS
             )
         );
-
         if (!is_dir($this->img_config['parent_dir'])) {
             mkdir($this->img_config['parent_dir']);
         }
@@ -83,9 +81,9 @@ class PaymentsController extends AppController {
         $this->layout = 'ajax';
         // Common setup for API credentials  
         $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
-     //   $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
+        //   $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
         $merchantAuthentication->setName("42UHbr9Qa9B"); // live mode
-       // $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
+        // $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
         $merchantAuthentication->setTransactionKey("6468X36RkrKGm3k6"); // live mode
         $refId = 'ref' . time();
 // Create the payment data for a credit card
@@ -127,8 +125,8 @@ class PaymentsController extends AppController {
         $request->setRefId($refId);
         $request->setTransactionRequest($transactionRequestType);
         $controller = new AnetController\CreateTransactionController($request);
-        $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX); //Testing
-        //$response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION); // live
+         $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX); 
+    //    $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION); 
         //  pr($response); exit;
         $this->request->data['Transaction']['error_msg'] = '';
         $this->request->data['Transaction']['status'] = '';
