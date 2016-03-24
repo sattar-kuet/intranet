@@ -175,13 +175,13 @@
                                             Address
                                         </th>
                                         <th class="hidden-480">
-                                            Mac no.
+                                            Mac
                                         </th>
-                                        <th>
+                                        <th class="hidden-480">
                                             Pay Mode
                                         </th>
-                                        <th>
-                                            Error Msg
+                                        <th class="hidden-480">
+                                            Payment Details
                                         </th>
                                         <th class="hidden-480">
                                             Paid Amount
@@ -190,23 +190,10 @@
                                             Due
                                         </th>
                                         <th class="hidden-480">
-                                            Exp Date
+                                            Received By
                                         </th>
                                         <th class="hidden-480">
-                                            CVV Code
-                                        </th>
-                                        <th>
-                                            Zip Code
-                                        </th>
-                                        
-                                        <th class="hidden-480">
-                                            Check Info
-                                        </th>
-                                        <th class="hidden-480">
-                                            Cash By
-                                        </th>
-                                        <th class="hidden-480">
-                                            Trans Action Time
+                                            Transaction Date
                                         </th>                                           
                                     </tr>
                                 </thead>
@@ -221,7 +208,7 @@
                                                 <?php echo $customer_info['c_acc_no']; ?>
                                             </td>
                                             <td>
-                                                <?php echo $customer_info['middle_name']; ?>
+                                                <a href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit_customer_data', $customer_info['id'])) ?>" target="_blank"><?php echo $customer_info['middle_name']. " " . $customer_info['last_name']; ?></a> 
                                             </td>
                                             <td>
                                                 <?php echo $customer_info['street']; ?>, <?php echo $customer_info['apartment']; ?>
@@ -234,11 +221,6 @@
                                             <td><?php echo $info['error_msg']; ?></td>
                                             <td><?php echo $info['paid_amount']; ?></td>
                                             <td><?php echo $info['due']; ?></td>
-                                            <td><?php echo $info['exp_date']; ?></td>
-                                            <td><?php echo $info['cvv_code']; ?></td>
-                                            <td><?php echo $info['zip_code']; ?></td>
-                                            
-                                            <td><?php echo $info['check_info']; ?></td>
                                             <td><?php echo $info['cash_by']; ?></td>
                                             <td><?php echo $info['created']; ?></td>
                                         </tr>

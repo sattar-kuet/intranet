@@ -140,15 +140,18 @@
                                     <thead>
                                         <tr> 
                                             <th class="hidden-480">
-                                                Registration Date
-                                            </th> 
-                                            <th>
+                                                Account no.
+                                            </th>
+                                            <th class="hidden-480">
                                                 Name
                                             </th>
-                                            <th>
-                                                Email
+                                            <th class="hidden-480">
+                                                Address
                                             </th>
-                                            <th>
+                                            <th class="hidden-480">
+                                                Mac
+                                            </th>
+                                            <th class="hidden-480">
                                                 Cell
                                             </th>
                                             <th class="hidden-480">
@@ -157,11 +160,8 @@
                                             <th class="hidden-480">
                                                 Exp Date
                                             </th>
-                                            <th>
-                                                Zip Code
-                                            </th>
                                             <th class="hidden-480">
-                                                Address
+                                                Registration Date
                                             </th>
                                         </tr>
                                     </thead>
@@ -170,14 +170,14 @@
                                         foreach ($transactions as $info):
                                             ?>
                                             <tr>
-                                                <td><?php echo $info['Transaction']['created']; ?></td>
-                                                <td > <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'deteails', $info['Transaction']['id'])) ?>" target="_blank" ><?php echo $info['PackageCustomer']['first_name'] . ' ' . $info['PackageCustomer']['middle_name'] . ' ' . $info['PackageCustomer']['last_name']; ?></a></td>
-                                                <td><?php echo $info['PackageCustomer']['email']; ?></td>
+                                                <td><?php echo $info['PackageCustomer']['c_acc_no']; ?></td>
+                                                <td> <a href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit_customer_data', $info['PackageCustomer']['id'])) ?>" target="_blank"><?php echo $info['PackageCustomer']['middle_name']. " " . $info['PackageCustomer']['last_name']; ?></a> </td>
+                                                <td><?php echo $info['Transaction']['address']; ?></td>
+                                                <td><?php echo $info['PackageCustomer']['mac']; ?></td>
                                                 <td><?php echo $info['PackageCustomer']['cell']; ?></td>
                                                 <td><?php echo $info['Transaction']['due']; ?></td>
                                                 <td><?php echo $info['Transaction']['exp_date']; ?></td>
-                                                <td><?php echo $info['Transaction']['zip_code']; ?></td>
-                                                <td><?php echo $info['Transaction']['address']; ?></td>                                                
+                                                <td><?php echo $info['PackageCustomer']['created']; ?></td>                                                
                                             </tr>
                                         <?php endforeach; ?>                           
                                     </tbody>

@@ -75,9 +75,6 @@
                         <thead>
                             <tr>
                                 <th>
-                                    #
-                                </th>
-                                <th>
                                     Account No
                                 </th>
                                 <th class="hidden-480">
@@ -107,16 +104,13 @@
                                 ?>
                                 <tr>
                                     <td>                          
-
-                                    </td>
-                                    <td>                          
                                         <?php echo $results['PackageCustomer']['c_acc_no']; ?>
                                     </td>
                                     <td>
-                                        <?php echo $results['PackageCustomer']['middle_name']; ?>
+                                        <a href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit_customer_data', $results['PackageCustomer']['id'])) ?>" target="_blank"><?php echo $results['PackageCustomer']['middle_name']. " " . $results['PackageCustomer']['last_name']; ?></a> 
                                     </td>
                                     <td class="hidden-480">
-                                        <?php echo $results['PackageCustomer']['street']; ?>, <?php echo $results['PackageCustomer']['apartment']; ?>                            
+                                        <?php echo $results['PackageCustomer']['street'] .", ". $results['PackageCustomer']['apartment']; ?>                            
                                     </td>
                                     <td>
                                         <?php echo $results['PackageCustomer']['mac']; ?>

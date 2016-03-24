@@ -66,9 +66,6 @@
                         <thead>
                             <tr>
                                 <th>
-                                    #
-                                </th>
-                                <th>
                                     Account No
                                 </th>
                                 <th class="hidden-480">
@@ -77,14 +74,11 @@
                                 <th class="hidden-480">
                                     Address
                                 </th>
-                                <th class="hidden-480">
-                                    Cell
-                                </th>
-                                <th class="hidden-480">
-                                    Email
-                                </th>
                                 <th>
                                     Mac
+                                </th>
+                                <th class="hidden-480">
+                                    Cell
                                 </th>
                                 <th class="hidden-480">
                                     Registration Date
@@ -98,25 +92,19 @@
                                 ?>
                                 <tr>
                                     <td>                          
-
-                                    </td>
-                                    <td>                          
                                         <?php echo $results['PackageCustomer']['c_acc_no']; ?>
                                     </td>
                                     <td>
-                                        <?php echo $results['PackageCustomer']['middle_name']; ?>
+                                        <a href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit_customer_data', $results['PackageCustomer']['id'])) ?>" target="_blank"><?php echo $results['PackageCustomer']['middle_name']. " " . $results['PackageCustomer']['last_name']; ?></a> 
                                     </td>
                                     <td class="hidden-480">
-                                        <?php echo $results['PackageCustomer']['street']; ?>, <?php echo $results['PackageCustomer']['apartment']; ?>                            
-                                    </td>
-                                    <td class="hidden-480">
-                                        <?php echo $results['PackageCustomer']['cell']; ?>
-                                    </td>
-                                    <td class="hidden-480">
-                                        <?php echo $results['PackageCustomer']['email']; ?>
+                                        <?php echo $results['PackageCustomer']['street'] .", ". $results['PackageCustomer']['apartment']; ?>                            
                                     </td>
                                     <td>
                                         <?php echo $results['PackageCustomer']['mac']; ?>
+                                    </td>
+                                    <td class="hidden-480">
+                                        <?php echo $results['PackageCustomer']['cell']; ?>
                                     </td>
                                     <td>
                                         <?php echo $results['PackageCustomer']['created']; ?>
