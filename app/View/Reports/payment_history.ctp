@@ -190,7 +190,7 @@
                                             Due
                                         </th>
                                         <th class="hidden-480">
-                                            Received By
+                                            Submitted By
                                         </th>
                                         <th class="hidden-480">
                                             Transaction Date
@@ -202,6 +202,7 @@
                                     foreach ($transactions as $single):
                                         $info = $single['Transaction'];
                                         $customer_info = $single['PackageCustomer'];
+                                        $user_info = $single['User'];
                                         ?>
                                         <tr>
                                             <td>
@@ -218,10 +219,24 @@
                                             </td>
 
                                             <td><?php echo $info['pay_mode']; ?></td>
-                                            <td><?php echo $info['error_msg']; ?></td>
+                                            <td>
+                                            <?php
+                                            if($info['pay_mode']=='card'){
+                                                if($info['status']== 'success'){
+                                                    echo 'Successful';
+                                                }
+                                                else {echo $info['error_msg'];}
+                                            }
+                                            if($info['pay_mode']=='check' || $info['pay_mode']=='money order' || $info['pay_mode']=='online bill'){?>
+                                                <a target="_blank" href="<?php echo $this->webroot; ?>check_images/<?php echo $info['check_image'];?>">    <img src="<?php echo $this->webroot; ?>check_images/<?php echo $info['check_image'];?>" alt="logo" class="logo-default" style="height: 50px; width: 100px;"></a>
+
+                                           <?php }
+                                            
+                                            ?>
+                                            </td>
                                             <td><?php echo $info['paid_amount']; ?></td>
                                             <td><?php echo $info['due']; ?></td>
-                                            <td><?php echo $info['cash_by']; ?></td>
+                                            <td><?php echo $user_info['name']; ?></td>
                                             <td><?php echo $info['created']; ?></td>
                                         </tr>
                                     <?php endforeach; ?>                           
