@@ -595,7 +595,158 @@
                             </div>
                         </div>
                     </div>
+                 <!-- -------------Begin card info update--------------------------->
 
+                    <div class="portlet box green">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-list-ul"></i>Card Info Update 
+                            </div>
+
+                            <div class="tools">
+                                <a  class="reload toggle"data-id="updateinfo">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="row display-hide" id="updateinfo"> 
+                                <div class="col-md-12">
+                                    <?php
+                                    echo $this->Form->create('PackageCustomer', array(
+                                        'inputDefaults' => array(
+                                            'label' => false,
+                                            'div' => false
+                                        ),
+                                        'class' => 'form-horizontal',
+                                        'novalidate' => 'novalidate',
+                                        'url' => array('controller' => 'transactions', 'action' => 'updatecardinfo')
+                                            )
+                                    );
+                                    ?>
+
+                                    <?php
+                                    echo $this->Form->input(
+                                            'id', array(
+                                        'type' => 'hidden',
+                                        'value' => $this->params['pass'][0],
+                                      
+                                    ));
+                                    ?>
+                                    <div class="row">
+                                        <div class="col-md-3 signupfont" style="padding-right: 0px;">
+                                            Card no: 
+                                        </div>
+                                        <div class="col-md-9">
+                                            <?php
+                                            echo $this->Form->input(
+                                                    'card_check_no', array(
+                                                'type' => 'text',
+                                                'value' => '',
+                                                'class' => 'form-control input-sm required'
+                                            ));
+                                            ?>
+                                        </div>
+                                    </div>
+
+                                    &nbsp;                                                        
+
+                                    <div class="row">
+                                        <div class="col-md-3 signupfont">
+                                            Exp. Date:
+                                        </div>
+                                        <div class="col-md-4">
+                                            <?php
+                                            echo $this->Form->input('exp_date.year', array(
+                                                'type' => 'select',
+                                                'options' => $ym['year'],
+                                                'empty' => 'Select Year',
+                                                'class' => 'span12 uniform nostyle select1  required',
+                                                'div' => array('class' => 'span12 ')
+                                                    )
+                                            );
+                                            ?>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <?php
+                                            echo $this->Form->input('exp_date.month', array(
+                                                'type' => 'select',
+                                                'options' => $ym['month'],
+                                                'empty' => 'Select Month',
+                                                'class' => 'span12 uniform nostyle   select1 required',
+                                                'div' => array('class' => 'span12 ')
+                                                    )
+                                            );
+                                            ?>
+                                        </div>
+                                    </div>
+
+                                    &nbsp;
+                                    <div class="row">
+                                        <div class="col-md-3 signupfont">
+                                            CVV Code: 
+                                        </div>
+                                        <div class="col-md-4">
+                                            <?php
+                                            echo $this->Form->input(
+                                                    'cvv_code', array(
+                                                'type' => 'text',
+                                                'value' => '',
+                                                'class' => 'form-control input-sm required'
+                                            ));
+                                            ?>
+                                        </div>
+                                    </div>
+                                    &nbsp;
+                                    <div class="row">
+                                        <div class="col-md-3 signupfont">
+                                            Address on Card: 
+                                        </div>
+                                        <div class="col-md-4">
+                                            <?php
+                                            echo $this->Form->input(
+                                                    'zip', array(
+                                                'type' => 'text',
+                                                'class' => 'form-control input-sm required',
+                                                'placeholder' => 'zip code',
+                                             
+                                            ));
+                                            ?>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <?php
+                                            echo $this->Form->input(
+                                                    'address_on_card', array(
+                                                'type' => 'text',
+                                                'value' => '',
+                                                'class' => 'form-control input-sm',
+                                                'placeholder' => 'detail (optional)',
+                                               
+                                            ));
+                                            ?>
+                                        </div>
+                                    </div>
+                                    &nbsp;
+                                    <div class="row">
+                                        <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20"> 
+                                            <?php
+                                            echo $this->Form->button(
+                                                    'Update Card Information', array(
+                                                'class' => 'btn btn-primary submitbtn green',
+                                                'type' => 'submit',
+                                                'id' => ''
+                                            ));
+                                            ?>
+                                        </div>
+                                    </div>
+                                    &nbsp;
+                                    <?php echo $this->form->end(); ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+      <!-------------------------------------END CARD INFO UPDATE---------------------->
+      
                     <!-- BEGIN EXAMPLE TABLE PORTLET-->
                     <div class="portlet box green">
                         <div class="portlet-title">
@@ -1236,7 +1387,7 @@
                 </div>
             </div>
         </div>
-        <!-------------payment history start----------------->
+             <!-------------payment history start----------------->
         <div  class="col-md-12 col-sm-12">
             <div class="portlet box green">
                 <div class="portlet-title">
