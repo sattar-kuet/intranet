@@ -38,11 +38,7 @@
                                 //pr($years);exit;
                                 $status = '';
                                 $color = '';
-<<<<<<< HEAD
-                                if ($years > 2 && $years < 3) {
-=======
                                 if ($years > 1 && $years < 3) {
->>>>>>> a1886a6d4016e906ad72b2ca9900b4a21b06df47
                                     $status = "Gold Customer";
                                     $color = 'gold;';
                                 } else if ($years >= 3) {
@@ -346,15 +342,6 @@
                                     <div id="custompackage"  style="<?php if($checkMark == FALSE){echo 'display: none;';} else {echo '';} ?>">
                                         <div class="col-md-2">
                                         <?php
-<<<<<<< HEAD
-                                        echo $this->Form->input('psetting_id', array(
-                                            'type' => 'select',
-                                            'options' => $packageList,
-                                            //'default' => $selected['package'],
-                                            'empty' => 'Select Package Type',
-                                            'class' => 'span12 uniform nostyle select1 required',
-                                            'div' => array('class' => 'span12')
-=======
                                         $arrCategory = array("1" => "1 Month", "3" => "3 Month", "6" => "6 Month", "12" => "1 Year");
                                         echo $this->Form->input(
                                                 'duration', array(
@@ -364,7 +351,6 @@
                                             'options' => $arrCategory,
                                             'label' => false,
                                             'empty' => '--Select Month--',
->>>>>>> a1886a6d4016e906ad72b2ca9900b4a21b06df47
                                                 )
                                         );
                                         ?>
@@ -609,8 +595,7 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Begin card info update-->
+                 <!-- -------------Begin card info update--------------------------->
 
                     <div class="portlet box green">
                         <div class="portlet-title">
@@ -719,11 +704,11 @@
                                         <div class="col-md-4">
                                             <?php
                                             echo $this->Form->input(
-                                                    'zip_code', array(
+                                                    'zip', array(
                                                 'type' => 'text',
                                                 'class' => 'form-control input-sm required',
                                                 'placeholder' => 'zip code',
-                                                'id' => 'zip_code'
+                                             
                                             ));
                                             ?>
                                         </div>
@@ -736,7 +721,7 @@
                                                 'value' => '',
                                                 'class' => 'form-control input-sm',
                                                 'placeholder' => 'detail (optional)',
-                                                'id' => 'addressdetail'
+                                               
                                             ));
                                             ?>
                                         </div>
@@ -760,8 +745,8 @@
                             </div>
                         </div>
                     </div>
-                    <!--END CARD INFO UPDATE-->
-
+      <!-------------------------------------END CARD INFO UPDATE---------------------->
+      
                     <!-- BEGIN EXAMPLE TABLE PORTLET-->
                     <div class="portlet box green">
                         <div class="portlet-title">
@@ -1402,7 +1387,7 @@
                 </div>
             </div>
         </div>
-        <!-------------payment history start----------------->
+             <!-------------payment history start----------------->
         <div  class="col-md-12 col-sm-12">
             <div class="portlet box green">
                 <div class="portlet-title">
@@ -1711,7 +1696,6 @@
                                                                 echo $this->Form->input('user_id', array(
                                                                     'type' => 'hidden',
                                                                     'value' => $lasthistory['user_id'],
-<<<<<<< HEAD
                                                                         )
                                                                 );
                                                                 ?>
@@ -1719,22 +1703,10 @@
                                                                 echo $this->Form->input('role_id', array(
                                                                     'type' => 'hidden',
                                                                     'value' => $lasthistory['role_id'],
-=======
->>>>>>> a1886a6d4016e906ad72b2ca9900b4a21b06df47
                                                                         )
                                                                 );
                                                                 ?>
                                                                 <?php
-<<<<<<< HEAD
-=======
-                                                                echo $this->Form->input('role_id', array(
-                                                                    'type' => 'hidden',
-                                                                    'value' => $lasthistory['role_id'],
-                                                                        )
-                                                                );
-                                                                ?>
-                                                                <?php
->>>>>>> a1886a6d4016e906ad72b2ca9900b4a21b06df47
                                                                 echo $this->Form->input('issue_id', array(
                                                                     'type' => 'hidden',
                                                                     'value' => $lasthistory['issue_id'],
@@ -1813,8 +1785,6 @@
                                                                 echo $this->Form->input('user_id', array(
                                                                     'type' => 'hidden',
                                                                     'value' => $lasthistory['user_id'],
-<<<<<<< HEAD
-=======
                                                                         )
                                                                 );
                                                                 ?>
@@ -1822,21 +1792,10 @@
                                                                 echo $this->Form->input('role_id', array(
                                                                     'type' => 'hidden',
                                                                     'value' => $lasthistory['role_id'],
->>>>>>> a1886a6d4016e906ad72b2ca9900b4a21b06df47
                                                                         )
                                                                 );
                                                                 ?>
                                                                 <?php
-<<<<<<< HEAD
-                                                                echo $this->Form->input('role_id', array(
-                                                                    'type' => 'hidden',
-                                                                    'value' => $lasthistory['role_id'],
-                                                                        )
-                                                                );
-                                                                ?>
-                                                                <?php
-=======
->>>>>>> a1886a6d4016e906ad72b2ca9900b4a21b06df47
                                                                 echo $this->Form->input('issue_id', array(
                                                                     'type' => 'hidden',
                                                                     'value' => $lasthistory['issue_id'],
