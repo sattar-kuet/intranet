@@ -17,7 +17,7 @@
             </ul>
             <div class="page-toolbar">
                 <div class="btn-group pull-right">
-                    <a class="btn btn-lg blue hidden-print margin-bottom-5" onclick="javascript:window.print();">
+                    <a class="btn btn-lg blue hidden-print margin-bottom-5" onclick="printDiv('printableArea')">
                         Print <i class="fa fa-print"></i>
                     </a>
 
@@ -27,7 +27,7 @@
         <!-- END PAGE HEADER-->
         <!-- BEGIN PAGE CONTENT-->
 
-        <div class="invoice">
+        <div class="invoice" id="printableArea">
             <div class="row invoice-logo">
                 <div class="col-xs-12 invoice-logo-space">
                     <!--<img src="../../assets/admin/pages/media/invoice/walmart.png" class="img-responsive" alt="">-->
@@ -75,9 +75,6 @@
                         <thead>
                             <tr>
                                 <th>
-                                    #
-                                </th>
-                                <th>
                                     Account No
                                 </th>
                                 <th class="hidden-480">
@@ -86,20 +83,17 @@
                                 <th class="hidden-480">
                                     Address
                                 </th>
-                                <th class="hidden-480">
-                                    Cell
-                                </th>
-                                <th class="hidden-480">
-                                    Email
-                                </th>
                                 <th>
                                     Mac
+                                </th>
+                                <th class="hidden-480">
+                                    Cell
                                 </th>
                                 <th class="hidden-480">
                                     Registration Date
                                 </th>
                                 <th>
-                                    Status
+                                    Reason for cancel
                                 </th>
                             </tr>
                         </thead>
@@ -110,25 +104,19 @@
                                 ?>
                                 <tr>
                                     <td>                          
-
-                                    </td>
-                                    <td>                          
                                         <?php echo $results['PackageCustomer']['c_acc_no']; ?>
                                     </td>
                                     <td>
-                                        <?php echo $results['PackageCustomer']['middle_name']; ?>
+                                        <a href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit_customer_data', $results['PackageCustomer']['id'])) ?>" target="_blank"><?php echo $results['PackageCustomer']['middle_name']. " " . $results['PackageCustomer']['last_name']; ?></a> 
                                     </td>
                                     <td class="hidden-480">
-                                        <?php echo $results['PackageCustomer']['street']; ?>, <?php echo $results['PackageCustomer']['apartment']; ?>                            
-                                    </td>
-                                    <td class="hidden-480">
-                                        <?php echo $results['PackageCustomer']['cell']; ?>
-                                    </td>
-                                    <td class="hidden-480">
-                                        <?php echo $results['PackageCustomer']['email']; ?>
+                                        <?php echo $results['PackageCustomer']['street'] .", ". $results['PackageCustomer']['apartment']; ?>                            
                                     </td>
                                     <td>
                                         <?php echo $results['PackageCustomer']['mac']; ?>
+                                    </td>
+                                    <td class="hidden-480">
+                                        <?php echo $results['PackageCustomer']['cell']; ?>
                                     </td>
                                     <td>
                                         <?php echo $results['PackageCustomer']['created']; ?>

@@ -2,7 +2,7 @@
 
 class Transaction extends AppModel {
 
-    var $belongsTo = array('PackageCustomer');
+    var $belongsTo = array('PackageCustomer', 'User');
 
 }
 
