@@ -89,6 +89,9 @@
                                 <th class="hidden-480">
                                     Cell
                                 </th>
+                                <th>
+                                    Package
+                                </th>
                                 <th class="hidden-480">
                                     Registration Date
                                 </th>
@@ -117,6 +120,15 @@
                                     </td>
                                     <td class="hidden-480">
                                         <?php echo $results['PackageCustomer']['cell']; ?>
+                                    </td>
+                                    <td class="hidden-480">
+                                        <?php
+                                        if($results['PackageCustomer']['custom_package_id'] == null){
+                                          echo $results['Psetting']['name'];  
+                                        }else{
+                                          echo $results['CustomPackage']['duration']. ' Months, Custom package ' .$results['CustomPackage']['charge']. '$'; 
+                                        }
+                                        ?>
                                     </td>
                                     <td>
                                         <?php echo $results['PackageCustomer']['created']; ?>

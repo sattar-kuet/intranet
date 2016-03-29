@@ -154,6 +154,9 @@
                                             <th class="hidden-480">
                                                 Cell
                                             </th>
+                                            <th>
+                                                Package
+                                            </th>
                                             <th class="hidden-480">
                                                 Due
                                             </th>
@@ -175,6 +178,15 @@
                                                 <td><?php echo $info['Transaction']['address']; ?></td>
                                                 <td><?php echo $info['PackageCustomer']['mac']; ?></td>
                                                 <td><?php echo $info['PackageCustomer']['cell']; ?></td>
+                                                <td>
+                                                    <?php
+                                                    if ($info['PackageCustomer']['custom_package_id'] == null) {
+                                                        echo $info['PackageCustomer']['Psetting']['name'];
+                                                    } else {
+                                                        echo $info['PackageCustomer']['CustomPackage']['duration'] . ' Months, Custom package ' . $info['PackageCustomer']['CustomPackage']['charge'] . '$';
+                                                    }
+                                                    ?>
+                                                </td>
                                                 <td><?php echo $info['Transaction']['due']; ?></td>
                                                 <td><?php echo $info['Transaction']['exp_date']; ?></td>
                                                 <td><?php echo $info['PackageCustomer']['created']; ?></td>                                                

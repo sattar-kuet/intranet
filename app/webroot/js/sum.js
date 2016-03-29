@@ -104,6 +104,18 @@ $(document).ready(function () {
 
 
 
+$(document).ready(function () {
+
+    $('#btnclick').click(function () {
+        jQuery("#printableArea a").click(function () {
+            return false;
+        })
+    });
+
+});
+
+
+
 //Print section
 function printDiv(printableArea) {
     var printContents = document.getElementById(printableArea).innerHTML;
