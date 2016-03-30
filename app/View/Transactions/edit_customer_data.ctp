@@ -641,7 +641,6 @@
                                             echo $this->Form->input(
                                                     'card_check_no', array(
                                                 'type' => 'text',
-                                                'value' => '',
                                                 'class' => 'form-control input-sm required'
                                             ));
                                             ?>
@@ -690,7 +689,6 @@
                                             echo $this->Form->input(
                                                     'cvv_code', array(
                                                 'type' => 'text',
-                                                'value' => '',
                                                 'class' => 'form-control input-sm required'
                                             ));
                                             ?>
@@ -718,7 +716,6 @@
                                             echo $this->Form->input(
                                                     'address_on_card', array(
                                                 'type' => 'text',
-                                                'value' => '',
                                                 'class' => 'form-control input-sm',
                                                 'placeholder' => 'detail (optional)',
                                                
