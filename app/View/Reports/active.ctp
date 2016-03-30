@@ -10,9 +10,10 @@
             <script></script>
             <div class="page-toolbar">
                 <div class="btn-group pull-right">
-                    <a class="btn btn-lg blue hidden-print margin-bottom-5" target="_blank" onclick="printDiv('printableArea')">
+                    <a id="btnclick" class="btn btn-lg blue hidden-print margin-bottom-5" target="_blank" onclick="printDiv('printableArea')">
                         Print <i class="fa fa-print"></i>
                     </a>
+                   
                 </div>
             </div>
         </div>
@@ -80,6 +81,9 @@
                                 <th class="hidden-480">
                                     Cell
                                 </th>
+                                <th>
+                                    Package
+                                </th>
                                 <th class="hidden-480">
                                     Registration Date
                                 </th>
@@ -105,6 +109,15 @@
                                     </td>
                                     <td class="hidden-480">
                                         <?php echo $results['PackageCustomer']['cell']; ?>
+                                    </td>
+                                    <td class="hidden-480">
+                                        <?php
+                                        if($results['PackageCustomer']['custom_package_id'] == null){
+                                          echo $results['Psetting']['name'];  
+                                        }else{
+                                          echo $results['CustomPackage']['duration']. ' Months, Custom package ' .$results['CustomPackage']['charge']. '$'; 
+                                        }
+                                        ?>
                                     </td>
                                     <td>
                                         <?php echo $results['PackageCustomer']['created']; ?>

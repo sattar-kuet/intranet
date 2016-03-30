@@ -178,6 +178,9 @@
                                             Mac
                                         </th>
                                         <th class="hidden-480">
+                                            Package
+                                        </th>
+                                        <th class="hidden-480">
                                             Pay Mode
                                         </th>
                                         <th class="hidden-480">
@@ -217,7 +220,15 @@
                                             <td>
                                                 <?php echo $customer_info['mac']; ?>
                                             </td>
-
+                                            <td>
+                                                <?php
+                                                if ($single['PackageCustomer']['custom_package_id'] == null) {
+                                                    echo $single['PackageCustomer']['Psetting']['name'];
+                                                } else {
+                                                    echo $single['PackageCustomer']['CustomPackage']['duration'] . ' Months, Custom package ' . $single['PackageCustomer']['CustomPackage']['charge'] . '$';
+                                                }
+                                                ?>
+                                            </td>
                                             <td><?php echo $info['pay_mode']; ?></td>
                                             <td>
                                             <?php

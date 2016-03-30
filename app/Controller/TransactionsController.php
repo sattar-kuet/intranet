@@ -197,7 +197,7 @@ class TransactionsController extends AppController {
 
 
 
-        $pcustomer_id = $this->request->data = $customer_info;    //transaction history view by customer id
+        $this->request->data = $customer_info;    //transaction history view by customer id
         $transactions = $this->Transaction->find('all', array('conditions' => array('Transaction.package_customer_id' => $id)));
 
         $this->set(compact('transactions', 'c_acc_no', 'macstb', 'custom_package_duration', 'checkMark'));
@@ -210,7 +210,7 @@ class TransactionsController extends AppController {
         //$this->Transaction->manage($id);
 //            $response = $this->requestAction('tickets/manage/'.$id); //For ticket history
         //  $this->tariffplan(); //Call tarrifplan fuction to show packagese
-        $this->request->data = $customer_info;
+       // $this->request->data = $customer_info;
         //   $this->tariffplan(); //Call tarrifplan fuction to show packagese in our old style
         $this->loadModel('Package');
         $this->loadModel('Psetting');
