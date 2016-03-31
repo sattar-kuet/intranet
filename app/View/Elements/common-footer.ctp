@@ -14,7 +14,7 @@ echo $this->Html->script(
         array(
             'https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js',
             //'http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js', /* drop down validation service manage start */
-            'serviceManageDrodown.validation', /* end drop down validation service manage */
+//            'serviceManageDrodown.validation', /* end drop down validation service manage */
             '/assets/global/plugins/jquery.min',
             '/assets/global/plugins/jquery-migrate.min',
             '/assets/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min',

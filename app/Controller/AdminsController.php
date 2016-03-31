@@ -325,6 +325,7 @@ class AdminsController extends AppController {
             if (count($data['customer']) == 0) {
                 $data = $this->getCustomerByParam($param, 'mac');
             }
+
             $clicked = true;
             //FIND customer DETAILS
             $this->set(compact('data'));
@@ -466,7 +467,7 @@ class AdminsController extends AppController {
                 //For Custom Package data insert
                 $data4CustomPackage['CustomPackage']['duration'] = $this->request->data['PackageCustomer']['duration'];
                 $data4CustomPackage['CustomPackage']['charge'] = $this->request->data['PackageCustomer']['charge'];
-
+                
                 if (!empty($this->request->data['PackageCustomer']['charge'])) {
                     $cp = $this->CustomPackage->save($data4CustomPackage);
 
@@ -514,6 +515,19 @@ class AdminsController extends AppController {
 
         $ym = $this->getYm();
         $this->set(compact('ym'));
+    }
+
+    public function print_queue() {
+        $this->loadModel('PackageCustomer');
+        $current_date = date('Y-m-d');
+        $future_date = date('Y-m-d', strtotime("+25 days"));
+        $expire_customer = $this->PackageCustomer->find('all', array('conditions' => array('package_exp_date >' => $future_date)));
+        $this->set(compact('expire_customer'));
+        //pr($expire_customer);exit;
+    }
+
+    function pdf() {
+        $this->layout = 'blank';
     }
 
 }
