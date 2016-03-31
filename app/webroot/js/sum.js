@@ -124,6 +124,7 @@ $(document).ready(function () {
     $("input[id*='email']").click(function () {
         $("div#technician").hide();
         $("#technician_id").removeClass("required");
+        $('#technician_id').val('');
     });
 });
 
