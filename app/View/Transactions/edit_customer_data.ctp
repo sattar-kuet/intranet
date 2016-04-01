@@ -641,7 +641,8 @@
                                             echo $this->Form->input(
                                                     'card_check_no', array(
                                                 'type' => 'text',
-                                                'class' => 'form-control input-sm required'
+                                                'class' => 'form-control input-sm required',
+                                                  'id'=>'cardnumber'
                                             ));
                                             ?>
                                         </div>
@@ -689,7 +690,8 @@
                                             echo $this->Form->input(
                                                     'cvv_code', array(
                                                 'type' => 'text',
-                                                'class' => 'form-control input-sm required'
+                                                'class' => 'form-control input-sm required',
+                                                 'id'=>'cvvcode'       
                                             ));
                                             ?>
                                         </div>
@@ -865,7 +867,8 @@
                                                                             'card_no', array(
                                                                         'type' => 'text',
                                                                         'value' => '',
-                                                                        'class' => 'form-control input-sm required'
+                                                                        'class' => 'form-control input-sm required',
+                                                                         'id'=>'card_number',       
                                                                     ));
                                                                     ?>
                                                                 </div>
@@ -914,7 +917,8 @@
                                                                             'cvv_code', array(
                                                                         'type' => 'text',
                                                                         'value' => '',
-                                                                        'class' => 'form-control input-sm required'
+                                                                        'class' => 'form-control input-sm required',
+                                                                          'id'=>'cvv_code',      
                                                                     ));
                                                                     ?>
                                                                 </div>
