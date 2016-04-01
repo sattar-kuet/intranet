@@ -58,11 +58,8 @@
 <div class="page-content-wrapper">
     <div class="page-content">
         <div class="main">
-
             <div class="container">
                 <div class="col-md-12 col-sm-12" id="block-quicktabs-3">
-
-
                     <?php
                     echo $this->Form->create('PackageCustomer', array(
                         'inputDefaults' => array(
@@ -76,9 +73,6 @@
                             )
                     );
                     ?>
-
-
-
                     <ul class="">
 
                     </ul>
@@ -86,35 +80,14 @@
                     <div class="row margin-bottom-40" style="background-color: #fff; padding: 10px; box-shadow: 0px 0px 20px 3px #888888">
                         <!-- BEGIN SIDEBAR -->
 
-                        <!-- END SIDEBAR -->
-
-                        <!-- BEGIN CONTENT -->
-
-
-
-
-
-                        <!--                <div class="row">
-                                            <div class="text-center">
-                                                <div class="radio-list" style="margin-left: 20px;">
-                                                    <label class="radio-inline"><input type="radio" value="NEW INSTALLATION" name="data[PackageCustomer][service_type]">NEW INSTALLATION</label>
-                                                    <label class="radio-inline"><input type="radio" value="SERVICE REPAIR" name="data[PackageCustomer][service_type]">SERVICE REPAIR</label>
-                                                </div>
-                                            </div>
-                                        </div>-->
                         <div id="info-container"><?php echo $this->Session->flash(); ?></div>
 
                         <!-- BEGIN SAMPLE FORM PORTLET-->
-
-
                         <div class="portlet box blue">
                             <div class="portlet-title">
                                 <div class="caption">
                                     <i class="fa fa-list-ul"></i>Customer Information
-
-
                                 </div>
-
                                 <div class="tools">
                                     <a  class="reload toggle">
                                     </a>
@@ -123,7 +96,6 @@
                             <div class="portlet-body">
                                 <div class="row">
                                     <div class="col-md-12 ">
-
                                         <div class="col-md-2 signupfont">
                                             Name: First:
                                         </div>
@@ -182,7 +154,6 @@
                                 &nbsp;
                                 <div class="row">
                                     <div class="col-md-12 ">
-
                                         <div class="col-md-2 signupfont">
                                             Address:
                                         </div>
@@ -241,7 +212,6 @@
                                 &nbsp;
                                 <div class="row">
                                     <div class="col-md-12 ">
-
                                         <div class="col-md-2 signupfont">
                                             City:
                                         </div>
@@ -261,7 +231,6 @@
                                         </div>
                                         <div class="col-md-1 signupfont">
                                             State:
-
                                         </div>
                                         <div class="col-md-3">
                                             <div class="input-list style-4 clearfix">
@@ -299,7 +268,6 @@
                                 &nbsp;
                                 <div class="row">
                                     <div class="col-md-12 ">
-
                                         <div class="col-md-2 signupfont">
                                             Phone: Home:  
                                         </div>
@@ -318,7 +286,6 @@
                                         </div>
                                         <div class="col-md-1 signupfont">
                                             Cell:
-
                                         </div>
                                         <div class="col-md-5">
                                             <div class="input-list style-4 clearfix">
@@ -340,7 +307,6 @@
                                     <div class="col-md-12 ">
                                         <div class="col-md-2 signupfont">
                                             E-Mail
-
                                         </div>
                                         <div class="col-md-4">
                                             <div class="input-list style-4 clearfix">
@@ -353,7 +319,6 @@
                                                             )
                                                     );
                                                     ?>
-
                                                 </div>                            
                                             </div>
                                         </div>
@@ -375,35 +340,74 @@
                                                 </div>                            
                                             </div>
                                         </div>
-
-
                                     </div>
                                 </div>
                                 &nbsp;
-                                <div class="row">
-                                    <div class="col-md-12">
 
-                                        <div class="col-md-2 signupfont">
-                                            Mac no:
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="input-list style-4 clearfix">
-                                                <div>
-                                                    <?php
-                                                    echo $this->Form->input(
-                                                            'mac', array(
-                                                        'class' => 'required',
-                                                        'placeholder' => 'Use comma (,) to seperate multiple mac'
-                                                            )
-                                                    );
-                                                    ?> 
-                                                </div>                            
+                                <div class="row" >
+                                    <div class="col-md-12 ">
+                                        <!--For custom package input box starts -->
+                                        <div id="custompackage" style="display: none;">
+                                            <div class="col-md-2">
+                                                <?php
+                                                $arrCategory = array("1" => "1 Month", "3" => "3 Month", "6" => "6 Month", "12" => "1 Year");
+                                                echo $this->Form->input(
+                                                        'duration', array(
+                                                    'class' => 'form-control',
+                                                    'id' => 'selctMonth',
+                                                    'options' => $arrCategory,
+                                                    'label' => false,
+                                                    'empty' => '--Select Month--',
+                                                        )
+                                                );
+                                                ?>
                                             </div>
-                                        </div> 
+                                            <div class="col-md-2">
+                                                <?php
+                                                echo $this->Form->input(
+                                                        'charge', array(
+                                                    'class' => 'form-control',
+                                                    'id' => 'inputAmount',
+                                                    'type' => 'number',
+                                                    'placeholder' => 'Amount'
+                                                        )
+                                                );
+                                                ?> 
+                                            </div>
+                                        </div>
+
+                                        <!--For custom package input box Ends -->
+
+                                        <div id="regularpackage">
+                                            <div class="col-md-2 signupfont">
+                                                Select package:
+                                            </div>
+                                            <div class="col-md-3">
+                                                <?php
+                                                echo $this->Form->input('psetting_id', array(
+                                                    'type' => 'select',
+                                                    'class' => 'form-control',
+                                                    'options' => $packageList,
+                                                    'empty' => '--Select Package Type--',
+                                                    'id' => 'psettingId',
+                                                    
+                                                        )
+                                                );
+                                                ?>
+                                            </div>  
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <label>
+                                                <div class="" style="display: inline-block;"><span class=""><input id="customcheckbox" type="checkbox"></span></div> Custom Package </label>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="input-list style-4 clearfix">
+                                                                            
+                                            </div>
+                                        </div>
                                     </div>
-
-
-
                                 </div>
                                 &nbsp;
 
@@ -411,7 +415,6 @@
                                     <div class="col-md-12 ">
                                         <div class="col-md-2 signupfont">
                                             Referred by:
-
                                         </div>
                                         <div class="col-md-3">
                                             <div class="input-list style-4 clearfix">
@@ -423,14 +426,12 @@
                                                             )
                                                     );
                                                     ?>
-
                                                 </div>                            
                                             </div>
                                         </div>
 
                                         <div class="col-md-1 signupfont">
                                             Bonus:
-
                                         </div>
                                         <div class="col-md-2">
                                             <div class="input-list style-4 clearfix">
@@ -442,7 +443,6 @@
                                                             )
                                                     );
                                                     ?>
-
                                                 </div>                            
                                             </div>
                                         </div>
@@ -465,6 +465,7 @@
                                         </div>                        
                                     </div>
                                 </div>
+                                &nbsp;
                             </div> 
                             <!-- portletbody end-->
                         </div> 
@@ -511,6 +512,7 @@
                                                                             <label style="padding-top: 0px;" class="radio-inline"><input id="box1" type="radio" value="1 BOX" name="data[PackageCustomer][equipment_top_box]">1 BOX</label>
                                                                             <label style="padding-top: 0px;" class="radio-inline"><input id="box2" type="radio" value="2 BOX" name="data[PackageCustomer][equipment_top_box]">2 BOX</label>
                                                                             <label style="padding-top: 0px;" class="radio-inline"><input id="box3" type="radio" value="3 BOX" name="data[PackageCustomer][equipment_top_box]">3 BOX</label>
+                                                                            <label style="padding-top: 0px;" class="radio-inline"><input id="box3" type="radio" value="4 BOX" name="data[PackageCustomer][equipment_top_box]">4 BOX</label>
                                                                         </div>
                                                                     </div>     
                                                                 </div>
@@ -535,23 +537,7 @@
                                                             </div>
                                                         </td>
                                                     </tr>
-                <!--                                    <tr>
-                                                        <td>
-                                                            <span class="signupfont">AV CABLE</span> 
-                                                        </td>
-                                                        <td>
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <div class="text-center" style="margin-left: 0px;">
-                                                                        <div class="radio-list">
-                                                                            <label style="padding-top: 0px;" class="radio-inline"><input type="radio" value="YES" name="data[PackageCustomer][equipment_av_cable]">YES</label>
-                                                                            <label style="padding-top: 0px;" class="radio-inline"><input type="radio" value="NO" name="data[PackageCustomer][equipment_av_cable]">NO</label>                                                       
-                                                                        </div>
-                                                                    </div>     
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>-->
+
                                                     <tr>
                                                         <td>
                                                             <span class="signupfont">Wi-fi Adapter</span>
@@ -561,8 +547,44 @@
                                                                 <div class="col-md-12">
                                                                     <div class="text-center" style="margin-left: 0px;">
                                                                         <div class="radio-list">
-                                                                            <label style="padding-top: 0px;" class="radio-inline"><input type="radio" value="YES" name="data[PackageCustomer][equipment_ethernet]">YES</label>
-                                                                            <label style="padding-top: 0px;" class="radio-inline"><input type="radio" value="NO" name="data[PackageCustomer][equipment_ethernet]">NO</label>                                                       
+                                                                            <label style="padding-top: 0px;" class="radio-inline"><input type="radio" value="YES" name="data[PackageCustomer][equipment_wi_fi]">YES</label>
+                                                                            <label style="padding-top: 0px;" class="radio-inline"><input type="radio" value="NO" name="data[PackageCustomer][equipment_wi_fi]">NO</label>                                                       
+                                                                        </div>
+                                                                    </div>     
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>
+                                                            <span class="signupfont">Power Adapter</span>
+                                                        </td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="text-center" style="margin-left: 0px;">
+                                                                        <div class="radio-list">
+                                                                            <label style="padding-top: 0px;" class="radio-inline"><input type="radio" value="YES" name="data[PackageCustomer][equipment_adapter]">YES</label>
+                                                                            <label style="padding-top: 0px;" class="radio-inline"><input type="radio" value="NO" name="data[PackageCustomer][equipment_adapter]">NO</label>                                                       
+                                                                        </div>
+                                                                    </div>     
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>
+                                                            <span class="signupfont">Remote Control</span>
+                                                        </td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="text-center" style="margin-left: 0px;">
+                                                                        <div class="radio-list">
+                                                                            <label style="padding-top: 0px;" class="radio-inline"><input type="radio" value="YES" name="data[PackageCustomer][equipment_remote]">YES</label>
+                                                                            <label style="padding-top: 0px;" class="radio-inline"><input type="radio" value="NO" name="data[PackageCustomer][equipment_remote]">NO</label>                                                       
                                                                         </div>
                                                                     </div>     
                                                                 </div>
@@ -582,7 +604,7 @@
                                                                             <?php
                                                                             echo $this->Form->input(
                                                                                     'current_isp_speed', array(
-                                                                                        'name' => 'data[PackageCustomer][current_isp_speed]',
+                                                                                'name' => 'data[PackageCustomer][current_isp_speed]',
                                                                                 'class' => '',
                                                                                     )
                                                                             );
@@ -606,7 +628,7 @@
                                                                             <?php
                                                                             echo $this->Form->input(
                                                                                     'current_service_provider', array(
-                                                                                        'name' => 'data[PackageCustomer][current_service_provider]',
+                                                                                'name' => 'data[PackageCustomer][current_service_provider]',
                                                                                 'class' => '',
                                                                                     )
                                                                             );
@@ -627,10 +649,10 @@
                                                                 <div class="col-md-12">
                                                                     <div class="text-center" style="margin-left: 0px;">
                                                                         <div class="radio-list"> 
-                                                                             <?php
+                                                                            <?php
                                                                             echo $this->Form->input(
                                                                                     'ethernet_wire', array(
-                                                                                        'name' => 'data[PackageCustomer][ethernet_wire]',
+                                                                                'name' => 'data[PackageCustomer][ethernet_wire]',
                                                                                 'class' => '',
                                                                                     )
                                                                             );
@@ -648,64 +670,7 @@
                                             </table>
 
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-12 ">
-                                                <!--                                                <div class="col-md-2 signupfont">
-                                                                                                    Current ISP Speed:
-                                                
-                                                                                                </div>
-                                                                                                <div class="col-md-2">
-                                                                                                    <div class="input-list style-4 clearfix">
-                                                                                                        <div>
-                                                <?php
-                                                echo $this->Form->input(
-                                                        'current_isp_speed', array(
-                                                    'class' => '',
-                                                        )
-                                                );
-                                                ?>
-                                                
-                                                                                                        </div>                            
-                                                                                                    </div>
-                                                                                                </div>-->
 
-                                                <!--                                                <div class="col-md-2 signupfont">
-                                                                                                    Service Provider:
-                                                
-                                                                                                </div>
-                                                                                                <div class="col-md-2">
-                                                                                                    <div class="input-list style-4 clearfix">
-                                                                                                        <div>
-                                                <?php
-                                                echo $this->Form->input(
-                                                        'current_service_provider', array(
-                                                    'class' => '',
-                                                        )
-                                                );
-                                                ?>
-                                                
-                                                                                                        </div>                            
-                                                                                                    </div>
-                                                                                                </div>-->
-
-                                                <!--                                                <div class="col-md-2 signupfont">
-                                                                                                    Ethernet Wire: 
-                                                                                                </div>
-                                                                                                <div class="col-md-2">
-                                                                                                    <div class="input-list style-4 clearfix">
-                                                                                                        <div>
-                                                <?php
-                                                echo $this->Form->input(
-                                                        'ethernet_wire', array(
-                                                    'class' => '',
-                                                        )
-                                                );
-                                                ?> 
-                                                                                                        </div>                            
-                                                                                                    </div>
-                                                                                                </div>                        -->
-                                            </div>
-                                        </div>
                                     </div>
 
                                 </div>
@@ -713,22 +678,127 @@
                             </div> 
                             <!--                           end portlet body-->
                         </div>
-                        <!--                        end portlet box blue-->
-
-
+                        <!-- end portlet box blue-->
                         &nbsp;
 
+                        <!-- BEGIN SAMPLE FORM PORTLET-->
+                        <div class="portlet box blue">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="fa fa-list-ul"></i>Payment and Installation
+                                </div>
+                                <div class="tools">
+                                    <a  class="reload toggle">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <div class="row">
+                                    <div class="col-md-12 ">
 
-                        <?php
-                        echo $this->Form->input(
-                                'psetting_id', array(
-                            'id' => 'packageid',
-                            'class' => 'required',
-                            'type' => 'hidden',
-                                )
-                        );
-                        ?>
-                        &nbsp;
+                                        <div class="col-md-2">
+                                            <span class="signupfont"> Security Deposit: </span>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="input-list style-4 clearfix">
+                                                <div>
+                                                    <?php
+                                                    echo $this->Form->input(
+                                                            'deposit', array(
+                                                        'class' => 'required partial',
+                                                        'type' => 'number'
+                                                            )
+                                                    );
+                                                    ?> 
+                                                </div>                            
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <span class="signupfont">Monthly Bill: </span>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <div class="input-list style-4 clearfix">
+                                                <div>
+                                                    <?php
+                                                    echo $this->Form->input(
+                                                            'monthly_bill', array(
+                                                        'class' => 'required partial',
+                                                        'type' => 'number'
+                                                            )
+                                                    );
+                                                    ?> 
+                                                </div>                            
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <span class="signupfont">Equipment: </span>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <div class="input-list style-4 clearfix">
+                                                <div>
+                                                    <?php
+                                                    echo $this->Form->input(
+                                                            'others', array(
+                                                        'class' => 'partial',
+                                                        'type' => 'number'
+                                                            )
+                                                    );
+                                                    ?> 
+                                                </div>                            
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1 signupfont">
+                                            Total: 
+                                        </div>
+                                        <div class="col-md-2">
+                                            <?php
+                                            echo $this->Form->input(
+                                                    'total', array(
+                                                'class' => 'form-control input-sm total',
+                                                'type' => 'text',
+                                                'readonly' => 'readonly'
+                                                    )
+                                            );
+                                            ?>
+                                        </div>                                                                          
+                                    </div>
+                                </div>
+                                &nbsp;
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col-md-2">
+                                            <span class="signupfont">Installation Method: </span>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="text-center" style="margin-left: 0px;">
+                                                <div class="radio-list">
+                                                    <label style="padding-top: 0px;" class="radio-inline"><input id="email" type="radio" value="email" name="data[PackageCustomer][install_method]">by Email</label>
+                                                    <label style="padding-top: 0px;" class="radio-inline"><input id="tech" type="radio" value="technician" name="data[PackageCustomer][install_method]">by Technician</label>                                                       
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="technician" style="display: none;">
+                                            <div class="col-md-3">
+                                            <?php
+                                            echo $this->Form->input(
+                                                    'technician_name', array(
+                                                'class' => 'form-control',
+                                                'id' => 'technician_id',
+                                                'options' => $technician_list,
+                                                'label' => false,
+                                                'empty' => '--Select Technician--',
+                                                    )
+                                            );
+                                            ?>
+                                        </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div> 
+                            <!-- portletbody end-->
+                        </div> 
+                        <!-- end  portlet box blue-->
 
                         &nbsp;
 

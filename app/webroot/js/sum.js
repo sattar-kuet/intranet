@@ -103,7 +103,7 @@ $(document).ready(function () {
 });
 
 
-
+//Remove all links if print button is clicked.....
 $(document).ready(function () {
 
     $('#btnclick').click(function () {
@@ -112,6 +112,20 @@ $(document).ready(function () {
         })
     });
 
+});
+
+
+//Show techician select box if 'by Technician' is selected.....
+$(document).ready(function () {
+    $("input[id*='tech']").click(function () {
+        $("div#technician").show();
+        $("#technician_id").addClass("required");
+    });
+    $("input[id*='email']").click(function () {
+        $("div#technician").hide();
+        $("#technician_id").removeClass("required");
+        $('#technician_id').val('');
+    });
 });
 
 
