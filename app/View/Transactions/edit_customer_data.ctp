@@ -339,14 +339,15 @@
                             <div class="row" >
                                 <div class="col-md-12 ">
                                     <!--For custom package input box starts -->
-                                    <div id="custompackage"  style="display: none;">
+                                    <div id="custompackage"  style="<?php if($checkMark == FALSE){echo 'display: none;';} else {echo '';} ?>">
                                         <div class="col-md-2">
                                         <?php
-                                        $arrCategory = array("1 Month" => "1 Month", "3 Month" => "3 Month", "6 Month" => "6 Month", "1 Year" => "1 Year");
+                                        $arrCategory = array("1" => "1 Month", "3" => "3 Month", "6" => "6 Month", "12" => "1 Year");
                                         echo $this->Form->input(
                                                 'duration', array(
                                             'class' => 'form-control',
                                                     'id' => 'selctMonth',
+                                              'default' =>    $custom_package_duration,
                                             'options' => $arrCategory,
                                             'label' => false,
                                             'empty' => '--Select Month--',
@@ -361,6 +362,7 @@
                                             'class' => 'form-control',
                                                     'id' => 'inputAmount',
                                             'type' => 'number',
+                                                    'value' => $custom_package_charge,
                                             'placeholder' => 'Amount'
                                                 )
                                         );
@@ -370,7 +372,7 @@
                                     
                                     <!--For custom package input box Ends -->
 
-                                    <div id="regularpackage">
+                                    <div id="regularpackage" style="<?php $class=''; if($checkMark == TRUE){echo 'display: none;'; } else {echo ''; $class = 'required';} ?>">
                                         <div class="col-md-2 signupfont">
                                             Select package:
                                         </div>
@@ -381,7 +383,8 @@
                                                 'options' => $packageList,
                                                 //'default' => $selected['package'],
                                                 'empty' => 'Select Package Type',
-                                                'class' => 'span12 uniform nostyle select1 required',
+                                                'id' => 'psettingId',
+                                                'class' => 'span12 uniform nostyle select1'.$class,
                                                 'div' => array('class' => 'span12')
                                                     )
                                             );
@@ -391,7 +394,7 @@
 
                                     <div class="col-md-2">
                                         <label>
-                                            <div class="" style="display: inline-block;"><span class=""><input id="customcheckbox" type="checkbox"></span></div> Custom Package </label>
+                                            <div class="" style="display: inline-block;"><span class=""><input id="customcheckbox" type="checkbox" <?php if($checkMark == TRUE){echo 'checked';} else {echo '';} ?>></span></div> Custom Package </label>
                                     </div>
                                     <div class="col-md-2 signupfont">
                                         Add New STBs:
@@ -537,7 +540,6 @@
                             </div>
                             &nbsp;
                             <div class="row">
-                                <div class="col-md-12 ">
                                     <div class="col-md-2 signupfont">
                                         Account No.
 
@@ -557,10 +559,10 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-1 signupfont">
-                                        Created
+                                    <div class="col-md-2 signupfont">
+                                        Installation Date:
                                     </div>
-                                    <div class="col-md-5">
+                                    <div class="col-md-4">
                                         <div class="input-list style-4 clearfix">
                                             <div>
                                                 <?php
@@ -573,9 +575,6 @@
                                             </div>                            
                                         </div>
                                     </div>
-
-
-                                </div>
                             </div>
                             &nbsp;
 

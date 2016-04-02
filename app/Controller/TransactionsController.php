@@ -8,6 +8,7 @@ App::uses('HttpSocket', 'Network/Http');
 App::uses('AppController', 'Controller');
 
 class TransactionsController extends AppController {
+
     var $layout = 'admin';
     // public $components = array('Auth');
     public $components = array(
@@ -42,7 +43,7 @@ class TransactionsController extends AppController {
     function registered($id = null) {
         $this->loadModel('PackageCustomer');
         $this->loadModel('User');
-       
+
         $user_id = $this->Auth->user(['id']);
         $customer_info = $this->PackageCustomer->find('all', array('conditions' => array('user_id' => $id)));
         $this->set(compact('customer_info'));
@@ -117,11 +118,11 @@ class TransactionsController extends AppController {
         $loggedUser = $this->Auth->user();
         if ($this->request->is('post') || $this->request->is('put')) {
 
-          // pr($this->request->data['PackageCustomer']);  exit;
-           $this->request->data['PackageCustomer']['mac'] = json_encode($this->request->data['PackageCustomer']['mac']);
-           $this->request->data['PackageCustomer']['system'] = json_encode($this->request->data['PackageCustomer']['system']);
-           
-         
+            // pr($this->request->data['PackageCustomer']);  exit;
+            $this->request->data['PackageCustomer']['mac'] = json_encode($this->request->data['PackageCustomer']['mac']);
+            $this->request->data['PackageCustomer']['system'] = json_encode($this->request->data['PackageCustomer']['system']);
+
+
             $this->loadModel('PackageCustomer');
             $this->loadModel('CustomPackage');
             $this->loadModel('Ticket');
@@ -133,20 +134,20 @@ class TransactionsController extends AppController {
 //            $this->request->data['PackageCustomer']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
             $this->PackageCustomer->id = $id; //$customer_info['PackageCustomer']['id'];
 //             pr($this->request->data); exit;
-            
-
+          
             //For Custom Package data insert
+            
             $data4CustomPackage['CustomPackage']['duration'] = $this->request->data['PackageCustomer']['duration'];
             $data4CustomPackage['CustomPackage']['charge'] = $this->request->data['PackageCustomer']['charge'];
             if (!empty($this->request->data['PackageCustomer']['charge'])) {
                 //save data into custom_package table
-                    $cp = $this->CustomPackage->save($data4CustomPackage);
-                    unset($cp['CustomPackage']['PackageCustomer']);
-                    //from custom_package table, save custom package id to package_customer table
-                    $this->request->data['PackageCustomer']['custom_package_id'] = $cp['CustomPackage']['id'];
-                }   
+                $cp = $this->CustomPackage->save($data4CustomPackage);
+                unset($cp['CustomPackage']['PackageCustomer']);
+                //from custom_package table, save custom package id to package_customer table
+                $this->request->data['PackageCustomer']['custom_package_id'] = $cp['CustomPackage']['id'];
+            }
             //Ends Custom_package data entry  
-                
+
             $this->PackageCustomer->save($this->request->data['PackageCustomer']);
             $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -175,17 +176,31 @@ class TransactionsController extends AppController {
         $this->loadModel('PackageCustomer');
         $customer_info = $this->PackageCustomer->findById($id);
         
+        //Show default value for custome package
+        $custom_package_charge = $customer_info['CustomPackage']['charge'];
+        $custom_package_duration = $customer_info['CustomPackage']['duration'];
+        
+        //Custom package checkmark
+        $checkMark = FALSE;
+        if(isset($custom_package_charge)){
+            $checkMark = TRUE;
+        }
+        else {$checkMark = FALSE;}
+        
+        //Show mac and stb information which is already in database
         $macstb['mac'] = json_decode($customer_info['PackageCustomer']['mac']);
         $macstb['system'] = json_decode($customer_info['PackageCustomer']['system']);
-       // pr($macstb);exit;
+        
+        
+        //pr($macstb);exit;
         $c_acc_no = $customer_info['PackageCustomer']['c_acc_no'];
 
 
 
         $pcustomer_id = $this->request->data = $customer_info;    //transaction history view by customer id
         $transactions = $this->Transaction->find('all', array('conditions' => array('Transaction.package_customer_id' => $id)));
-        
-        $this->set(compact('transactions','c_acc_no','macstb'));
+
+        $this->set(compact('transactions', 'c_acc_no', 'macstb','custom_package_duration', 'checkMark'));
         $response = $this->getAllTickectsByCustomer($id);
         $data = $response['data'];
 //        pr($data);        exit;
@@ -211,7 +226,7 @@ class TransactionsController extends AppController {
             $pckagename = $package['Package']['name'];
             $packageList[$pckagename] = $psettingList;
         }
-        //   pr($packageList); exit;
+       //   pr($packageList); exit;
 
         $sql = "SELECT * FROM package_customers "
                 . "LEFT JOIN psettings ON package_customers.psetting_id = psettings.id"
@@ -224,7 +239,7 @@ class TransactionsController extends AppController {
         //  $selected['psetting'] = $temp[0]['psettings']['id'];
         //    $selected['package'] = $temp[0]['packages']['id'];
         $ym = $this->getYm();
-        $this->set(compact('packageList', 'psettings', 'selected', 'ym'));
+        $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge'));
     }
 
 }

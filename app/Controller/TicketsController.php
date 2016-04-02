@@ -41,19 +41,16 @@ class TicketsController extends AppController {
                     return $this->redirect($this->referer());
                 }
                 $tickect = $this->Ticket->save($this->request->data['Ticket']); // Data save in Ticket
-//                pr($tickect['Ticket']['id']);
-//                exit;
                 $trackData['Track'] = array(
                     'issue_id' => $this->request->data['Ticket']['issue_id'],
                     'package_customer_id' => $customer_id,
-                    'user_id' => $this->request->data['Ticket']['user_id'], // Who is assigned for this ticket
+                    'user_id' => $this->request->data['Ticket']['user_id'],
                     'role_id' => $this->request->data['Ticket']['role_id'],
                     'issue_id' => $this->request->data['Ticket']['issue_id'],
                     'ticket_id' => $tickect['Ticket']['id'],
                     'forwarded_by' => $loggedUser['id']
                 );
-//                pr($trackData);
-//                exit;
+
                 $this->Track->save($trackData); // Data save in Track
                 $msg = '<div class="alert alert-success">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -71,6 +68,9 @@ class TicketsController extends AppController {
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
 
         $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
+        // pr($users);
+        //  pr($roles); exit;
+
         $this->set(compact('users', 'roles', 'issues'));
     }
 
@@ -90,9 +90,7 @@ class TicketsController extends AppController {
         $this->loadModel('Track');
         $this->request->data['Track']['status'] = 'unsolved';
         $loggedUser = $this->Auth->user();
-//        $this->request->data['Track']['forwarded_by'] = $loggedUser['id'];
-        $this->request->data['Track']['unsolved_by'] = $loggedUser['id'];
-//        pr($this->request->data); exit;
+        $this->request->data['Track']['forwarded_by'] = $loggedUser['id'];
         $this->Track->save($this->request->data['Track']);
         $msg = '<div class="alert alert-warning">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -106,9 +104,7 @@ class TicketsController extends AppController {
         $this->loadModel('Track');
         $this->request->data['Track']['status'] = 'solved';
         $loggedUser = $this->Auth->user();
-//        $this->request->data['Track']['forwarded_by'] = $loggedUser['id'];
-        $this->request->data['Track']['solved_by'] = $loggedUser['id'];
-//        pr($this->request->data); exit;
+        $this->request->data['Track']['forwarded_by'] = $loggedUser['id'];
         $this->Track->save($this->request->data['Track']);
         $msg = '<div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -187,9 +183,10 @@ class TicketsController extends AppController {
             }
         }
         $data = $filteredTicket;
-        
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
+
+        //  pr($roles); exit;
         $this->set(compact('data', 'users', 'roles'));
     }
 
@@ -235,44 +232,42 @@ class TicketsController extends AppController {
         $data = $filteredTicket;
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
+        //   pr($data); exit;
+        //  pr($roles); exit;
         $this->set(compact('data', 'users', 'roles'));
     }
 
     function forwarded_by() {
-        $this->loadModel('Track');
+        $this->loadModel('Ticket');
         $this->loadModel('User');
         $this->loadModel('Role');
-//        $tickets = $this->Track->query("SELECT * FROM tracks tr 
-//                    inner join tickets t on tr.ticket_id = t.id
-//                    inner join users fb on tr.forwarded_by = fb.id
-//                    inner join roles r on  tr.role_id = r.id
-//                    inner join users ft on  tr.user_id = ft.id order by tr.created desc");
         $loggedUser = $this->Auth->user();
-//        pr($loggedUser);exit;
-        $tickets = $this->Track->query("SELECT * FROM tracks tr
-                        left JOIN tickets t ON tr.ticket_id = t.id
-                        left JOIN users fb ON tr.forwarded_by = fb.id
-                        left JOIN roles fd ON tr.role_id = fd.id
-                        left JOIN users fi ON tr.user_id = fi.id
-                        left JOIN issues i ON tr.issue_id = i.id
-                        left join package_customers pc on tr.package_customer_id = pc.id
-                        WHERE tr.forwarded_by =" . $loggedUser['id'] . " ORDER BY tr.created DESC");
-//        pr($tickets);        exit();
+        $tickets = $this->Ticket->query("SELECT * 
+                                        FROM tickets t
+                                        LEFT JOIN tracks tr ON tr.ticket_id = t.id
+                                        left JOIN issues i ON tr.issue_id = i.id
+                                        left join users fb on tr.forwarded_by = fb.id
+                                        left join users sb on tr.solved_by = sb.id
+                                        left join users usb on tr.unsolved_by = usb.id
+                                        left JOIN roles fd ON tr.role_id = fd.id
+                                        left JOIN users fi ON tr.user_id = fi.id
+                                        left join package_customers pc on tr.package_customer_id = pc.id
+                                        WHERE tr.ticket_id = (SELECT ticket_id from tracks  tr where tr.forwarded_by = " .
+                $loggedUser['id'] . " limit 1 )" . " ORDER BY tr.created DESC");
         $filteredTicket = array();
         $unique = array();
         $index = 0;
         foreach ($tickets as $key => $ticket) {
             $t = $ticket['t']['id'];
             if (isset($unique[$t])) {
-                //  echo 'already exist'.$key.'<br/>';
-                $temp = array('tr' => $ticket['tr'], 'fb' => $ticket['fb'], 'fd' => $ticket['fd'], 'fi' => $ticket['fi'], 'i' => $ticket['i'], 'pc' => $ticket['pc']);
+                $temp = array('tr' => $ticket['tr'], 'sb' => $ticket['sb'], 'usb' => $ticket['usb'], 'fb' => $ticket['fb'], 'fd' => $ticket['fd'], 'fi' => $ticket['fi'], 'i' => $ticket['i'], 'pc' => $ticket['pc']);
                 $filteredTicket[$index]['history'][] = $temp;
             } else {
                 if ($key != 0)
                     $index++;
                 $unique[$t] = 'set';
                 $filteredTicket[$index]['ticket'] = $ticket['t'];
-                $temp = array('tr' => $ticket['tr'], 'fb' => $ticket['fb'], 'fd' => $ticket['fd'], 'fi' => $ticket['fi'], 'i' => $ticket['i'], 'pc' => $ticket['pc']);
+                $temp = array('tr' => $ticket['tr'], 'sb' => $ticket['sb'], 'usb' => $ticket['usb'], 'fb' => $ticket['fb'], 'fd' => $ticket['fd'], 'fi' => $ticket['fi'], 'i' => $ticket['i'], 'pc' => $ticket['pc']);
                 $filteredTicket[$index]['history'][] = $temp;
             }
         }
@@ -292,15 +287,28 @@ class TicketsController extends AppController {
 //                    inner join roles r on  tr.role_id = r.id
 //                    inner join users ft on  tr.user_id = ft.id order by tr.created desc");
         $loggedUser = $this->Auth->user();
-
-        $tickets = $this->Track->query("SELECT * FROM tracks tr
+        if ($loggedUser['Role']['name'] == 'sadmin') {
+            $tickets = $this->Track->query("SELECT * FROM tracks tr
                         left JOIN tickets t ON tr.ticket_id = t.id
                         left JOIN users fb ON tr.forwarded_by = fb.id
                         left JOIN roles fd ON tr.role_id = fd.id
                         left JOIN users fi ON tr.user_id = fi.id
                         left JOIN issues i ON tr.issue_id = i.id
 			left join package_customers pc on tr.package_customer_id = pc.id where pc.id = $id order by tr.created DESC");
-
+//            pr($tickets);
+//        exit;
+        } else {
+            $tickets = $this->Track->query("SELECT * FROM tracks tr
+                        left JOIN tickets t ON tr.ticket_id = t.id
+                        left JOIN users fb ON tr.forwarded_by = fb.id
+                        left JOIN roles fd ON tr.role_id = fd.id
+                        left JOIN users fi ON tr.user_id = fi.id
+                        left JOIN issues i ON tr.issue_id = i.id
+                        left join package_customers pc on tr.package_customer_id = pc.id where pc.id = $id
+                        and tr.role_id =" . $loggedUser['Role']['id'] . " OR tr.user_id =" . $loggedUser['Role']['id'] . " ORDER BY tr.created DESC");
+        }
+//        pr('here');
+//        exit;
         $filteredTicket = array();
         $unique = array();
         $index = 0;
@@ -322,12 +330,18 @@ class TicketsController extends AppController {
         $data = $filteredTicket;
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
+        //   pr($data); exit;
+        //  pr($roles); exit;
         $this->set(compact('data', 'users', 'roles'));
     }
 
     function forward() {
         $this->loadModel('Track');
         $loggedUser = $this->Auth->user();
+
+//        pr($this->request->data);
+//        exit;
+
         $this->request->data['Track']['forwarded_by'] = $loggedUser['id'];
         if (empty($this->request->data['Track']['user_id']) && empty($this->request->data['Track']['role_id'])) {
             $msg = '<div class="alert alert-error">
@@ -428,6 +442,27 @@ class TicketsController extends AppController {
         $roles = $this->Issue->find('list', array('order' => array('Issue.name' => 'ASC')));
         $this->set(compact('Issue'));
         $this->set(compact('roles'));
+    }
+
+    function addmassage() {
+        $this->loadModel('Message');
+        if ($this->request->is('post')) {
+            $this->Message->set($this->request->data);
+            if ($this->Message->validates()) {
+                $loggedUser = $this->Auth->user();
+                $this->request->data['Message']['user_id'] = $loggedUser['id'];
+                $this->Message->save($this->request->data['Message']);
+                $msg = '<div class="alert alert-success">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong>  New Message added </strong>
+			</div>';
+                $this->Session->setFlash($msg);
+                return $this->redirect($this->referer());
+            } else {
+                $msg = $this->generateError($this->Message->validationErrors);
+                $this->Session->setFlash($msg);
+            }
+        }
     }
 
 }
