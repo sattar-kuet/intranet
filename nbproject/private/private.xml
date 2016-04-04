@@ -3,10 +3,26 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/E:/Appxampp/htdocs/intranet/app/View/Admins/customer_registration.ctp</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/View/Admins/customer_registration_old.ctp</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/webroot/js/sum.js</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/Controller/AdminsController.php</file>
+=======
+<<<<<<< HEAD
+            <file>file:/D:/xampp/htdocs/intranet/app/Controller/TicketsController.php</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Tickets/forwarded_by.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Tickets/forwarded_by_1.ctp</file>
+=======
+            <file>file:/D:/appxampp/htdocs/intranet/app/View/Admins/customer_registration.ctp</file>
+            <file>file:/D:/appxampp/htdocs/intranet/app/Model/User.php</file>
+            <file>file:/D:/appxampp/htdocs/intranet/app/Controller/AdminsController.php</file>
+            <file>file:/D:/appxampp/htdocs/intranet/app/Controller/TransactionsController.php</file>
+            <file>file:/D:/appxampp/htdocs/intranet/app/webroot/js/sum.js</file>
+            <file>file:/D:/appxampp/htdocs/intranet/app/Controller/TicketsController.php</file>
+            <file>file:/D:/appxampp/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
+>>>>>>> 8bb75aa7b2066cfb27976dc67d22441df25cd3c8
+>>>>>>> 7fa9e00a98228936002876dd257069abcca956b7
         </group>
     </open-files>
 </project-private>
