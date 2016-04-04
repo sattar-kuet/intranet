@@ -94,6 +94,16 @@ echo $this->Html->script(
 );
 ?>
 <!--END table_editable.html-->
+<!--Start jquery datepicker-->
+<?php
+echo $this->Html->script(
+        array(
+            //'/JqueryDatepicker/jquery-1.10.2',
+            '/JqueryDatepicker/jquery-ui'
+        )
+);
+?>
+<!--END jquery datepicker-->
 
 <!--Start extra_profile.html-->
 <?php
@@ -154,6 +164,10 @@ echo $this->Html->script(
         Layout.initSliderRange();
 
     });
+    
+    	$(function() {
+		$( ".datepicker" ).datepicker();
+	});
 </script>
 
 

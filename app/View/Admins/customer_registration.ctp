@@ -661,38 +661,12 @@
                                     </div>
                                 </div>
                                 <div id="Additional_info" style="display: none" >
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">Disable Past Dates</label>
-                                        <div class="col-md-3">
-                                            <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
-                                                <input type="text" class="form-control" readonly>
-                                                <span class="input-group-btn">
-                                                    <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
-                                                </span>
-                                            </div>
-                                            <!-- /input-group -->
-                                            <span class="help-block">
-                                                Select date </span>
-                                        </div>
-                                    </div>
+                                    
                                     <label class="control-label col-md-2">Follow up date<span class="required">
                                             * </span>
                                     </label>
-                                    <div class="col-md-4">
-                                        <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
-                                            <?php
-                                            echo $this->Form->input(
-                                                    'openDate', array(
-                                                'class' => 'form-control required',
-                                                'type' => 'text',
-                                                'readonly' => true
-                                                    )
-                                            );
-                                            ?>
-                                            <span class="input-group-btn">
-                                                <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
-                                            </span>
-                                        </div>
+                                    <div class="col-md-2">
+                                        <input type="text" class="datepicker form-control">
                                     </div>
                                     <label class="control-label col-md-2">Comment<span class="required">
                                             * </span>
