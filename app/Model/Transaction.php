@@ -1,8 +1,8 @@
 <?php
 
 class Transaction extends AppModel {
-
-    var $belongsTo = array('PackageCustomer');
+    public $recursive = 2;
+    var $belongsTo = array('PackageCustomer', 'User');
 
 }
 
