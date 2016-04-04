@@ -203,7 +203,7 @@
                                             'email', array(
                                         'class' => 'form-control required',
                                         'type' => 'text',
-                                         'placeholder'=>'Optional'       
+                                        'placeholder' => 'Optional'
                                             )
                                     );
                                     ?>
@@ -223,15 +223,30 @@
                                     );
                                     ?>
                                 </div>
-                                <label class="control-label col-md-2">Select package:<span class="required">
-                                        * </span>
-                                </label>
-                                <div class="col-md-2">
-                                         <?php
+                                <div id="regularpackage">
+                                    <label class="control-label col-md-2">Select package:<span class="required">
+                                            * </span>
+                                    </label>
+                                    <div class="col-md-2">
+                                        <?php
+                                        echo $this->Form->input('psetting_id', array(
+                                            'type' => 'select',
+                                            'class' => 'form-control',
+                                            'options' => $packageList,
+                                            'empty' => '--Select Package Type--',
+                                            'id' => 'psettingId',
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+                                </div>
+                                <div id="custompackage" style="display: none;">
+                                    <div class="col-md-2">
+                                        <?php
                                         $arrCategory = array("1" => "1 Month", "3" => "3 Month", "6" => "6 Month", "12" => "1 Year");
                                         echo $this->Form->input(
                                                 'duration', array(
-                                            'class' => 'form-control input-medium',
+                                            'class' => 'form-control',
                                             'id' => 'selctMonth',
                                             'options' => $arrCategory,
                                             'label' => false,
@@ -239,19 +254,33 @@
                                                 )
                                         );
                                         ?>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <?php
+                                        echo $this->Form->input(
+                                                'charge', array(
+                                            'class' => 'form-control',
+                                            'id' => 'inputAmount',
+                                            'type' => 'number',
+                                            'placeholder' => 'Amount'
+                                                )
+                                        );
+                                        ?> 
+                                    </div>
                                 </div>
+
                                 <label class="control-label col-md-2"> Custom Package<span class="required">
                                         * </span>
                                 </label>
                                 <div class="col-md-2">
                                     <div class="checkbox-list">
                                         <label>
-                                            <input type="checkbox">Select Check box 
+                                            <input type="checkbox"id="customcheckbox"  >Select Check box 
                                         </label>
-                                        
+
                                     </div>
                                 </div>
-                                
+
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-2">Referred by:<span class="required">
@@ -260,7 +289,7 @@
                                 <div class="col-md-2">
                                     <?php
                                     echo $this->Form->input(
-                                            'first_name', array(
+                                            'referred_name', array(
                                         'class' => 'form-control required',
                                         'type' => 'text'
                                             )
@@ -273,7 +302,7 @@
                                 <div class="col-md-2">
                                     <?php
                                     echo $this->Form->input(
-                                            'first_name', array(
+                                            'bonus', array(
                                         'class' => 'form-control required',
                                         'type' => 'text'
                                             )
@@ -286,7 +315,7 @@
                                 <div class="col-md-2">
                                     <?php
                                     echo $this->Form->input(
-                                            'first_name', array(
+                                            'referred_phone', array(
                                         'class' => 'form-control required',
                                         'type' => 'text'
                                             )
@@ -301,22 +330,27 @@
                                 <div class="col-md-2">
                                     <div class="radio-list">
                                         <label class="radio-inline">
-                                            <input type="radio" name="optionsRadios" id="optionsRadios4" value="option1" checked> YES</label>
+                                            <input type="radio" name="data[PackageCustomer][equipment_router]" id="optionsRadios4" value="YES" > YES</label>
                                         <label class="radio-inline">
-                                            <input type="radio" name="optionsRadios" id="optionsRadios5" value="option2"> NO </label>
+                                            <input type="radio" name="data[PackageCustomer][equipment_router]" id="optionsRadios5" value="NO"> NO </label>
                                     </div>
                                 </div>
                                 <label class="control-label col-md-2">Site Top Box<span class="required">
                                         * </span>
                                 </label>
                                 <div class="col-md-2">
-                                    <select class="form-control input-medium">
-                                        <option>Option 1</option>
-                                        <option>Option 2</option>
-                                        <option>Option 3</option>
-                                        <option>Option 4</option>
-                                        <option>Option 5</option>
-                                    </select>
+                                    <?php
+                                    $arrCategory = array("1" => "1 box", "2" => "2 box", "3" => "3 box", "4" => "4 box");
+                                    echo $this->Form->input(
+                                            'equipment_top_box', array(
+                                        'class' => 'form-control',
+                                        'id' => 'selctMonth',
+                                        'options' => $arrCategory,
+                                        'label' => false,
+                                        'empty' => '--Select Month--',
+                                            )
+                                    );
+                                    ?>
                                 </div>
                                 <label class="control-label col-md-2">HDMI<span class="required">
                                         * </span>
@@ -324,9 +358,9 @@
                                 <div class="col-md-2">
                                     <div class="radio-list">
                                         <label class="radio-inline">
-                                            <input type="radio" name="optionsRadios" id="optionsRadios4" value="option1" checked> YES </label>
+                                            <input type="radio" name="data[PackageCustomer][equipment_hdmi]" id="optionsRadios4" value="YES" > YES </label>
                                         <label class="radio-inline">
-                                            <input type="radio" name="optionsRadios" id="optionsRadios5" value="option2">NO</label>
+                                            <input type="radio" name="data[PackageCustomer][equipment_hdmi]" id="optionsRadios5" value="NO">NO</label>
                                     </div>
                                 </div>
                             </div>
@@ -337,9 +371,9 @@
                                 <div class="col-md-2">
                                     <div class="radio-list">
                                         <label class="radio-inline">
-                                            <input type="radio" name="optionsRadios" id="optionsRadios4" value="option1" checked> Yes </label>
+                                            <input type="radio" name="data[PackageCustomer][equipment_wi_fi]" id="optionsRadios4" value="YES" checked> Yes </label>
                                         <label class="radio-inline">
-                                            <input type="radio" name="optionsRadios" id="optionsRadios5" value="option2"> No</label>
+                                            <input type="radio" name="data[PackageCustomer][equipment_wi_fi]" id="optionsRadios5" value="NO"> No</label>
                                     </div>
                                 </div>
                                 <label class="control-label col-md-2">Power Adapter<span class="required">
@@ -348,9 +382,9 @@
                                 <div class="col-md-2">
                                     <div class="radio-list">
                                         <label class="radio-inline">
-                                            <input type="radio" name="optionsRadios" id="optionsRadios4" value="option1" checked> Yes </label>
+                                            <input type="radio" name="data[PackageCustomer][equipment_adapter]" id="optionsRadios4" value="YES" > Yes </label>
                                         <label class="radio-inline">
-                                            <input type="radio" name="optionsRadios" id="optionsRadios5" value="option2"> No </label>
+                                            <input type="radio" name="data[PackageCustomer][equipment_adapter]" id="optionsRadios5" value="NO"> No </label>
                                     </div>
                                 </div>
                                 <label class="control-label col-md-2">Remote Control<span class="required">
@@ -359,9 +393,9 @@
                                 <div class="col-md-2">
                                     <div class="radio-list">
                                         <label class="radio-inline">
-                                            <input type="radio" name="optionsRadios" id="optionsRadios4" value="option1" checked> Yes </label>
+                                            <input type="radio" name="data[PackageCustomer][equipment_remote]" id="optionsRadios4" value="YES" > Yes </label>
                                         <label class="radio-inline">
-                                            <input type="radio" name="optionsRadios" id="optionsRadios5" value="option2"> No</label>
+                                            <input type="radio" name="data[PackageCustomer][equipment_remote]" id="optionsRadios5" value="NO"> No</label>
                                     </div>
                                 </div>
                             </div>
@@ -372,7 +406,7 @@
                                 <div class="col-md-2">
                                     <?php
                                     echo $this->Form->input(
-                                            'first_name', array(
+                                            'wire', array(
                                         'class' => 'form-control required',
                                         'type' => 'text'
                                             )
@@ -385,7 +419,7 @@
                                 <div class="col-md-2">
                                     <?php
                                     echo $this->Form->input(
-                                            'first_name', array(
+                                            'current_isp_speed', array(
                                         'class' => 'form-control required',
                                         'type' => 'text'
                                             )
@@ -398,7 +432,7 @@
                                 <div class="col-md-2">
                                     <?php
                                     echo $this->Form->input(
-                                            'first_name', array(
+                                            'current_service_provider', array(
                                         'class' => 'form-control required',
                                         'type' => 'text'
                                             )
@@ -413,7 +447,7 @@
                                 <div class="col-md-2">
                                     <?php
                                     echo $this->Form->input(
-                                            'first_name', array(
+                                            'ethernet_wire', array(
                                         'class' => 'form-control required',
                                         'type' => 'text'
                                             )
@@ -426,7 +460,7 @@
                                 <div class="col-md-2">
                                     <?php
                                     echo $this->Form->input(
-                                            'first_name', array(
+                                            'deposit', array(
                                         'class' => 'form-control required',
                                         'type' => 'text'
                                             )
@@ -439,7 +473,7 @@
                                 <div class="col-md-2">
                                     <?php
                                     echo $this->Form->input(
-                                            'first_name', array(
+                                            'monthly_bill', array(
                                         'class' => 'form-control required',
                                         'type' => 'text'
                                             )
@@ -454,7 +488,7 @@
                                 <div class="col-md-2">
                                     <?php
                                     echo $this->Form->input(
-                                            'first_name', array(
+                                            'others', array(
                                         'class' => 'form-control required',
                                         'type' => 'text'
                                             )
@@ -467,7 +501,7 @@
                                 <div class="col-md-2">
                                     <?php
                                     echo $this->Form->input(
-                                            'first_name', array(
+                                            'total', array(
                                         'class' => 'form-control required',
                                         'type' => 'text'
                                             )
@@ -478,132 +512,140 @@
                                         * </span>
                                 </label>
                                 <div class="col-md-2">
-                                   <div class="checkbox-list">
+                                    <div class="checkbox-list">
                                         <label>
-                                            <input type="checkbox">Select Check box 
+                                            <input type="checkbox" id="shipment">Select Check box 
                                         </label>
-                                        
+
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-2">Driving lisence or Social Security<span class="required">
-                                        * </span>
-                                </label>
-                                <div class="col-md-2">
-                                    <?php
-                                    echo $this->Form->input(
-                                            'first_name', array(
-                                        'class' => 'form-control required',
-                                        'type' => 'text'
-                                            )
-                                    );
-                                    ?>
-                                </div>
-                                <label class="control-label col-md-2">Customer Utility:<span class="required">
-                                        * </span>
-                                </label>
-                                <div class="col-md-2">
-                                   <div class="radio-list">
-                                        <label class="radio-inline">
-                                            <input type="radio" name="optionsRadios" id="optionsRadios4" value="option1" checked> Yes </label>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="optionsRadios" id="optionsRadios5" value="option2"> No</label>
+                            <div id="shipmentshow_hide" style="display: none">
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">Driving lisence or Social Security<span class="required">
+                                            * </span>
+                                    </label>
+                                    <div class="col-md-2">
+                                        <?php
+                                        echo $this->Form->input(
+                                                'driving_socialsecurity', array(
+                                            'class' => 'form-control required',
+                                            'type' => 'text'
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+                                    <label class="control-label col-md-2">Customer Utility:<span class="required">
+                                            * </span>
+                                    </label>
+                                    <div class="col-md-2">
+                                        <div class="radio-list">
+                                            <label class="radio-inline">
+                                                <input type="radio" name="data[PackageCustomer][customer_utility]" id="optionsRadios4" value="YES" checked> Yes </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="data[PackageCustomer][customer_utility]" id="optionsRadios5" value="NO"> No</label>
+                                        </div>
+                                    </div>
+                                    <label class="control-label col-md-2">First name<span class="required">
+                                            * </span>
+                                    </label>
+                                    <div class="col-md-2">
+                                        <?php
+                                        echo $this->Form->input(
+                                                'cfirst_name', array(
+                                            'class' => 'form-control required',
+                                            'type' => 'text'
+                                                )
+                                        );
+                                        ?>
                                     </div>
                                 </div>
-                                <label class="control-label col-md-2">First name<span class="required">
-                                        * </span>
-                                </label>
-                                <div class="col-md-2">
-                                    <?php
-                                    echo $this->Form->input(
-                                            'first_name', array(
-                                        'class' => 'form-control required',
-                                        'type' => 'text'
-                                            )
-                                    );
-                                    ?>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">Last name<span class="required">
+                                            * </span>
+                                    </label>
+                                    <div class="col-md-2">
+                                        <?php
+                                        echo $this->Form->input(
+                                                'clast_name', array(
+                                            'class' => 'form-control required',
+                                            'type' => 'text'
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+                                    <label class="control-label col-md-2">Card no:<span class="required">
+                                            * </span>
+                                    </label>
+                                    <div class="col-md-2">
+                                        <?php
+                                        echo $this->Form->input(
+                                                'card_check_no', array(
+                                            'class' => 'form-control required',
+                                            'type' => 'text'
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+                                    <label class="control-label col-md-2">CVV Code:<span class="required">
+                                            * </span>
+                                    </label>
+                                    <div class="col-md-2">
+                                        <?php
+                                        echo $this->Form->input(
+                                                'cvv_code', array(
+                                            'class' => 'form-control required',
+                                            'type' => 'text'
+                                                )
+                                        );
+                                        ?>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-2">Last name<span class="required">
-                                        * </span>
-                                </label>
-                                <div class="col-md-2">
-                                    <?php
-                                    echo $this->Form->input(
-                                            'first_name', array(
-                                        'class' => 'form-control required',
-                                        'type' => 'text'
-                                            )
-                                    );
-                                    ?>
-                                </div>
-                                <label class="control-label col-md-2">Card no:<span class="required">
-                                        * </span>
-                                </label>
-                                <div class="col-md-2">
-                                    <?php
-                                    echo $this->Form->input(
-                                            'first_name', array(
-                                        'class' => 'form-control required',
-                                        'type' => 'text'
-                                            )
-                                    );
-                                    ?>
-                                </div>
-                                <label class="control-label col-md-2">CVV Code:<span class="required">
-                                        * </span>
-                                </label>
-                                <div class="col-md-2">
-                                    <?php
-                                    echo $this->Form->input(
-                                            'first_name', array(
-                                        'class' => 'form-control required',
-                                        'type' => 'text'
-                                            )
-                                    );
-                                    ?>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-2">Exp. Date:<span class="required">
-                                        * </span>
-                                </label>
-                                <div class="col-md-2">
-                                   <select class="form-control input-medium">
-                                        <option>Option 1</option>
-                                        <option>Option 2</option>
-                                        <option>Option 3</option>
-                                        <option>Option 4</option>
-                                        <option>Option 5</option>
-                                    </select>
-                                </div>
-                                <label class="control-label col-md-2">Select month<span class="required">
-                                        * </span>
-                                </label>
-                                <div class="col-md-2">
-                                    <select class="form-control input-medium">
-                                        <option>Option 1</option>
-                                        <option>Option 2</option>
-                                        <option>Option 3</option>
-                                        <option>Option 4</option>
-                                        <option>Option 5</option>
-                                    </select>
-                                </div>
-                                <label class="control-label col-md-2">Address on Card:<span class="required">
-                                        * </span>
-                                </label>
-                                <div class="col-md-2">
-                                    <?php
-                                    echo $this->Form->input(
-                                            'first_name', array(
-                                        'class' => 'form-control required',
-                                        'type' => 'text',
-                                         'placeholder'=>'Zip',       
-                                            )
-                                    );
-                                    ?>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">Exp. Date:<span class="required">
+                                            * </span>
+                                    </label>
+                                    <div class="col-md-2">
+                                        <?php
+                                        echo $this->Form->input('exp_date.year', array(
+                                            'type' => 'select',
+                                            'options' => $ym['year'],
+                                            'empty' => 'Select Year',
+                                            'class' => ' form-control input-medium',
+                                            'div' => array('class' => 'span12 ')
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+                                    <label class="control-label col-md-2">Select month<span class="required">
+                                            * </span>
+                                    </label>
+                                    <div class="col-md-2">
+                                        <?php
+                                        echo $this->Form->input('exp_date.month', array(
+                                            'type' => 'select',
+                                            'options' => $ym['month'],
+                                            'empty' => 'Select Month',
+                                            'class' => 'form-control input-medium',
+                                            'div' => array('class' => 'span12 ')
+                                                )
+                                        );
+                                        ?> 
+                                    </div>
+                                    <label class="control-label col-md-2">Address on Card:<span class="required">
+                                            * </span>
+                                    </label>
+                                    <div class="col-md-2">
+                                        <?php
+                                        echo $this->Form->input(
+                                                'czip', array(
+                                            'class' => 'form-control required',
+                                            'type' => 'text',
+                                            'placeholder' => 'Zip & detail (optional)',
+                                                )
+                                        );
+                                        ?>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -611,31 +653,61 @@
                                         * </span>
                                 </label>
                                 <div class="col-md-2">
-                                   <div class="checkbox-list">
+                                    <div class="checkbox-list">
                                         <label>
-                                            <input type="checkbox">Select Check box 
+                                            <input type="checkbox" id="additioninfo" >Select Check box 
                                         </label>
-                                        
+
                                     </div>
                                 </div>
-                                <label class="control-label col-md-2">Follow up date<span class="required">
-                                        * </span>
-                                </label>
-                                <div class="col-md-2">
-                                    <?php
-                                    echo $this->Form->input(
-                                            'first_name', array(
-                                        'class' => 'form-control required',
-                                        'type' => 'text'
-                                            )
-                                    );
-                                    ?>
-                                </div>
-                                <label class="control-label col-md-2">Comment<span class="required">
-                                        * </span>
-                                </label>
-                                <div class="col-md-2">
-                                    <textarea class="form-control" rows="3"></textarea>
+                                <div id="Additional_info" style="display: none" >
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Disable Past Dates</label>
+                                        <div class="col-md-3">
+                                            <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
+                                                <input type="text" class="form-control" readonly>
+                                                <span class="input-group-btn">
+                                                    <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                                </span>
+                                            </div>
+                                            <!-- /input-group -->
+                                            <span class="help-block">
+                                                Select date </span>
+                                        </div>
+                                    </div>
+                                    <label class="control-label col-md-2">Follow up date<span class="required">
+                                            * </span>
+                                    </label>
+                                    <div class="col-md-4">
+                                        <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
+                                            <?php
+                                            echo $this->Form->input(
+                                                    'openDate', array(
+                                                'class' => 'form-control required',
+                                                'type' => 'text',
+                                                'readonly' => true
+                                                    )
+                                            );
+                                            ?>
+                                            <span class="input-group-btn">
+                                                <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <label class="control-label col-md-2">Comment<span class="required">
+                                            * </span>
+                                    </label>
+                                    <div class="col-md-2">
+                                        <?php
+                                        echo $this->Form->input(
+                                                'comments', array(
+                                            'class' => 'form-control',
+                                            'type' => 'textarea',
+                                            'rows' => '3',
+                                                )
+                                        );
+                                        ?>
+                                    </div>
                                 </div>
                             </div>
                         </div>
