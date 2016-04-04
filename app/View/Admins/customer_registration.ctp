@@ -461,8 +461,8 @@
                                     <?php
                                     echo $this->Form->input(
                                             'deposit', array(
-                                        'class' => 'form-control required',
-                                        'type' => 'text'
+                                        'class' => 'form-control required partial',
+                                        'type' => 'number'
                                             )
                                     );
                                     ?>
@@ -474,8 +474,8 @@
                                     <?php
                                     echo $this->Form->input(
                                             'monthly_bill', array(
-                                        'class' => 'form-control required',
-                                        'type' => 'text'
+                                        'class' => 'form-control required partial ',
+                                        'type' => 'number'
                                             )
                                     );
                                     ?>
@@ -489,8 +489,8 @@
                                     <?php
                                     echo $this->Form->input(
                                             'others', array(
-                                        'class' => 'form-control required',
-                                        'type' => 'text'
+                                        'class' => 'form-control required partial',
+                                        'type' => 'number'
                                             )
                                     );
                                     ?>
@@ -502,13 +502,14 @@
                                     <?php
                                     echo $this->Form->input(
                                             'total', array(
-                                        'class' => 'form-control required',
-                                        'type' => 'text'
+                                        'class' => 'form-control input-sm total',
+                                        'type' => 'number',
+                                         'readonly' => 'readonly'      
                                             )
                                     );
                                     ?>
                                 </div>
-                                <label class="control-label col-md-2">Shipment<span class="required">
+                                <label class="control-label col-md-2 blink_me" style="color: red">Shipment <span class="required">
                                         * </span>
                                 </label>
                                 <div class="col-md-2">
@@ -541,7 +542,7 @@
                                     <div class="col-md-2">
                                         <div class="radio-list">
                                             <label class="radio-inline">
-                                                <input type="radio" name="data[PackageCustomer][customer_utility]" id="optionsRadios4" value="YES" checked> Yes </label>
+                                                <input type="radio" name="data[PackageCustomer][customer_utility]" id="optionsRadios4" value="YES"> Yes </label>
                                             <label class="radio-inline">
                                                 <input type="radio" name="data[PackageCustomer][customer_utility]" id="optionsRadios5" value="NO"> No</label>
                                         </div>
@@ -649,7 +650,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-2">Follow this Customer<span class="required">
+                                <label class="control-label col-md-2 blink_me" style="color: red">Follow this Customer<span class="required">
                                         * </span>
                                 </label>
                                 <div class="col-md-2">
@@ -666,7 +667,15 @@
                                             * </span>
                                     </label>
                                     <div class="col-md-2">
-                                        <input type="text" class="datepicker form-control">
+                                        <?php
+                                        echo $this->Form->input(
+                                                'follow_up_date', array(
+                                            'type' => 'text',
+                                            'class' => 'datepicker form-control'
+                                                )
+                                        );
+                                        ?>
+
                                     </div>
                                     <label class="control-label col-md-2">Comment<span class="required">
                                             * </span>
