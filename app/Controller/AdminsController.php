@@ -319,7 +319,7 @@ class AdminsController extends AppController {
         $uid = $loggedUser['id'];
         $rid = $loggedUser['Role']['id'];
         $admin_messages = $this->Message->query("SELECT * FROM messages m
-        LEFT JOIN users u ON u.id = m.user_id  WHERE assign_id = $uid OR m.role_id = $rid");
+        LEFT JOIN users u ON u.id = m.user_id  WHERE m.assign_id = $uid OR m.role_id = $rid");
         $cells = $this->PackageCustomer->find('list', array('fields' => array('cell', 'cell')));
         $this->set(compact('cells', 'clicked', 'admin_messages'));
     }
