@@ -85,7 +85,7 @@
                                     Package
                                 </th>
                                 <th class="hidden-480">
-                                    Registration Date
+                                    Follow update
                                 </th>
                             </tr>
                         </thead>
@@ -99,7 +99,7 @@
                                         <?php echo $results['PackageCustomer']['c_acc_no']; ?>
                                     </td>
                                     <td>
-                                        <a href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit_customer_data', $results['PackageCustomer']['id'])) ?>" target="_blank"><?php echo $results['PackageCustomer']['middle_name']. " " . $results['PackageCustomer']['last_name']; ?></a> 
+                                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'customer_registration', $results['PackageCustomer']['id'])) ?>" target="_blank"><?php echo $results['PackageCustomer']['middle_name']. " " . $results['PackageCustomer']['last_name']; ?></a> 
                                     </td>
                                     <td class="hidden-480">
                                         <?php echo $results['PackageCustomer']['street'] .", ". $results['PackageCustomer']['apartment']; ?>                            
@@ -120,7 +120,7 @@
                                         ?>
                                     </td>
                                     <td>
-                                        <?php echo $results['PackageCustomer']['created']; ?>
+                                        <?php echo $results['PackageCustomer']['follow_date']; ?>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>                           
