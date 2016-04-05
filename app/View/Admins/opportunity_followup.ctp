@@ -99,7 +99,7 @@
                                         <?php echo $results['PackageCustomer']['c_acc_no']; ?>
                                     </td>
                                     <td>
-                                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'customer_registration', $results['PackageCustomer']['id'])) ?>" target="_blank"><?php echo $results['PackageCustomer']['middle_name']. " " . $results['PackageCustomer']['last_name']; ?></a> 
+                                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'edit_customer_registration', $results['PackageCustomer']['id'])) ?>" target="_blank"><?php echo $results['PackageCustomer']['middle_name']. " " . $results['PackageCustomer']['last_name']; ?></a> 
                                     </td>
                                     <td class="hidden-480">
                                         <?php echo $results['PackageCustomer']['street'] .", ". $results['PackageCustomer']['apartment']; ?>                            
