@@ -432,11 +432,11 @@ class AdminsController extends AppController {
                 $this->request->data['PackageCustomer']['status'] = "requested";
 
                 $duration = $this->PackageCustomer->save($this->request->data['PackageCustomer']);
-                $duration1 = $duration['PackageCustomer']['psetting_id'];
-
-                $duration_time = $this->PackageCustomer->query("SELECT psetting_id,duration FROM package_customers inner 
-                        join psettings on package_customers.psetting_id = psettings.id WHERE psetting_id = $duration1 limit 0,1");
-                $additionalTime = "+" . $duration_time[0]['psettings']['duration'] . "months";
+//                $duration1 = $duration['PackageCustomer']['psetting_id'];
+//
+//                $duration_time = $this->PackageCustomer->query("SELECT psetting_id,duration FROM package_customers inner 
+//                        join psettings on package_customers.psetting_id = psettings.id WHERE psetting_id = $duration1 limit 0,1");
+//                $additionalTime = "+" . $duration_time[0]['psettings']['duration'] . "months";
 
                 $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -487,6 +487,7 @@ class AdminsController extends AppController {
         $ym = $this->getYm();
         $this->set(compact('ym'));
     }
+
     function customer_registrationOld() {
         $this->loadModel('PackageCustomer');
         $this->loadModel('CustomPackage');
@@ -606,6 +607,16 @@ class AdminsController extends AppController {
 
     function pdf() {
         $this->layout = 'blank';
+    }
+
+    function opportunity_followup() {
+        $this->loadModel('PackageCustomer');
+        $allData = $this->PackageCustomer->find('all', array('conditions' => array('PackageCustomer.status' => 'requested','PackageCustomer.follow_up'=>1)));
+        $this->set(compact('allData'));
+    }
+
+    function contact() {
+        
     }
 
 }

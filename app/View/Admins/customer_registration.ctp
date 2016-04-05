@@ -46,39 +46,39 @@
 
                             <div class="form-group">
                                 <label class="control-label col-md-2">First Name<span class="required">
-                                        * </span>
+                                    </span>
                                 </label>
                                 <div class="col-md-2">
                                     <?php
                                     echo $this->Form->input(
                                             'first_name', array(
-                                        'class' => 'form-control required',
+                                        'class' => 'form-control ',
                                         'type' => 'text'
                                             )
                                     );
                                     ?>
                                 </div>
                                 <label class="control-label col-md-2">Middle Name<span class="required">
-                                        * </span>
+                                    </span>
                                 </label>
                                 <div class="col-md-2">
                                     <?php
                                     echo $this->Form->input(
                                             'middle_name', array(
-                                        'class' => 'form-control required',
+                                        'class' => 'form-control ',
                                         'type' => 'text'
                                             )
                                     );
                                     ?>
                                 </div>
                                 <label class="control-label col-md-2">Last Name<span class="required">
-                                        * </span>
+                                    </span>
                                 </label>
                                 <div class="col-md-2">
                                     <?php
                                     echo $this->Form->input(
                                             'last_name', array(
-                                        'class' => 'form-control required',
+                                        'class' => 'form-control ',
                                         'type' => 'text'
                                             )
                                     );
@@ -87,39 +87,39 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-2">Address:<span class="required">
-                                        * </span>
+                                    </span>
                                 </label>
                                 <div class="col-md-2">
                                     <?php
                                     echo $this->Form->input(
                                             'address', array(
-                                        'class' => 'form-control required',
+                                        'class' => 'form-control ',
                                         'type' => 'text'
                                             )
                                     );
                                     ?>
                                 </div>
                                 <label class="control-label col-md-2">Street:<span class="required">
-                                        * </span>
+                                    </span>
                                 </label>
                                 <div class="col-md-2">
                                     <?php
                                     echo $this->Form->input(
                                             'street', array(
-                                        'class' => 'form-control required',
+                                        'class' => 'form-control ',
                                         'type' => 'text'
                                             )
                                     );
                                     ?>
                                 </div>
                                 <label class="control-label col-md-2">Apartment:<span class="required">
-                                        * </span>
+                                    </span>
                                 </label>
                                 <div class="col-md-2">
                                     <?php
                                     echo $this->Form->input(
                                             'apartment', array(
-                                        'class' => 'form-control required',
+                                        'class' => 'form-control ',
                                         'type' => 'text'
                                             )
                                     );
@@ -128,39 +128,39 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-2">City:<span class="required">
-                                        * </span>
+                                    </span>
                                 </label>
                                 <div class="col-md-2">
                                     <?php
                                     echo $this->Form->input(
                                             'city', array(
-                                        'class' => 'form-control required',
+                                        'class' => 'form-control ',
                                         'type' => 'text'
                                             )
                                     );
                                     ?>
                                 </div>
                                 <label class="control-label col-md-2">State:<span class="required">
-                                        * </span>
+                                    </span>
                                 </label>
                                 <div class="col-md-2">
                                     <?php
                                     echo $this->Form->input(
                                             'state', array(
-                                        'class' => 'form-control required',
+                                        'class' => 'form-control ',
                                         'type' => 'text'
                                             )
                                     );
                                     ?>
                                 </div>
                                 <label class="control-label col-md-2">Zip:<span class="required">
-                                        * </span>
+                                    </span>
                                 </label>
                                 <div class="col-md-2">
                                     <?php
                                     echo $this->Form->input(
                                             'zip', array(
-                                        'class' => 'form-control required',
+                                        'class' => 'form-control ',
                                         'type' => 'text'
                                             )
                                     );
@@ -169,39 +169,39 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-2">Phone: Home:<span class="required">
-                                        * </span>
+                                    </span>
                                 </label>
                                 <div class="col-md-2">
                                     <?php
                                     echo $this->Form->input(
                                             'home', array(
-                                        'class' => 'form-control required',
+                                        'class' => 'form-control ',
                                         'type' => 'text'
                                             )
                                     );
                                     ?>
                                 </div>
                                 <label class="control-label col-md-2">Cell:<span class="required">
-                                        * </span>
+                                    </span>
                                 </label>
                                 <div class="col-md-2">
                                     <?php
                                     echo $this->Form->input(
                                             'cell', array(
-                                        'class' => 'form-control required',
+                                        'class' => 'form-control ',
                                         'type' => 'text'
                                             )
                                     );
                                     ?>
                                 </div>
                                 <label class="control-label col-md-2">E-Mail<span class="required">
-                                        * </span>
+                                    </span>
                                 </label>
                                 <div class="col-md-2">
                                     <?php
                                     echo $this->Form->input(
                                             'email', array(
-                                        'class' => 'form-control required',
+                                        'class' => 'form-control ',
                                         'type' => 'text',
                                         'placeholder' => 'Optional'
                                             )
@@ -211,13 +211,13 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-2">Fax<span class="required">
-                                        * </span>
+                                    </span>
                                 </label>
                                 <div class="col-md-2">
                                     <?php
                                     echo $this->Form->input(
                                             'fax', array(
-                                        'class' => 'form-control required',
+                                        'class' => 'form-control ',
                                         'type' => 'text'
                                             )
                                     );
@@ -225,7 +225,7 @@
                                 </div>
                                 <div id="regularpackage">
                                     <label class="control-label col-md-2">Select package:<span class="required">
-                                            * </span>
+                                        </span>
                                     </label>
                                     <div class="col-md-2">
                                         <?php
@@ -270,7 +270,7 @@
                                 </div>
 
                                 <label class="control-label col-md-2"> Custom Package<span class="required">
-                                        * </span>
+                                    </span>
                                 </label>
                                 <div class="col-md-2">
                                     <div class="checkbox-list">
@@ -284,39 +284,39 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-2">Referred by:<span class="required">
-                                        * </span>
+                                    </span>
                                 </label>
                                 <div class="col-md-2">
                                     <?php
                                     echo $this->Form->input(
                                             'referred_name', array(
-                                        'class' => 'form-control required',
+                                        'class' => 'form-control ',
                                         'type' => 'text'
                                             )
                                     );
                                     ?>
                                 </div>
                                 <label class="control-label col-md-2">Bonus:<span class="required">
-                                        * </span>
+                                    </span>
                                 </label>
                                 <div class="col-md-2">
                                     <?php
                                     echo $this->Form->input(
                                             'bonus', array(
-                                        'class' => 'form-control required',
+                                        'class' => 'form-control ',
                                         'type' => 'text'
                                             )
                                     );
                                     ?>
                                 </div>
                                 <label class="control-label col-md-2">Phone:<span class="required">
-                                        * </span>
+                                    </span>
                                 </label>
                                 <div class="col-md-2">
                                     <?php
                                     echo $this->Form->input(
                                             'referred_phone', array(
-                                        'class' => 'form-control required',
+                                        'class' => 'form-control ',
                                         'type' => 'text'
                                             )
                                     );
@@ -325,7 +325,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-2">Router OR Modem<span class="required">
-                                        * </span>
+                                    </span>
                                 </label>
                                 <div class="col-md-2">
                                     <div class="radio-list">
@@ -336,7 +336,7 @@
                                     </div>
                                 </div>
                                 <label class="control-label col-md-2">Site Top Box<span class="required">
-                                        * </span>
+                                    </span>
                                 </label>
                                 <div class="col-md-2">
                                     <?php
@@ -353,7 +353,7 @@
                                     ?>
                                 </div>
                                 <label class="control-label col-md-2">HDMI<span class="required">
-                                        * </span>
+                                    </span>
                                 </label>
                                 <div class="col-md-2">
                                     <div class="radio-list">
@@ -366,18 +366,18 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-2">Wi-fi Adapter<span class="required">
-                                        * </span>
+                                    </span>
                                 </label>
                                 <div class="col-md-2">
                                     <div class="radio-list">
                                         <label class="radio-inline">
-                                            <input type="radio" name="data[PackageCustomer][equipment_wi_fi]" id="optionsRadios4" value="YES" checked> Yes </label>
+                                            <input type="radio" name="data[PackageCustomer][equipment_wi_fi]" id="optionsRadios4" value="YES" > Yes </label>
                                         <label class="radio-inline">
                                             <input type="radio" name="data[PackageCustomer][equipment_wi_fi]" id="optionsRadios5" value="NO"> No</label>
                                     </div>
                                 </div>
                                 <label class="control-label col-md-2">Power Adapter<span class="required">
-                                        * </span>
+                                    </span>
                                 </label>
                                 <div class="col-md-2">
                                     <div class="radio-list">
@@ -388,7 +388,7 @@
                                     </div>
                                 </div>
                                 <label class="control-label col-md-2">Remote Control<span class="required">
-                                        * </span>
+                                    </span>
                                 </label>
                                 <div class="col-md-2">
                                     <div class="radio-list">
@@ -401,70 +401,70 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-2">Ethernet Wire<span class="required">
-                                        * </span>
+                                    </span>
                                 </label>
                                 <div class="col-md-2">
                                     <?php
                                     echo $this->Form->input(
                                             'ethernet_wire', array(
-                                        'class' => 'form-control required',
+                                        'class' => 'form-control ',
                                         'type' => 'text'
                                             )
                                     );
                                     ?>
                                 </div>
                                 <label class="control-label col-md-2">Current ISP and Speed<span class="required">
-                                        * </span>
+                                    </span>
                                 </label>
                                 <div class="col-md-2">
                                     <?php
                                     echo $this->Form->input(
                                             'current_isp_speed', array(
-                                        'class' => 'form-control required',
+                                        'class' => 'form-control ',
                                         'type' => 'text'
                                             )
                                     );
                                     ?>
                                 </div>
                                 <label class="control-label col-md-2">Service Provider<span class="required">
-                                        * </span>
+                                    </span>
                                 </label>
                                 <div class="col-md-2">
                                     <?php
                                     echo $this->Form->input(
                                             'current_service_provider', array(
-                                        'class' => 'form-control required',
+                                        'class' => 'form-control ',
                                         'type' => 'text'
                                             )
                                     );
                                     ?>
                                 </div>
                             </div>
-                         
+
 
                             <hr/>
                             <div class="form-group">
                                 <label class="control-label col-md-1">SD:<span class="required">
-                                        * </span>
+                                    </span>
                                 </label>
                                 <div class="col-md-2">
                                     <?php
                                     echo $this->Form->input(
                                             'deposit', array(
-                                        'class' => 'form-control required partial',
+                                        'class' => 'form-control  partial',
                                         'type' => 'number'
                                             )
                                     );
                                     ?>
                                 </div>
                                 <label class="control-label col-md-1">MB:<span class="required">
-                                        * </span>
+                                    </span>
                                 </label>
                                 <div class="col-md-2">
                                     <?php
                                     echo $this->Form->input(
                                             'monthly_bill', array(
-                                        'class' => 'form-control required partial ',
+                                        'class' => 'form-control  partial ',
                                         'type' => 'number'
                                             )
                                     );
@@ -473,20 +473,20 @@
 
                                 <div class="form-group">
                                     <label class="control-label col-md-1">Equipment:<span class="required">
-                                            * </span>
+                                        </span>
                                     </label>
                                     <div class="col-md-2">
                                         <?php
                                         echo $this->Form->input(
                                                 'others', array(
-                                            'class' => 'form-control required partial',
+                                            'class' => 'form-control  partial',
                                             'type' => 'number'
                                                 )
                                         );
                                         ?>
                                     </div>
                                     <label class="control-label col-md-1">Total:<span class="required">
-                                            * </span>
+                                        </span>
                                     </label>
                                     <div class="col-md-2">
                                         <?php
@@ -502,12 +502,20 @@
                                 </div>
 
                                 <label class="control-label col-md-2 blink_me" style="color: red">Shipment <span class="required">
-                                        * </span>
+                                    </span>
                                 </label>
                                 <div class="col-md-2">
                                     <div class="checkbox-list">
                                         <label>
-                                            <input type="checkbox" id="shipment">
+                                            <?php
+                                            echo $this->Form->input(
+                                                    'shipment', array(
+                                                'type' => 'checkbox',
+                                                'value' => '1',
+                                                'id' => 'shipment',
+                                                    )
+                                            );
+                                            ?>
                                         </label>
 
                                     </div>
@@ -516,20 +524,20 @@
                             <div id="shipmentshow_hide" style="display: none">
                                 <div class="form-group">
                                     <label class="control-label col-md-2">Driving lisence or Social Security<span class="required">
-                                            * </span>
+                                        </span>
                                     </label>
                                     <div class="col-md-2">
                                         <?php
                                         echo $this->Form->input(
                                                 'driving_socialsecurity', array(
-                                            'class' => 'form-control required',
+                                            'class' => 'form-control ',
                                             'type' => 'text'
                                                 )
                                         );
                                         ?>
                                     </div>
                                     <label class="control-label col-md-2">Customer Utility:<span class="required">
-                                            * </span>
+                                        </span>
                                     </label>
                                     <div class="col-md-2">
                                         <div class="radio-list">
@@ -540,13 +548,13 @@
                                         </div>
                                     </div>
                                     <label class="control-label col-md-2">First name<span class="required">
-                                            * </span>
+                                        </span>
                                     </label>
                                     <div class="col-md-2">
                                         <?php
                                         echo $this->Form->input(
                                                 'cfirst_name', array(
-                                            'class' => 'form-control required',
+                                            'class' => 'form-control ',
                                             'type' => 'text'
                                                 )
                                         );
@@ -555,39 +563,39 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-md-2">Last name<span class="required">
-                                            * </span>
+                                        </span>
                                     </label>
                                     <div class="col-md-2">
                                         <?php
                                         echo $this->Form->input(
                                                 'clast_name', array(
-                                            'class' => 'form-control required',
+                                            'class' => 'form-control ',
                                             'type' => 'text'
                                                 )
                                         );
                                         ?>
                                     </div>
                                     <label class="control-label col-md-2">Card no:<span class="required">
-                                            * </span>
+                                        </span>
                                     </label>
                                     <div class="col-md-2">
                                         <?php
                                         echo $this->Form->input(
                                                 'card_check_no', array(
-                                            'class' => 'form-control required',
+                                            'class' => 'form-control ',
                                             'type' => 'text'
                                                 )
                                         );
                                         ?>
                                     </div>
                                     <label class="control-label col-md-2">CVV Code:<span class="required">
-                                            * </span>
+                                        </span>
                                     </label>
                                     <div class="col-md-2">
                                         <?php
                                         echo $this->Form->input(
                                                 'cvv_code', array(
-                                            'class' => 'form-control required',
+                                            'class' => 'form-control ',
                                             'type' => 'text'
                                                 )
                                         );
@@ -596,7 +604,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-md-2">Exp. Date:<span class="required">
-                                            * </span>
+                                        </span>
                                     </label>
                                     <div class="col-md-2">
                                         <?php
@@ -611,7 +619,7 @@
                                         ?>
                                     </div>
                                     <label class="control-label col-md-2">Select month<span class="required">
-                                            * </span>
+                                        </span>
                                     </label>
                                     <div class="col-md-2">
                                         <?php
@@ -626,13 +634,13 @@
                                         ?> 
                                     </div>
                                     <label class="control-label col-md-2">Address on Card:<span class="required">
-                                            * </span>
+                                        </span>
                                     </label>
                                     <div class="col-md-2">
                                         <?php
                                         echo $this->Form->input(
                                                 'czip', array(
-                                            'class' => 'form-control required',
+                                            'class' => 'form-control ',
                                             'type' => 'text',
                                             'placeholder' => 'Zip & detail (optional)',
                                                 )
@@ -643,12 +651,21 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-2 blink_me" style="color: red">Follow this Customer<span class="required">
-                                        * </span>
+                                    </span>
                                 </label>
                                 <div class="col-md-2">
                                     <div class="checkbox-list">
                                         <label>
-                                            <input type="checkbox" id="additioninfo" >
+                                            <?php
+                                            echo $this->Form->input(
+                                                    'follow_up', array(
+                                                'type' => 'checkbox',
+                                                'value' => '1 ',
+                                                'id' => 'additioninfo',
+                                                    )
+                                            );
+                                            ?>
+
                                         </label>
 
                                     </div>
@@ -656,14 +673,14 @@
                                 <div id="Additional_info" style="display: none" >
 
                                     <label class="control-label col-md-2">Follow up date<span class="required">
-                                            * </span>
+                                        </span>
                                     </label>
                                     <div class="col-md-2">
                                         <?php
                                         echo $this->Form->input(
-                                                'follow_up_date', array(
+                                                'follow_date', array(
                                             'type' => 'text',
-                                            'class' => 'datepicker form-control'
+                                            'class' => 'datepicker form-control '
                                                 )
                                         );
                                         ?>
@@ -674,7 +691,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-2">Comment<span class="required">
-                                        * </span>
+                                    </span>
                                 </label>
                                 <div class="col-md-9">
                                     <?php
