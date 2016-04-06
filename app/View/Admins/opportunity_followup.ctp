@@ -87,6 +87,9 @@
                                 <th class="hidden-480">
                                     Follow update
                                 </th>
+                                 <th class="hidden-480">
+                                    Comment
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -121,6 +124,9 @@
                                     </td>
                                     <td>
                                         <?php echo $results['PackageCustomer']['follow_date']; ?>
+                                    </td>
+                                     <td>
+                                        <?php echo $results['PackageCustomer']['comments']; ?>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>                           
