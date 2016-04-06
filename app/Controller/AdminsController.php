@@ -5,6 +5,7 @@
  */
 App::uses('SimplePasswordHasher', 'Controller/Component/Auth');
 App::import('Controller', 'Transactions'); // mention at top
+require_once(APP . 'Vendor' . DS . 'class.upload.php');
 
 class AdminsController extends AppController {
 
@@ -32,6 +33,31 @@ class AdminsController extends AppController {
         parent::beforeFilter();
         $this->Auth->userScope = array('Admin.status' => 'active');
         $this->Auth->allow('create', 'getIsChatAgent');
+
+        // database name must be thum_img,small_img
+        $this->img_config = array(
+            'picture' => array(
+                'image_ratio_crop' => true,
+                'image_resize' => true,
+                'image_x' => 50,
+                'image_y' => 40
+            ),
+            'parent_dir' => 'pictures',
+            'target_path' => array(
+                'picture' => WWW_ROOT . 'pictures' . DS
+            )
+        );
+
+
+        // create the folder if it does not exist
+        if (!is_dir($this->img_config['parent_dir'])) {
+            mkdir($this->img_config['parent_dir']);
+        }
+        foreach ($this->img_config['target_path'] as $img_dir) {
+            if (!is_dir($img_dir)) {
+                mkdir($img_dir);
+            }
+        }
     }
 
     public function isAuthorized($user = null) {
@@ -148,12 +174,34 @@ class AdminsController extends AppController {
         $this->set(compact('roles'));
     }
 
+    function processImg($img) {
+        $upload = new Upload($img['picture']);
+        $upload->file_new_name_body = time();
+        foreach ($this->img_config['picture'] as $key => $value) {
+            $upload->$key = $value;
+        }
+        $upload->process($this->img_config['target_path']['picture']);
+        if (!$upload->processed) {
+            $msg = $this->generateError($upload->error);
+            return $this->redirect('create');
+        }
+        $return['file_dst_name'] = $upload->file_dst_name;
+        return $return;
+    }
+
     function create() {
         $this->loadModel('User');
         $this->loadModel('Role');
         if ($this->request->is('post')) {
             $this->User->set($this->request->data);
             if ($this->User->validates()) {
+                $result = array();
+                if (!empty($this->request->data['User']['picture']['name'])) {
+                    $result = $this->processImg($this->request->data['User']);
+                    $this->request->data['User']['picture'] = $result['file_dst_name'];
+                } else {
+                    $this->request->data['User']['picture'] = '';
+                }
                 $this->User->save($this->request->data['User']);
                 $msg = '<div class="alert alert-success">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -178,10 +226,8 @@ class AdminsController extends AppController {
     function edit_admin($id = null) {
         $this->loadModel('Role');
         $this->loadModel('User');
-
         if ($this->request->is('post') || $this->request->is('put')) {
             $this->User->set($this->request->data);
-
             $this->User->id = $id;
             $this->User->save($this->request->data['User']);
             $msg = '<div class="alert alert-success">
@@ -189,17 +235,65 @@ class AdminsController extends AppController {
 		<strong> Admin updated succeesfully </strong>
 	</div>';
             $this->Session->setFlash($msg);
-
-
             return $this->redirect($this->referer());
         }
         if (!$this->request->data) {
             $data = $this->User->findById($id);
-            $this->request->data = $data;
-//           $roles = $this->set('roles', $this->Role->find("list"));
+            $this->request->data = $data;           
             $roles = $this->Role->find('list', array('order' => array('Role.name' => 'ASC')));
-            $this->set(compact('roles'));
+            $this->set(compact('roles','data'));
         }
+    }
+     public function edit_admin7($id = null) {
+         $this->loadModel('Role');
+        $this->loadModel('User');
+        $this->User->id = $id;
+        $users = $this->User->findById($id);
+        $this->set(compact('$users'));
+
+        if ($this->request->is('get')) {
+            $this->request->data = $this->User->read(); //data read from database
+            //delete image from database start
+            //  $this->request->data = $data1;
+        } else {
+            $data = $this->request->data;   //new data insert start  
+            $image = $data['User']['picture'];
+            $data1 = $this->User->findById($id);
+            $directory = WWW_ROOT . 'pictuers';
+            if (!empty($data['User']['picture']['name'])) {
+
+                if (move_uploaded_file($data['User']['picture']['tmp_name'], WWW_ROOT . 'pictures/' . $data['User']['picture']['name'])) {//new image upload
+                    $data['User']['Picture'] = $data['User']['picture']['name'];
+                }
+                if (unlink($directory . DIRECTORY_SEPARATOR . $data1['User']['picture'])) { //delete image from root and database
+                    echo 'image deleted.....';
+                }
+
+
+                # code...
+            } else {
+                $data['User']['picture'] = $data1['User']['picture'];
+            }
+            if ($this->User->save($data)) {
+                $msg = '<div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+           <strong> User update successfully </strong>
+          </div>';
+                $this->Session->setFlash($msg);
+                $this->redirect(array('controller' => "admins", "action" => "manage"));
+            } else {
+                $this->Session->setFlash("not updated");
+                $this->render();
+            }
+        }
+        if (!$this->request->data) {
+            $data = $this->User->findById($id);
+            $this->request->data = $data;           
+            $roles = $this->Role->find('list', array('order' => array('Role.name' => 'ASC')));
+            $this->set(compact('roles','data'));
+        }
+        
+        
     }
 
     function delete($id = null) {
@@ -239,7 +333,6 @@ class AdminsController extends AppController {
 
     function clean($string) {
         $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
-
         return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
     }
 
@@ -395,7 +488,7 @@ class AdminsController extends AppController {
             if ($this->PackageCustomer->validates()) {
                 //Make the statatus 'requested'
                 $this->PackageCustomer->saveField("status", "requested");
-                
+
                 $result = array();
                 if (!empty($this->request->data['PackageCustomer']['ch_signature']['name'])) {
                     $result = $this->processImg($this->request->data['PackageCustomer'], 'ch_signature');
@@ -404,7 +497,7 @@ class AdminsController extends AppController {
                     $this->request->data['PackageCustomer']['ch_signature'] = '';
                 }
 
-                
+
                 //ID Card Upload
                 if (!empty($this->request->data['PackageCustomer']['id_card']['name'])) {
                     $result = $this->processImg($this->request->data['PackageCustomer'], 'id_card');
@@ -413,7 +506,7 @@ class AdminsController extends AppController {
                     $this->request->data['PackageCustomer']['id_card'] = '';
                 }
 
-                
+
                 //Money order Upload
                 if (!empty($this->request->data['PackageCustomer']['money_order']['name'])) {
                     $result = $this->processImg($this->request->data['PackageCustomer'], 'money_order');
@@ -422,7 +515,7 @@ class AdminsController extends AppController {
                     $this->request->data['PackageCustomer']['money_order'] = '';
                 }
 
-                
+
                 if ($this->Auth->loggedIn()) {
                     $admin = $this->Auth->user();
                     $this->request->data['PackageCustomer']['user_id'] = $admin['id'];
@@ -438,20 +531,20 @@ class AdminsController extends AppController {
                 $home_input = $this->request->data['PackageCustomer']['home'];
                 $home = preg_replace('/\s+/', '', (str_replace(array('(', ')'), '', $home_input)));
                 $this->request->data['PackageCustomer']['home'] = $home;
-                
-                
-                
+
+
+
                 //For Custom Package data insert
                 $data4CustomPackage['CustomPackage']['duration'] = $this->request->data['PackageCustomer']['duration'];
                 $data4CustomPackage['CustomPackage']['charge'] = $this->request->data['PackageCustomer']['charge'];
-                
+
                 if (!empty($this->request->data['PackageCustomer']['charge'])) {
                     $cp = $this->CustomPackage->save($data4CustomPackage);
 
                     unset($cp['CustomPackage']['PackageCustomer']);
                     $this->request->data['PackageCustomer']['custom_package_id'] = $cp['CustomPackage']['id'];
                 }
-                
+
                 //Insert automated account number...
                 $customer_account = $this->PackageCustomer->query("SELECT MAX(c_acc_no) FROM package_customers");
                 $this->request->data['PackageCustomer']['c_acc_no'] = $customer_account['0']['0']['MAX(c_acc_no)'] + 1;
@@ -463,7 +556,7 @@ class AdminsController extends AppController {
                 $duration_time = $this->PackageCustomer->query("SELECT psetting_id,duration FROM package_customers inner 
                         join psettings on package_customers.psetting_id = psettings.id WHERE psetting_id = $duration1 limit 0,1");
                 $additionalTime = "+" . $duration_time[0]['psettings']['duration'] . "months";
-                
+
                 $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <strong> Your sign up process completed succeesfully </strong>
@@ -474,7 +567,7 @@ class AdminsController extends AppController {
             $this->Session->setFlash($msg);
             //return $this->redirect('/transactions/edit_customer_data/' . $duration['PackageCustomer']['id']);
         }
-        
+
         //Show Technician List
         if (!$this->request->data) {
             $technician_info = $this->Role->find('first', array('conditions' => array('Role.name' => 'technician')));
@@ -482,7 +575,7 @@ class AdminsController extends AppController {
             $technician_list = $this->User->find('list', array('conditions' => array('User.role_id' => $technician_id), 'order' => array('User.name' => 'ASC')));
             $this->set(compact('technician_list'));
         }
-        
+
         //Show Package List 
         //********************************************************************************************************
         $this->loadModel('Package');
@@ -508,7 +601,7 @@ class AdminsController extends AppController {
         $ym = $this->getYm();
         $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge'));
         //*************** End Package List ****************************************************************************************
-        
+
 
         $ym = $this->getYm();
         $this->set(compact('ym'));

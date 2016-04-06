@@ -1,8 +1,8 @@
 <?php
 
 /**
- * 
- */
+
+ * */
 App::uses('SimplePasswordHasher', 'Controller/Component/Auth');
 
 class ReportsController extends AppController {
@@ -34,8 +34,8 @@ class ReportsController extends AppController {
         $paid_customers = $this->Transaction->find('all', array('conditions' => array('Transaction.due' => '0')));
         $this->set(compact('paid_customers'));
     }
-    
-     function duecustomers() {
+
+    function duecustomers() {
         $this->loadModel('Transaction');
         $due_customers = $this->Transaction->find('all', array('conditions' => array('NOT' => array('Transaction.due' => array(0)))));
         $this->set(compact('due_customers'));
@@ -47,11 +47,41 @@ class ReportsController extends AppController {
         if ($this->request->is('post') || $this->request->is('put')) {
             $datrange = json_decode($this->request->data['Transaction']['daterange'], true);
             $conditions = array('Transaction.created >=' => $datrange['start'], 'Transaction.created <=' => $datrange['end']);
-            $transactions = $this->Transaction->find('all', array('conditions' => $conditions));
+            $transactions = $this->Transaction->query("SELECT tr.id,tr.package_customer_id,concat(first_name,' ',middle_name,' ',last_name) as name,pc.psetting_id, pc.mac,
+                ps.name, p.name,ps.amount,ps.duration FROM transactions tr 
+                left join package_customers pc on pc.id = tr.package_customer_id
+                left join psettings ps on ps.id = pc.psetting_id
+                LEFT JOIN packages p ON p.id = ps.package_id");
             $clicked = true;
             $this->set(compact('transactions'));
         }
         $this->set(compact('clicked'));
+    }
+
+    function invoice($id = null) {
+        $this->loadModel('Transaction');
+        $this->Transaction->id = $id;
+        $transactions = $this->Transaction->query("SELECT tr.id, tr.package_customer_id, 
+            CONCAT( first_name,  ' ', middle_name,  ' ', last_name ) AS name, pc.psetting_id, pc.mac, ps.name, p.name, ps.amount, ps.duration
+                FROM transactions tr
+                LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id
+                LEFT JOIN psettings ps ON ps.id = pc.psetting_id
+                LEFT JOIN packages p ON p.id = ps.package_id
+                WHERE tr.id = $id
+                ");
+        $mac = count(json_decode($transactions['0']['pc']['mac']));
+        $transactions[0]['pc']['mac'] = $mac;
+        $this->set(compact('transactions'));
+    }
+
+    function payment_pdf($id = null) {
+        $this->layout = 'blank_page';
+        $this->loadModel('Transaction');
+        $this->Transaction->id = $id;
+        $id_info = $this->Transaction->find('all', array('conditions' => array('Transaction.id' => $id)));
+        $temp = $id_info['0'];
+        $this->set(compact('temp'));
+        $this->request->data = $this->Transaction->findById($id);
     }
 
     function expcustomers() {

@@ -33,7 +33,8 @@
                             ),
                             'id' => 'form_sample_3',
                             'class' => 'form-horizontal',
-                            'novalidate' => 'novalidate'
+                            'novalidate' => 'novalidate',
+                            'enctype' => 'multipart/form-data'
                                 )
                         );
                         ?>
@@ -54,6 +55,21 @@
                                             'name', array(
                                         'class' => 'form-control required',
                                         'type' => 'text'
+                                            )
+                                    );
+                                    ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Picture
+                                </label>
+                                <div class="col-md-4">
+                                    <?php
+                                    echo $this->Form->input(
+                                            'picture', array(
+                                        'type' => 'file',
+                                        'id' => 'required',
+                                        'class' => 'span9 text'
                                             )
                                     );
                                     ?>

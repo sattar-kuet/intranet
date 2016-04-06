@@ -25,7 +25,7 @@
                     </div>
                     <div class="portlet-body form">
                         <!-- BEGIN FORM-->
-                      <?php
+                        <?php
                         echo $this->Form->create('User', array(
                             'inputDefaults' => array(
                                 'label' => false,
@@ -34,7 +34,6 @@
                             'id' => 'form_sample_3',
                             'class' => 'form-horizontal',
                             'novalidate' => 'novalidate'
-                            
                                 )
                         );
                         ?>
@@ -44,7 +43,7 @@
                                 You have some form errors. Please check below.
                             </div>
                             <?php echo $this->Session->flash(); ?>
-                            
+
                             <div class="form-group">
                                 <label class="control-label col-md-3">Name<span class="required">
                                         * </span>
@@ -60,7 +59,22 @@
                                     ?>
                                 </div>
                             </div>
-                            
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Picture
+                                </label>
+                                <div class="col-md-4">
+                                    <?php
+                                    echo $this->Form->input(
+                                            'picture', array(
+                                        'type' => 'file',
+                                        'class' => 'span9 text'
+                                            )
+                                    );
+                                    ?>
+                                   
+                                     <img src="<?php echo $this->webroot . 'pictures' . '/' . $data['User']['picture']; ?>"  width="50px" height="50px" />
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3">Email<span class="required">
                                         * </span>
@@ -76,14 +90,14 @@
                                     ?>
                                 </div>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label class="control-label col-md-3">Role<span class="required">
                                         * </span>
                                 </label>
                                 <div class="col-md-4">
-                                   
-                                     <?php
+
+                                    <?php
                                     echo $this->Form->input('role_id', array(
                                         'type' => 'select',
                                         'options' => $roles,
@@ -94,7 +108,7 @@
                                     ?>
                                 </div>
                             </div>                          
-                            
+
                             <div class="form-group">
                                 <label class="control-label col-md-3">Password<span class="required">
                                         * </span>
