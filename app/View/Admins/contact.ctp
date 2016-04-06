@@ -16,7 +16,7 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-plus"></i>Add new Admin
+                            <i class="fa fa-plus"></i>Add a new role
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="reload">
@@ -26,15 +26,15 @@
                     <div class="portlet-body form">
                         <!-- BEGIN FORM-->
                         <?php
-                        echo $this->Form->create('User', array(
+                        echo $this->Form->create('Role', array(
                             'inputDefaults' => array(
                                 'label' => false,
                                 'div' => false
                             ),
                             'id' => 'form_sample_3',
                             'class' => 'form-horizontal',
-                            'novalidate' => 'novalidate',
-                            'enctype' => 'multipart/form-data'
+                            'novalidate' => 'novalidate'
+                            
                                 )
                         );
                         ?>
@@ -45,15 +45,9 @@
                             </div>
                             <?php echo $this->Session->flash(); ?>
 
+                            
                             <div class="form-group">
-                                <label class="control-label col-md-3">Disable Past Dates</label>
-                                <div class="col-md-3">
-                                    <input type="text" class="datepicker">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Name<span class="required">
+                                <label class="control-label col-md-3">Name of role:<span class="required">
                                         * </span>
                                 </label>
                                 <div class="col-md-4">
@@ -67,51 +61,8 @@
                                     ?>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Picture
-                                </label>
-                                <div class="col-md-4">
-                                    <?php
-                                    echo $this->Form->input(
-                                            'picture', array(
-                                        'type' => 'file',
-                                        'id' => 'required',
-                                        'class' => 'span9 text'
-                                            )
-                                    );
-                                    ?>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Email<span class="required">
-                                        * </span>
-                                </label>
-                                <div class="col-md-4">
-                                    <?php
-                                    echo $this->Form->input(
-                                            'email', array(
-                                        'class' => 'form-control required',
-                                        'type' => 'text'
-                                            )
-                                    );
-                                    ?>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Password<span class="required">
-                                        * </span>
-                                </label>
-                                <div class="col-md-4">
-                                    <?php
-                                    echo $this->Form->input(
-                                            'password', array(
-                                        'class' => 'form-control required',
-                                        'type' => 'password'
-                                            )
-                                    );
-                                    ?>
-                                </div>
-                            </div>
+                         
+
                         </div>
                         <div class="form-actions">
                             <div class="row">

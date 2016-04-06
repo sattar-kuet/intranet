@@ -142,3 +142,39 @@ function printDiv(printableArea) {
     document.body.innerHTML = originalContents;
 }
 
+//  start show & hide shipment in customer rezistration 
+$(document).ready(function (){
+   $('#shipment').click(function (){
+       if($(this).is(":checked")){
+           $('#shipmentshow_hide').show();
+       }
+        else{
+           $('#shipmentshow_hide').hide();  
+        }
+   });
+});
+//  end show & hide shipment in customer rezistration
+
+// start Additional info 
+$(document).ready(function (){
+    $('#additioninfo').click(function (){
+       if($(this).is(":checked")){
+           $('#Additional_info').show();
+       }
+        else{
+           $('#Additional_info').hide();  
+        } 
+    });
+    
+});
+
+// end Additional info 
+
+//blink strat shipment
+function blinker() {
+    $('.blink_me').fadeOut(500);
+    $('.blink_me').fadeIn(500);
+}
+
+setInterval(blinker, 1000);
+

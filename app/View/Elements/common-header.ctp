@@ -67,6 +67,9 @@
         '/assets/global/css/plugins',
         //END THEME GLOBAL STYLES
 
+            // datepicker
+            '/JqueryDatepicker/jquery-ui',
+            // datepicker
         // common custom css
          'custom',
          'chat',

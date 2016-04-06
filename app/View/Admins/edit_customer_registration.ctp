@@ -37,6 +37,9 @@
                                 )
                         );
                         ?>
+                        <?php
+                        echo $this->Form->input('id');
+                        ?>
                         <div class="form-body">
                             <div class="alert alert-danger display-hide">
                                 <button class="close" data-close="alert"></button>
@@ -712,7 +715,7 @@
                                 <div class="col-md-offset-6 col-md-4">
                                     <?php
                                     echo $this->Form->button(
-                                            'Save', array('class' => 'btn green', 'type' => 'submit')
+                                            'Update', array('class' => 'btn green', 'type' => 'submit')
                                     );
                                     ?>
                                 </div>

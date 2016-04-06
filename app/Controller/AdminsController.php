@@ -239,13 +239,14 @@ class AdminsController extends AppController {
         }
         if (!$this->request->data) {
             $data = $this->User->findById($id);
-            $this->request->data = $data;           
+            $this->request->data = $data;
             $roles = $this->Role->find('list', array('order' => array('Role.name' => 'ASC')));
-            $this->set(compact('roles','data'));
+            $this->set(compact('roles', 'data'));
         }
     }
-     public function edit_admin7($id = null) {
-         $this->loadModel('Role');
+
+    public function edit_admin7($id = null) {
+        $this->loadModel('Role');
         $this->loadModel('User');
         $this->User->id = $id;
         $users = $this->User->findById($id);
@@ -288,12 +289,10 @@ class AdminsController extends AppController {
         }
         if (!$this->request->data) {
             $data = $this->User->findById($id);
-            $this->request->data = $data;           
+            $this->request->data = $data;
             $roles = $this->Role->find('list', array('order' => array('Role.name' => 'ASC')));
-            $this->set(compact('roles','data'));
+            $this->set(compact('roles', 'data'));
         }
-        
-        
     }
 
     function delete($id = null) {
@@ -412,7 +411,7 @@ class AdminsController extends AppController {
         $uid = $loggedUser['id'];
         $rid = $loggedUser['Role']['id'];
         $admin_messages = $this->Message->query("SELECT * FROM messages m
-        LEFT JOIN users u ON u.id = m.user_id  WHERE assign_id = $uid OR m.role_id = $rid");
+        LEFT JOIN users u ON u.id = m.user_id  WHERE m.assign_id = $uid OR m.role_id = $rid");
         $cells = $this->PackageCustomer->find('list', array('fields' => array('cell', 'cell')));
         $this->set(compact('cells', 'clicked', 'admin_messages'));
     }
@@ -473,108 +472,39 @@ class AdminsController extends AppController {
         $this->set(compact('filteredPackage'));
     }
 
-    function customer_registration() {
+    function edit_customer_registration($id = null) {
         $this->loadModel('PackageCustomer');
-        $this->loadModel('CustomPackage');
-        $this->loadModel('PaidCustomer');
-        $this->loadModel('Country');
-        $this->loadModel('User');
-        $this->loadModel('Role');
-
-        $this->tariffplan(); //Call tarrifplan fuction to show packagese
-
         if ($this->request->is('post')) {
-
+            $this->PackageCustomer->set($this->request->data);
             if ($this->PackageCustomer->validates()) {
-                //Make the statatus 'requested'
-                $this->PackageCustomer->saveField("status", "requested");
-
-                $result = array();
-                if (!empty($this->request->data['PackageCustomer']['ch_signature']['name'])) {
-                    $result = $this->processImg($this->request->data['PackageCustomer'], 'ch_signature');
-                    $this->request->data['PackageCustomer']['ch_signature'] = (string) $result['file_dst_name'];
-                } else {
-                    $this->request->data['PackageCustomer']['ch_signature'] = '';
-                }
-
-
-                //ID Card Upload
-                if (!empty($this->request->data['PackageCustomer']['id_card']['name'])) {
-                    $result = $this->processImg($this->request->data['PackageCustomer'], 'id_card');
-                    $this->request->data['PackageCustomer']['id_card'] = (string) $result['file_dst_name'];
-                } else {
-                    $this->request->data['PackageCustomer']['id_card'] = '';
-                }
-
-
-                //Money order Upload
-                if (!empty($this->request->data['PackageCustomer']['money_order']['name'])) {
-                    $result = $this->processImg($this->request->data['PackageCustomer'], 'money_order');
-                    $this->request->data['PackageCustomer']['money_order'] = (string) $result['file_dst_name'];
-                } else {
-                    $this->request->data['PackageCustomer']['money_order'] = '';
-                }
-
-
-                if ($this->Auth->loggedIn()) {
-                    $admin = $this->Auth->user();
-                    $this->request->data['PackageCustomer']['user_id'] = $admin['id'];
-                } else {
-                    $this->request->data['PackageCustomer']['filled-by'] = '0';
-                }
-
-                //remove parenthesis from cell number
-                $cell_input = $this->request->data['PackageCustomer']['cell'];
-                $cell = preg_replace('/\s+/', '', (str_replace(array('(', ')'), '', $cell_input)));
-                $this->request->data['PackageCustomer']['cell'] = $cell;
-
-                $home_input = $this->request->data['PackageCustomer']['home'];
-                $home = preg_replace('/\s+/', '', (str_replace(array('(', ')'), '', $home_input)));
-                $this->request->data['PackageCustomer']['home'] = $home;
-
-
-
+                $this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
                 //For Custom Package data insert
-                $data4CustomPackage['CustomPackage']['duration'] = $this->request->data['PackageCustomer']['duration'];
-                $data4CustomPackage['CustomPackage']['charge'] = $this->request->data['PackageCustomer']['charge'];
 
                 if (!empty($this->request->data['PackageCustomer']['charge'])) {
+                    $data4CustomPackage['CustomPackage']['duration'] = $this->request->data['PackageCustomer']['duration'];
+                    $data4CustomPackage['CustomPackage']['charge'] = $this->request->data['PackageCustomer']['charge'];
+
                     $cp = $this->CustomPackage->save($data4CustomPackage);
 
                     unset($cp['CustomPackage']['PackageCustomer']);
                     $this->request->data['PackageCustomer']['custom_package_id'] = $cp['CustomPackage']['id'];
                 }
-
-                //Insert automated account number...
-                $customer_account = $this->PackageCustomer->query("SELECT MAX(c_acc_no) FROM package_customers");
-                $this->request->data['PackageCustomer']['c_acc_no'] = $customer_account['0']['0']['MAX(c_acc_no)'] + 1;
-
-
-                $duration = $this->PackageCustomer->save($this->request->data['PackageCustomer']);
-                $duration1 = $duration['PackageCustomer']['psetting_id'];
-
-                $duration_time = $this->PackageCustomer->query("SELECT psetting_id,duration FROM package_customers inner 
-                        join psettings on package_customers.psetting_id = psettings.id WHERE psetting_id = $duration1 limit 0,1");
-                $additionalTime = "+" . $duration_time[0]['psettings']['duration'] . "months";
-
+                $this->PackageCustomer->save($this->request->data['PackageCustomer']);
                 $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong> Your sign up process completed succeesfully </strong>
-            </div>';
+            <strong> Role edited succeesfully </strong>
+        </div>';
+                $this->Session->setFlash($msg);
+                return $this->redirect($this->referer());
             } else {
                 $msg = $this->generateError($this->PackageCustomer->validationErrors);
+                $this->Session->setFlash($msg);
             }
-            $this->Session->setFlash($msg);
-            //return $this->redirect('/transactions/edit_customer_data/' . $duration['PackageCustomer']['id']);
         }
+        $data = $this->PackageCustomer->findById($id);
+        $this->request->data = $data;
 
-        //Show Technician List
-        if (!$this->request->data) {
-            $technician_info = $this->Role->find('first', array('conditions' => array('Role.name' => 'technician')));
-            $technician_id = $technician_info['Role']['id'];
-            $technician_list = $this->User->find('list', array('conditions' => array('User.role_id' => $technician_id), 'order' => array('User.name' => 'ASC')));
-            $this->set(compact('technician_list'));
-        }
+
 
         //Show Package List 
         //********************************************************************************************************
@@ -601,10 +531,146 @@ class AdminsController extends AppController {
         $ym = $this->getYm();
         $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge'));
         //*************** End Package List ****************************************************************************************
-
-
         $ym = $this->getYm();
         $this->set(compact('ym'));
+    }
+
+    function customer_registration() {
+        $this->loadModel('PackageCustomer');
+        $this->loadModel('CustomPackage');
+        $this->loadModel('PaidCustomer');
+        $this->loadModel('Country');
+        $this->loadModel('User');
+        $this->loadModel('Role');
+        $this->tariffplan(); //Call tarrifplan fuction to show packagese
+
+        if ($this->request->is('post')) {
+
+            if ($this->PackageCustomer->validates()) {
+
+                //Make the statatus 'requested'
+                $this->PackageCustomer->saveField("status", "requested");
+
+                $result = array();
+                if (!empty($this->request->data['PackageCustomer']['ch_signature']['name'])) {
+                    $result = $this->processImg($this->request->data['PackageCustomer'], 'ch_signature');
+                    $this->request->data['PackageCustomer']['ch_signature'] = (string) $result['file_dst_name'];
+                } else {
+                    $this->request->data['PackageCustomer']['ch_signature'] = '';
+                }
+
+
+                //ID Card Upload
+                if (!empty($this->request->data['PackageCustomer']['id_card']['name'])) {
+                    $result = $this->processImg($this->request->data['PackageCustomer'], 'id_card');
+                    $this->request->data['PackageCustomer']['id_card'] = (string) $result['file_dst_name'];
+
+
+                    if ($this->Auth->loggedIn()) {
+                        $admin = $this->Auth->user();
+                        $this->request->data['PackageCustomer']['user_id'] = $admin['id'];
+                    } else {
+                        $this->request->data['PackageCustomer']['filled-by'] = '0';
+                    }
+
+
+
+                    //Money order Upload
+                    if (!empty($this->request->data['PackageCustomer']['money_order']['name'])) {
+                        $result = $this->processImg($this->request->data['PackageCustomer'], 'money_order');
+                        $this->request->data['PackageCustomer']['money_order'] = (string) $result['file_dst_name'];
+                    } else {
+                        $this->request->data['PackageCustomer']['money_order'] = '';
+                    }
+
+
+                    //remove parenthesis from cell number
+                    $cell_input = $this->request->data['PackageCustomer']['cell'];
+                    $cell = preg_replace('/\s+/', '', (str_replace(array('(', ')'), '', $cell_input)));
+                    $this->request->data['PackageCustomer']['cell'] = $cell;
+
+                    $home_input = $this->request->data['PackageCustomer']['home'];
+                    $home = preg_replace('/\s+/', '', (str_replace(array('(', ')'), '', $home_input)));
+                    $this->request->data['PackageCustomer']['home'] = $home;
+
+
+
+                    //For Custom Package data insert
+                    $data4CustomPackage['CustomPackage']['duration'] = $this->request->data['PackageCustomer']['duration'];
+                    $data4CustomPackage['CustomPackage']['charge'] = $this->request->data['PackageCustomer']['charge'];
+
+                    if (!empty($this->request->data['PackageCustomer']['charge'])) {
+                        $cp = $this->CustomPackage->save($data4CustomPackage);
+
+                        unset($cp['CustomPackage']['PackageCustomer']);
+                        $this->request->data['PackageCustomer']['custom_package_id'] = $cp['CustomPackage']['id'];
+                    }
+
+                    //Insert automated account number...
+                    $customer_account = $this->PackageCustomer->query("SELECT MAX(c_acc_no) FROM package_customers");
+                    $this->request->data['PackageCustomer']['c_acc_no'] = $customer_account['0']['0']['MAX(c_acc_no)'] + 1;
+
+                    $dateObj = $this->request->data['PackageCustomer']['exp_date'];
+                    $this->request->data['PackageCustomer']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
+                    //Make the statatus 'requested'
+                    $this->request->data['PackageCustomer']['status'] = "requested";
+
+                    $duration = $this->PackageCustomer->save($this->request->data['PackageCustomer']);
+//                $duration1 = $duration['PackageCustomer']['psetting_id'];
+//
+//                $duration_time = $this->PackageCustomer->query("SELECT psetting_id,duration FROM package_customers inner 
+//                        join psettings on package_customers.psetting_id = psettings.id WHERE psetting_id = $duration1 limit 0,1");
+//                $additionalTime = "+" . $duration_time[0]['psettings']['duration'] . "months";
+
+                    $msg = '<div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong> Your sign up process completed succeesfully </strong>
+            </div>';
+                } else {
+                    $msg = $this->generateError($this->PackageCustomer->validationErrors);
+                }
+                $this->Session->setFlash($msg);
+                //return $this->redirect('/transactions/edit_customer_data/' . $duration['PackageCustomer']['id']);
+            }
+
+            //Show Technician List
+            if (!$this->request->data) {
+                $technician_info = $this->Role->find('first', array('conditions' => array('Role.name' => 'technician')));
+                $technician_id = $technician_info['Role']['id'];
+                $technician_list = $this->User->find('list', array('conditions' => array('User.role_id' => $technician_id), 'order' => array('User.name' => 'ASC')));
+                $this->set(compact('technician_list'));
+            }
+
+            //Show Package List 
+            //********************************************************************************************************
+            $this->loadModel('Package');
+            $this->loadModel('Psetting');
+            $packages = $this->Package->find('all');
+            $packageList = array();
+            foreach ($packages as $index => $package) {
+                $psettings = $this->Psetting->find('all', array('conditions' => array('package_id' => $package['Package']['id'])));
+                $psettingList = array();
+                foreach ($psettings as $psetting) {
+                    $id = $psetting['Psetting']['id'];
+                    $psettingList[$id] = $psetting['Psetting']['name'];
+                }
+                $pckagename = $package['Package']['name'];
+                $packageList[$pckagename] = $psettingList;
+            }
+            $sql = "SELECT * FROM package_customers "
+                    . "LEFT JOIN psettings ON package_customers.psetting_id = psettings.id"
+                    . " LEFT JOIN packages ON psettings.package_id = packages.id"
+                    . " LEFT JOIN custom_packages ON package_customers.custom_package_id = custom_packages.id" .
+                    " WHERE package_customers.id = '" . $id . "'";
+            $temp = $this->PackageCustomer->query($sql);
+            $ym = $this->getYm();
+            $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge'));
+            //*************** End Package List ****************************************************************************************
+
+
+            $ym = $this->getYm();
+            $this->set(compact('ym'));
+        }
     }
 
     public function print_queue() {
@@ -618,6 +684,16 @@ class AdminsController extends AppController {
 
     function pdf() {
         $this->layout = 'blank';
+    }
+
+    function opportunity_followup() {
+        $this->loadModel('PackageCustomer');
+        $allData = $this->PackageCustomer->find('all', array('conditions' => array('PackageCustomer.status' => 'requested', 'PackageCustomer.follow_up' => 1)));
+        $this->set(compact('allData'));
+    }
+
+    function contact() {
+        
     }
 
 }

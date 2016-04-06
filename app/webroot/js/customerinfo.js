@@ -15,6 +15,8 @@ $(document).ready(function () {
             addressdetails += ' ' + $("#apartment").val();
             addressdetails += ' ' + $("#city").val();
             addressdetails += ' ' + $("#state").val();
+            var cardnumber=$("#cardnumber").val();
+            var cvvcode=$("#cvvcode").val();
             //console.log("name");
             // then add those values to your billing infor window feilds 
 
@@ -22,6 +24,8 @@ $(document).ready(function () {
             $("#lastname").val(last);
             $("#zip_code").val(zipcode);
             $("#addressdetail").val(addressdetails);
+            $("#card_number").val(cardnumber);
+            $("#cvv_code").val(cvvcode);
             // then form will be automatically filled .. 
 
         }
@@ -30,6 +34,8 @@ $(document).ready(function () {
             $("#lastname").val('');
             $("#zip_code").val('');
             $("#addressdetail").val('');
+            $("#card_number").val('');
+            $("#cvv_code").val('');
         }
     });
     $('.pmode').change(function () {
