@@ -4,6 +4,7 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
 <<<<<<< HEAD
+<<<<<<< HEAD
             <file>file:/D:/xampp/htdocs/intranet/app/View/Admins/create.ctp</file>
             <file>file:/D:/xampp/htdocs/intranet/app/Controller/AdminsController.php</file>
             <file>file:/D:/xampp/htdocs/intranet/app/View/Admins/manage.ctp</file>
@@ -15,6 +16,13 @@
             <file>file:/E:/Appxampp/htdocs/intranet/app/Controller/TransactionsController.php</file>
             <file>file:/E:/Appxampp/htdocs/intranet/app/Controller/AdminsController.php</file>
 >>>>>>> 52b3da000de4b75dc3a5231ec8b46742a4ed4f7e
+=======
+            <file>file:/D:/Server/htdocs/intranet/app/Controller/AdminsController.php</file>
+            <file>file:/D:/Server/htdocs/intranet/app/Controller/AppController.php</file>
+            <file>file:/D:/Server/htdocs/intranet/app/View/Elements/admin-header.ctp</file>
+            <file>file:/D:/Server/htdocs/intranet/app/View/Admins/customer_registration.ctp</file>
+            <file>file:/D:/Server/htdocs/intranet/app/View/Elements/sadmin-sidebar.ctp</file>
+>>>>>>> 1cc8118ba5ba979fcbe8cfa8a6d63dab4ab46fc2
         </group>
     </open-files>
 </project-private>
