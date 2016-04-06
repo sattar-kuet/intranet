@@ -244,19 +244,27 @@ class AdminsController extends AppController {
     }
 
     function getCustomerByParam($param, $field) {
-
-        $condition = $field . " LIKE '%" . $param . "%'";
+        $param = str_replace(' ', '', $param);
+        $condition = "LOWER(package_customers." . $field . ") LIKE '%" . strtolower($param) . "%'";
         $name = array('first_name', 'last_name', 'middle_name');
 
         if (in_array($field, $name)) {
-            $condition = " first_name LIKE '%" . $param . "%' OR middle_name LIKE '%" . $param . "%' OR last_name LIKE '%" . $param . "%'";
+            $condition = " LOWER(package_customers.first_name) LIKE '%" . strtolower($param) .
+                    "%' OR LOWER(package_customers.middle_name) LIKE '%" . strtolower($param) .
+                    "%' OR LOWER(package_customers.last_name) LIKE '%" . strtolower($param) . "%'";
         }
+        if ($field == "full_name") {
+            $fullname = strtolower($param);
 
-        $sql = "SELECT * FROM package_customers "
-                . "LEFT JOIN psettings ON package_customers.psetting_id = psettings.id"
-                . " LEFT JOIN packages ON psettings.package_id = packages.id"
-                . " LEFT JOIN custom_packages ON package_customers.custom_package_id = custom_packages.id" .
-                " WHERE package_customers." . $condition;
+            $condition = "LOWER(CONCAT(package_customers.first_name,package_customers.middle_name,package_customers.last_name)) LIKE '%" . $fullname . "%'";
+          
+        } 
+            $sql = "SELECT * FROM package_customers "
+                    . "LEFT JOIN psettings ON package_customers.psetting_id = psettings.id"
+                    . " LEFT JOIN packages ON psettings.package_id = packages.id"
+                    . " LEFT JOIN custom_packages ON package_customers.custom_package_id = custom_packages.id" .
+                    " WHERE " . $condition;
+        
 
         //     echo $sql;
         $temp = $this->PackageCustomer->query($sql);
@@ -309,6 +317,9 @@ class AdminsController extends AppController {
             }
             if (count($data['customer']) == 0) {
                 $data = $this->getCustomerByParam($param, 'mac');
+            }
+            if (count($data['customer']) == 0) {
+                $data = $this->getCustomerByParam($param, 'full_name');
             }
 
             $clicked = true;
@@ -379,17 +390,18 @@ class AdminsController extends AppController {
         // pr($filteredPackage);exit;
         $this->set(compact('filteredPackage'));
     }
+
     function edit_customer_registration($id = null) {
         $this->loadModel('PackageCustomer');
         if ($this->request->is('post')) {
             $this->PackageCustomer->set($this->request->data);
             if ($this->PackageCustomer->validates()) {
                 $this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
-                  //For Custom Package data insert
-               
+                //For Custom Package data insert
+
                 if (!empty($this->request->data['PackageCustomer']['charge'])) {
-                     $data4CustomPackage['CustomPackage']['duration'] = $this->request->data['PackageCustomer']['duration'];
-                $data4CustomPackage['CustomPackage']['charge'] = $this->request->data['PackageCustomer']['charge'];
+                    $data4CustomPackage['CustomPackage']['duration'] = $this->request->data['PackageCustomer']['duration'];
+                    $data4CustomPackage['CustomPackage']['charge'] = $this->request->data['PackageCustomer']['charge'];
 
                     $cp = $this->CustomPackage->save($data4CustomPackage);
 
@@ -410,9 +422,9 @@ class AdminsController extends AppController {
         }
         $data = $this->PackageCustomer->findById($id);
         $this->request->data = $data;
-        
-       
-        
+
+
+
         //Show Package List 
         //********************************************************************************************************
         $this->loadModel('Package');
@@ -442,7 +454,6 @@ class AdminsController extends AppController {
         $this->set(compact('ym'));
     }
 
-    
     function customer_registration() {
         $this->loadModel('PackageCustomer');
         $this->loadModel('CustomPackage');
@@ -674,7 +685,7 @@ class AdminsController extends AppController {
 
     function opportunity_followup() {
         $this->loadModel('PackageCustomer');
-        $allData = $this->PackageCustomer->find('all', array('conditions' => array('PackageCustomer.status' => 'requested','PackageCustomer.follow_up'=>1)));
+        $allData = $this->PackageCustomer->find('all', array('conditions' => array('PackageCustomer.status' => 'requested', 'PackageCustomer.follow_up' => 1)));
         $this->set(compact('allData'));
     }
 
