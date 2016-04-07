@@ -246,11 +246,7 @@
                 </div>
             </div>
         <?php endif; ?>
-    </div>
-    <div class="controls center text-center">
-        <a   target="_blank" title="Add to pdf" href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'invoice', $single['tr']['id'])) ?>" class="btn default btn-xs green-stripe">
-            Create all Invoice </a>
-    </div>
+    </div> 
 </div>
 <!-- END CONTENT -->
 
