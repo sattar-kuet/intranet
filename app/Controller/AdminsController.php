@@ -262,8 +262,7 @@ class AdminsController extends AppController {
         $this->User->saveField("status", "blocked");
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
-	<strong> User blocked succeesfully </strong>
-</div>';
+	<strong> User blocked succeesfully </strong></div>';
         $this->Session->setFlash($msg);
         return $this->redirect('manage');
     }
@@ -521,8 +520,8 @@ class AdminsController extends AppController {
             $this->Session->setFlash($msg);
             return $this->redirect($this->referer());
         }
-        $data = $this->PackageCustomer->findById($id);
-        $this->request->data = $data;
+        //$data = $this->PackageCustomer->findById($id);
+       // $this->request->data = $data;
 
         //Show Package List 
         //******************************
