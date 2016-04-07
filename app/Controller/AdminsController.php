@@ -499,7 +499,7 @@ class AdminsController extends AppController {
         $this->loadModel('Role');
         if ($this->request->is('post') || $this->request->is('put')) {
             $this->PackageCustomer->set($this->request->data);
-            $this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
+            //$this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
             //For Custom Package data insert//
             if (!empty($this->request->data['PackageCustomer']['charge'])) {
                 $data4CustomPackage['CustomPackage']['duration'] = $this->request->data['PackageCustomer']['duration'];
