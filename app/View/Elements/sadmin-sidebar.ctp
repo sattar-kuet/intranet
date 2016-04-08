@@ -375,7 +375,7 @@
          
                    <li 
             <?php
-            $services = array('Adminscustomer_registration', 'Adminscontact','Adminsopportunity_followup', );
+            $services = array('Adminsreadyreadyinstallation','Adminscustomer_registration', 'Adminscontact','Adminsopportunity_followup', );
 
             if (in_array($this->name . '' . $this->action, $services)):
                 ?>
@@ -428,6 +428,18 @@
                         <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'contact')) ?>">
                             <i class="fa fa-support"></i>
                            Contact </a>
+                    </li>
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Adminsready_installation'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'ready_installation')) ?>">
+                            <i class="fa fa-support"></i>
+                           Ready to Installation </a>
                     </li>
                 </ul>
             </li>

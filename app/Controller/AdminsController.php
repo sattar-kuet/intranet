@@ -574,9 +574,39 @@ class AdminsController extends AppController {
         $allData = $this->PackageCustomer->find('all', array('conditions' => array('PackageCustomer.status' => 'requested', 'PackageCustomer.follow_up' => 1)));
         $this->set(compact('allData'));
     }
+    
+    function ready_installation() {
+        $this->loadModel('PackageCustomer');
+        $allData = $this->PackageCustomer->find('all', array('conditions' => array('PackageCustomer.status' => 'requested', 'PackageCustomer.follow_up' => 1)));
+        $this->set(compact('allData'));
+    }
 
     function contact() {
         
+    }
+    
+     
+    
+     function done($id = null) {
+        $this->loadModel('PackageCustomer');
+        $this->PackageCustomer->id = $id;
+        $this->PackageCustomer->saveField("status", "done");
+        $msg = '<div class="alert alert-success">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<strong>  succeesfully done </strong></div>';
+        $this->Session->setFlash($msg);
+        return $this->redirect('opportunity_followup');
+    }
+    
+     function ready($id = null) {
+        $this->loadModel('PackageCustomer');
+        $this->PackageCustomer->id = $id;
+        $this->PackageCustomer->saveField("status", "ready");
+        $msg = '<div class="alert alert-success">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<strong>  succeesfully Ready </strong></div>';
+        $this->Session->setFlash($msg);
+        return $this->redirect('opportunity_followup');
     }
 
 }

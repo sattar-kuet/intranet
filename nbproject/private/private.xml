@@ -2,8 +2,12 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
         <group>
             <file>file:/D:/Server/htdocs/intranet/app/View/reports/invoice_printqueue.ctp</file>
         </group>
+=======
+        <group/>
+>>>>>>> 02043723461555d36dcb14be234c01eff993ad75
     </open-files>
 </project-private>
