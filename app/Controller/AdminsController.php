@@ -550,6 +550,10 @@ class AdminsController extends AppController {
         //*************** End Package List ******************
         $ym = $this->getYm();
         $this->set(compact('ym'));
+        $this->loadModel('User');
+        $this->loadModel('Role');
+        //pr($this->User);
+    
     }
 
     public function print_queue() {
