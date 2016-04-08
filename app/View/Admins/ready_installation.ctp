@@ -27,7 +27,7 @@
                     <div class="row">
                         <div class="col-xs-6">
                             <h3 class="page-title">
-                                Follow up Customer List <small></small>
+                                Ready Installation Customer List <small></small>
                             </h3>
                         </div>
                         <div class="col-xs-4">
@@ -90,9 +90,6 @@
                                 <th class="hidden-480">
                                     Comment
                                 </th>
-                                <th class="hidden-480">
-                                    Action
-                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -113,8 +110,9 @@
     <!--                                    <td>
                                     <?php // echo $results['PackageCustomer']['mac']; ?>
                                     </td>-->
-                                    <td class="hidden-480">                                        
-                                        Cell:    <?php echo $results['PackageCustomer']['cell']; ?>                                      
+                                    <td class="hidden-480">
+
+                                        Cell:    <?php echo $results['PackageCustomer']['cell']; ?>
                                         <br>
                                         Home : <?php echo $results['PackageCustomer']['home']; ?>
 
@@ -133,26 +131,6 @@
                                     </td>
                                     <td>
                                         <?php echo $results['PackageCustomer']['comments']; ?>
-                                    </td>
-                                    <td>
-                                        <a 
-                                            onclick="if (confirm(&quot; Are you sure to Done?&quot; )) {
-                                                                        return true;
-                                                                    }
-                                                                    return false;"
-
-                                            href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'done', $results['PackageCustomer']['id'])) ?>" title="Done">
-                                            <span class="fa  fa-check "></span>
-                                        </a>
-                                        <a 
-                                            onclick="if (confirm(&quot; Are you sure to Ready to installition?&quot; )) {
-                                                                        return true;
-                                                                    }
-                                                                    return false;"
-
-                                            href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'ready', $results['PackageCustomer']['id'])) ?>" title="Ready to Instalition">
-                                            <span class="fa  fa-forward "></span>
-                                        </a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>                           
