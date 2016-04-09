@@ -486,6 +486,10 @@ class AdminsController extends AppController {
         $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge'));
         //*************** End Package List ****************************************************************************************
         $ym = $this->getYm();
+         $this->loadModel('comment');
+         $this->comment->find('first', array('conditions' => array('package_customer_id' => $id), 
+                               'order' => array('id' => 'DESC') ));
+         
         $this->set(compact('ym'));
     }
 
@@ -494,11 +498,17 @@ class AdminsController extends AppController {
         $this->loadModel('CustomPackage');
         $this->loadModel('PaidCustomer');
         $this->loadModel('Country');
+        $this->loadModel('Comment');
         $this->loadModel('User');
         $this->loadModel('Role');
         if ($this->request->is('post') || $this->request->is('put')) {
             $this->PackageCustomer->set($this->request->data);
             $this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
+//            data for comment
+            $comment['Comment']['package_customer_id'] = $this->request->data['PackageCustomer']['id'];
+            $comment['Comment']['content'] = $this->request->data['PackageCustomer']['comment'];
+            $this->comment->save($comment);
+            
             //For Custom Package data insert//
             if (!empty($this->request->data['PackageCustomer']['charge'])) {
                 $data4CustomPackage['CustomPackage']['duration'] = $this->request->data['PackageCustomer']['duration'];
@@ -521,8 +531,7 @@ class AdminsController extends AppController {
             return $this->redirect($this->referer());
         }
         //$data = $this->PackageCustomer->findById($id);
-       // $this->request->data = $data;
-
+        // $this->request->data = $data;
         //Show Package List 
         //******************************
         $this->loadModel('Package');
@@ -550,10 +559,11 @@ class AdminsController extends AppController {
         //*************** End Package List ******************
         $ym = $this->getYm();
         $this->set(compact('ym'));
-        $this->loadModel('User');
-        $this->loadModel('Role');
-        //pr($this->User);
-    
+        //   $this->loadModel('User');
+        //   $this->loadModel('Role');
+
+        $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
+        //  pr($technician); exit;
     }
 
     public function print_queue() {
@@ -574,7 +584,7 @@ class AdminsController extends AppController {
         $allData = $this->PackageCustomer->find('all', array('conditions' => array('PackageCustomer.status' => 'requested', 'PackageCustomer.follow_up' => 1)));
         $this->set(compact('allData'));
     }
-    
+
     function ready_installation() {
         $this->loadModel('PackageCustomer');
         $allData = $this->PackageCustomer->find('all', array('conditions' => array('PackageCustomer.status' => 'requested', 'PackageCustomer.follow_up' => 1)));
@@ -584,10 +594,8 @@ class AdminsController extends AppController {
     function contact() {
         
     }
-    
-     
-    
-     function done($id = null) {
+
+    function done($id = null) {
         $this->loadModel('PackageCustomer');
         $this->PackageCustomer->id = $id;
         $this->PackageCustomer->saveField("status", "done");
@@ -597,8 +605,8 @@ class AdminsController extends AppController {
         $this->Session->setFlash($msg);
         return $this->redirect('opportunity_followup');
     }
-    
-     function ready($id = null) {
+
+    function ready($id = null) {
         $this->loadModel('PackageCustomer');
         $this->PackageCustomer->id = $id;
         $this->PackageCustomer->saveField("status", "ready");
