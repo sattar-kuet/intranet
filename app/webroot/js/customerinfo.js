@@ -9,6 +9,8 @@ $(document).ready(function () {
 //get the values of the filled fields
             var name = $("#first").val();
             var last = $("#last").val();
+            var expyear=$("#year").val();
+            var expmonth=$("#month").val();
             var zipcode = $("#zip").val();
             var addressdetails = $("#address").val();
             addressdetails += ' ' + $("#street").val();
@@ -17,11 +19,12 @@ $(document).ready(function () {
             addressdetails += ' ' + $("#state").val();
             var cardnumber=$("#cardnumber").val();
             var cvvcode=$("#cvvcode").val();
-            //console.log("name");
-            // then add those values to your billing infor window feilds 
-
+           
+          //set the in the feild
             $("#firstname").val(name);
             $("#lastname").val(last);
+            $("#showyear").val(expyear);
+            $("#showmonth").val(expmonth);
             $("#zip_code").val(zipcode);
             $("#addressdetail").val(addressdetails);
             $("#card_number").val(cardnumber);
@@ -36,6 +39,8 @@ $(document).ready(function () {
             $("#addressdetail").val('');
             $("#card_number").val('');
             $("#cvv_code").val('');
+            $("#showyear").val('');
+            $("#showmonth").val('');
         }
     });
     $('.pmode').change(function () {
