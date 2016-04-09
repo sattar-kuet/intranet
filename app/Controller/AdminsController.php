@@ -616,7 +616,14 @@ class AdminsController extends AppController {
     function done($id = null) {
         $this->loadModel('PackageCustomer');
         $this->PackageCustomer->id = $id;
-        $this->PackageCustomer->saveField("status", "done");
+       
+        $content =  $this->request->data['Package_customer']['content'];
+        pr($content);
+        exit;
+        $content = $this->PackageCustomer->saveField("status", "done");
+        
+        $this->Comment->saveField("status", "done");
+        
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
 	<strong>  succeesfully done </strong></div>';
