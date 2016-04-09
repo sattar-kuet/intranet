@@ -454,7 +454,7 @@ class AdminsController extends AppController {
 
             $this->PackageCustomer->save($this->request->data['PackageCustomer']);
             //update last comment
-            $this->Comment->id =$this->request->data['PackageCustomer']['comment_id'];
+            $this->Comment->id = $this->request->data['PackageCustomer']['comment_id'];
             $commentData['Comment']['content'] = $this->request->data['PackageCustomer']['comments'];
             $this->Comment->save($commentData);
             $msg = '<div class="alert alert-success">
@@ -493,11 +493,11 @@ class AdminsController extends AppController {
         $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge'));
         //*************** End Package List ****************************************************************************************
         $ym = $this->getYm();
-        
+
         $lastComment = $this->Comment->find('first', array('conditions' => array('package_customer_id' => $pcid),
             'order' => array('id' => 'DESC')));
         $lastComment = $lastComment['Comment'];
-       
+
         $this->set(compact('ym', 'lastComment'));
     }
 
@@ -596,9 +596,10 @@ class AdminsController extends AppController {
 
     function opportunity_followup() {
         $this->loadModel('PackageCustomer');
-        $allData = $this->PackageCustomer->find('all', array('conditions' => array('PackageCustomer.status' => 'requested', 'PackageCustomer.follow_up' => 1)));
-        pr($allData);
-        exit;
+        $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
+                    left join comments c on pc.id = c.package_customer_id
+                    left join psettings ps on ps.id = pc.psetting_id
+                    left join custom_packages cp on cp.id = pc.custom_package_id ");
         $this->set(compact('allData'));
     }
 

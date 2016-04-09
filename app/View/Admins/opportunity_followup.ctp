@@ -99,43 +99,44 @@
 
                             <?php
                             foreach ($allData as $results):
+                   
                                 ?>
                                 <tr>
     <!--                                    <td>                          
-                                    <?php // echo $results['PackageCustomer']['c_acc_no'];  ?>
+                                    <?php // echo $results['pc']['c_acc_no'];  ?>
                                     </td>-->
                                     <td>
-                                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'edit_customer_registration', $results['PackageCustomer']['id'])) ?>" target="_blank"><?php echo $results['PackageCustomer']['middle_name'] . " " . $results['PackageCustomer']['last_name']; ?></a> 
+                                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'edit_customer_registration', $results['pc']['id'])) ?>" target="_blank"><?php echo $results['pc']['middle_name'] . " " . $results['pc']['last_name']; ?></a> 
                                     </td>
                                     <td class="hidden-480">
-                                        <?php echo $results['PackageCustomer']['street'] . ", " . $results['PackageCustomer']['apartment']; ?>                            
+                                        <?php echo $results['pc']['street'] . ", " . $results['pc']['apartment']; ?>                            
                                     </td>
     <!--                                    <td>
-                                    <?php // echo $results['PackageCustomer']['mac'];  ?>
+                                    <?php // echo $results['pc']['mac'];  ?>
                                     </td>-->
                                     <td class="hidden-480">  
-                                        <?php if (!empty($results['PackageCustomer']['cell'])): ?> 
-                                            Cell:    <?php echo $results['PackageCustomer']['cell']; ?>   
+                                        <?php if (!empty($results['pc']['cell'])): ?> 
+                                            Cell:    <?php echo $results['pc']['cell']; ?>   
                                         <?php endif; ?>
                                         <br>
-                                        <?php if (!empty($result['PackageCustomer']['home'])): ?>
-                                            Home : <?php echo $results['PackageCustomer']['home']; ?>
+                                        <?php if (!empty($result['pc']['home'])): ?>
+                                            Home : <?php echo $results['pc']['home']; ?>
                                         <?php endif ?>
                                     </td>
                                     <td class="hidden-480">
                                         <?php
-                                        if ($results['PackageCustomer']['custom_package_id'] == null) {
-                                            echo $results['Psetting']['name'];
+                                        if ($results['pc']['custom_package_id'] == null) {
+                                            echo $results['ps']['name'];
                                         } else {
-                                            echo $results['CustomPackage']['duration'] . ' Months, Custom package ' . $results['CustomPackage']['charge'] . '$';
+                                            echo $results['cp']['duration'] . ' Months, Custom package ' . $results['cp']['charge'] . '$';
                                         }
                                         ?>
                                     </td>
                                     <td>
-                                        <?php echo $results['PackageCustomer']['follow_date']; ?>
+                                        <?php echo $results['pc']['follow_date']; ?>
                                     </td>
                                     <td>
-                                        <?php echo $results['PackageCustomer']['comments']; ?>
+                                        <?php echo $results['c']['content']; ?>
                                     </td>
                                     <td>
                                         <a 
@@ -144,7 +145,7 @@
                                                             }
                                                             return false;"
 
-                                            href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'done', $results['PackageCustomer']['id'])) ?>" title="Done">
+                                            href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'done', $results['pc']['id'])) ?>" title="Done">
                                             <span class="fa  fa-check "></span>
                                         </a>
                                         <a 
@@ -153,7 +154,7 @@
                                                             }
                                                             return false;"
 
-                                            href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'ready', $results['PackageCustomer']['id'])) ?>" title="Ready to Instalition">
+                                            href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'ready', $results['pc']['id'])) ?>" title="Ready to Instalition">
                                             <span class="fa  fa-forward "></span>
                                         </a>
                                     </td>
