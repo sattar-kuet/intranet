@@ -661,7 +661,8 @@
                                                 'options' => $ym['year'],
                                                 'empty' => 'Select Year',
                                                 'class' => 'span12 uniform nostyle select1  required',
-                                                'div' => array('class' => 'span12 ')
+                                                'div' => array('class' => 'span12 '),
+                                                'id'=>'year'
                                                     )
                                             );
                                             ?>
@@ -673,7 +674,8 @@
                                                 'options' => $ym['month'],
                                                 'empty' => 'Select Month',
                                                 'class' => 'span12 uniform nostyle   select1 required',
-                                                'div' => array('class' => 'span12 ')
+                                                'div' => array('class' => 'span12 '),
+                                                'id'=>'month'
                                                     )
                                             );
                                             ?>
@@ -701,18 +703,6 @@
                                         <div class="col-md-3 signupfont">
                                             Address on Card: 
                                         </div>
-                                        <div class="col-md-4">
-                                            <?php
-                                            echo $this->Form->input(
-                                                    'zip', array(
-                                                'type' => 'text',
-                                                'class' => 'form-control input-sm required',
-                                                'placeholder' => 'zip code',
-                                             
-                                            ));
-                                            ?>
-                                        </div>
-
                                         <div class="col-md-5">
                                             <?php
                                             echo $this->Form->input(
@@ -721,6 +711,17 @@
                                                 'class' => 'form-control input-sm',
                                                 'placeholder' => 'detail (optional)',
                                                
+                                            ));
+                                            ?>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <?php
+                                            echo $this->Form->input(
+                                                    'zip', array(
+                                                'type' => 'text',
+                                                'class' => 'form-control input-sm required',
+                                                'placeholder' => 'zip code',
+                                             
                                             ));
                                             ?>
                                         </div>
@@ -887,7 +888,8 @@
                                                                         'options' => $ym['year'],
                                                                         'empty' => 'Select Year',
                                                                         'class' => 'span12 uniform nostyle select1  required',
-                                                                        'div' => array('class' => 'span12 ')
+                                                                        'div' => array('class' => 'span12 '),
+                                                                        'id'=>'showyear'
                                                                             )
                                                                     );
                                                                     ?>
@@ -899,7 +901,8 @@
                                                                         'options' => $ym['month'],
                                                                         'empty' => 'Select Month',
                                                                         'class' => 'span12 uniform nostyle   select1 required',
-                                                                        'div' => array('class' => 'span12 ')
+                                                                        'div' => array('class' => 'span12 '),
+                                                                        'id'=>'showmonth'
                                                                             )
                                                                     );
                                                                     ?>

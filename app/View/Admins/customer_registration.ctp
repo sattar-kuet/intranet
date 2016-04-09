@@ -537,17 +537,7 @@
                                         );
                                         ?>
                                     </div>
-                                    <label class="control-label col-md-2">Customer Utility:<span class="required">
-                                        </span>
-                                    </label>
-                                    <div class="col-md-2">
-                                        <div class="radio-list">
-                                            <label class="radio-inline">
-                                                <input type="radio" name="data[PackageCustomer][customer_utility]" id="optionsRadios4" value="YES"> Yes </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="data[PackageCustomer][customer_utility]" id="optionsRadios5" value="NO"> No</label>
-                                        </div>
-                                    </div>
+
                                     <label class="control-label col-md-2">First name<span class="required">
                                         </span>
                                     </label>
@@ -561,8 +551,6 @@
                                         );
                                         ?>
                                     </div>
-                                </div>
-                                <div class="form-group">
                                     <label class="control-label col-md-2">Last name<span class="required">
                                         </span>
                                     </label>
@@ -576,6 +564,20 @@
                                         );
                                         ?>
                                     </div>
+                                </div>
+                                <div class="form-group">
+                                     <label class="control-label col-md-2">Customer Utility:<span class="required">
+                                        </span>
+                                    </label>
+                                    <div class="col-md-2">
+                                        <div class="radio-list">
+                                            <label class="radio-inline">
+                                                <input type="radio" name="data[PackageCustomer][customer_utility]" id="optionsRadios4" value="YES"> Yes </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="data[PackageCustomer][customer_utility]" id="optionsRadios5" value="NO"> No</label>
+                                        </div>
+                                    </div>
+                                  
                                     <label class="control-label col-md-2">Card no:<span class="required">
                                         </span>
                                     </label>
