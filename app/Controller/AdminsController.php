@@ -521,8 +521,7 @@ class AdminsController extends AppController {
             return $this->redirect($this->referer());
         }
         //$data = $this->PackageCustomer->findById($id);
-       // $this->request->data = $data;
-
+        // $this->request->data = $data;
         //Show Package List 
         //******************************
         $this->loadModel('Package');
@@ -567,11 +566,15 @@ class AdminsController extends AppController {
 
     function opportunity_followup() {
         $this->loadModel('PackageCustomer');
-        $allData = $this->PackageCustomer->find('all', array('conditions' => array('PackageCustomer.status' => 'requested', 'PackageCustomer.follow_up' => 1)));
-        pr($allData); exit;
+//        $allData = $this->PackageCustomer->find('all', array('conditions' => array('PackageCustomer.status' => 'requested', 'PackageCustomer.follow_up' => 1)));
+        $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
+                    left join comments c on pc.id = c.package_customer_id
+                    left join psettings ps on ps.id = pc.psetting_id
+                    left join custom_packages cp on cp.id = pc.custom_package_id ");
+//        pr($allData); exit;
         $this->set(compact('allData'));
     }
-    
+
     function ready_installation() {
         $this->loadModel('PackageCustomer');
         $allData = $this->PackageCustomer->find('all', array('conditions' => array('PackageCustomer.status' => 'requested', 'PackageCustomer.follow_up' => 1)));
@@ -581,10 +584,8 @@ class AdminsController extends AppController {
     function contact() {
         
     }
-    
-     
-    
-     function done($id = null) {
+
+    function done($id = null) {
         $this->loadModel('PackageCustomer');
         $this->PackageCustomer->id = $id;
         $this->PackageCustomer->saveField("status", "done");
@@ -594,8 +595,8 @@ class AdminsController extends AppController {
         $this->Session->setFlash($msg);
         return $this->redirect('opportunity_followup');
     }
-    
-     function ready($id = null) {
+
+    function ready($id = null) {
         $this->loadModel('PackageCustomer');
         $this->PackageCustomer->id = $id;
         $this->PackageCustomer->saveField("status", "ready");
