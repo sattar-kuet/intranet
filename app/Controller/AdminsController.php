@@ -503,12 +503,16 @@ class AdminsController extends AppController {
         $this->loadModel('Role');
         if ($this->request->is('post') || $this->request->is('put')) {
             $this->PackageCustomer->set($this->request->data);
+
             $this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
 //            data for comment
             $comment['Comment']['package_customer_id'] = $this->request->data['PackageCustomer']['id'];
             $comment['Comment']['content'] = $this->request->data['PackageCustomer']['comment'];
             $this->comment->save($comment);
             
+
+            //$this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
+
             //For Custom Package data insert//
             if (!empty($this->request->data['PackageCustomer']['charge'])) {
                 $data4CustomPackage['CustomPackage']['duration'] = $this->request->data['PackageCustomer']['duration'];
@@ -582,6 +586,7 @@ class AdminsController extends AppController {
     function opportunity_followup() {
         $this->loadModel('PackageCustomer');
         $allData = $this->PackageCustomer->find('all', array('conditions' => array('PackageCustomer.status' => 'requested', 'PackageCustomer.follow_up' => 1)));
+        pr($allData); exit;
         $this->set(compact('allData'));
     }
 
