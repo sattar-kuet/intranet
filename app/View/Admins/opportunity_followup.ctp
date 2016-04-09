@@ -102,7 +102,7 @@
                                 ?>
                                 <tr>
     <!--                                    <td>                          
-                                    <?php // echo $results['PackageCustomer']['c_acc_no']; ?>
+                                    <?php // echo $results['PackageCustomer']['c_acc_no'];  ?>
                                     </td>-->
                                     <td>
                                         <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'edit_customer_registration', $results['PackageCustomer']['id'])) ?>" target="_blank"><?php echo $results['PackageCustomer']['middle_name'] . " " . $results['PackageCustomer']['last_name']; ?></a> 
@@ -111,13 +111,16 @@
                                         <?php echo $results['PackageCustomer']['street'] . ", " . $results['PackageCustomer']['apartment']; ?>                            
                                     </td>
     <!--                                    <td>
-                                    <?php // echo $results['PackageCustomer']['mac']; ?>
+                                    <?php // echo $results['PackageCustomer']['mac'];  ?>
                                     </td>-->
-                                    <td class="hidden-480">                                        
-                                        Cell:    <?php echo $results['PackageCustomer']['cell']; ?>                                      
+                                    <td class="hidden-480">  
+                                        <?php if (!empty($results['PackageCustomer']['cell'])): ?> 
+                                            Cell:    <?php echo $results['PackageCustomer']['cell']; ?>   
+                                        <?php endif; ?>
                                         <br>
-                                        Home : <?php echo $results['PackageCustomer']['home']; ?>
-
+                                        <?php if (!empty($result['PackageCustomer']['home'])): ?>
+                                            Home : <?php echo $results['PackageCustomer']['home']; ?>
+                                        <?php endif ?>
                                     </td>
                                     <td class="hidden-480">
                                         <?php
@@ -136,19 +139,19 @@
                                     </td>
                                     <td>
                                         <a 
-                                            onclick="if (confirm(&quot; Are you sure to Done?&quot; )) {
-                                                                        return true;
-                                                                    }
-                                                                    return false;"
+                                            onclick="if (confirm( & quot; Are you sure to Done? & quot; )) {
+                                                            return true;
+                                                            }
+                                                            return false;"
 
                                             href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'done', $results['PackageCustomer']['id'])) ?>" title="Done">
                                             <span class="fa  fa-check "></span>
                                         </a>
                                         <a 
-                                            onclick="if (confirm(&quot; Are you sure to Ready to installition?&quot; )) {
-                                                                        return true;
-                                                                    }
-                                                                    return false;"
+                                            onclick="if (confirm( & quot; Are you sure to Ready to installition? & quot; )) {
+                                                            return true;
+                                                            }
+                                                            return false;"
 
                                             href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'ready', $results['PackageCustomer']['id'])) ?>" title="Ready to Instalition">
                                             <span class="fa  fa-forward "></span>

@@ -568,6 +568,7 @@ class AdminsController extends AppController {
     function opportunity_followup() {
         $this->loadModel('PackageCustomer');
         $allData = $this->PackageCustomer->find('all', array('conditions' => array('PackageCustomer.status' => 'requested', 'PackageCustomer.follow_up' => 1)));
+        pr($allData); exit;
         $this->set(compact('allData'));
     }
     
