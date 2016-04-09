@@ -431,7 +431,9 @@ class AdminsController extends AppController {
     }
 
     function edit_customer_registration($id = null) {
+        $pcid = $id;
         $this->loadModel('PackageCustomer');
+        $this->loadModel('Comment');
         if ($this->request->is('post') || $this->request->is('put')) {
             $this->PackageCustomer->set($this->request->data);
             $this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
@@ -451,6 +453,10 @@ class AdminsController extends AppController {
             $this->request->data['PackageCustomer']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
 
             $this->PackageCustomer->save($this->request->data['PackageCustomer']);
+            //update last comment
+            $this->Comment->id =$this->request->data['PackageCustomer']['comment_id'];
+            $commentData['Comment']['content'] = $this->request->data['PackageCustomer']['comments'];
+            $this->Comment->save($commentData);
             $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <strong> Cutomer Package Information update succeesfully </strong>
@@ -459,6 +465,7 @@ class AdminsController extends AppController {
             return $this->redirect($this->referer());
         }
         $data = $this->PackageCustomer->findById($id);
+        // pr($data);
         $this->request->data = $data;
         //Show Package List 
         //********************************************************************************************************
@@ -486,11 +493,12 @@ class AdminsController extends AppController {
         $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge'));
         //*************** End Package List ****************************************************************************************
         $ym = $this->getYm();
-         $this->loadModel('comment');
-         $this->comment->find('first', array('conditions' => array('package_customer_id' => $id), 
-                               'order' => array('id' => 'DESC') ));
-         
-        $this->set(compact('ym'));
+        
+        $lastComment = $this->Comment->find('first', array('conditions' => array('package_customer_id' => $pcid),
+            'order' => array('id' => 'DESC')));
+        $lastComment = $lastComment['Comment'];
+       
+        $this->set(compact('ym', 'lastComment'));
     }
 
     function customer_registration() {
@@ -504,15 +512,10 @@ class AdminsController extends AppController {
         if ($this->request->is('post') || $this->request->is('put')) {
             $this->PackageCustomer->set($this->request->data);
 
-            $this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
-//            data for comment
-            $comment['Comment']['package_customer_id'] = $this->request->data['PackageCustomer']['id'];
-            $comment['Comment']['content'] = $this->request->data['PackageCustomer']['comment'];
-            $this->comment->save($comment);
-            
+
+
 
             //$this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
-
             //For Custom Package data insert//
             if (!empty($this->request->data['PackageCustomer']['charge'])) {
                 $data4CustomPackage['CustomPackage']['duration'] = $this->request->data['PackageCustomer']['duration'];
@@ -522,11 +525,19 @@ class AdminsController extends AppController {
                 $this->request->data['PackageCustomer']['custom_package_id'] = $cp['CustomPackage']['id'];
             }
             $this->PackageCustomer->set($this->request->data);
-            $this->PackageCustomer->id = $id;
+
             $dateObj = $this->request->data['PackageCustomer']['exp_date'];
             $this->request->data['PackageCustomer']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
 
-            $this->PackageCustomer->save($this->request->data['PackageCustomer']);
+            $pc = $this->PackageCustomer->save($this->request->data['PackageCustomer']);
+
+
+//            data for comment
+            $comment['Comment']['package_customer_id'] = $pc['PackageCustomer']['id'];
+
+            $comment['Comment']['content'] = $this->request->data['PackageCustomer']['comments'];
+            $this->Comment->save($comment);
+
             $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <strong> Package customer edited succeesfully </strong>
@@ -586,7 +597,8 @@ class AdminsController extends AppController {
     function opportunity_followup() {
         $this->loadModel('PackageCustomer');
         $allData = $this->PackageCustomer->find('all', array('conditions' => array('PackageCustomer.status' => 'requested', 'PackageCustomer.follow_up' => 1)));
-        pr($allData); exit;
+        pr($allData);
+        exit;
         $this->set(compact('allData'));
     }
 

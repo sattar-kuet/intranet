@@ -539,7 +539,7 @@
                                         );
                                         ?>
                                     </div>
-                                    
+
                                     <label class="control-label col-md-2">First name<span class="required">
                                         </span>
                                     </label>
@@ -567,7 +567,7 @@
                                         ?>
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label class="control-label col-md-2">Customer Utility:<span class="required">
                                         </span>
@@ -704,12 +704,21 @@
                                             'comments', array(
                                         'class' => 'form-control',
                                         'type' => 'textarea',
+                                        'value' => $lastComment['content'],
                                         'rows' => '3',
                                             )
                                     );
                                     ?>
                                 </div>
                             </div>
+                            <?php
+                            echo $this->Form->input(
+                                    'comment_id', array(
+                                'type' => 'hidden',
+                                'value' => $lastComment['id']
+                                    )
+                            );
+                            ?>
 
                         </div>
                         <div class="form-actions">
