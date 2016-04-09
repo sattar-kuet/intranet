@@ -144,6 +144,7 @@
                                             href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'done', $results['PackageCustomer']['id'])) ?>" title="Done">
                                             <span class="fa  fa-check "></span>
                                         </a>
+                                        &nbsp;   &nbsp;   &nbsp;
                                         <a 
                                             onclick="if (confirm(&quot; Are you sure to Ready to installition?&quot; )) {
                                                                         return true;
