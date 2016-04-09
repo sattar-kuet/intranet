@@ -74,6 +74,30 @@ class ReportsController extends AppController {
         $this->set(compact('transactions'));
     }
 
+    function invoice_printqueue() {
+        $this->loadModel('Package_customer');
+        $this->loadModel('Transaction');
+        $clicked = false;
+        if ($this->request->is('post') || $this->request->is('put')) {           
+            $datrange = json_decode($this->request->data['Package_customer']['daterange'], true);            
+            $conditions = array('package_customers.package_exp_date >=' => $datrange['start'], 'package_customers.package_exp_date <=' => $datrange['end']);
+            $packagecustomers = $this->Package_customer->query("SELECT tr.id,tr.package_customer_id,concat(first_name,' ',middle_name,' ',last_name) as name,pc.psetting_id, pc.mac,
+                ps.name, p.name,ps.amount,ps.duration, pc.package_exp_date FROM package_customers pc
+                left join transactions tr  on pc.id = tr.package_customer_id
+                left join psettings ps on ps.id = pc.psetting_id
+                LEFT JOIN packages p ON p.id = ps.package_id WHERE 
+                pc.package_exp_date >='".$datrange['start'].
+                    "' AND pc.package_exp_date <='". $datrange['end']."'");
+            $clicked = true;
+            $this->set(compact('packagecustomers'));
+        }
+        $this->set(compact('clicked'));
+    }
+    
+     function pexp_invoice() {
+         
+     }
+
     function payment_pdf($id = null) {
         $this->layout = 'blank_page';
         $this->loadModel('Transaction');
@@ -96,6 +120,7 @@ class ReportsController extends AppController {
             $timestamp = $de->getTimestamp(); // Unix timestamp
             $endd = $de->format('m/y'); // 2003-10-16
             $conditions = array('Transaction.exp_date >=' => $startd, 'Transaction.exp_date <=' => $endd);
+            pr($conditions); exit;
             $transactions = $this->Transaction->find('all', array('conditions' => $conditions));
             $clicked = true;
             $this->set(compact('transactions'));
@@ -109,7 +134,9 @@ class ReportsController extends AppController {
         if ($this->request->is('post') || $this->request->is('put')) {
             $datrange = json_decode($this->request->data['Transaction']['daterange'], true);
             $conditions = array('Transaction.created >=' => $datrange['start'], 'Transaction.created <=' => $datrange['end']);
+             
             $transactions = $this->Transaction->find('all', array('conditions' => $conditions));
+           
             $clicked = true;
             $this->set(compact('transactions'));
         }
