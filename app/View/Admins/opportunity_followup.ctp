@@ -99,7 +99,7 @@
 
                             <?php
                             foreach ($allData as $results):
-                   
+//                                pr($results); exit
                                 ?>
                                 <tr>
     <!--                                    <td>                          
@@ -140,23 +140,158 @@
                                     </td>
                                     <td>
                                         <a 
-                                            onclick="if (confirm( & quot; Are you sure to Done? & quot; )) {
-                                                            return true;
-                                                            }
-                                                            return false;"
-
-                                            href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'done', $results['pc']['id'])) ?>" title="Done">
-                                            <span class="fa  fa-check "></span>
+                                            href="#" title="Done">
+                                            <span id="<?php echo $results['pc']['id']; ?>" class="fa fa-check fa-lg done"></span>
                                         </a>
+
                                         <a 
-                                            onclick="if (confirm( & quot; Are you sure to Ready to installition? & quot; )) {
-                                                            return true;
-                                                            }
-                                                            return false;"
-
-                                            href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'ready', $results['pc']['id'])) ?>" title="Ready to Instalition">
-                                            <span class="fa  fa-forward "></span>
+                                            href="#" title="Ready">
+                                            <span id="<?php echo $results['pc']['id']; ?>" class="fa fa-reddit fa-lg ready"></span>
                                         </a>
+
+                                        <div id="done_dialog<?php echo $results['pc']['id']; ?>" class="portlet-body form" style="display: none;">
+
+                                            <!-- BEGIN FORM-->
+                                            <?php
+                                            echo $this->Form->create('Package_customer', array(
+                                                'inputDefaults' => array(
+                                                    'label' => false,
+                                                    'div' => false
+                                                ),
+                                                'id' => 'form_sample_3',
+                                                'class' => 'form-horizontal',
+                                                'novalidate' => 'novalidate',
+                                                'url' => array('controller' => 'admins', 'action' => 'done')
+                                                    )
+                                            );
+                                            ?>
+
+                                            <?php
+                                            echo $this->Form->input('id', array(
+                                                'type' => 'hidden',
+                                                'value' => $results['pc']['id'],
+                                                    )
+                                            );
+                                            ?>
+                                            <div class="form-body">
+                                                <div class="alert alert-danger display-hide">
+                                                    <button class="close" data-close="alert"></button>
+                                                    You have some form errors. Please check below.
+                                                </div>
+                                                <?php echo $this->Session->flash(); ?>
+                                                <div class="form-group">
+                                                    <div class="form-group">
+                                                        <div class="col-md-12">
+                                                            <?php
+                                                            echo $this->Form->input('content', array(
+                                                                'type' => 'textarea',
+                                                                'class' => 'form-control required txtArea',
+                                                                'placeholder' => 'Write your comments'
+                                                                    )
+                                                            );
+                                                            ?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-actions">
+                                                <div class="row">
+                                                    <div class="col-md-offset-7 col-md-4">
+                                                        <?php
+                                                        echo $this->Form->button(
+                                                                'Done', array('class' => 'btn green', 'type' => 'submit')
+                                                        );
+                                                        ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <?php echo $this->Form->end(); ?>
+                                            <!-- END FORM-->
+                                        </div> 
+
+                                        <div id="ready_dialog<?php echo $results['pc']['id']; ?>" class="portlet-body form" style="display: none;">
+
+                                            <!-- BEGIN FORM-->
+                                            <?php
+                                            echo $this->Form->create('Package_customer', array(
+                                                'inputDefaults' => array(
+                                                    'label' => false,
+                                                    'div' => false
+                                                ),
+                                                'id' => 'form_sample_3',
+                                                'class' => 'form-horizontal',
+                                                'novalidate' => 'novalidate',
+                                                'url' => array('controller' => 'admins', 'action' => 'ready')
+                                                    )
+                                            );
+                                            ?>
+
+                                            <?php
+                                            echo $this->Form->input('id', array(
+                                                'type' => 'hidden',
+                                                'value' => $results['pc']['id'],
+                                                    )
+                                            );
+                                            ?>
+                                            <div class="form-body">
+                                                <div class="alert alert-danger display-hide">
+                                                    <button class="close" data-close="alert"></button>
+                                                    You have some form errors. Please check below.
+                                                </div>
+                                                <?php echo $this->Session->flash(); ?>
+                                                <div class="form-group">
+                                                    <div class="form-group">
+                                                        <div class="col-md-12">
+                                                            <?php
+                                                            echo $this->Form->input('content', array(
+                                                                'type' => 'textarea',
+                                                                'class' => 'form-control required txtArea',
+                                                                'placeholder' => 'Write your comments'
+                                                                    )
+                                                            );
+                                                            ?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-actions">
+                                                <div class="row">
+                                                    <div class="col-md-offset-7 col-md-4">
+                                                        <?php
+                                                        echo $this->Form->button(
+                                                                'Done', array('class' => 'btn green', 'type' => 'submit')
+                                                        );
+                                                        ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <?php echo $this->Form->end(); ?>
+                                            <!-- END FORM-->
+                                        </div>
+
+
+
+                                        <!--                                        <a 
+                                                                                    onclick="if (confirm( & quot; Are you sure to Done? & quot; )) {
+                                                                                                    return true;
+                                                                                                    }
+                                                                                                    return false;"
+                                        
+                                                                                    href="<?php // echo Router::url(array('controller' => 'admins', 'action' => 'done', $results['pc']['id']))  ?>" title="Done">
+                                                                                    <span class="fa  fa-check "></span>
+                                                                                </a>
+                                        
+                                        
+                                        
+                                                                                <a 
+                                                                                    onclick="if (confirm( & quot; Are you sure to Ready to installition? & quot; )) {
+                                                                                                    return true;
+                                                                                                    }
+                                                                                                    return false;"
+                                        
+                                                                                    href="<?php // echo Router::url(array('controller' => 'admins', 'action' => 'ready', $results['pc']['id']))  ?>" title="Ready to Instalition">
+                                                                                    <span class="fa  fa-forward "></span>
+                                                                                </a>-->
                                     </td>
                                 </tr>
                             <?php endforeach; ?>                           

@@ -27,6 +27,22 @@ $(document).ready(function () {
         $(forwardForm).toggle();
         e.preventDefault();
     });
+    
+      $(".done").click(function (e) {
+        var id = $(this).attr('id');
+        var forwardForm = "#done_dialog" + id;
+        $('#ready_dialog' + id).hide();
+        $(forwardForm).toggle();
+        e.preventDefault();
+    });
+    
+        $(".ready").click(function (e) {
+        var id = $(this).attr('id');
+        var forwardForm = "#ready_dialog" + id;
+        $('#done_dialog' + id).hide();
+        $(forwardForm).toggle();
+        e.preventDefault();
+    });
 
     //Terms and Conditions 
 //    $(function () {
