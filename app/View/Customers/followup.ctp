@@ -81,6 +81,9 @@
                                 <th class="hidden-480">
                                     Emergency Contact
                                 </th>
+                                <th class="hidden-480">
+                                    Reference Contact
+                                </th>
                                 <th>
                                     Package
                                 </th>
@@ -98,62 +101,79 @@
                         <tbody>
 
                             <?php
-                            foreach ($allData as $results):
-//                                pr($results); exit
+                          //  pr($filteredData); exit;
+                            foreach ($filteredData as $results):
+                               //$customer = $results['customers'];
+                             
                                 ?>
                                 <tr>
-    <!--                                    <td>                          
-                                    <?php // echo $results['pc']['c_acc_no'];  ?>
-                                    </td>-->
+
                                     <td>
-                                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'edit_customer_registration', $results['pc']['id'])) ?>" target="_blank"><?php echo $results['pc']['middle_name'] . " " . $results['pc']['last_name']; ?></a> 
+                                        <a href="<?php
+                                        echo Router::url(array('controller' => 'customers',
+                                            'action' => 'edit_registration', $results['customers']['id']))
+                                        ?>" 
+                                           target="_blank">
+                                               <?php
+                                               
+                                               echo $results['customers']['first_name'] ." ".
+                                               $results['customers']['middle_name'] . " " .
+                                               $results['customers']['last_name'];
+                                               ?>
+                                        </a> 
                                     </td>
                                     <td class="hidden-480">
-                                        <?php echo $results['pc']['street'] . ", " . $results['pc']['apartment']; ?>                            
+                                        <?php echo $results['customers']['address']; ?>                            
                                     </td>
     <!--                                    <td>
-                                    <?php // echo $results['pc']['mac'];  ?>
+                                    <?php // echo $results['pc']['mac'];   ?>
                                     </td>-->
                                     <td class="hidden-480">  
-                                        <?php if (!empty($results['pc']['cell'])): ?> 
-                                            Cell:    <?php echo $results['pc']['cell']; ?>   
+                                        <?php if (!empty($results['customers']['cell'])): ?> 
+                                            Cell:    <?php echo $results['customers']['cell']; ?>   
                                         <?php endif; ?>
                                         <br>
-                                        <?php if (!empty($result['pc']['home'])): ?>
-                                            Home : <?php echo $results['pc']['home']; ?>
+                                        <?php if (!empty($results['customers']['home'])): ?>
+                                            Home : <?php echo $results['customers']['home']; ?>
                                         <?php endif ?>
                                     </td>
+                                    <td>
+                                       <?php echo $results['customers']['referred_phone']; ?> 
+                                    </td>
                                     <td class="hidden-480">
-                                        <?php
-                                        if ($results['pc']['custom_package_id'] == null) {
-                                            echo $results['ps']['name'];
-                                        } else {
-                                            echo $results['cp']['duration'] . ' Months, Custom package ' . $results['cp']['charge'] . '$';
-                                        }
-                                        ?>
+                                        <ul>
+                                            <li>Name:  <?php echo $results['package']['name']; ?> </li>
+                                            <li>Duration:  <?php echo $results['package']['duration']; ?> </li>
+                                            <li>Amount:  <?php echo $results['package']['amount']; ?> </li>
+                                        </ul>
+
                                     </td>
                                     <td>
-                                        <?php echo $results['pc']['follow_date']; ?>
+                                        <?php echo $results['customers']['follow_date']; ?>
                                     </td>
                                     <td>
-                                        <?php echo $results['c']['content']; ?>
+                                        <ul>
+                                            <?php foreach ($results['comments'] as $comment): ?>
+                                                <li><?php echo $comment['content']['content'] . ' -By <i>' . $comment['user']['name']; ?> </i></li>
+                                            <?php endforeach; ?>
+                                        </ul>
                                     </td>
                                     <td>
                                         <a 
                                             href="#" title="Done">
-                                            <span id="<?php echo $results['pc']['id']; ?>" class="fa fa-check fa-lg done"></span>
+                                            <span id="<?php echo $results['customers']['id']; ?>" class="fa fa-check fa-lg done"></span>
                                         </a>
 
                                         <a 
                                             href="#" title="Ready">
-                                            <span id="<?php echo $results['pc']['id']; ?>" class="fa fa-reddit fa-lg ready"></span>
+                                            <span id="<?php echo $results['customers']['id']; ?>" class="fa fa-reddit fa-lg ready"></span>
                                         </a>
 
-                                        <div id="done_dialog<?php echo $results['pc']['id']; ?>" class="portlet-body form" style="display: none;">
+                                        <div id="done_dialog<?php echo $results['customers']['id']; ?>" class="portlet-body form" style="display: none;">
 
                                             <!-- BEGIN FORM-->
                                             <?php
-                                            echo $this->Form->create('Package_customer', array(
+                                            echo $this->Form->create('Comment', array(
                                                 'inputDefaults' => array(
                                                     'label' => false,
                                                     'div' => false
@@ -161,15 +181,15 @@
                                                 'id' => 'form_sample_3',
                                                 'class' => 'form-horizontal',
                                                 'novalidate' => 'novalidate',
-                                                'url' => array('controller' => 'admins', 'action' => 'done')
+                                                'url' => array('controller' => 'customers', 'action' => 'done')
                                                     )
                                             );
                                             ?>
 
                                             <?php
-                                            echo $this->Form->input('id', array(
+                                            echo $this->Form->input('package_customer_id', array(
                                                 'type' => 'hidden',
-                                                'value' => $results['pc']['id'],
+                                                'value' => $results['customers']['id'],
                                                     )
                                             );
                                             ?>
@@ -209,11 +229,11 @@
                                             <!-- END FORM-->
                                         </div> 
 
-                                        <div id="ready_dialog<?php echo $results['pc']['id']; ?>" class="portlet-body form" style="display: none;">
+                                        <div id="ready_dialog<?php echo $results['customers']['id']; ?>" class="portlet-body form" style="display: none;">
 
                                             <!-- BEGIN FORM-->
                                             <?php
-                                            echo $this->Form->create('Package_customer', array(
+                                            echo $this->Form->create('Comment', array(
                                                 'inputDefaults' => array(
                                                     'label' => false,
                                                     'div' => false
@@ -221,15 +241,15 @@
                                                 'id' => 'form_sample_3',
                                                 'class' => 'form-horizontal',
                                                 'novalidate' => 'novalidate',
-                                                'url' => array('controller' => 'admins', 'action' => 'ready')
+                                                'url' => array('controller' => 'customers', 'action' => 'ready')
                                                     )
                                             );
                                             ?>
 
                                             <?php
-                                            echo $this->Form->input('id', array(
+                                            echo $this->Form->input('package_customer_id', array(
                                                 'type' => 'hidden',
-                                                'value' => $results['pc']['id'],
+                                                'value' => $results['customers']['id'],
                                                     )
                                             );
                                             ?>
@@ -259,7 +279,7 @@
                                                     <div class="col-md-offset-7 col-md-4">
                                                         <?php
                                                         echo $this->Form->button(
-                                                                'Done', array('class' => 'btn green', 'type' => 'submit')
+                                                                'Ready', array('class' => 'btn green', 'type' => 'submit')
                                                         );
                                                         ?>
                                                     </div>
@@ -270,28 +290,6 @@
                                         </div>
 
 
-
-                                        <!--                                        <a 
-                                                                                    onclick="if (confirm( & quot; Are you sure to Done? & quot; )) {
-                                                                                                    return true;
-                                                                                                    }
-                                                                                                    return false;"
-                                        
-                                                                                    href="<?php // echo Router::url(array('controller' => 'admins', 'action' => 'done', $results['pc']['id']))  ?>" title="Done">
-                                                                                    <span class="fa  fa-check "></span>
-                                                                                </a>
-                                        
-                                        
-                                        
-                                                                                <a 
-                                                                                    onclick="if (confirm( & quot; Are you sure to Ready to installition? & quot; )) {
-                                                                                                    return true;
-                                                                                                    }
-                                                                                                    return false;"
-                                        
-                                                                                    href="<?php // echo Router::url(array('controller' => 'admins', 'action' => 'ready', $results['pc']['id']))  ?>" title="Ready to Instalition">
-                                                                                    <span class="fa  fa-forward "></span>
-                                                                                </a>-->
                                     </td>
                                 </tr>
                             <?php endforeach; ?>                           

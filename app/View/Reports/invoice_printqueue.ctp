@@ -246,12 +246,10 @@
                 </div>
             </div>
         <?php endif; ?>
-<<<<<<< HEAD
-    </div>
 
-=======
+    </div>
     </div> 
->>>>>>> 02043723461555d36dcb14be234c01eff993ad75
+
 </div>
 <!-- END CONTENT -->
 
