@@ -35,6 +35,9 @@ echo $this->Html->script(
     $(function () {
         $("#e1").daterangepicker();
     });
+    $(function () {
+        $(".dateRange").daterangepicker();
+    });
         
     $("#e2").daterangepicker({
         presetRanges: [{
