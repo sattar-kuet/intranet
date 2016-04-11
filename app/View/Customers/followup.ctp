@@ -101,7 +101,7 @@
                         <tbody>
 
                             <?php
-                           pr($filteredData); exit;
+//                           pr($filteredData); exit;
                             foreach ($filteredData as $results):
                                //$customer = $results['customers'];
                              
