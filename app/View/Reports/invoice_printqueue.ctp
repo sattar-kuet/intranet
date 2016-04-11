@@ -246,7 +246,10 @@
                 </div>
             </div>
         <?php endif; ?>
+
+    </div>
     </div> 
+
 </div>
 <!-- END CONTENT -->
 

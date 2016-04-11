@@ -3,8 +3,9 @@
 App::uses('SimplePasswordHasher', 'Controller/Component/Auth');
 
 class User extends AppModel {
-
+    var $name = 'users';
     var $belongsTo = array('Role');
+
     public $validate = array(
         'email' => array(
             'rule' => 'isUnique',
