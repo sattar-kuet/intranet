@@ -306,6 +306,7 @@ class CustomersController extends AppController {
                         'amount' => $data['cp']['charge']
                     );
                 }
+                $filteredData[$index]['comments'] = array();
                 if (!empty($data['c']['content'])) {
                     $temp = array('content'=>$data['c'],'user'=>$data['u']);
                     $filteredData[$index]['comments'][] = $temp;
