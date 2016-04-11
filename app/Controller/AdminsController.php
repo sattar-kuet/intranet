@@ -617,12 +617,17 @@ class AdminsController extends AppController {
         $this->loadModel('PackageCustomer');
         $this->PackageCustomer->id = $id;
        
-        $content =  $this->request->data['Package_customer']['content'];
+        $contents =  $this->request->data['Package_customer']['content'];
+        
+        $content = $this->PackageCustomer->saveField("status", "done");
         pr($content);
         exit;
-        $content = $this->PackageCustomer->saveField("status", "done");
         
-        $this->Comment->saveField("status", "done");
+//         $comment['Comment']['content'] = $this->request->data['PackageCustomer']['comments'];
+//            $this->Comment->save($comment);
+        
+//      $comments['Comment']['content'] = $this->request->data['PackageCustomer']['co']
+//        $this->Comment->saveField($comments);
         
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>

@@ -1,4 +1,3 @@
-
 <style>
     .ui-datepicker-multi-3 {
         display: table-row-group !important;
@@ -152,9 +151,7 @@
                                     <li style="color: #555;">
                                         Date of Invoice: <?php echo date('Y-m-d'); ?>
                                     </li>
-                                    <li style="color: #555;">
-                                        Due Date: 2015-10-19
-                                    </li>
+
                                 </ul>
                             </div>
                         </div>
@@ -246,13 +243,9 @@
                 </div>
             </div>
         <?php endif; ?>
-<<<<<<< HEAD
     </div>
+</div> 
 
-=======
-    </div> 
->>>>>>> 02043723461555d36dcb14be234c01eff993ad75
-</div>
 <!-- END CONTENT -->
 
 

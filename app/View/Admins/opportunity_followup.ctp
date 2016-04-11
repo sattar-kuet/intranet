@@ -19,7 +19,6 @@
         </div>
         <!-- END PAGE HEADER-->
         <!-- BEGIN PAGE CONTENT-->
-
         <div class="invoice" id="printableArea">
             <div class="row invoice-logo">
                 <div class="col-xs-12 invoice-logo-space">
@@ -34,7 +33,7 @@
                         </div>
                         <div class="col-xs-2 invoice-payment">
                             <div style="text-align: left;">
-                                <div>   Total Cable USA</div>
+                                <div>Total Cable USA</div>
                                 <div>P.O. BOX 770068,</div>
                                 <div>WOODSIDE,</div>
                                 <div>NY 11377</div>
@@ -66,18 +65,12 @@
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-<!--                                <th>
-                                    Account No
-                                </th>-->
                                 <th class="hidden-480">
                                     Name
                                 </th>
                                 <th class="hidden-480">
                                     Address
                                 </th>
-<!--                                <th>
-                                    Mac
-                                </th>-->
                                 <th class="hidden-480">
                                     Emergency Contact
                                 </th>
@@ -99,21 +92,14 @@
 
                             <?php
                             foreach ($allData as $results):
-//                                pr($results); exit
                                 ?>
                                 <tr>
-    <!--                                    <td>                          
-                                    <?php // echo $results['pc']['c_acc_no'];  ?>
-                                    </td>-->
                                     <td>
                                         <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'edit_customer_registration', $results['pc']['id'])) ?>" target="_blank"><?php echo $results['pc']['middle_name'] . " " . $results['pc']['last_name']; ?></a> 
                                     </td>
                                     <td class="hidden-480">
                                         <?php echo $results['pc']['street'] . ", " . $results['pc']['apartment']; ?>                            
                                     </td>
-    <!--                                    <td>
-                                    <?php // echo $results['pc']['mac'];  ?>
-                                    </td>-->
                                     <td class="hidden-480">  
                                         <?php if (!empty($results['pc']['cell'])): ?> 
                                             Cell:    <?php echo $results['pc']['cell']; ?>   
@@ -143,12 +129,10 @@
                                             href="#" title="Done">
                                             <span id="<?php echo $results['pc']['id']; ?>" class="fa fa-check fa-lg done"></span>
                                         </a>
-
                                         <a 
                                             href="#" title="Ready">
                                             <span id="<?php echo $results['pc']['id']; ?>" class="fa fa-reddit fa-lg ready"></span>
                                         </a>
-
                                         <div id="done_dialog<?php echo $results['pc']['id']; ?>" class="portlet-body form" style="display: none;">
 
                                             <!-- BEGIN FORM-->
@@ -268,30 +252,6 @@
                                             <?php echo $this->Form->end(); ?>
                                             <!-- END FORM-->
                                         </div>
-
-
-
-                                        <!--                                        <a 
-                                                                                    onclick="if (confirm( & quot; Are you sure to Done? & quot; )) {
-                                                                                                    return true;
-                                                                                                    }
-                                                                                                    return false;"
-                                        
-                                                                                    href="<?php // echo Router::url(array('controller' => 'admins', 'action' => 'done', $results['pc']['id']))  ?>" title="Done">
-                                                                                    <span class="fa  fa-check "></span>
-                                                                                </a>
-                                        
-                                        
-                                        
-                                                                                <a 
-                                                                                    onclick="if (confirm( & quot; Are you sure to Ready to installition? & quot; )) {
-                                                                                                    return true;
-                                                                                                    }
-                                                                                                    return false;"
-                                        
-                                                                                    href="<?php // echo Router::url(array('controller' => 'admins', 'action' => 'ready', $results['pc']['id']))  ?>" title="Ready to Instalition">
-                                                                                    <span class="fa  fa-forward "></span>
-                                                                                </a>-->
                                     </td>
                                 </tr>
                             <?php endforeach; ?>                           
