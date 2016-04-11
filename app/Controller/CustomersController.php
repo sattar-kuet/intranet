@@ -266,6 +266,7 @@ class CustomersController extends AppController {
         $filteredData = array();
         $unique = array();
         $index = 0;
+//        pr($allData); exit;
         foreach ($allData as $key => $data) {
             //pr($data); exit;
             $pd = $data['pc']['id'];

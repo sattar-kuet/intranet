@@ -19,6 +19,7 @@
         </div>
         <!-- END PAGE HEADER-->
         <!-- BEGIN PAGE CONTENT-->
+
         <div class="invoice" id="printableArea">
             <div class="row invoice-logo">
                 <div class="col-xs-12 invoice-logo-space">
@@ -33,7 +34,7 @@
                         </div>
                         <div class="col-xs-2 invoice-payment">
                             <div style="text-align: left;">
-                                <div>Total Cable USA</div>
+                                <div>   Total Cable USA</div>
                                 <div>P.O. BOX 770068,</div>
                                 <div>WOODSIDE,</div>
                                 <div>NY 11377</div>
@@ -65,12 +66,18 @@
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
+<!--                                <th>
+                                    Account No
+                                </th>-->
                                 <th class="hidden-480">
                                     Name
                                 </th>
                                 <th class="hidden-480">
                                     Address
                                 </th>
+<!--                                <th>
+                                    Mac
+                                </th>-->
                                 <th class="hidden-480">
                                     Emergency Contact
                                 </th>
@@ -94,19 +101,13 @@
                         <tbody>
 
                             <?php
-<<<<<<< HEAD:app/View/Admins/opportunity_followup.ctp
-                            foreach ($allData as $results):
-                                ?>
-                                <tr>
-=======
-                          //  pr($filteredData); exit;
+                            pr($filteredData); exit;
                             foreach ($filteredData as $results):
-                               //$customer = $results['customers'];
-                             
+                               $customer = $results['customers'];
+//                             pr($customer); exit;
                                 ?>
                                 <tr>
 
->>>>>>> 6961fdc03b460c6f7264c7fd45d2492f94a2734d:app/View/Customers/followup.ctp
                                     <td>
                                         <a href="<?php
                                         echo Router::url(array('controller' => 'customers',
@@ -124,12 +125,9 @@
                                     <td class="hidden-480">
                                         <?php echo $results['customers']['address']; ?>                            
                                     </td>
-<<<<<<< HEAD:app/View/Admins/opportunity_followup.ctp
-=======
     <!--                                    <td>
                                     <?php // echo $results['pc']['mac'];   ?>
                                     </td>-->
->>>>>>> 6961fdc03b460c6f7264c7fd45d2492f94a2734d:app/View/Customers/followup.ctp
                                     <td class="hidden-480">  
                                         <?php if (!empty($results['customers']['cell'])): ?> 
                                             Cell:    <?php echo $results['customers']['cell']; ?>   
@@ -165,16 +163,13 @@
                                             href="#" title="Done">
                                             <span id="<?php echo $results['customers']['id']; ?>" class="fa fa-check fa-lg done"></span>
                                         </a>
+
                                         <a 
                                             href="#" title="Ready">
                                             <span id="<?php echo $results['customers']['id']; ?>" class="fa fa-reddit fa-lg ready"></span>
                                         </a>
-<<<<<<< HEAD:app/View/Admins/opportunity_followup.ctp
-                                        <div id="done_dialog<?php echo $results['pc']['id']; ?>" class="portlet-body form" style="display: none;">
-=======
 
                                         <div id="done_dialog<?php echo $results['customers']['id']; ?>" class="portlet-body form" style="display: none;">
->>>>>>> 6961fdc03b460c6f7264c7fd45d2492f94a2734d:app/View/Customers/followup.ctp
 
                                             <!-- BEGIN FORM-->
                                             <?php
@@ -293,11 +288,8 @@
                                             <?php echo $this->Form->end(); ?>
                                             <!-- END FORM-->
                                         </div>
-<<<<<<< HEAD:app/View/Admins/opportunity_followup.ctp
-=======
 
 
->>>>>>> 6961fdc03b460c6f7264c7fd45d2492f94a2734d:app/View/Customers/followup.ctp
                                     </td>
                                 </tr>
                             <?php endforeach; ?>                           
