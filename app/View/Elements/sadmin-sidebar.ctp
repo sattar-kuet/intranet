@@ -375,7 +375,7 @@
          
                    <li 
             <?php
-            $services = array('Adminsreadyreadyinstallation','Adminscustomer_registration', 'Adminscontact','Adminsopportunity_followup', );
+            $services = array('Customersregistration','Customersedit_registration', 'Customersfollowup','Customersready_installation' );
 
             if (in_array($this->name . '' . $this->action, $services)):
                 ?>
@@ -392,7 +392,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li
-                    <?php if ($this->name . '' . $this->action == 'Adminscustomer_registration'):
+                    <?php if ($this->name . '' . $this->action == 'Customersregistration'):
                         ?>
                             class="active"
                             <?php
@@ -400,44 +400,32 @@
                         ?>
                         >
 
-                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'customer_registration')) ?>">
+                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'registration')) ?>">
                             <i class="fa fa-support"></i>
                             Opportunity</a>
                     </li>
                     <li
-                    <?php if ($this->name . '' . $this->action == 'Adminsopportunity_followup'):
+                    <?php if ($this->name . '' . $this->action == 'Customsfollowup'):
                         ?>
                             class="active"
                             <?php
                         endif;
                         ?>
                         >
-                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'opportunity_followup')) ?>">
+                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'followup')) ?>">
                             <i class="fa fa-support"></i>
                              Opportunity Follow-up </a>
                     </li>
 
                     <li
-                    <?php if ($this->name . '' . $this->action == 'Adminscontact'):
+                    <?php if ($this->name . '' . $this->action == 'Customersready_installation'):
                         ?>
                             class="active"
                             <?php
                         endif;
                         ?>
                         >
-                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'contact')) ?>">
-                            <i class="fa fa-support"></i>
-                           Contact </a>
-                    </li>
-                    <li
-                    <?php if ($this->name . '' . $this->action == 'Adminsready_installation'):
-                        ?>
-                            class="active"
-                            <?php
-                        endif;
-                        ?>
-                        >
-                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'ready_installation')) ?>">
+                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'ready_installation')) ?>">
                             <i class="fa fa-support"></i>
                            Ready to Installation </a>
                     </li>

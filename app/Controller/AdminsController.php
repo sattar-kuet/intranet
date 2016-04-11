@@ -430,156 +430,7 @@ class AdminsController extends AppController {
         $this->set(compact('filteredPackage'));
     }
 
-    function edit_customer_registration($id = null) {
-        $pcid = $id;
-        $this->loadModel('PackageCustomer');
-        $this->loadModel('Comment');
-        if ($this->request->is('post') || $this->request->is('put')) {
-            $this->PackageCustomer->set($this->request->data);
-            $this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
-            //For Custom Package data insert
 
-            if (!empty($this->request->data['PackageCustomer']['charge'])) {
-                $data4CustomPackage['CustomPackage']['duration'] = $this->request->data['PackageCustomer']['duration'];
-                $data4CustomPackage['CustomPackage']['charge'] = $this->request->data['PackageCustomer']['charge'];
-                $cp = $this->CustomPackage->save($data4CustomPackage);
-                unset($cp['CustomPackage']['PackageCustomer']);
-                $this->request->data['PackageCustomer']['custom_package_id'] = $cp['CustomPackage']['id'];
-            }
-
-            $this->PackageCustomer->set($this->request->data);
-            $this->PackageCustomer->id = $id;
-            $dateObj = $this->request->data['PackageCustomer']['exp_date'];
-            $this->request->data['PackageCustomer']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
-
-            $this->PackageCustomer->save($this->request->data['PackageCustomer']);
-            //update last comment
-            $this->Comment->id = $this->request->data['PackageCustomer']['comment_id'];
-            $commentData['Comment']['content'] = $this->request->data['PackageCustomer']['comments'];
-            $this->Comment->save($commentData);
-            $msg = '<div class="alert alert-success">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong> Cutomer Package Information update succeesfully </strong>
-        </div>';
-            $this->Session->setFlash($msg);
-            return $this->redirect($this->referer());
-        }
-        $data = $this->PackageCustomer->findById($id);
-        // pr($data);
-        $this->request->data = $data;
-        //Show Package List 
-        //********************************************************************************************************
-        $this->loadModel('Package');
-        $this->loadModel('Psetting');
-        $packages = $this->Package->find('all');
-        $packageList = array();
-        foreach ($packages as $index => $package) {
-            $psettings = $this->Psetting->find('all', array('conditions' => array('package_id' => $package['Package']['id'])));
-            $psettingList = array();
-            foreach ($psettings as $psetting) {
-                $id = $psetting['Psetting']['id'];
-                $psettingList[$id] = $psetting['Psetting']['name'];
-            }
-            $pckagename = $package['Package']['name'];
-            $packageList[$pckagename] = $psettingList;
-        }
-        $sql = "SELECT * FROM package_customers "
-                . "LEFT JOIN psettings ON package_customers.psetting_id = psettings.id"
-                . " LEFT JOIN packages ON psettings.package_id = packages.id"
-                . " LEFT JOIN custom_packages ON package_customers.custom_package_id = custom_packages.id" .
-                " WHERE package_customers.id = '" . $id . "'";
-        $temp = $this->PackageCustomer->query($sql);
-        $ym = $this->getYm();
-        $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge'));
-        //*************** End Package List ****************************************************************************************
-        $ym = $this->getYm();
-
-        $lastComment = $this->Comment->find('first', array('conditions' => array('package_customer_id' => $pcid),
-            'order' => array('id' => 'DESC')));
-        $lastComment = $lastComment['Comment'];
-
-        $this->set(compact('ym', 'lastComment'));
-    }
-
-    function customer_registration() {
-        $this->loadModel('PackageCustomer');
-        $this->loadModel('CustomPackage');
-        $this->loadModel('PaidCustomer');
-        $this->loadModel('Country');
-        $this->loadModel('Comment');
-        $this->loadModel('User');
-        $this->loadModel('Role');
-        if ($this->request->is('post') || $this->request->is('put')) {
-            $this->PackageCustomer->set($this->request->data);
-
-
-
-
-            //$this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
-            //For Custom Package data insert//
-            if (!empty($this->request->data['PackageCustomer']['charge'])) {
-                $data4CustomPackage['CustomPackage']['duration'] = $this->request->data['PackageCustomer']['duration'];
-                $data4CustomPackage['CustomPackage']['charge'] = $this->request->data['PackageCustomer']['charge'];
-                $cp = $this->CustomPackage->save($data4CustomPackage);
-                unset($cp['CustomPackage']['PackageCustomer']);
-                $this->request->data['PackageCustomer']['custom_package_id'] = $cp['CustomPackage']['id'];
-            }
-            $this->PackageCustomer->set($this->request->data);
-
-            $dateObj = $this->request->data['PackageCustomer']['exp_date'];
-            $this->request->data['PackageCustomer']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
-
-            $pc = $this->PackageCustomer->save($this->request->data['PackageCustomer']);
-
-
-//            data for comment
-            $comment['Comment']['package_customer_id'] = $pc['PackageCustomer']['id'];
-
-            $comment['Comment']['content'] = $this->request->data['PackageCustomer']['comments'];
-            $this->Comment->save($comment);
-
-            $msg = '<div class="alert alert-success">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong> Package customer edited succeesfully </strong>
-        </div>';
-            $this->Session->setFlash($msg);
-            return $this->redirect($this->referer());
-        }
-        //$data = $this->PackageCustomer->findById($id);
-        // $this->request->data = $data;
-        //Show Package List 
-        //******************************
-        $this->loadModel('Package');
-        $this->loadModel('Psetting');
-        $packages = $this->Package->find('all');
-        $packageList = array();
-        foreach ($packages as $index => $package) {
-            $psettings = $this->Psetting->find('all', array('conditions' => array('package_id' => $package['Package']['id'])));
-            $psettingList = array();
-            foreach ($psettings as $psetting) {
-                $id = $psetting['Psetting']['id'];
-                $psettingList[$id] = $psetting['Psetting']['name'];
-            }
-            $pckagename = $package['Package']['name'];
-            $packageList[$pckagename] = $psettingList;
-        }
-        $sql = "SELECT * FROM package_customers "
-                . "LEFT JOIN psettings ON package_customers.psetting_id = psettings.id"
-                . " LEFT JOIN packages ON psettings.package_id = packages.id"
-                . " LEFT JOIN custom_packages ON package_customers.custom_package_id = custom_packages.id" .
-                " WHERE package_customers.id = '" . $id . "'";
-        $temp = $this->PackageCustomer->query($sql);
-        $ym = $this->getYm();
-        $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge'));
-        //*************** End Package List ******************
-        $ym = $this->getYm();
-        $this->set(compact('ym'));
-        //   $this->loadModel('User');
-        //   $this->loadModel('Role');
-
-        $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
-        //  pr($technician); exit;
-    }
 
     public function print_queue() {
         $this->loadModel('PackageCustomer');
@@ -594,24 +445,12 @@ class AdminsController extends AppController {
         $this->layout = 'blank';
     }
 
-    function opportunity_followup() {
-        $this->loadModel('PackageCustomer');
-        $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
-                    left join comments c on pc.id = c.package_customer_id
-                    left join psettings ps on ps.id = pc.psetting_id
-                    left join custom_packages cp on cp.id = pc.custom_package_id ");
-        $this->set(compact('allData'));
-    }
 
-    function ready_installation() {
-        $this->loadModel('PackageCustomer');
-        $allData = $this->PackageCustomer->find('all', array('conditions' => array('PackageCustomer.status' => 'requested', 'PackageCustomer.follow_up' => 1)));
-        $this->set(compact('allData'));
-    }
 
     function contact() {
         
     }
+
 
     function done($id = null) {
         $this->loadModel('PackageCustomer');
@@ -646,6 +485,7 @@ class AdminsController extends AppController {
         $this->Session->setFlash($msg);
         return $this->redirect('opportunity_followup');
     }
+
 
 }
 
