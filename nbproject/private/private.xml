@@ -3,11 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Server/htdocs/intranet/app/Controller/AdminsController.php</file>
-            <file>file:/D:/Server/htdocs/intranet/app/View/Admins/edit_customer_registration.ctp</file>
-            <file>file:/D:/Server/htdocs/intranet/app/Model/PackageCustomer.php</file>
-            <file>file:/D:/Server/htdocs/intranet/app/Model/Role.php</file>
-            <file>file:/D:/Server/htdocs/intranet/app/Model/User.php</file>
+            <file>file:/D:/Server/htdocs/intranet/app/Model/Footer.php</file>
+            <file>file:/D:/Server/htdocs/intranet/app/View/Customers/followup.ctp</file>
+            <file>file:/D:/Server/htdocs/intranet/app/Model/Feedback.php</file>
+            <file>file:/D:/Server/htdocs/intranet/app/Model/City.php</file>
+            <file>file:/D:/Server/htdocs/intranet/app/Controller/CustomersController.php</file>
+            <file>file:/D:/Server/htdocs/intranet/app/Model/Event.php</file>
+            <file>file:/D:/Server/htdocs/intranet/app/Model/Customer.php</file>
         </group>
     </open-files>
 </project-private>

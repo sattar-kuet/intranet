@@ -202,7 +202,12 @@ class CustomersController extends AppController {
 
             $this->PackageCustomer->save($this->request->data['PackageCustomer']);
             //update last comment
-            $this->Comment->id = $this->request->data['PackageCustomer']['comment_id'];
+            if ($this->request->data['PackageCustomer']['comment_id']) {
+                $this->Comment->id = $this->request->data['PackageCustomer']['comment_id'];
+            }
+            $loggedUser = $this->Auth->user();
+            $commentData['Comment']['user_id'] = $loggedUser['id'];
+            $commentData['Comment']['package_customer_id'] = $this->request->data['PackageCustomer']['id'];
             $commentData['Comment']['content'] = $this->request->data['PackageCustomer']['comments'];
             $this->Comment->save($commentData);
             $msg = '<div class="alert alert-success">
@@ -267,15 +272,15 @@ class CustomersController extends AppController {
         $unique = array();
         $index = 0;
         foreach ($allData as $key => $data) {
-            //pr($data); exit;
+
             $pd = $data['pc']['id'];
             if (isset($unique[$pd])) {
                 //  echo 'already exist'.$key.'<br/>';
                 if (!empty($data['c']['content'])) {
                     //  $temp = $data['c'];// array('id' => $data['psettings']['id'], 'duration' => $data['psettings']['duration'], 'amount' => $data['psettings']['amount'], 'offer' => $data['psettings']['offer']);
                     //pr($temp); exit;
-                    
-                    $temp = array('content'=>$data['c'],'user'=>$data['u']);
+
+                    $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
                 }
             } else {
@@ -308,13 +313,13 @@ class CustomersController extends AppController {
                 }
                 $filteredData[$index]['comments'] = array();
                 if (!empty($data['c']['content'])) {
-                    $temp = array('content'=>$data['c'],'user'=>$data['u']);
+                    $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
                 }
             }
         }
         // pr($filteredData);exit;
-    
+
         $this->set(compact('filteredData'));
     }
 
