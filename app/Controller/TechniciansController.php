@@ -5,7 +5,7 @@
  */
 require_once(APP . 'Vendor' . DS . 'class.upload.php');
 
-class CustomersController extends AppController {
+class TechniciansController extends AppController {
 
     var $layout = 'admin';
 
@@ -319,16 +319,19 @@ class CustomersController extends AppController {
         $this->set(compact('filteredData'));
     }
 
-    function ready_installation() {
+    function newcustomers() {
         $this->loadModel('User');
+        
+        $loggedUser = $this->Auth->user();
+        $id = $loggedUser['id'];            
         $this->loadModel('PackageCustomer');
         $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
                     left join comments c on pc.id = c.package_customer_id
                     left join users u on c.user_id = u.id
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
-                    WHERE pc.status = 'ready'");
-        // echo $sql; exit;
+                    WHERE pc.technician_id = $id");
+//         echo $sql; exit;
         $filteredData = array();
         $unique = array();
         $index = 0;
@@ -380,10 +383,8 @@ class CustomersController extends AppController {
                 }
             }
         }
-        $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
-//        pr($technician); exit;
-
-        $this->set(compact('filteredData', 'technician'));
+       
+        $this->set(compact('filteredData'));
     }
 
     function done($id = null) {

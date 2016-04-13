@@ -96,22 +96,22 @@
             </li>
 
 
-<!--            <li 
+            <!--            <li 
             <?php
             $payment = array('paymenthistory');
             if (in_array($this->name . '' . $this->action, $payment)):
                 ?>
-                    class="active"
-                    <?php
-                endif;
-                ?>
-                >                 
-                <a href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'payment_history')) ?>">
-                    <i class="fa fa-support"></i>
-                    <span class="title">Payment History</span>
-                    <span class="arrow "></span>
-                </a>
-            </li>-->
+                                    class="active"
+                <?php
+            endif;
+            ?>
+                            >                 
+                            <a href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'payment_history')) ?>">
+                                <i class="fa fa-support"></i>
+                                <span class="title">Payment History</span>
+                                <span class="arrow "></span>
+                            </a>
+                        </li>-->
 
 
             <li 
@@ -135,7 +135,7 @@
                     <!--                    <li
                     <?php if ($this->name . '' . $this->action == 'Ticketscreate'):
                         ?>
-                                                                        class="active"
+                                                                            class="active"
                         <?php
                     endif;
                     ?>
@@ -293,7 +293,7 @@
 
             if (in_array($this->name . '' . $this->action, $transactions)):
                 ?>
-                                            class="active"
+                                                class="active"
                 <?php
             endif;
             ?>
@@ -308,7 +308,7 @@
                     <li
             <?php if ($this->name . '' . $this->action == 'Transactionssearch'):
                 ?>
-                                                    class="active"
+                                                        class="active"
                 <?php
             endif;
             ?>
@@ -321,7 +321,7 @@
                     <li
             <?php if ($this->name . '' . $this->action == 'Transactionsexpire_customer'):
                 ?>
-                                                    class="active"
+                                                        class="active"
                 <?php
             endif;
             ?>
@@ -338,7 +338,7 @@
 
             <li 
             <?php
-            $messages = array('Messagesadd','Messagesmanage');
+            $messages = array('Messagesadd', 'Messagesmanage');
 
             if (in_array($this->name . '' . $this->action, $messages)):
                 ?>
@@ -384,12 +384,11 @@
 
                 </ul>
             </li>
-         
-                   <li 
+
+            <li 
             <?php
 
             $services = array('Customersregistration','Customersedit_registration', 'Customersfollowup','Customersready_installation' );
-
             if (in_array($this->name . '' . $this->action, $services)):
                 ?>
                     class="active"
@@ -427,7 +426,7 @@
                         >
                         <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'followup')) ?>">
                             <i class="fa fa-support"></i>
-                             Opportunity Follow-up </a>
+                            Opportunity Follow-up </a>
                     </li>
 
                     <li
@@ -444,15 +443,15 @@
                         <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'ready_installation')) ?>">
 
                             <i class="fa fa-support"></i>
-                           Ready to Installation </a>
+                            Ready to Installation </a>
                     </li>
                 </ul>
             </li>
 
-             
+
             <li 
             <?php
-            $reports = array('Reportsduecustomers', 'Reportspaidcustomers','Reportsactive', 'Reportsblock','Reportspayment','Reportsnewcustomers','Reportsexpcustomers');
+            $reports = array('Reportsduecustomers', 'Reportspaidcustomers', 'Reportsactive', 'Reportsblock', 'Reportspayment', 'Reportsnewcustomers', 'Reportsexpcustomers');
 
             if (in_array($this->name . '' . $this->action, $reports)):
                 ?>
@@ -506,8 +505,8 @@
                             <i class="fa fa-support"></i>
                             Payment History </a>
                     </li>
-                    
-                     <li
+
+                    <li
                     <?php if ($this->name . '' . $this->action == 'Reportsnewcustomers'):
                         ?>
                             class="active"
@@ -519,8 +518,8 @@
                             <i class="fa fa-support"></i>
                             New Customers</a>
                     </li>
-                    
-      
+
+
                     <li
                     <?php if ($this->name . '' . $this->action == 'Reportsexpcustomers'):
                         ?>
@@ -535,9 +534,7 @@
                     </li>
                 </ul>
             </li>
-
-            
-             <li 
+            <li 
             <?php
             $services = array('servicemanage');
             if (in_array($this->name . '' . $this->action, $services)):
@@ -553,7 +550,49 @@
                     <span class="arrow "></span>
                 </a>
             </li>
+            <li 
+            <?php
+            $technicians = array('Techniciansnew', 'Techniciansdone');
 
+            if (in_array($this->name . '' . $this->action, $technicians)):
+                ?>
+                    class="active"
+                    <?php
+                endif;
+                ?>
+                >
+                <a href="javascript:;">
+                    <i class="fa fa-bug"></i>
+                    <span class="title">Technicians Task</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Techniciansnew'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'technicians', 'action' => 'newcustomers')) ?>">
+                            <i class="fa fa-support"></i>
+                            New</a>
+                    </li>
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Techniciansdone'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'technicians', 'action' => 'done')) ?>">
+                            <i class="fa fa-support"></i>
+                            Done</a>
+                    </li>
+                </ul>
+            </li>
 
         </ul>
         <!-- END SIDEBAR MENU -->
