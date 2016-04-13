@@ -50,11 +50,9 @@
                             </thead>
                             <tbody>
                                 <?php
-                                
                                 foreach ($data as $single):
                                     $issue = end($single['history']);
                                     $customer = end($single['history']);
-                                  
                                     $customer = $customer['pc'];
                                     $ticket = $single['ticket'];
                                     ?>
@@ -73,6 +71,7 @@
                                                 <?php
                                                 $lasthistory = $single['history'][0]['tr'];
                                                 foreach ($single['history'] as $history):
+                                                   
                                                     ?>
                                                     <li>
                                                         <?php if ($history['tr']['status'] != 'open') { ?>
