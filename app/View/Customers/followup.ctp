@@ -104,7 +104,7 @@
 
                             foreach ($filteredData as $results):
                                $customer = $results['customers'];
-//                             pr($customer); exit;
+
                                 ?>
                                 <tr>
 

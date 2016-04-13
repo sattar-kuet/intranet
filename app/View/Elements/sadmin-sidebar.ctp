@@ -180,6 +180,18 @@
                             <i class="fa fa-wrench"></i>
                             Forwarded by</a>
                     </li>
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'solved_ticket'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'solved_ticket')) ?>">
+                            <i class="fa fa-wrench"></i>
+                            Solved Ticket</a>
+                    </li>
                 </ul>
             <li 
             <?php
@@ -375,8 +387,8 @@
 
             <li 
             <?php
-            $services = array('Customersregistration', 'Customersedit_registration', 'Customersfollowup', 'Customersready_installation');
 
+            $services = array('Customersregistration','Customersedit_registration', 'Customersfollowup','Customersready_installation' );
             if (in_array($this->name . '' . $this->action, $services)):
                 ?>
                     class="active"
@@ -418,14 +430,18 @@
                     </li>
 
                     <li
+
                     <?php if ($this->name . '' . $this->action == 'Customersready_installation'):
+
                         ?>
                             class="active"
                             <?php
                         endif;
                         ?>
                         >
+
                         <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'ready_installation')) ?>">
+
                             <i class="fa fa-support"></i>
                             Ready to Installation </a>
                     </li>
