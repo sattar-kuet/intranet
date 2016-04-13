@@ -180,6 +180,18 @@
                             <i class="fa fa-wrench"></i>
                             Forwarded by</a>
                     </li>
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'solved_ticket'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'solved_ticket')) ?>">
+                            <i class="fa fa-wrench"></i>
+                            Solved Ticket</a>
+                    </li>
                 </ul>
             <li 
             <?php
