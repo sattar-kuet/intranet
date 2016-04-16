@@ -74,9 +74,9 @@
                                 <li style="color: #555;">
                                     Date of Invoice: <?php echo date('Y-m-d'); ?>
                                 </li>
-                                <li style="color: #555;">
+<!--                                <li style="color: #555;">
                                     Due Date: 2015-10-19
-                                </li>
+                                </li>-->
                             </ul>
                         </div>
                     </div>

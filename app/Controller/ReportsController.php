@@ -80,14 +80,14 @@ class ReportsController extends AppController {
         $clicked = false;
         if ($this->request->is('post') || $this->request->is('put')) {           
             $datrange = json_decode($this->request->data['Package_customer']['daterange'], true);            
-            $conditions = array('package_customers.package_exp_date >=' => $datrange['start'], 'package_customers.package_exp_date <=' => $datrange['end']);
-            $packagecustomers = $this->Package_customer->query("SELECT tr.id,tr.package_customer_id,concat(first_name,' ',middle_name,' ',last_name) as name,pc.psetting_id, pc.mac,
-                ps.name, p.name,ps.amount,ps.duration, pc.package_exp_date FROM package_customers pc
-                left join transactions tr  on pc.id = tr.package_customer_id
-                left join psettings ps on ps.id = pc.psetting_id
-                LEFT JOIN packages p ON p.id = ps.package_id WHERE 
-                pc.package_exp_date >='".$datrange['start'].
-                    "' AND pc.package_exp_date <='". $datrange['end']."'");
+            $conditions = array('Transaction.created >=' => $datrange['start'], 'Transaction.created <=' => $datrange['end']);
+            $packagecustomers = $this->Transaction->query("SELECT tr.id, tr.package_customer_id, 
+            CONCAT( first_name,' ', middle_name,' ', last_name ) AS name, pc.psetting_id, pc.mac,
+            ps.name, p.name, ps.amount, ps.duration FROM transactions tr
+            left join package_customers pc on tr.package_customer_id = pc.id
+            left join psettings ps on ps.id = pc.psetting_id
+            LEFT JOIN packages p ON p.id = ps.package_id WHERE amount !=0 and
+            tr.created >='".$datrange['start']."' AND tr.created <='". $datrange['end']."'");
             $clicked = true;
             $this->set(compact('packagecustomers'));
         }
