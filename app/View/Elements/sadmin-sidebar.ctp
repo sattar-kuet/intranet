@@ -587,9 +587,9 @@
                         endif;
                         ?>
                         >
-                        <a href="<?php echo Router::url(array('controller' => 'technicians', 'action' => 'done')) ?>">
+                        <!--<a href="<?php echo Router::url(array('controller' => 'technicians', 'action' => '')) ?>">
                             <i class="fa fa-support"></i>
-                            Done</a>
+                            Done</a>-->
                     </li>
                 </ul>
             </li>

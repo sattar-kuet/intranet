@@ -120,7 +120,7 @@ class ReportsController extends AppController {
             $timestamp = $de->getTimestamp(); // Unix timestamp
             $endd = $de->format('m/y'); // 2003-10-16
             $conditions = array('Transaction.exp_date >=' => $startd, 'Transaction.exp_date <=' => $endd);
-            pr($conditions); exit;
+//            pr($conditions); exit;
             $transactions = $this->Transaction->find('all', array('conditions' => $conditions));
             $clicked = true;
             $this->set(compact('transactions'));
