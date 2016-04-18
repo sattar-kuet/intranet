@@ -19,7 +19,6 @@
         </div>
         <!-- END PAGE HEADER-->
         <!-- BEGIN PAGE CONTENT-->
-
         <div class="invoice" id="printableArea">
             <div class="row invoice-logo">
                 <div class="col-xs-12 invoice-logo-space">
@@ -27,7 +26,7 @@
                     <div class="row">
                         <div class="col-xs-6">
                             <h3 class="page-title">
-                                Ready Installation Customer List <small></small>
+                                Follow up Customer List <small></small>
                             </h3>
                         </div>
                         <div class="col-xs-4">
@@ -66,20 +65,17 @@
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-<!--                                <th>
-                                    Account No
-                                </th>-->
                                 <th class="hidden-480">
                                     Name
                                 </th>
                                 <th class="hidden-480">
                                     Address
                                 </th>
-<!--                                <th>
-                                    Mac
-                                </th>-->
                                 <th class="hidden-480">
                                     Emergency Contact
+                                </th>
+                                <th class="hidden-480">
+                                    Reference Contact
                                 </th>
                                 <th>
                                     Package
@@ -90,47 +86,143 @@
                                 <th class="hidden-480">
                                     Comment
                                 </th>
+                                <th class="hidden-480">
+                                    Action
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
-
                             <?php
-                            foreach ($allData as $results):
+                            foreach ($filteredData as $results):
+                                $customer = $results['customers'];
                                 ?>
                                 <tr>
-    <!--                                    <td>                          
-                                    <?php // echo $results['PackageCustomer']['c_acc_no']; ?>
-                                    </td>-->
-                                    <td>
-                                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'edit_customer_registration', $results['PackageCustomer']['id'])) ?>" target="_blank"><?php echo $results['PackageCustomer']['middle_name'] . " " . $results['PackageCustomer']['last_name']; ?></a> 
-                                    </td>
-                                    <td class="hidden-480">
-                                        <?php echo $results['PackageCustomer']['street'] . ", " . $results['PackageCustomer']['apartment']; ?>                            
-                                    </td>
-    <!--                                    <td>
-                                    <?php // echo $results['PackageCustomer']['mac']; ?>
-                                    </td>-->
-                                    <td class="hidden-480">
 
-                                        Cell:    <?php echo $results['PackageCustomer']['cell']; ?>
+                                    <td>
+                                        <a href="<?php
+                            echo Router::url(array('controller' => 'customers',
+                                'action' => 'edit_registration', $results['customers']['id']))
+                                ?>" 
+                                           target="_blank">
+                                               <?php
+                                               echo $results['customers']['first_name'] . " " .
+                                               $results['customers']['middle_name'] . " " .
+                                               $results['customers']['last_name'];
+                                               ?>
+                                        </a> 
+                                    </td>
+                                    <td class="hidden-480">
+                                        <?php echo $results['customers']['address']; ?>                            
+                                    </td>
+                                    <td class="hidden-480">  
+                                        <?php if (!empty($results['customers']['cell'])): ?> 
+                                            Cell:    <?php echo $results['customers']['cell']; ?>   
+                                        <?php endif; ?>
                                         <br>
-                                        Home : <?php echo $results['PackageCustomer']['home']; ?>
-
+                                        <?php if (!empty($results['customers']['home'])): ?>
+                                            Home : <?php echo $results['customers']['home']; ?>
+                                        <?php endif ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $results['customers']['referred_phone']; ?> 
                                     </td>
                                     <td class="hidden-480">
-                                        <?php
-                                        if ($results['PackageCustomer']['custom_package_id'] == null) {
-                                            echo $results['Psetting']['name'];
-                                        } else {
-                                            echo $results['CustomPackage']['duration'] . ' Months, Custom package ' . $results['CustomPackage']['charge'] . '$';
-                                        }
-                                        ?>
+                                        <ul>
+                                            <li>Name:  <?php echo $results['package']['name']; ?> </li>
+                                            <li>Duration:  <?php echo $results['package']['duration']; ?> </li>
+                                            <li>Amount:  <?php echo $results['package']['amount']; ?> </li>
+                                        </ul>
+
                                     </td>
                                     <td>
-                                        <?php echo $results['PackageCustomer']['follow_date']; ?>
+                                        <?php echo $results['customers']['follow_date']; ?>
                                     </td>
                                     <td>
-                                        <?php echo $results['PackageCustomer']['comments']; ?>
+                                        <ul>
+                                            <?php foreach ($results['comments'] as $comment): ?>
+                                                <li><?php echo $comment['content']['content'] . ' -By <i>' . $comment['user']['name']; ?> </i></li>
+                                            <?php endforeach; ?>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                         <div class="controls center text-center">
+                                        <a 
+                                            href="#" title="Shedule">
+                                            <span id="<?php echo $results['customers']['id']; ?>" class="fa fa-clock-o fa-lg shedule"></span>
+                                        </a> 
+                                        <div id="shedule_dialog<?php echo $results['customers']['id']; ?>" class="portlet-body form" style="display: none;">
+                                            <!-- BEGIN FORM-->
+                                            <?php
+                                            echo $this->Form->create('PackageCustomer', array(
+                                                'inputDefaults' => array(
+                                                    'label' => false,
+                                                    'div' => false
+                                                ),
+                                                'id' => 'form_sample_3',
+                                                'class' => 'form-horizontal',
+                                                'novalidate' => 'novalidate',
+                                                'url' => array('controller' => 'customers', 'action' => 'shedule_assian')
+                                                    )
+                                            );
+                                            ?>
+
+                                            <?php
+                                            echo $this->Form->input('id', array(
+                                                'type' => 'hidden',
+                                                'value' => $results['customers']['id'],
+                                                    )
+                                            );
+                                            ?>
+                                            <div class="form-body">
+                                                <div class="alert alert-danger display-hide">
+                                                    <button class="close" data-close="alert"></button>
+                                                    You have some form errors. Please check below.
+                                                </div>
+                                                <?php echo $this->Session->flash(); ?>
+
+                                                <div class="form-group">
+                                                    <div class="form-group">
+                                                        <div class="col-md-12">
+                                                            <?php
+                                                            echo $this->Form->input('technician_id', array(
+                                                                'type' => 'select',
+                                                                'options' => $technician,
+                                                                'empty' => 'Select From Existing admins panel user',
+                                                                'class' => 'form-control select2me required',
+                                                                    )
+                                                            );
+                                                            ?>
+                                                        </div>
+                                                    </div>
+                                                </div>                                               
+                                            </div>
+                                            <div class="form-group">                                
+                                               
+                                                <div class="col-md-4">
+                                                    <?php
+                                                    echo $this->Form->input(
+                                                            'daterange', array(
+                                                        'class' => 'span9 text required dateRange'
+                                                            )
+                                                    );
+                                                    ?>
+                                                </div>
+                                            </div>
+                                            <div class="form-actions">
+                                                <div class="row">
+                                                    <div class="col-md-offset-7 col-md-4">
+                                                        <?php
+                                                        echo $this->Form->button(
+                                                                'Submit', array('class' => 'btn green', 'type' => 'submit')
+                                                        );
+                                                        ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <?php echo $this->Form->end(); ?>
+                                            <!-- END FORM-->
+                                        </div>
+                                       </div>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>                           

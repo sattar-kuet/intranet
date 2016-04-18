@@ -451,6 +451,42 @@ class AdminsController extends AppController {
         
     }
 
+
+    function done($id = null) {
+        $this->loadModel('PackageCustomer');
+        $this->PackageCustomer->id = $id;
+       
+        $contents =  $this->request->data['Package_customer']['content'];
+        
+        $content = $this->PackageCustomer->saveField("status", "done");
+        pr($content);
+        exit;
+        
+//         $comment['Comment']['content'] = $this->request->data['PackageCustomer']['comments'];
+//            $this->Comment->save($comment);
+        
+//      $comments['Comment']['content'] = $this->request->data['PackageCustomer']['co']
+//        $this->Comment->saveField($comments);
+        
+        $msg = '<div class="alert alert-success">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<strong>  succeesfully done </strong></div>';
+        $this->Session->setFlash($msg);
+        return $this->redirect('opportunity_followup');
+    }
+
+    function ready($id = null) {
+        $this->loadModel('PackageCustomer');
+        $this->PackageCustomer->id = $id;
+        $this->PackageCustomer->saveField("status", "ready");
+        $msg = '<div class="alert alert-success">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<strong>  succeesfully Ready </strong></div>';
+        $this->Session->setFlash($msg);
+        return $this->redirect('opportunity_followup');
+    }
+
+
 }
 
 ?>

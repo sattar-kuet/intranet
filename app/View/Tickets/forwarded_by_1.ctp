@@ -25,9 +25,9 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-ticket"></i>My Tickets
+                            <i class="fa fa-ticket"></i>List of all tickets
                         </div>
-                        
+
                         <div class="tools">
                             <a href="javascript:;" class="reload">
                             </a>
@@ -60,7 +60,7 @@
                                         <td><?php echo $issue['i']['name']; ?></td>
                                         <td>
                                             <ul>
-                                                <li> Name: <?php echo $customer['first_name'].' '.$customer['middle_name'].' '.$customer['last_name']; ?> </li> 
+                                                <li> Name: <?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?> </li> 
                                                 <li> Cell: <?php echo $customer['cell']; ?> </li> 
                                             </ul>
                                         </td>
@@ -71,6 +71,7 @@
                                                 <?php
                                                 $lasthistory = $single['history'][0]['tr'];
                                                 foreach ($single['history'] as $history):
+                                                   
                                                     ?>
                                                     <li>
                                                         <?php if ($history['tr']['status'] != 'open') { ?>
@@ -82,12 +83,11 @@
                                                         }
                                                         ?>
                                                         <?php echo $history['fb']['name']; ?>
-                                                            <p><strong>Forwarded To:</strong><ul><li><?php echo $history['fi']['name']; ?> </li><li><?php echo $history['fd']['name']; ?> </li></ul>
+                                                        <p><strong>Forwarded To:</strong><ul><li><?php echo $history['fi']['name']; ?> </li><li><?php echo $history['fd']['name']; ?> </li></ul>
                                                         <strong>Time:</strong> <?php echo $history['tr']['created']; ?>
 
                                                         &nbsp;&nbsp;<strong>Status:</strong> <?php echo $history['tr']['status']; ?><br>
-                                                         <?php
-
+                                                        <?php
                                                         if (!empty($history['tr']['comment'])):
                                                             echo '<strong>';
                                                             echo 'Comment : ';
@@ -278,15 +278,15 @@
                                                                 )
                                                         );
                                                         ?>
-                                                        
-                                                         <?php
+
+                                                        <?php
                                                         echo $this->Form->input('forwarded_by', array(
                                                             'type' => 'hidden',
                                                             'value' => $lasthistory['forwarded_by'],
                                                                 )
                                                         );
                                                         ?>
-                                                        
+
                                                         <?php
                                                         echo $this->Form->input('role_id', array(
                                                             'type' => 'hidden',
@@ -375,15 +375,16 @@
                                                                 )
                                                         );
                                                         ?>
-                                                        
-                                                         <?php
+
+                                                        <?php
                                                         echo $this->Form->input('forwarded_by', array(
                                                             'type' => 'hidden',
                                                             'value' => $lasthistory['forwarded_by'],
                                                                 )
                                                         );
                                                         ?>
-                                                        
+
+
                                                         <?php
                                                         echo $this->Form->input('role_id', array(
                                                             'type' => 'hidden',

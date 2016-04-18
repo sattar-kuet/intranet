@@ -101,10 +101,10 @@
                         <tbody>
 
                             <?php
-                          // pr($filteredData); exit;
+
                             foreach ($filteredData as $results):
-                               //$customer = $results['customers'];
-                             
+                               $customer = $results['customers'];
+
                                 ?>
                                 <tr>
 
@@ -228,9 +228,7 @@
                                             <?php echo $this->Form->end(); ?>
                                             <!-- END FORM-->
                                         </div> 
-
                                         <div id="ready_dialog<?php echo $results['customers']['id']; ?>" class="portlet-body form" style="display: none;">
-
                                             <!-- BEGIN FORM-->
                                             <?php
                                             echo $this->Form->create('Comment', array(
@@ -288,8 +286,6 @@
                                             <?php echo $this->Form->end(); ?>
                                             <!-- END FORM-->
                                         </div>
-
-
                                     </td>
                                 </tr>
                             <?php endforeach; ?>                           

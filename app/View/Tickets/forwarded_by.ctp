@@ -25,7 +25,7 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-ticket"></i>List of all tickets
+                            <i class="fa fa-ticket"></i>Forwarded By
                         </div>
 
                         <div class="tools">
@@ -50,9 +50,11 @@
                             </thead>
                             <tbody>
                                 <?php
+                                
                                 foreach ($data as $single):
                                     $issue = end($single['history']);
                                     $customer = end($single['history']);
+                                  
                                     $customer = $customer['pc'];
                                     $ticket = $single['ticket'];
                                     ?>
