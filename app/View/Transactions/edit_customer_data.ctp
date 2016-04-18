@@ -857,7 +857,23 @@
                                                                 </div>
                                                             </div>
                                                             &nbsp;
-
+                                                            <div class="row">
+                                                                <div class="col-md-3 signupfont" style="padding-right: 0px;">
+                                                                    Full Name:
+                                                                </div>
+                                                                <div class="col-md-9">
+                                                                    <?php
+                                                                    echo $this->Form->input(
+                                                                            'card_no', array(
+                                                                        'type' => 'text',
+                                                                        'value' => '',
+                                                                        'class' => 'form-control input-sm required',
+                                                                        'id' => 'card_number',
+                                                                    ));
+                                                                    ?>
+                                                                </div>
+                                                            </div>
+                                                            &nbsp;
                                                             <div class="row">
                                                                 <div class="col-md-3 signupfont" style="padding-right: 0px;">
                                                                     Card no: 
