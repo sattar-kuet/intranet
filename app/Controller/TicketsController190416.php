@@ -88,7 +88,7 @@ class TicketsController extends AppController {
 
     function unsolve() {
         $this->loadModel('Track');
-        $this->request->data['Track']['status'] = 'unresolved';
+        $this->request->data['Track']['status'] = 'unsolved';
         $this->request->data['Track']['package_customer_id'] = $this->request->data['Track']['package_customer_id'];
         $loggedUser = $this->Auth->user();
         $this->request->data['Track']['forwarded_by'] = $loggedUser['id'];

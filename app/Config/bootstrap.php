@@ -285,3 +285,14 @@ $footerSetting = $footer->find('all');
         }
         return $total/count($reviews);
     }
+    
+    function getInvoiceNumbe($number){
+        $digits = strlen($number);
+        $format = 6;
+        $traling_zero = $format - $digits;
+        for($i=0;$i<$traling_zero;$i++){
+            $number = '0'.$number;
+        }
+        return $number;
+        
+    }

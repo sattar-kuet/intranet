@@ -1,49 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="2">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="7">
         <file>
             <url>app/Controller/TechniciansController.php</url>
+            <bookmark id="7">
+                <name/>
+                <line>324</line>
+                <key/>
+            </bookmark>
+            <bookmark id="6">
+                <name/>
+                <line>490</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>app/View/Elements/sadmin-sidebar.ctp</url>
+            <bookmark id="5">
+                <name/>
+                <line>547</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>app/View/Customers/edit_registration.ctp</url>
+            <bookmark id="3">
+                <name/>
+                <line>444</line>
+                <key/>
+            </bookmark>
+            <bookmark id="4">
+                <name/>
+                <line>448</line>
+                <key/>
+            </bookmark>
             <bookmark id="1">
                 <name/>
-                <line>134</line>
+                <line>477</line>
                 <key/>
             </bookmark>
             <bookmark id="2">
                 <name/>
-                <line>323</line>
+                <line>537</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
+            <file>file:/D:/xampp/htdocs/intranet/app/Controller/TransactionsController.php</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Reports/invoice_printqueue.ctp</file>
             <file>file:/D:/xampp/htdocs/intranet/app/Controller/TicketsController.php</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Tickets/forwarded_by.ctp</file>
-=======
-<<<<<<< HEAD
-            <file>file:/E:/Appxampp/htdocs/intranet/app/Controller/CustomersController.php</file>
-            <file>file:/E:/Appxampp/htdocs/intranet/app/View/Elements/sadmin-sidebar.ctp</file>
-            <file>file:/E:/Appxampp/htdocs/intranet/app/View/Tickets/solved_ticket.ctp</file>
-            <file>file:/E:/Appxampp/htdocs/intranet/app/Controller/TicketsController.php</file>
-            <file>file:/E:/Appxampp/htdocs/intranet/app/View/Tickets/forwarded_by.ctp</file>
-            <file>file:/E:/Appxampp/htdocs/intranet/app/View/Tickets/manage.ctp</file>
-            <file>file:/E:/Appxampp/htdocs/intranet/app/View/Tickets/assigned_to_me.ctp</file>
-=======
-<<<<<<< HEAD
-            <file>file:/D:/xampp/htdocs/intranet/app/webroot/js/ticket.js</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/Controller/AdminsController.php</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Tickets/manage.ctp</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Admins/opportunity_followup.ctp</file>
-=======
-            <file>file:/D:/Server/htdocs/intranet/app/Controller/AdminsController.php</file>
-            <file>file:/D:/Server/htdocs/intranet/app/View/Admins/edit_customer_registration.ctp</file>
-            <file>file:/D:/Server/htdocs/intranet/app/Model/PackageCustomer.php</file>
-            <file>file:/D:/Server/htdocs/intranet/app/Model/Role.php</file>
-            <file>file:/D:/Server/htdocs/intranet/app/Model/User.php</file>
->>>>>>> 6961fdc03b460c6f7264c7fd45d2492f94a2734d
->>>>>>> a13b38e8ddbac46b69988098ad986f6bef09a3bf
->>>>>>> b75842cacb872446949b7c5796b11bad6d0cf9f8
+            <file>file:/D:/xampp/htdocs/intranet/app/Config/bootstrap.php</file>
         </group>
     </open-files>
 </project-private>
