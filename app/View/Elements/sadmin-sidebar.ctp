@@ -153,7 +153,7 @@
                         ?>
                         >
                         <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'manage')) ?>">
-                            <i class="fa fa-wrench"></i>
+                            <i class="fa icon-info"></i>
                             All Tickets</a>
                     </li>
                     <li
@@ -165,7 +165,7 @@
                         ?>
                         >
                         <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'Assigned_to_me')) ?>">
-                            <i class="fa fa-wrench"></i>
+                            <i class="fa icon-loop"></i>
                             Inform to Me</a>
                     </li>
                     <li
@@ -177,7 +177,7 @@
                         ?>
                         >
                         <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'Forwarded_by')) ?>">
-                            <i class="fa fa-wrench"></i>
+                            <i class="fa icon-control-rewind"></i>
                             Forwarded by</a>
                     </li>
                     <li
@@ -189,7 +189,7 @@
                         ?>
                         >
                         <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'solved_ticket')) ?>">
-                            <i class="fa fa-wrench"></i>
+                            <i class="fa glyphicon glyphicon-check"></i>
                             Solved Ticket</a>
                     </li>
                 </ul>
@@ -398,7 +398,7 @@
                 >
 
                 <a href="javascript:;">
-                    <i class="fa fa-support"></i>
+                    <i class="fa icon-users"></i>
                     <span class="title">Potential Customer</span>
                     <span class="arrow "></span>
                 </a>
@@ -413,7 +413,7 @@
                         >
 
                         <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'registration')) ?>">
-                            <i class="fa fa-support"></i>
+                            <i class="fa icon-note"></i>
                             Opportunity</a>
                     </li>
                     <li
@@ -425,7 +425,7 @@
                         ?>
                         >
                         <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'followup')) ?>">
-                            <i class="fa fa-support"></i>
+                            <i class="fa icon-user-following"></i>
                             Opportunity Follow-up </a>
                     </li>
 
@@ -442,7 +442,7 @@
 
                         <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'ready_installation')) ?>">
 
-                            <i class="fa fa-support"></i>
+                            <i class="fa icon-like"></i>
                             Ready to Installation </a>
                     </li>
                 </ul>
@@ -462,7 +462,7 @@
                 >
 
                 <a href="javascript:;">
-                    <i class="fa fa-bug"></i>
+                    <i class="fa fa-file-word-o"></i>
                     <span class="title">Reports</span>
                     <span class="arrow "></span>
                 </a>
@@ -477,7 +477,7 @@
                         >
 
                         <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'active')) ?>">
-                            <i class="fa fa-support"></i>
+                            <i class="fa fa-check-square-o"></i>
                             Active</a>
                     </li>
                     <li
@@ -489,7 +489,7 @@
                         ?>
                         >
                         <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'cancel')) ?>">
-                            <i class="fa fa-support"></i>
+                            <i class="fa icon-ban"></i>
                             Cancel </a>
                     </li>
 
@@ -502,7 +502,7 @@
                         ?>
                         >
                         <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'payment_history')) ?>">
-                            <i class="fa fa-support"></i>
+                            <i class="fa icon-credit-card"></i>
                             Payment History </a>
                     </li>
 
@@ -515,7 +515,7 @@
                         ?>
                         >
                         <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'newcustomers')) ?>">
-                            <i class="fa fa-support"></i>
+                            <i class="fa glyphicon glyphicon-log-in"></i>
                             New Customers</a>
                     </li>
 
@@ -529,7 +529,7 @@
                         ?>
                         >
                         <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'expcustomers')) ?>">
-                            <i class="fa fa-support"></i>
+                            <i class="fa fa-warning"></i>
                             Expire Customers</a>
                     </li>
                 </ul>
@@ -545,7 +545,7 @@
                 ?>
                 >                 
                 <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'invoice_printqueue')) ?>">
-                    <i class="fa fa-support"></i>
+                    <i class="fa fa-print"></i>
                     <span class="title">Print Queue</span>
                     <span class="arrow "></span>
                 </a>
@@ -562,7 +562,7 @@
                 ?>
                 >
                 <a href="javascript:;">
-                    <i class="fa fa-bug"></i>
+                    <i class="fa fa-wrench"></i>
                     <span class="title">Technicians Task</span>
                     <span class="arrow "></span>
                 </a>
@@ -576,7 +576,7 @@
                         ?>
                         >
                         <a href="<?php echo Router::url(array('controller' => 'technicians', 'action' => 'newcustomers')) ?>">
-                            <i class="fa fa-support"></i>
+                            <i class="fa icon-umbrella"></i>
                             New</a>
                     </li>
                     <li
@@ -588,7 +588,7 @@
                         ?>
                         >
                         <a href="<?php echo Router::url(array('controller' => 'technicians', 'action' => 'active_customers')) ?>">
-                            <i class="fa fa-support"></i>
+                            <i class="fa icon-check"></i>
                             Done</a>
                     </li>
                 </ul>

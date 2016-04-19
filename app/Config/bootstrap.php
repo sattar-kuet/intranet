@@ -205,36 +205,34 @@ function generationAns($options = array(), $ans = array()) {
     $output = '';
     foreach ($options as $key => $option) {
         $output .= '<label class = "checkbox-inline">
-                  <input type = "checkbox"  disabled ' ;
-        if(in_array($key, $ans)) {
+                  <input type = "checkbox"  disabled ';
+        if (in_array($key, $ans)) {
             $output .= ' checked="checked"';
-           
         }
         $output .='>' .
                 $option .
                 '</label>';
     }
-   return $output;
+    return $output;
 }
 
+if (!function_exists('array_column')) {
 
-if (! function_exists('array_column')) {
     function array_column(array $input, $columnKey, $indexKey = null) {
         $array = array();
         foreach ($input as $value) {
-            if ( ! isset($value[$columnKey])) {
+            if (!isset($value[$columnKey])) {
                 trigger_error("Key \"$columnKey\" does not exist in array");
                 return false;
             }
             if (is_null($indexKey)) {
                 $array[] = $value[$columnKey];
-            }
-            else {
-                if ( ! isset($value[$indexKey])) {
+            } else {
+                if (!isset($value[$indexKey])) {
                     trigger_error("Key \"$indexKey\" does not exist in array");
                     return false;
                 }
-                if ( ! is_scalar($value[$indexKey])) {
+                if (!is_scalar($value[$indexKey])) {
                     trigger_error("Key \"$indexKey\" does not contain scalar value");
                     return false;
                 }
@@ -243,56 +241,56 @@ if (! function_exists('array_column')) {
         }
         return $array;
     }
+
 }
-             
-            function show_footer_component($searchField = null,$data=array()) {
-                $key = array_search($searchField, array_column(array_column($data, 'Footer'), 'field'));
-                echo htmlspecialchars_decode(stripslashes($data[$key]['Footer']['fvalue']));
-            }
 
-            function get_footer_component($searchField = null,$data=array()) {
-                $key = array_search($searchField, array_column(array_column($data, 'Footer'), 'field'));
-                return htmlspecialchars_decode(stripslashes($data[$key]['Footer']['fvalue']));
-            }
+function show_footer_component($searchField = null, $data = array()) {
+    $key = array_search($searchField, array_column(array_column($data, 'Footer'), 'field'));
+    echo htmlspecialchars_decode(stripslashes($data[$key]['Footer']['fvalue']));
+}
 
-function get_emergency_help(){
-        $footer = ClassRegistry::init('Footer');
-$footerSetting = $footer->find('all');
-        
-      $help = '<div class="alert alert-success" style="text-align:center;">
+function get_footer_component($searchField = null, $data = array()) {
+    $key = array_search($searchField, array_column(array_column($data, 'Footer'), 'field'));
+    return htmlspecialchars_decode(stripslashes($data[$key]['Footer']['fvalue']));
+}
+
+function get_emergency_help() {
+    $footer = ClassRegistry::init('Footer');
+    $footerSetting = $footer->find('all');
+
+    $help = '<div class="alert alert-success" style="text-align:center;">
             
-            <strong> Call <span style="color:red;">'.get_footer_component('emergency',$footerSetting).'</span> to get emergency help </strong>
+            <strong> Call <span style="color:red;">' . get_footer_component('emergency', $footerSetting) . '</span> to get emergency help </strong>
         </div>';
-        return $help;
-    }
-    
-    function get_emergency_help_plaintxt(){
-       $footer = ClassRegistry::init('Footer');
-$footerSetting = $footer->find('all');
-        
-      $help = '<i> Call '.get_footer_component('emergency',$footerSetting).' to get emergency help </i>';
-        return $help;
-    }
-    
-    function get_average_review($reviews = array()){
-    
-        $total = 0;
-        foreach($reviews as $review):
+    return $help;
+}
+
+function get_emergency_help_plaintxt() {
+    $footer = ClassRegistry::init('Footer');
+    $footerSetting = $footer->find('all');
+
+    $help = '<i> Call ' . get_footer_component('emergency', $footerSetting) . ' to get emergency help </i>';
+    return $help;
+}
+
+function get_average_review($reviews = array()) {
+
+    $total = 0;
+    foreach ($reviews as $review):
         $total += $review['Review']['rating'];
-        endforeach;
-        if(count($reviews)==0){
-           return 0;
-        }
-        return $total/count($reviews);
+    endforeach;
+    if (count($reviews) == 0) {
+        return 0;
     }
-    
-    function getInvoiceNumbe($number){
-        $digits = strlen($number);
-        $format = 6;
-        $traling_zero = $format - $digits;
-        for($i=0;$i<$traling_zero;$i++){
-            $number = '0'.$number;
-        }
-        return $number;
-        
+    return $total / count($reviews);
+}
+
+function getInvoiceNumbe($number) {
+    $digits = strlen($number);
+    $format = 6;
+    $traling_zero = $format - $digits;
+    for ($i = 0; $i < $traling_zero; $i++) {
+        $number = '0' . $number;
     }
+    return $number;
+}
