@@ -106,7 +106,7 @@
 
 
                                                 <?php if ($lasthistory['status'] == 'open') { ?>
-
+                                               
 
                                                     <a 
                                                         href="#" title="Solved">

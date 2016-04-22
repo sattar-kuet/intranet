@@ -71,6 +71,7 @@
                                             <ol>
                                                 <?php
                                                 $lasthistory = $single['history'][0]['tr'];
+                                               
                                                 foreach ($single['history'] as $history):
                                                     ?>
                                                     <li>

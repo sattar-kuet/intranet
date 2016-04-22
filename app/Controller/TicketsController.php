@@ -318,7 +318,7 @@ class TicketsController extends AppController {
                                         WHERE tr.ticket_id IN (SELECT ticket_id from tracks  tr where tr.forwarded_by = " .
                 $loggedUser['id'] . ")" . " ORDER BY tr.id DESC");
 
-
+// pr($tickets); exit;
         $filteredTicket = array();
         $unique = array();
         $index = 0;
@@ -326,7 +326,7 @@ class TicketsController extends AppController {
 
 
             $t = $ticket['t']['id'];
-//              pr($t); exit;
+             
             if (isset($unique[$t])) {
                 $temp = array('tr' => $ticket['tr'], 'sb' => $ticket['sb'], 'usb' => $ticket['usb'], 'fb' => $ticket['fb'], 'fd' => $ticket['fd'], 'fi' => $ticket['fi'], 'i' => $ticket['i'], 'pc' => $ticket['pc']);
                 $filteredTicket[$index]['history'][] = $temp;
