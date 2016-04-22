@@ -27,7 +27,7 @@
                         <div class="caption">
                             <i class="fa fa-ticket"></i>My Tickets
                         </div>
-                        
+
                         <div class="tools">
                             <a href="javascript:;" class="reload">
                             </a>
@@ -60,7 +60,7 @@
                                         <td><?php echo $issue['i']['name']; ?></td>
                                         <td>
                                             <ul>
-                                                <li> Name: <?php echo $customer['first_name'].' '.$customer['middle_name'].' '.$customer['last_name']; ?> </li> 
+                                                <li> Name: <?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?> </li> 
                                                 <li> Cell: <?php echo $customer['cell']; ?> </li> 
                                             </ul>
                                         </td>
@@ -82,12 +82,11 @@
                                                         }
                                                         ?>
                                                         <?php echo $history['fb']['name']; ?>
-                                                            <p><strong>Forwarded To:</strong><ul><li><?php echo $history['fi']['name']; ?> </li><li><?php echo $history['fd']['name']; ?> </li></ul>
+                                                        <p><strong>Forwarded To:</strong><ul><li><?php echo $history['fi']['name']; ?> </li><li><?php echo $history['fd']['name']; ?> </li></ul>
                                                         <strong>Time:</strong> <?php echo $history['tr']['created']; ?>
 
                                                         &nbsp;&nbsp;<strong>Status:</strong> <?php echo $history['tr']['status']; ?><br>
-                                                         <?php
-
+                                                        <?php
                                                         if (!empty($history['tr']['comment'])):
                                                             echo '<strong>';
                                                             echo 'Comment : ';
@@ -128,7 +127,11 @@
                                                         <span id="<?php echo $ticket['id']; ?>" class="fa fa-mail-forward fa-lg forward_ticket"></span>
                                                     </a>
 
-
+                                                    &nbsp;
+                                                    <a 
+                                                        href="#" title="Comment">
+                                                        <span id="<?php echo $ticket['id']; ?>" class="fa fa-comment fa-lg comment_ticket"></span>
+                                                    </a>
 
                                                     <div id="forward_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
 
@@ -278,15 +281,15 @@
                                                                 )
                                                         );
                                                         ?>
-                                                        
-                                                         <?php
+
+                                                        <?php
                                                         echo $this->Form->input('forwarded_by', array(
                                                             'type' => 'hidden',
                                                             'value' => $lasthistory['forwarded_by'],
                                                                 )
                                                         );
                                                         ?>
-                                                        
+
                                                         <?php
                                                         echo $this->Form->input('role_id', array(
                                                             'type' => 'hidden',
@@ -375,15 +378,15 @@
                                                                 )
                                                         );
                                                         ?>
-                                                        
-                                                         <?php
+
+                                                        <?php
                                                         echo $this->Form->input('forwarded_by', array(
                                                             'type' => 'hidden',
                                                             'value' => $lasthistory['forwarded_by'],
                                                                 )
                                                         );
                                                         ?>
-                                                        
+
                                                         <?php
                                                         echo $this->Form->input('role_id', array(
                                                             'type' => 'hidden',
@@ -441,6 +444,98 @@
                                                         <!-- END FORM-->
                                                     </div> 
 
+                                                    
+                                                    <div id="comment_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
+
+                                                        <!-- BEGIN FORM-->
+                                                        <?php
+                                                        echo $this->Form->create('Track', array(
+                                                            'inputDefaults' => array(
+                                                                'label' => false,
+                                                                'div' => false
+                                                            ),
+                                                            'id' => 'form_sample_3',
+                                                            'class' => 'form-horizontal',
+                                                            'novalidate' => 'novalidate',
+                                                            'url' => array('controller' => 'tickets', 'action' => 'ticket_comment')
+                                                                )
+                                                        );
+                                                        ?>
+
+                                                        <?php
+                                                        echo $this->Form->input('ticket_id', array(
+                                                            'type' => 'hidden',
+                                                            'value' => $ticket['id'],
+                                                                )
+                                                        );
+                                                        ?>
+
+                                                        <?php
+                                                        echo $this->Form->input('user_id', array(
+                                                            'type' => 'hidden',
+                                                            'value' => $lasthistory['user_id'],
+                                                                )
+                                                        );
+                                                        ?>
+                                                        <?php
+                                                        echo $this->Form->input('role_id', array(
+                                                            'type' => 'hidden',
+                                                            'value' => $lasthistory['role_id'],
+                                                                )
+                                                        );
+                                                        ?>
+                                                        <?php
+                                                        echo $this->Form->input('issue_id', array(
+                                                            'type' => 'hidden',
+                                                            'value' => $lasthistory['issue_id'],
+                                                                )
+                                                        );
+                                                        ?>
+                                                        <?php
+                                                        echo $this->Form->input('package_customer_id', array(
+                                                            'type' => 'hidden',
+                                                            'value' => $lasthistory['package_customer_id'],
+                                                                )
+                                                        );
+                                                        ?>
+
+                                                        <div class="form-body">
+                                                            <div class="alert alert-danger display-hide">
+                                                                <button class="close" data-close="alert"></button>
+                                                                You have some form errors. Please check below.
+                                                            </div>
+                                                            <?php echo $this->Session->flash(); ?>
+                                                            <div class="form-group">
+                                                                <div class="form-group">
+                                                                    <div class="col-md-12">
+                                                                        <?php
+                                                                        echo $this->Form->input('comment', array(
+                                                                            'type' => 'textarea',
+                                                                            'class' => 'form-control required txtArea',
+                                                                            'placeholder' => 'Write your comments'
+                                                                                )
+                                                                        );
+                                                                        ?>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-actions">
+                                                            <div class="row">
+                                                                <div class="col-md-offset-7 col-md-4">
+                                                                    <?php
+                                                                    echo $this->Form->button(
+                                                                            'Comments', array('class' => 'btn green ', 'type' => 'submit')
+                                                                    );
+                                                                    ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <?php echo $this->Form->end(); ?>
+                                                        <!-- END FORM-->
+                                                    </div> 
+
+                                                    
                                                     <?php
                                                 } else {
                                                     echo 'Nothing to do';

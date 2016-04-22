@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-<<<<<<< HEAD
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="7">
         <file>
             <url>app/Controller/TechniciansController.php</url>
@@ -49,22 +48,9 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/xampp/htdocs/intranet/app/Controller/TransactionsController.php</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Reports/invoice_printqueue.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
             <file>file:/D:/xampp/htdocs/intranet/app/Controller/TicketsController.php</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/Config/bootstrap.php</file>
-=======
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/E:/Appxampp/htdocs/intranet/app/Controller/CustomersController.php</file>
-            <file>file:/E:/Appxampp/htdocs/intranet/app/View/Elements/sadmin-sidebar.ctp</file>
-            <file>file:/E:/Appxampp/htdocs/intranet/app/View/Tickets/solved_ticket.ctp</file>
-            <file>file:/E:/Appxampp/htdocs/intranet/app/Controller/TicketsController.php</file>
-            <file>file:/E:/Appxampp/htdocs/intranet/app/View/Tickets/forwarded_by.ctp</file>
-            <file>file:/E:/Appxampp/htdocs/intranet/app/View/Tickets/manage.ctp</file>
-            <file>file:/E:/Appxampp/htdocs/intranet/app/View/Tickets/assigned_to_me.ctp</file>
->>>>>>> 24185d7c830ac4c354113804824d3e31af0ba2ac
+            <file>file:/D:/xampp/htdocs/intranet/app/webroot/js/ticket.js</file>
         </group>
     </open-files>
 </project-private>

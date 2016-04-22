@@ -101,6 +101,22 @@ class TicketsController extends AppController {
         return $this->redirect($this->referer());
     }
 
+    function ticket_comment() {
+        $this->loadModel('Track');
+        $this->request->data['Track']['package_customer_id'] = $this->request->data['Track']['package_customer_id'];
+        $loggedUser = $this->Auth->user();
+        $this->request->data['Track']['forwarded_by'] = $loggedUser['id'];
+//        pr($this->request->data);  exit;
+        $this->Track->save($this->request->data['Track']);
+        $msg = '<div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong> Comments insert succeesfully </strong>
+        </div>';
+        $this->Session->setFlash($msg);
+        return $this->redirect($this->referer());
+    }    
+    
+
     function solve() {
         $this->loadModel('Track');
         $this->request->data['Track']['status'] = 'solved';
