@@ -122,17 +122,17 @@
                                    
                                     <td>   
                                         <div class="controls center text-center">
-<!--                                            <a  target="_blank" title="edit" href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'edit_registration', $results['customers']['id'])) ?>" >
+                                            <a  target="_blank" title="edit" href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'edit_registration', $results['customers']['id'])) ?>" >
                                                 <span class="fa fa-pencil"></span></a>                                                                        
-                                            &nbsp;&nbsp;-->
-                                            <a 
+                                            &nbsp;&nbsp;
+<!--                                            <a 
                                                 onclick="if (confirm(&quot; Are you sure to done this Admin?&quot; )) {
                                                             return true;
                                                         }
                                                         return false;"
                                                 href="<?php echo Router::url(array('controller' => 'technicians', 'action' => 'status_done', $customer['id'])) ?>" title="Done">
                                                 <span class="fa  fa-ban"></span>
-                                            </a>
+                                            </a>-->
                                         </div>
                                     </td>
                                 </tr>

@@ -88,7 +88,7 @@ class TicketsController extends AppController {
 
     function unsolve() {
         $this->loadModel('Track');
-        $this->request->data['Track']['status'] = 'unresolved';
+        $this->request->data['Track']['status'] = 'unsolved';
         $this->request->data['Track']['package_customer_id'] = $this->request->data['Track']['package_customer_id'];
         $loggedUser = $this->Auth->user();
         $this->request->data['Track']['forwarded_by'] = $loggedUser['id'];
@@ -100,22 +100,6 @@ class TicketsController extends AppController {
         $this->Session->setFlash($msg);
         return $this->redirect($this->referer());
     }
-
-    function ticket_comment() {
-        $this->loadModel('Track');
-        $this->request->data['Track']['package_customer_id'] = $this->request->data['Track']['package_customer_id'];
-        $loggedUser = $this->Auth->user();
-        $this->request->data['Track']['forwarded_by'] = $loggedUser['id'];
-//        pr($this->request->data);  exit;
-        $this->Track->save($this->request->data['Track']);
-        $msg = '<div class="alert alert-success">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong> Comments insert succeesfully </strong>
-        </div>';
-        $this->Session->setFlash($msg);
-        return $this->redirect($this->referer());
-    }    
-    
 
     function solve() {
         $this->loadModel('Track');
@@ -318,7 +302,7 @@ class TicketsController extends AppController {
                                         WHERE tr.ticket_id IN (SELECT ticket_id from tracks  tr where tr.forwarded_by = " .
                 $loggedUser['id'] . ")" . " ORDER BY tr.id DESC");
 
-// pr($tickets); exit;
+
         $filteredTicket = array();
         $unique = array();
         $index = 0;
@@ -326,7 +310,7 @@ class TicketsController extends AppController {
 
 
             $t = $ticket['t']['id'];
-             
+//              pr($t); exit;
             if (isset($unique[$t])) {
                 $temp = array('tr' => $ticket['tr'], 'sb' => $ticket['sb'], 'usb' => $ticket['usb'], 'fb' => $ticket['fb'], 'fd' => $ticket['fd'], 'fi' => $ticket['fi'], 'i' => $ticket['i'], 'pc' => $ticket['pc']);
                 $filteredTicket[$index]['history'][] = $temp;

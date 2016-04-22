@@ -1,9 +1,19 @@
 
 
 $(document).ready(function () {
+     $(".comment_ticket").click(function (e) {
+        var id = $(this).attr('id');
+        var forwardForm = "#comment_dialog" + id;
+        $('#forward_dialog' + id).hide();
+        $('#solve_dialog' + id).hide();
+        $('#unsolve_dialog' + id).hide();
+        $(forwardForm).toggle();
+        e.preventDefault();
+    });
     $(".forward_ticket").click(function (e) {
         var id = $(this).attr('id');
         var forwardForm = "#forward_dialog" + id;
+        $('#comment_dialog' + id).hide();
         $('#solve_dialog' + id).hide();
         $('#unsolve_dialog' + id).hide();
         $(forwardForm).toggle();
@@ -13,6 +23,7 @@ $(document).ready(function () {
     $(".solve_ticket").click(function (e) {
         var id = $(this).attr('id');
         var forwardForm = "#solve_dialog" + id;
+        $('#comment_dialog' + id).hide();
         $('#forward_dialog' + id).hide();
         $('#unsolve_dialog' + id).hide();
         $(forwardForm).toggle();
@@ -22,11 +33,16 @@ $(document).ready(function () {
     $(".unsolve_ticket").click(function (e) {
         var id = $(this).attr('id');
         var forwardForm = "#unsolve_dialog" + id;
+        $('#comment_dialog' + id).hide();
         $('#forward_dialog' + id).hide();
         $('#solve_dialog' + id).hide();
         $(forwardForm).toggle();
         e.preventDefault();
     });
+    
+    
+    
+//end tracks dialog box design
 
     $(".done").click(function (e) {
         var id = $(this).attr('id');

@@ -88,6 +88,8 @@ class ReportsController extends AppController {
             left join psettings ps on ps.id = pc.psetting_id
             LEFT JOIN packages p ON p.id = ps.package_id WHERE amount !=0 and
             tr.created >='".$datrange['start']."' AND tr.created <='". $datrange['end']."'");
+//             pr($packagecustomers);
+//                                                exit; 
             $clicked = true;
             $this->set(compact('packagecustomers'));
         }
