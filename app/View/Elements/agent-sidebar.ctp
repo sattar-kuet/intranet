@@ -30,7 +30,7 @@
 
             <li 
             <?php
-            $tickets = array('Ticketscreate', 'Ticketsmanage', 'TicketsAssigned_to_me', 'TicketsForwarded_by');
+            $tickets = array('Ticketscreate', 'Ticketsmanage', 'Ticketsassigned_to_me', 'Ticketsforwarded_by','Ticketssolved_ticket');
             if (in_array($this->name . '' . $this->action, $tickets)):
                 ?>
                     class="active"
@@ -68,6 +68,18 @@
                         <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'forwarded_by')) ?>">
                             <i class="fa fa-wrench"></i>
                             Forwarded by</a>
+                    </li>
+                     <li
+                    <?php if ($this->name . '' . $this->action == 'solved_ticket'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'solved_ticket')) ?>">
+                            <i class="fa glyphicon glyphicon-check"></i>
+                            Solved Ticket</a>
                     </li>
                 </ul> 
              <li 

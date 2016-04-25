@@ -116,7 +116,7 @@
 
             <li 
             <?php
-            $tickets = array('Ticketscreate', 'Ticketsmanage', 'TicketsAssigned_to_me', 'TicketsForwarded_by');
+            $tickets = array('Ticketscreate', 'Ticketsmanage', 'TicketsAssigned_to_me', 'TicketsForwarded_by','Ticketssolved_ticket');
             if (in_array($this->name . '' . $this->action, $tickets)):
                 ?>
                     class="active"
