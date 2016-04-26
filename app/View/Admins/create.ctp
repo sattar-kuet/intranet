@@ -67,6 +67,23 @@
                                     ?>
                                 </div>
                             </div>
+                             <div class="form-group">
+                                <label class="control-label col-md-3">Role<span class="required">
+                                        * </span>
+                                </label>
+                                <div class="col-md-4">
+
+                                    <?php
+                                    echo $this->Form->input('role_id', array(
+                                        'type' => 'select',
+                                        'options' => $roles,
+                                        'empty' => '--Select Role--',
+                                        'class' => 'form-control select2me required pclass',
+                                            )
+                                    );
+                                    ?>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3">Picture
                                 </label>

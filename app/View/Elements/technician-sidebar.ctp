@@ -9,7 +9,7 @@
                 <div class="sidebar-toggler">
                 </div>
                 <!-- END SIDEBAR TOGGLER BUTTON -->
-            </li>            
+            </li>          
 
             <li 
             <?php
@@ -44,6 +44,7 @@
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
+
                     <li
                     <?php if ($this->name . '' . $this->action == 'Assigned_to_me'):
                         ?>
@@ -68,24 +69,70 @@
                             <i class="fa fa-wrench"></i>
                             Forwarded by</a>
                     </li>
-                </ul>           
-
-            <li 
+                </ul> 
+             <li 
             <?php
-            $services = array('servicemanage');
+
+            $services = array('Customersregistration','Customersedit_registration', 'Customersfollowup','Customersready_installation' );
             if (in_array($this->name . '' . $this->action, $services)):
                 ?>
                     class="active"
                     <?php
                 endif;
                 ?>
-                >                 
-                <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'customer_registration')) ?>">
+                >
+
+                <a href="javascript:;">
                     <i class="fa fa-support"></i>
-                    <span class="title">Customer Registration</span>
+                    <span class="title">Potential Customer</span>
                     <span class="arrow "></span>
                 </a>
+                <ul class="sub-menu">
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Customersregistration'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+
+                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'registration')) ?>">
+                            <i class="fa fa-support"></i>
+                            Opportunity</a>
+                    </li>
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Customsfollowup'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'followup')) ?>">
+                            <i class="fa fa-support"></i>
+                            Opportunity Follow-up </a>
+                    </li>
+
+                    <li
+
+                    <?php if ($this->name . '' . $this->action == 'Customersready_installation'):
+
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+
+                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'ready_installation')) ?>">
+
+                            <i class="fa fa-support"></i>
+                            Ready to Installation </a>
+                    </li>
+                </ul>
             </li>
+
 
         </ul>
         <!-- END SIDEBAR MENU -->

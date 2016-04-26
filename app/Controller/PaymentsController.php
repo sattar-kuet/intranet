@@ -115,6 +115,11 @@ class PaymentsController extends AppController {
         //$billto->setState("TX");
         $billto->setZip($pc['zip_code']);
         //$billto->setCountry("USA");
+       $customerProfile = new AnetAPI\createCustomerPaymentProfileRequest();
+       $customerProfile->cardNumber($pc['card_no']);
+       $customerProfile->billToFirstName($pc['fname']);
+       $customerProfile->billToLastName($pc['lname']);
+       $customerProfile->zip($pc['zip_code']);
         // Create a transaction
         $transactionRequestType = new AnetAPI\TransactionRequestType();
         $transactionRequestType->setTransactionType("authCaptureTransaction");

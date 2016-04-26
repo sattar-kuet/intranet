@@ -443,7 +443,20 @@
                                     ?>
                                 </div>
                             </div>
-
+                            <div class="form-group">   
+                                <label class="control-label col-md-2"> Installation Date<span class="required">
+                                    </span>
+                                </label>                                 
+                                <div class="col-md-3">
+                                    <?php
+                                    echo $this->Form->input(
+                                            'created', array(
+                                        'class' => ''
+                                            )
+                                    );
+                                    ?>
+                                </div>
+                            </div>
 
                             <hr/>
                             <div class="form-group">
@@ -523,6 +536,7 @@
 
                                     </div>
                                 </div>
+
                             </div>
                             <div id="shipmentshow_hide" style="display: none">
                                 <div class="form-group">

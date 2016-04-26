@@ -199,7 +199,7 @@ class CustomersController extends AppController {
             $this->PackageCustomer->id = $id;
             $dateObj = $this->request->data['PackageCustomer']['exp_date'];
             $this->request->data['PackageCustomer']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
-
+//            pr($this->request->data); exit;
             $this->PackageCustomer->save($this->request->data['PackageCustomer']);
             //update last comment
             if ($this->request->data['PackageCustomer']['comment_id']) {
