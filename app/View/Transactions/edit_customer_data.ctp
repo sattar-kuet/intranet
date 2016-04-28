@@ -339,40 +339,54 @@
                             <div class="row" >
                                 <div class="col-md-12 ">
                                     <!--For custom package input box starts -->
-                                    <div id="custompackage"  style="<?php if($checkMark == FALSE){echo 'display: none;';} else {echo '';} ?>">
+                                    <div id="custompackage"  style="<?php
+                                    if ($checkMark == FALSE) {
+                                        echo 'display: none;';
+                                    } else {
+                                        echo '';
+                                    }
+                                    ?>">
                                         <div class="col-md-2">
-                                        <?php
-                                        $arrCategory = array("1" => "1 Month", "3" => "3 Month", "6" => "6 Month", "12" => "1 Year");
-                                        echo $this->Form->input(
-                                                'duration', array(
-                                            'class' => 'form-control',
-                                                    'id' => 'selctMonth',
-                                              'default' =>    $custom_package_duration,
-                                            'options' => $arrCategory,
-                                            'label' => false,
-                                            'empty' => '--Select Month--',
-                                                )
-                                        );
-                                        ?>
+                                            <?php
+                                            $arrCategory = array("1" => "1 Month", "3" => "3 Month", "6" => "6 Month", "12" => "1 Year");
+                                            echo $this->Form->input(
+                                                    'duration', array(
+                                                'class' => 'form-control',
+                                                'id' => 'selctMonth',
+                                                'default' => $custom_package_duration,
+                                                'options' => $arrCategory,
+                                                'label' => false,
+                                                'empty' => '--Select Month--',
+                                                    )
+                                            );
+                                            ?>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <?php
+                                            echo $this->Form->input(
+                                                    'charge', array(
+                                                'class' => 'form-control',
+                                                'id' => 'inputAmount',
+                                                'type' => 'number',
+                                                'value' => $custom_package_charge,
+                                                'placeholder' => 'Amount'
+                                                    )
+                                            );
+                                            ?> 
+                                        </div>
                                     </div>
-                                    <div class="col-md-2">
-                                        <?php
-                                        echo $this->Form->input(
-                                                'charge', array(
-                                            'class' => 'form-control',
-                                                    'id' => 'inputAmount',
-                                            'type' => 'number',
-                                                    'value' => $custom_package_charge,
-                                            'placeholder' => 'Amount'
-                                                )
-                                        );
-                                        ?> 
-                                    </div>
-                                    </div>
-                                    
+
                                     <!--For custom package input box Ends -->
 
-                                    <div id="regularpackage" style="<?php $class=''; if($checkMark == TRUE){echo 'display: none;'; } else {echo ''; $class = 'required';} ?>">
+                                    <div id="regularpackage" style="<?php
+                                    $class = '';
+                                    if ($checkMark == TRUE) {
+                                        echo 'display: none;';
+                                    } else {
+                                        echo '';
+                                        $class = 'required';
+                                    }
+                                    ?>">
                                         <div class="col-md-2 signupfont">
                                             Select package:
                                         </div>
@@ -384,7 +398,7 @@
                                                 //'default' => $selected['package'],
                                                 'empty' => 'Select Package Type',
                                                 'id' => 'psettingId',
-                                                'class' => 'span12 uniform nostyle select1'.$class,
+                                                'class' => 'span12 uniform nostyle select1' . $class,
                                                 'div' => array('class' => 'span12')
                                                     )
                                             );
@@ -394,7 +408,13 @@
 
                                     <div class="col-md-2">
                                         <label>
-                                            <div class="" style="display: inline-block;"><span class=""><input id="customcheckbox" type="checkbox" <?php if($checkMark == TRUE){echo 'checked';} else {echo '';} ?>></span></div> Custom Package </label>
+                                            <div class="" style="display: inline-block;"><span class=""><input id="customcheckbox" type="checkbox" <?php
+                                                    if ($checkMark == TRUE) {
+                                                        echo 'checked';
+                                                    } else {
+                                                        echo '';
+                                                    }
+                                                    ?>></span></div> Custom Package </label>
                                     </div>
                                     <div class="col-md-2 signupfont">
                                         Add New STBs:
@@ -576,28 +596,28 @@
                                             </div>                            
                                         </div>
                                     </div>
-                            </div>
-                            &nbsp;
-
-                            <div class="row">
-                                <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20"> 
-                                    <?php
-                                    echo $this->Form->button(
-                                            'Update Customer Information', array(
-                                        'class' => 'btn btn-primary submitbtn green',
-                                        'type' => 'submit',
-                                        'id' => ''
-                                    ));
-                                    ?>
                                 </div>
-                            </div>
-                            <?php echo $this->Form->end(); ?> 
+                                &nbsp;
+
+                                <div class="row">
+                                    <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20"> 
+                                        <?php
+                                        echo $this->Form->button(
+                                                'Update Customer Information', array(
+                                            'class' => 'btn btn-primary submitbtn green',
+                                            'type' => 'submit',
+                                            'id' => ''
+                                        ));
+                                        ?>
+                                    </div>
+                                </div>
+                                <?php echo $this->Form->end(); ?> 
                             </div>
                         </div>
                     </div>
-                 <!-- -------------Begin card info update--------------------------->
+                    <!-- -------------Begin card info update--------------------------->
 
-                    <div class="portlet box green">
+                    <div class="portlet box lightseagreen" style="background-color:  lightseagreen; border: lightseagreen solid 2px;">
                         <div class="portlet-title">
                             <div class="caption">
                                 <i class="fa fa-list-ul"></i>Card Info Update 
@@ -629,7 +649,6 @@
                                             'id', array(
                                         'type' => 'hidden',
                                         'value' => $this->params['pass'][0],
-                                      
                                     ));
                                     ?>
                                     <div class="row">
@@ -642,7 +661,7 @@
                                                     'card_check_no', array(
                                                 'type' => 'text',
                                                 'class' => 'form-control input-sm required',
-                                                  'id'=>'cardnumber'
+                                                'id' => 'cardnumber'
                                             ));
                                             ?>
                                         </div>
@@ -662,7 +681,7 @@
                                                 'empty' => 'Select Year',
                                                 'class' => 'span12 uniform nostyle select1  required',
                                                 'div' => array('class' => 'span12 '),
-                                                'id'=>'year'
+                                                'id' => 'year'
                                                     )
                                             );
                                             ?>
@@ -675,7 +694,7 @@
                                                 'empty' => 'Select Month',
                                                 'class' => 'span12 uniform nostyle   select1 required',
                                                 'div' => array('class' => 'span12 '),
-                                                'id'=>'month'
+                                                'id' => 'month'
                                                     )
                                             );
                                             ?>
@@ -693,7 +712,7 @@
                                                     'cvv_code', array(
                                                 'type' => 'text',
                                                 'class' => 'form-control input-sm required',
-                                                 'id'=>'cvvcode'       
+                                                'id' => 'cvvcode'
                                             ));
                                             ?>
                                         </div>
@@ -710,7 +729,6 @@
                                                 'type' => 'text',
                                                 'class' => 'form-control input-sm',
                                                 'placeholder' => 'detail (optional)',
-                                               
                                             ));
                                             ?>
                                         </div>
@@ -721,7 +739,6 @@
                                                 'type' => 'text',
                                                 'class' => 'form-control input-sm required',
                                                 'placeholder' => 'zip code',
-                                             
                                             ));
                                             ?>
                                         </div>
@@ -732,7 +749,7 @@
                                             <?php
                                             echo $this->Form->button(
                                                     'Update Card Information', array(
-                                                'class' => 'btn btn-primary submitbtn green',
+                                                'class' => 'btn btn-primary submitbtn lightseagreen',
                                                 'type' => 'submit',
                                                 'id' => ''
                                             ));
@@ -745,10 +762,10 @@
                             </div>
                         </div>
                     </div>
-      <!-------------------------------------END CARD INFO UPDATE---------------------->
-      
+                    <!-------------------------------------END CARD INFO UPDATE---------------------->
+
                     <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                    <div class="portlet box green">
+                    <div class="portlet box  blue-dark" style="background-color: blue-dark; border: blue-dark solid 2px;">
                         <div class="portlet-title">
                             <div class="caption">
                                 <i class="fa fa-list-ul"></i>Payment process
@@ -885,7 +902,7 @@
                                                                         'type' => 'text',
                                                                         'value' => '',
                                                                         'class' => 'form-control input-sm required',
-                                                                         'id'=>'card_number',       
+                                                                        'id' => 'card_number',
                                                                     ));
                                                                     ?>
                                                                 </div>
@@ -905,7 +922,7 @@
                                                                         'empty' => 'Select Year',
                                                                         'class' => 'span12 uniform nostyle select1  required',
                                                                         'div' => array('class' => 'span12 '),
-                                                                        'id'=>'showyear'
+                                                                        'id' => 'showyear'
                                                                             )
                                                                     );
                                                                     ?>
@@ -918,7 +935,7 @@
                                                                         'empty' => 'Select Month',
                                                                         'class' => 'span12 uniform nostyle   select1 required',
                                                                         'div' => array('class' => 'span12 '),
-                                                                        'id'=>'showmonth'
+                                                                        'id' => 'showmonth'
                                                                             )
                                                                     );
                                                                     ?>
@@ -937,7 +954,7 @@
                                                                         'type' => 'text',
                                                                         'value' => '',
                                                                         'class' => 'form-control input-sm required',
-                                                                          'id'=>'cvv_code',      
+                                                                        'id' => 'cvv_code',
                                                                     ));
                                                                     ?>
                                                                 </div>
@@ -1407,9 +1424,9 @@
                 </div>
             </div>
         </div>
-             <!-------------payment history start----------------->
+        <!-------------payment history start----------------->
         <div  class="col-md-12 col-sm-12">
-            <div class="portlet box green">
+            <div class="portlet box " style="background-color: mediumpurple; border: mediumpurple solid 2px;">
                 <div class="portlet-title">
                     <div class="caption">
                         <i class="fa fa-list-ul"></i>Payment History
@@ -1425,18 +1442,9 @@
                         <table cellpadding="0" cellspacing="0" border="0" class="responsive dynamicTable display table table-bordered" width="100%" >
                             <thead>
                                 <tr >  
-                                    <th>Pay Mode</th>
-                                    <th>Error Msg</th>
+                                    <th>Payment Detail</th>
                                     <th>Paid Amount</th>
-                                    <th>Due</th>
-                                    <th>Exp Date</th>
-                                    <th>CVV Code</th>
-                                    <th>Zip Code</th>
-                                    <th>Address</th>
-                                    <th>Check Info</th>
-                                    <th>Cash By</th>
-                                    <th>Trans Action Time</th>
-                                    <!--<th>Action</th>-->
+                                    <th>Trans Action Date</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -1445,34 +1453,42 @@
                                     $info = $single['Transaction'];
                                     ?>
                                     <tr class="odd gradeX">
-                                        <td><?php echo $info['pay_mode']; ?></td>
-                                        <td><?php echo $info['error_msg']; ?></td>
-                                        <td><?php echo $info['paid_amount']; ?></td>
-                                        <td><?php echo $info['due']; ?></td>
-                                        <td><?php echo $info['exp_date']; ?></td>
-                                        <td><?php echo $info['cvv_code']; ?></td>
-                                        <td><?php echo $info['zip_code']; ?></td>
-                                        <td><?php echo $info['address']; ?></td>
-                                        <td><?php echo $info['check_info']; ?></td>
-                                        <td><?php echo $info['cash_by']; ?></td>
-                                        <td><?php echo $info['created']; ?></td>
-        <!--                                <td>   
-                                                    <div class="controls center">                                               
-                                                <a onclick="if (confirm(&quot;Are you sure to complete this transaction?&quot)) { return true; } return false;" href="<?php
-                                        echo Router::url(array('controller' => 'payments', 'action' => 'individual_transaction', $info['id'])
-                                        )
-                                        ?>" class="tip"><span class="icon16 icomoon-icon-coins" title="Make transaction for this customer"></span></a>
-                                                        
-                                                    </div>
-                                                    
-                                                </td>-->
-                                    </tr>
-                                    <?php
-                                endforeach;
-                                ?>
+                                        <td>
+                                            <?php if ($info['pay_mode'] == 'card'): ?>
+                                                <ul>
+                                                    <li>Pay Mode : <?php echo $info['pay_mode']; ?></li> 
+                                                    <li>Status : <?php echo $info['status']; ?></li>
+                                                    <?php if ($info['status'] == 'error'): ?>
+                                                        <ul>
+                                                            <li>Error Message : <?php echo $info['error_msg']; ?></li> 
+                                                        </ul>
+                                                    <?php endif;
+                                                    ?>
+                                                    <li>Transaction ID : <?php echo $info['id']; ?></li> 
+
+                                                    <li>Zip Code : <?php echo $info['zip_code']; ?></li>  
+                                                    <li>CVV Code : <?php echo $info['cvv_code']; ?></li> 
+                                                    <li>Expir Date : <?php echo $info['exp_date']; ?></li>
+                                                    <li> Zip Code : <?php echo $info['zip_code']; ?></li> 
+                                                </ul>
+                                            <?php elseif ($info['pay_mode'] == 'cash'): ?>
+                                    <li>Pay Mode : <?php echo $info['pay_mode']; ?></li> 
+                                    Cash By : <?php echo $info['cash_by']; ?>
+
+                                <?php else: ?>
+                                    <li>Pay Mode : <?php echo $info['pay_mode']; ?></li> 
+                                    <img src="<?php echo $this->webroot . 'check_images' . '/' . $info['check_image']; ?>"  width="50px" height="50px" />
+
+                                <?php endif; ?> 
+                                <td><?php echo $info['paid_amount']; ?></td>
+                                <td><?php echo $info['created']; ?></td>
+
+                                </tr>
+                                <?php
+                            endforeach;
+                            ?>
                             </tbody>
                         </table>
-
                     </div>
                 </div>
             </div>
@@ -1481,7 +1497,7 @@
 
                 <!-------------ticket history start----------------->
 
-                <div class="portlet box green">
+                <div class="portlet box" style="background-color:  steelblue; border: steelblue solid 2px;">
                     <div class="portlet-title">
                         <div class="caption">
                             <i class="fa fa-list-ul"></i>Ticket History
@@ -1869,8 +1885,8 @@
                                                                 <?php echo $this->Form->end(); ?>
                                                                 <!-- END FORM-->
                                                             </div> 
-                                                            
-                                                            
+
+
                                                             <div id="comment_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
 
                                                                 <!-- BEGIN FORM-->
