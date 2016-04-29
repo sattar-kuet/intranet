@@ -749,7 +749,8 @@
                                             <?php
                                             echo $this->Form->button(
                                                     'Update Card Information', array(
-                                                'class' => 'btn btn-primary submitbtn lightseagreen',
+                                                'class' => 'btn btn-primary submitbtn',
+                                                        'style' => "background-color: lightseagreen;",
                                                 'type' => 'submit',
                                                 'id' => ''
                                             ));
@@ -1025,7 +1026,7 @@
                                                                     <?php
                                                                     echo $this->Form->button(
                                                                             'Submit Payment', array(
-                                                                        'class' => 'btn btn-primary submitbtn green',
+                                                                        'class' => 'btn btn-primary submitbtn blue-dark',
                                                                         'type' => 'submit',
                                                                         'id' => ''
                                                                     ));
