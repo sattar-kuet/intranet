@@ -68,7 +68,6 @@ class PaymentsController extends AppController {
         //Get ID and Input amount from edit_customer page
         $cid = $this->request->data['Transaction']['cid'];
         $this->request->data['Transaction']['package_customer_id'] = $cid;
-        pr($this->request->data); exit;
         $this->loadModel('PackageCustomer');
         $cinfo = $this->PackageCustomer->findById($cid);
         if (isset($cinfo['Psetting']['id'])) {
@@ -207,6 +206,8 @@ class PaymentsController extends AppController {
     public function individual_transaction_by_check() {
         $this->loadModel('Transaction');
         $loggedUser = $this->Auth->user();
+        $cid = $this->request->data['Transaction']['cid'];
+        $this->request->data['Transaction']['package_customer_id'] = $cid;        
         $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
         $result = array();
         if (!empty($this->request->data['Transaction']['check_image']['name'])) {
@@ -228,6 +229,8 @@ class PaymentsController extends AppController {
         $this->loadModel('Transaction');
         $loggedUser = $this->Auth->user();
         $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
+        $cid = $this->request->data['Transaction']['cid'];
+        $this->request->data['Transaction']['package_customer_id'] = $cid; 
         $result = array();
         if (!empty($this->request->data['Transaction']['check_image']['name'])) {
             $result = $this->processImg($this->request->data['Transaction'], 'check_image');
@@ -248,6 +251,8 @@ class PaymentsController extends AppController {
         $this->loadModel('Transaction');
         $loggedUser = $this->Auth->user();
         $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
+        $cid = $this->request->data['Transaction']['cid'];
+        $this->request->data['Transaction']['package_customer_id'] = $cid; 
         $result = array();
         if (!empty($this->request->data['Transaction']['check_image']['name'])) {
             $result = $this->processImg($this->request->data['Transaction'], 'check_image');
@@ -270,6 +275,8 @@ class PaymentsController extends AppController {
         $this->loadModel('Transaction');
         $loggedUser = $this->Auth->user();
         $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
+        $cid = $this->request->data['Transaction']['cid'];
+        $this->request->data['Transaction']['package_customer_id'] = $cid; 
         $this->Transaction->save($this->request->data['Transaction']);
         $transactionMsg = '<div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
