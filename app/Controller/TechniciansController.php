@@ -12,7 +12,6 @@ class TechniciansController extends AppController {
     public function beforeFilter() {
         parent::beforeFilter();
         $this->Auth->allow('');
-
         // database name must be thum_img,small_img
         $this->img_config = array(
             'picture' => array(
@@ -114,7 +113,6 @@ class TechniciansController extends AppController {
             $this->request->data['PackageCustomer']['status'] = 'requested';
             //  pr($this->request->data); exit;
             $this->PackageCustomer->set($this->request->data);
-            //$this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
             //For Custom Package data insert//
             if (!empty($this->request->data['PackageCustomer']['charge'])) {
                 $data4CustomPackage['CustomPackage']['duration'] = $this->request->data['PackageCustomer']['duration'];
@@ -262,7 +260,6 @@ class TechniciansController extends AppController {
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     WHERE pc.status = 'requested' AND pc.follow_up = 1");
-        // echo $sql; exit;
         $filteredData = array();
         $unique = array();
         $index = 0;
@@ -314,16 +311,13 @@ class TechniciansController extends AppController {
                 }
             }
         }
-        // pr($filteredData);exit;
-
         $this->set(compact('filteredData'));
     }
 
     function newcustomers() {
         $this->loadModel('User');
-               
         $loggedUser = $this->Auth->user();
-        $id = $loggedUser['id'];            
+        $id = $loggedUser['id'];
         $this->loadModel('PackageCustomer');
         $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
                     left join comments c on pc.id = c.package_customer_id
@@ -331,21 +325,16 @@ class TechniciansController extends AppController {
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     WHERE pc.technician_id = $id and pc.status = 'ready'");
-//         echo $sql; exit;
-//         pr($allData); exit;
         $filteredData = array();
         $unique = array();
         $index = 0;
-//        pr($allData); exit;
         foreach ($allData as $key => $data) {
-            //pr($data); exit;
             $pd = $data['pc']['id'];
             if (isset($unique[$pd])) {
                 //  echo 'already exist'.$key.'<br/>';
                 if (!empty($data['c']['content'])) {
                     //  $temp = $data['c'];// array('id' => $data['psettings']['id'], 'duration' => $data['psettings']['duration'], 'amount' => $data['psettings']['amount'], 'offer' => $data['psettings']['offer']);
                     //pr($temp); exit;
-
                     $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
                 }
@@ -384,15 +373,13 @@ class TechniciansController extends AppController {
                 }
             }
         }
-       
         $this->set(compact('filteredData'));
     }
-    
+
     function active_customers() {
         $this->loadModel('User');
-               
         $loggedUser = $this->Auth->user();
-        $id = $loggedUser['id'];            
+        $id = $loggedUser['id'];
         $this->loadModel('PackageCustomer');
         $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
                     left join comments c on pc.id = c.package_customer_id
@@ -453,7 +440,7 @@ class TechniciansController extends AppController {
                 }
             }
         }
-       
+
         $this->set(compact('filteredData'));
     }
 
@@ -461,8 +448,7 @@ class TechniciansController extends AppController {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Comment');
         $this->PackageCustomer->id = $this->request->data['Comment']['package_customer_id'];
-        $this->PackageCustomer->saveField("status", "active");
-        pr('here'); exit;
+        $this->PackageCustomer->saveField("status", "active");        
         $this->Comment->save($this->request->data);
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -489,10 +475,8 @@ class TechniciansController extends AppController {
         $this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
         $this->PackageCustomer->technician_id = $this->request->data['PackageCustomer']['technician_id'];
         $datrange = json_decode($this->request->data['PackageCustomer']['daterange'], true);
-        
         $this->request->data['PackageCustomer']['from'] = $datrange['start'];
         $this->request->data['PackageCustomer']['to'] = $datrange['end'];
-  
         $this->PackageCustomer->save($this->request->data);
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -500,18 +484,15 @@ class TechniciansController extends AppController {
         $this->Session->setFlash($msg);
         return $this->redirect($this->referer());
     }
-    
-     function status_done($id = null) {
+
+    function status_done($id = null) {
         $this->loadModel('PackageCustomer');
         $this->PackageCustomer->id = $id;
-//        pr($this->request->data); exit;
         $this->PackageCustomer->saveField("status", "active");
-//        $msg = '<div class="alert alert-success">
-//	<button type="button" class="close" data-dismiss="alert">&times;</button>
-//	<strong>PackageCustomer succeesfully </strong></div>';
         $this->Session->setFlash($msg);
-       return $this->redirect($this->referer());
+        return $this->redirect($this->referer());
     }
+
 }
 
 ?>

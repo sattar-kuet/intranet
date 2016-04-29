@@ -115,11 +115,11 @@ class PaymentsController extends AppController {
         //$billto->setState("TX");
         $billto->setZip($pc['zip_code']);
         //$billto->setCountry("USA");
-       $customerProfile = new AnetAPI\createCustomerPaymentProfileRequest();
-       $customerProfile->cardNumber($pc['card_no']);
-       $customerProfile->billToFirstName($pc['fname']);
-       $customerProfile->billToLastName($pc['lname']);
-       $customerProfile->zip($pc['zip_code']);
+        $customerProfile = new AnetAPI\createCustomerPaymentProfileRequest();
+        $customerProfile->cardNumber($pc['card_no']);
+        $customerProfile->billToFirstName($pc['fname']);
+        $customerProfile->billToLastName($pc['lname']);
+        $customerProfile->zip($pc['zip_code']);
         // Create a transaction
         $transactionRequestType = new AnetAPI\TransactionRequestType();
         $transactionRequestType->setTransactionType("authCaptureTransaction");
@@ -131,7 +131,7 @@ class PaymentsController extends AppController {
         $request->setTransactionRequest($transactionRequestType);
         $controller = new AnetController\CreateTransactionController($request);
         // $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX); 
-       $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION); 
+        $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
         //  pr($response); exit;
         $this->request->data['Transaction']['error_msg'] = '';
         $this->request->data['Transaction']['status'] = '';
@@ -208,6 +208,47 @@ class PaymentsController extends AppController {
         //$this->set(compact('msg'));
     }
 
+    function refundTransaction($amount, $card = array()) {
+        // Common setup for API credentials
+        $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
+        // $merchantAuthentication->setName(\SampleCode\Constants::MERCHANT_LOGIN_ID);
+        // $merchantAuthentication->setTransactionKey(\SampleCode\Constants::MERCHANT_TRANSACTION_KEY);
+        $merchantAuthentication->setName("42UHbr9Qa9B"); // live mode
+        $merchantAuthentication->setTransactionKey("6468X36RkrKGm3k6"); // live mode
+        $refId = 'ref' . time();
+        // Create the payment data for a credit card
+        $creditCard = new AnetAPI\CreditCardType();
+        $creditCard->setCardNumber($card['no']);
+        //$creditCard->setCardNumber("0015");
+        $creditCard->setExpirationDate($card['exp']);
+        // $creditCard->setExpirationDate("XXXX");
+        $paymentOne = new AnetAPI\PaymentType();
+        $paymentOne->setCreditCard($creditCard);
+        //create a transaction
+        $transactionRequest = new AnetAPI\TransactionRequestType();
+        $transactionRequest->setTransactionType("refundTransaction");
+        $transactionRequest->setAmount($amount);
+        $transactionRequest->setPayment($paymentOne);
+        $request = new AnetAPI\CreateTransactionRequest();
+        $request->setMerchantAuthentication($merchantAuthentication);
+        $request->setRefId($refId);
+        $request->setTransactionRequest($transactionRequest);
+        $controller = new AnetController\CreateTransactionController($request);
+        //$response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
+        $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
+        if ($response != null) {
+            $tresponse = $response->getTransactionResponse();
+            if (($tresponse != null) && ($tresponse->getResponseCode() == \SampleCode\Constants::RESPONSE_OK)) {
+                echo "Refund SUCCESS: " . $tresponse->getTransId() . "\n";
+            } else {
+                echo "Refund ERROR : " . $tresponse->getResponseCode() . "\n";
+            }
+        } else {
+            echo "Refund Null response returned";
+        }
+        return $response;
+    }
+
     public function individual_transaction_by_check() {
         $this->loadModel('Transaction');
         $loggedUser = $this->Auth->user();
@@ -229,6 +270,7 @@ class PaymentsController extends AppController {
     }
 
     public function individual_transaction_by_morder() {
+        
         $this->loadModel('Transaction');
         $loggedUser = $this->Auth->user();
         $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
@@ -285,4 +327,6 @@ class PaymentsController extends AppController {
 
 }
 
+if (!defined('DONT_RUN_SAMPLES'))
+    refundTransaction(\SampleCode\Constants::SAMPLE_AMOUNT_REFUND);
 ?>
