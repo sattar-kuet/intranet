@@ -68,6 +68,7 @@ class PaymentsController extends AppController {
         //Get ID and Input amount from edit_customer page
         $cid = $this->request->data['Transaction']['cid'];
         $this->request->data['Transaction']['package_customer_id'] = $cid;
+       // pr($this->request->data); exit;
         $this->loadModel('PackageCustomer');
         $cinfo = $this->PackageCustomer->findById($cid);
         if (isset($cinfo['Psetting']['id'])) {
@@ -115,11 +116,11 @@ class PaymentsController extends AppController {
         //$billto->setState("TX");
         $billto->setZip($pc['zip_code']);
         //$billto->setCountry("USA");
-        $customerProfile = new AnetAPI\createCustomerPaymentProfileRequest();
-        $customerProfile->cardNumber($pc['card_no']);
-        $customerProfile->billToFirstName($pc['fname']);
-        $customerProfile->billToLastName($pc['lname']);
-        $customerProfile->zip($pc['zip_code']);
+//        $customerProfile = new AnetAPI\createCustomerPaymentProfileRequest();
+//        $customerProfile->cardNumber($pc['card_no']);
+//        $customerProfile->billToFirstName($pc['fname']);
+//        $customerProfile->billToLastName($pc['lname']);
+//        $customerProfile->zip($pc['zip_code']);
         // Create a transaction
         $transactionRequestType = new AnetAPI\TransactionRequestType();
         $transactionRequestType->setTransactionType("authCaptureTransaction");
@@ -327,6 +328,4 @@ class PaymentsController extends AppController {
 
 }
 
-if (!defined('DONT_RUN_SAMPLES'))
-    refundTransaction(\SampleCode\Constants::SAMPLE_AMOUNT_REFUND);
 ?>

@@ -114,7 +114,7 @@ class TransactionsController extends AppController {
     }
 
     function edit_customer_data($id = null) {
-        $pcid = $id; 
+
         $loggedUser = $this->Auth->user();
         if ($this->request->is('post') || $this->request->is('put')) {
 
@@ -173,7 +173,7 @@ class TransactionsController extends AppController {
             $this->Track->save($trackData);
         }
         $this->loadModel('PackageCustomer');
-        $customer_info = $this->PackageCustomer->findById($pcid);
+        $customer_info = $this->PackageCustomer->findById($id);
 
         //Show default value for custome package
         $custom_package_charge = $customer_info['CustomPackage']['charge'];
@@ -196,8 +196,18 @@ class TransactionsController extends AppController {
         $c_acc_no = $customer_info['PackageCustomer']['c_acc_no'];
 
 
+//pr(explode('/', $customer_info['PackageCustomer']['exp_date'])); 
+        $date = explode('/', $customer_info['PackageCustomer']['exp_date']);
+        $yyyy = date('Y');
+        $yy = substr($yyyy, 0, 2);
+        $yyyy = $yy . '' . $date[1];
+        $customer_info['PackageCustomer']['exp_date']= array('year'=>$yyyy,'month'=>$date[0]);
+        //$this->request->data['PackageCustomer']['exp_date']['month'] = 10;//$date[0];
+        
+      //pr( $customer_info); exit;
 
-        $pcustomer_id = $this->request->data = $customer_info;    //transaction history view by customer id
+        $this->request->data = $customer_info;    //transaction history view by customer id
+          
         $transactions = $this->Transaction->find('all', array('conditions' => array('Transaction.package_customer_id' => $id)));
 
         $this->set(compact('transactions', 'c_acc_no', 'macstb', 'custom_package_duration', 'checkMark'));
@@ -210,7 +220,7 @@ class TransactionsController extends AppController {
         //$this->Transaction->manage($id);
 //            $response = $this->requestAction('tickets/manage/'.$id); //For ticket history
         //  $this->tariffplan(); //Call tarrifplan fuction to show packagese
-        $this->request->data = $customer_info;
+        // $this->request->data = $customer_info;
         //   $this->tariffplan(); //Call tarrifplan fuction to show packagese in our old style
         $this->loadModel('Package');
         $this->loadModel('Psetting');
@@ -239,42 +249,28 @@ class TransactionsController extends AppController {
         //  $selected['psetting'] = $temp[0]['psettings']['id'];
         //    $selected['package'] = $temp[0]['packages']['id'];
         $ym = $this->getYm();
-         $this->loadModel('Transaction');
-        $temp = $this->Transaction->find('first', array(
-            'conditions' => array('package_customer_id' => $pcid),
-            'order' => array('Transaction.id' => 'DESC')
-                )
-        );
-        //echo $this->Transaction->getLastQuery();
-           
-        $date = explode('/', $temp['Transaction']['exp_date']);
-        $yyyy = date('Y');
-        $yy = substr($yyyy, 0, 2);
-        $yyyy = $yy . '' . $date[1];
-        $temp['Transaction']['exp_date']= array('year' => $yyyy,'month'=> $date[0]);
-        $latestcardInfo = $temp['Transaction'];
-        $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge','latestcardInfo'));
+        $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge'));
     }
 
     function updatecardinfo($id = null) {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Archive');
         $upadatecard = $this->request->data['PackageCustomer'];
-        
+
         //Insert card information into Archive table first. Then update package customer...
         $present_card_info = $this->PackageCustomer->find('all', array('conditions' => array('PackageCustomer.id' => $id)));
         $present_card_info = $present_card_info['0'];
         $user_info = $this->Auth->user();
-        $user_id = $user_info['id'];        
+        $user_id = $user_info['id'];
         $archive_card_data['Archive']['package_customer_id'] = $present_card_info['PackageCustomer']['id'];
         $archive_card_data['Archive']['user_id'] = $user_id;
-        $archive_card_data['Archive']['content'] = 'Card no: '.$present_card_info['PackageCustomer']['card_check_no']. ', Exp. date: '. $present_card_info['PackageCustomer']['exp_date']. ', CVV Code: '. $present_card_info['PackageCustomer']['cvv_code']. ', Zip Code: '. $present_card_info['PackageCustomer']['zip']. ', Address: '. $present_card_info['PackageCustomer']['address_on_card'];
+        $archive_card_data['Archive']['content'] = 'Card no: ' . $present_card_info['PackageCustomer']['card_check_no'] . ', Exp. date: ' . $present_card_info['PackageCustomer']['exp_date'] . ', CVV Code: ' . $present_card_info['PackageCustomer']['cvv_code'] . ', Zip Code: ' . $present_card_info['PackageCustomer']['zip'] . ', Address: ' . $present_card_info['PackageCustomer']['address_on_card'];
         $this->Archive->save($archive_card_data);
         //End Archive of card information......
-        
+
         $dateObj = $this->request->data['PackageCustomer']['exp_date'];
         $this->request->data['PackageCustomer']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
-        $this->PackageCustomer->id = $id; 
+        $this->PackageCustomer->id = $id;
         $this->PackageCustomer->save($this->request->data['PackageCustomer']);
         $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -283,6 +279,7 @@ class TransactionsController extends AppController {
         $this->Session->setFlash($msg);
         return $this->redirect($this->referer());
     }
+
 }
 
 ?>
