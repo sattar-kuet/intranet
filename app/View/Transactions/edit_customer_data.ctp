@@ -1443,7 +1443,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="portlet-body form">
+                <div class="portlet-body">
                     <div class="row display-hide" id="refund"> 
 
                         <?php
@@ -1469,7 +1469,7 @@
                             ?>
                             <div class="col-md-12">
                             <div class="form-group">
-                                <label class="control-label col-md-3">Transaction Number<span class="required">
+                                <label class="control-label col-md-2">Transaction Number<span class="required">
                                     </span>
                                 </label>
                                 <div class="col-md-3">
@@ -1520,14 +1520,14 @@
                                         'options' => $ym['month'],
                                         'empty' => 'Select Month',
                                         'class' => 'span12 uniform nostyle   select1 required',
-                                        'div' => array('class' => 'span12 '),
+                                        'div' => array('class' => 'span12 ','style'=>'margin-left: -27px;'),
                                         'id' => 'month'
                                             )
                                     );
                                     ?>
                                 </div>
                                 
-                                <label class="control-label col-md-3">Refund Amount<span class="required">
+                                <label class="control-label col-md-2">Refund Amount<span class="required">
                                     </span>
                                 </label>
                                 <div class="col-md-3">
