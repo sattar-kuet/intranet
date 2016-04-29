@@ -1433,7 +1433,7 @@
 
         <!-------------------------------------START REFUND---------------------->
         <div  class="col-md-12 col-sm-12">
-            <div class="portlet box green">
+            <div class="portlet box red-sunglo">
                 <div class="portlet-title">
                     <div class="caption">
                         <i class="fa fa-list-ul"></i>Refund
@@ -1498,9 +1498,8 @@
                             </div>
                             <div class="form-group">
 
-                                <label class="control-label col-md-2">Card Exp Date<span class="required">
-                                    </span>
-                                </label>
+                                <label class="control-label col-md-2">Card Exp Date</label>
+                                
                                 <div class="col-md-2">
                                     <?php
                                     echo $this->Form->input('exp_date.year', array(
@@ -1548,7 +1547,7 @@
                                 <div class="col-md-offset-6 col-md-4">
                                     <?php
                                     echo $this->Form->button(
-                                            'Confirm', array('class' => 'btn green', 'type' => 'submit')
+                                            'Confirm', array('class' => 'btn red-sunglo', 'type' => 'submit')
                                     );
                                     ?>
                                 </div>
