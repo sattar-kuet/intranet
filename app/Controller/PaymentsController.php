@@ -68,6 +68,7 @@ class PaymentsController extends AppController {
         //Get ID and Input amount from edit_customer page
         $cid = $this->request->data['Transaction']['cid'];
         $this->request->data['Transaction']['package_customer_id'] = $cid;
+        pr($this->request->data); exit;
         $this->loadModel('PackageCustomer');
         $cinfo = $this->PackageCustomer->findById($cid);
         if (isset($cinfo['Psetting']['id'])) {

@@ -617,7 +617,7 @@
                     </div>
                     <!-- -------------Begin card info update--------------------------->
 
-                    <div class="portlet box green">
+                    <div class="portlet box lightseagreen" style="background-color:  lightseagreen; border: lightseagreen solid 2px;">
                         <div class="portlet-title">
                             <div class="caption">
                                 <i class="fa fa-list-ul"></i>Card Info Update 
@@ -733,16 +733,29 @@
                                             ?>
                                         </div>
                                         <div class="col-md-4">
-                                            <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20"> 
-                                                <?php
-                                                echo $this->Form->button(
-                                                        'Update Card Information', array(
-                                                    'class' => 'btn btn-primary submitbtn green',
-                                                    'type' => 'submit',
-                                                    'id' => ''
-                                                ));
-                                                ?>
-                                            </div>
+                                            <?php
+                                            echo $this->Form->input(
+                                                    'zip', array(
+                                                'type' => 'text',
+                                                'class' => 'form-control input-sm required',
+                                                'placeholder' => 'zip code',
+                                            ));
+                                            ?>
+                                        </div>
+                                    </div>
+                                    &nbsp;
+                                    <div class="row">
+                                        <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20"> 
+                                            <?php
+                                            echo $this->Form->button(
+                                                    'Update Card Information', array(
+                                                'class' => 'btn btn-primary submitbtn',
+                                                 'style' => "background-color: lightseagreen;",
+                                                'type' => 'submit',
+                                                'id' => ''
+                                            ));
+                                            ?>
+
                                         </div>
                                     </div>
                                     &nbsp;
@@ -754,7 +767,7 @@
                     <!-------------------------------------END CARD INFO UPDATE---------------------->
 
                     <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                    <div class="portlet box green">
+                    <div class="portlet box  blue-dark" style="background-color: blue-dark; border: blue-dark solid 2px;">
                         <div class="portlet-title">
                             <div class="caption">
                                 <i class="fa fa-list-ul"></i>Payment process
@@ -1014,7 +1027,7 @@
                                                                     <?php
                                                                     echo $this->Form->button(
                                                                             'Submit Payment', array(
-                                                                        'class' => 'btn btn-primary submitbtn green',
+                                                                        'class' => 'btn btn-primary submitbtn blue-dark',
                                                                         'type' => 'submit',
                                                                         'id' => ''
                                                                     ));
@@ -1417,6 +1430,7 @@
         </div>
 
 
+
         <!-------------------------------------START REFUND---------------------->
         <div  class="col-md-12 col-sm-12">
             <div class="portlet box green">
@@ -1554,9 +1568,10 @@
 
 
 
+
         <!-------------payment history start----------------->
         <div  class="col-md-12 col-sm-12">
-            <div class="portlet box green">
+            <div class="portlet box " style="background-color: mediumpurple; border: mediumpurple solid 2px;">
                 <div class="portlet-title">
                     <div class="caption">
                         <i class="fa fa-list-ul"></i>Payment History
@@ -1572,18 +1587,9 @@
                         <table cellpadding="0" cellspacing="0" border="0" class="responsive dynamicTable display table table-bordered" width="100%" >
                             <thead>
                                 <tr >  
-                                    <th>Pay Mode</th>
-                                    <th>Error Msg</th>
+                                    <th>Payment Detail</th>
                                     <th>Paid Amount</th>
-                                    <th>Due</th>
-                                    <th>Exp Date</th>
-                                    <th>CVV Code</th>
-                                    <th>Zip Code</th>
-                                    <th>Address</th>
-                                    <th>Check Info</th>
-                                    <th>Cash By</th>
-                                    <th>Trans Action Time</th>
-                                    <!--<th>Action</th>-->
+                                    <th>Trans Action Date</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -1592,34 +1598,42 @@
                                     $info = $single['Transaction'];
                                     ?>
                                     <tr class="odd gradeX">
-                                        <td><?php echo $info['pay_mode']; ?></td>
-                                        <td><?php echo $info['error_msg']; ?></td>
-                                        <td><?php echo $info['paid_amount']; ?></td>
-                                        <td><?php echo $info['due']; ?></td>
-                                        <td><?php echo $info['exp_date']; ?></td>
-                                        <td><?php echo $info['cvv_code']; ?></td>
-                                        <td><?php echo $info['zip_code']; ?></td>
-                                        <td><?php echo $info['address']; ?></td>
-                                        <td><?php echo $info['check_info']; ?></td>
-                                        <td><?php echo $info['cash_by']; ?></td>
-                                        <td><?php echo $info['created']; ?></td>
-        <!--                                <td>   
-                                                    <div class="controls center">                                               
-                                                <a onclick="if (confirm(&quot;Are you sure to complete this transaction?&quot)) { return true; } return false;" href="<?php
-                                        echo Router::url(array('controller' => 'payments', 'action' => 'individual_transaction', $info['id'])
-                                        )
-                                        ?>" class="tip"><span class="icon16 icomoon-icon-coins" title="Make transaction for this customer"></span></a>
-                                                        
-                                                    </div>
-                                                    
-                                                </td>-->
-                                    </tr>
-                                    <?php
-                                endforeach;
-                                ?>
+                                        <td>
+                                            <?php if ($info['pay_mode'] == 'card'): ?>
+                                                <ul>
+                                                    <li>Pay Mode : <?php echo $info['pay_mode']; ?></li> 
+                                                    <li>Status : <?php echo $info['status']; ?></li>
+                                                    <?php if ($info['status'] == 'error'): ?>
+                                                        <ul>
+                                                            <li>Error Message : <?php echo $info['error_msg']; ?></li> 
+                                                        </ul>
+                                                    <?php endif;
+                                                    ?>
+                                                    <li>Transaction No : <?php echo $info['id']; ?></li> 
+
+                                                    <li>Zip Code : <?php echo $info['zip_code']; ?></li>  
+                                                    <li>CVV Code : <?php echo $info['cvv_code']; ?></li> 
+                                                    <li>Expire Date : <?php echo $info['exp_date']; ?></li>
+                                                    <li> Zip Code : <?php echo $info['zip_code']; ?></li> 
+                                                </ul>
+                                            <?php elseif ($info['pay_mode'] == 'cash'): ?>
+                                    <li>Pay Mode : <?php echo $info['pay_mode']; ?></li> 
+                                    Cash By : <?php echo $info['cash_by']; ?>
+
+                                <?php else: ?>
+                                    <li>Pay Mode : <?php echo $info['pay_mode']; ?></li> 
+                                    <img src="<?php echo $this->webroot . 'check_images' . '/' . $info['check_image']; ?>"  width="50px" height="50px" />
+
+                                <?php endif; ?> 
+                                <td><?php echo $info['paid_amount']; ?></td>
+                                <td><?php echo $info['created']; ?></td>
+
+                                </tr>
+                                <?php
+                            endforeach;
+                            ?>
                             </tbody>
                         </table>
-
                     </div>
                 </div>
             </div>
@@ -1628,7 +1642,7 @@
 
                 <!-------------ticket history start----------------->
 
-                <div class="portlet box green">
+                <div class="portlet box" style="background-color:  steelblue; border: steelblue solid 2px;">
                     <div class="portlet-title">
                         <div class="caption">
                             <i class="fa fa-list-ul"></i>Ticket History
