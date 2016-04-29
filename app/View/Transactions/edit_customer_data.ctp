@@ -1465,7 +1465,7 @@
                                                         </ul>
                                                     <?php endif;
                                                     ?>
-                                                    <li>Transaction ID : <?php echo $info['id']; ?></li> 
+                                                    <li>Transaction No : <?php echo $info['id']; ?></li> 
 
                                                     <li>Zip Code : <?php echo $info['zip_code']; ?></li>  
                                                     <li>CVV Code : <?php echo $info['cvv_code']; ?></li> 
