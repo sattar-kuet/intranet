@@ -1469,7 +1469,7 @@
 
                                                     <li>Zip Code : <?php echo $info['zip_code']; ?></li>  
                                                     <li>CVV Code : <?php echo $info['cvv_code']; ?></li> 
-                                                    <li>Expir Date : <?php echo $info['exp_date']; ?></li>
+                                                    <li>Expire Date : <?php echo $info['exp_date']; ?></li>
                                                     <li> Zip Code : <?php echo $info['zip_code']; ?></li> 
                                                 </ul>
                                             <?php elseif ($info['pay_mode'] == 'cash'): ?>
