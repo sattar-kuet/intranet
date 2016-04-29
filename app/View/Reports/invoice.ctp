@@ -179,11 +179,11 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-4">                              
+                    <div class="col-md-12">                              
                         <ul class="list-unstyled" style=" text-align: left; color: #555; margin-left: 10px;">                           
-                            <h2>Total Cable USA</h2>
+                            <h5 style="display:inline;">নিরবিছিন্ন  সংযোগের  জন্য  প্রতি  মাসের ৮ তারিখের মধ্যে বিল পরিশোধ  করুন |</h5>  <h5 style="font-weight: bold; display:inline;">Follow us on Facebook:</h5><h5 style="display:inline;">Total Cable </h5></span>
                             <li style="color: #555;">
-                                <h3 style="font-weight: bold; color: grey !important;"> Thank you!</h3>
+                                <h4 style="font-weight: bold; color: black !important; background:#990000"> tel:(212)444-8138,(646)395-9958,(718)569-7014 &nbsp; &bull; e-mail:info@totalcableusa.com &nbsp;&bull; web:totalcableusa.com</h4>
                             </li>
                         </ul>
                     </div>
@@ -191,7 +191,7 @@
                         <ul class="list-unstyled">                                   
                         </ul>
                     </div>
-                    <div class="col-xs-5 invoice-payment">                             
+                    <div class="col-xs-3 invoice-payment">                             
                         <ul class="list-unstyled" style=" text-align: right; color: #555; margin-right: 10px;">                            
                         </ul>
                     </div>

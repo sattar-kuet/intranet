@@ -750,15 +750,16 @@
                                             echo $this->Form->button(
                                                     'Update Card Information', array(
                                                 'class' => 'btn btn-primary submitbtn',
-                                                        'style' => "background-color: lightseagreen;",
+                                                 'style' => "background-color: lightseagreen;",
                                                 'type' => 'submit',
                                                 'id' => ''
                                             ));
                                             ?>
+
                                         </div>
                                     </div>
                                     &nbsp;
-                                    <?php echo $this->form->end(); ?>
+
                                 </div>
                             </div>
                         </div>
@@ -1422,9 +1423,151 @@
                         </div>
                     </div>
                     <!-- end -->
+
+
                 </div>
             </div>
         </div>
+
+
+
+        <!-------------------------------------START REFUND---------------------->
+        <div  class="col-md-12 col-sm-12">
+            <div class="portlet box red-sunglo">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-list-ul"></i>Refund
+                    </div>
+                    <div class="tools">
+                        <a  class="reload toggle" data-id="refund">
+                        </a>
+                    </div>
+                </div>
+                <div class="portlet-body form">
+                    <div class="row display-hide" id="refund"> 
+
+                        <?php
+                        echo $this->Form->create('Transaction', array(
+                            'inputDefaults' => array(
+                                'label' => false,
+                                'div' => false
+                            ),
+                            'id' => 'form_sample_3',
+                            'class' => 'form-horizontal',
+                            'novalidate' => 'novalidate',
+                            'url' => array('controller' => 'payments', 'action' => 'refundTransaction')
+                                )
+                        );
+                        ?>
+                        <div class="form-body">
+                            <?php
+                            echo $this->Form->input(
+                                    'cid', array(
+                                'type' => 'hidden',
+                                'value' => $this->params['pass'][0]
+                            ));
+                            ?>
+                            <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Transaction Number<span class="required">
+                                    </span>
+                                </label>
+                                <div class="col-md-3">
+                                    <?php
+                                    echo $this->Form->input(
+                                            'trx_no', array(
+                                        'class' => 'form-control required',
+                                        'type' => 'text'
+                                            )
+                                    );
+                                    ?>
+                                </div>
+                                <label class="control-label col-md-3">Card Number(Last 4 digit)<span class="required">
+                                    </span>
+                                </label>
+                                <div class="col-md-3">
+                                    <?php
+                                    echo $this->Form->input(
+                                            'card_no', array(
+                                        'class' => 'form-control required',
+                                        'type' => 'text'
+                                            )
+                                    );
+                                    ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <label class="control-label col-md-2">Card Exp Date</label>
+                                
+                                <div class="col-md-2">
+                                    <?php
+                                    echo $this->Form->input('exp_date.year', array(
+                                        'type' => 'select',
+                                        'options' => $ym['year'],
+                                        'empty' => 'Select Year',
+                                        'class' => 'span12 uniform nostyle select1  required',
+                                        'div' => array('class' => 'span12 '),
+                                        'id' => 'year'
+                                            )
+                                    );
+                                    ?>
+                                </div>
+                                <div class="col-md-2">
+                                    <?php
+                                    echo $this->Form->input('exp_date.month', array(
+                                        'type' => 'select',
+                                        'options' => $ym['month'],
+                                        'empty' => 'Select Month',
+                                        'class' => 'span12 uniform nostyle   select1 required',
+                                        'div' => array('class' => 'span12 '),
+                                        'id' => 'month'
+                                            )
+                                    );
+                                    ?>
+                                </div>
+                                
+                                <label class="control-label col-md-3">Refund Amount<span class="required">
+                                    </span>
+                                </label>
+                                <div class="col-md-3">
+                                    <?php
+                                    echo $this->Form->input(
+                                            'refund_amount', array(
+                                        'class' => 'form-control required',
+                                        'type' => 'text'
+                                            )
+                                    );
+                                    ?>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-6 col-md-4">
+                                    <?php
+                                    echo $this->Form->button(
+                                            'Confirm', array('class' => 'btn red-sunglo', 'type' => 'submit')
+                                    );
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                        <?php echo $this->Form->end(); ?>
+                        </div>
+                    </div> 
+                </div>
+            </div>    
+        </div>
+
+
+
+        <!-------------------------------------END REFUND---------------------->
+
+
+
+
+
         <!-------------payment history start----------------->
         <div  class="col-md-12 col-sm-12">
             <div class="portlet box " style="background-color: mediumpurple; border: mediumpurple solid 2px;">
