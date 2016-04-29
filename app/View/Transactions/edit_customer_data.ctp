@@ -1466,7 +1466,6 @@
                                                     <?php endif;
                                                     ?>
                                                     <li>Transaction No : <?php echo $info['id']; ?></li> 
-
                                                     <li>Zip Code : <?php echo $info['zip_code']; ?></li>  
                                                     <li>CVV Code : <?php echo $info['cvv_code']; ?></li> 
                                                     <li>Expire Date : <?php echo $info['exp_date']; ?></li>
