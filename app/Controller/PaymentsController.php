@@ -69,7 +69,7 @@ class PaymentsController extends AppController {
         $cid = $this->request->data['Transaction']['cid'];
         $this->request->data['Transaction']['package_customer_id'] = $cid;
 
-       // pr($this->request->data); exit;
+        // pr($this->request->data); exit;
 
         $this->loadModel('PackageCustomer');
         $cinfo = $this->PackageCustomer->findById($cid);
@@ -211,26 +211,31 @@ class PaymentsController extends AppController {
         //$this->set(compact('msg'));
     }
 
-    function refundTransaction($amount, $card = array()) {
+    function refundTransaction() {
+
+        //  pr($this->request->data['Transaction']);
+        //    exit;
         // Common setup for API credentials
         $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
-        // $merchantAuthentication->setName(\SampleCode\Constants::MERCHANT_LOGIN_ID);
-        // $merchantAuthentication->setTransactionKey(\SampleCode\Constants::MERCHANT_TRANSACTION_KEY);
-        $merchantAuthentication->setName("42UHbr9Qa9B"); // live mode
-        $merchantAuthentication->setTransactionKey("6468X36RkrKGm3k6"); // live mode
+       // $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
+         $merchantAuthentication->setName("42UHbr9Qa9B"); // live mode
+       // $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
+         $merchantAuthentication->setTransactionKey("6468X36RkrKGm3k6"); // live mode
         $refId = 'ref' . time();
         // Create the payment data for a credit card
         $creditCard = new AnetAPI\CreditCardType();
-        $creditCard->setCardNumber($card['no']);
+        $creditCard->setCardNumber($this->request->data['Transaction']['card_no']);
         //$creditCard->setCardNumber("0015");
-        $creditCard->setExpirationDate($card['exp']);
+        $dateObj = $this->request->data['Transaction']['exp_date'];
+        $this->request->data['Transaction']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
+        $creditCard->setExpirationDate($this->request->data['Transaction']['exp_date']);
         // $creditCard->setExpirationDate("XXXX");
         $paymentOne = new AnetAPI\PaymentType();
         $paymentOne->setCreditCard($creditCard);
         //create a transaction
         $transactionRequest = new AnetAPI\TransactionRequestType();
         $transactionRequest->setTransactionType("refundTransaction");
-        $transactionRequest->setAmount($amount);
+        $transactionRequest->setAmount($this->request->data['Transaction']['refund_amount']);
         $transactionRequest->setPayment($paymentOne);
         $request = new AnetAPI\CreateTransactionRequest();
         $request->setMerchantAuthentication($merchantAuthentication);
@@ -238,25 +243,66 @@ class PaymentsController extends AppController {
         $request->setTransactionRequest($transactionRequest);
         $controller = new AnetController\CreateTransactionController($request);
         //$response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
-        $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
+         $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
+        $msg = '';
+    
+        $data4transaction['Transaction']['exp_date'] = $this->request->data['Transaction']['exp_date'];;
+        $data4transaction['Transaction']['card_no'] = $this->request->data['Transaction']['card_no'];
         if ($response != null) {
             $tresponse = $response->getTransactionResponse();
-            if (($tresponse != null) && ($tresponse->getResponseCode() == \SampleCode\Constants::RESPONSE_OK)) {
-                echo "Refund SUCCESS: " . $tresponse->getTransId() . "\n";
+            //pr($tresponse); exit;
+            if (($tresponse != null) && ($tresponse->getResponseCode() == "1")) {
+                $data4transaction['Transaction']['paid_amount'] = $this->request->data['Transaction']['refund_amount'];
+                $data4transaction['Transaction']['package_customer_id'] = $this->request->data['Transaction']['cid'];
+                $data4transaction['Transaction']['status'] = 'Refund Successful';
+             //   $data4transaction['Transaction']['trx_id'] = $tresponse->getTransId();
+                $msg = ' <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert"></button>
+            <p> <strong>Refund SUCCESS</strong>
+                </p> </div>';
             } else {
-                echo "Refund ERROR : " . $tresponse->getResponseCode() . "\n";
+                $data4transaction['Transaction']['paid_amount'] = 0;
+                $data4transaction['Transaction']['package_customer_id'] = $this->request->data['Transaction']['cid'];
+                $data4transaction['Transaction']['status'] = 'Refund failed';
+                $data4transaction['Transaction']['error_msg'] = "Refund ERROR : " ;//. $tresponse->getResponseCode();
+                $msg = ' <div class="alert alert-block alert-danger fade in">
+            <button type="button" class="close" data-dismiss="alert"></button>
+            <p> <strong>Refund ERROR  ' . //$tresponse->ResponseCode() . 
+            '</strong> </p> </div>';
             }
         } else {
-            echo "Refund Null response returned";
+            $data4transaction['Transaction']['paid_amount'] = 0;
+            $data4transaction['Transaction']['package_customer_id'] = $this->request->data['Transaction']['cid'];
+            $data4transaction['Transaction']['status'] = 'Refund failed';
+            $data4transaction['Transaction']['error_msg'] = "Refund Null response returned";
+            $msg .='Refund failed for Null response';
+            $msg = ' <div class="alert alert-block alert-danger fade in">
+            <button type="button" class="close" data-dismiss="alert"></button>
+            <p> <strong>Refund failed for Null response  </strong> </p> </div>';
+//            $tdata4ticket['Ticket'] = array('content' => 'Refund for ' . $pc['fname'] . ' ' . $pc['lname'] . ' failed for Charge Credit card Null response');
+//            $tickect = $this->Ticket->save($tdata); // Data save in Ticket
+//            $trackData['Track'] = array(
+//                'package_customer_id' => $cid,
+//                'ticket_id' => $tickect['Ticket']['id'],
+//                'status' => 'open',
+//                'forwarded_by' => $loggedUser['id']
+//            );
+//            $this->Track->save($trackData);
+            //  echo "Refund Null response returned";
         }
-        return $response;
+        $this->loadModel('Transaction');
+        $this->Transaction->save($data4transaction);
+        $this->Session->setFlash($msg);
+        return $this->redirect($this->referer());
     }
 
     public function individual_transaction_by_check() {
         $this->loadModel('Transaction');
         $loggedUser = $this->Auth->user();
-        $cid = $this->request->data['Transaction']['cid'];
-        $this->request->data['Transaction']['package_customer_id'] = $cid;        
+        $cid = $this->request->data['
+
+                Transaction']['cid'];
+        $this->request->data['Transaction']['package_customer_id'] = $cid;
         $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
         $result = array();
         if (!empty($this->request->data['Transaction']['check_image']['name'])) {
@@ -266,21 +312,22 @@ class PaymentsController extends AppController {
             $this->request->data['Transaction']['check_image'] = '';
         }
         $this->Transaction->save($this->request->data['Transaction']);
-        $transactionMsg = '<div class="alert alert-success">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong> Payment record saved successfully</strong>
-    </div>';
+        $transactionMsg = '<div class = "alert alert-success">
+                        <button type = "button" class = "close" data-dismiss = "alert">&times;
+                        </button>
+                        <strong> Payment record saved successfully</strong>
+                        </div>';
         $this->Session->setFlash($transactionMsg);
         return $this->redirect($this->referer());
     }
 
     public function individual_transaction_by_morder() {
-        
+
         $this->loadModel('Transaction');
         $loggedUser = $this->Auth->user();
         $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
         $cid = $this->request->data['Transaction']['cid'];
-        $this->request->data['Transaction']['package_customer_id'] = $cid; 
+        $this->request->data['Transaction']['package_customer_id'] = $cid;
         $result = array();
         if (!empty($this->request->data['Transaction']['check_image']['name'])) {
             $result = $this->processImg($this->request->data['Transaction'], 'check_image');
@@ -289,10 +336,11 @@ class PaymentsController extends AppController {
             $this->request->data['Transaction']['check_image'] = '';
         }
         $this->Transaction->save($this->request->data['Transaction']);
-        $transactionMsg = '<div class="alert alert-success">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong> Payment record saved successfully</strong>
-    </div>';
+        $transactionMsg = '<div class = "alert alert-success">
+                        <button type = "button" class = "close" data-dismiss = "alert">&times;
+                        </button>
+                        <strong> Payment record saved successfully</strong>
+                        </div>';
         $this->Session->setFlash($transactionMsg);
         return $this->redirect($this->referer());
     }
@@ -302,7 +350,7 @@ class PaymentsController extends AppController {
         $loggedUser = $this->Auth->user();
         $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
         $cid = $this->request->data['Transaction']['cid'];
-        $this->request->data['Transaction']['package_customer_id'] = $cid; 
+        $this->request->data['Transaction']['package_customer_id'] = $cid;
         $result = array();
         if (!empty($this->request->data['Transaction']['check_image']['name'])) {
             $result = $this->processImg($this->request->data['Transaction'], 'check_image');
@@ -311,10 +359,11 @@ class PaymentsController extends AppController {
             $this->request->data['Transaction']['check_image'] = '';
         }
         $this->Transaction->save($this->request->data['Transaction']);
-        $transactionMsg = '<div class="alert alert-success">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong> Payment record saved successfully</strong>
-    </div>';
+        $transactionMsg = '<div class = "alert alert-success">
+                        <button type = "button" class = "close" data-dismiss = "alert">&times;
+                        </button>
+                        <strong> Payment record saved successfully</strong>
+                        </div>';
         $this->Session->setFlash($transactionMsg);
         return $this->redirect($this->referer());
     }
@@ -326,12 +375,19 @@ class PaymentsController extends AppController {
         $loggedUser = $this->Auth->user();
         $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
         $cid = $this->request->data['Transaction']['cid'];
-        $this->request->data['Transaction']['package_customer_id'] = $cid; 
+        $this->request->data['Transaction']['package_customer_id'] = $cid;
         $this->Transaction->save($this->request->data['Transaction']);
-        $transactionMsg = '<div class="alert alert-success">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong> Payment record saved successfully</strong>
-    </div>';
+        $transactionMsg = '<div class = "alert alert-success">
+                        <button type = "button" class = "close" data-dismiss = "alert">&times;
+                        </button>
+                        <strong> Payment record saved successfully</strong>
+                        </div>
+
+                
+
+                
+
+                ';
         $this->Session->setFlash($transactionMsg);
         return $this->redirect($this->referer());
     }

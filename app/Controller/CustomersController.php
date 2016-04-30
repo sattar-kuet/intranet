@@ -332,7 +332,7 @@ class CustomersController extends AppController {
                     left join users u on c.user_id = u.id
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
-                    WHERE pc.status = 'ready' OR pc.follow_up=0");
+                    WHERE pc.status = 'ready' OR (pc.follow_up=0 AND pc.status ='requested')");
         // echo $sql; exit;
         $filteredData = array();
         $unique = array();
