@@ -1421,16 +1421,31 @@ Thu, 24 Mar 2016 08:26:31 +0000:Response from AnetApi:
 
 Thu, 24 Mar 2016 08:26:31 +0000: Response De-Serialization Begin
 Thu, 24 Mar 2016 08:26:31 +0000: Response De-Serialization End
+<<<<<<< HEAD
+Fri, 29 Apr 2016 09:47:28 +0000: Request Serialization Begin
+Fri, 29 Apr 2016 09:47:28 +0000: Request  Serialization End
+Fri, 29 Apr 2016 09:47:28 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Fri, 29 Apr 2016 09:47:28 +0000:Request to AnetApi: 
+=======
 Fri, 29 Apr 2016 10:49:28 +0000: Request Serialization Begin
 Fri, 29 Apr 2016 10:49:29 +0000: Request  Serialization End
 Fri, 29 Apr 2016 10:49:29 +0000: Url: https://api2.authorize.net/xml/v1/request.api
 Fri, 29 Apr 2016 10:49:29 +0000:Request to AnetApi: 
+>>>>>>> c7b465e09bb68e71ed9bf716219d26ebdadc686a
 <?xml version="1.0" encoding="UTF-8"?>
 <createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
   <merchantAuthentication>
     <name><![CDATA[42UHbr9Qa9B]]></name>
     <transactionKey><![CDATA[6468X36RkrKGm3k6]]></transactionKey>
   </merchantAuthentication>
+<<<<<<< HEAD
+  <refId><![CDATA[ref1461923248]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <payment>
+      <creditCard>
+        <expirationDate><![CDATA[/]]></expirationDate>
+=======
   <refId><![CDATA[ref1461926968]]></refId>
   <transactionRequest>
     <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
@@ -1439,15 +1454,1102 @@ Fri, 29 Apr 2016 10:49:29 +0000:Request to AnetApi:
       <creditCard>
         <cardNumber><![CDATA[1582477]]></cardNumber>
         <expirationDate><![CDATA[11/29]]></expirationDate>
+>>>>>>> c7b465e09bb68e71ed9bf716219d26ebdadc686a
       </creditCard>
     </payment>
   </transactionRequest>
 </createTransactionRequest>
 
 Sending 'XML' Request type
+<<<<<<< HEAD
+Fri, 29 Apr 2016 09:47:28 +0000:Sending http request via Curl
+Fri, 29 Apr 2016 09:47:30 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The element 'creditCard' in namespace 'AnetApi/xml/v1/schema/AnetApiSchema.xsd' has invalid child element 'expirationDate' in namespace 'AnetApi/xml/v1/schema/AnetApiSchema.xsd'. List of possible elements expected: 'cardNumber' in namespace 'AnetApi/xml/v1/schema/AnetApiSchema.xsd'.</text></message></messages></ErrorResponse>
+
+Fri, 29 Apr 2016 09:47:30 +0000: Response De-Serialization Begin
+Fri, 29 Apr 2016 09:47:30 +0000: Response De-Serialization End
+Fri, 29 Apr 2016 09:47:45 +0000: Request Serialization Begin
+Fri, 29 Apr 2016 09:47:45 +0000: Request  Serialization End
+Fri, 29 Apr 2016 09:47:45 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Fri, 29 Apr 2016 09:47:45 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[42UHbr9Qa9B]]></name>
+    <transactionKey><![CDATA[6468X36RkrKGm3k6]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1461923265]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>50</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[01567874545]]></cardNumber>
+        <expirationDate><![CDATA[04/17]]></expirationDate>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Fri, 29 Apr 2016 09:47:45 +0000:Sending http request via Curl
+Fri, 29 Apr 2016 09:47:46 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1461923265</refId><messages><resultCode>Error</resultCode><message><code>E00007</code><text>User authentication failed due to invalid authentication values.</text></message></messages><transactionResponse /></createTransactionResponse>
+
+Fri, 29 Apr 2016 09:47:46 +0000: Response De-Serialization Begin
+Fri, 29 Apr 2016 09:47:46 +0000: Response De-Serialization End
+=======
 Fri, 29 Apr 2016 10:49:29 +0000:Sending http request via Curl
 Fri, 29 Apr 2016 10:49:31 +0000:Response from AnetApi: 
 ﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1461926968</refId><messages><resultCode>Error</resultCode><message><code>E00007</code><text>User authentication failed due to invalid authentication values.</text></message></messages><transactionResponse /></createTransactionResponse>
 
 Fri, 29 Apr 2016 10:49:31 +0000: Response De-Serialization Begin
 Fri, 29 Apr 2016 10:49:31 +0000: Response De-Serialization End
+<<<<<<< HEAD
+Sat, 30 Apr 2016 10:07:10 +0000: Request Serialization Begin
+Sat, 30 Apr 2016 10:07:10 +0000: Request  Serialization End
+Sat, 30 Apr 2016 10:07:10 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Sat, 30 Apr 2016 10:07:10 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[95x9PuD6b2]]></name>
+    <transactionKey><![CDATA[547z56Vcbs3Nz9R9]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1462010830]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[4007000000027]]></cardNumber>
+        <expirationDate><![CDATA[05/31]]></expirationDate>
+=======
+>>>>>>> c7b465e09bb68e71ed9bf716219d26ebdadc686a
+
+Fri, 29 Apr 2016 11:23:44 +0000: Request Serialization Begin
+Fri, 29 Apr 2016 11:23:44 +0000: Request  Serialization End
+Fri, 29 Apr 2016 11:23:44 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Fri, 29 Apr 2016 11:23:44 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[42UHbr9Qa9B]]></name>
+    <transactionKey><![CDATA[6468X36RkrKGm3k6]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1461929024]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[refundTransaction]]></transactionType>
+    <payment>
+      <creditCard/>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Fri, 29 Apr 2016 11:23:44 +0000:Sending http request via Curl
+Fri, 29 Apr 2016 11:23:46 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The element 'creditCard' in namespace 'AnetApi/xml/v1/schema/AnetApiSchema.xsd' has incomplete content. List of possible elements expected: 'cardNumber' in namespace 'AnetApi/xml/v1/schema/AnetApiSchema.xsd'.</text></message></messages></ErrorResponse>
+
+Fri, 29 Apr 2016 11:23:46 +0000: Response De-Serialization Begin
+Fri, 29 Apr 2016 11:23:46 +0000: Response De-Serialization End
+Fri, 29 Apr 2016 11:54:54 +0000: Request Serialization Begin
+Fri, 29 Apr 2016 11:54:54 +0000: Request  Serialization End
+Fri, 29 Apr 2016 11:54:54 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Fri, 29 Apr 2016 11:54:54 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[42UHbr9Qa9B]]></name>
+    <transactionKey><![CDATA[6468X36RkrKGm3k6]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1461930894]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[refundTransaction]]></transactionType>
+    <amount>10</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[01567874545]]></cardNumber>
+        <expirationDate><![CDATA[04/17]]></expirationDate>
+>>>>>>> 222a6eddf75e16eda3c09c50c65772b80a1df17e
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+<<<<<<< HEAD
+Sat, 30 Apr 2016 10:07:10 +0000:Sending http request via Curl
+Sat, 30 Apr 2016 10:07:12 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1462010830</refId><messages><resultCode>Error</resultCode><message><code>E00007</code><text>User authentication failed due to invalid authentication values.</text></message></messages><transactionResponse /></createTransactionResponse>
+
+Sat, 30 Apr 2016 10:07:13 +0000: Response De-Serialization Begin
+Sat, 30 Apr 2016 10:07:13 +0000: Response De-Serialization End
+Sat, 30 Apr 2016 10:12:41 +0000: Request Serialization Begin
+Sat, 30 Apr 2016 10:12:42 +0000: Request  Serialization End
+Sat, 30 Apr 2016 10:12:42 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Sat, 30 Apr 2016 10:12:42 +0000:Request to AnetApi: 
+=======
+Fri, 29 Apr 2016 11:54:54 +0000:Sending http request via Curl
+Fri, 29 Apr 2016 11:54:55 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1461930894</refId><messages><resultCode>Error</resultCode><message><code>E00007</code><text>User authentication failed due to invalid authentication values.</text></message></messages><transactionResponse /></createTransactionResponse>
+
+Fri, 29 Apr 2016 11:54:55 +0000: Response De-Serialization Begin
+Fri, 29 Apr 2016 11:54:56 +0000: Response De-Serialization End
+Fri, 29 Apr 2016 12:15:31 +0000: Request Serialization Begin
+Fri, 29 Apr 2016 12:15:31 +0000: Request  Serialization End
+Fri, 29 Apr 2016 12:15:31 +0000: Url: https://apitest.authorize.net/xml/v1/request.api
+Fri, 29 Apr 2016 12:15:31 +0000:Request to AnetApi: 
+>>>>>>> 222a6eddf75e16eda3c09c50c65772b80a1df17e
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[95x9PuD6b2]]></name>
+    <transactionKey><![CDATA[547z56Vcbs3Nz9R9]]></transactionKey>
+  </merchantAuthentication>
+<<<<<<< HEAD
+  <refId><![CDATA[ref1462011161]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[4007000000027]]></cardNumber>
+        <expirationDate><![CDATA[05/31]]></expirationDate>
+=======
+  <refId><![CDATA[ref1461932131]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[refundTransaction]]></transactionType>
+    <amount>10</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[5424000000000015]]></cardNumber>
+        <expirationDate><![CDATA[04/17]]></expirationDate>
+>>>>>>> 222a6eddf75e16eda3c09c50c65772b80a1df17e
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+<<<<<<< HEAD
+Sat, 30 Apr 2016 10:12:42 +0000:Sending http request via Curl
+Sat, 30 Apr 2016 10:12:44 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1462011161</refId><messages><resultCode>Error</resultCode><message><code>E00007</code><text>User authentication failed due to invalid authentication values.</text></message></messages><transactionResponse /></createTransactionResponse>
+
+Sat, 30 Apr 2016 10:12:44 +0000: Response De-Serialization Begin
+Sat, 30 Apr 2016 10:12:44 +0000: Response De-Serialization End
+Sat, 30 Apr 2016 10:13:29 +0000: Request Serialization Begin
+Sat, 30 Apr 2016 10:13:29 +0000: Request  Serialization End
+Sat, 30 Apr 2016 10:13:29 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Sat, 30 Apr 2016 10:13:29 +0000:Request to AnetApi: 
+=======
+Fri, 29 Apr 2016 12:15:31 +0000:Sending http request via Curl
+Fri, 29 Apr 2016 12:15:33 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1461932131</refId><messages><resultCode>Ok</resultCode><message><code>I00001</code><text>Successful.</text></message></messages><transactionResponse><responseCode>1</responseCode><authCode /><avsResultCode>P</avsResultCode><cvvResultCode /><cavvResultCode /><transId>2257832521</transId><refTransID /><transHash>CA6A4C86BFA8124F8C95D91EBC536328</transHash><testRequest>0</testRequest><accountNumber>XXXX0015</accountNumber><entryMode>Keyed</entryMode><accountType>MasterCard</accountType><messages><message><code>1</code><description>This transaction has been approved.</description></message></messages></transactionResponse></createTransactionResponse>
+
+Fri, 29 Apr 2016 12:15:33 +0000: Response De-Serialization Begin
+Fri, 29 Apr 2016 12:15:33 +0000: Response De-Serialization End
+Fri, 29 Apr 2016 12:16:27 +0000: Request Serialization Begin
+Fri, 29 Apr 2016 12:16:27 +0000: Request  Serialization End
+Fri, 29 Apr 2016 12:16:27 +0000: Url: https://apitest.authorize.net/xml/v1/request.api
+Fri, 29 Apr 2016 12:16:27 +0000:Request to AnetApi: 
+>>>>>>> 222a6eddf75e16eda3c09c50c65772b80a1df17e
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[95x9PuD6b2]]></name>
+    <transactionKey><![CDATA[547z56Vcbs3Nz9R9]]></transactionKey>
+  </merchantAuthentication>
+<<<<<<< HEAD
+  <refId><![CDATA[ref1462011208]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[4007000000027]]></cardNumber>
+        <expirationDate><![CDATA[05/31]]></expirationDate>
+=======
+  <refId><![CDATA[ref1461932187]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[refundTransaction]]></transactionType>
+    <amount>10</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[5424000000000015]]></cardNumber>
+        <expirationDate><![CDATA[04/17]]></expirationDate>
+>>>>>>> 222a6eddf75e16eda3c09c50c65772b80a1df17e
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+<<<<<<< HEAD
+Sat, 30 Apr 2016 10:13:29 +0000:Sending http request via Curl
+Sat, 30 Apr 2016 10:13:30 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1462011208</refId><messages><resultCode>Error</resultCode><message><code>E00007</code><text>User authentication failed due to invalid authentication values.</text></message></messages><transactionResponse /></createTransactionResponse>
+
+Sat, 30 Apr 2016 10:13:30 +0000: Response De-Serialization Begin
+Sat, 30 Apr 2016 10:13:30 +0000: Response De-Serialization End
+Sat, 30 Apr 2016 10:21:55 +0000: Request Serialization Begin
+Sat, 30 Apr 2016 10:21:55 +0000: Request  Serialization End
+Sat, 30 Apr 2016 10:21:55 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Sat, 30 Apr 2016 10:21:55 +0000:Request to AnetApi: 
+=======
+Fri, 29 Apr 2016 12:16:27 +0000:Sending http request via Curl
+Fri, 29 Apr 2016 12:16:28 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1461932187</refId><messages><resultCode>Error</resultCode><message><code>E00027</code><text>The transaction was unsuccessful.</text></message></messages><transactionResponse><responseCode>3</responseCode><authCode /><avsResultCode>P</avsResultCode><cvvResultCode /><cavvResultCode /><transId>0</transId><refTransID /><transHash>2A5D032D4809D1AA671CCA324858DF94</transHash><testRequest>0</testRequest><accountNumber>XXXX0015</accountNumber><entryMode>Keyed</entryMode><accountType>MasterCard</accountType><errors><error><errorCode>11</errorCode><errorText>A duplicate transaction has been submitted.</errorText></error></errors></transactionResponse></createTransactionResponse>
+
+Fri, 29 Apr 2016 12:16:28 +0000: Response De-Serialization Begin
+Fri, 29 Apr 2016 12:16:28 +0000: Response De-Serialization End
+Fri, 29 Apr 2016 12:37:53 +0000: Request Serialization Begin
+Fri, 29 Apr 2016 12:37:53 +0000: Request  Serialization End
+Fri, 29 Apr 2016 12:37:53 +0000: Url: https://apitest.authorize.net/xml/v1/request.api
+Fri, 29 Apr 2016 12:37:53 +0000:Request to AnetApi: 
+>>>>>>> 222a6eddf75e16eda3c09c50c65772b80a1df17e
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[95x9PuD6b2]]></name>
+    <transactionKey><![CDATA[547z56Vcbs3Nz9R9]]></transactionKey>
+  </merchantAuthentication>
+<<<<<<< HEAD
+  <refId><![CDATA[ref1462011714]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[4007000000027]]></cardNumber>
+        <expirationDate><![CDATA[05/31]]></expirationDate>
+=======
+  <refId><![CDATA[ref1461933473]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[refundTransaction]]></transactionType>
+    <amount>10</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[5424000000000015]]></cardNumber>
+        <expirationDate><![CDATA[07/30]]></expirationDate>
+>>>>>>> 222a6eddf75e16eda3c09c50c65772b80a1df17e
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+<<<<<<< HEAD
+Sat, 30 Apr 2016 10:21:55 +0000:Sending http request via Curl
+Sat, 30 Apr 2016 10:21:57 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1462011714</refId><messages><resultCode>Error</resultCode><message><code>E00007</code><text>User authentication failed due to invalid authentication values.</text></message></messages><transactionResponse /></createTransactionResponse>
+
+Sat, 30 Apr 2016 10:21:57 +0000: Response De-Serialization Begin
+Sat, 30 Apr 2016 10:21:57 +0000: Response De-Serialization End
+Sat, 30 Apr 2016 10:22:01 +0000: Request Serialization Begin
+Sat, 30 Apr 2016 10:22:01 +0000: Request  Serialization End
+Sat, 30 Apr 2016 10:22:01 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Sat, 30 Apr 2016 10:22:01 +0000:Request to AnetApi: 
+=======
+Fri, 29 Apr 2016 12:37:53 +0000:Sending http request via Curl
+Fri, 29 Apr 2016 12:37:58 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1461933473</refId><messages><resultCode>Ok</resultCode><message><code>I00001</code><text>Successful.</text></message></messages><transactionResponse><responseCode>1</responseCode><authCode /><avsResultCode>P</avsResultCode><cvvResultCode /><cavvResultCode /><transId>2257833343</transId><refTransID /><transHash>C96F351A80CD49FCE644DAFEAB86A483</transHash><testRequest>0</testRequest><accountNumber>XXXX0015</accountNumber><entryMode>Keyed</entryMode><accountType>MasterCard</accountType><messages><message><code>1</code><description>This transaction has been approved.</description></message></messages></transactionResponse></createTransactionResponse>
+
+Fri, 29 Apr 2016 12:37:58 +0000: Response De-Serialization Begin
+Fri, 29 Apr 2016 12:37:58 +0000: Response De-Serialization End
+Fri, 29 Apr 2016 12:50:21 +0000: Request Serialization Begin
+Fri, 29 Apr 2016 12:50:21 +0000: Request  Serialization End
+Fri, 29 Apr 2016 12:50:21 +0000: Url: https://apitest.authorize.net/xml/v1/request.api
+Fri, 29 Apr 2016 12:50:21 +0000:Request to AnetApi: 
+>>>>>>> 222a6eddf75e16eda3c09c50c65772b80a1df17e
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[95x9PuD6b2]]></name>
+    <transactionKey><![CDATA[547z56Vcbs3Nz9R9]]></transactionKey>
+  </merchantAuthentication>
+<<<<<<< HEAD
+  <refId><![CDATA[ref1462011721]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[4007000000027]]></cardNumber>
+        <expirationDate><![CDATA[05/31]]></expirationDate>
+=======
+  <refId><![CDATA[ref1461934221]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[refundTransaction]]></transactionType>
+    <amount>20</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[4111111111111111]]></cardNumber>
+        <expirationDate><![CDATA[02/33]]></expirationDate>
+>>>>>>> 222a6eddf75e16eda3c09c50c65772b80a1df17e
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+<<<<<<< HEAD
+Sat, 30 Apr 2016 10:22:01 +0000:Sending http request via Curl
+Sat, 30 Apr 2016 10:22:03 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1462011721</refId><messages><resultCode>Error</resultCode><message><code>E00007</code><text>User authentication failed due to invalid authentication values.</text></message></messages><transactionResponse /></createTransactionResponse>
+
+Sat, 30 Apr 2016 10:22:03 +0000: Response De-Serialization Begin
+Sat, 30 Apr 2016 10:22:03 +0000: Response De-Serialization End
+Sat, 30 Apr 2016 10:22:22 +0000: Request Serialization Begin
+Sat, 30 Apr 2016 10:22:22 +0000: Request  Serialization End
+Sat, 30 Apr 2016 10:22:22 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Sat, 30 Apr 2016 10:22:22 +0000:Request to AnetApi: 
+=======
+Fri, 29 Apr 2016 12:50:21 +0000:Sending http request via Curl
+Fri, 29 Apr 2016 12:50:23 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1461934221</refId><messages><resultCode>Ok</resultCode><message><code>I00001</code><text>Successful.</text></message></messages><transactionResponse><responseCode>1</responseCode><authCode /><avsResultCode>P</avsResultCode><cvvResultCode /><cavvResultCode /><transId>2257833837</transId><refTransID /><transHash>202A20D3EC20DA3B1E031BE7174331A4</transHash><testRequest>0</testRequest><accountNumber>XXXX1111</accountNumber><entryMode>Keyed</entryMode><accountType>Visa</accountType><messages><message><code>1</code><description>This transaction has been approved.</description></message></messages></transactionResponse></createTransactionResponse>
+
+Fri, 29 Apr 2016 12:50:23 +0000: Response De-Serialization Begin
+Fri, 29 Apr 2016 12:50:23 +0000: Response De-Serialization End
+Fri, 29 Apr 2016 12:50:38 +0000: Request Serialization Begin
+Fri, 29 Apr 2016 12:50:38 +0000: Request  Serialization End
+Fri, 29 Apr 2016 12:50:38 +0000: Url: https://apitest.authorize.net/xml/v1/request.api
+Fri, 29 Apr 2016 12:50:38 +0000:Request to AnetApi: 
+>>>>>>> 222a6eddf75e16eda3c09c50c65772b80a1df17e
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[95x9PuD6b2]]></name>
+    <transactionKey><![CDATA[547z56Vcbs3Nz9R9]]></transactionKey>
+  </merchantAuthentication>
+<<<<<<< HEAD
+  <refId><![CDATA[ref1462011741]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[4007000000027]]></cardNumber>
+        <expirationDate><![CDATA[05/31]]></expirationDate>
+=======
+  <refId><![CDATA[ref1461934237]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[refundTransaction]]></transactionType>
+    <amount>20</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[4111111111111111]]></cardNumber>
+        <expirationDate><![CDATA[02/33]]></expirationDate>
+>>>>>>> 222a6eddf75e16eda3c09c50c65772b80a1df17e
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+<<<<<<< HEAD
+Sat, 30 Apr 2016 10:22:22 +0000:Sending http request via Curl
+Sat, 30 Apr 2016 10:22:23 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1462011741</refId><messages><resultCode>Error</resultCode><message><code>E00007</code><text>User authentication failed due to invalid authentication values.</text></message></messages><transactionResponse /></createTransactionResponse>
+
+Sat, 30 Apr 2016 10:22:23 +0000: Response De-Serialization Begin
+Sat, 30 Apr 2016 10:22:23 +0000: Response De-Serialization End
+Sat, 30 Apr 2016 10:22:40 +0000: Request Serialization Begin
+Sat, 30 Apr 2016 10:22:40 +0000: Request  Serialization End
+Sat, 30 Apr 2016 10:22:40 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Sat, 30 Apr 2016 10:22:40 +0000:Request to AnetApi: 
+=======
+Fri, 29 Apr 2016 12:50:38 +0000:Sending http request via Curl
+Fri, 29 Apr 2016 12:50:39 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1461934237</refId><messages><resultCode>Error</resultCode><message><code>E00027</code><text>The transaction was unsuccessful.</text></message></messages><transactionResponse><responseCode>3</responseCode><authCode /><avsResultCode>P</avsResultCode><cvvResultCode /><cavvResultCode /><transId>0</transId><refTransID /><transHash>950024E35BADE97CFAB3650808910993</transHash><testRequest>0</testRequest><accountNumber>XXXX1111</accountNumber><entryMode>Keyed</entryMode><accountType>Visa</accountType><errors><error><errorCode>11</errorCode><errorText>A duplicate transaction has been submitted.</errorText></error></errors></transactionResponse></createTransactionResponse>
+
+Fri, 29 Apr 2016 12:50:39 +0000: Response De-Serialization Begin
+Fri, 29 Apr 2016 12:50:39 +0000: Response De-Serialization End
+Fri, 29 Apr 2016 12:52:42 +0000: Request Serialization Begin
+Fri, 29 Apr 2016 12:52:42 +0000: Request  Serialization End
+Fri, 29 Apr 2016 12:52:42 +0000: Url: https://apitest.authorize.net/xml/v1/request.api
+Fri, 29 Apr 2016 12:52:42 +0000:Request to AnetApi: 
+>>>>>>> 222a6eddf75e16eda3c09c50c65772b80a1df17e
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[95x9PuD6b2]]></name>
+    <transactionKey><![CDATA[547z56Vcbs3Nz9R9]]></transactionKey>
+  </merchantAuthentication>
+<<<<<<< HEAD
+  <refId><![CDATA[ref1462011760]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[4007000000027]]></cardNumber>
+        <expirationDate><![CDATA[05/31]]></expirationDate>
+=======
+  <refId><![CDATA[ref1461934362]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[refundTransaction]]></transactionType>
+    <amount>20</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[4111111111111111]]></cardNumber>
+        <expirationDate><![CDATA[02/33]]></expirationDate>
+>>>>>>> 222a6eddf75e16eda3c09c50c65772b80a1df17e
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+<<<<<<< HEAD
+Sat, 30 Apr 2016 10:22:40 +0000:Sending http request via Curl
+Sat, 30 Apr 2016 10:22:42 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1462011760</refId><messages><resultCode>Error</resultCode><message><code>E00007</code><text>User authentication failed due to invalid authentication values.</text></message></messages><transactionResponse /></createTransactionResponse>
+
+Sat, 30 Apr 2016 10:22:42 +0000: Response De-Serialization Begin
+Sat, 30 Apr 2016 10:22:42 +0000: Response De-Serialization End
+Sat, 30 Apr 2016 10:40:12 +0000: Request Serialization Begin
+Sat, 30 Apr 2016 10:40:12 +0000: Request  Serialization End
+Sat, 30 Apr 2016 10:40:12 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Sat, 30 Apr 2016 10:40:12 +0000:Request to AnetApi: 
+=======
+Fri, 29 Apr 2016 12:52:42 +0000:Sending http request via Curl
+Fri, 29 Apr 2016 12:52:44 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1461934362</refId><messages><resultCode>Ok</resultCode><message><code>I00001</code><text>Successful.</text></message></messages><transactionResponse><responseCode>1</responseCode><authCode /><avsResultCode>P</avsResultCode><cvvResultCode /><cavvResultCode /><transId>2257833991</transId><refTransID /><transHash>4842378B27E04A72B556FB9CC51C12B4</transHash><testRequest>0</testRequest><accountNumber>XXXX1111</accountNumber><entryMode>Keyed</entryMode><accountType>Visa</accountType><messages><message><code>1</code><description>This transaction has been approved.</description></message></messages></transactionResponse></createTransactionResponse>
+
+Fri, 29 Apr 2016 12:52:44 +0000: Response De-Serialization Begin
+Fri, 29 Apr 2016 12:52:44 +0000: Response De-Serialization End
+Fri, 29 Apr 2016 12:54:27 +0000: Request Serialization Begin
+Fri, 29 Apr 2016 12:54:27 +0000: Request  Serialization End
+Fri, 29 Apr 2016 12:54:27 +0000: Url: https://apitest.authorize.net/xml/v1/request.api
+Fri, 29 Apr 2016 12:54:27 +0000:Request to AnetApi: 
+>>>>>>> 222a6eddf75e16eda3c09c50c65772b80a1df17e
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[95x9PuD6b2]]></name>
+    <transactionKey><![CDATA[547z56Vcbs3Nz9R9]]></transactionKey>
+  </merchantAuthentication>
+<<<<<<< HEAD
+  <refId><![CDATA[ref1462012812]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[4612]]></cardNumber>
+        <expirationDate><![CDATA[06/17]]></expirationDate>
+=======
+  <refId><![CDATA[ref1461934467]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[refundTransaction]]></transactionType>
+    <amount>20</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[4111111111111111]]></cardNumber>
+        <expirationDate><![CDATA[02/33]]></expirationDate>
+>>>>>>> 222a6eddf75e16eda3c09c50c65772b80a1df17e
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+<<<<<<< HEAD
+Sat, 30 Apr 2016 10:40:12 +0000:Sending http request via Curl
+Sat, 30 Apr 2016 10:40:14 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1462012812</refId><messages><resultCode>Error</resultCode><message><code>E00007</code><text>User authentication failed due to invalid authentication values.</text></message></messages><transactionResponse /></createTransactionResponse>
+
+Sat, 30 Apr 2016 10:40:14 +0000: Response De-Serialization Begin
+Sat, 30 Apr 2016 10:40:14 +0000: Response De-Serialization End
+Sat, 30 Apr 2016 10:40:34 +0000: Request Serialization Begin
+Sat, 30 Apr 2016 10:40:34 +0000: Request  Serialization End
+Sat, 30 Apr 2016 10:40:34 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Sat, 30 Apr 2016 10:40:34 +0000:Request to AnetApi: 
+=======
+Fri, 29 Apr 2016 12:54:27 +0000:Sending http request via Curl
+Fri, 29 Apr 2016 12:54:28 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1461934467</refId><messages><resultCode>Error</resultCode><message><code>E00027</code><text>The transaction was unsuccessful.</text></message></messages><transactionResponse><responseCode>3</responseCode><authCode /><avsResultCode>P</avsResultCode><cvvResultCode /><cavvResultCode /><transId>0</transId><refTransID /><transHash>950024E35BADE97CFAB3650808910993</transHash><testRequest>0</testRequest><accountNumber>XXXX1111</accountNumber><entryMode>Keyed</entryMode><accountType>Visa</accountType><errors><error><errorCode>11</errorCode><errorText>A duplicate transaction has been submitted.</errorText></error></errors></transactionResponse></createTransactionResponse>
+
+Fri, 29 Apr 2016 12:54:28 +0000: Response De-Serialization Begin
+Fri, 29 Apr 2016 12:54:28 +0000: Response De-Serialization End
+Fri, 29 Apr 2016 12:55:09 +0000: Request Serialization Begin
+Fri, 29 Apr 2016 12:55:09 +0000: Request  Serialization End
+Fri, 29 Apr 2016 12:55:09 +0000: Url: https://apitest.authorize.net/xml/v1/request.api
+Fri, 29 Apr 2016 12:55:09 +0000:Request to AnetApi: 
+>>>>>>> 222a6eddf75e16eda3c09c50c65772b80a1df17e
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[95x9PuD6b2]]></name>
+    <transactionKey><![CDATA[547z56Vcbs3Nz9R9]]></transactionKey>
+  </merchantAuthentication>
+<<<<<<< HEAD
+  <refId><![CDATA[ref1462012834]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[4612]]></cardNumber>
+        <expirationDate><![CDATA[06/17]]></expirationDate>
+=======
+  <refId><![CDATA[ref1461934509]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[refundTransaction]]></transactionType>
+    <amount>10</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[4111111111111111]]></cardNumber>
+        <expirationDate><![CDATA[02/33]]></expirationDate>
+>>>>>>> 222a6eddf75e16eda3c09c50c65772b80a1df17e
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+<<<<<<< HEAD
+Sat, 30 Apr 2016 10:40:34 +0000:Sending http request via Curl
+Sat, 30 Apr 2016 10:40:35 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1462012834</refId><messages><resultCode>Error</resultCode><message><code>E00007</code><text>User authentication failed due to invalid authentication values.</text></message></messages><transactionResponse /></createTransactionResponse>
+
+Sat, 30 Apr 2016 10:40:35 +0000: Response De-Serialization Begin
+Sat, 30 Apr 2016 10:40:35 +0000: Response De-Serialization End
+Sat, 30 Apr 2016 10:42:16 +0000: Request Serialization Begin
+Sat, 30 Apr 2016 10:42:16 +0000: Request  Serialization End
+Sat, 30 Apr 2016 10:42:16 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Sat, 30 Apr 2016 10:42:16 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[95x9PuD6b2]]></name>
+    <transactionKey><![CDATA[547z56Vcbs3Nz9R9]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1462012936]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[4611]]></cardNumber>
+        <expirationDate><![CDATA[11/16]]></expirationDate>
+=======
+Fri, 29 Apr 2016 12:55:09 +0000:Sending http request via Curl
+Fri, 29 Apr 2016 12:55:11 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1461934509</refId><messages><resultCode>Ok</resultCode><message><code>I00001</code><text>Successful.</text></message></messages><transactionResponse><responseCode>1</responseCode><authCode /><avsResultCode>P</avsResultCode><cvvResultCode /><cavvResultCode /><transId>2257834144</transId><refTransID /><transHash>E3B2B13806780286D7FD4D764E1F7EA9</transHash><testRequest>0</testRequest><accountNumber>XXXX1111</accountNumber><entryMode>Keyed</entryMode><accountType>Visa</accountType><messages><message><code>1</code><description>This transaction has been approved.</description></message></messages></transactionResponse></createTransactionResponse>
+
+Fri, 29 Apr 2016 12:55:11 +0000: Response De-Serialization Begin
+Fri, 29 Apr 2016 12:55:11 +0000: Response De-Serialization End
+Fri, 29 Apr 2016 14:31:51 +0000: Request Serialization Begin
+Fri, 29 Apr 2016 14:31:51 +0000: Request  Serialization End
+Fri, 29 Apr 2016 14:31:51 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Fri, 29 Apr 2016 14:31:51 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[42UHbr9Qa9B]]></name>
+    <transactionKey><![CDATA[6468X36RkrKGm3k6]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1461940311]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[refundTransaction]]></transactionType>
+    <amount>10</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[4111111111111111]]></cardNumber>
+        <expirationDate><![CDATA[02/33]]></expirationDate>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Fri, 29 Apr 2016 14:31:51 +0000:Sending http request via Curl
+Fri, 29 Apr 2016 14:31:53 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1461940311</refId><messages><resultCode>Error</resultCode><message><code>E00007</code><text>User authentication failed due to invalid authentication values.</text></message></messages><transactionResponse /></createTransactionResponse>
+
+Fri, 29 Apr 2016 14:31:53 +0000: Response De-Serialization Begin
+Fri, 29 Apr 2016 14:31:53 +0000: Response De-Serialization End
+Fri, 29 Apr 2016 14:33:43 +0000: Request Serialization Begin
+Fri, 29 Apr 2016 14:33:43 +0000: Request  Serialization End
+Fri, 29 Apr 2016 14:33:43 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Fri, 29 Apr 2016 14:33:43 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[42UHbr9Qa9B]]></name>
+    <transactionKey><![CDATA[6468X36RkrKGm3k6]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1461940423]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[refundTransaction]]></transactionType>
+    <amount>10</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[4111111111111111]]></cardNumber>
+        <expirationDate><![CDATA[02/33]]></expirationDate>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Fri, 29 Apr 2016 14:33:43 +0000:Sending http request via Curl
+Fri, 29 Apr 2016 14:33:44 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1461940423</refId><messages><resultCode>Error</resultCode><message><code>E00007</code><text>User authentication failed due to invalid authentication values.</text></message></messages><transactionResponse /></createTransactionResponse>
+
+Fri, 29 Apr 2016 14:33:44 +0000: Response De-Serialization Begin
+Fri, 29 Apr 2016 14:33:44 +0000: Response De-Serialization End
+Fri, 29 Apr 2016 14:35:04 +0000: Request Serialization Begin
+Fri, 29 Apr 2016 14:35:04 +0000: Request  Serialization End
+Fri, 29 Apr 2016 14:35:04 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Fri, 29 Apr 2016 14:35:04 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[42UHbr9Qa9B]]></name>
+    <transactionKey><![CDATA[6468X36RkrKGm3k6]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1461940504]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[refundTransaction]]></transactionType>
+    <amount>10</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[4111111111111111]]></cardNumber>
+        <expirationDate><![CDATA[02/33]]></expirationDate>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Fri, 29 Apr 2016 14:35:04 +0000:Sending http request via Curl
+Fri, 29 Apr 2016 14:35:06 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1461940504</refId><messages><resultCode>Error</resultCode><message><code>E00007</code><text>User authentication failed due to invalid authentication values.</text></message></messages><transactionResponse /></createTransactionResponse>
+
+Fri, 29 Apr 2016 14:35:06 +0000: Response De-Serialization Begin
+Fri, 29 Apr 2016 14:35:06 +0000: Response De-Serialization End
+Fri, 29 Apr 2016 14:36:31 +0000: Request Serialization Begin
+Fri, 29 Apr 2016 14:36:31 +0000: Request  Serialization End
+Fri, 29 Apr 2016 14:36:31 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Fri, 29 Apr 2016 14:36:31 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[42UHbr9Qa9B]]></name>
+    <transactionKey><![CDATA[6468X36RkrKGm3k6]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1461940591]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[refundTransaction]]></transactionType>
+    <amount>10</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[4111111111111111]]></cardNumber>
+        <expirationDate><![CDATA[02/33]]></expirationDate>
+>>>>>>> 222a6eddf75e16eda3c09c50c65772b80a1df17e
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+<<<<<<< HEAD
+Sat, 30 Apr 2016 10:42:16 +0000:Sending http request via Curl
+Sat, 30 Apr 2016 10:42:18 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1462012936</refId><messages><resultCode>Error</resultCode><message><code>E00007</code><text>User authentication failed due to invalid authentication values.</text></message></messages><transactionResponse /></createTransactionResponse>
+
+Sat, 30 Apr 2016 10:42:18 +0000: Response De-Serialization Begin
+Sat, 30 Apr 2016 10:42:18 +0000: Response De-Serialization End
+=======
+Fri, 29 Apr 2016 14:36:31 +0000:Sending http request via Curl
+Fri, 29 Apr 2016 14:36:32 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1461940591</refId><messages><resultCode>Error</resultCode><message><code>E00007</code><text>User authentication failed due to invalid authentication values.</text></message></messages><transactionResponse /></createTransactionResponse>
+
+Fri, 29 Apr 2016 14:36:32 +0000: Response De-Serialization Begin
+Fri, 29 Apr 2016 14:36:32 +0000: Response De-Serialization End
+>>>>>>> 222a6eddf75e16eda3c09c50c65772b80a1df17e
+
+Sat, 30 Apr 2016 11:30:07 +0000: Request Serialization Begin
+Sat, 30 Apr 2016 11:30:07 +0000: Request  Serialization End
+Sat, 30 Apr 2016 11:30:07 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Sat, 30 Apr 2016 11:30:07 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[42UHbr9Qa9B]]></name>
+    <transactionKey><![CDATA[6468X36RkrKGm3k6]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1462015807]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[refundTransaction]]></transactionType>
+    <amount>415</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[5214]]></cardNumber>
+        <expirationDate><![CDATA[06/19]]></expirationDate>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Sat, 30 Apr 2016 11:30:07 +0000:Sending http request via Curl
+Sat, 30 Apr 2016 11:30:09 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1462015807</refId><messages><resultCode>Error</resultCode><message><code>E00007</code><text>User authentication failed due to invalid authentication values.</text></message></messages><transactionResponse /></createTransactionResponse>
+
+Sat, 30 Apr 2016 11:30:09 +0000: Response De-Serialization Begin
+Sat, 30 Apr 2016 11:30:09 +0000: Response De-Serialization End
+Sat, 30 Apr 2016 11:30:55 +0000: Request Serialization Begin
+Sat, 30 Apr 2016 11:30:55 +0000: Request  Serialization End
+Sat, 30 Apr 2016 11:30:55 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Sat, 30 Apr 2016 11:30:55 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[42UHbr9Qa9B]]></name>
+    <transactionKey><![CDATA[6468X36RkrKGm3k6]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1462015855]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[refundTransaction]]></transactionType>
+    <amount>415</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[5214]]></cardNumber>
+        <expirationDate><![CDATA[06/19]]></expirationDate>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Sat, 30 Apr 2016 11:30:55 +0000:Sending http request via Curl
+Sat, 30 Apr 2016 11:30:57 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1462015855</refId><messages><resultCode>Error</resultCode><message><code>E00007</code><text>User authentication failed due to invalid authentication values.</text></message></messages><transactionResponse /></createTransactionResponse>
+
+Sat, 30 Apr 2016 11:30:57 +0000: Response De-Serialization Begin
+Sat, 30 Apr 2016 11:30:57 +0000: Response De-Serialization End
+Sat, 30 Apr 2016 11:31:33 +0000: Request Serialization Begin
+Sat, 30 Apr 2016 11:31:34 +0000: Request  Serialization End
+Sat, 30 Apr 2016 11:31:34 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Sat, 30 Apr 2016 11:31:34 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[42UHbr9Qa9B]]></name>
+    <transactionKey><![CDATA[6468X36RkrKGm3k6]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1462015893]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[refundTransaction]]></transactionType>
+    <amount>415</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[5214]]></cardNumber>
+        <expirationDate><![CDATA[06/19]]></expirationDate>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Sat, 30 Apr 2016 11:31:34 +0000:Sending http request via Curl
+Sat, 30 Apr 2016 11:31:37 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1462015893</refId><messages><resultCode>Error</resultCode><message><code>E00007</code><text>User authentication failed due to invalid authentication values.</text></message></messages><transactionResponse /></createTransactionResponse>
+
+Sat, 30 Apr 2016 11:31:37 +0000: Response De-Serialization Begin
+Sat, 30 Apr 2016 11:31:37 +0000: Response De-Serialization End
+Sat, 30 Apr 2016 11:38:32 +0000: Request Serialization Begin
+Sat, 30 Apr 2016 11:38:32 +0000: Request  Serialization End
+Sat, 30 Apr 2016 11:38:32 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Sat, 30 Apr 2016 11:38:32 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[42UHbr9Qa9B]]></name>
+    <transactionKey><![CDATA[6468X36RkrKGm3k6]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1462016312]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[refundTransaction]]></transactionType>
+    <amount>415</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[5214]]></cardNumber>
+        <expirationDate><![CDATA[06/19]]></expirationDate>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Sat, 30 Apr 2016 11:38:33 +0000:Sending http request via Curl
+Sat, 30 Apr 2016 11:38:35 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1462016312</refId><messages><resultCode>Error</resultCode><message><code>E00007</code><text>User authentication failed due to invalid authentication values.</text></message></messages><transactionResponse /></createTransactionResponse>
+
+Sat, 30 Apr 2016 11:38:35 +0000: Response De-Serialization Begin
+Sat, 30 Apr 2016 11:38:35 +0000: Response De-Serialization End
+Sat, 30 Apr 2016 11:38:58 +0000: Request Serialization Begin
+Sat, 30 Apr 2016 11:38:58 +0000: Request  Serialization End
+Sat, 30 Apr 2016 11:38:58 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Sat, 30 Apr 2016 11:38:58 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[42UHbr9Qa9B]]></name>
+    <transactionKey><![CDATA[6468X36RkrKGm3k6]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1462016338]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[refundTransaction]]></transactionType>
+    <amount>415</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[5214]]></cardNumber>
+        <expirationDate><![CDATA[06/19]]></expirationDate>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Sat, 30 Apr 2016 11:38:58 +0000:Sending http request via Curl
+Sat, 30 Apr 2016 11:39:00 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1462016338</refId><messages><resultCode>Error</resultCode><message><code>E00007</code><text>User authentication failed due to invalid authentication values.</text></message></messages><transactionResponse /></createTransactionResponse>
+
+Sat, 30 Apr 2016 11:39:00 +0000: Response De-Serialization Begin
+Sat, 30 Apr 2016 11:39:00 +0000: Response De-Serialization End
+Sat, 30 Apr 2016 11:39:24 +0000: Request Serialization Begin
+Sat, 30 Apr 2016 11:39:25 +0000: Request  Serialization End
+Sat, 30 Apr 2016 11:39:25 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Sat, 30 Apr 2016 11:39:25 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[42UHbr9Qa9B]]></name>
+    <transactionKey><![CDATA[6468X36RkrKGm3k6]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1462016364]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[refundTransaction]]></transactionType>
+    <amount>415</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[5214]]></cardNumber>
+        <expirationDate><![CDATA[06/19]]></expirationDate>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Sat, 30 Apr 2016 11:39:25 +0000:Sending http request via Curl
+Sat, 30 Apr 2016 11:39:26 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1462016364</refId><messages><resultCode>Error</resultCode><message><code>E00007</code><text>User authentication failed due to invalid authentication values.</text></message></messages><transactionResponse /></createTransactionResponse>
+
+Sat, 30 Apr 2016 11:39:26 +0000: Response De-Serialization Begin
+Sat, 30 Apr 2016 11:39:26 +0000: Response De-Serialization End
+Mon, 02 May 2016 05:52:31 +0000: Request Serialization Begin
+Mon, 02 May 2016 05:52:32 +0000: Request  Serialization End
+Mon, 02 May 2016 05:52:32 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Mon, 02 May 2016 05:52:32 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[42UHbr9Qa9B]]></name>
+    <transactionKey><![CDATA[6468X36RkrKGm3k6]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1462168351]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[refundTransaction]]></transactionType>
+    <amount>120</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[4611]]></cardNumber>
+        <expirationDate><![CDATA[02/34]]></expirationDate>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Mon, 02 May 2016 05:52:32 +0000:Sending http request via Curl
+Mon, 02 May 2016 05:52:34 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1462168351</refId><messages><resultCode>Error</resultCode><message><code>E00007</code><text>User authentication failed due to invalid authentication values.</text></message></messages><transactionResponse /></createTransactionResponse>
+
+Mon, 02 May 2016 05:52:34 +0000: Response De-Serialization Begin
+Mon, 02 May 2016 05:52:34 +0000: Response De-Serialization End
+Mon, 02 May 2016 05:53:56 +0000: Request Serialization Begin
+Mon, 02 May 2016 05:53:56 +0000: Request  Serialization End
+Mon, 02 May 2016 05:53:56 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Mon, 02 May 2016 05:53:56 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[42UHbr9Qa9B]]></name>
+    <transactionKey><![CDATA[6468X36RkrKGm3k6]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1462168436]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[refundTransaction]]></transactionType>
+    <amount>120</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[4611]]></cardNumber>
+        <expirationDate><![CDATA[02/34]]></expirationDate>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Mon, 02 May 2016 05:53:56 +0000:Sending http request via Curl
+Mon, 02 May 2016 05:53:58 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1462168436</refId><messages><resultCode>Error</resultCode><message><code>E00007</code><text>User authentication failed due to invalid authentication values.</text></message></messages><transactionResponse /></createTransactionResponse>
+
+Mon, 02 May 2016 05:53:58 +0000: Response De-Serialization Begin
+Mon, 02 May 2016 05:53:58 +0000: Response De-Serialization End
+Mon, 02 May 2016 06:22:53 +0000: Request Serialization Begin
+Mon, 02 May 2016 06:22:54 +0000: Request  Serialization End
+Mon, 02 May 2016 06:22:54 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Mon, 02 May 2016 06:22:54 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[42UHbr9Qa9B]]></name>
+    <transactionKey><![CDATA[6468X36RkrKGm3k6]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1462170173]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[refundTransaction]]></transactionType>
+    <amount>14587</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[461111]]></cardNumber>
+        <expirationDate><![CDATA[05/31]]></expirationDate>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Mon, 02 May 2016 06:22:54 +0000:Sending http request via Curl
+Mon, 02 May 2016 06:22:55 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1462170173</refId><messages><resultCode>Error</resultCode><message><code>E00007</code><text>User authentication failed due to invalid authentication values.</text></message></messages><transactionResponse /></createTransactionResponse>
+
+Mon, 02 May 2016 06:22:55 +0000: Response De-Serialization Begin
+Mon, 02 May 2016 06:22:55 +0000: Response De-Serialization End
+Mon, 02 May 2016 06:23:14 +0000: Request Serialization Begin
+Mon, 02 May 2016 06:23:14 +0000: Request  Serialization End
+Mon, 02 May 2016 06:23:14 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Mon, 02 May 2016 06:23:14 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[42UHbr9Qa9B]]></name>
+    <transactionKey><![CDATA[6468X36RkrKGm3k6]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1462170194]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[refundTransaction]]></transactionType>
+    <amount>14587</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[461111]]></cardNumber>
+        <expirationDate><![CDATA[05/31]]></expirationDate>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Mon, 02 May 2016 06:23:14 +0000:Sending http request via Curl
+Mon, 02 May 2016 06:23:16 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1462170194</refId><messages><resultCode>Error</resultCode><message><code>E00007</code><text>User authentication failed due to invalid authentication values.</text></message></messages><transactionResponse /></createTransactionResponse>
+
+Mon, 02 May 2016 06:23:16 +0000: Response De-Serialization Begin
+Mon, 02 May 2016 06:23:16 +0000: Response De-Serialization End
+Mon, 02 May 2016 06:52:41 +0000: Request Serialization Begin
+Mon, 02 May 2016 06:52:41 +0000: Request  Serialization End
+Mon, 02 May 2016 06:52:41 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Mon, 02 May 2016 06:52:41 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[42UHbr9Qa9B]]></name>
+    <transactionKey><![CDATA[6468X36RkrKGm3k6]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1462171961]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[refundTransaction]]></transactionType>
+    <amount>15987</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[2547]]></cardNumber>
+        <expirationDate><![CDATA[03/24]]></expirationDate>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Mon, 02 May 2016 06:52:41 +0000:Sending http request via Curl
+Mon, 02 May 2016 06:52:43 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1462171961</refId><messages><resultCode>Error</resultCode><message><code>E00007</code><text>User authentication failed due to invalid authentication values.</text></message></messages><transactionResponse /></createTransactionResponse>
+
+Mon, 02 May 2016 06:52:43 +0000: Response De-Serialization Begin
+Mon, 02 May 2016 06:52:43 +0000: Response De-Serialization End
+Mon, 02 May 2016 07:02:15 +0000: Request Serialization Begin
+Mon, 02 May 2016 07:02:15 +0000: Request  Serialization End
+Mon, 02 May 2016 07:02:15 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Mon, 02 May 2016 07:02:15 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[42UHbr9Qa9B]]></name>
+    <transactionKey><![CDATA[6468X36RkrKGm3k6]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1462172535]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[refundTransaction]]></transactionType>
+    <amount>1111</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[2546]]></cardNumber>
+        <expirationDate><![CDATA[09/23]]></expirationDate>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Mon, 02 May 2016 07:02:15 +0000:Sending http request via Curl
+Mon, 02 May 2016 07:02:17 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1462172535</refId><messages><resultCode>Error</resultCode><message><code>E00007</code><text>User authentication failed due to invalid authentication values.</text></message></messages><transactionResponse /></createTransactionResponse>
+
+Mon, 02 May 2016 07:02:17 +0000: Response De-Serialization Begin
+Mon, 02 May 2016 07:02:17 +0000: Response De-Serialization End
+Mon, 02 May 2016 07:03:19 +0000: Request Serialization Begin
+Mon, 02 May 2016 07:03:19 +0000: Request  Serialization End
+Mon, 02 May 2016 07:03:19 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Mon, 02 May 2016 07:03:19 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[42UHbr9Qa9B]]></name>
+    <transactionKey><![CDATA[6468X36RkrKGm3k6]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1462172599]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[refundTransaction]]></transactionType>
+    <amount>14785</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[2547]]></cardNumber>
+        <expirationDate><![CDATA[11/29]]></expirationDate>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Mon, 02 May 2016 07:03:19 +0000:Sending http request via Curl
+Mon, 02 May 2016 07:03:20 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1462172599</refId><messages><resultCode>Error</resultCode><message><code>E00007</code><text>User authentication failed due to invalid authentication values.</text></message></messages><transactionResponse /></createTransactionResponse>
+
+Mon, 02 May 2016 07:03:20 +0000: Response De-Serialization Begin
+Mon, 02 May 2016 07:03:20 +0000: Response De-Serialization End

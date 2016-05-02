@@ -1,56 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
 <<<<<<< HEAD
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="8">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
         <file>
-            <url>app/Controller/TechniciansController.php</url>
-            <bookmark id="7">
-                <name/>
-                <line>324</line>
-                <key/>
-            </bookmark>
-            <bookmark id="6">
-                <name/>
-                <line>490</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
-            <url>app/View/Elements/sadmin-sidebar.ctp</url>
-            <bookmark id="5">
-                <name/>
-                <line>547</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
-            <url>app/View/Transactions/edit_customer_data.ctp</url>
-            <bookmark id="8">
-                <name/>
-                <line>1467</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
-            <url>app/View/Customers/edit_registration.ctp</url>
-            <bookmark id="3">
-                <name/>
-                <line>444</line>
-                <key/>
-            </bookmark>
-            <bookmark id="4">
-                <name/>
-                <line>448</line>
-                <key/>
-            </bookmark>
+            <url>app/Controller/PaymentsController.php</url>
             <bookmark id="1">
                 <name/>
-                <line>477</line>
-                <key/>
-            </bookmark>
-            <bookmark id="2">
-                <name/>
-                <line>537</line>
+                <line>209</line>
                 <key/>
             </bookmark>
         </file>
@@ -63,14 +19,18 @@
 =======
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
+        <group/>
+=======
         <group>
-            <file>file:/E:/Appxampp/htdocs/intranet/app/View/Reports/invoice.ctp</file>
-            <file>file:/E:/Appxampp/htdocs/intranet/app/View/Reports/invoice_printqueue.ctp</file>
-            <file>file:/E:/Appxampp/htdocs/intranet/app/View/Elements/sadmin-sidebar.ctp</file>
-            <file>file:/E:/Appxampp/htdocs/intranet/app/webroot/js/custom.form.validation.js</file>
-            <file>file:/E:/Appxampp/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
-            <file>file:/E:/Appxampp/htdocs/intranet/app/View/Elements/agent-sidebar.ctp</file>
->>>>>>> 1be1529dfbdc996617ddb54b3b1b145454a58b46
+            <file>file:/D:/Server/htdocs/intranet/app/Controller/TransactionsController280416.php</file>
+            <file>file:/D:/Server/htdocs/intranet/app/Controller/AdminsController_1.php</file>
+            <file>file:/D:/Server/htdocs/intranet/app/Controller/PaymentsController.php</file>
+            <file>file:/D:/Server/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
+            <file>file:/D:/Server/htdocs/intranet/app/Controller/CustomersController.php</file>
+            <file>file:/D:/Server/htdocs/intranet/app/Controller/TransactionsController.php</file>
+>>>>>>> 222a6eddf75e16eda3c09c50c65772b80a1df17e
         </group>
+>>>>>>> 2f6964e9ec614d3e62b995326260b043b1c32288
     </open-files>
 </project-private>

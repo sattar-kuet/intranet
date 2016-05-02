@@ -12,7 +12,6 @@ class CustomersController extends AppController {
     public function beforeFilter() {
         parent::beforeFilter();
         $this->Auth->allow('');
-
         // database name must be thum_img,small_img
         $this->img_config = array(
             'picture' => array(
@@ -186,7 +185,6 @@ class CustomersController extends AppController {
             $this->PackageCustomer->set($this->request->data);
             $this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
             //For Custom Package data insert
-
             if (!empty($this->request->data['PackageCustomer']['charge'])) {
                 $data4CustomPackage['CustomPackage']['duration'] = $this->request->data['PackageCustomer']['duration'];
                 $data4CustomPackage['CustomPackage']['charge'] = $this->request->data['PackageCustomer']['charge'];
@@ -194,7 +192,6 @@ class CustomersController extends AppController {
                 unset($cp['CustomPackage']['PackageCustomer']);
                 $this->request->data['PackageCustomer']['custom_package_id'] = $cp['CustomPackage']['id'];
             }
-
             $this->PackageCustomer->set($this->request->data);
             $this->PackageCustomer->id = $id;
             $dateObj = $this->request->data['PackageCustomer']['exp_date'];
@@ -202,7 +199,12 @@ class CustomersController extends AppController {
 //            pr($this->request->data); exit;
             $this->PackageCustomer->save($this->request->data['PackageCustomer']);
             //update last comment
-            $this->Comment->id = $this->request->data['PackageCustomer']['comment_id'];
+            if ($this->request->data['PackageCustomer']['comment_id']) {
+                $this->Comment->id = $this->request->data['PackageCustomer']['comment_id'];
+            }
+            $loggedUser = $this->Auth->user();
+            $commentData['Comment']['user_id'] = $loggedUser['id'];
+            $commentData['Comment']['package_customer_id'] = $this->request->data['PackageCustomer']['id'];
             $commentData['Comment']['content'] = $this->request->data['PackageCustomer']['comments'];
             $this->Comment->save($commentData);
             $msg = '<div class="alert alert-success">
@@ -238,7 +240,10 @@ class CustomersController extends AppController {
                 " WHERE package_customers.id = '" . $id . "'";
         $temp = $this->PackageCustomer->query($sql);
         $ym = $this->getYm();
-        $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge'));
+       
+     
+        
+        $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge', 'latestcardInfo'));
         //*************** End Package List ****************************************************************************************
         $ym = $this->getYm();
 
@@ -268,7 +273,7 @@ class CustomersController extends AppController {
         $index = 0;
 //        pr($allData); exit;
         foreach ($allData as $key => $data) {
-            //pr($data); exit;
+
             $pd = $data['pc']['id'];
             if (isset($unique[$pd])) {
                 //  echo 'already exist'.$key.'<br/>';
@@ -417,10 +422,10 @@ class CustomersController extends AppController {
         $this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
         $this->PackageCustomer->technician_id = $this->request->data['PackageCustomer']['technician_id'];
         $datrange = json_decode($this->request->data['PackageCustomer']['daterange'], true);
-        
+
         $this->request->data['PackageCustomer']['from'] = $datrange['start'];
         $this->request->data['PackageCustomer']['to'] = $datrange['end'];
-  
+
         $this->PackageCustomer->save($this->request->data);
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -428,8 +433,7 @@ class CustomersController extends AppController {
         $this->Session->setFlash($msg);
         return $this->redirect($this->referer());
     }
-   
-    
+
     function shipment() {
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
