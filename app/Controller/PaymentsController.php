@@ -212,15 +212,15 @@ class PaymentsController extends AppController {
     }
 
     function refundTransaction() {
-
+        $loggedUser = $this->Auth->user();
         //  pr($this->request->data['Transaction']);
         //    exit;
         // Common setup for API credentials
         $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
-       // $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
-         $merchantAuthentication->setName("42UHbr9Qa9B"); // live mode
-       // $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
-         $merchantAuthentication->setTransactionKey("6468X36RkrKGm3k6"); // live mode
+        // $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
+        $merchantAuthentication->setName("42UHbr9Qa9B"); // live mode
+        // $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
+        $merchantAuthentication->setTransactionKey("6468X36RkrKGm3k6"); // live mode
         $refId = 'ref' . time();
         // Create the payment data for a credit card
         $creditCard = new AnetAPI\CreditCardType();
@@ -243,11 +243,13 @@ class PaymentsController extends AppController {
         $request->setTransactionRequest($transactionRequest);
         $controller = new AnetController\CreateTransactionController($request);
         //$response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
-         $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
+        $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
         $msg = '';
-    
-        $data4transaction['Transaction']['exp_date'] = $this->request->data['Transaction']['exp_date'];;
+
+        $data4transaction['Transaction']['exp_date'] = $this->request->data['Transaction']['exp_date'];
+        ;
         $data4transaction['Transaction']['card_no'] = $this->request->data['Transaction']['card_no'];
+        $data4transaction['Transaction']['user_id'] = $loggedUser['id'];
         if ($response != null) {
             $tresponse = $response->getTransactionResponse();
             //pr($tresponse); exit;
@@ -255,7 +257,7 @@ class PaymentsController extends AppController {
                 $data4transaction['Transaction']['paid_amount'] = $this->request->data['Transaction']['refund_amount'];
                 $data4transaction['Transaction']['package_customer_id'] = $this->request->data['Transaction']['cid'];
                 $data4transaction['Transaction']['status'] = 'Refund Successful';
-             //   $data4transaction['Transaction']['trx_id'] = $tresponse->getTransId();
+                //   $data4transaction['Transaction']['trx_id'] = $tresponse->getTransId();
                 $msg = ' <div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert"></button>
             <p> <strong>Refund SUCCESS</strong>
@@ -264,11 +266,11 @@ class PaymentsController extends AppController {
                 $data4transaction['Transaction']['paid_amount'] = 0;
                 $data4transaction['Transaction']['package_customer_id'] = $this->request->data['Transaction']['cid'];
                 $data4transaction['Transaction']['status'] = 'Refund failed';
-                $data4transaction['Transaction']['error_msg'] = "Refund ERROR : " ;//. $tresponse->getResponseCode();
+                $data4transaction['Transaction']['error_msg'] = "Refund ERROR : "; //. $tresponse->getResponseCode();
                 $msg = ' <div class="alert alert-block alert-danger fade in">
             <button type="button" class="close" data-dismiss="alert"></button>
             <p> <strong>Refund ERROR  ' . //$tresponse->ResponseCode() . 
-            '</strong> </p> </div>';
+                        '</strong> </p> </div>';
             }
         } else {
             $data4transaction['Transaction']['paid_amount'] = 0;
