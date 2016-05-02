@@ -750,7 +750,7 @@
                                             echo $this->Form->button(
                                                     'Update Card Information', array(
                                                 'class' => 'btn btn-primary submitbtn',
-                                                 'style' => "background-color: lightseagreen;",
+                                                'style' => "background-color: lightseagreen;",
                                                 'type' => 'submit',
                                                 'id' => ''
                                             ));
@@ -1468,92 +1468,94 @@
                             ));
                             ?>
                             <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Transaction Number<span class="required">
-                                    </span>
-                                </label>
-                                <div class="col-md-3">
-                                    <?php
-                                    echo $this->Form->input(
-                                            'trx_no', array(
-                                        'class' => 'form-control required',
-                                        'type' => 'text'
-                                            )
-                                    );
-                                    ?>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">Transaction Number<span class="required">
+                                        </span>
+                                    </label>
+                                    <div class="col-md-3">
+                                        <?php
+                                        echo $this->Form->input(
+                                                'trx_no', array(
+                                            'class' => 'form-control required',
+                                            'type' => 'text',
+                                            'value' => $latestcardInfo['trx_id']
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+                                    <label class="control-label col-md-3">Card Number(Last 4 digit)<span class="required">
+                                        </span>
+                                    </label>
+                                    <div class="col-md-3">
+                                        <?php
+                                        echo $this->Form->input(
+                                                'card_no', array(
+                                            'class' => 'form-control required',
+                                            'type' => 'text',
+                                            'value' => $latestcardInfo['card_no']
+                                                )
+                                        );
+                                        ?>
+                                    </div>
                                 </div>
-                                <label class="control-label col-md-3">Card Number(Last 4 digit)<span class="required">
-                                    </span>
-                                </label>
-                                <div class="col-md-3">
-                                    <?php
-                                    echo $this->Form->input(
-                                            'card_no', array(
-                                        'class' => 'form-control required',
-                                        'type' => 'text'
-                                            )
-                                    );
-                                    ?>
-                                </div>
-                            </div>
-                            <div class="form-group">
+                                <div class="form-group">
 
-                                <label class="control-label col-md-2">Card Exp Date</label>
-                                
-                                <div class="col-md-2">
-                                    <?php
-                                    echo $this->Form->input('exp_date.year', array(
-                                        'type' => 'select',
-                                        'options' => $ym['year'],
-                                        'empty' => 'Select Year',
-                                        'class' => 'span12 uniform nostyle select1  required',
-                                        'div' => array('class' => 'span12 '),
-                                        'id' => 'year'
-                                            )
-                                    );
-                                    ?>
+                                    <label class="control-label col-md-2">Card Exp Date</label>
+
+                                    <div class="col-md-2">
+                                        <?php
+                                        echo $this->Form->input('exp_date.year', array(
+                                            'type' => 'select',
+                                            'options' => $ym['year'],
+                                            'empty' => 'Select Year',
+                                            'class' => 'span12 form-control uniform nostyle select1  required',
+                                            'id' => 'year',
+                                            'value' => $latestcardInfo['exp_date']['year']
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <?php
+                                        echo $this->Form->input('exp_date.month', array(
+                                            'type' => 'select',
+                                            'options' => $ym['month'],
+                                            'empty' => 'Select Month',
+                                            'class' => 'span12 form-control uniform nostyle select1 required',
+                                            'id' => 'month',
+                                            'value' => $latestcardInfo['exp_date']['month']
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+
+                                    <label class="control-label col-md-3">Refund Amount<span class="required">
+                                        </span>
+                                    </label>
+                                    <div class="col-md-3">
+                                        <?php
+                                        echo $this->Form->input(
+                                                'refund_amount', array(
+                                            'class' => 'form-control required',
+                                            'type' => 'text'
+                                                )
+                                        );
+                                        ?>
+                                    </div>
                                 </div>
-                                <div class="col-md-2">
-                                    <?php
-                                    echo $this->Form->input('exp_date.month', array(
-                                        'type' => 'select',
-                                        'options' => $ym['month'],
-                                        'empty' => 'Select Month',
-                                        'class' => 'span12 uniform nostyle   select1 required',
-                                        'div' => array('class' => 'span12 '),
-                                        'id' => 'month'
-                                            )
-                                    );
-                                    ?>
-                                </div>
-                                
-                                <label class="control-label col-md-3">Refund Amount<span class="required">
-                                    </span>
-                                </label>
-                                <div class="col-md-3">
-                                    <?php
-                                    echo $this->Form->input(
-                                            'refund_amount', array(
-                                        'class' => 'form-control required',
-                                        'type' => 'text'
-                                            )
-                                    );
-                                    ?>
-                                </div>
-                            </div>
                             </div>
                             <div class="form-actions">
-                            <div class="row">
-                                <div class="col-md-offset-6 col-md-4">
-                                    <?php
-                                    echo $this->Form->button(
-                                            'Confirm', array('class' => 'btn red-sunglo', 'type' => 'submit')
-                                    );
-                                    ?>
+                                <div class="row">
+                                    <div class="col-md-offset-6 col-md-4">
+                                        <?php
+                                        echo $this->Form->button(
+                                                'Confirm', array('class' => 'btn red-sunglo', 'type' => 'submit')
+                                        );
+                                        ?>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <?php echo $this->Form->end(); ?>
+                            <?php echo $this->Form->end(); ?>
                         </div>
                     </div> 
                 </div>
@@ -1588,7 +1590,7 @@
                                 <tr >  
                                     <th>Payment Detail</th>
                                     <th>Paid Amount</th>
-                                    <th>Trans Action Date</th>
+                                    <th>Transaction Date</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -1618,6 +1620,13 @@
                                             <?php elseif ($info['pay_mode'] == 'cash'): ?>
                                     <li>Pay Mode : <?php echo $info['pay_mode']; ?></li> 
                                     Cash By : <?php echo $info['cash_by']; ?>
+
+                                <?php elseif ($info['pay_mode'] == 'refund'): ?>
+                                    <ul><li>Pay Mode : <?php echo $info['pay_mode']; ?></li>
+                                        <ul> <li>Amount : <?php echo $info['paid_amount']; ?></li>
+                                            <li>Refund Date : <?php echo $info['created']; ?></li>
+                                        </ul>
+                                    </ul>
 
                                 <?php else: ?>
                                     <li>Pay Mode : <?php echo $info['pay_mode']; ?></li> 
