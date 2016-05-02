@@ -846,6 +846,13 @@
                                                                 'value' => $this->params['pass'][0]
                                                             ));
                                                             ?>
+                                                            <?php
+                                                            echo $this->Form->input(
+                                                                    'pay_mode', array(
+                                                                'type' => 'hidden',
+                                                                'value' => 'card'
+                                                            ));
+                                                            ?>
                                                             <br>
                                                             <div class="row">
 
@@ -875,24 +882,7 @@
                                                                     ?>
                                                                 </div>
                                                             </div>
-                                                            &nbsp;
-                                                            <div class="row">
-                                                                <div class="col-md-3 signupfont" style="padding-right: 0px;">
-                                                                    Full Name:
-                                                                </div>
-                                                                <div class="col-md-9">
-                                                                    <?php
-                                                                    echo $this->Form->input(
-                                                                            'card_no', array(
-                                                                        'type' => 'text',
-                                                                        'value' => '',
-                                                                        'class' => 'form-control input-sm required',
-                                                                        'id' => 'card_number',
-                                                                    ));
-                                                                    ?>
-                                                                </div>
-                                                            </div>
-                                                            &nbsp;
+
                                                             <div class="row">
                                                                 <div class="col-md-3 signupfont" style="padding-right: 0px;">
                                                                     Card no: 
@@ -1447,8 +1437,6 @@
                     <div class="row display-hide" id="refund"> 
 
                         <?php
-                      //  pr($latestcardInfo);
-                     //   exit;
                         echo $this->Form->create('Transaction', array(
                             'inputDefaults' => array(
                                 'label' => false,
@@ -1460,6 +1448,13 @@
                             'url' => array('controller' => 'payments', 'action' => 'refundTransaction')
                                 )
                         );
+                        ?>
+                        <?php
+                        echo $this->Form->input(
+                                'pay_mode', array(
+                            'type' => 'hidden',
+                            'value' => 'refund'
+                        ));
                         ?>
                         <div class="form-body">
                             <?php
@@ -1592,7 +1587,7 @@
                                 <tr >  
                                     <th>Payment Detail</th>
                                     <th>Paid Amount</th>
-                                    <th>Trans Action Date</th>
+                                    <th>Transaction Date</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -1613,7 +1608,7 @@
                                                     <?php endif;
                                                     ?>
                                                     <li>Transaction No : <?php echo $info['id']; ?></li> 
-                                                    <li>Card No : <?php echo $info['card_no']; ?></li>  
+                                                    <li>Card No : <?php echo substr($info['card_no'], 0, 4); ?></li>  
                                                     <li>Zip Code : <?php echo $info['zip_code']; ?></li>  
                                                     <li>CVV Code : <?php echo $info['cvv_code']; ?></li> 
                                                     <li>Expire Date : <?php echo $info['exp_date']; ?></li>
@@ -1622,6 +1617,13 @@
                                             <?php elseif ($info['pay_mode'] == 'cash'): ?>
                                     <li>Pay Mode : <?php echo $info['pay_mode']; ?></li> 
                                     Cash By : <?php echo $info['cash_by']; ?>
+
+                                <?php elseif ($info['pay_mode'] == 'refund'): ?>
+                                    <ul><li>Pay Mode : <?php echo $info['pay_mode']; ?></li>
+                                        <ul> <li>Amount : <?php echo $info['paid_amount']; ?></li>
+                                            <li>Refund Date : <?php echo $info['created']; ?></li>
+                                        </ul>
+                                    </ul>
 
                                 <?php else: ?>
                                     <li>Pay Mode : <?php echo $info['pay_mode']; ?></li> 

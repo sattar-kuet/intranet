@@ -65,12 +65,11 @@ class PaymentsController extends AppController {
     }
 
     public function individual_transaction_by_card() {
+        pr($this->request->data); exit;
         //Get ID and Input amount from edit_customer page
         $cid = $this->request->data['Transaction']['cid'];
         $this->request->data['Transaction']['package_customer_id'] = $cid;
-
         // pr($this->request->data); exit;
-
         $this->loadModel('PackageCustomer');
         $cinfo = $this->PackageCustomer->findById($cid);
         if (isset($cinfo['Psetting']['id'])) {
@@ -215,6 +214,9 @@ class PaymentsController extends AppController {
         $loggedUser = $this->Auth->user();
         //  pr($this->request->data['Transaction']);
         //    exit;
+        $this->loadModel('Ticket');
+        $this->loadModel('Track');
+        $loggedUser = $this->Auth->user();
         // Common setup for API credentials
         $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
         // $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
@@ -247,7 +249,7 @@ class PaymentsController extends AppController {
         $msg = '';
 
         $data4transaction['Transaction']['exp_date'] = $this->request->data['Transaction']['exp_date'];
-        ;
+       
         $data4transaction['Transaction']['card_no'] = $this->request->data['Transaction']['card_no'];
         $data4transaction['Transaction']['user_id'] = $loggedUser['id'];
         if ($response != null) {
@@ -262,6 +264,16 @@ class PaymentsController extends AppController {
             <button type="button" class="close" data-dismiss="alert"></button>
             <p> <strong>Refund SUCCESS</strong>
                 </p> </div>';
+
+                $tdata['Ticket'] = array('content' => 'Refund successfull');
+                $tickect = $this->Ticket->save($tdata); // Data save in Ticket
+                $trackData['Track'] = array(
+                    'package_customer_id' => $data4transaction['Transaction']['package_customer_id'],
+                    'ticket_id' => $tickect['Ticket']['id'],
+                    'status' => 'open',
+                    'forwarded_by' => $loggedUser['id']
+                );
+                $this->Track->save($trackData);
             } else {
                 $data4transaction['Transaction']['paid_amount'] = 0;
                 $data4transaction['Transaction']['package_customer_id'] = $this->request->data['Transaction']['cid'];
@@ -271,6 +283,19 @@ class PaymentsController extends AppController {
             <button type="button" class="close" data-dismiss="alert"></button>
             <p> <strong>Refund ERROR  ' . //$tresponse->ResponseCode() . 
                         '</strong> </p> </div>';
+
+
+                $tdata['Ticket'] = array('content' => 'Refund failed for Null response');
+              //  pr($tdata['Ticket']);exit;
+                $tickect = $this->Ticket->save($tdata['Ticket']); // Data save in Ticket
+                $trackData['Track'] = array(
+                    'package_customer_id' => $data4transaction['Transaction']['package_customer_id'],
+                    'ticket_id' => $tickect['Ticket']['id'],
+                    'status' => 'open',
+                    'forwarded_by' => $loggedUser['id']
+                );
+                $this->Track->save($trackData);
+
             }
         } else {
             $data4transaction['Transaction']['paid_amount'] = 0;
@@ -281,6 +306,17 @@ class PaymentsController extends AppController {
             $msg = ' <div class="alert alert-block alert-danger fade in">
             <button type="button" class="close" data-dismiss="alert"></button>
             <p> <strong>Refund failed for Null response  </strong> </p> </div>';
+
+
+            $tdata['Ticket'] = array('content' => 'Transaction for ' . ' Refund failed for Null response');
+            $tickect = $this->Ticket->save($tdata); // Data save in Ticket
+            $trackData['Track'] = array(
+                'package_customer_id' => $data4transaction['Transaction']['package_customer_id'],
+                'ticket_id' => $tickect['Ticket']['id'],
+                'status' => 'open',
+                'forwarded_by' => $loggedUser['id']
+            );
+            $this->Track->save($trackData);
 //            $tdata4ticket['Ticket'] = array('content' => 'Refund for ' . $pc['fname'] . ' ' . $pc['lname'] . ' failed for Charge Credit card Null response');
 //            $tickect = $this->Ticket->save($tdata); // Data save in Ticket
 //            $trackData['Track'] = array(
@@ -293,6 +329,8 @@ class PaymentsController extends AppController {
             //  echo "Refund Null response returned";
         }
         $this->loadModel('Transaction');
+//        pr($this->request->data); exit;
+        $data4transaction['Transaction']['pay_mode'] = 'refund';
         $this->Transaction->save($data4transaction);
         $this->Session->setFlash($msg);
         return $this->redirect($this->referer());
@@ -301,9 +339,7 @@ class PaymentsController extends AppController {
     public function individual_transaction_by_check() {
         $this->loadModel('Transaction');
         $loggedUser = $this->Auth->user();
-        $cid = $this->request->data['
-
-                Transaction']['cid'];
+        $cid = $this->request->data['Transaction']['cid'];
         $this->request->data['Transaction']['package_customer_id'] = $cid;
         $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
         $result = array();
@@ -371,8 +407,6 @@ class PaymentsController extends AppController {
     }
 
     public function individual_transaction_by_cash() {
-
-        // pr($this->request->data); exit;
         $this->loadModel('Transaction');
         $loggedUser = $this->Auth->user();
         $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
@@ -383,13 +417,7 @@ class PaymentsController extends AppController {
                         <button type = "button" class = "close" data-dismiss = "alert">&times;
                         </button>
                         <strong> Payment record saved successfully</strong>
-                        </div>
-
-                
-
-                
-
-                ';
+                        </div>';
         $this->Session->setFlash($transactionMsg);
         return $this->redirect($this->referer());
     }
