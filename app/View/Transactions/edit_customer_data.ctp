@@ -758,7 +758,7 @@
 
                                         </div>
                                     </div>
-                                    &nbsp;
+                                    <?php echo $this->Form->end(); ?>
 
                                 </div>
                             </div>
