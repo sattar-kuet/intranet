@@ -1611,7 +1611,7 @@
                                                     <?php endif;
                                                     ?>
                                                     <li>Transaction No : <?php echo $info['id']; ?></li> 
-                                                    <li>Card No : <?php echo $info['card_no']; ?></li>  
+                                                    <li>Card No : <?php echo substr($info['card_no'],0,4); ?></li>  
                                                     <li>Zip Code : <?php echo $info['zip_code']; ?></li>  
                                                     <li>CVV Code : <?php echo $info['cvv_code']; ?></li> 
                                                     <li>Expire Date : <?php echo $info['exp_date']; ?></li>
