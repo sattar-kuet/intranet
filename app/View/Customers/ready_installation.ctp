@@ -56,13 +56,14 @@
                 </div>
                 <div class="col-xs-2 invoice-payment">
                     <div style="text-align: left;">
-
+                        
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-12">
                     <table class="table table-striped table-hover">
+                         <?php echo $this->Session->flash(); ?>
                         <thead>
                             <tr>
                                 <th class="hidden-480">
@@ -100,9 +101,9 @@
 
                                     <td>
                                         <a href="<?php
-                            echo Router::url(array('controller' => 'customers',
-                                'action' => 'edit_registration', $results['customers']['id']))
-                                ?>" 
+                                        echo Router::url(array('controller' => 'customers',
+                                            'action' => 'edit_registration', $results['customers']['id']))
+                                        ?>" 
                                            target="_blank">
                                                <?php
                                                echo $results['customers']['first_name'] . " " .
@@ -145,84 +146,83 @@
                                         </ul>
                                     </td>
                                     <td>
-                                         <div class="controls center text-center">
-                                        <a 
-                                            href="#" title="Shedule">
-                                            <span id="<?php echo $results['customers']['id']; ?>" class="fa fa-clock-o fa-lg shedule"></span>
-                                        </a> 
-                                        <div id="shedule_dialog<?php echo $results['customers']['id']; ?>" class="portlet-body form" style="display: none;">
-                                            <!-- BEGIN FORM-->
-                                            <?php
-                                            echo $this->Form->create('PackageCustomer', array(
-                                                'inputDefaults' => array(
-                                                    'label' => false,
-                                                    'div' => false
-                                                ),
-                                                'id' => 'form_sample_3',
-                                                'class' => 'form-horizontal',
-                                                'novalidate' => 'novalidate',
-                                                'url' => array('controller' => 'customers', 'action' => 'shedule_assian')
-                                                    )
-                                            );
-                                            ?>
+                                        <div class="controls center text-center">
+                                            <a 
+                                                href="#" title="Shedule">
+                                                <span id="<?php echo $results['customers']['id']; ?>" class="fa fa-clock-o fa-lg shedule"></span>
+                                            </a> 
+                                            <div id="shedule_dialog<?php echo $results['customers']['id']; ?>" class="portlet-body form" style="display: none;">
+                                                <!-- BEGIN FORM-->
+                                                <?php
+                                                echo $this->Form->create('PackageCustomer', array(
+                                                    'inputDefaults' => array(
+                                                        'label' => false,
+                                                        'div' => false
+                                                    ),
+                                                    'id' => 'form_sample_3',
+                                                    'class' => 'form-horizontal',
+                                                    'novalidate' => 'novalidate',
+                                                    'url' => array('controller' => 'customers', 'action' => 'shedule_assian')
+                                                        )
+                                                );
+                                                ?>
 
-                                            <?php
-                                            echo $this->Form->input('id', array(
-                                                'type' => 'hidden',
-                                                'value' => $results['customers']['id'],
-                                                    )
-                                            );
-                                            ?>
-                                            <div class="form-body">
-                                                <div class="alert alert-danger display-hide">
-                                                    <button class="close" data-close="alert"></button>
-                                                    You have some form errors. Please check below.
-                                                </div>
-                                                <?php echo $this->Session->flash(); ?>
+                                                <?php
+                                                echo $this->Form->input('id', array(
+                                                    'type' => 'hidden',
+                                                    'value' => $results['customers']['id'],
+                                                        )
+                                                );
+                                                ?>
+                                                <div class="form-body">
+                                                    <div class="alert alert-danger display-hide">
+                                                        <button class="close" data-close="alert"></button>
+                                                        You have some form errors. Please check below.
+                                                    </div>
+                                                   
 
-                                                <div class="form-group">
                                                     <div class="form-group">
-                                                        <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <div class="col-md-12">
+                                                                <?php
+                                                                echo $this->Form->input('technician_id', array(
+                                                                    'type' => 'select',
+                                                                    'options' => $technician,
+                                                                    'empty' => 'Select Technician',
+                                                                    'class' => 'form-control select2me required',
+                                                                        )
+                                                                );
+                                                                ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>                                               
+                                                </div>
+                                                <div class="form-group">                                
+
+                                                    <div class="col-md-4">
+                                                        <?php
+                                                        echo $this->Form->input(
+                                                                'daterange', array(
+                                                            'class' => 'span9 text required e3'
+                                                        ));
+                                                        ?>
+                                                    </div>
+                                                </div>
+                                                <div class="form-actions">
+                                                    <div class="row">
+                                                        <div class="col-md-offset-7 col-md-4">
                                                             <?php
-                                                            echo $this->Form->input('technician_id', array(
-                                                                'type' => 'select',
-                                                                'options' => $technician,
-                                                                'empty' => 'Select From Existing admins panel user',
-                                                                'class' => 'form-control select2me required',
-                                                                    )
+                                                            echo $this->Form->button(
+                                                                    'Submit', array('class' => 'btn green', 'type' => 'submit')
                                                             );
                                                             ?>
                                                         </div>
                                                     </div>
-                                                </div>                                               
-                                            </div>
-                                            <div class="form-group">                                
-                                               
-                                                <div class="col-md-4">
-                                                    <?php
-                                                    echo $this->Form->input(
-                                                            'daterange', array(
-                                                        'class' => 'span9 text required dateRange'
-                                                            )
-                                                    );
-                                                    ?>
                                                 </div>
+                                                <?php echo $this->Form->end(); ?>
+                                                <!-- END FORM-->
                                             </div>
-                                            <div class="form-actions">
-                                                <div class="row">
-                                                    <div class="col-md-offset-7 col-md-4">
-                                                        <?php
-                                                        echo $this->Form->button(
-                                                                'Submit', array('class' => 'btn green', 'type' => 'submit')
-                                                        );
-                                                        ?>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <?php echo $this->Form->end(); ?>
-                                            <!-- END FORM-->
                                         </div>
-                                       </div>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>                           

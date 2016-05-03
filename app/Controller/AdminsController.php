@@ -378,14 +378,12 @@ class AdminsController extends AppController {
 
     function changeservice($id = null) {
         $this->loadModel('PackageCustomer');
-//         pr($this->request->data); exit;
         if ($this->request->data['PackageCustomer']['status'] == 'ticket') {
             return $this->redirect('/tickets/create/' . $this->request->data['PackageCustomer']['id']);
         }
         if ($this->request->data['PackageCustomer']['status'] == 'repair') {
-//            pr('here'); exit;
             //return $this->redirect('/transactions/expire_customer/' . $this->request->data['PaidCustomer']['id']);
-            return $this->redirect('/customers/ready_installation/' . $this->request->data['PackageCustomer']['id']);
+            return $this->redirect('/customers/repair/' . $this->request->data['PackageCustomer']['id']);
         }
         if ($this->request->data['PackageCustomer']['status'] == 'payment') {
             //return $this->redirect('/transactions/expire_customer/' . $this->request->data['PaidCustomer']['id']);
