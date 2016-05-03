@@ -882,7 +882,9 @@
                                                                     ?>
                                                                 </div>
                                                             </div>
-<br/>
+
+                                                            </br>
+
                                                             <div class="row">
                                                                 <div class="col-md-3 signupfont" style="padding-right: 0px;">
                                                                     Card no: 
@@ -1433,7 +1435,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="portlet-body form">
+                <div class="portlet-body">
                     <div class="row display-hide" id="refund"> 
 
                         <?php
@@ -1465,7 +1467,7 @@
                             ));
                             ?>
                             <div class="col-md-12">
-                                <div class="form-group">
+                        <div class="form-group">
                                     <label class="control-label col-md-3">Transaction Number<span class="required">
                                         </span>
                                     </label>
@@ -1494,6 +1496,7 @@
                                         );
                                         ?>
                                     </div>
+
                                 </div>
                                 <div class="form-group">
 
@@ -1539,6 +1542,7 @@
                                         );
                                         ?>
                                     </div>
+
                                 </div>
                             </div>
                             <div class="form-actions">
