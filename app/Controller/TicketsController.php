@@ -18,6 +18,7 @@ class TicketsController extends AppController {
     }
 
     function create($customer_id = null) {
+      
         if ($customer_id == null) {
             $this->redirect('/admins/servicemanage');
         }
@@ -30,6 +31,7 @@ class TicketsController extends AppController {
         $this->loadModel('Issue');
         $this->loadModel('TicketDepartment');
         if ($this->request->is('post')) {
+             pr($this->request->data); exit;
             $this->Ticket->set($this->request->data);
             if ($this->Ticket->validates()) {
                 if (empty($this->request->data['Ticket']['user_id']) && empty($this->request->data['Ticket']['role_id'])) {
