@@ -689,10 +689,10 @@
                                                                     </p>
                                                                     <table class="btn green" align="right">
                                                                         <tr>
-                                                                            <td style="border: 0;font-family: &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif;font-size: 14px;text-align: center;vertical-align: middle;background: #35aa47 !important;padding: 7px 14px !important;color: #333333 !important;">
-                                                                                <a target="_blank" href="http://jegeachi.com/PFES" style="display: block;color: #fff;">
+                                                                            <!--<td style="border: 0;font-family: &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif;font-size: 14px;text-align: center;vertical-align: middle;background: #35aa47 !important;padding: 7px 14px !important;color: #333333 !important;">-->
+                                                                                <!--<a target="_blank" href="http://jegeachi.com/PFES" style="display: block;color: #fff;">-->
                                                                                     Learn more about PFES </a>
-                                                                            </td>
+                                                                            <!--</td>-->
                                                                         </tr>
                                                                     </table>
                                                                 </td>

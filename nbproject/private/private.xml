@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+<<<<<<< HEAD
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/Controller/TransactionsController.php</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/Controller/PaymentsController.php</file>
+=======
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
@@ -16,6 +23,7 @@
             <file>file:/D:/Server/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
             <file>file:/D:/Server/htdocs/intranet/app/Controller/TransactionsController.php</file>
 >>>>>>> e07691a8242a656c2f0a25c978495dee7d6a6197
+>>>>>>> 528c666833d607a2e9f403b70fe0158d3b9c39f7
         </group>
     </open-files>
 </project-private>
