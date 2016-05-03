@@ -130,7 +130,7 @@
                                         <?php
                                         echo $this->Form->input('priority', array(
                                             'type' => 'select',
-                                            'options' => array('reday ' => 'Reday to Installation', 'shipment' => 'Shipment', 'refferd by dealer ' => 'Refferd by Dealer'),
+                                            'options' => array('reday ' => 'Reday to Installation', 'shipment' => 'Shipment', 'refferd by dealer ' => 'Refferd by Dealer','solved ' => "It's Solved"),
                                             'empty' => 'Select Action',
                                             'class' => 'form-control select2me ',
                                                 )
