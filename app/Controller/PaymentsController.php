@@ -65,6 +65,7 @@ class PaymentsController extends AppController {
     }
 
     public function individual_transaction_by_card() {
+        pr($this->request->data); exit;
         //Get ID and Input amount from edit_customer page
         $cid = $this->request->data['Transaction']['cid'];
         $this->request->data['Transaction']['package_customer_id'] = $cid;
@@ -210,7 +211,7 @@ class PaymentsController extends AppController {
     }
 
     function refundTransaction() {
-
+        $loggedUser = $this->Auth->user();
         //  pr($this->request->data['Transaction']);
         //    exit;
         $this->loadModel('Ticket');
@@ -248,8 +249,9 @@ class PaymentsController extends AppController {
         $msg = '';
 
         $data4transaction['Transaction']['exp_date'] = $this->request->data['Transaction']['exp_date'];
-        ;
+       
         $data4transaction['Transaction']['card_no'] = $this->request->data['Transaction']['card_no'];
+        $data4transaction['Transaction']['user_id'] = $loggedUser['id'];
         if ($response != null) {
             $tresponse = $response->getTransactionResponse();
             //pr($tresponse); exit;
@@ -282,6 +284,7 @@ class PaymentsController extends AppController {
             <p> <strong>Refund ERROR  ' . //$tresponse->ResponseCode() . 
                         '</strong> </p> </div>';
 
+
                 $tdata['Ticket'] = array('content' => 'Refund failed for Null response');
               //  pr($tdata['Ticket']);exit;
                 $tickect = $this->Ticket->save($tdata['Ticket']); // Data save in Ticket
@@ -292,6 +295,7 @@ class PaymentsController extends AppController {
                     'forwarded_by' => $loggedUser['id']
                 );
                 $this->Track->save($trackData);
+
             }
         } else {
             $data4transaction['Transaction']['paid_amount'] = 0;

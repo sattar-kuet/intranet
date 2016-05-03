@@ -758,7 +758,7 @@
 
                                         </div>
                                     </div>
-                                    &nbsp;
+                                    <?php echo $this->Form->end(); ?>
 
                                 </div>
                             </div>
@@ -846,6 +846,13 @@
                                                                 'value' => $this->params['pass'][0]
                                                             ));
                                                             ?>
+                                                            <?php
+                                                            echo $this->Form->input(
+                                                                    'pay_mode', array(
+                                                                'type' => 'hidden',
+                                                                'value' => 'card'
+                                                            ));
+                                                            ?>
                                                             <br>
                                                             <div class="row">
 
@@ -875,24 +882,9 @@
                                                                     ?>
                                                                 </div>
                                                             </div>
-                                                            &nbsp;
-                                                            <div class="row">
-                                                                <div class="col-md-3 signupfont" style="padding-right: 0px;">
-                                                                    Full Name:
-                                                                </div>
-                                                                <div class="col-md-9">
-                                                                    <?php
-                                                                    echo $this->Form->input(
-                                                                            'card_no', array(
-                                                                        'type' => 'text',
-                                                                        'value' => '',
-                                                                        'class' => 'form-control input-sm required',
-                                                                        'id' => 'card_number',
-                                                                    ));
-                                                                    ?>
-                                                                </div>
-                                                            </div>
-                                                            &nbsp;
+
+                                                            </br>
+
                                                             <div class="row">
                                                                 <div class="col-md-3 signupfont" style="padding-right: 0px;">
                                                                     Card no: 
@@ -1443,7 +1435,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="portlet-body form">
+                <div class="portlet-body">
                     <div class="row display-hide" id="refund"> 
 
                         <?php
@@ -1459,6 +1451,13 @@
                                 )
                         );
                         ?>
+                        <?php
+                        echo $this->Form->input(
+                                'pay_mode', array(
+                            'type' => 'hidden',
+                            'value' => 'refund'
+                        ));
+                        ?>
                         <div class="form-body">
                             <?php
                             echo $this->Form->input(
@@ -1468,7 +1467,7 @@
                             ));
                             ?>
                             <div class="col-md-12">
-                                <div class="form-group">
+                        <div class="form-group">
                                     <label class="control-label col-md-3">Transaction Number<span class="required">
                                         </span>
                                     </label>
@@ -1497,6 +1496,7 @@
                                         );
                                         ?>
                                     </div>
+
                                 </div>
                                 <div class="form-group">
 
@@ -1542,6 +1542,7 @@
                                         );
                                         ?>
                                     </div>
+
                                 </div>
                             </div>
                             <div class="form-actions">
@@ -1611,7 +1612,7 @@
                                                     <?php endif;
                                                     ?>
                                                     <li>Transaction No : <?php echo $info['id']; ?></li> 
-                                                    <li>Card No : <?php echo substr($info['card_no'],0,4); ?></li>  
+                                                    <li>Card No : <?php echo substr($info['card_no'], 0, 4); ?></li>  
                                                     <li>Zip Code : <?php echo $info['zip_code']; ?></li>  
                                                     <li>CVV Code : <?php echo $info['cvv_code']; ?></li> 
                                                     <li>Expire Date : <?php echo $info['exp_date']; ?></li>
