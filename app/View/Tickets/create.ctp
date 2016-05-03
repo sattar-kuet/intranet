@@ -121,6 +121,24 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Others Action 
+                                </label>
+                                <div class="form-group">
+
+                                    <div class="col-md-4">
+                                        <?php
+                                        echo $this->Form->input('priority', array(
+                                            'type' => 'select',
+                                            'options' => array('reday ' => 'Reday to Installation', 'shipment' => 'Shipment', 'refferd by dealer ' => 'Refferd by Dealer'),
+                                            'empty' => 'Select Action',
+                                            'class' => 'form-control select2me ',
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
                                                                                     
                             <div class="form-group">
                                 <label class="control-label col-md-3">Ticket Details 
