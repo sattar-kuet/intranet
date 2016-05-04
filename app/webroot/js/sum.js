@@ -170,6 +170,21 @@ $(document).ready(function (){
 
 // end Additional info 
 
+// start Additional info 
+$(document).ready(function (){
+    $('#dealer').click(function (){
+       if($(this).is(":checked")){
+           $('#dshow').show();
+       }
+        else{
+           $('#dshow').hide();  
+        } 
+    });
+    
+});
+
+// end Additional info 
+
 //blink strat shipment
 function blinker() {
     $('.blink_me').fadeOut(500);

@@ -653,10 +653,10 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-2 blink_me" style="color: red">Follow this Customer<span class="required">
+                                <label class="control-label col-md-2 blink_me" style="color: red">Follow up this Customer<span class="required">
                                     </span>
                                 </label>
-                                <div class="col-md-2">
+                                <div class="col-md-1">
                                     <div class="checkbox-list">
                                         <label>
                                             <?php
@@ -675,7 +675,7 @@
                                 </div>
                                 <div id="Additional_info" style="display: none" >
 
-                                    <label class="control-label col-md-2">Follow up date<span class="required">
+                                    <label class="control-label col-md-1">Date<span class="required">
                                         </span>
                                     </label>
                                     <div class="col-md-2">
@@ -692,6 +692,44 @@
 
                                 </div>
                             </div>
+                            
+                            <div class="form-group">
+                                <label class="control-label col-md-2 blink_me" style="color: red">Dealer<span class="required">
+                                    </span>
+                                </label>
+                                <div class="col-md-1">
+                                    <div class="checkbox-list">
+                                        <label>
+                                            <?php
+                                            echo $this->Form->input(
+                                                    'dealer', array(
+                                                'type' => 'checkbox', 
+                                                'id' => 'dealer',
+                                                    )
+                                            );
+                                            ?>
+
+                                        </label>
+
+                                    </div>
+                                </div>
+                                <div id="dshow" style="display: none" >
+                                    <label class="control-label col-md-1">Name<span class="required">
+                                        </span>
+                                    </label>
+                                    <div class="col-md-2">
+                                        <?php
+                                        echo $this->Form->input(
+                                                'dealer', array(
+                                            'class' => 'form-control ',
+                                            'type' => 'text'
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="form-group">
                                 <label class="control-label col-md-2">Comment<span class="required">
                                     </span>
