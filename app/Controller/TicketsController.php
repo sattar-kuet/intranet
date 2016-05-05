@@ -56,10 +56,13 @@ class TicketsController extends AppController {
                     'ticket_id' => $tickect['Ticket']['id'],
                     'forwarded_by' => $loggedUser['id']
                 );
+               
                 if (trim($this->request->data['Ticket']['action_type']) == 'solved') {
                     $trackData['Track']['status'] = 'solved';
                 }
-                if (trim($this->request->data['Ticket']['action_type']) == 'ready') {
+                //pr($this->request->data['Ticket']['action_type']); exit;
+                if (trim($this->request->data['Ticket']['action_type']) == "ready") {
+                   // echo 'here'; exit;
                     $this->PackageCustomer->id = $customer_id;
                     $this->PackageCustomer->saveField("status", "old_ready");
                 }
