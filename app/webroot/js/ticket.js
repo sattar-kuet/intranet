@@ -1,7 +1,7 @@
 
 
 $(document).ready(function () {
-     $(".comment_ticket").click(function (e) {
+    $(".comment_ticket").click(function (e) {
         var id = $(this).attr('id');
         var forwardForm = "#comment_dialog" + id;
         $('#forward_dialog' + id).hide();
@@ -39,9 +39,9 @@ $(document).ready(function () {
         $(forwardForm).toggle();
         e.preventDefault();
     });
-    
-    
-    
+
+
+
 //end tracks dialog box design
 
     $(".done").click(function (e) {
@@ -86,6 +86,23 @@ $(document).ready(function () {
             sum += +$(this).val();
         });
         $(".total").val(sum);
+    });
+
+    $("#action_type").change(function () {
+        var selected = $(this).val().trim();
+        
+        if (selected == 'solved') {
+            $('.assign_single').hide();
+            $('.assign_group').hide();
+            $('.priority .priority_input').removeClass('required');
+            $('.priority').hide();
+        }
+        else {
+            $('.assign_single').hide();
+            $('.assign_group').hide();
+            $('.priority .priority_input').addClass('required');
+            $('.priority').show();
+        }
     });
 
 

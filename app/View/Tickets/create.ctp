@@ -43,8 +43,8 @@
                                 You have some form errors. Please check below.
                             </div>
                             <?php echo $this->Session->flash(); ?>                            
-                            
-                             
+
+
 
                             <div class="form-group">
                                 <label class="control-label col-md-3">Select Issue<span class="required">
@@ -65,34 +65,37 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="form-group">
-                                <label class="control-label col-md-3">Others Action 
+                                <label class="control-label col-md-3">Select Action 
                                 </label>
                                 <div class="form-group">
-
                                     <div class="col-md-4">
                                         <?php
                                         echo $this->Form->input('action_type', array(
                                             'type' => 'select',
-                                            'options' => array('reday ' => 'Reday to Installation', 'shipment' => 'Shipment', 'refferd' => 'Refferd by Dealer','solved ' => "It's Solved"),
+                                            'options' => array(
+                                                'reday ' => 'Reday to Installation',
+                                                'shipment' => 'Shipment',
+                                                'solved ' => "It's Solved"
+                                            ),
                                             'empty' => 'Select Action',
                                             'class' => 'form-control select2me ',
+                                            'id' =>'action_type'
                                                 )
                                         );
                                         ?>
                                     </div>
                                 </div>
                             </div>
-                            
-                            <div class="form-group">
+
+                            <div class="form-group assign_single">
                                 <label class="control-label col-md-3">Assign to (individual)
                                 </label>
                                 <div class="form-group">
 
                                     <div class="col-md-4">
                                         <?php
-                                       
                                         echo $this->Form->input('user_id', array(
                                             'type' => 'select',
                                             'options' => $users,
@@ -104,7 +107,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group assign_group">
                                 <label class="control-label col-md-3">Assign to (Department)
                                 </label>
                                 <div class="form-group">
@@ -122,7 +125,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group priority">
                                 <label class="control-label col-md-3">Select Priority<span class="required">
                                         * </span>
                                 </label>
@@ -134,15 +137,15 @@
                                             'type' => 'select',
                                             'options' => array('low' => 'Low', 'medium' => 'Medium', 'high' => 'High'),
                                             'empty' => 'Select Priority',
-                                            'class' => 'form-control select2me required pclass',
+                                            'class' => 'form-control select2me required priority_input',
                                                 )
                                         );
                                         ?>
                                     </div>
                                 </div>
                             </div>
-                            
-                                                                                    
+
+
                             <div class="form-group">
                                 <label class="control-label col-md-3">Ticket Details 
                                 </label>
