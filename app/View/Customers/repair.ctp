@@ -195,7 +195,7 @@
                                                                 echo $this->Form->input('technician_id', array(
                                                                     'type' => 'select',
                                                                     'options' => $technician,
-                                                                    'empty' => 'Select technician',
+                                                                    'empty' => 'Select Technician',
                                                                     'class' => 'form-control select2me required',
                                                                         )
                                                                 );

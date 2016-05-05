@@ -13,7 +13,6 @@
                     <a id="btnclick" class="btn btn-lg blue hidden-print margin-bottom-5" target="_blank" onclick="printDiv('printableArea')">
                         Print <i class="fa fa-print"></i>
                     </a>
-
                 </div>
             </div>
         </div>
@@ -56,18 +55,21 @@
                 </div>
                 <div class="col-xs-2 invoice-payment">
                     <div style="text-align: left;">
-                        
+
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-12">
                     <table class="table table-striped table-hover">
-                         <?php echo $this->Session->flash(); ?>
+                        <?php echo $this->Session->flash(); ?>
                         <thead>
                             <tr>
                                 <th class="hidden-480">
                                     Name
+                                </th>
+                                <th class="hidden-480">
+                                    Customer Type
                                 </th>
                                 <th class="hidden-480">
                                     Address
@@ -98,7 +100,6 @@
                                 $customer = $results['customers'];
                                 ?>
                                 <tr>
-
                                     <td>
                                         <a href="<?php
                                         echo Router::url(array('controller' => 'customers',
@@ -111,6 +112,15 @@
                                                $results['customers']['last_name'];
                                                ?>
                                         </a> 
+                                    </td>
+                                    <td class="hidden-480">  
+                                        <?php
+                                        if ($results['customers']['status'] == 'ready') {
+                                            echo "New";
+                                        } else {
+                                            echo "Old";
+                                        }
+                                        ?>                     
                                     </td>
                                     <td class="hidden-480">
                                         <?php echo $results['customers']['address']; ?>                            
@@ -179,8 +189,6 @@
                                                         <button class="close" data-close="alert"></button>
                                                         You have some form errors. Please check below.
                                                     </div>
-                                                   
-
                                                     <div class="form-group">
                                                         <div class="form-group">
                                                             <div class="col-md-12">
@@ -197,8 +205,7 @@
                                                         </div>
                                                     </div>                                               
                                                 </div>
-                                                <div class="form-group">                                
-
+                                                <div class="form-group">                               
                                                     <div class="col-md-4">
                                                         <?php
                                                         echo $this->Form->input(

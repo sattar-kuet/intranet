@@ -126,7 +126,7 @@ class CustomersController extends AppController {
 
             $dateObj = $this->request->data['PackageCustomer']['exp_date'];
             $this->request->data['PackageCustomer']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
-
+//            pr($this->request->data); exit;
             $pc = $this->PackageCustomer->save($this->request->data['PackageCustomer']);
 //            data for comment
             $comment['Comment']['package_customer_id'] = $pc['PackageCustomer']['id'];
@@ -240,9 +240,9 @@ class CustomersController extends AppController {
                 " WHERE package_customers.id = '" . $id . "'";
         $temp = $this->PackageCustomer->query($sql);
         $ym = $this->getYm();
-       
-     
-        
+
+
+
         $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge', 'latestcardInfo'));
         //*************** End Package List ****************************************************************************************
         $ym = $this->getYm();
@@ -332,7 +332,7 @@ class CustomersController extends AppController {
                     left join users u on c.user_id = u.id
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
-                    WHERE pc.status = 'ready' OR (pc.follow_up=0 AND pc.status ='requested')");
+                    WHERE pc.status = 'ready' OR pc.status = 'old_ready' OR (pc.follow_up=0 AND pc.status ='requested')");
         // echo $sql; exit;
         $filteredData = array();
         $unique = array();
@@ -390,9 +390,9 @@ class CustomersController extends AppController {
 
         $this->set(compact('filteredData', 'technician'));
     }
-    
-     function repair($id=null) {
-       
+
+    function repair($id = null) {
+
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
         $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
@@ -459,7 +459,6 @@ class CustomersController extends AppController {
         $this->set(compact('filteredData', 'technician'));
     }
 
-
     function box_change($id = null) {
         $this->loadModel('PackageCustomer');
         $this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
@@ -477,7 +476,7 @@ class CustomersController extends AppController {
         $this->Session->setFlash($msg);
         return $this->redirect($this->referer());
     }
-    
+
     function done($id = null) {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Comment');
@@ -512,7 +511,8 @@ class CustomersController extends AppController {
 
         $this->request->data['PackageCustomer']['from'] = $datrange['start'];
         $this->request->data['PackageCustomer']['to'] = $datrange['end'];
-
+        $loggedUser = $this->Auth->user();
+        $this->request->data['PackageCustomer']['user_id'] = $loggedUser['id'];
         $this->PackageCustomer->save($this->request->data);
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
