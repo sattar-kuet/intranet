@@ -65,7 +65,7 @@ class PaymentsController extends AppController {
     }
 
     public function individual_transaction_by_card() {
-     //   pr($this->request->data); exit;
+        //   pr($this->request->data); exit;
         //Get ID and Input amount from edit_customer page
         $cid = $this->request->data['Transaction']['cid'];
         $this->request->data['Transaction']['package_customer_id'] = $cid;
@@ -100,9 +100,9 @@ class PaymentsController extends AppController {
         $msg = '<ul>';
         //foreach ($pcustomers as $pcustomer):
         $pc = $this->request->data['Transaction'];
-        // pr($pc); exit;
+
         $creditCard->setCardNumber($pc['card_no']); // testing
-        $creditCard->setExpirationDate($pc['exp_date']); // testing
+        $creditCard->setExpirationDate($pc['exp_date']); // testing 
         //     $creditCard->setCardNumber("4117733943147221"); // live
         //  $creditCard->setExpirationDate("07-2019"); //live
         $paymentOne = new AnetAPI\PaymentType();
@@ -111,12 +111,32 @@ class PaymentsController extends AppController {
         $billto = new AnetAPI\CustomerAddressType();
         $billto->setFirstName($pc['fname']);
         $billto->setLastName($pc['lname']);
-        // $billto->setCompany("Souveniropolis");
-        //$billto->setAddress("14 Main Street");
-        //$billto->setCity("Pecan Springs");
-        //$billto->setState("TX");
+        $billto->setAddress($pc['address']);
+        $billto->setCity($pc['city']);
+        $billto->setState($pc['state']);
         $billto->setZip($pc['zip_code']);
-        //$billto->setCountry("USA");
+        $billto->setCountry($pc['country']);
+        $billto->setPhoneNumber($pc['phone']);
+        
+        // Customer info 
+        $customer = new AnetAPI\CustomerDataType();
+        $customer->setEmail($pc['email']);
+        
+             // Order info
+        $order = new AnetAPI\OrderType();
+        $order->setInvoiceNumber($pc['invoice']);
+        $order->setDescription($pc['description']);
+        
+        //Ship To Info
+        $shipto = new AnetAPI\NameAndAddressType();
+        $shipto->setFirstName($pc['sfname']);
+        $shipto->setLastName($pc['slname']);
+//        $shipto->setCompany('');
+        $shipto->setAddress($pc['saddress']);
+        $shipto->setCity($pc['scity']);
+        $shipto->setState($pc['sstate']);
+        $shipto->setZip($pc['szip_code']);
+        $shipto->setCountry($pc['scountry']);
 //        $customerProfile = new AnetAPI\createCustomerPaymentProfileRequest();
 //        $customerProfile->cardNumber($pc['card_no']);
 //        $customerProfile->billToFirstName($pc['fname']);
@@ -249,7 +269,7 @@ class PaymentsController extends AppController {
         $msg = '';
 
         $data4transaction['Transaction']['exp_date'] = $this->request->data['Transaction']['exp_date'];
-       
+
         $data4transaction['Transaction']['card_no'] = $this->request->data['Transaction']['card_no'];
         $data4transaction['Transaction']['user_id'] = $loggedUser['id'];
         if ($response != null) {
@@ -286,7 +306,7 @@ class PaymentsController extends AppController {
 
 
                 $tdata['Ticket'] = array('content' => 'Refund failed for Null response');
-              //  pr($tdata['Ticket']);exit;
+                //  pr($tdata['Ticket']);exit;
                 $tickect = $this->Ticket->save($tdata['Ticket']); // Data save in Ticket
                 $trackData['Track'] = array(
                     'package_customer_id' => $data4transaction['Transaction']['package_customer_id'],
@@ -295,7 +315,6 @@ class PaymentsController extends AppController {
                     'forwarded_by' => $loggedUser['id']
                 );
                 $this->Track->save($trackData);
-
             }
         } else {
             $data4transaction['Transaction']['paid_amount'] = 0;
