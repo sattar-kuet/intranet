@@ -65,6 +65,7 @@ class TicketsController extends AppController {
                    // echo 'here'; exit;
                     $this->PackageCustomer->id = $customer_id;
                     $this->PackageCustomer->saveField("status", "old_ready");
+                    $this->PackageCustomer->saveField("comment", "old_ready");
                 }
                 if (trim($this->request->data['Ticket']['action_type']) == 'shipment') {
                     $this->PackageCustomer->id = $customer_id;
