@@ -1,5 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+<<<<<<< HEAD
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="6">
+        <file>
+            <url>app/Controller/TicketsController.php</url>
+            <bookmark id="5">
+                <name/>
+                <line>47</line>
+                <key/>
+            </bookmark>
+            <bookmark id="6">
+                <name/>
+                <line>121</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>app/Controller/CustomersController.php</url>
+            <bookmark id="1">
+                <name/>
+                <line>110</line>
+                <key/>
+            </bookmark>
+            <bookmark id="3">
+                <name/>
+                <line>132</line>
+                <key/>
+            </bookmark>
+            <bookmark id="2">
+                <name/>
+                <line>469</line>
+                <key/>
+            </bookmark>
+            <bookmark id="4">
+                <name/>
+                <line>515</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/xampp/htdocs/intranet/app/Controller/TicketsController.php</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Tickets/create.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/Controller/CustomersController.php</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Customers/ready_installation.ctp</file>
+=======
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>

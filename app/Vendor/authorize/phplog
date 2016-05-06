@@ -2553,3 +2553,33 @@ Mon, 02 May 2016 07:03:20 +0000:Response from AnetApi:
 
 Mon, 02 May 2016 07:03:20 +0000: Response De-Serialization Begin
 Mon, 02 May 2016 07:03:20 +0000: Response De-Serialization End
+Fri, 06 May 2016 08:06:33 +0000: Request Serialization Begin
+Fri, 06 May 2016 08:06:34 +0000: Request  Serialization End
+Fri, 06 May 2016 08:06:34 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Fri, 06 May 2016 08:06:34 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[42UHbr9Qa9B]]></name>
+    <transactionKey><![CDATA[6468X36RkrKGm3k6]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1462521993]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>65</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234]]></cardNumber>
+        <expirationDate><![CDATA[H/H]]></expirationDate>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Fri, 06 May 2016 08:06:34 +0000:Sending http request via Curl
+Fri, 06 May 2016 08:06:36 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:expirationDate' element is invalid - The value 'H/H' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.</text></message></messages></ErrorResponse>
+
+Fri, 06 May 2016 08:06:36 +0000: Response De-Serialization Begin
+Fri, 06 May 2016 08:06:36 +0000: Response De-Serialization End

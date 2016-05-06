@@ -846,7 +846,7 @@
                                                             ?>
                                                             <?php
                                                             echo $this->Form->input(
-                                                                 'pay_mode', array(
+                                                                    'pay_mode', array(
                                                                 'type' => 'hidden',
                                                                 'value' => 'card'
                                                             ));
@@ -1150,7 +1150,7 @@
                                                                 <div class="col-md-3">
                                                                     <?php
                                                                     echo $this->Form->input(
-                                                                            'fname', array(
+                                                                            'sfname', array(        // s add with field first for transaction
                                                                         'type' => 'text',
                                                                         'class' => 'form-control input-sm required',
                                                                         'placeholder' => '',
@@ -1168,7 +1168,7 @@
                                                                 <div class="col-md-3">
                                                                     <?php
                                                                     echo $this->Form->input(
-                                                                            'lname', array(
+                                                                            'slname', array(
                                                                         'type' => 'text',
                                                                         'class' => 'form-control input-sm required',
                                                                         'placeholder' => '',
@@ -1182,7 +1182,7 @@
                                                                 <div class="col-md-3">
                                                                     <?php
                                                                     echo $this->Form->input(
-                                                                            'address', array(
+                                                                            'saddress', array(
                                                                         'type' => 'text',
                                                                         'class' => 'form-control input-sm required',
                                                                         'placeholder' => '',
@@ -1200,7 +1200,7 @@
                                                                 <div class="col-md-3">
                                                                     <?php
                                                                     echo $this->Form->input(
-                                                                            'city', array(
+                                                                            'scity', array(
                                                                         'type' => 'text',
                                                                         'class' => 'form-control input-sm required',
                                                                         'placeholder' => '',
@@ -1214,7 +1214,7 @@
                                                                 <div class="col-md-3">
                                                                     <?php
                                                                     echo $this->Form->input(
-                                                                            'state', array(
+                                                                            'sstate', array(
                                                                         'type' => 'text',
                                                                         'class' => 'form-control input-sm required',
                                                                         'placeholder' => '',
@@ -1233,7 +1233,7 @@
                                                                 <div class="col-md-3">
                                                                     <?php
                                                                     echo $this->Form->input(
-                                                                            'zip_code', array(
+                                                                            'szip_code', array(
                                                                         'type' => 'text',
                                                                         'class' => 'form-control input-sm required',
                                                                         'placeholder' => '',
@@ -1247,7 +1247,7 @@
                                                                 <div class="col-md-3">
                                                                     <?php
                                                                     echo $this->Form->input(
-                                                                            'country', array(
+                                                                            'scountry', array(
                                                                         'type' => 'text',
                                                                         'class' => 'form-control input-sm required',
                                                                         'placeholder' => '',
@@ -1260,7 +1260,7 @@
 
                                                             <?php
                                                             echo $this->Form->input(
-                                                                    'cid', array(
+                                                                    'scid', array(
                                                                 'type' => 'hidden',
                                                                 'value' => $this->params['pass'][0]
                                                             ));
@@ -1680,7 +1680,9 @@
                                                             </div>
                                                             <?php echo $this->Form->end(); ?>
                                                         </div>
+
                                                         <!-- cash payment's End -->
+
                                                     </td>
                                                 </tr>
                                             </tbody>
