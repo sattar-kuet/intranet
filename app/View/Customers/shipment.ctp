@@ -92,7 +92,7 @@
                                         </td>
                                         <td class="hidden-480">  
                                             <?php
-                                            if ($results['customers']['status'] == 'ready') {
+                                            if ($results['customers']['status'] == 1) {
                                                 echo "New";
                                             } else {
                                                 echo "Old";
@@ -123,13 +123,13 @@
 
                                         </td>
                                         <td>
-                                            <?php echo $results['customers']['follow_date']; ?>
+                                            <?php  echo $results['customers']['follow_date']; ?>
                                         </td>
                                         <td>
                                             <ul>
-                                                <?php foreach ($results['comments'] as $comment): ?>
-                                                    <li><?php echo $comment['content']['content'] . ' -By <i>' . $comment['user']['name']; ?> </i></li>
-                                                <?php endforeach; ?>
+                                                <?php if (!empty($results['customers']['comments'])): ?>
+                                                    <li><?php echo $results['customers']['comments'] ?> </li>
+                                                    <?php endif ?>
                                             </ul>
                                         </td>
                                         <td>
