@@ -975,7 +975,7 @@
                                                                 <div class="col-md-3">
                                                                     <?php
                                                                     echo $this->Form->input(
-                                                                            'customer_id', array(
+                                                                            'package_customer_id', array(
                                                                         'type' => 'text',
                                                                         'class' => 'form-control input-sm required',
                                                                         'placeholder' => '',
