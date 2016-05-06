@@ -90,7 +90,12 @@ $(document).ready(function () {
 
     $("#action_type").change(function () {
         var selected = $(this).val().trim();
-        
+        if (selected == '') {
+            $('.assign_single').show();
+            $('.assign_group').show();
+            $('.priority .priority_input').addClass('required');
+            $('.priority').show();
+        }
         if (selected == 'solved') {
             $('.assign_single').hide();
             $('.assign_group').hide();
