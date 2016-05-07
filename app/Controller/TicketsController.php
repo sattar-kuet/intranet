@@ -64,13 +64,15 @@ class TicketsController extends AppController {
                 if (trim($this->request->data['Ticket']['action_type']) == "ready") {
                    // echo 'here'; exit;
                     $this->PackageCustomer->id = $customer_id;
-                    $this->PackageCustomer->saveField("status", "old_ready");
-                    $this->PackageCustomer->saveField("comment", "old_ready");
+                    $data['PackageCustomer'] = array('status'=>'old_ready','comments'=>$this->request->data['Ticket']['content']);
+                   // $this->PackageCustomer->saveField("status", "old_ready");
+                   // $this->PackageCustomer->saveField("comment", "old_ready");
+                    $this->PackageCustomer->save($data);
                 }
                 if (trim($this->request->data['Ticket']['action_type']) == 'shipment') {
                     $this->PackageCustomer->id = $customer_id;
                     $this->PackageCustomer->saveField("shipment", 2);
-                    $this->PackageCustomer->saveField("content", $this->request->data['Ticket']['content']);
+                    $this->PackageCustomer->saveField("comments", $this->request->data['Ticket']['content']);
                 }
                 $this->Track->save($trackData); // Data save in Track
                 $msg = '<div class="alert alert-success">
