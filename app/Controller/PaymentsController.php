@@ -78,7 +78,8 @@ class PaymentsController extends AppController {
             $packagePrice = $cinfo['CustomPackage']['charge'];
         }
         $dateObj = $this->request->data['Transaction']['exp_date'];
-        $this->request->data['Transaction']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
+         $this->request->data['Transaction']['exp_date'] = $dateObj;
+//        $this->request->data['Transaction']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
         //pr($this->request->data['Transaction']);
         $this->layout = 'ajax';
         // Common setup for API credentials  
