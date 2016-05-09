@@ -260,11 +260,13 @@ class TransactionsController extends AppController {
         } else {
             $latestcardInfo = array('trx_id' => '', 'card_no' => '', 'exp_date' => array('year' => $yyyy, 'month' => $mm));
         }
+        $this->loadModel('Transaction');
         $transactions_data = $this->Transaction->query("SELECT * FROM transactions WHERE package_customer_id = $pcid order by id desc limit 0,1;");
+//       pr($transactions_data);   exit;
+        $this->request->data['Transaction'] = $transactions_data['0']['transactions'];
 //        $transactions_data = $this->Transaction->find('all', array('conditions' => array('Transaction.package_customer_id' => $pcid)));
-        pr($transactions_data);
-        exit;
-        $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge', 'latestcardInfo','transactions_data'));
+       
+        $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge', 'latestcardInfo'));
     }
 
     function updatecardinfo($id = null) {

@@ -680,8 +680,7 @@
                                                             'card_no', array(
                                                         'type' => 'text',
                                                         'class' => 'form-control input-sm required',
-                                                        'placeholder' => 'enter number without space',
-                                                        'id' => 'card_number',
+                                                        'placeholder' => 'enter number without space'
                                                     ));
                                                     ?>
                                                 </div>
@@ -694,8 +693,7 @@
                                                             'exp_date', array(
                                                         'type' => 'text',
                                                         'class' => 'form-control input-sm required',
-                                                        'placeholder' => 'mmyy',
-                                                        'id' => 'lastname',
+                                                        'placeholder' => 'mmyy'
                                                     ));
                                                     ?>
                                                 </div>
@@ -711,10 +709,8 @@
                                                     <?php
                                                     echo $this->Form->input(
                                                             'paid_amount', array(
-                                                        'type' => 'text',
-                                                        'value' => '',
-                                                        'class' => 'form-control input-sm required',
-                                                        'id' => 'card_number',
+                                                        'type' => 'number',
+                                                        'class' => 'form-control input-sm required'
                                                     ));
                                                     ?>
                                                 </div>
@@ -726,9 +722,7 @@
                                                     echo $this->Form->input(
                                                             'card_code', array(
                                                         'type' => 'text',
-                                                        'value' => '',
-                                                        'class' => 'form-control input-sm required',
-                                                        'id' => 'card_number',
+                                                        'class' => 'form-control input-sm required'
                                                     ));
                                                     ?>
                                                 </div>
@@ -751,9 +745,7 @@
                                                     echo $this->Form->input(
                                                             'invoice', array(
                                                         'type' => 'text',
-                                                        'value' => '',
-                                                        'class' => 'form-control input-sm required',
-                                                        'id' => 'cvv_code',
+                                                        'class' => 'form-control input-sm required'
                                                     ));
                                                     ?>
                                                 </div>
@@ -765,9 +757,7 @@
                                                     echo $this->Form->input(
                                                             'description', array(
                                                         'type' => 'text',
-                                                        'value' => '',
-                                                        'class' => 'form-control input-sm required',
-                                                        'id' => 'cvv_code',
+                                                        'class' => 'form-control input-sm required'
                                                     ));
                                                     ?>
                                                 </div>
@@ -789,8 +779,7 @@
                                                             'package_customer_id', array(
                                                         'type' => 'text',
                                                         'class' => 'form-control input-sm required',
-                                                        'placeholder' => '',
-                                                        'id' => 'zip_code'
+                                                        'placeholder' => ''
                                                     ));
                                                     ?>
                                                 </div>
@@ -803,8 +792,7 @@
                                                             'fname', array(
                                                         'type' => 'text',
                                                         'class' => 'form-control input-sm required',
-                                                        'placeholder' => '',
-                                                        'id' => 'zip_code'
+                                                        'placeholder' => ''
                                                     ));
                                                     ?>
                                                 </div>
@@ -821,8 +809,7 @@
                                                             'lname', array(
                                                         'type' => 'text',
                                                         'class' => 'form-control input-sm required',
-                                                        'placeholder' => '',
-                                                        'id' => 'zip_code'
+                                                        'placeholder' => ''
                                                     ));
                                                     ?>
                                                 </div>
@@ -835,8 +822,7 @@
                                                             'address', array(
                                                         'type' => 'text',
                                                         'class' => 'form-control input-sm required',
-                                                        'placeholder' => '',
-                                                        'id' => 'zip_code'
+                                                        'placeholder' => ''
                                                     ));
                                                     ?>
                                                 </div>
@@ -853,8 +839,7 @@
                                                             'city', array(
                                                         'type' => 'text',
                                                         'class' => 'form-control input-sm required',
-                                                        'placeholder' => '',
-                                                        'id' => 'zip_code'
+                                                        'placeholder' => ''
                                                     ));
                                                     ?>
                                                 </div>
@@ -867,8 +852,7 @@
                                                             'state', array(
                                                         'type' => 'text',
                                                         'class' => 'form-control input-sm required',
-                                                        'placeholder' => '',
-                                                        'id' => 'zip_code'
+                                                        'placeholder' => ''
                                                     ));
                                                     ?>
                                                 </div>
@@ -886,8 +870,7 @@
                                                             'zip_code', array(
                                                         'type' => 'text',
                                                         'class' => 'form-control input-sm required',
-                                                        'placeholder' => '',
-                                                        'id' => 'zip_code'
+                                                        'placeholder' => ''
                                                     ));
                                                     ?>
                                                 </div>
@@ -900,8 +883,7 @@
                                                             'country', array(
                                                         'type' => 'text',
                                                         'class' => 'form-control input-sm required',
-                                                        'placeholder' => '',
-                                                        'id' => 'zip_code'
+                                                        'placeholder' => ''
                                                     ));
                                                     ?>
                                                 </div>
@@ -919,8 +901,7 @@
                                                             'phone', array(
                                                         'type' => 'text',
                                                         'class' => 'form-control input-sm required',
-                                                        'placeholder' => '',
-                                                        'id' => 'zip_code'
+                                                        'placeholder' => ''
                                                     ));
                                                     ?>
                                                 </div>
@@ -933,8 +914,7 @@
                                                             'email', array(
                                                         'type' => 'text',
                                                         'class' => 'form-control input-sm required',
-                                                        'placeholder' => '',
-                                                        'id' => 'zip_code'
+                                                        'placeholder' => ''
                                                     ));
                                                     ?>
                                                 </div>
@@ -964,8 +944,7 @@
                                                             'sfname', array(// s add with field first for transaction
                                                         'type' => 'text',
                                                         'class' => 'form-control input-sm required',
-                                                        'placeholder' => '',
-                                                        'id' => 'zip_code'
+                                                        'placeholder' => ''
                                                     ));
                                                     ?>
                                                 </div>
@@ -982,8 +961,7 @@
                                                             'slname', array(
                                                         'type' => 'text',
                                                         'class' => 'form-control input-sm required',
-                                                        'placeholder' => '',
-                                                        'id' => 'zip_code'
+                                                        'placeholder' => ''
                                                     ));
                                                     ?>
                                                 </div>
@@ -996,8 +974,7 @@
                                                             'saddress', array(
                                                         'type' => 'text',
                                                         'class' => 'form-control input-sm required',
-                                                        'placeholder' => '',
-                                                        'id' => 'zip_code'
+                                                        'placeholder' => ''
                                                     ));
                                                     ?>
                                                 </div>
@@ -1014,8 +991,7 @@
                                                             'scity', array(
                                                         'type' => 'text',
                                                         'class' => 'form-control input-sm required',
-                                                        'placeholder' => '',
-                                                        'id' => 'zip_code'
+                                                        'placeholder' => ''
                                                     ));
                                                     ?>
                                                 </div>
@@ -1028,8 +1004,7 @@
                                                             'sstate', array(
                                                         'type' => 'text',
                                                         'class' => 'form-control input-sm required',
-                                                        'placeholder' => '',
-                                                        'id' => 'zip_code'
+                                                        'placeholder' => ''
                                                     ));
                                                     ?>
                                                 </div>
@@ -1047,8 +1022,7 @@
                                                             'szip_code', array(
                                                         'type' => 'text',
                                                         'class' => 'form-control input-sm required',
-                                                        'placeholder' => '',
-                                                        'id' => 'zip_code'
+                                                        'placeholder' => ''
                                                     ));
                                                     ?>
                                                 </div>
@@ -1061,8 +1035,7 @@
                                                             'scountry', array(
                                                         'type' => 'text',
                                                         'class' => 'form-control input-sm required',
-                                                        'placeholder' => '',
-                                                        'id' => 'zip_code'
+                                                        'placeholder' => ''
                                                     ));
                                                     ?>
                                                 </div>
@@ -1096,8 +1069,7 @@
                                                     echo $this->Form->button(
                                                             'Reset', array(
                                                         'class' => 'btn btn-primary submitbtn blue-dark',
-                                                        'type' => 'submit',
-                                                        'id' => ''
+                                                        'type' => 'submit'
                                                     ));
                                                     ?>
 
@@ -1216,8 +1188,7 @@
                                                                             'card_no', array(
                                                                         'type' => 'text',
                                                                         'class' => 'form-control input-sm required',
-                                                                        'placeholder' => 'enter number without space',
-                                                                        'id' => 'card_number',
+                                                                        'placeholder' => 'enter number without space'
                                                                     ));
                                                                     ?>
                                                                 </div>
@@ -1230,8 +1201,7 @@
                                                                             'exp_date', array(
                                                                         'type' => 'text',
                                                                         'class' => 'form-control input-sm required',
-                                                                        'placeholder' => 'mmyy',
-                                                                        'id' => 'lastname',
+                                                                        'placeholder' => 'mmyy'
                                                                     ));
                                                                     ?>
                                                                 </div>
@@ -1247,10 +1217,8 @@
                                                                     <?php
                                                                     echo $this->Form->input(
                                                                             'paid_amount', array(
-                                                                        'type' => 'text',
-                                                                        'value' => '',
-                                                                        'class' => 'form-control input-sm required',
-                                                                        'id' => 'card_number',
+                                                                        'type' => 'number',
+                                                                        'class' => 'form-control input-sm required'
                                                                     ));
                                                                     ?>
                                                                 </div>
@@ -1262,9 +1230,7 @@
                                                                     echo $this->Form->input(
                                                                             'card_code', array(
                                                                         'type' => 'text',
-                                                                        'value' => '',
-                                                                        'class' => 'form-control input-sm required',
-                                                                        'id' => 'card_number',
+                                                                        'class' => 'form-control input-sm required'
                                                                     ));
                                                                     ?>
                                                                 </div>
@@ -1287,9 +1253,7 @@
                                                                     echo $this->Form->input(
                                                                             'invoice', array(
                                                                         'type' => 'text',
-                                                                        'value' => '',
-                                                                        'class' => 'form-control input-sm required',
-                                                                        'id' => 'cvv_code',
+                                                                        'class' => 'form-control input-sm required'
                                                                     ));
                                                                     ?>
                                                                 </div>
@@ -1301,9 +1265,7 @@
                                                                     echo $this->Form->input(
                                                                             'description', array(
                                                                         'type' => 'text',
-                                                                        'value' => '',
-                                                                        'class' => 'form-control input-sm required',
-                                                                        'id' => 'cvv_code',
+                                                                        'class' => 'form-control input-sm required'
                                                                     ));
                                                                     ?>
                                                                 </div>
@@ -1325,8 +1287,6 @@
                                                                             'package_customer_id', array(
                                                                         'type' => 'text',
                                                                         'class' => 'form-control input-sm required',
-                                                                        'placeholder' => '',
-                                                                        'id' => 'zip_code'
                                                                     ));
                                                                     ?>
                                                                 </div>
@@ -1338,9 +1298,7 @@
                                                                     echo $this->Form->input(
                                                                             'fname', array(
                                                                         'type' => 'text',
-                                                                        'class' => 'form-control input-sm required',
-                                                                        'placeholder' => '',
-                                                                        'id' => 'zip_code'
+                                                                        'class' => 'form-control input-sm required'
                                                                     ));
                                                                     ?>
                                                                 </div>
@@ -1356,9 +1314,7 @@
                                                                     echo $this->Form->input(
                                                                             'lname', array(
                                                                         'type' => 'text',
-                                                                        'class' => 'form-control input-sm required',
-                                                                        'placeholder' => '',
-                                                                        'id' => 'zip_code'
+                                                                        'class' => 'form-control input-sm required'
                                                                     ));
                                                                     ?>
                                                                 </div>
@@ -1370,9 +1326,7 @@
                                                                     echo $this->Form->input(
                                                                             'address', array(
                                                                         'type' => 'text',
-                                                                        'class' => 'form-control input-sm required',
-                                                                        'placeholder' => '',
-                                                                        'id' => 'zip_code'
+                                                                        'class' => 'form-control input-sm required'
                                                                     ));
                                                                     ?>
                                                                 </div>
@@ -1388,9 +1342,7 @@
                                                                     echo $this->Form->input(
                                                                             'city', array(
                                                                         'type' => 'text',
-                                                                        'class' => 'form-control input-sm required',
-                                                                        'placeholder' => '',
-                                                                        'id' => 'zip_code'
+                                                                        'class' => 'form-control input-sm required'
                                                                     ));
                                                                     ?>
                                                                 </div>
@@ -1402,9 +1354,7 @@
                                                                     echo $this->Form->input(
                                                                             'state', array(
                                                                         'type' => 'text',
-                                                                        'class' => 'form-control input-sm required',
-                                                                        'placeholder' => '',
-                                                                        'id' => 'zip_code'
+                                                                        'class' => 'form-control input-sm required'
                                                                     ));
                                                                     ?>
                                                                 </div>
@@ -1421,9 +1371,7 @@
                                                                     echo $this->Form->input(
                                                                             'zip_code', array(
                                                                         'type' => 'text',
-                                                                        'class' => 'form-control input-sm required',
-                                                                        'placeholder' => '',
-                                                                        'id' => 'zip_code'
+                                                                        'class' => 'form-control input-sm required'
                                                                     ));
                                                                     ?>
                                                                 </div>
@@ -1435,9 +1383,7 @@
                                                                     echo $this->Form->input(
                                                                             'country', array(
                                                                         'type' => 'text',
-                                                                        'class' => 'form-control input-sm required',
-                                                                        'placeholder' => '',
-                                                                        'id' => 'zip_code'
+                                                                        'class' => 'form-control input-sm required'
                                                                     ));
                                                                     ?>
                                                                 </div>
@@ -1454,9 +1400,7 @@
                                                                     echo $this->Form->input(
                                                                             'phone', array(
                                                                         'type' => 'text',
-                                                                        'class' => 'form-control input-sm required',
-                                                                        'placeholder' => '',
-                                                                        'id' => 'zip_code'
+                                                                        'class' => 'form-control input-sm required'
                                                                     ));
                                                                     ?>
                                                                 </div>
@@ -1468,9 +1412,7 @@
                                                                     echo $this->Form->input(
                                                                             'email', array(
                                                                         'type' => 'text',
-                                                                        'class' => 'form-control input-sm required',
-                                                                        'placeholder' => '',
-                                                                        'id' => 'zip_code'
+                                                                        'class' => 'form-control input-sm required'
                                                                     ));
                                                                     ?>
                                                                 </div>
@@ -1499,9 +1441,7 @@
                                                                     echo $this->Form->input(
                                                                             'sfname', array(// s add with field first for transaction
                                                                         'type' => 'text',
-                                                                        'class' => 'form-control input-sm required',
-                                                                        'placeholder' => '',
-                                                                        'id' => 'zip_code'
+                                                                        'class' => 'form-control input-sm required'
                                                                     ));
                                                                     ?>
                                                                 </div>
@@ -1517,9 +1457,7 @@
                                                                     echo $this->Form->input(
                                                                             'slname', array(
                                                                         'type' => 'text',
-                                                                        'class' => 'form-control input-sm required',
-                                                                        'placeholder' => '',
-                                                                        'id' => 'zip_code'
+                                                                        'class' => 'form-control input-sm required'
                                                                     ));
                                                                     ?>
                                                                 </div>
@@ -1631,9 +1569,10 @@
                                                                     <?php
                                                                     echo $this->Form->button(
                                                                             'Reset', array(
-                                                                        'class' => 'btn btn-primary submitbtn blue-dark',
-                                                                        'type' => 'submit',
-                                                                        'id' => ''
+                                                                        'class' => 'btn btn-primary blue-dark',
+                                                                        'type' => 'button',
+                                                                        'id' => 'doc_title',
+                                                                        'value' => 'Reset'
                                                                     ));
                                                                     ?>
 
@@ -1905,7 +1844,7 @@
                                                                     <?php
                                                                     echo $this->Form->input(
                                                                             'paid_amount', array(
-                                                                        'type' => 'text',
+                                                                        'type' => 'number',
                                                                         'class' => 'form-control input-sm required',
                                                                         'value' => '',
                                                                     ));

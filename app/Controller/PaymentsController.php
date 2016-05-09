@@ -65,7 +65,7 @@ class PaymentsController extends AppController {
     }
 
     public function individual_transaction_by_card() {
-        //   pr($this->request->data); exit;
+//           pr($this->request->data); exit;
         //Get ID and Input amount from edit_customer page
         $cid = $this->request->data['Transaction']['cid'];
         $this->request->data['Transaction']['package_customer_id'] = $cid;
