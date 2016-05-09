@@ -65,11 +65,14 @@ class TicketsController extends AppController {
                    // echo 'here'; exit;
                     $this->PackageCustomer->id = $customer_id;
                     $this->PackageCustomer->saveField("status", "old_ready");
-                    $this->PackageCustomer->saveField("comment", $this->request->data['Ticket']['content']);
+                    $this->PackageCustomer->saveField("comments", $this->request->data['Ticket']['content']);
+                    
+
                 }
                 if (trim($this->request->data['Ticket']['action_type']) == 'shipment') {
                     $this->PackageCustomer->id = $customer_id;
                     $this->PackageCustomer->saveField("shipment", 2);
+                    $this->PackageCustomer->saveField("comments", $this->request->data['Ticket']['content']);
                 }
                 $this->Track->save($trackData); // Data save in Track
                 $msg = '<div class="alert alert-success">

@@ -70,8 +70,12 @@
                             </thead>
                             <tbody>
                                 <?php
+                               
+                              // pr($filteredData);exit();
                                 foreach ($filteredData as $results):
                                     $customer = $results['customers'];
+                                  
+                                 // pr($customer);exit();
                                     ?>
                                     <tr>
                                         <td class="hidden-480">
@@ -127,9 +131,9 @@
                                         </td>
                                         <td>
                                             <ul>
-                                                <?php foreach ($results['comments'] as $comment): ?>
-                                                    <li><?php echo $comment['content']['content'] . ' -By <i>' . $comment['user']['name']; ?> </i></li>
-                                                <?php endforeach; ?>
+                                                <?php if (!empty($results['customers']['comments'])): ?>
+                                                    <li><?php echo $results['customers']['comments'] ?> </li>
+                                                    <?php endif ?>
                                             </ul>
                                         </td>
                                         <td>
