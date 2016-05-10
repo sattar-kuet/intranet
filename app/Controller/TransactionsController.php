@@ -265,30 +265,17 @@ class TransactionsController extends AppController {
 //       pr($transactions_data);   exit;
         $this->request->data['Transaction'] = $transactions_data['0']['transactions'];
 //        $transactions_data = $this->Transaction->find('all', array('conditions' => array('Transaction.package_customer_id' => $pcid)));
-       
+
         $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge', 'latestcardInfo'));
     }
 
     function updatecardinfo($id = null) {
-        $this->loadModel('PackageCustomer');
-        $this->loadModel('Archive');
-        $upadatecard = $this->request->data['PackageCustomer'];
-
-        //Insert card information into Archive table first. Then update package customer...
-        $present_card_info = $this->PackageCustomer->find('all', array('conditions' => array('PackageCustomer.id' => $id)));
-        $present_card_info = $present_card_info['0'];
+        $this->loadModel('Transaction');
+        $this->Transaction->id = $id;
         $user_info = $this->Auth->user();
         $user_id = $user_info['id'];
-        $archive_card_data['Archive']['package_customer_id'] = $present_card_info['PackageCustomer']['id'];
-        $archive_card_data['Archive']['user_id'] = $user_id;
-        $archive_card_data['Archive']['content'] = 'Card no: ' . $present_card_info['PackageCustomer']['card_check_no'] . ', Exp. date: ' . $present_card_info['PackageCustomer']['exp_date'] . ', CVV Code: ' . $present_card_info['PackageCustomer']['cvv_code'] . ', Zip Code: ' . $present_card_info['PackageCustomer']['zip'] . ', Address: ' . $present_card_info['PackageCustomer']['address_on_card'];
-        $this->Archive->save($archive_card_data);
-        //End Archive of card information......
-
-        $dateObj = $this->request->data['PackageCustomer']['exp_date'];
-        $this->request->data['PackageCustomer']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
-        $this->PackageCustomer->id = $id;
-        $this->PackageCustomer->save($this->request->data['PackageCustomer']);
+        $this->request->data['Transaction']['user_id'] = $user_id;
+        $this->Transaction->save($this->request->data['Transaction']);
         $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <strong> Card information updated successfully </strong>
