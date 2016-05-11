@@ -12,7 +12,7 @@
     <div class="page-content">
         <!-- BEGIN PAGE HEADER-->
         <h3 class="page-title">
-            Follow up Customer List <small></small>
+            Schedule Customers List <small></small>
         </h3>
 
         <!-- END PAGE HEADER-->
@@ -138,8 +138,11 @@
                                         </td>
                                         <td>
                                             <div class="controls center text-center">
-
-                                                <div class="portlet-body form" >
+                                                <a 
+                                                    href="#" title="Shedule">
+                                                    <span id="<?php echo $results['customers']['id']; ?>" class="fa fa-clock-o fa-lg shedule"></span>
+                                                </a> 
+                                                <div id="shedule_dialog<?php echo $results['customers']['id']; ?>" class="portlet-body form" style="display: none;">
                                                     <!-- BEGIN FORM-->
                                                     <?php
                                                     echo $this->Form->create('PackageCustomer', array(

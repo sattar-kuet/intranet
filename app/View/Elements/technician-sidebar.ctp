@@ -70,10 +70,11 @@
                             Forwarded by</a>
                     </li>
                 </ul> 
-             <li 
+              <li 
             <?php
 
-            $services = array('Customersregistration','Customersedit_registration', 'Customersfollowup','Customersready_installation' );
+            $services = array('Customersregistration','Customersshipment_installation','Customersedit_registration', 'Customersfollowup','Customersready_installation','Customersshipment','Customersschedule_done' );
+
             if (in_array($this->name . '' . $this->action, $services)):
                 ?>
                     class="active"
@@ -83,7 +84,7 @@
                 >
 
                 <a href="javascript:;">
-                    <i class="fa fa-support"></i>
+                    <i class="fa icon-users"></i>
                     <span class="title">Potential Customer</span>
                     <span class="arrow "></span>
                 </a>
@@ -98,7 +99,7 @@
                         >
 
                         <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'registration')) ?>">
-                            <i class="fa fa-support"></i>
+                            <i class="fa icon-note"></i>
                             Opportunity</a>
                     </li>
                     <li
@@ -110,7 +111,7 @@
                         ?>
                         >
                         <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'followup')) ?>">
-                            <i class="fa fa-support"></i>
+                            <i class="fa icon-user-following"></i>
                             Opportunity Follow-up </a>
                     </li>
 
@@ -127,8 +128,42 @@
 
                         <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'ready_installation')) ?>">
 
-                            <i class="fa fa-support"></i>
+                            <i class="fa icon-like"></i>
                             Ready to Installation </a>
+                    </li>
+                    
+                    
+                    
+                    <li
+
+                        <?php if ($this->name . '' . $this->action == 'shipment_installation'):
+                            ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+
+                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'shipment')) ?>">
+
+                            <i class="fa fa-plane"></i>
+                            Shipment </a>
+                    </li>
+                    <li
+
+                    <?php if ($this->name . '' . $this->action == 'Customersschedule_done'):
+
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+
+                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'schedule_done')) ?>">
+
+                            <i class="fa icon-like"></i>
+                            Schedule Done </a>
                     </li>
                 </ul>
             </li>

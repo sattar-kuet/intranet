@@ -740,7 +740,7 @@
                                             'comments', array(
                                         'class' => 'form-control',
                                         'type' => 'textarea',
-                                        'rows' => '3',
+                                        'rows' => '5',
                                             )
                                     );
                                     ?>

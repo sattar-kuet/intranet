@@ -39,18 +39,11 @@
                                     <th>
                                         Contact Date
                                     </th>
+
                                     <th>
-                                        Name
+                                        Customer Details
                                     </th>
-                                    <th>
-                                        Customer Type
-                                    </th>
-                                    <th>
-                                        Address
-                                    </th>
-                                    <th>
-                                        Emergency Contact
-                                    </th>
+
                                     <th>
                                         Reference Contact
                                     </th>
@@ -78,38 +71,38 @@
                                             <?php echo $results['customers']['created']; ?>                            
                                         </td>
                                         <td>
-                                            <a href="<?php
-                                            echo Router::url(array('controller' => 'customers',
-                                                'action' => 'edit_registration', $results['customers']['id']))
-                                            ?>" 
-                                               target="_blank">
-                                                   <?php
-                                                   echo $results['customers']['first_name'] . " " .
-                                                   $results['customers']['middle_name'] . " " .
-                                                   $results['customers']['last_name'];
-                                                   ?>
-                                            </a> 
-                                        </td>
-                                        <td class="hidden-480">  
-                                            <?php
-                                            if ($results['customers']['status'] == 1) {
-                                                echo "New";
-                                            } else {
-                                                echo "Old";
-                                            }
-                                            ?>                     
-                                        </td>
-                                        <td class="hidden-480">
-                                            <?php echo $results['customers']['address']; ?>                            
-                                        </td>
-                                        <td class="hidden-480">  
-                                            <?php if (!empty($results['customers']['cell'])): ?> 
-                                                Cell:    <?php echo $results['customers']['cell']; ?>   
-                                            <?php endif; ?>
-                                            <br>
-                                            <?php if (!empty($results['customers']['home'])): ?>
-                                                Home : <?php echo $results['customers']['home']; ?>
-                                            <?php endif ?>
+
+                                            <ul>
+                                                <li>Type :   <?php
+                                                    if ($results['customers']['status'] == 1) {
+                                                        echo "New";
+                                                    } else {
+                                                        echo "Old";
+                                                    }
+                                                    ?> </li>
+                                                <li>Name :  <a href="<?php
+                                                    echo Router::url(array('controller' => 'customers',
+                                                        'action' => 'edit_registration', $results['customers']['id']))
+                                                    ?>" 
+                                                              target="_blank">
+                                                                  <?php
+                                                                  echo $results['customers']['first_name'] . " " .
+                                                                  $results['customers']['middle_name'] . " " .
+                                                                  $results['customers']['last_name'];
+                                                                  ?></a> </li>
+                                                <li>Address:  <?php echo $results['customers']['address']; ?> </li> 
+
+                                                <li> Contact :
+                                                    <ul>
+                                                        <?php if (!empty($results['customers']['cell'])): ?> 
+                                                       <li>Cell:    <?php echo $results['customers']['cell']; ?>   </li>
+                                                <?php endif; ?>                                                
+                                                <?php if (!empty($results['customers']['home'])): ?>
+                                                    <li> Home: <?php echo $results['customers']['home']; ?> </li>
+                                                <?php endif ?> 
+                                            </ul>
+                                            </li>
+                                            </ul>
                                         </td>
                                         <td>
                                             <?php echo $results['customers']['referred_phone']; ?> 
@@ -123,22 +116,19 @@
 
                                         </td>
                                         <td>
-                                            <?php  echo $results['customers']['follow_date']; ?>
+                                            <?php echo $results['customers']['follow_date']; ?>
                                         </td>
                                         <td>
                                             <ul>
                                                 <?php if (!empty($results['customers']['comments'])): ?>
                                                     <li><?php echo $results['customers']['comments'] ?> </li>
-                                                    <?php endif ?>
+                                                <?php endif ?>
                                             </ul>
                                         </td>
                                         <td>
                                             <div class="controls center text-center">
-                                                <a 
-                                                    href="#" title="Shedule">
-                                                    <span id="<?php echo $results['customers']['id']; ?>" class="fa fa-clock-o fa-lg shedule"></span>
-                                                </a> 
-                                                <div id="shedule_dialog<?php echo $results['customers']['id']; ?>" class="portlet-body form" style="display: none;">
+
+                                                <div class="portlet-body form">
                                                     <!-- BEGIN FORM-->
                                                     <?php
                                                     echo $this->Form->create('PackageCustomer', array(

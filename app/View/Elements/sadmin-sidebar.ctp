@@ -388,7 +388,7 @@
             <li 
             <?php
 
-            $services = array('Customersregistration','Customersedit_registration', 'Customersfollowup','Customersready_installation','Customersshipment' );
+            $services = array('Customersregistration','Customersshipment_installation','Customersedit_registration', 'Customersfollowup','Customersready_installation','Customersshipment','Customersschedule_done' );
             if (in_array($this->name . '' . $this->action, $services)):
                 ?>
                     class="active"
@@ -445,9 +445,12 @@
                             <i class="fa icon-like"></i>
                             Ready to Installation </a>
                     </li>
+                    
+                    
+                    
                     <li
 
-                        <?php if ($this->name . '' . $this->action == 'Customersready_installation'):
+                        <?php if ($this->name . '' . $this->action == 'shipment_installation'):
                             ?>
                             class="active"
                             <?php
@@ -459,6 +462,22 @@
 
                             <i class="fa fa-plane"></i>
                             Shipment </a>
+                    </li>
+                    <li
+
+                    <?php if ($this->name . '' . $this->action == 'Customersschedule_done'):
+
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+
+                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'schedule_done')) ?>">
+
+                            <i class="fa icon-like"></i>
+                            Schedule Done </a>
                     </li>
                 </ul>
             </li>
