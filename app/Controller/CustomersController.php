@@ -385,7 +385,7 @@ class CustomersController extends AppController {
                 }
             }
         }
-        $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 4)));
+        $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
 //        pr($technician); exit;
 
         $this->set(compact('filteredData', 'technician'));
