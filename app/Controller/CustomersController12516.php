@@ -126,7 +126,7 @@ class CustomersController extends AppController {
 
             $dateObj = $this->request->data['PackageCustomer']['exp_date'];
             $this->request->data['PackageCustomer']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
-//            pr($this->request->data); exit;
+            pr($this->request->data); exit;
             $pc = $this->PackageCustomer->save($this->request->data['PackageCustomer']);
 //            data for comment
             $comment['Comment']['package_customer_id'] = $pc['PackageCustomer']['id'];
@@ -385,21 +385,19 @@ class CustomersController extends AppController {
                 }
             }
         }
-        $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
+        $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 4)));
 //        pr($technician); exit;
 
         $this->set(compact('filteredData', 'technician'));
     }
 
     function schedule_done() {
+        $this->loadModel('PackageCustomer');
         $this->loadModel('User');
         $loggedUser = $this->Auth->user();
-        $id = $loggedUser['id'];
-        $this->loadModel('PackageCustomer');
+        $id = $loggedUser['id'];        
         $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc  
         WHERE pc.technician_id = $id and pc.status = 'scheduled'");
-     //   pr($allData);
-      //  exit;
         $this->set(compact('allData'));
     }
 
@@ -543,21 +541,15 @@ class CustomersController extends AppController {
                     left join users u on c.user_id = u.id
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
-                    WHERE pc.shipment = 1 or pc.shipment = 2");
+                    WHERE pc.shipment = 1");
         // echo $sql; exit;
         $filteredData = array();
         $unique = array();
         $index = 0;
-//        pr($allData); exit;
         foreach ($allData as $key => $data) {
-            //pr($data); exit;
             $pd = $data['pc']['id'];
             if (isset($unique[$pd])) {
-                //  echo 'already exist'.$key.'<br/>';
                 if (!empty($data['c']['content'])) {
-                    //  $temp = $data['c'];// array('id' => $data['psettings']['id'], 'duration' => $data['psettings']['duration'], 'amount' => $data['psettings']['amount'], 'offer' => $data['psettings']['offer']);
-                    //pr($temp); exit;
-
                     $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
                 }
