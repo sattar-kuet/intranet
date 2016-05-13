@@ -57,9 +57,9 @@ class TicketsController extends AppController {
                     'forwarded_by' => $loggedUser['id']
                 );
                
-                if (trim($this->request->data['Ticket']['action_type']) == 'solved') {
-                    $trackData['Track']['status'] = 'solved';
-                }
+//                if (trim($this->request->data['Ticket']['action_type']) == 'solved') {
+//                    $trackData['Track']['status'] = 'solved';
+//                }
                 //pr($this->request->data['Ticket']['action_type']); exit;
                 if (trim($this->request->data['Ticket']['action_type']) == "ready") {
                    // echo 'here'; exit;

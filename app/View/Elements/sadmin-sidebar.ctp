@@ -565,49 +565,7 @@
                     <span class="arrow "></span>
                 </a>
             </li>
-            <li 
-            <?php
-            $technicians = array('Techniciansnew', 'Techniciansdone');
-
-            if (in_array($this->name . '' . $this->action, $technicians)):
-                ?>
-                    class="active"
-                    <?php
-                endif;
-                ?>
-                >
-                <a href="javascript:;">
-                    <i class="fa fa-wrench"></i>
-                    <span class="title">Technicians Task</span>
-                    <span class="arrow "></span>
-                </a>
-                <ul class="sub-menu">
-                    <li
-                    <?php if ($this->name . '' . $this->action == 'Techniciansnew'):
-                        ?>
-                            class="active"
-                            <?php
-                        endif;
-                        ?>
-                        >
-                        <a href="<?php echo Router::url(array('controller' => 'technicians', 'action' => 'newcustomers')) ?>">
-                            <i class="fa icon-umbrella"></i>
-                            New</a>
-                    </li>
-                    <li
-                    <?php if ($this->name . '' . $this->action == 'Techniciansdone'):
-                        ?>
-                            class="active"
-                            <?php
-                        endif;
-                        ?>
-                        >
-                        <a href="<?php echo Router::url(array('controller' => 'technicians', 'action' => 'active_customers')) ?>">
-                            <i class="fa icon-check"></i>
-                            Done</a>
-                    </li>
-                </ul>
-            </li>
+          
 
         </ul>
         <!-- END SIDEBAR MENU -->
