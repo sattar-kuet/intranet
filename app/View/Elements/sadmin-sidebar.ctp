@@ -485,7 +485,7 @@
 
             <li 
             <?php
-            $reports = array('Reportsduecustomers','Reportspayment_history','Reportscancel', 'Reportspaidcustomers', 'Reportsactive', 'Reportsblock', 'Reportspayment', 'Reportsnewcustomers', 'Reportsexpcustomers');
+            $reports = array('Reportsduecustomers','Reportscall_log','Reportspayment_history','Reportscancel', 'Reportspaidcustomers', 'Reportsactive', 'Reportsblock', 'Reportspayment', 'Reportsnewcustomers', 'Reportsexpcustomers');
 
             if (in_array($this->name . '' . $this->action, $reports)):
                 ?>
@@ -565,6 +565,18 @@
                         <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'expcustomers')) ?>">
                             <i class="fa fa-warning"></i>
                             Expire Customers</a>
+                    </li>
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Reportscall_log'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'call_log')) ?>">
+                            <i class="fa fa-warning"></i>
+                            Call Log</a>
                     </li>
                 </ul>
             </li>

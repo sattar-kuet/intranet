@@ -324,7 +324,7 @@ class TechniciansController extends AppController {
                     left join users u on c.user_id = u.id
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
-                    WHERE pc.technician_id = $id and pc.status = 'ready'");
+                    WHERE pc.technician_id = $id and pc.status = 'scheduled'");
         $filteredData = array();
         $unique = array();
         $index = 0;
