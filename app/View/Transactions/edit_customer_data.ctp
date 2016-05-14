@@ -140,20 +140,19 @@
                                 <div class="col-md-12 ">
 
                                     <div class="col-md-2 signupfont">
-                                        Address:
+                                        Building Number
                                     </div>
                                     <div class="col-md-2">
                                         <div class="input-list style-4 clearfix">
                                             <div>
                                                 <?php
                                                 echo $this->Form->input(
-                                                        'address', array(
-                                                    'class' => 'required',
-                                                    'id' => 'address',
-                                                    "class" => ''
+                                                        'house_no', array(
+                                                    'class' => 'form-control ',
+                                                    'type' => 'text'
                                                         )
                                                 );
-                                                ?> 
+                                                ?>
                                             </div>                            
                                         </div>
                                     </div>

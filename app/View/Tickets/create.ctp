@@ -81,13 +81,83 @@
                                             ),
                                             'empty' => 'Select Action',
                                             'class' => 'form-control select2me ',
-                                            'id' =>'action_type'
+                                            'id' => 'action_type'
                                                 )
                                         );
                                         ?>
                                     </div>
                                 </div>
                             </div>
+
+
+                            <div id="shipmentshow_hide" style="display: none" class="alert alert-success">
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">Select Equipment to be sent<span class="required">
+                                        </span>
+                                    </label>
+                                    <div class="col-md-2">
+                                        <?php
+                                        echo $this->Form->input('shipment_equipment', array(
+                                            'type' => 'select',
+                                            'options' => array(
+                                                'ONLY OLD BOX' => 'ONLY OLD BOX',
+                                                'OLD BOX WITH ALL EQUIPMENT' => 'OLD BOX WITH ALL EQUIPMENT',
+                                                'ONLY NEW BOX 254' => 'ONLY NEW BOX 254',
+                                                'ONLY NEW BOX 250' => 'ONLY NEW BOX 250',
+                                                'NEW BOX 254 WITH ALL EQUIPMENT' => 'NEW BOX 254 WITH ALL EQUIPMENT',
+                                                'NEW BOX 250 WITH ALL EQUIPMENT' => 'NEW BOX 250 WITH ALL EQUIPMENT',
+                                                'OLD REMOTE' => 'OLD REMOTE',
+                                                'NEW REMOTE' => 'NEW REMOTE',
+                                                'ROUTER' => 'ROUTER',
+                                                'DONGLE' => 'DONGLE',
+                                                'WIRE' => 'WIRE',
+                                                'ONLY HDMI' => 'ONLY HDMI',
+                                                'ONLY AVI' => 'ONLY AVI',
+                                                'ADAPTER' => 'ADAPTER',
+                                                'OTHER' => 'OTHER'
+                                            ),
+                                            'empty' => 'Select Equipment',
+                                            'class' => ' form-control input-medium',
+                                            'id' => 'shipment_equipment_list'
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+
+                                    <div class="display-hide" id="other_shipment_equipment">
+                                        <label class="control-label col-md-2">Type Equipment Here<span class="required">
+                                            </span>
+                                        </label>
+                                        <div class="col-md-2">
+                                            <?php
+                                            echo $this->Form->input(
+                                                    'shipment_equipment_other', array(
+                                                'class' => 'form-control ',
+                                                'type' => 'text'
+                                                    )
+                                            );
+                                            ?>
+                                        </div>
+
+                                    </div>
+
+                                    <label class="control-label col-md-2">Additional Note<span class="required">
+                                        </span>
+                                    </label>
+                                    <div class="col-md-2">
+                                        <?php
+                                        echo $this->Form->input(
+                                                'shipment_note', array(
+                                            'class' => 'form-control ',
+                                            'type' => 'textarea'
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+                                </div>
+                               
+                            </div>
+
 
                             <div class="form-group assign_single">
                                 <label class="control-label col-md-3">Assign to (individual)

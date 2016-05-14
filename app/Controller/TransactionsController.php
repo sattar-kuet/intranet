@@ -119,10 +119,10 @@ class TransactionsController extends AppController {
         if ($this->request->is('post') || $this->request->is('put')) {
 
             // pr($this->request->data['PackageCustomer']);  exit;
-            $this->request->data['PackageCustomer']['mac'] = json_encode($this->request->data['PackageCustomer']['mac']);
-            $this->request->data['PackageCustomer']['system'] = json_encode($this->request->data['PackageCustomer']['system']);
-
-
+            $this->request->data['PackageCustomer'] = array(
+                'mac' => json_encode($this->request->data['PackageCustomer']['mac']),
+                'system' => json_encode($this->request->data['PackageCustomer']['system'])
+            );
             $this->loadModel('PackageCustomer');
             $this->loadModel('CustomPackage');
             $this->loadModel('Ticket');
@@ -263,10 +263,11 @@ class TransactionsController extends AppController {
         $this->loadModel('Transaction');
         $transactions_data = $this->Transaction->query("SELECT * FROM transactions WHERE package_customer_id = $pcid order by id desc limit 0,1;");
 //       pr($transactions_data);   exit;
-        $this->request->data['Transaction'] = $transactions_data['0']['transactions'];
+        if (count($transactions_data)) {
+            $this->request->data['Transaction'] = $transactions_data['0']['transactions'];
+        }
 //        $transactions_data = $this->Transaction->find('all', array('conditions' => array('Transaction.package_customer_id' => $pcid)));
-
-        $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge', 'latestcardInfo'));
+        $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge', 'latestcardInfo', 'transactions_data'));
     }
 
     function updatecardinfo($id = null) {
@@ -278,7 +279,7 @@ class TransactionsController extends AppController {
         $this->Transaction->save($this->request->data['Transaction']);
         $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong> Card information updated successfully </strong>
+            <strong> Card Information updated successfully </strong>
             </div>';
         $this->Session->setFlash($msg);
         return $this->redirect($this->referer());

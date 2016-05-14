@@ -101,16 +101,16 @@ $(document).ready(function () {
             $('.assign_group').hide();
             $('.priority .priority_input').removeClass('required');
             $('.priority').hide();
+            $('#shipmentshow_hide').hide();
         }
         else {
             $('.assign_single').hide();
             $('.assign_group').hide();
             $('.priority .priority_input').addClass('required');
             $('.priority').show();
+            $('#shipmentshow_hide').show();
         }
     });
-
-
 });
 
 //registration form validation

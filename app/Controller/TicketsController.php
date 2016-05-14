@@ -57,16 +57,19 @@ class TicketsController extends AppController {
                     'forwarded_by' => $loggedUser['id']
                 );
                
-                if (trim($this->request->data['Ticket']['action_type']) == 'solved') {
-                    $trackData['Track']['status'] = 'solved';
-                }   
+
+//                if (trim($this->request->data['Ticket']['action_type']) == 'solved') {
+//                    $trackData['Track']['status'] = 'solved';
+//                }
+                //pr($this->request->data['Ticket']['action_type']); exit;
+
                 if (trim($this->request->data['Ticket']['action_type']) == "ready") {
                    // echo 'here'; exit;
                     $this->PackageCustomer->id = $customer_id;
-                    $data['PackageCustomer'] = array('status'=>'old_ready','comments'=>$this->request->data['Ticket']['content']);
-                   // $this->PackageCustomer->saveField("status", "old_ready");
-                   // $this->PackageCustomer->saveField("comment", "old_ready");
-                    $this->PackageCustomer->save($data);
+                    $this->PackageCustomer->saveField("status", "old_ready");
+                    $this->PackageCustomer->saveField("comments", $this->request->data['Ticket']['content']);
+                    
+
                 }
                 if (trim($this->request->data['Ticket']['action_type']) == 'shipment') {
                     $this->PackageCustomer->id = $customer_id;                    
