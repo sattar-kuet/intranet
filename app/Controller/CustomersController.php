@@ -337,7 +337,7 @@ class CustomersController extends AppController {
         $filteredData = array();
         $unique = array();
         $index = 0;
-      // pr($allData); exit;
+        // pr($allData); exit;
         foreach ($allData as $key => $data) {
             //pr($data); exit;
             $pd = $data['pc']['id'];
@@ -389,6 +389,18 @@ class CustomersController extends AppController {
 //        pr($technician); exit;
 
         $this->set(compact('filteredData', 'technician'));
+    }
+
+    function schedule_done() {
+        $this->loadModel('User');
+        $loggedUser = $this->Auth->user();
+        $id = $loggedUser['id'];
+        $this->loadModel('PackageCustomer');
+        $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc  
+        WHERE pc.technician_id = $id and pc.status = 'scheduled'");
+     //   pr($allData);
+      //  exit;
+        $this->set(compact('allData'));
     }
 
     function repair($id = null) {
@@ -513,6 +525,8 @@ class CustomersController extends AppController {
         $this->request->data['PackageCustomer']['to'] = $datrange['end'];
         $loggedUser = $this->Auth->user();
         $this->request->data['PackageCustomer']['user_id'] = $loggedUser['id'];
+        $this->request->data['PackageCustomer']['status'] = 'Scheduled';
+//        pr($this->request->data); exit;        
         $this->PackageCustomer->save($this->request->data);
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -529,7 +543,7 @@ class CustomersController extends AppController {
                     left join users u on c.user_id = u.id
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
-                    WHERE pc.shipment = 1");
+                    WHERE pc.shipment = 1 or pc.shipment = 2");
         // echo $sql; exit;
         $filteredData = array();
         $unique = array();
