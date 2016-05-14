@@ -86,14 +86,14 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Reports/payment_history.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/Controller/ReportsController.php</file>
             <file>file:/D:/xampp/htdocs/intranet/app/Controller/TechniciansController.php</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Customers/followup.ctp</file>
             <file>file:/D:/xampp/htdocs/intranet/app/Controller/TicketsController.php</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Reports/call_log.ctp</file>
             <file>file:/D:/xampp/htdocs/intranet/app/View/Tickets/create.ctp</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Customers/shipment.ctp</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/Controller/CustomersController.php</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Customers/ready_installation.ctp</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Customers/schedule.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Elements/sadmin-sidebar.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Tickets/solved_ticket.ctp</file>
         </group>
     </open-files>
 </project-private>
