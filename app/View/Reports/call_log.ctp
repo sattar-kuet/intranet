@@ -1,4 +1,3 @@
-
 <style>
     .ui-datepicker-multi-3 {
         display: table-row-group !important;
@@ -112,115 +111,105 @@
                 </div>                
             </div>
         </div>
-      
-        
-    </div>
-      <?php if ($clicked): ?>    
-            <div class="page-content-wrapper">
-                <div class="page-content">
+        <!-- END PAGE CONTENT -->
+        <?php if ($clicked): ?>    
+
+            <div class="page-content-wrapper" style="margin: 0px; padding: 0px;">
+                <div class="">
                     <!-- BEGIN PAGE HEADER-->
-                    <h3 class="page-title">
-                        <!--Manage the tickets <small>You can resolve, unresolve or froward</small>-->
-                    </h3>
+
                     <!-- END PAGE HEADER-->
                     <!-- BEGIN PAGE CONTENT-->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                            <div class="portlet box green">
-                                <div class="portlet-title">
-                                    <div class="caption">
-                                        <i class="fa fa-ticket"></i>Call Logs
-                                    </div>
-                                    <div class="tools">
-                                        <a href="javascript:;" class="reload">
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="portlet-body">
-                                    <?php echo $this->Session->flash(); ?>
-                                    <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
-                                        <thead>
-                                            <tr>
-                                                <th>Subject</th>
-                                                <th>Customer Info</th>
-                                                <th>Open Time</th>
-                                                <th>Detail</th>
-                                                <th>History</th>
+                    <div class="invoice"  id="printableArea">
 
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            foreach ($data as $single):
-                                                $issue = end($single['history']);
-                                                $customer = end($single['history']);
-                                                $customer = $customer['pc'];
-                                                $ticket = $single['ticket'];
-                                                ?>
-                                                <tr >
-                                                    <td><?php echo $issue['i']['name']; ?></td>
-                                                    <td>
-                                                        <ul>
-                                                            <li> Name: <?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?> </li> 
-                                                            <li> Cell: <?php echo $customer['cell']; ?> </li> 
-                                                        </ul>
-                                                    </td>
-                                                    <td><?php echo $ticket['created']; ?></td>
-                                                    <td><?php echo $ticket['content']; ?></td>
-                                                    <td>
-                                                        <ol>
-                                                            <?php
-                                                            $lasthistory = $single['history'][0]['tr'];
-                                                            foreach ($single['history'] as $history):
-                                                                ?>
-                                                                <li>
-                                                                    <?php if ($history['tr']['status'] != 'open') { ?>
-                                                                        <strong><?php echo ucfirst($history['tr']['status']); ?> By:</strong>
-                                                                    <?php } else {
-                                                                        ?>
-                                                                        <strong>Forwarded By:</strong>
-                                                                        <?php
-                                                                    }
-                                                                    ?>
-                                                                    <?php echo $history['fb']['name']; ?>
-                                                                    <p><strong>Forwarded To:</strong><ul><li><?php echo $history['fi']['name']; ?> </li><li><?php echo $history['fd']['name']; ?> </li></ul>
-                                                                    <strong>Time:</strong> <?php echo $history['tr']['created']; ?>
+                        <div class="row">
+                            <div class="col-xs-6">                    
+                            </div>
+                            <div class="col-xs-4">
+                            </div>
+                            <div class="col-xs-2 invoice-payment">
+                                <div style="text-align: left;">
 
-                                                                    &nbsp;&nbsp;<strong>Status:</strong> <?php echo $history['tr']['status']; ?><br>
-                                                                    <?php
-                                                                    if (!empty($history['tr']['comment'])):
-                                                                        echo '<strong>';
-                                                                        echo 'Comment : ';
-                                                                        echo '</strong>';
-                                                                        echo $history['tr']['comment'];
-                                                                    endif;
-                                                                    ?> 
-                                                                </li>
-                                                                <br>
-                                                            <?php endforeach; ?>
-                                                        </ol>
-                                                    </td>
-                                                </tr>
-
-                                                <?php
-                                            endforeach;
-                                            ?>
-
-                                        </tbody>
-                                    </table>
                                 </div>
                             </div>
-                            <!-- END EXAMPLE TABLE PORTLET-->
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+                                    <thead>
+                                        <tr>
+                                            <th>Subject</th>
+                                            <th>Customer Info</th>
+                                            <th>Open Time</th>
+                                            <th>Detail</th>
+                                            <th>History</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>                                     
+                                        <?php
+                                        foreach ($filteredTicket as $single):
+                                            $issue = end($single['history']);
+                                            $customer = end($single['history']);
+                                            $customer = $customer['pc'];
+                                            $ticket = $single['ticket'];
+                                            ?>
+                                            <tr >
+                                                <td><?php echo $issue['i']['name']; ?></td>
+                                                <td>
+                                                    <ul>
+                                                        <li> Name: <?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?> </li> 
+                                                        <li> Cell: <?php echo $customer['cell']; ?> </li> 
+                                                    </ul>
+                                                </td>
+                                                <td><?php echo $ticket['created']; ?></td>
+                                                <td><?php echo $ticket['content']; ?></td>
+                                                <td>
+                                                    <ol>
+                                                        <?php
+                                                        $lasthistory = $single['history'][0]['tr'];
+                                                        foreach ($single['history'] as $history):
+                                                            ?>
+                                                            <li>
+                                                                <?php if ($history['tr']['status'] != 'open') { ?>
+                                                                    <strong><?php echo ucfirst($history['tr']['status']); ?> By:</strong>
+                                                                <?php } else {
+                                                                    ?>
+                                                                    <strong>Forwarded By:</strong>
+                                                                    <?php
+                                                                }
+                                                                ?>
+                                                                <?php echo $history['fb']['name']; ?>
+                                                                <p><strong>Forwarded To:</strong><ul><li><?php echo $history['fi']['name']; ?> </li><li><?php echo $history['fd']['name']; ?> </li></ul>
+                                                                <strong>Time:</strong> <?php echo $history['tr']['created']; ?>
+
+                                                                &nbsp;&nbsp;<strong>Status:</strong> <?php echo $history['tr']['status']; ?><br>
+                                                                <?php
+                                                                if (!empty($history['tr']['comment'])):
+                                                                    echo '<strong>';
+                                                                    echo 'Comment : ';
+                                                                    echo '</strong>';
+                                                                    echo $history['tr']['comment'];
+                                                                endif;
+                                                                ?> 
+                                                            </li>
+                                                            <br>
+                                                        <?php endforeach; ?>
+                                                    </ol>
+                                                </td>
+                                            </tr>
+                                            <?php
+                                        endforeach;
+                                        ?>                                     
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                    <!-- END PAGE CONTENT -->
                 </div>
-            </div>
-            <!-- END CONTENT -->                          
-        <?php endif; ?><!-- END PAGE CONTENT -->
+            </div>                             
+        <?php endif; ?>
+    </div>
 </div>
 <!-- END CONTENT -->
-
-
 
