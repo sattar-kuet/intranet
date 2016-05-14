@@ -119,10 +119,10 @@ class TransactionsController extends AppController {
         if ($this->request->is('post') || $this->request->is('put')) {
 
             // pr($this->request->data['PackageCustomer']);  exit;
-            $this->request->data['PackageCustomer']['mac'] = json_encode($this->request->data['PackageCustomer']['mac']);
-            $this->request->data['PackageCustomer']['system'] = json_encode($this->request->data['PackageCustomer']['system']);
-
-
+            $this->request->data['PackageCustomer'] = array(
+                'mac' => json_encode($this->request->data['PackageCustomer']['mac']),
+                'system' => json_encode($this->request->data['PackageCustomer']['system'])
+            );
             $this->loadModel('PackageCustomer');
             $this->loadModel('CustomPackage');
             $this->loadModel('Ticket');

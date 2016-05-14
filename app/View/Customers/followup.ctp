@@ -66,31 +66,19 @@
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-<!--                                <th>
-                                    Account No
-                                </th>-->
-                                <th class="hidden-480">
-                                    Name
-                                </th>
-                                <th class="hidden-480">
-                                    Address
-                                </th>
-<!--                                <th>
-                                    Mac
-                                </th>-->
-                                <th class="hidden-480">
-                                    Emergency Contact
+                                <th>
+                                    Customer Details
                                 </th>
                                 <th class="hidden-480">
                                     Reference Contact
                                 </th>
-                                <th>
+                                <th style="text-align: center;">
                                     Package
                                 </th>
                                 <th class="hidden-480">
                                     Follow update
                                 </th>
-                                <th class="hidden-480">
+                                <th class="hidden-480" style="text-align: center;">
                                     Comment
                                 </th>
                                 <th class="hidden-480">
@@ -101,44 +89,39 @@
                         <tbody>
 
                             <?php
-
                             foreach ($filteredData as $results):
-                               $customer = $results['customers'];
-
+                                $customer = $results['customers'];
                                 ?>
                                 <tr>
 
                                     <td>
-                                        <a href="<?php
-                                        echo Router::url(array('controller' => 'customers',
-                                            'action' => 'edit_registration', $results['customers']['id']))
-                                        ?>" 
-                                           target="_blank">
-                                               <?php
-                                               
-                                               echo $results['customers']['first_name'] ." ".
-                                               $results['customers']['middle_name'] . " " .
-                                               $results['customers']['last_name'];
-                                               ?>
-                                        </a> 
-                                    </td>
-                                    <td class="hidden-480">
-                                        <?php echo $results['customers']['address']; ?>                            
-                                    </td>
-    <!--                                    <td>
-                                    <?php // echo $results['pc']['mac'];   ?>
-                                    </td>-->
-                                    <td class="hidden-480">  
-                                        <?php if (!empty($results['customers']['cell'])): ?> 
-                                            Cell:    <?php echo $results['customers']['cell']; ?>   
-                                        <?php endif; ?>
-                                        <br>
-                                        <?php if (!empty($results['customers']['home'])): ?>
-                                            Home : <?php echo $results['customers']['home']; ?>
-                                        <?php endif ?>
+                                        <ul>                                                
+                                            <li>Name :  <a href="<?php
+                                                echo Router::url(array('controller' => 'customers',
+                                                    'action' => 'edit_registration', $results['customers']['id']))
+                                                ?>" 
+                                                           target="_blank">
+                                                               <?php
+                                                               echo $results['customers']['first_name'] . " " .
+                                                               $results['customers']['middle_name'] . " " .
+                                                               $results['customers']['last_name'];
+                                                               ?></a> </li>
+                                            <li>Address:  <?php echo $results['customers']['address']; ?> </li> 
+
+                                            <li> Contact :
+                                                <ul>
+                                                    <?php if (!empty($results['customers']['cell'])): ?> 
+                                                        <li>Cell:    <?php echo $results['customers']['cell']; ?>   </li>
+                                                    <?php endif; ?>                                                
+                                                    <?php if (!empty($results['customers']['home'])): ?>
+                                                        <li> Home: <?php echo $results['customers']['home']; ?> </li>
+                                                    <?php endif ?> 
+                                                </ul>
+                                            </li>
+                                        </ul>
                                     </td>
                                     <td>
-                                       <?php echo $results['customers']['referred_phone']; ?> 
+                                        <?php echo $results['customers']['referred_phone']; ?> 
                                     </td>
                                     <td class="hidden-480">
                                         <ul>

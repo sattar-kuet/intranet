@@ -57,10 +57,12 @@ class TicketsController extends AppController {
                     'forwarded_by' => $loggedUser['id']
                 );
                
+
 //                if (trim($this->request->data['Ticket']['action_type']) == 'solved') {
 //                    $trackData['Track']['status'] = 'solved';
 //                }
                 //pr($this->request->data['Ticket']['action_type']); exit;
+
                 if (trim($this->request->data['Ticket']['action_type']) == "ready") {
                    // echo 'here'; exit;
                     $this->PackageCustomer->id = $customer_id;
@@ -70,8 +72,8 @@ class TicketsController extends AppController {
 
                 }
                 if (trim($this->request->data['Ticket']['action_type']) == 'shipment') {
-                    $this->PackageCustomer->id = $customer_id;
-                    $this->PackageCustomer->saveField("shipment", 2);
+                    $this->PackageCustomer->id = $customer_id;                    
+                    $this->PackageCustomer->saveField("shipment", 2);  // 2 means old customer
                     $this->PackageCustomer->saveField("comments", $this->request->data['Ticket']['content']);
                 }
                 $this->Track->save($trackData); // Data save in Track
@@ -91,8 +93,7 @@ class TicketsController extends AppController {
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
 
         $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
-        // pr($users);
-        //  pr($roles); exit;
+       
         $this->set(compact('users', 'roles', 'issues'));
     }
 

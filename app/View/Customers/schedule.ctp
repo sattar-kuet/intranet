@@ -12,7 +12,7 @@
     <div class="page-content">
         <!-- BEGIN PAGE HEADER-->
         <h3 class="page-title">
-            Follow up Customer List <small></small>
+            Schedule Customers List <small></small>
         </h3>
 
         <!-- END PAGE HEADER-->
@@ -39,19 +39,26 @@
                                     <th>
                                         Contact Date
                                     </th>
-
                                     <th>
-                                        Customer Name
-                                    </th>
-
-                                    <th>
-                                        Customer Address
+                                        Name
                                     </th>
                                     <th>
-                                        Customer Emergency Contact
+                                        Customer Type
                                     </th>
                                     <th>
-                                        Equipment Needed
+                                        Address
+                                    </th>
+                                    <th>
+                                        Emergency Contact
+                                    </th>
+                                    <th>
+                                        Reference Contact
+                                    </th>
+                                    <th>
+                                        Package
+                                    </th>
+                                    <th>
+                                        Follow update
                                     </th>
                                     <th>
                                         Comment
@@ -63,13 +70,12 @@
                             </thead>
                             <tbody>
                                 <?php
+                               
+                              // pr($filteredData);exit();
                                 foreach ($filteredData as $results):
                                     $customer = $results['customers'];
-                                    $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
-                                            $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
-                                            . $customer['zip'];
-                                  //  pr($customer);
-                                  //  exit;
+                                  
+                                 // pr($customer);exit();
                                     ?>
                                     <tr>
                                         <td class="hidden-480">
@@ -86,34 +92,57 @@
                                                    $results['customers']['middle_name'] . " " .
                                                    $results['customers']['last_name'];
                                                    ?>
-                                            </a>
+                                            </a> 
+                                        </td>
+                                        <td class="hidden-480">  
+                                            <?php
+                                            if ($results['customers']['status'] == 'ready') {
+                                                echo "New";
+                                            } else {
+                                                echo "Old";
+                                            }
+                                            ?>                     
+                                        </td>
+                                        <td class="hidden-480">
+                                            <?php echo $results['customers']['address']; ?>                            
+                                        </td>
+                                        <td class="hidden-480">  
+                                            <?php if (!empty($results['customers']['cell'])): ?> 
+                                                Cell:    <?php echo $results['customers']['cell']; ?>   
+                                            <?php endif; ?>
+                                            <br>
+                                            <?php if (!empty($results['customers']['home'])): ?>
+                                                Home : <?php echo $results['customers']['home']; ?>
+                                            <?php endif ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $results['customers']['referred_phone']; ?> 
+                                        </td>
+                                        <td class="hidden-480">
+                                            <ul>
+                                                <li>Name:  <?php echo $results['package']['name']; ?> </li>
+                                                <li>Duration:  <?php echo $results['package']['duration']; ?> </li>
+                                                <li>Amount:  <?php echo $results['package']['amount']; ?> </li>
+                                            </ul>
 
                                         </td>
                                         <td>
-                                            <?php echo $customer_address; ?> 
-                                        </td>
-                                        <td class="hidden-480">
-                                            <?php if (!empty($customer['cell'])): ?>
-                                                <a href="tel:<?php echo $customer['cell'] ?>"><?php echo $customer['cell']; ?></a> &nbsp;&nbsp;
-                                            <?php endif; ?>
-                                            <?php if (!empty($customer['home'])): ?>
-                                                <a href="tel:<?php echo $customer['home'] ?>"><?php echo $customer['home']; ?></a>
-                                            <?php endif; ?> 
-                                        </td>
-                                        <td>
-                                            <?php echo $customer['shipment_equipment'].' '.$customer['shipment_note'] ; ?>
+                                            <?php echo $results['customers']['follow_date']; ?>
                                         </td>
                                         <td>
                                             <ul>
                                                 <?php if (!empty($results['customers']['comments'])): ?>
                                                     <li><?php echo $results['customers']['comments'] ?> </li>
-                                                <?php endif ?>
+                                                    <?php endif ?>
                                             </ul>
                                         </td>
                                         <td>
                                             <div class="controls center text-center">
-
-                                                <div class="portlet-body form">
+                                                <a 
+                                                    href="#" title="Shedule">
+                                                    <span id="<?php echo $results['customers']['id']; ?>" class="fa fa-clock-o fa-lg shedule"></span>
+                                                </a> 
+                                                <div id="shedule_dialog<?php echo $results['customers']['id']; ?>" class="portlet-body form" style="display: none;">
                                                     <!-- BEGIN FORM-->
                                                     <?php
                                                     echo $this->Form->create('PackageCustomer', array(
@@ -197,3 +226,7 @@
     </div>
 </div>
 <!-- END CONTENT -->
+
+
+
+

@@ -33,7 +33,8 @@
                             ),
                             'id' => 'form_sample_3',
                             'class' => 'form-horizontal',
-                            'novalidate' => 'novalidate'
+                            'novalidate' => 'novalidate',
+                            'type' => 'file'
                                 )
                         );
                         ?>
@@ -86,13 +87,13 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-2">Address:<span class="required">
+                                <label class="control-label col-md-2">Building Number<span class="required">
                                     </span>
                                 </label>
                                 <div class="col-md-2">
                                     <?php
                                     echo $this->Form->input(
-                                            'address', array(
+                                            'house_no', array(
                                         'class' => 'form-control ',
                                         'type' => 'text'
                                             )
@@ -522,7 +523,83 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="shipmentshow_hide" style="display: none">
+                            <div id="shipmentshow_hide" style="display: none" class="alert alert-success">
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">Select Equipment to be sent<span class="required">
+                                        </span>
+                                    </label>
+                                    <div class="col-md-2">
+                                        <?php
+                                        echo $this->Form->input('shipment_equipment', array(
+                                            'type' => 'select',
+                                            'options' => array(
+                                                'ONLY OLD BOX' => 'ONLY OLD BOX',
+                                                'OLD BOX WITH ALL EQUIPMENT' => 'OLD BOX WITH ALL EQUIPMENT',
+                                                'ONLY NEW BOX 254' => 'ONLY NEW BOX 254',
+                                                'ONLY NEW BOX 250' => 'ONLY NEW BOX 250',
+                                                'NEW BOX 254 WITH ALL EQUIPMENT' => 'NEW BOX 254 WITH ALL EQUIPMENT',
+                                                'NEW BOX 250 WITH ALL EQUIPMENT' => 'NEW BOX 250 WITH ALL EQUIPMENT',
+                                                'OLD REMOTE' => 'OLD REMOTE',
+                                                'NEW REMOTE' => 'NEW REMOTE',
+                                                'ROUTER' => 'ROUTER',
+                                                'DONGLE' => 'DONGLE',
+                                                'WIRE' => 'WIRE',
+                                                'ONLY HDMI' => 'ONLY HDMI',
+                                                'ONLY AVI' => 'ONLY AVI',
+                                                'ADAPTER' => 'ADAPTER',
+                                                'OTHER' => 'OTHER'
+                                            ),
+                                            'empty' => 'Select Equipment',
+                                            'class' => ' form-control input-medium',
+                                            'id' => 'shipment_equipment_list'
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+
+                                    <div class="display-hide" id="other_shipment_equipment">
+                                      
+                                        <div class="col-md-2">
+                                            <?php
+                                            echo $this->Form->input(
+                                                    'shipment_equipment_other', array(
+                                                'class' => 'form-control ',
+                                                'placeholder' => 'Type Equipment',
+                                                'type' => 'text'
+                                                    )
+                                            );
+                                            ?>
+                                        </div>
+
+                                    </div>
+
+                                   
+                                    <div class="col-md-2">
+                                        <?php
+                                        echo $this->Form->input(
+                                                'shipment_note', array(
+                                            'class' => 'form-control ',
+                                            'placeholder' => 'Type additional note here..',
+                                            'type' => 'textarea'
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+                                    <label class="control-label col-md-2"><span class="required">
+                                        </span>
+                                    </label>
+                                    <div class="col-md-2">
+                                        <?php
+                                        echo $this->Form->input(
+                                                'attachment', array(
+                                            'class' => 'form-control ',
+                                            'type' => 'file'
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+
+                                </div>
                                 <div class="form-group">
                                     <label class="control-label col-md-2">Driving lisence or Social Security<span class="required">
                                         </span>
@@ -566,7 +643,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                     <label class="control-label col-md-2">Customer Utility:<span class="required">
+                                    <label class="control-label col-md-2">Customer Utility:<span class="required">
                                         </span>
                                     </label>
                                     <div class="col-md-2">
@@ -577,7 +654,7 @@
                                                 <input type="radio" name="data[PackageCustomer][customer_utility]" id="optionsRadios5" value="NO"> No</label>
                                         </div>
                                     </div>
-                                  
+
                                     <label class="control-label col-md-2">Card no:<span class="required">
                                         </span>
                                     </label>
@@ -692,7 +769,7 @@
 
                                 </div>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label class="control-label col-md-2 blink_me" style="color: red">Dealer<span class="required">
                                     </span>
@@ -703,7 +780,7 @@
                                             <?php
                                             echo $this->Form->input(
                                                     'dealer', array(
-                                                'type' => 'checkbox', 
+                                                'type' => 'checkbox',
                                                 'id' => 'dealer',
                                                     )
                                             );
@@ -740,7 +817,7 @@
                                             'comments', array(
                                         'class' => 'form-control',
                                         'type' => 'textarea',
-                                        'rows' => '3',
+                                        'rows' => '5',
                                             )
                                     );
                                     ?>

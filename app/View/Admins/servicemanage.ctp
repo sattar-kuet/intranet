@@ -166,6 +166,9 @@
                 
                     foreach ($data['customer'] as $index => $d):
                         $customer = $d;
+                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
+                                            $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
+                                            . $customer['zip'];
                         $package = array();
                         if (count($data['package']) > 0) {
                             $package = $data['package'][$index];
@@ -177,7 +180,7 @@
                             <td>
                                 <ul>
                                     <li>Cell:<?php echo $customer['cell']; ?></li>
-                                    <li>Address:<?php echo $customer['address'] ?></li>
+                                    <li>Address:<?php echo $customer_address; ?></li>
                                 </ul>
                             </td>
                             <td>
