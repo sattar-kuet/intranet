@@ -12,7 +12,7 @@ class CustomersController extends AppController {
     public function beforeFilter() {
         parent::beforeFilter();
         $this->Auth->allow('');
-        // database name must be thum_img,small_img
+        // database name must be picture, attachment
         $this->img_config = array(
             'picture' => array(
                 'image_ratio_crop' => true,
@@ -20,9 +20,13 @@ class CustomersController extends AppController {
                 'image_x' => 50,
                 'image_y' => 40
             ),
+            'attachment' => array(
+                'image_ratio_crop' => false,
+            ),
             'parent_dir' => 'pictures',
             'target_path' => array(
-                'picture' => WWW_ROOT . 'pictures' . DS
+                'picture' => WWW_ROOT . 'pictures' . DS,
+                'attachment' => WWW_ROOT . 'attchment' . DS
             )
         );
 
@@ -49,6 +53,24 @@ class CustomersController extends AppController {
             $msg = $this->generateError($upload->error);
             return $this->redirect('create');
         }
+        $return['file_dst_name'] = $upload->file_dst_name;
+        return $return;
+    }
+
+    function processAttachment($img) {
+        $upload = new Upload($img['attachment']);
+        $upload->file_new_name_body = time();
+        foreach ($this->img_config['attachment'] as $key => $value) {
+            $upload->$key = $value;
+        }
+        $upload->process($this->img_config['target_path']['attachment']);
+        if (!$upload->processed) {
+            pr($upload->error); exit;
+            $msg = $this->generateError($upload->error);
+            $this->Session->setFlash($msg);
+            return $this->redirect($this->referer());
+        }
+
         $return['file_dst_name'] = $upload->file_dst_name;
         return $return;
     }
@@ -112,7 +134,9 @@ class CustomersController extends AppController {
         if ($this->request->is('post') || $this->request->is('put')) {
             $this->request->data['PackageCustomer']['status'] = 'requested';
             //  pr($this->request->data); exit;
-            $this->PackageCustomer->set($this->request->data);
+            if ($this->request->data['PackageCustomer']['shipment_equipment'] == 'OTHER') {
+                $this->request->data['PackageCustomer']['shipment_equipment'] = $this->request->data['PackageCustomer']['shipment_equipment_other'];
+            }
             //$this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
             //For Custom Package data insert//
             if (!empty($this->request->data['PackageCustomer']['charge'])) {
@@ -126,7 +150,13 @@ class CustomersController extends AppController {
 
             $dateObj = $this->request->data['PackageCustomer']['exp_date'];
             $this->request->data['PackageCustomer']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
-//            pr($this->request->data); exit;
+       //    pr($this->request->data); exit;
+            if (!empty($this->request->data['PackageCustomer']['attachment']['name'])) {
+                $result = $this->processAttachment($this->request->data['PackageCustomer']);
+                $this->request->data['PackageCustomer']['attachment'] = $result['file_dst_name'];
+            } else {
+                $this->request->data['PackageCustomer']['attachment'] = '';
+            }
             $pc = $this->PackageCustomer->save($this->request->data['PackageCustomer']);
 //            data for comment
             $comment['Comment']['package_customer_id'] = $pc['PackageCustomer']['id'];
@@ -398,8 +428,8 @@ class CustomersController extends AppController {
         $this->loadModel('PackageCustomer');
         $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc  
         WHERE pc.technician_id = $id and pc.status = 'scheduled'");
-     //   pr($allData);
-      //  exit;
+        //   pr($allData);
+        //  exit;
         $this->set(compact('allData'));
     }
 
