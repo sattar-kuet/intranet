@@ -73,8 +73,17 @@
         // common custom css
          'custom',
          'chat',
+            
+          //shipment picture file show pop up Start
+        
+        '/assets/admin/pages/css/portfolio',
+        '/assets/admin/layout/css/layout',
+        '/assets/admin/layout/css/custom',
+        //shipment picture file show pop up End
+            
         )
         );
+
         ?>
 
     <p class="hide" id="webroot"><?php echo $this->webroot; ?></p>
