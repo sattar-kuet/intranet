@@ -355,8 +355,7 @@ class CustomersController extends AppController {
         $this->set(compact('filteredData'));
     }
 
-    function ready_installation
-    () {
+    function ready_installation () {
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
         $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
@@ -364,7 +363,7 @@ class CustomersController extends AppController {
                     left join users u on c.user_id = u.id
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
-                    WHERE pc.status = 'ready' OR pc.status = 'old_ready' OR (pc.follow_up=0 AND pc.status ='requested')");
+                    WHERE pc.status = 'ready'  OR (pc.follow_up=0 AND pc.status ='requested' AND pc.status != 'old_ready' ) AND shipment =0");
         // echo $sql; exit;
         $filteredData = array();
         $unique = array();
@@ -707,7 +706,7 @@ class CustomersController extends AppController {
                     left join users u on c.user_id = u.id
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
-                    WHERE pc.shipment = 1");
+                    WHERE pc.status = 'old_ready'");
         // echo $sql; exit;
         $filteredData = array();
         $unique = array();
