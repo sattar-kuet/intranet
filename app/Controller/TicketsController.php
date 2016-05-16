@@ -47,6 +47,7 @@ class TicketsController extends AppController {
                     $this->request->data['Ticket']['priority'] = 'low';
                 }
                 $tickect = $this->Ticket->save($this->request->data['Ticket']); // Data save in Ticket
+
                 $trackData['Track'] = array(
                     'issue_id' => $this->request->data['Ticket']['issue_id'],
                     'package_customer_id' => $customer_id,
@@ -70,23 +71,24 @@ class TicketsController extends AppController {
                     $this->PackageCustomer->saveField("comments", $this->request->data['Ticket']['content']);
                 }
                 if (trim($this->request->data['Ticket']['action_type']) == 'shipment') {
-                 //   pr($this->request->data);
-                  //  exit;
+                    //   pr($this->request->data);
+                    //  exit;
                     if ($this->request->data['Ticket']['shipment_equipment'] == 'OTHER') {
                         $this->request->data['Ticket']['shipment_equipment'] = $this->request->data['Ticket']['shipment_equipment_other'];
                     }
+                    // $this->PackageCustomer->create();
                     $this->PackageCustomer->id = $customer_id;
                     $data['PackageCustomer'] = array(
-                        'shipment' => 2,
-                        'comments' => $this->request->data['Ticket']['content'],
+                       'shipment' => 2,
+                        'comments' => 'abcdf',
                         'shipment_equipment' => $this->request->data['Ticket']['shipment_equipment'],
                         'shipment_note' => $this->request->data['Ticket']['shipment_note'],
                         'issue_id' => $this->request->data['Ticket']['issue_id']
                     );
-                    pr($data); exit;
-                    $this->PackageCustomer->save($data); 
-                     echo $this->PackageCustomer->getLastQuery(); exit;                  
-                 
+                    //  pr($data); exit;
+                    $this->PackageCustomer->save($data['PackageCustomer']);
+                    //$log = $this->PackageCustomer->getDataSource()->getLog(false, false);
+                  
                 }
                 $this->Track->save($trackData); // Data save in Track
                 $msg = '<div class="alert alert-success">
