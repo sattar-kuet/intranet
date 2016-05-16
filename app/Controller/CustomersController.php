@@ -65,7 +65,8 @@ class CustomersController extends AppController {
         }
         $upload->process($this->img_config['target_path']['attachment']);
         if (!$upload->processed) {
-            pr($upload->error); exit;
+            pr($upload->error);
+            exit;
             $msg = $this->generateError($upload->error);
             $this->Session->setFlash($msg);
             return $this->redirect($this->referer());
@@ -150,7 +151,7 @@ class CustomersController extends AppController {
 
             $dateObj = $this->request->data['PackageCustomer']['exp_date'];
             $this->request->data['PackageCustomer']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
-       //    pr($this->request->data); exit;
+            //    pr($this->request->data); exit;
             if (!empty($this->request->data['PackageCustomer']['attachment']['name'])) {
                 $result = $this->processAttachment($this->request->data['PackageCustomer']);
                 $this->request->data['PackageCustomer']['attachment'] = $result['file_dst_name'];
@@ -573,7 +574,7 @@ class CustomersController extends AppController {
                     left join users u on c.user_id = u.id
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
-                    WHERE pc.shipment = 1 or pc.shipment = 2");
+                    WHERE pc.shipment = 1");
         // echo $sql; exit;
         $filteredData = array();
         $unique = array();
@@ -628,7 +629,272 @@ class CustomersController extends AppController {
         }
         $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
 //        pr($technician); exit;
+        $this->set(compact('filteredData', 'technician'));
+    }
 
+    function troubleshot_shipment() {
+        $this->loadModel('User');
+        $this->loadModel('PackageCustomer');
+        $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
+                    left join comments c on pc.id = c.package_customer_id
+                    left join users u on c.user_id = u.id
+                    left join psettings ps on ps.id = pc.psetting_id
+                    left join custom_packages cp on cp.id = pc.custom_package_id 
+                    WHERE pc.shipment = 2");
+        // echo $sql; exit;
+        $filteredData = array();
+        $unique = array();
+        $index = 0;
+//        pr($allData); exit;
+        foreach ($allData as $key => $data) {
+            //pr($data); exit;
+            $pd = $data['pc']['id'];
+            if (isset($unique[$pd])) {
+                //  echo 'already exist'.$key.'<br/>';
+                if (!empty($data['c']['content'])) {
+                    //  $temp = $data['c'];// array('id' => $data['psettings']['id'], 'duration' => $data['psettings']['duration'], 'amount' => $data['psettings']['amount'], 'offer' => $data['psettings']['offer']);
+                    //pr($temp); exit;
+
+                    $temp = array('content' => $data['c'], 'user' => $data['u']);
+                    $filteredData[$index]['comments'][] = $temp;
+                }
+            } else {
+                if ($key != 0)
+                    $index++;
+                $unique[$pd] = 'set';
+
+                $filteredData[$index]['customers'] = $data['pc'];
+                $filteredData[$index]['users'] = $data['u'];
+
+                $filteredData[$index]['package'] = array(
+                    'name' => 'No package dealings',
+                    'duration' => 'Not Applicable',
+                    'amount' => 'not Applicable'
+                );
+
+                if (!empty($data['ps']['id'])) {
+                    $filteredData[$index]['package'] = array(
+                        'name' => $data['ps']['name'],
+                        'duration' => $data['ps']['duration'],
+                        'amount' => $data['ps']['amount']
+                    );
+                }
+                if (!empty($data['cp']['id'])) {
+                    $filteredData[$index]['package'] = array(
+                        'name' => $data['cp']['duration'] . ' months custom package',
+                        'duration' => $data['cp']['duration'],
+                        'amount' => $data['cp']['charge']
+                    );
+                }
+                $filteredData[$index]['comments'] = array();
+                if (!empty($data['c']['content'])) {
+                    $temp = array('content' => $data['c'], 'user' => $data['u']);
+                    $filteredData[$index]['comments'][] = $temp;
+                }
+            }
+        }
+        $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
+//        pr($technician); exit;
+        $this->set(compact('filteredData', 'technician'));
+    }
+
+    function troubleshot_technician() {
+        $this->loadModel('User');
+        $this->loadModel('PackageCustomer');
+        $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
+                    left join comments c on pc.id = c.package_customer_id
+                    left join users u on c.user_id = u.id
+                    left join psettings ps on ps.id = pc.psetting_id
+                    left join custom_packages cp on cp.id = pc.custom_package_id 
+                    WHERE pc.shipment = 1");
+        // echo $sql; exit;
+        $filteredData = array();
+        $unique = array();
+        $index = 0;
+//        pr($allData); exit;
+        foreach ($allData as $key => $data) {
+            //pr($data); exit;
+            $pd = $data['pc']['id'];
+            if (isset($unique[$pd])) {
+                //  echo 'already exist'.$key.'<br/>';
+                if (!empty($data['c']['content'])) {
+                    //  $temp = $data['c'];// array('id' => $data['psettings']['id'], 'duration' => $data['psettings']['duration'], 'amount' => $data['psettings']['amount'], 'offer' => $data['psettings']['offer']);
+                    //pr($temp); exit;
+
+                    $temp = array('content' => $data['c'], 'user' => $data['u']);
+                    $filteredData[$index]['comments'][] = $temp;
+                }
+            } else {
+                if ($key != 0)
+                    $index++;
+                $unique[$pd] = 'set';
+
+                $filteredData[$index]['customers'] = $data['pc'];
+                $filteredData[$index]['users'] = $data['u'];
+
+                $filteredData[$index]['package'] = array(
+                    'name' => 'No package dealings',
+                    'duration' => 'Not Applicable',
+                    'amount' => 'not Applicable'
+                );
+
+                if (!empty($data['ps']['id'])) {
+                    $filteredData[$index]['package'] = array(
+                        'name' => $data['ps']['name'],
+                        'duration' => $data['ps']['duration'],
+                        'amount' => $data['ps']['amount']
+                    );
+                }
+                if (!empty($data['cp']['id'])) {
+                    $filteredData[$index]['package'] = array(
+                        'name' => $data['cp']['duration'] . ' months custom package',
+                        'duration' => $data['cp']['duration'],
+                        'amount' => $data['cp']['charge']
+                    );
+                }
+                $filteredData[$index]['comments'] = array();
+                if (!empty($data['c']['content'])) {
+                    $temp = array('content' => $data['c'], 'user' => $data['u']);
+                    $filteredData[$index]['comments'][] = $temp;
+                }
+            }
+        }
+        $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
+//        pr($technician); exit;
+        $this->set(compact('filteredData', 'technician'));
+    }
+
+    function moving_wire() {
+        $this->loadModel('User');
+        $this->loadModel('PackageCustomer');
+        $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
+                    left join comments c on pc.id = c.package_customer_id
+                    left join users u on c.user_id = u.id
+                    left join psettings ps on ps.id = pc.psetting_id
+                    left join custom_packages cp on cp.id = pc.custom_package_id 
+                    left join issues i on pc.issue_id = i.id
+                    where pc.issue_id = 34");
+        // echo $sql; exit;
+        $filteredData = array();
+        $unique = array();
+        $index = 0;
+//        pr($allData); exit;
+        foreach ($allData as $key => $data) {
+            //pr($data); exit;
+            $pd = $data['pc']['id'];
+            if (isset($unique[$pd])) {
+                //  echo 'already exist'.$key.'<br/>';
+                if (!empty($data['c']['content'])) {
+                    //  $temp = $data['c'];// array('id' => $data['psettings']['id'], 'duration' => $data['psettings']['duration'], 'amount' => $data['psettings']['amount'], 'offer' => $data['psettings']['offer']);
+                    //pr($temp); exit;
+
+                    $temp = array('content' => $data['c'], 'user' => $data['u']);
+                    $filteredData[$index]['comments'][] = $temp;
+                }
+            } else {
+                if ($key != 0)
+                    $index++;
+                $unique[$pd] = 'set';
+
+                $filteredData[$index]['customers'] = $data['pc'];
+                $filteredData[$index]['users'] = $data['u'];
+
+                $filteredData[$index]['package'] = array(
+                    'name' => 'No package dealings',
+                    'duration' => 'Not Applicable',
+                    'amount' => 'not Applicable'
+                );
+
+                if (!empty($data['ps']['id'])) {
+                    $filteredData[$index]['package'] = array(
+                        'name' => $data['ps']['name'],
+                        'duration' => $data['ps']['duration'],
+                        'amount' => $data['ps']['amount']
+                    );
+                }
+                if (!empty($data['cp']['id'])) {
+                    $filteredData[$index]['package'] = array(
+                        'name' => $data['cp']['duration'] . ' months custom package',
+                        'duration' => $data['cp']['duration'],
+                        'amount' => $data['cp']['charge']
+                    );
+                }
+                $filteredData[$index]['comments'] = array();
+                if (!empty($data['c']['content'])) {
+                    $temp = array('content' => $data['c'], 'user' => $data['u']);
+                    $filteredData[$index]['comments'][] = $temp;
+                }
+            }
+        }
+        $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
+//        pr($technician); exit;
+        $this->set(compact('filteredData', 'technician'));
+    }
+
+    function remote_problem() {
+        $this->loadModel('User');
+        $this->loadModel('PackageCustomer');
+        $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
+                    left join comments c on pc.id = c.package_customer_id
+                    left join users u on c.user_id = u.id
+                    left join psettings ps on ps.id = pc.psetting_id
+                    left join custom_packages cp on cp.id = pc.custom_package_id 
+                    left join issues i on pc.issue_id = i.id
+                    where pc.issue_id = 5");
+        // echo $sql; exit;
+        $filteredData = array();
+        $unique = array();
+        $index = 0;
+//        pr($allData); exit;
+        foreach ($allData as $key => $data) {
+            //pr($data); exit;
+            $pd = $data['pc']['id'];
+            if (isset($unique[$pd])) {
+                //  echo 'already exist'.$key.'<br/>';
+                if (!empty($data['c']['content'])) {
+                    //  $temp = $data['c'];// array('id' => $data['psettings']['id'], 'duration' => $data['psettings']['duration'], 'amount' => $data['psettings']['amount'], 'offer' => $data['psettings']['offer']);
+                    //pr($temp); exit;
+
+                    $temp = array('content' => $data['c'], 'user' => $data['u']);
+                    $filteredData[$index]['comments'][] = $temp;
+                }
+            } else {
+                if ($key != 0)
+                    $index++;
+                $unique[$pd] = 'set';
+
+                $filteredData[$index]['customers'] = $data['pc'];
+                $filteredData[$index]['users'] = $data['u'];
+
+                $filteredData[$index]['package'] = array(
+                    'name' => 'No package dealings',
+                    'duration' => 'Not Applicable',
+                    'amount' => 'not Applicable'
+                );
+
+                if (!empty($data['ps']['id'])) {
+                    $filteredData[$index]['package'] = array(
+                        'name' => $data['ps']['name'],
+                        'duration' => $data['ps']['duration'],
+                        'amount' => $data['ps']['amount']
+                    );
+                }
+                if (!empty($data['cp']['id'])) {
+                    $filteredData[$index]['package'] = array(
+                        'name' => $data['cp']['duration'] . ' months custom package',
+                        'duration' => $data['cp']['duration'],
+                        'amount' => $data['cp']['charge']
+                    );
+                }
+                $filteredData[$index]['comments'] = array();
+                if (!empty($data['c']['content'])) {
+                    $temp = array('content' => $data['c'], 'user' => $data['u']);
+                    $filteredData[$index]['comments'][] = $temp;
+                }
+            }
+        }
+        $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
+//        pr($technician); exit;
         $this->set(compact('filteredData', 'technician'));
     }
 

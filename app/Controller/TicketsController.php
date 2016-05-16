@@ -56,7 +56,7 @@ class TicketsController extends AppController {
                     'ticket_id' => $tickect['Ticket']['id'],
                     'forwarded_by' => $loggedUser['id']
                 );
-               
+
 
 //                if (trim($this->request->data['Ticket']['action_type']) == 'solved') {
 //                    $trackData['Track']['status'] = 'solved';
@@ -64,17 +64,29 @@ class TicketsController extends AppController {
                 //pr($this->request->data['Ticket']['action_type']); exit;
 
                 if (trim($this->request->data['Ticket']['action_type']) == "ready") {
-                   // echo 'here'; exit;
+                    // echo 'here'; exit;
                     $this->PackageCustomer->id = $customer_id;
                     $this->PackageCustomer->saveField("status", "old_ready");
                     $this->PackageCustomer->saveField("comments", $this->request->data['Ticket']['content']);
-                    
-
                 }
                 if (trim($this->request->data['Ticket']['action_type']) == 'shipment') {
-                    $this->PackageCustomer->id = $customer_id;                    
-                    $this->PackageCustomer->saveField("shipment", 2);  // 2 means old customer
-                    $this->PackageCustomer->saveField("comments", $this->request->data['Ticket']['content']);
+                 //   pr($this->request->data);
+                  //  exit;
+                    if ($this->request->data['Ticket']['shipment_equipment'] == 'OTHER') {
+                        $this->request->data['Ticket']['shipment_equipment'] = $this->request->data['Ticket']['shipment_equipment_other'];
+                    }
+                    $this->PackageCustomer->id = $customer_id;
+                    $data['PackageCustomer'] = array(
+                        'shipment' => 2,
+                        'comments' => $this->request->data['Ticket']['content'],
+                        'shipment_equipment' => $this->request->data['Ticket']['shipment_equipment'],
+                        'shipment_note' => $this->request->data['Ticket']['shipment_note'],
+                        'issue_id' => $this->request->data['Ticket']['issue_id']
+                    );
+                    pr($data); exit;
+                    $this->PackageCustomer->save($data); 
+                     echo $this->PackageCustomer->getLastQuery(); exit;                  
+                 
                 }
                 $this->Track->save($trackData); // Data save in Track
                 $msg = '<div class="alert alert-success">
@@ -93,7 +105,7 @@ class TicketsController extends AppController {
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
 
         $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
-       
+
         $this->set(compact('users', 'roles', 'issues'));
     }
 
