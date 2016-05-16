@@ -555,19 +555,19 @@
                         endif;
                         ?>
                         >
-                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'moving')) ?>">
+                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'moving_wire')) ?>">
                             <i class="fa icon-like"></i>
                             Moving &  Wiring</a>
                     </li>
                     <li
-                    <?php if ($this->name . '' . $this->action == 'Ready_remoteproblem'):
+                    <?php if ($this->name . '' . $this->action == 'Ready_remote_problem'):
                         ?>
                             class="active"
                             <?php
                         endif;
                         ?>
                         >
-                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'remoteproblem')) ?>">
+                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'remote_problem')) ?>">
                             <i class="fa icon-like"></i>
                             Remote Problem</a>
                     </li>

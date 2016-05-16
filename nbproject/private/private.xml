@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+<<<<<<< HEAD
+=======
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+<<<<<<< HEAD
+            <file>file:/D:/xampee/htdocs/intranet/app/Controller/AdminsController.php</file>
+=======
+            <file>file:/D:/Server/htdocs/intranet/app/View/Customers/registration.ctp</file>
+            <file>file:/D:/Server/htdocs/intranet/app/View/Customers/shipment.ctp</file>
+            <file>file:/D:/Server/htdocs/intranet/app/View/Elements/common-footer.ctp</file>
+            <file>file:/D:/Server/htdocs/intranet/app/Controller/CustomersController.php</file>
+            <file>file:/D:/Server/htdocs/intranet/app/Controller/TransactionsController.php</file>
+            <file>file:/D:/Server/htdocs/intranet/app/webroot/js/sum.js</file>
+            <file>file:/D:/Server/htdocs/intranet/app/Controller/TicketsController.php</file>
+            <file>file:/D:/Server/htdocs/intranet/app/webroot/js/customerRegistration.js</file>
+=======
+>>>>>>> c4a3b15d247605d8f3e7ce870d8351179bc84793
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="14">
         <file>
             <url>app/Controller/TicketsController.php</url>
@@ -92,6 +110,18 @@
             <file>file:/D:/xampp/htdocs/intranet/app/View/Reports/call_log.ctp</file>
             <file>file:/D:/xampp/htdocs/intranet/app/View/Reports/newcustomers.ctp</file>
             <file>file:/D:/xampp/htdocs/intranet/app/View/Elements/sadmin-sidebar.ctp</file>
+<<<<<<< HEAD
+=======
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Tickets/solved_ticket.ctp</file>
+=======
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Customers/shipment.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/Controller/CustomersController.php</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Customers/ready_installation.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Customers/schedule.ctp</file>
+>>>>>>> cd2ceeb0fcc86831566adcfdf37304d034d7e0f2
+>>>>>>> 017208757be2fae82b845ca5097ae5f15681a068
+>>>>>>> 1ae5ea5a9dce7ec528d8c973ea52f46e76f8bfba
+>>>>>>> c4a3b15d247605d8f3e7ce870d8351179bc84793
         </group>
     </open-files>
 </project-private>
