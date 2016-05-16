@@ -68,6 +68,7 @@ class TicketsController extends AppController {
                     $this->PackageCustomer->id = $customer_id;
                     $this->PackageCustomer->saveField("status", "old_ready");
                     $this->PackageCustomer->saveField("comments", $this->request->data['Ticket']['content']);
+                    echo $this->PackageCustomer->getLastQuery(); exit;  
                 }
                 if (trim($this->request->data['Ticket']['action_type']) == 'shipment') {
                  //   pr($this->request->data);
@@ -75,6 +76,7 @@ class TicketsController extends AppController {
                     if ($this->request->data['Ticket']['shipment_equipment'] == 'OTHER') {
                         $this->request->data['Ticket']['shipment_equipment'] = $this->request->data['Ticket']['shipment_equipment_other'];
                     }
+                   
                     $this->PackageCustomer->id = $customer_id;
                     $data['PackageCustomer'] = array(
                         'shipment' => 2,
@@ -83,8 +85,10 @@ class TicketsController extends AppController {
                         'shipment_note' => $this->request->data['Ticket']['shipment_note'],
                         'issue_id' => $this->request->data['Ticket']['issue_id']
                     );
-                    pr($data); exit;
-                    $this->PackageCustomer->save($data); 
+                   pr($data); exit;
+                  $this->PackageCustomer->save($data['PackageCustomer']);
+                    //var_dump($this->PackageCustomer->invalidFields());
+                 //  pr($this->PackageCustomer->error);
                      echo $this->PackageCustomer->getLastQuery(); exit;                  
                  
                 }

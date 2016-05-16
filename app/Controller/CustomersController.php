@@ -355,7 +355,8 @@ class CustomersController extends AppController {
         $this->set(compact('filteredData'));
     }
 
-    function ready_installation() {
+    function ready_installation
+    () {
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
         $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 

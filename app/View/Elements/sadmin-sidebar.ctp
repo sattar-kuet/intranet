@@ -478,8 +478,8 @@
 
             <li 
             <?php
-            $services = array('Ready_installation', 'Ready_shipment', 'Ready_troubleshottechnician','Ready_troubleshotshipment','Ready_moving','Ready_remoteproblem');
-            if (in_array($this->name . '' . $this->action, $services)):
+            $installations = array('Ready_installation', 'Ready_shipment', 'Ready_troubleshottechnician','Ready_troubleshotshipment','Ready_moving','Ready_remoteproblem');
+            if (in_array($this->name . '' . $this->action, $installations)):
                 ?>
                     class="active"
                     <?php
