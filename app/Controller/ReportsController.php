@@ -147,16 +147,13 @@ class ReportsController extends AppController {
 
     function call_log() {
         $this->loadModel('Issue');
-
         $this->loadModel('Track');
         $this->loadModel('User');
         $this->loadModel('Role');
         $clicked = false;
         if ($this->request->is('post') || $this->request->is('put')) {
-
             $issue = $this->request->data['Track']['issue_id'];
             $agent = $this->request->data['Track']['user_id'];
-
             $datrange = json_decode($this->request->data['Track']['daterange'], true);
             $ds = new DateTime($datrange['start']);
             $timestamp = $ds->getTimestamp(); // Unix timestamp
@@ -164,8 +161,21 @@ class ReportsController extends AppController {
             $de = new DateTime($datrange['end']);
             $timestamp = $de->getTimestamp(); // Unix timestamp
             $endd = $de->format('m/y'); // 2003-10-16
-            $conditions = array('Track.created >=' => $startd, 'Track.created <=' => $endd);
-                        
+            $conditions = "";
+            if (!empty($issue)) {
+                $conditions .= " issue_id = $issue AND";
+            }
+            if (!empty($agent)) {
+                $conditions .=" forwarded_by = $agent AND";
+            }
+            if (count($datrange)) {
+                $conditions .=" t.created >='" . $datrange['start'] . "' AND  t.created <='" . $datrange['end'] . "'";
+            }
+            $conditions.="###";
+            $conditions = str_replace("AND###", "", $conditions);
+            $conditions = str_replace("###", "", $conditions);
+           
+
             $tickets = $this->Track->query("SELECT * FROM tracks tr
                         left JOIN tickets t ON tr.ticket_id = t.id
                         left JOIN users fb ON tr.forwarded_by = fb.id
@@ -173,16 +183,13 @@ class ReportsController extends AppController {
                         left JOIN users fi ON tr.user_id = fi.id
                         left JOIN issues i ON tr.issue_id = i.id
                         left join package_customers pc on tr.package_customer_id = pc.id
-                         where issue_id = $issue and forwarded_by = $agent and
-             t.created >='" . $datrange['start'] . "' AND  t.created <='" . $datrange['end'] . "'");
-           
+                         where $conditions");
             $filteredTicket = array();
             $unique = array();
             $index = 0;
             foreach ($tickets as $key => $ticket) {
                 $t = $ticket['t']['id'];
                 if (isset($unique[$t])) {
-                    //  echo 'already exist'.$key.'<br/>';
                     $temp = array('tr' => $ticket['tr'], 'fb' => $ticket['fb'], 'fd' => $ticket['fd'], 'fi' => $ticket['fi'], 'i' => $ticket['i'], 'pc' => $ticket['pc']);
                     $filteredTicket[$index]['history'][] = $temp;
                 } else {
@@ -193,18 +200,17 @@ class ReportsController extends AppController {
                     $temp = array('tr' => $ticket['tr'], 'fb' => $ticket['fb'], 'fd' => $ticket['fd'], 'fi' => $ticket['fi'], 'i' => $ticket['i'], 'pc' => $ticket['pc']);
                     $filteredTicket[$index]['history'][] = $temp;
                 }
-                 $data = $filteredTicket;
+                $filteredTicket;
             }
-           
             
+            //pr($data);
             $clicked = true;
-            $this->set(compact('data'));
+            $this->set(compact('filteredTicket'));
         }
-        $data = $filteredTicket;
+       // pr($filteredTicket); exit;
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
         $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
-         
-        $this->set(compact('clicked','data', 'users', 'issues'));
+        $this->set(compact('clicked', 'data', 'users', 'issues'));
     }
 
 }

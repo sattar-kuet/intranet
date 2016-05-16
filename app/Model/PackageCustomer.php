@@ -6,7 +6,7 @@
  */
 class PackageCustomer extends AppModel {
 
-    //var $name = "PackageCustomer";
+    //var $name = "PackageCustomers";
     var $belongsTo = array('User', 'Psetting', 'CustomPackage');
     //var $belongsTo = array('Psetting');
     

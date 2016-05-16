@@ -29,6 +29,18 @@ echo $this->Html->script(
         )
 );
 ?>
+<!--shipment photo show pop up start-->
+<?php
+echo $this->Html->script(
+      array(
+       '/assets/global/plugins/jquery-mixitup/jquery.mixitup.min' ,
+       
+      )  
+        );
+?>
+
+<!--shipment photo show pop up end-->
+
 
 <!-- Start shope-list.html -->
 <?php
@@ -132,6 +144,7 @@ echo $this->Html->script(
             '/assets/admin/pages/scripts/table-editable',
             '/assets/admin/pages/scripts/form-validation',
             'my_form_validation',
+            '/assets/admin/pages/scripts/portfolio',
         )
 );
 ?>
@@ -162,6 +175,9 @@ echo $this->Html->script(
         Layout.initTouchspin();
         Layout.initUniform();
         Layout.initSliderRange();
+        //shipment photo view start
+        Portfolio.init();
+        //shipment photo view end
 
     });
     
@@ -188,5 +204,4 @@ echo $this->Html->script(
 );
 ?>
 <!--End Common MY js-->
-
 
