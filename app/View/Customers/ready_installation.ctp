@@ -12,7 +12,7 @@
     <div class="page-content">
         <!-- BEGIN PAGE HEADER-->
         <h3 class="page-title">
-            Follow up Customer List <small></small>
+            Sales Technicians <small></small>
         </h3>
 
         <!-- END PAGE HEADER-->
@@ -43,6 +43,10 @@
                                     <th>
                                         Customer Name
                                     </th>
+                                    
+                                    <th>
+                                        Package Information
+                                    </th>
 
                                     <th>
                                         Address
@@ -66,13 +70,14 @@
                             </thead>
                             <tbody>
                                 <?php
+                                 
                                 foreach ($filteredData as $results):
+                                   
                                     $customer = $results['customers'];
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
                                             . $customer['zip'];
-                                    //  pr($customer);
-                                    //  exit;
+                                      
                                     ?>
                                     <tr>
                                         <td class="hidden-480">

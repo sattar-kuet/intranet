@@ -82,7 +82,170 @@
                             Solved Ticket</a>
                     </li>
                 </ul> 
-             <li 
+                
+            <li 
+            <?php
+            $services = array('Customersregistration', 'Customersshipment_installation', 'Customersedit_registration', 'Customersfollowup', 'Customersready_installation', 'Customersshipment', 'Customersschedule_done');
+            if (in_array($this->name . '' . $this->action, $services)):
+                ?>
+                    class="active"
+                    <?php
+                endif;
+                ?>
+                >
+
+                <a href="javascript:;">
+                    <i class="fa icon-users"></i>
+                    <span class="title">Potential Customer</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Customersregistration'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+
+                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'registration')) ?>">
+                            <i class="fa icon-note"></i>
+                            Opportunity</a>
+                    </li>
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Customsfollowup'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'followup')) ?>">
+                            <i class="fa icon-user-following"></i>
+                            Opportunity Follow-up </a>
+                    </li>
+                    <li
+
+                        <?php if ($this->name . '' . $this->action == 'Customersschedule_done'):
+                            ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+
+                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'schedule_done')) ?>">
+
+                            <i class="fa icon-like"></i>
+                            Schedule Done </a>
+                    </li>
+                </ul>
+            </li>
+
+           <li 
+            <?php
+            $services = array('Customersready_installation', 'Customersshipment', 'Customerstroubleshot_technician', 'Customerstroubleshot_shipment', 'Customersmoving_wire', 'Customersremote_problem');
+            if (in_array($this->name . '' . $this->action, $services)):
+                ?>
+                    class="active"
+                    <?php
+                endif;
+                ?>
+                >
+
+                <a href="javascript:;">
+                    <i class="fa icon-users"></i>
+                    <span class="title">Ready To Installation</span>
+                    <span class="arrow "></span>
+                </a>
+               
+                <ul class="sub-menu">                 
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Customersready_installation'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'ready_installation')) ?>">
+                            <i class="fa icon-like"></i>
+                            Sales Technician </a>
+                    </li>
+
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Customersshipment'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'shipment')) ?>">
+
+                            <i class="fa fa-plane"></i>
+                            Sales Shipment </a>
+                    </li>
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Customerstroubleshot_technician'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'troubleshot_technician')) ?>">
+                            <i class="fa icon-like"></i>
+                            Troubleshot Technician</a>
+                    </li>
+
+                    <li
+
+                        <?php if ($this->name . '' . $this->action == 'Customerstroubleshot_shipment'):
+                            ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+
+                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'troubleshot_shipment')) ?>">
+
+                            <i class="fa icon-like"></i>
+                            Troubleshot Shipment</a>
+                    </li>
+
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Customersmoving_wire'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'moving_wire')) ?>">
+                            <i class="fa icon-like"></i>
+                            Moving &  Wiring</a>
+                    </li>
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Customersremote_problem'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'remote_problem')) ?>">
+                            <i class="fa icon-like"></i>
+                            Remote Problem</a>
+                    </li>
+                </ul>
+            </li> 
+            
+                
+                
+<!--             <li 
             <?php
 
             $services = array('Customersregistration','Customersedit_registration', 'Customersfollowup','Customersready_installation','Customersshipment' );
@@ -160,7 +323,7 @@
                     </li>
                 </ul>
             </li>
-
+-->
 
         </ul>
         <!-- END SIDEBAR MENU -->

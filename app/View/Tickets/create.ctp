@@ -75,7 +75,7 @@
                                         echo $this->Form->input('action_type', array(
                                             'type' => 'select',
                                             'options' => array(
-                                                'ready ' => 'Reday to Installation',
+                                                'ready ' => 'Ready to Installation',
                                                 'shipment' => 'Shipment',
                                                 'solved ' => "It's Solved"
                                             ),

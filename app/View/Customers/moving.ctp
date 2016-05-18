@@ -12,7 +12,7 @@
     <div class="page-content">
         <!-- BEGIN PAGE HEADER-->
         <h3 class="page-title">
-            Troubleshot Shipment<small></small>
+            Moving<small></small>
         </h3>
 
         <!-- END PAGE HEADER-->

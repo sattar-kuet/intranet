@@ -12,7 +12,7 @@
     <div class="page-content">
         <!-- BEGIN PAGE HEADER-->
         <h3 class="page-title">
-            Follow up Customer List <small></small>
+            Remote Problem<small></small>
         </h3>
 
         <!-- END PAGE HEADER-->

@@ -98,13 +98,22 @@
                                 <tr>
 
                                     <td>
-                                                                                        
-                                           
-                                                <?php echo $customer_address; ?> 
-                                            
-
+                                        <a href="<?php
+                                        echo Router::url(array('controller' => 'customers',
+                                            'action' => 'edit_registration', $results['customers']['id']))
+                                        ?>" 
+                                           target="_blank">
+                                               <?php
+                                               echo $results['customers']['first_name'] . " " .
+                                               $results['customers']['middle_name'] . " " .
+                                               $results['customers']['last_name'];
+                                               ?>
+                                        </a><br>
+                                        <?php echo $customer_address; ?> 
                                     </td>
                                     <td>
+                                        
+
                                         <?php echo $results['customers']['referred_phone']; ?> 
                                     </td>
                                     <td class="hidden-480">

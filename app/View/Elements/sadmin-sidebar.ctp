@@ -447,7 +447,7 @@
 
            <li 
             <?php
-            $services = array('Customersready_installation', 'Customersshipment', 'Customerstroubleshot_technician', 'Customerstroubleshot_shipment', 'Customersmoving_wire', 'Customersremote_problem');
+            $services = array('Customersready_installation','Customersmoving','Customersshipment', 'Customerstroubleshot_technician', 'Customerstroubleshot_shipment', 'Customerswire_problem', 'Customersremote_problem');
             if (in_array($this->name . '' . $this->action, $services)):
                 ?>
                     class="active"
@@ -455,7 +455,6 @@
                 endif;
                 ?>
                 >
-
                 <a href="javascript:;">
                     <i class="fa icon-users"></i>
                     <span class="title">Ready To Installation</span>
@@ -517,18 +516,31 @@
                             <i class="fa icon-like"></i>
                             Troubleshot Shipment</a>
                     </li>
-
+                    
                     <li
-                    <?php if ($this->name . '' . $this->action == 'Customersmoving_wire'):
+                    <?php if ($this->name . '' . $this->action == 'Customersmoving'):
                         ?>
                             class="active"
                             <?php
                         endif;
                         ?>
                         >
-                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'moving_wire')) ?>">
+                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'moving')) ?>">
                             <i class="fa icon-like"></i>
-                            Moving &  Wiring</a>
+                            Moving</a>
+                    </li>
+
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Customerswire_problem'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'wire_problem')) ?>">
+                            <i class="fa icon-like"></i>
+                            Wire problem</a>
                     </li>
                     <li
                     <?php if ($this->name . '' . $this->action == 'Customersremote_problem'):
