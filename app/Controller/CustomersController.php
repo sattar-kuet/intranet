@@ -640,6 +640,7 @@ class CustomersController extends AppController {
                     left join users u on c.user_id = u.id
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
+                     left join issues i on pc.issue_id = i.id
                     WHERE pc.shipment = 2");
         // echo $sql; exit;
         $filteredData = array();
@@ -658,6 +659,9 @@ class CustomersController extends AppController {
                     $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
                 }
+                 if (count($data['i'])) {
+                    $filteredData[$index]['issue'] = $data['i']['name'];
+                }
             } else {
                 if ($key != 0)
                     $index++;
@@ -690,6 +694,9 @@ class CustomersController extends AppController {
                 if (!empty($data['c']['content'])) {
                     $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
+                }
+                if (count($data['i'])) {
+                    $filteredData[$index]['issue'] = $data['i']['name'];
                 }
             }
         }
@@ -706,23 +713,25 @@ class CustomersController extends AppController {
                     left join users u on c.user_id = u.id
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
+                    left join issues i on pc.issue_id = i.id
                     WHERE pc.status = 'old_ready'");
         // echo $sql; exit;
+//                pr($allData); exit;
         $filteredData = array();
         $unique = array();
         $index = 0;
-//        pr($allData); exit;
+   /// pr($allData); exit;
         foreach ($allData as $key => $data) {
             //pr($data); exit;
             $pd = $data['pc']['id'];
             if (isset($unique[$pd])) {
                 //  echo 'already exist'.$key.'<br/>';
                 if (!empty($data['c']['content'])) {
-                    //  $temp = $data['c'];// array('id' => $data['psettings']['id'], 'duration' => $data['psettings']['duration'], 'amount' => $data['psettings']['amount'], 'offer' => $data['psettings']['offer']);
-                    //pr($temp); exit;
-
                     $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
+                }
+                if (count($data['i'])) {
+                    $filteredData[$index]['issue'] = $data['i']['name'];
                 }
             } else {
                 if ($key != 0)
@@ -756,6 +765,9 @@ class CustomersController extends AppController {
                 if (!empty($data['c']['content'])) {
                     $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
+                }
+                 if (count($data['i'])) {
+                    $filteredData[$index]['issue'] = $data['i']['name'];
                 }
             }
         }

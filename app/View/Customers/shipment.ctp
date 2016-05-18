@@ -43,7 +43,9 @@
                                     <th>
                                         Customer Name
                                     </th>
-
+                                    <th>
+                                        Package Information
+                                    </th>
                                     <th>
                                         Address
                                     </th>
@@ -90,6 +92,14 @@
                                                    $results['customers']['last_name'];
                                                    ?>
                                             </a>
+
+                                        </td>
+                                        <td class="hidden-480">
+                                            <ul>
+                                                <li>Name:  <?php echo $results['package']['name']; ?> </li>
+                                                <li>Duration:  <?php echo $results['package']['duration']; ?> </li>
+                                                <li>Amount:  <?php echo $results['package']['amount']; ?> </li>
+                                            </ul>
 
                                         </td>
                                         <td>

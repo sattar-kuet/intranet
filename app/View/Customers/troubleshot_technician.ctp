@@ -43,7 +43,9 @@
                                     <th>
                                         Customer Name
                                     </th>
-
+                                    <th>
+                                        Issue
+                                    </th>
                                     <th>
                                         Address
                                     </th>
@@ -66,13 +68,18 @@
                             </thead>
                             <tbody>
                                 <?php
+//                                pr($filteredData);
+//                                exit;
                                 foreach ($filteredData as $results):
+                                    
+//                                                                    pr($results['issue']);
+//                                exit;
                                     $customer = $results['customers'];
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
                                             . $customer['zip'];
-                                    //  pr($customer);
-                                    //  exit;
+//                                      pr($customer);
+//                                      exit;
                                     ?>
                                     <tr>
                                         <td class="hidden-480">
@@ -91,6 +98,10 @@
                                                    ?>
                                             </a>
 
+                                        </td>
+
+                                        <td>
+                                            <?php echo $results['issue']; ?>
                                         </td>
                                         <td>
                                             <?php echo $customer_address; ?> 

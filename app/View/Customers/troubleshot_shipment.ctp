@@ -43,7 +43,9 @@
                                     <th>
                                         Customer Name
                                     </th>
-
+                                    <th>
+                                        Issue
+                                    </th>
                                     <th>
                                         Address
                                     </th>
@@ -91,6 +93,9 @@
                                                    ?>
                                             </a>
 
+                                        </td>
+                                        <td>
+                                            <?php echo $results['issue']; ?>
                                         </td>
                                         <td>
                                             <?php echo $customer_address; ?> 
