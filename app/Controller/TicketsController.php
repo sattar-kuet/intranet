@@ -17,6 +17,12 @@ class TicketsController extends AppController {
         return true;
     }
 
+    function updateCustomer($status, $cid) {
+        $this->loadModel('PackageCustomer');
+        $this->PackageCustomer->id = $cid;
+        $this->PackageCustomer->saveField("status", $status);
+    }
+
     function create($customer_id = null) {
         if ($customer_id == null) {
             $this->redirect('/admins/servicemanage');
@@ -43,6 +49,10 @@ class TicketsController extends AppController {
                     $this->Session->setFlash($msg);
                     return $this->redirect($this->referer());
                 }
+                $this->PackageCustomer->id = $customer_id;
+                $this->PackageCustomer->saveField("issue_id", $this->request->data['Ticket']['issue_id']);
+                $this->PackageCustomer->saveField("comments", $this->request->data['Ticket']['content']);
+
                 if (trim($this->request->data['Ticket']['action_type']) == 'solved') {
                     $this->request->data['Ticket']['priority'] = 'low';
                 }
@@ -57,18 +67,20 @@ class TicketsController extends AppController {
                     'ticket_id' => $tickect['Ticket']['id'],
                     'forwarded_by' => $loggedUser['id']
                 );
+                if (trim($this->request->data['Ticket']['issue_id']) == 21) {
 
-
-//                if (trim($this->request->data['Ticket']['action_type']) == 'solved') {
-//                    $trackData['Track']['status'] = 'solved';
-//                }
-                //pr($this->request->data['Ticket']['action_type']); exit;
-
+                    $this->updateCustomer('Request to hold', $customer_id);
+                }
+                if (trim($this->request->data['Ticket']['issue_id']) == 24 || trim($this->request->data['Ticket']['issue_id']) == 31) {
+                    $this->updateCustomer('Request to unhold', $customer_id);
+                }
+                if (trim($this->request->data['Ticket']['issue_id']) == 20) {
+                    $this->updateCustomer('Request to cancel', $customer_id);
+                }
                 if (trim($this->request->data['Ticket']['action_type']) == "ready") {
                     // echo 'here'; exit;
                     $this->PackageCustomer->id = $customer_id;
                     $this->PackageCustomer->saveField("status", "old_ready");
-                    $this->PackageCustomer->saveField("comments", $this->request->data['Ticket']['content']);
                 }
                 if (trim($this->request->data['Ticket']['action_type']) == 'shipment') {
                     //   pr($this->request->data);
@@ -77,18 +89,19 @@ class TicketsController extends AppController {
                         $this->request->data['Ticket']['shipment_equipment'] = $this->request->data['Ticket']['shipment_equipment_other'];
                     }
                     // $this->PackageCustomer->create();
-                    $this->PackageCustomer->id = $customer_id;
+
                     $data['PackageCustomer'] = array(
-                       'shipment' => 2,
+                        'shipment' => 2,
                         'comments' => 'abcdf',
                         'shipment_equipment' => $this->request->data['Ticket']['shipment_equipment'],
                         'shipment_note' => $this->request->data['Ticket']['shipment_note'],
                         'issue_id' => $this->request->data['Ticket']['issue_id']
                     );
                     //  pr($data); exit;
+
+
                     $this->PackageCustomer->save($data['PackageCustomer']);
                     //$log = $this->PackageCustomer->getDataSource()->getLog(false, false);
-                  
                 }
                 $this->Track->save($trackData); // Data save in Track
                 $msg = '<div class="alert alert-success">
