@@ -21,6 +21,7 @@ class TicketsController extends AppController {
         if ($customer_id == null) {
             $this->redirect('/admins/servicemanage');
         }
+                    
         $loggedUser = $this->Auth->user();
         $this->loadModel('Ticket');
         $this->loadModel('Track');
@@ -31,6 +32,7 @@ class TicketsController extends AppController {
         $this->loadModel('TicketDepartment');
         $this->loadModel('PackageCustomer');
         if ($this->request->is('post')) {
+//pr($this->request->data); exit;
             $this->Ticket->set($this->request->data);
             if ($this->Ticket->validates()) {
                 if (empty($this->request->data['Ticket']['user_id']) &&
@@ -73,8 +75,8 @@ class TicketsController extends AppController {
                     //echo $this->PackageCustomer->getLastQuery(); exit;  
                 }
                 if (trim($this->request->data['Ticket']['action_type']) == 'shipment') {
-                    //   pr($this->request->data);
-                    //  exit;
+//                       pr($this->request->data);
+//                      exit;
                     if ($this->request->data['Ticket']['shipment_equipment'] == 'OTHER') {
                         $this->request->data['Ticket']['shipment_equipment'] = $this->request->data['Ticket']['shipment_equipment_other'];
                     }
@@ -87,7 +89,7 @@ class TicketsController extends AppController {
                         'shipment_note' => $this->request->data['Ticket']['shipment_note'],
                         'issue_id' => $this->request->data['Ticket']['issue_id']
                     );
-               //  pr($data); exit;
+
                   $this->PackageCustomer->save($data['PackageCustomer']);
              
                 }
