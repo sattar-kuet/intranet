@@ -2,6 +2,12 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
         <group/>
+=======
+        <group>
+            <file>file:/D:/Server/htdocs/intranet/app/Controller/PaymentsController.php</file>
+        </group>
+>>>>>>> 3284160241827bec61f4615ed176e013d9410734
     </open-files>
 </project-private>

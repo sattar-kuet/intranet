@@ -118,11 +118,13 @@ class TransactionsController extends AppController {
         $loggedUser = $this->Auth->user();
         if ($this->request->is('post') || $this->request->is('put')) {
 
-            // pr($this->request->data['PackageCustomer']);  exit;
-            $this->request->data['PackageCustomer'] = array(
-                'mac' => json_encode($this->request->data['PackageCustomer']['mac']),
-                'system' => json_encode($this->request->data['PackageCustomer']['system'])
-            );
+            if (isset($this->request->data['PackageCustomer']['mac'])) {
+                $this->request->data['PackageCustomer'] = array(
+                    'mac' => json_encode($this->request->data['PackageCustomer']['mac']),
+                    'system' => json_encode($this->request->data['PackageCustomer']['system'])
+                );
+            }
+
             $this->loadModel('PackageCustomer');
             $this->loadModel('CustomPackage');
             $this->loadModel('Ticket');
@@ -150,7 +152,7 @@ class TransactionsController extends AppController {
             $this->PackageCustomer->save($this->request->data['PackageCustomer']);
             $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong> Customer information updated successfully </strong>
+            <strong> '.$tmsg.'</strong>
             </div>';
             $this->Session->setFlash($msg);
             $tdata['Ticket'] = array('content' => $tmsg);

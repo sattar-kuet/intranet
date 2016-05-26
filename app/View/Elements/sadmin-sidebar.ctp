@@ -574,7 +574,67 @@
                 </ul>
             </li>
 
+<li 
+            <?php
+            $customerRequest = array('Customerscancelrequest', 'Customersholdrequest','Customersunholdrequest');
 
+            if (in_array($this->name . '' . $this->action, $customerRequest)):
+                ?>
+                    class="active"
+                    <?php
+                endif;
+                ?>
+                >
+
+                <a href="javascript:;">
+                    <i class="fa fa-envelope"></i>
+                    <span class="title">Change Service</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Customerscancelrequest'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+
+                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'cancelrequest')) ?>">
+                            <i class="fa fa-plus"></i>
+                           Cancel Request</a>
+                    </li>
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Customersholdrequest'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+
+                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'holdrequest')) ?>">
+                            <i class="fa fa-wrench"></i>
+                            Hold Request</a>
+                    </li>
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Customersunholdrequest'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+
+                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'unholdrequest')) ?>">
+                            <i class="fa fa-wrench"></i>
+                            Unhold Request</a>
+                    </li>
+
+
+                </ul>
+            </li>
             <li 
             <?php
             $reports = array('Reportsduecustomers', 'Reportscall_log', 'Reportspayment_history', 'Reportscancel', 'Reportspaidcustomers', 'Reportsactive', 'Reportsblock', 'Reportspayment', 'Reportsnewcustomers', 'Reportsexpcustomers');
