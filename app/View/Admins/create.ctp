@@ -46,7 +46,7 @@
                             <?php echo $this->Session->flash(); ?>
 
                             <div class="form-group">
-                                <label class="control-label col-md-3">Disable Past Dates</label>
+                                <label class="control-label col-md-3"> Date:</label>
                                 <div class="col-md-3">
                                     <input type="text" class="datepicker">
                                 </div>

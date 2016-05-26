@@ -2,24 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-<<<<<<< HEAD
-            <file>file:/D:/xampee/htdocs/intranet/app/Controller/AdminsController.php</file>
-            <file>file:/D:/xampee/htdocs/intranet/app/View/Elements/common-header.ctp</file>
-            <file>file:/D:/xampee/htdocs/intranet/app/View/Elements/common-footer.ctp</file>
-            <file>file:/D:/xampee/htdocs/intranet/app/View/Customers/shipment.ctp</file>
-=======
-            <file>file:/D:/Server/htdocs/intranet/app/Config/core.php</file>
-            <file>file:/D:/Server/htdocs/intranet/app/Controller/AdminsController.php</file>
-            <file>file:/D:/Server/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
-            <file>file:/D:/Server/htdocs/intranet/app/View/Customers/registration.ctp</file>
-            <file>file:/D:/Server/htdocs/intranet/app/Model/PackageCustomer.php</file>
-            <file>file:/D:/Server/htdocs/intranet/app/View/Admins/servicemanage.ctp</file>
-            <file>file:/D:/Server/htdocs/intranet/app/Controller/CustomersController.php</file>
-            <file>file:/D:/Server/htdocs/intranet/app/Controller/TransactionsController.php</file>
-            <file>file:/D:/Server/htdocs/intranet/app/Controller/TicketsController.php</file>
-            <file>file:/D:/Server/htdocs/intranet/app/webroot/js/customerRegistration.js</file>
->>>>>>> e3cdb58fcd441f189fc00662004d54281b2b9cd9
-        </group>
+        <group/>
     </open-files>
 </project-private>
