@@ -174,7 +174,7 @@ class ReportsController extends AppController {
             $conditions.="###";
             $conditions = str_replace("AND###", "", $conditions);
             $conditions = str_replace("###", "", $conditions);
-           
+
 
             $tickets = $this->Track->query("SELECT * FROM tracks tr
                         left JOIN tickets t ON tr.ticket_id = t.id
@@ -202,21 +202,66 @@ class ReportsController extends AppController {
                 }
                 $filteredTicket;
             }
-            
+
             //pr($data);
             $clicked = true;
             $this->set(compact('filteredTicket'));
         }
-       // pr($filteredTicket); exit;
+        // pr($filteredTicket); exit;
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
         $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
         $this->set(compact('clicked', 'data', 'users', 'issues'));
     }
-    
-     function sales_supportdp() {
+
+    function getTotalCall() {
+        $this->loadModel('Ticket');
+        $call = $this->Ticket->query("SELECT count(id) as total_call FROM tickets WHERE modified >= CURRENT_DATE()");
+
+        return $call[0][0]['total_call'];
+    }
+
+    function getTotalSalesQuery() {
         $this->loadModel('PackageCustomer');
-//        $block_customers = $this->PackageCustomer->find('all', array('conditions' => array('PackageCustomer.status' => 'canceled')));
-        $this->set(compact('block_customers'));
+        $request = $this->PackageCustomer->query("SELECT count(status) as request FROM package_customers WHERE modified >= CURRENT_DATE() and status = 'requested'");
+
+        return $request[0][0]['request'];
+    }
+
+    function getTotalHold() {
+        $this->loadModel('PackageCustomer');
+
+        $hold = $this->PackageCustomer->query("SELECT count(status) as hold FROM package_customers WHERE modified >= CURRENT_DATE() and status = 'Request to hold'");
+
+        return $hold[0][0]['hold'];
+    }
+
+    function getTotalUnhold() {
+        $this->loadModel('PackageCustomer');
+        $unhold = $this->PackageCustomer->query("SELECT count(status) as unhold FROM package_customers WHERE modified >= CURRENT_DATE() and status = 'Request to unhold'");
+        return $unhold[0][0]['unhold'];
+    }
+
+    function getTotalCancel() {
+        $this->loadModel('PackageCustomer');
+        $cancel = $this->PackageCustomer->query("SELECT count(status) as cancel FROM package_customers WHERE modified >= CURRENT_DATE() and status = 'canceled'");
+        return $cancel[0][0]['cancel'];
+    }
+
+    function getTotalDone() {
+        $this->loadModel('PackageCustomer');
+        $done = $this->PackageCustomer->query("SELECT count(status) as done FROM package_customers WHERE modified >= CURRENT_DATE() and status = 'done'");
+        return $done[0][0]['done'];
+    }
+
+    function salesSupportdp() {
+        $total = array();
+        $total['call'] = $this->getTotalCall();
+        $total['cancel'] = $this->getTotalCancel();
+        $total['sales_query'] = $this->getTotalSalesQuery();
+        $total['hold'] = $this->getTotalHold();
+        $total['unhold'] = $this->getTotalUnhold();
+        $total['done'] = $this->getTotalDone();
+        $this->set(compact('total'));
     }
 
 }

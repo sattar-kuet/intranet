@@ -722,7 +722,7 @@
             
             <li 
             <?php
-            $dailyreports = array('Reportssales_supportdp', 'Reportsaccountsdp');
+            $dailyreports = array('ReportssalesSupportdp', 'Reportsaccountsdp');
             if (in_array($this->name . '' . $this->action, $dailyreports)):
                 ?>
                     class="active"
@@ -737,18 +737,18 @@
                 </a>
                 <ul class="sub-menu">
                     <li
-                    <?php if ($this->name . '' . $this->action == 'reportssales_supportdp'):
+                    <?php if ($this->name . '' . $this->action == 'reportssalesSupportdp'):
                         ?>
                             class="active"
                             <?php
                         endif;
                         ?>
                         >
-                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'sales_supportdp')) ?>">
+                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'salesSupportdp')) ?>">
                             <i class="fa fa-plus"></i>
                             Sales Support DP</a>
                     </li>
-                    <li
+<!--                    <li
                     <?php if ($this->name . '' . $this->action == 'Reportsaccountsdp'):
                         ?>
                             class="active"
@@ -759,7 +759,7 @@
                         <a href="<?php echo Router::url(array('controller' => 'messages', 'action' => 'accountsdp')) ?>">
                             <i class="fa fa-wrench"></i>
                             Accounts Department</a>
-                    </li>
+                    </li>-->
                 </ul>
             </li>
 

@@ -11,7 +11,7 @@
     <div class="page-content">
         <!-- BEGIN PAGE HEADER-->
         <h3 class="page-title">
-          Moving<small></small>
+            Moving<small></small>
         </h3>
         <!-- END PAGE HEADER-->
         <!-- BEGIN PAGE CONTENT-->
@@ -67,6 +67,7 @@
                             <tbody>
                                 <?php
                                 foreach ($filteredData as $results):
+                                    pr($results); 
                                     $customer = $results['customers'];
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
@@ -74,7 +75,9 @@
                                     ?>
                                     <tr>
                                         <td class="hidden-480">
-                                            <?php echo $results['customers']['created']; ?>                            
+                                            <?php echo $results['customers']['created']; ?> <br>
+                                            <?php echo $results['users']['name']; ?>  
+
                                         </td>
                                         <td>
                                             <a href="<?php
@@ -101,8 +104,8 @@
                                             <?php endif; ?> 
                                         </td>
                                         <td>
-                                            <?php if (!empty($customer['issue'])): ?>
-                                                <?php echo $results['issue']; ?>
+                                            <?php if (!empty($results['issue']['name'])): ?>
+                                                <?php echo $results['issue']['name']; ?>
                                             <?php endif; ?>
                                         </td>
     <!--                                        <td>
@@ -187,6 +190,7 @@
                                                     <div class="form-actions">
                                                         <div class="row">
                                                             <div class="col-md-offset-7 col-md-4">
+                                                                <div class="col-md-2"><a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'create', $this->request->params['pass'][0])) ?>" style="font-weight: bold; color: #E02222;">Generate Ticket</a></div>
                                                                 <?php
                                                                 echo $this->Form->button(
                                                                         'Submit', array('class' => 'btn green', 'type' => 'submit')

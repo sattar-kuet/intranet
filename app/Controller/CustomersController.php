@@ -213,6 +213,7 @@ class CustomersController extends AppController {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Comment');
         if ($this->request->is('post') || $this->request->is('put')) {
+            // pr($this->request->data); exit;
             $this->PackageCustomer->set($this->request->data);
             $this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
             //For Custom Package data insert
@@ -246,7 +247,12 @@ class CustomersController extends AppController {
             return $this->redirect($this->referer());
         }
         $data = $this->PackageCustomer->findById($id);
-        // pr($data);
+        $date = explode('/', $data['PackageCustomer']['exp_date']);
+        $yyyy = date('Y');
+        $yy = substr($yyyy, 0, 2);
+        $yyyy = $yy . '' . $date[1];
+        $mm = $date[0];
+        $data['PackageCustomer']['exp_date'] = array('year' => $yyyy, 'month' => $mm);
         $this->request->data = $data;
         //Show Package List 
         //********************************************************************************************************
@@ -270,7 +276,9 @@ class CustomersController extends AppController {
                 . " LEFT JOIN custom_packages ON package_customers.custom_package_id = custom_packages.id" .
                 " WHERE package_customers.id = '" . $id . "'";
         $temp = $this->PackageCustomer->query($sql);
+
         $ym = $this->getYm();
+
 
 
 
@@ -365,7 +373,7 @@ class CustomersController extends AppController {
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id
                     WHERE pc.status = 'ready'  OR (pc.follow_up=0 AND pc.status ='requested' AND pc.status != 'old_ready' ) AND shipment =0");
-       
+
         $filteredData = array();
         $unique = array();
         $index = 0;
@@ -1080,7 +1088,8 @@ class CustomersController extends AppController {
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id
                     where pc.issue_id = 17");
-        // echo $sql; exit;
+        //  pr($allData);
+        //  exit;
         $filteredData = array();
         $unique = array();
         $index = 0;
@@ -1105,27 +1114,12 @@ class CustomersController extends AppController {
                 $filteredData[$index]['customers'] = $data['pc'];
                 $filteredData[$index]['users'] = $data['u'];
 
-                $filteredData[$index]['package'] = array(
-                    'name' => 'No package dealings',
-                    'duration' => 'Not Applicable',
-                    'amount' => 'not Applicable'
-                );
+                if (!empty($data['i']['id'])) {
+                    $filteredData[$index]['issue'] = $data['i'];
+                }
 
-                if (!empty($data['ps']['id'])) {
-                    $filteredData[$index]['package'] = array(
-                        'name' => $data['ps']['name'],
-                        'duration' => $data['ps']['duration'],
-                        'amount' => $data['ps']['amount']
-                    );
-                }
-                if (!empty($data['cp']['id'])) {
-                    $filteredData[$index]['package'] = array(
-                        'name' => $data['cp']['duration'] . ' months custom package',
-                        'duration' => $data['cp']['duration'],
-                        'amount' => $data['cp']['charge']
-                    );
-                }
                 $filteredData[$index]['comments'] = array();
+
                 if (!empty($data['c']['content'])) {
                     $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
@@ -1133,7 +1127,7 @@ class CustomersController extends AppController {
             }
         }
         $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
-//        pr($technician); exit;
+//        pr($filteredData); exit;
         $this->set(compact('filteredData', 'technician'));
     }
 
