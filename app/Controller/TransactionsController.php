@@ -117,14 +117,12 @@ class TransactionsController extends AppController {
         $pcid = $id;
         $loggedUser = $this->Auth->user();
         if ($this->request->is('post') || $this->request->is('put')) {
-
             if (isset($this->request->data['PackageCustomer']['mac'])) {
                 $this->request->data['PackageCustomer'] = array(
                     'mac' => json_encode($this->request->data['PackageCustomer']['mac']),
                     'system' => json_encode($this->request->data['PackageCustomer']['system'])
                 );
             }
-
             $this->loadModel('PackageCustomer');
             $this->loadModel('CustomPackage');
             $this->loadModel('Ticket');

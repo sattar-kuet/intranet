@@ -92,10 +92,8 @@ class TicketsController extends AppController {
 
                     $data['PackageCustomer'] = array(
                         'shipment' => 2,
-                        'comments' => 'abcdf',
                         'shipment_equipment' => $this->request->data['Ticket']['shipment_equipment'],
-                        'shipment_note' => $this->request->data['Ticket']['shipment_note'],
-                        'issue_id' => $this->request->data['Ticket']['issue_id']
+                        'shipment_note' => $this->request->data['Ticket']['shipment_note']
                     );
                     //  pr($data); exit;
 
@@ -616,7 +614,6 @@ class TicketsController extends AppController {
         $data = $filteredTicket;
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
-
         //  pr($roles); exit;
         $this->set(compact('data', 'users', 'roles'));
     }
