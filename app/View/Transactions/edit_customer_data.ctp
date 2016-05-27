@@ -101,7 +101,6 @@
                                     </div>
                                     <div class="col-md-1 signupfont">
                                         Middle:
-
                                     </div>
                                     <div class="col-md-3">
                                         <div class="input-list style-4 clearfix">
@@ -597,23 +596,23 @@
                                     </div>
                                 </div>
                                 &nbsp;
-                                
+
                                 <div class="col-md-12 margin-bottom-25" >
                                     <div class="col-md-2 signupfont">
-                                          Comment
+                                        Comment
                                     </div>
                                     <div class="col-md-4">
                                         <div class="input-list style-4 clearfix">
                                             <div>
                                                 <?php
-                                            echo $this->Form->input(
-                                                    'comments', array(
-                                                'class' => 'form-control',
-                                                'type' => 'textarea',
-                                                'rows' => '5',
-                                                    )
-                                            );
-                                            ?>
+                                                echo $this->Form->input(
+                                                        'comments', array(
+                                                    'class' => 'form-control',
+                                                    'type' => 'textarea',
+                                                    'rows' => '5',
+                                                        )
+                                                );
+                                                ?>
 
                                             </div>                            
                                         </div>
@@ -625,10 +624,10 @@
                                     <div class="col-md-4">
                                         <div class="input-list style-4 clearfix">
                                             <div>
-                                                 <?php
+                                                <?php
                                                 echo $this->Form->input('status', array(
                                                     'type' => 'select',
-                                                    'options' => array('active' => 'Active', 'blocked' => 'Blocked', 'canceled' => 'Canceled', 'requested' => 'Requested','ready' => 'Ready'),
+                                                    'options' => array('active' => 'Active', 'blocked' => 'Blocked', 'canceled' => 'Canceled', 'requested' => 'Requested', 'ready' => 'Ready'),
                                                     //'default' => $selected['package'],
                                                     'empty' => 'Select Status',
                                                     'class' => 'span12 uniform nostyle select1',
@@ -642,7 +641,7 @@
                                     </div>
                                 </div>
                                 &nbsp;
-                                
+
 
                                 <div class="row">
                                     <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20"> 
@@ -729,7 +728,7 @@
                                                             'card_no', array(
                                                         'type' => 'text',
                                                         'class' => 'form-control input-sm required',
-                                                        'placeholder' => 'enter number without space'
+                                                        'placeholder' => 'Enter number without space'
                                                     ));
                                                     ?>
                                                 </div>
@@ -841,7 +840,8 @@
                                                             'fname', array(
                                                         'type' => 'text',
                                                         'class' => 'form-control input-sm required',
-                                                        'placeholder' => ''
+                                                        'placeholder' => '',
+                                                        'id' => 'firstname'
                                                     ));
                                                     ?>
                                                 </div>
@@ -872,6 +872,8 @@
                                                         'type' => 'text',
                                                         'class' => 'form-control input-sm required',
                                                         'placeholder' => ''
+                                                        ,
+                                                        'id' => 'addressdetail'
                                                     ));
                                                     ?>
                                                 </div>
@@ -1023,7 +1025,8 @@
                                                             'saddress', array(
                                                         'type' => 'text',
                                                         'class' => 'form-control input-sm required',
-                                                        'placeholder' => ''
+                                                        'placeholder' => '',
+                                                        'id' => 'addressdetail'
                                                     ));
                                                     ?>
                                                 </div>

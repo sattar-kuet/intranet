@@ -212,6 +212,12 @@ class ReportsController extends AppController {
         $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
         $this->set(compact('clicked', 'data', 'users', 'issues'));
     }
+    
+     function sales_supportdp() {
+        $this->loadModel('PackageCustomer');
+//        $block_customers = $this->PackageCustomer->find('all', array('conditions' => array('PackageCustomer.status' => 'canceled')));
+        $this->set(compact('block_customers'));
+    }
 
 }
 

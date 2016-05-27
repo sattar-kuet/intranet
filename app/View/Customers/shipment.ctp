@@ -12,7 +12,7 @@
     <div class="page-content">
         <!-- BEGIN PAGE HEADER-->
         <h3 class="page-title">
-              Sales Shipment<small></small>
+            Sales Shipment<small></small>
         </h3>
 
         <!-- END PAGE HEADER-->
@@ -49,7 +49,7 @@
                                         Phone
                                     </th>
                                     <th>
-                                        Issue
+                                        Package
                                     </th>
 
                                     <th>
@@ -58,11 +58,10 @@
                                     <th>
                                         Comment
                                     </th>
-
-                                  <!--  <th>
+                                    <th>
                                         Attachment
                                     </th>                                    
-                                    -->
+
                                     <th>
                                         Action
                                     </th>
@@ -70,18 +69,13 @@
                             </thead>
                             <tbody>
                                 <?php
-//                                pr($filteredData);
-//                                exit;
                                 foreach ($filteredData as $results):
-
-//                                                                    pr($results['issue']);
-//                                exit;
+//                                    pr($results['package']['name']);
+//                                    exit;
                                     $customer = $results['customers'];
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
                                             . $customer['zip'];
-//                                      pr($customer);
-//                                      exit;
                                     ?>
                                     <tr>
                                         <td class="hidden-480">
@@ -99,7 +93,6 @@
                                                    $results['customers']['last_name'];
                                                    ?>
                                             </a>
-
                                         </td>
                                         <td>
                                             <?php echo $customer_address; ?> 
@@ -113,24 +106,12 @@
                                             <?php endif; ?> 
                                         </td>
                                         <td>
-                                            <?php if (!empty($customer['issue'])): ?>
-                                                <?php echo $results['issue']; ?>
+                                            <?php if (!empty($results['package']['name'])): ?>
+                                                Name:<?php echo $results['package']['name'] ?><br>
+                                                Duration:<?php echo $results['package']['duration']; ?><br>
+                                                Amount: <?php echo $results['package']['amount']; ?>
                                             <?php endif; ?>
                                         </td>
-
-            <!--                                        <td>
-                                                        <div class="col-md-12 col-sm-12 mix category_2 category_1">
-                                                            <div class="mix-inner">
-                                                                <img class="img-responsive" src="<?php echo $this->webroot . 'attchment' . '/' . $customer['attachment']; ?>" alt="">
-                                                                <div class="mix-details">
-                                                                    <a class="mix-preview fancybox-button" href="<?php echo $this->webroot . 'attchment' . '/' . $customer['attachment']; ?>" title="Project Name" data-rel="fancybox-button">
-                                                                        <i class="fa fa-eye pull-right"></i>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>-->
-
                                         <td>
                                             <?php echo $customer['shipment_equipment'] . ' ' . $customer['shipment_note']; ?>
                                         </td>
@@ -140,6 +121,18 @@
                                                     <?php echo $results['customers']['comments'] ?> 
                                                 <?php endif ?>
                                             </ul>
+                                        </td>
+                                        <td>
+                                            <div class="col-md-12 col-sm-12 mix category_2 category_1">
+                                                <div class="mix-inner">
+                                                    <img class="img-responsive" src="<?php echo $this->webroot . 'attchment' . '/' . $customer['attachment']; ?>" alt="">
+                                                    <div class="mix-details">
+                                                        <a class="mix-preview fancybox-button" href="<?php echo $this->webroot . 'attchment' . '/' . $customer['attachment']; ?>" title="Project Name" data-rel="fancybox-button">
+                                                            <i class="fa fa-eye pull-right"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </td>
                                         <td>
                                             <div class="controls center text-center">
@@ -210,7 +203,7 @@
                                                         </div>
                                                     </div>
                                                     <?php echo $this->Form->end(); ?>
-<!--                                                    END FORM-->
+                                                    <!--                                                    END FORM-->
                                                 </div>
                                             </div>
                                         </td>

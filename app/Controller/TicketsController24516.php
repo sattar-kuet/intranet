@@ -27,6 +27,7 @@ class TicketsController extends AppController {
         if ($customer_id == null) {
             $this->redirect('/admins/servicemanage');
         }
+                    
         $loggedUser = $this->Auth->user();
         $this->loadModel('Ticket');
         $this->loadModel('Track');
@@ -37,6 +38,7 @@ class TicketsController extends AppController {
         $this->loadModel('TicketDepartment');
         $this->loadModel('PackageCustomer');
         if ($this->request->is('post')) {
+//pr($this->request->data); exit;
             $this->Ticket->set($this->request->data);
             if ($this->Ticket->validates()) {
                 if (empty($this->request->data['Ticket']['user_id']) &&
@@ -78,20 +80,42 @@ class TicketsController extends AppController {
                     $this->updateCustomer('Request to cancel', $customer_id);
                 }
                 if (trim($this->request->data['Ticket']['action_type']) == "ready") {
+                    // echo 'here'; exit;
                     $this->PackageCustomer->id = $customer_id;
                     $this->PackageCustomer->saveField("status", "old_ready");
+
                 }
                 if (trim($this->request->data['Ticket']['action_type']) == 'shipment') {
+//                       pr($this->request->data);
+//                      exit;
                     if ($this->request->data['Ticket']['shipment_equipment'] == 'OTHER') {
                         $this->request->data['Ticket']['shipment_equipment'] = $this->request->data['Ticket']['shipment_equipment_other'];
                     }
+
+
+                    $this->PackageCustomer->id = $customer_id;
+
+                    // $this->PackageCustomer->create();
+
+>>>>>>> 3284160241827bec61f4615ed176e013d9410734
                     $data['PackageCustomer'] = array(
                         'shipment' => 2,
+                        'comments' => 'abcdf',
                         'shipment_equipment' => $this->request->data['Ticket']['shipment_equipment'],
-                        'shipment_note' => $this->request->data['Ticket']['shipment_note']
+                        'shipment_note' => $this->request->data['Ticket']['shipment_note'],
+                        'issue_id' => $this->request->data['Ticket']['issue_id']
                     );
+<<<<<<< HEAD
+
+                  $this->PackageCustomer->save($data['PackageCustomer']);
+             
+=======
+                    //  pr($data); exit;
+
+
                     $this->PackageCustomer->save($data['PackageCustomer']);
                     //$log = $this->PackageCustomer->getDataSource()->getLog(false, false);
+>>>>>>> 3284160241827bec61f4615ed176e013d9410734
                 }
                 $this->Track->save($trackData); // Data save in Track
                 $msg = '<div class="alert alert-success">
@@ -244,6 +268,53 @@ class TicketsController extends AppController {
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
 
         //  pr($roles); exit;
+        $this->set(compact('data', 'users', 'roles'));
+    }
+
+    function assigned_to_me1() {
+        $this->loadModel('Track');
+        $this->loadModel('User');
+        $this->loadModel('Role');
+//        $tickets = $this->Track->query("SELECT * FROM tracks tr 
+//                    inner join tickets t on tr.ticket_id = t.id
+//                    inner join users fb on tr.forwarded_by = fb.id
+//                    inner join roles r on  tr.role_id = r.id
+//                    inner join users ft on  tr.user_id = ft.id order by tr.created desc");
+        $loggedUser = $this->Auth->user();
+
+
+        $tickets = $this->Track->query("SELECT * FROM tracks tr
+                        left JOIN tickets t ON tr.ticket_id = t.id
+                        left JOIN users fb ON tr.forwarded_by = fb.id
+                        left JOIN roles fd ON tr.role_id = fd.id
+                        left JOIN users fi ON tr.user_id = fi.id
+                        left JOIN issues i ON tr.issue_id = i.id
+                        left join package_customers pc on tr.package_customer_id = pc.id
+                        WHERE tr.user_id =" . $loggedUser['id'] . " ORDER BY tr.created DESC");
+
+        $filteredTicket = array();
+        $unique = array();
+        $index = 0;
+        foreach ($tickets as $key => $ticket) {
+            $t = $ticket['t']['id'];
+            if (isset($unique[$t])) {
+                //  echo 'already exist'.$key.'<br/>';
+                $temp = array('tr' => $ticket['tr'], 'fb' => $ticket['fb'], 'fd' => $ticket['fd'], 'fi' => $ticket['fi'], 'i' => $ticket['i'], 'pc' => $ticket['pc']);
+                $filteredTicket[$index]['history'][] = $temp;
+            } else {
+                if ($key != 0)
+                    $index++;
+                $unique[$t] = 'set';
+                $filteredTicket[$index]['ticket'] = $ticket['t'];
+                $temp = array('tr' => $ticket['tr'], 'fb' => $ticket['fb'], 'fd' => $ticket['fd'], 'fi' => $ticket['fi'], 'i' => $ticket['i'], 'pc' => $ticket['pc']);
+                $filteredTicket[$index]['history'][] = $temp;
+            }
+        }
+        $data = $filteredTicket;
+        $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
+        $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
+        //   pr($data); exit;
+
         $this->set(compact('data', 'users', 'roles'));
     }
 

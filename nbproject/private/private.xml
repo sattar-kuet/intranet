@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="16">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="18">
         <file>
             <url>app/Controller/TicketsController.php</url>
             <bookmark id="5">
                 <name/>
-                <line>47</line>
+                <line>48</line>
                 <key/>
             </bookmark>
             <bookmark id="6">
                 <name/>
-                <line>122</line>
+                <line>108</line>
                 <key/>
             </bookmark>
         </file>
@@ -39,24 +39,29 @@
                 <line>364</line>
                 <key/>
             </bookmark>
-            <bookmark id="15">
+            <bookmark id="18">
                 <name/>
-                <line>434</line>
+                <line>365</line>
                 <key/>
             </bookmark>
             <bookmark id="2">
                 <name/>
-                <line>480</line>
+                <line>477</line>
                 <key/>
             </bookmark>
             <bookmark id="14">
                 <name/>
-                <line>527</line>
+                <line>524</line>
                 <key/>
             </bookmark>
             <bookmark id="4">
                 <name/>
-                <line>528</line>
+                <line>525</line>
+                <key/>
+            </bookmark>
+            <bookmark id="17">
+                <name/>
+                <line>573</line>
                 <key/>
             </bookmark>
         </file>
@@ -98,7 +103,9 @@
         <group>
             <file>file:/D:/xampp/htdocs/intranet/app/View/Customers/troubleshot_shipment.ctp</file>
             <file>file:/D:/xampp/htdocs/intranet/app/View/Customers/troubleshot_technician.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Customers/shipment.ctp</file>
             <file>file:/D:/xampp/htdocs/intranet/app/Controller/CustomersController.php</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Customers/ready_installation.ctp</file>
         </group>
     </open-files>
 </project-private>

@@ -44,6 +44,9 @@
                                         Customer Name
                                     </th>
                                     <th>
+                                        Issue
+                                    </th>
+                                    <th>
                                         Address
                                     </th>
                                     <th>
@@ -58,9 +61,9 @@
                                     <th>
                                         Comment
                                     </th>
-                                    <th>
+<!--                                    <th>
                                         Attachment
-                                    </th>                                    
+                                    </th>                                    -->
                                     <th>
                                         Action
                                     </th>
@@ -92,6 +95,9 @@
                                             </a>
                                         </td>
                                         <td>
+                                            <?php echo $results['issue']; ?>
+                                        </td>
+                                        <td>
                                             <?php echo $customer_address; ?> 
                                         </td>
                                         <td class="hidden-480">
@@ -115,7 +121,7 @@
                                                 <?php endif ?>
                                             </ul>
                                         </td>
-                                        <td>
+<!--                                        <td>
                                             <div class="col-md-12 col-sm-12 mix category_2 category_1">
                                                 <div class="mix-inner">
                                                     <img class="img-responsive" src="<?php echo $this->webroot . 'attchment' . '/' . $customer['attachment']; ?>" alt="">
@@ -126,7 +132,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </td>
+                                        </td>-->
                                         <td>
                                             <div class="controls center text-center">
                                                 <div class="portlet-body form">
@@ -201,7 +207,6 @@
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>  
-
                             </tbody>
                         </table>
                     </div>

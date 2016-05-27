@@ -12,7 +12,7 @@
     <div class="page-content">
         <!-- BEGIN PAGE HEADER-->
         <h3 class="page-title">
-              Sales Technicians <small></small>
+            Sales Technicians <small></small>
         </h3>
 
         <!-- END PAGE HEADER-->
@@ -50,7 +50,7 @@
                                         Phone
                                     </th>
                                     <th>
-                                        Issue
+                                        Package
                                     </th>
 
                                     <th>
@@ -60,9 +60,9 @@
                                         Comment
                                     </th>
 
-<!--                                    <th>
+                                    <th>
                                         Attachment
-                                    </th>                                    -->
+                                    </th>                                    
 
                                     <th>
                                         Action
@@ -71,6 +71,7 @@
                             </thead>
                             <tbody>
                                 <?php
+                                
                                 foreach ($filteredData as $results):
                                     $customer = $results['customers'];
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
@@ -106,22 +107,13 @@
                                             <?php endif; ?> 
                                         </td>
                                         <td>
-                                            <?php if (!empty($customer['issue'])): ?>
-                                                <?php echo $results['issue']; ?>
+                                            <?php if (!empty($results['package']['name'])): ?>
+                                                Name:<?php echo $results['package']['name'] ?><br>
+                                                Duration:<?php echo $results['package']['duration']; ?><br>
+                                                Amount: <?php echo $results['package']['amount']; ?>
                                             <?php endif; ?>
                                         </td>
-<!--                                        <td>
-                                            <div class="col-md-12 col-sm-12 mix category_2 category_1">
-                                                <div class="mix-inner">
-                                                    <img class="img-responsive" src="<?php echo $this->webroot . 'attchment' . '/' . $customer['attachment']; ?>" alt="">
-                                                    <div class="mix-details">
-                                                        <a class="mix-preview fancybox-button" href="<?php echo $this->webroot . 'attchment' . '/' . $customer['attachment']; ?>" title="Project Name" data-rel="fancybox-button">
-                                                            <i class="fa fa-eye pull-right"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>-->
+
 
                                         <td>
                                             <?php echo $customer['shipment_equipment'] . ' ' . $customer['shipment_note']; ?>
@@ -132,6 +124,18 @@
                                                     <?php echo $results['customers']['comments'] ?> 
                                                 <?php endif ?>
                                             </ul>
+                                        </td>
+                                        <td>
+                                            <div class="col-md-12 col-sm-12 mix category_2 category_1">
+                                                <div class="mix-inner">
+                                                    <img class="img-responsive" src="<?php echo $this->webroot . 'attchment' . '/' . $customer['attachment']; ?>" alt="">
+                                                    <div class="mix-details">
+                                                        <a class="mix-preview fancybox-button" href="<?php echo $this->webroot . 'attchment' . '/' . $customer['attachment']; ?>" title="Project Name" data-rel="fancybox-button">
+                                                            <i class="fa fa-eye pull-right"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </td>
                                         <td>
                                             <div class="controls center text-center">
