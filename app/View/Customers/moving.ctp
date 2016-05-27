@@ -6,15 +6,13 @@
         border-radius: 4px;
         text-align: center;
     }
-
 </style>
 <div class="page-content-wrapper">
     <div class="page-content">
         <!-- BEGIN PAGE HEADER-->
         <h3 class="page-title">
-            Troubleshot Technician<small></small>
+            Moving<small></small>
         </h3>
-
         <!-- END PAGE HEADER-->
         <!-- BEGIN PAGE CONTENT-->
         <div class="row">
@@ -25,7 +23,6 @@
                         <div class="caption">
                             <i class="fa fa-user"></i>
                         </div>
-
                         <div class="tools">
                             <a href="javascript:;" class="reload">
                             </a>
@@ -51,16 +48,17 @@
                                     </th>
                                     <th>
                                         Issue
-                                    </th>                                    
+                                    </th>
                                     <th>
                                         Equipment
                                     </th>
                                     <th>
                                         Comment
-                                    </th>
-<!--                                    <th>
+                                    </th>                                    
+                                <!--    <th>
                                         Attachment
-                                    </th>                                    -->
+                                    </th> -->                                   
+
                                     <th>
                                         Action
                                     </th>
@@ -69,6 +67,7 @@
                             <tbody>
                                 <?php
                                 foreach ($filteredData as $results):
+                                    pr($results); 
                                     $customer = $results['customers'];
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
@@ -76,7 +75,9 @@
                                     ?>
                                     <tr>
                                         <td class="hidden-480">
-                                            <?php echo $results['customers']['created']; ?>                            
+                                            <?php echo $results['customers']['created']; ?> <br>
+                                            <?php echo $results['users']['name']; ?>  
+
                                         </td>
                                         <td>
                                             <a href="<?php
@@ -103,34 +104,38 @@
                                             <?php endif; ?> 
                                         </td>
                                         <td>
-                                            <?php echo $results['issue']; ?>
+                                            <?php if (!empty($results['issue']['name'])): ?>
+                                                <?php echo $results['issue']['name']; ?>
+                                            <?php endif; ?>
                                         </td>
+    <!--                                        <td>
+                                                <div class="col-md-12 col-sm-12 mix category_2 category_1">
+                                                    <div class="mix-inner">
+                                                        <img class="img-responsive" src="<?php echo $this->webroot . 'attchment' . '/' . $customer['attachment']; ?>" alt="">
+                                                        <div class="mix-details">
+                                                            <a class="mix-preview fancybox-button" href="<?php echo $this->webroot . 'attchment' . '/' . $customer['attachment']; ?>" title="Project Name" data-rel="fancybox-button">
+                                                                <i class="fa fa-eye pull-right"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>-->
+
                                         <td>
                                             <?php echo $customer['shipment_equipment'] . ' ' . $customer['shipment_note']; ?>
                                         </td>
                                         <td>
                                             <ul>
                                                 <?php if (!empty($results['customers']['comments'])): ?>
-                                                    <li><?php echo $results['customers']['comments'] ?> </li>
+                                                    <?php echo $results['customers']['comments'] ?> 
                                                 <?php endif ?>
                                             </ul>
                                         </td>
-<!--                                        <td>
-                                            <div class="col-md-12 col-sm-12 mix category_2 category_1">
-                                                <div class="mix-inner">
-                                                    <img class="img-responsive" src="<?php echo $this->webroot . 'attchment' . '/' . $customer['attachment']; ?>" alt="">
-                                                    <div class="mix-details">
-                                                        <a class="mix-preview fancybox-button" href="<?php echo $this->webroot . 'attchment' . '/' . $customer['attachment']; ?>" title="Project Name" data-rel="fancybox-button">
-                                                            <i class="fa fa-eye pull-right"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>-->
                                         <td>
                                             <div class="controls center text-center">
+
                                                 <div class="portlet-body form">
-                                                    <!-- BEGIN FORM-->
+                                                    <!--BEGIN FORM-->
                                                     <?php
                                                     echo $this->Form->create('PackageCustomer', array(
                                                         'inputDefaults' => array(
@@ -144,7 +149,6 @@
                                                             )
                                                     );
                                                     ?>
-
                                                     <?php
                                                     echo $this->Form->input('id', array(
                                                         'type' => 'hidden',
@@ -186,6 +190,7 @@
                                                     <div class="form-actions">
                                                         <div class="row">
                                                             <div class="col-md-offset-7 col-md-4">
+                                                                <div class="col-md-2"><a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'create', $this->request->params['pass'][0])) ?>" style="font-weight: bold; color: #E02222;">Generate Ticket</a></div>
                                                                 <?php
                                                                 echo $this->Form->button(
                                                                         'Submit', array('class' => 'btn green', 'type' => 'submit')
@@ -195,13 +200,12 @@
                                                         </div>
                                                     </div>
                                                     <?php echo $this->Form->end(); ?>
-                                                    <!-- END FORM-->
+                                                    <!--END FORM-->
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>  
-
                             </tbody>
                         </table>
                     </div>

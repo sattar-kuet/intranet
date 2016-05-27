@@ -91,36 +91,29 @@
                             <?php
                             foreach ($filteredData as $results):
                                 $customer = $results['customers'];
+                                $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
+                                        $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
+                                        . $customer['zip'];
                                 ?>
                                 <tr>
 
                                     <td>
-                                        <ul>                                                
-                                            <li>Name :  <a href="<?php
-                                                echo Router::url(array('controller' => 'customers',
-                                                    'action' => 'edit_registration', $results['customers']['id']))
-                                                ?>" 
-                                                           target="_blank">
-                                                               <?php
-                                                               echo $results['customers']['first_name'] . " " .
-                                                               $results['customers']['middle_name'] . " " .
-                                                               $results['customers']['last_name'];
-                                                               ?></a> </li>
-                                            <li>Address:  <?php echo $results['customers']['address']; ?> </li> 
-
-                                            <li> Contact :
-                                                <ul>
-                                                    <?php if (!empty($results['customers']['cell'])): ?> 
-                                                        <li>Cell:    <?php echo $results['customers']['cell']; ?>   </li>
-                                                    <?php endif; ?>                                                
-                                                    <?php if (!empty($results['customers']['home'])): ?>
-                                                        <li> Home: <?php echo $results['customers']['home']; ?> </li>
-                                                    <?php endif ?> 
-                                                </ul>
-                                            </li>
-                                        </ul>
+                                        <a href="<?php
+                                        echo Router::url(array('controller' => 'customers',
+                                            'action' => 'edit_registration', $results['customers']['id']))
+                                        ?>" 
+                                           target="_blank">
+                                               <?php
+                                               echo $results['customers']['first_name'] . " " .
+                                               $results['customers']['middle_name'] . " " .
+                                               $results['customers']['last_name'];
+                                               ?>
+                                        </a><br>
+                                        <?php echo $customer_address; ?> 
                                     </td>
                                     <td>
+                                        
+
                                         <?php echo $results['customers']['referred_phone']; ?> 
                                     </td>
                                     <td class="hidden-480">

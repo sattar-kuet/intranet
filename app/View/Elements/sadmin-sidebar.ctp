@@ -101,7 +101,7 @@
             $payment = array('paymenthistory');
             if (in_array($this->name . '' . $this->action, $payment)):
                 ?>
-                                            class="active"
+                                                    class="active"
                 <?php
             endif;
             ?>
@@ -135,7 +135,7 @@
                     <!--                    <li
                     <?php if ($this->name . '' . $this->action == 'Ticketscreate'):
                         ?>
-                                                                                    class="active"
+                                                                                            class="active"
                         <?php
                     endif;
                     ?>
@@ -293,7 +293,7 @@
 
             if (in_array($this->name . '' . $this->action, $transactions)):
                 ?>
-                                                        class="active"
+                                                                class="active"
                 <?php
             endif;
             ?>
@@ -308,7 +308,7 @@
                     <li
             <?php if ($this->name . '' . $this->action == 'Transactionssearch'):
                 ?>
-                                                                class="active"
+                                                                        class="active"
                 <?php
             endif;
             ?>
@@ -321,7 +321,7 @@
                     <li
             <?php if ($this->name . '' . $this->action == 'Transactionsexpire_customer'):
                 ?>
-                                                                class="active"
+                                                                        class="active"
                 <?php
             endif;
             ?>
@@ -427,37 +427,6 @@
                             <i class="fa icon-user-following"></i>
                             Opportunity Follow-up </a>
                     </li>
-
-<!--                    <li
-                        <?php if ($this->name . '' . $this->action == 'Customersready_installation'):
-                            ?>
-                            class="active"
-                            <?php
-                        endif;
-                        ?>
-                        >
-                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'ready_installation')) ?>">
-                            <i class="fa icon-like"></i>
-                            Ready to Installation </a>
-                    </li>-->
-
-
-
-<!--                    <li
-
-                        <?php if ($this->name . '' . $this->action == 'shipment_installation'):
-                            ?>
-                            class="active"
-                            <?php
-                        endif;
-                        ?>
-                        >
-
-                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'shipment')) ?>">
-
-                            <i class="fa fa-plane"></i>
-                            Shipment </a>
-                    </li>-->
                     <li
 
                         <?php if ($this->name . '' . $this->action == 'Customersschedule_done'):
@@ -478,7 +447,7 @@
 
             <li 
             <?php
-            $services = array('Ready_installation', 'Ready_shipment', 'Ready_troubleshottechnician','Ready_troubleshotshipment','Ready_moving','Ready_remoteproblem');
+            $services = array('Customersready_installation', 'Customersmoving', 'Customersshipment', 'Customerstroubleshot_technician', 'Customerstroubleshot_shipment', 'Customerswire_problem', 'Customersremote_problem');
             if (in_array($this->name . '' . $this->action, $services)):
                 ?>
                     class="active"
@@ -491,9 +460,10 @@
                     <span class="title">Ready To Installation</span>
                     <span class="arrow "></span>
                 </a>
+
                 <ul class="sub-menu">                 
                     <li
-                    <?php if ($this->name . '' . $this->action == 'Ready_installation'):
+                    <?php if ($this->name . '' . $this->action == 'Customersready_installation'):
                         ?>
                             class="active"
                             <?php
@@ -506,8 +476,8 @@
                     </li>
 
                     <li
-                        <?php if ($this->name . '' . $this->action == 'Ready_shipment'):
-                            ?>
+                    <?php if ($this->name . '' . $this->action == 'Customersshipment'):
+                        ?>
                             class="active"
                             <?php
                         endif;
@@ -519,8 +489,8 @@
                             Sales Shipment </a>
                     </li>
                     <li
-                        <?php if ($this->name . '' . $this->action == 'Ready_troubleshottechnician'):
-                            ?>
+                    <?php if ($this->name . '' . $this->action == 'Customerstroubleshot_technician'):
+                        ?>
                             class="active"
                             <?php
                         endif;
@@ -530,10 +500,10 @@
                             <i class="fa icon-like"></i>
                             Troubleshot Technician</a>
                     </li>
-                  
+
                     <li
 
-                        <?php if ($this->name . '' . $this->action == 'Ready_troubleshotshipment'):
+                        <?php if ($this->name . '' . $this->action == 'Customerstroubleshot_shipment'):
                             ?>
                             class="active"
                             <?php
@@ -548,19 +518,32 @@
                     </li>
 
                     <li
-                    <?php if ($this->name . '' . $this->action == 'Ready_moving'):
+                    <?php if ($this->name . '' . $this->action == 'Customersmoving'):
                         ?>
                             class="active"
                             <?php
                         endif;
                         ?>
                         >
-                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'moving_wire')) ?>">
+                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'moving')) ?>">
                             <i class="fa icon-like"></i>
-                            Moving &  Wiring</a>
+                            Moving</a>
+                    </li>
+
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Customerswire_problem'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'wire_problem')) ?>">
+                            <i class="fa icon-like"></i>
+                            Wire problem</a>
                     </li>
                     <li
-                    <?php if ($this->name . '' . $this->action == 'Ready_remote_problem'):
+                    <?php if ($this->name . '' . $this->action == 'Customersremote_problem'):
                         ?>
                             class="active"
                             <?php
@@ -572,11 +555,14 @@
                             Remote Problem</a>
                     </li>
                 </ul>
+            </li> 
+
+
             </li>
 
-<li 
+            <li 
             <?php
-            $customerRequest = array('Customerscancelrequest', 'Customersholdrequest','Customersunholdrequest');
+            $customerRequest = array('Customerscancelrequest', 'Customersholdrequest', 'Customersunholdrequest');
 
             if (in_array($this->name . '' . $this->action, $customerRequest)):
                 ?>
@@ -603,7 +589,7 @@
 
                         <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'cancelrequest')) ?>">
                             <i class="fa fa-plus"></i>
-                           Cancel Request</a>
+                            Cancel Request</a>
                     </li>
                     <li
                     <?php if ($this->name . '' . $this->action == 'Customersholdrequest'):
@@ -732,6 +718,52 @@
                     </li>
                 </ul>
             </li>
+            
+            
+            <li 
+            <?php
+            $dailyreports = array('ReportssalesSupportdp', 'Reportsaccountsdp');
+            if (in_array($this->name . '' . $this->action, $dailyreports)):
+                ?>
+                    class="active"
+                    <?php
+                endif;
+                ?>
+                >
+                <a href="javascript:;">
+                    <i class="fa fa-envelope"></i>
+                    <span class="title">Daily Reports</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'reportssalesSupportdp'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'salesSupportdp')) ?>">
+                            <i class="fa fa-plus"></i>
+                            Sales Support DP</a>
+                    </li>
+<!--                    <li
+                    <?php if ($this->name . '' . $this->action == 'Reportsaccountsdp'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'messages', 'action' => 'accountsdp')) ?>">
+                            <i class="fa fa-wrench"></i>
+                            Accounts Department</a>
+                    </li>-->
+                </ul>
+            </li>
+
+            
             <li 
             <?php
             $services = array('servicemanage');

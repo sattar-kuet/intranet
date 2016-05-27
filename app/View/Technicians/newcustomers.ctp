@@ -55,6 +55,9 @@
                                 <?php
                                 foreach ($filteredData as $results):
                                     $customer = $results['customers'];
+                                    $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
+                                            $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
+                                            . $customer['zip'];
                                     ?>
                                     <tr>
                                         <td>
@@ -63,16 +66,9 @@
                                             $results['customers']['middle_name'] . " " .
                                             $results['customers']['last_name'];
                                             ?>
-                                          </td>
-                                        <td class="hidden-480">
-                                            <ul>
-                                                <li>Address:  <?php echo $results['customers']['address']; ?> </li>
-                                                <li>State:  <?php echo $results['customers']['state']; ?> </li>
-                                                <li>Apartment:  <?php echo $results['customers']['apartment']; ?> </li>
-                                                <li>City:  <?php echo $results['customers']['city']; ?> </li>
-                                                <li>Street:  <?php echo $results['customers']['street']; ?> </li>
-                                                <li>Zip:  <?php echo $results['customers']['zip']; ?> </li>
-                                            </ul>
+                                        </td>
+                                        <td>
+                                            <?php echo $customer_address; ?> 
                                         </td>
                                         <td class="hidden-480">  
                                             <?php if (!empty($results['customers']['cell'])): ?> 

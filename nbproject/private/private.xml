@@ -1,10 +1,116 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="18">
+        <file>
+            <url>app/Controller/TicketsController.php</url>
+            <bookmark id="5">
+                <name/>
+                <line>48</line>
+                <key/>
+            </bookmark>
+            <bookmark id="6">
+                <name/>
+                <line>108</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>app/Controller/TransactionsController.php</url>
+            <bookmark id="13">
+                <name/>
+                <line>272</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>app/Controller/CustomersController.php</url>
+            <bookmark id="1">
+                <name/>
+                <line>111</line>
+                <key/>
+            </bookmark>
+            <bookmark id="3">
+                <name/>
+                <line>133</line>
+                <key/>
+            </bookmark>
+            <bookmark id="16">
+                <name/>
+                <line>364</line>
+                <key/>
+            </bookmark>
+            <bookmark id="18">
+                <name/>
+                <line>365</line>
+                <key/>
+            </bookmark>
+            <bookmark id="2">
+                <name/>
+                <line>477</line>
+                <key/>
+            </bookmark>
+            <bookmark id="14">
+                <name/>
+                <line>524</line>
+                <key/>
+            </bookmark>
+            <bookmark id="4">
+                <name/>
+                <line>525</line>
+                <key/>
+            </bookmark>
+            <bookmark id="17">
+                <name/>
+                <line>573</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>app/View/Transactions/edit_customer_data.ctp</url>
+            <bookmark id="11">
+                <name/>
+                <line>71</line>
+                <key/>
+            </bookmark>
+            <bookmark id="10">
+                <name/>
+                <line>636</line>
+                <key/>
+            </bookmark>
+            <bookmark id="9">
+                <name/>
+                <line>1433</line>
+                <key/>
+            </bookmark>
+            <bookmark id="7">
+                <name/>
+                <line>1441</line>
+                <key/>
+            </bookmark>
+            <bookmark id="8">
+                <name/>
+                <line>1518</line>
+                <key/>
+            </bookmark>
+            <bookmark id="12">
+                <name/>
+                <line>1571</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/D:/Server/htdocs/intranet/app/Controller/TransactionsController.php</file>
             <file>file:/D:/Server/htdocs/intranet/app/Controller/TicketsController.php</file>
+=======
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Customers/troubleshot_shipment.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Customers/troubleshot_technician.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Customers/shipment.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/Controller/CustomersController.php</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Customers/ready_installation.ctp</file>
+>>>>>>> 48f3ef19ce2bf77ea654c8574d31f813b5060b6d
         </group>
     </open-files>
 </project-private>
