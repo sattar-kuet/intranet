@@ -117,10 +117,14 @@ class TransactionsController extends AppController {
         $pcid = $id;
         $loggedUser = $this->Auth->user();
         if ($this->request->is('post') || $this->request->is('put')) {
+
             if (isset($this->request->data['PackageCustomer']['mac'])) {
-                $this->request->data['PackageCustomer']['mac'] = json_encode($this->request->data['PackageCustomer']['mac']);
-                $this->request->data['PackageCustomer']['system'] = json_encode($this->request->data['PackageCustomer']['system']);
+                $this->request->data['PackageCustomer'] = array(
+                    'mac' => json_encode($this->request->data['PackageCustomer']['mac']),
+                    'system' => json_encode($this->request->data['PackageCustomer']['system'])
+                );
             }
+
             $this->loadModel('PackageCustomer');
             $this->loadModel('CustomPackage');
             $this->loadModel('Ticket');
@@ -148,7 +152,7 @@ class TransactionsController extends AppController {
             $this->PackageCustomer->save($this->request->data['PackageCustomer']);
             $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong> Customer information updated successfully </strong>
+            <strong> '.$tmsg.'</strong>
             </div>';
             $this->Session->setFlash($msg);
             $tdata['Ticket'] = array('content' => $tmsg);
@@ -264,7 +268,6 @@ class TransactionsController extends AppController {
         if (count($transactions_data)) {
             $this->request->data['Transaction'] = $transactions_data['0']['transactions'];
         }
-
 //        $transactions_data = $this->Transaction->find('all', array('conditions' => array('Transaction.package_customer_id' => $pcid)));
         $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge', 'latestcardInfo', 'transactions_data'));
     }
@@ -278,7 +281,7 @@ class TransactionsController extends AppController {
         $this->Transaction->save($this->request->data['Transaction']);
         $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong> Card information updated successfully </strong>
+            <strong> Card Information updated successfully </strong>
             </div>';
         $this->Session->setFlash($msg);
         return $this->redirect($this->referer());

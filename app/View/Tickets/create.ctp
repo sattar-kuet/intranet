@@ -75,8 +75,8 @@
                                         echo $this->Form->input('action_type', array(
                                             'type' => 'select',
                                             'options' => array(
-                                                'ready ' => 'Reday to Installation',
-                                                'shipment' => 'Shipment',
+                                                'ready ' => 'Troubleshoot Tech',
+                                                'shipment' => 'Troubleshoot shipment',
                                                 'solved ' => "It's Solved"
                                             ),
                                             'empty' => 'Select Action',
@@ -155,7 +155,7 @@
                                         ?>
                                     </div>
                                 </div>
-                               
+
                             </div>
 
 

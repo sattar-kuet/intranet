@@ -12,7 +12,7 @@
     <div class="page-content">
         <!-- BEGIN PAGE HEADER-->
         <h3 class="page-title">
-            Troubleshot Technician<small></small>
+            Moving<small></small>
         </h3>
 
         <!-- END PAGE HEADER-->
@@ -43,24 +43,22 @@
                                     <th>
                                         Customer Name
                                     </th>
+
                                     <th>
                                         Address
                                     </th>
                                     <th>
-                                        Phone
+                                        Attachment
                                     </th>
                                     <th>
-                                        Issue
-                                    </th>                                    
+                                        Emergency Contact
+                                    </th>
                                     <th>
-                                        Equipment
+                                        Equipment Needed
                                     </th>
                                     <th>
                                         Comment
                                     </th>
-<!--                                    <th>
-                                        Attachment
-                                    </th>                                    -->
                                     <th>
                                         Action
                                     </th>
@@ -73,6 +71,8 @@
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
                                             . $customer['zip'];
+                                    //  pr($customer);
+                                    //  exit;
                                     ?>
                                     <tr>
                                         <td class="hidden-480">
@@ -90,9 +90,22 @@
                                                    $results['customers']['last_name'];
                                                    ?>
                                             </a>
+
                                         </td>
                                         <td>
                                             <?php echo $customer_address; ?> 
+                                        </td>
+                                        <td>
+                                            <div class="col-md-12 col-sm-12 mix category_2 category_1">
+                                                <div class="mix-inner">
+                                                    <img class="img-responsive" src="<?php echo $this->webroot . 'attchment' . '/' . $customer['attachment']; ?>" alt="">
+                                                    <div class="mix-details">
+                                                        <a class="mix-preview fancybox-button" href="<?php echo $this->webroot . 'attchment' . '/' . $customer['attachment']; ?>" title="Project Name" data-rel="fancybox-button">
+                                                            <i class="fa fa-eye pull-right"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </td>
                                         <td class="hidden-480">
                                             <?php if (!empty($customer['cell'])): ?>
@@ -101,9 +114,6 @@
                                             <?php if (!empty($customer['home'])): ?>
                                                 <a href="tel:<?php echo $customer['home'] ?>"><?php echo $customer['home']; ?></a>
                                             <?php endif; ?> 
-                                        </td>
-                                        <td>
-                                            <?php echo $results['issue']; ?>
                                         </td>
                                         <td>
                                             <?php echo $customer['shipment_equipment'] . ' ' . $customer['shipment_note']; ?>
@@ -115,20 +125,9 @@
                                                 <?php endif ?>
                                             </ul>
                                         </td>
-<!--                                        <td>
-                                            <div class="col-md-12 col-sm-12 mix category_2 category_1">
-                                                <div class="mix-inner">
-                                                    <img class="img-responsive" src="<?php echo $this->webroot . 'attchment' . '/' . $customer['attachment']; ?>" alt="">
-                                                    <div class="mix-details">
-                                                        <a class="mix-preview fancybox-button" href="<?php echo $this->webroot . 'attchment' . '/' . $customer['attachment']; ?>" title="Project Name" data-rel="fancybox-button">
-                                                            <i class="fa fa-eye pull-right"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>-->
                                         <td>
                                             <div class="controls center text-center">
+
                                                 <div class="portlet-body form">
                                                     <!-- BEGIN FORM-->
                                                     <?php

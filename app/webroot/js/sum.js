@@ -26,10 +26,9 @@ $(document).ready(function () {
         $("div.sss").hide(200);
         $("#moneyorder").removeClass("required");
     });
-});
+    
+    // mac no is need when box1, box2 or box3 are selected. box1 => 1 input field is show while box2 shows 2 input
 
-// mac no is need when box1, box2 or box3 are selected. box1 => 1 input field is show while box2 shows 2 input
-$(document).ready(function () {
     //$("div.sss").hide();
     // $("#cardsig").remove(".required");
     $("input[id*='box1']").click(function () {
@@ -56,12 +55,8 @@ $(document).ready(function () {
         $("#mac_no_2").addClass("required");
         $("#mac_no_3").addClass("required");
     });
-
-});
-
-
-
-$(document).ready(function () {
+    
+    
     $('.hover-effect').click(function () {
         $('.hover-effect').css({"border": "3px solid #eee", "font-size": "100%"});
         $(this).css({"border": "3px solid gray", "font-size": "100%"});
@@ -77,11 +72,7 @@ $(document).ready(function () {
         $("#packageid").val(ps_id);
 
     });
-});
-
 //in edit coustomer info page, showing custom package option 
-$(document).ready(function () {
-
     $('#customcheckbox').click(function () {
         if ($(this).is(":checked")) {
             $("div#custompackage").show();
@@ -99,24 +90,16 @@ $(document).ready(function () {
             $('#inputAmount').val('');
         }
     });
-
-});
-
-
-//Remove all links if print button is clicked.....
-$(document).ready(function () {
-
+    
+    //Remove all links if print button is clicked.....
     $('#btnclick').click(function () {
         jQuery("#printableArea a").click(function () {
             return false;
         })
     });
 
-});
-
-
 //Show techician select box if 'by Technician' is selected.....
-$(document).ready(function () {
+
     $("input[id*='tech']").click(function () {
         $("div#technician").show();
         $("#technician_id").addClass("required");
@@ -126,8 +109,47 @@ $(document).ready(function () {
         $("#technician_id").removeClass("required");
         $('#technician_id').val('');
     });
-});
+    
+    
+    //  start show & hide shipment in customer rezistration 
+   $('#shipment').click(function (){
+       if($(this).is(":checked")){
+           $('#shipmentshow_hide').show();
+       }
+        else{
+           $('#shipmentshow_hide').hide();  
+        }
+   });
 
+//  end show & hide shipment in customer rezistration
+
+// start Additional info 
+    $('#additioninfo').click(function (){
+       if($(this).is(":checked")){
+           $('#Additional_info').show();
+       }
+        else{
+           $('#Additional_info').hide();  
+        } 
+    });
+    
+// end Additional info 
+
+// start Additional info 
+
+    $('#dealer').click(function (){
+       if($(this).is(":checked")){
+           $('#dshow').show();
+       }
+        else{
+           $('#dshow').hide();  
+        } 
+    });
+    
+
+
+
+});
 
 
 //Print section
@@ -142,46 +164,7 @@ function printDiv(printableArea) {
     document.body.innerHTML = originalContents;
 }
 
-//  start show & hide shipment in customer rezistration 
-$(document).ready(function (){
-   $('#shipment').click(function (){
-       if($(this).is(":checked")){
-           $('#shipmentshow_hide').show();
-       }
-        else{
-           $('#shipmentshow_hide').hide();  
-        }
-   });
-});
-//  end show & hide shipment in customer rezistration
 
-// start Additional info 
-$(document).ready(function (){
-    $('#additioninfo').click(function (){
-       if($(this).is(":checked")){
-           $('#Additional_info').show();
-       }
-        else{
-           $('#Additional_info').hide();  
-        } 
-    });
-    
-});
-
-// end Additional info 
-
-// start Additional info 
-$(document).ready(function (){
-    $('#dealer').click(function (){
-       if($(this).is(":checked")){
-           $('#dshow').show();
-       }
-        else{
-           $('#dshow').hide();  
-        } 
-    });
-    
-});
 
 // end Additional info 
 
