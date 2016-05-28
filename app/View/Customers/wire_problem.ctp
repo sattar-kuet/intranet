@@ -101,8 +101,8 @@
                                             <?php endif; ?> 
                                         </td>
                                         <td>
-                                            <?php if (!empty($customer['issue'])): ?>
-                                                <?php echo $results['issue']; ?>
+                                            <?php if (!empty($results['issue']['name'])): ?>
+                                                <?php echo $results['issue']['name']; ?>
                                             <?php endif; ?>
                                         </td>
     <!--                                        <td>

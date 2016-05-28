@@ -67,6 +67,7 @@
                             <tbody>
                                 <?php
                                 foreach ($filteredData as $results):
+//                                    pr($results['issue']['name']); exit;
                                     $customer = $results['customers'];
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
@@ -101,8 +102,8 @@
                                             <?php endif; ?> 
                                         </td>
                                         <td>
-                                            <?php if (!empty($customer['issue'])): ?>
-                                                <?php echo $results['issue']; ?>
+                                            <?php if (!empty($results['issue']['name'])): ?>
+                                                <?php echo $results['issue']['name']; ?>
                                             <?php endif; ?>
                                         </td>
     <!--                                        <td>
