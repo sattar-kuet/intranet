@@ -97,25 +97,16 @@ class TicketsController extends AppController {
 
                     // $this->PackageCustomer->create();
 
->>>>>>> 3284160241827bec61f4615ed176e013d9410734
+
                     $data['PackageCustomer'] = array(
                         'shipment' => 2,
-                        'comments' => 'abcdf',
                         'shipment_equipment' => $this->request->data['Ticket']['shipment_equipment'],
-                        'shipment_note' => $this->request->data['Ticket']['shipment_note'],
-                        'issue_id' => $this->request->data['Ticket']['issue_id']
+                        'shipment_note' => $this->request->data['Ticket']['shipment_note']
                     );
-<<<<<<< HEAD
 
                   $this->PackageCustomer->save($data['PackageCustomer']);
-             
-=======
-                    //  pr($data); exit;
-
-
                     $this->PackageCustomer->save($data['PackageCustomer']);
                     //$log = $this->PackageCustomer->getDataSource()->getLog(false, false);
->>>>>>> 3284160241827bec61f4615ed176e013d9410734
                 }
                 $this->Track->save($trackData); // Data save in Track
                 $msg = '<div class="alert alert-success">

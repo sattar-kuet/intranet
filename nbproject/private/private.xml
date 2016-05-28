@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+<<<<<<< HEAD
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="23">
         <file>
             <url>app/Controller/ReportsController.php</url>
@@ -139,6 +140,13 @@
             <file>file:/D:/xampp/htdocs/intranet/app/View/Customers/moving.ctp</file>
             <file>file:/D:/xampp/htdocs/intranet/app/webroot/js/customerRegistration.js</file>
             <file>file:/D:/xampp/htdocs/intranet/app/View/Tickets/customertickethistory.ctp</file>
+=======
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/Server/htdocs/intranet/app/Controller/TicketsController24516.php</file>
+            <file>file:/D:/Server/htdocs/intranet/app/View/Tickets/create.ctp</file>
+>>>>>>> 02f4c83541fe4151a18079ab7acdecdbbd44b673
         </group>
     </open-files>
 </project-private>

@@ -559,7 +559,6 @@ class TicketsController extends AppController {
         $data = $filteredTicket;
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
-
         //  pr($roles); exit;
         $this->set(compact('data', 'users', 'roles'));
     }
