@@ -870,14 +870,11 @@ class CustomersController extends AppController {
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id
                     where pc.issue_id = 34");
-
-        // echo $sql; exit;
         $filteredData = array();
         $unique = array();
         $index = 0;
-//        pr($allData); exit;
         foreach ($allData as $key => $data) {
-            //pr($data); exit;
+
             $pd = $data['pc']['id'];
             if (isset($unique[$pd])) {
                 //  echo 'already exist'.$key.'<br/>';
@@ -888,9 +885,6 @@ class CustomersController extends AppController {
                     $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
                 }
-                if (count($data['i'])) {
-                    $filteredData[$index]['issue'] = $data['i']['name'];
-                }
             } else {
                 if ($key != 0)
                     $index++;
@@ -899,33 +893,15 @@ class CustomersController extends AppController {
                 $filteredData[$index]['customers'] = $data['pc'];
                 $filteredData[$index]['users'] = $data['u'];
 
-                $filteredData[$index]['package'] = array(
-                    'name' => 'No package dealings',
-                    'duration' => 'Not Applicable',
-                    'amount' => 'not Applicable'
-                );
+                if (!empty($data['i']['id'])) {
+                    $filteredData[$index]['issue'] = $data['i'];
+                }
 
-                if (!empty($data['ps']['id'])) {
-                    $filteredData[$index]['package'] = array(
-                        'name' => $data['ps']['name'],
-                        'duration' => $data['ps']['duration'],
-                        'amount' => $data['ps']['amount']
-                    );
-                }
-                if (!empty($data['cp']['id'])) {
-                    $filteredData[$index]['package'] = array(
-                        'name' => $data['cp']['duration'] . ' months custom package',
-                        'duration' => $data['cp']['duration'],
-                        'amount' => $data['cp']['charge']
-                    );
-                }
                 $filteredData[$index]['comments'] = array();
+
                 if (!empty($data['c']['content'])) {
                     $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
-                }
-                if (count($data['i'])) {
-                    $filteredData[$index]['issue'] = $data['i']['name'];
                 }
             }
         }
@@ -1088,12 +1064,9 @@ class CustomersController extends AppController {
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id
                     where pc.issue_id = 17");
-        //  pr($allData);
-        //  exit;
         $filteredData = array();
         $unique = array();
         $index = 0;
-//        pr($allData); exit;
         foreach ($allData as $key => $data) {
             //pr($data); exit;
             $pd = $data['pc']['id'];
@@ -1141,13 +1114,11 @@ class CustomersController extends AppController {
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id
                     where pc.issue_id = 5");
-        // echo $sql; exit;
         $filteredData = array();
         $unique = array();
         $index = 0;
-//        pr($allData); exit;
         foreach ($allData as $key => $data) {
-            //pr($data); exit;
+
             $pd = $data['pc']['id'];
             if (isset($unique[$pd])) {
                 //  echo 'already exist'.$key.'<br/>';
@@ -1166,27 +1137,12 @@ class CustomersController extends AppController {
                 $filteredData[$index]['customers'] = $data['pc'];
                 $filteredData[$index]['users'] = $data['u'];
 
-                $filteredData[$index]['package'] = array(
-                    'name' => 'No package dealings',
-                    'duration' => 'Not Applicable',
-                    'amount' => 'not Applicable'
-                );
+                if (!empty($data['i']['id'])) {
+                    $filteredData[$index]['issue'] = $data['i'];
+                }
 
-                if (!empty($data['ps']['id'])) {
-                    $filteredData[$index]['package'] = array(
-                        'name' => $data['ps']['name'],
-                        'duration' => $data['ps']['duration'],
-                        'amount' => $data['ps']['amount']
-                    );
-                }
-                if (!empty($data['cp']['id'])) {
-                    $filteredData[$index]['package'] = array(
-                        'name' => $data['cp']['duration'] . ' months custom package',
-                        'duration' => $data['cp']['duration'],
-                        'amount' => $data['cp']['charge']
-                    );
-                }
                 $filteredData[$index]['comments'] = array();
+
                 if (!empty($data['c']['content'])) {
                     $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
@@ -1194,7 +1150,7 @@ class CustomersController extends AppController {
             }
         }
         $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
-//        pr($technician); exit;
+
         $this->set(compact('filteredData', 'technician'));
     }
 

@@ -67,7 +67,7 @@
                             <tbody>
                                 <?php
                                 foreach ($filteredData as $results):
-                                    pr($results); 
+//                                    pr($results['issue']['name'] ); 
                                     $customer = $results['customers'];
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
@@ -189,8 +189,7 @@
                                                     </div>
                                                     <div class="form-actions">
                                                         <div class="row">
-                                                            <div class="col-md-offset-7 col-md-4">
-                                                                <div class="col-md-2"><a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'create', $this->request->params['pass'][0])) ?>" style="font-weight: bold; color: #E02222;">Generate Ticket</a></div>
+                                                            <div class="col-md-offset-7 col-md-4">                                                                
                                                                 <?php
                                                                 echo $this->Form->button(
                                                                         'Submit', array('class' => 'btn green', 'type' => 'submit')

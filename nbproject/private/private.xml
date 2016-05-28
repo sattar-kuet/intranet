@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="18">
+<<<<<<< HEAD
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="23">
+        <file>
+            <url>app/Controller/ReportsController.php</url>
+            <bookmark id="19">
+                <name/>
+                <line>263</line>
+                <key/>
+            </bookmark>
+            <bookmark id="21">
+                <name/>
+                <line>263</line>
+                <key/>
+            </bookmark>
+        </file>
         <file>
             <url>app/Controller/TicketsController.php</url>
             <bookmark id="5">
@@ -11,6 +25,14 @@
             <bookmark id="6">
                 <name/>
                 <line>108</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>app/View/Tickets/customertickethistory.ctp</url>
+            <bookmark id="23">
+                <name/>
+                <line>394</line>
                 <key/>
             </bookmark>
         </file>
@@ -26,42 +48,52 @@
             <url>app/Controller/CustomersController.php</url>
             <bookmark id="1">
                 <name/>
-                <line>111</line>
+                <line>0</line>
                 <key/>
             </bookmark>
             <bookmark id="3">
                 <name/>
-                <line>133</line>
+                <line>0</line>
                 <key/>
             </bookmark>
             <bookmark id="16">
                 <name/>
-                <line>364</line>
+                <line>0</line>
                 <key/>
             </bookmark>
             <bookmark id="18">
                 <name/>
-                <line>365</line>
+                <line>0</line>
                 <key/>
             </bookmark>
             <bookmark id="2">
                 <name/>
-                <line>477</line>
+                <line>0</line>
                 <key/>
             </bookmark>
             <bookmark id="14">
                 <name/>
-                <line>524</line>
+                <line>0</line>
                 <key/>
             </bookmark>
             <bookmark id="4">
                 <name/>
-                <line>525</line>
+                <line>0</line>
                 <key/>
             </bookmark>
             <bookmark id="17">
                 <name/>
-                <line>573</line>
+                <line>0</line>
+                <key/>
+            </bookmark>
+            <bookmark id="20">
+                <name/>
+                <line>119</line>
+                <key/>
+            </bookmark>
+            <bookmark id="22">
+                <name/>
+                <line>1081</line>
                 <key/>
             </bookmark>
         </file>
@@ -104,16 +136,20 @@
         <group/>
 =======
         <group>
-<<<<<<< HEAD
-            <file>file:/D:/Server/htdocs/intranet/app/Controller/TransactionsController.php</file>
-            <file>file:/D:/Server/htdocs/intranet/app/Controller/TicketsController.php</file>
-=======
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Customers/troubleshot_shipment.ctp</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Customers/troubleshot_technician.ctp</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Customers/shipment.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Customers/edit_registration.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/webroot/js/sum.js</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/Controller/TransactionsController25516.php</file>
             <file>file:/D:/xampp/htdocs/intranet/app/Controller/CustomersController.php</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Customers/ready_installation.ctp</file>
->>>>>>> 48f3ef19ce2bf77ea654c8574d31f813b5060b6d
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Customers/moving.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/webroot/js/customerRegistration.js</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Tickets/customertickethistory.ctp</file>
+=======
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/Server/htdocs/intranet/app/Controller/TicketsController24516.php</file>
+            <file>file:/D:/Server/htdocs/intranet/app/View/Tickets/create.ctp</file>
+>>>>>>> 02f4c83541fe4151a18079ab7acdecdbbd44b673
         </group>
 >>>>>>> 1dae85d76c86d5e1677266cf93501f69e5615ae8
     </open-files>
