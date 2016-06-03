@@ -387,7 +387,7 @@
 
             <li 
             <?php
-            $services = array('Customersregistration', 'Customersshipment_installation', 'Customersedit_registration', 'Customersfollowup', 'Customersready_installation', 'Customersshipment', 'Customersschedule_done');
+            $services = array('Customersregistration', 'Customersshipment_installation', 'Customersedit_registration', 'Customersfollowup',   'Customersschedule_done');
             if (in_array($this->name . '' . $this->action, $services)):
                 ?>
                     class="active"
