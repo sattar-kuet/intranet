@@ -59,15 +59,123 @@
                                             'type' => 'select',
                                             'options' => $issues,
                                             'empty' => 'Select Issue',
-                                            'class' => 'form-control select2me required',
+                                            'class' => 'form-control select2me required  issueChange',
                                                 )
                                         );
                                         ?>
                                     </div>
                                 </div>
                             </div>
+                            <div class="form-group display-hide" id="check_mac">
+                                 <label class="control-label col-md-3">
+                                </label>
+                                <div class="col-md-8">
+                                    <div class="checkbox-list">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="inlineCheckbox1" value="option1"> MAC1</label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="inlineCheckbox2" value="option2"> MAC2</label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="inlineCheckbox3" value="option3" > MAC3 </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="inlineCheckbox3" value="option3" > MAC$</label>
+                                    </div>
+                                </div>
+                            </div>
+                               <div class="form-group display-hide" id="hold">
+                                <label class="control-label col-md-3">Hold Date<span class="required">
+                                        * </span>
+                                </label>
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <?php
+                                        echo $this->Form->input('hold_date', array(
+                                            'type' => 'date',
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group display-hide" id="canceldate">
+                                <label class="control-label col-md-3">Cancel Date<span class="required">
+                                        * </span>
+                                </label>
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <?php
+                                        echo $this->Form->input('cancelled_date', array(
+                                            'type' => 'date',
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group display-hide" id="pickup_date">
+                                <label class="control-label col-md-3">Pickup Date<span class="required">
+                                        * </span>
+                                </label>
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <?php
+                                        echo $this->Form->input('pickup_date', array(
+                                            'type' => 'date',
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group display-hide" id="unhold">
+                                <label class="control-label col-md-3">Unhold Date<span class="required">
+                                        * </span>
+                                </label>
+                                <div class="form-group">
 
-                            <div class="form-group">
+                                    <div class="col-md-4">
+                                        <?php
+                                        echo $this->Form->input('unhold_date', array(
+                                            'type' => 'date',
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group display-hide"id="reconnect">
+                                <label class="control-label col-md-3">Reconnect Date<span class="required">
+                                        * </span>
+                                </label>
+                                <div class="form-group">
+
+                                    <div class="col-md-4">
+                                        <?php
+                                        echo $this->Form->input('reconnect_date', array(
+                                            'type' => 'date',
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group display-hide" id="new_addr" >
+                                <label class="control-label col-md-3">New Address
+                                </label>
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <?php
+                                        echo $this->Form->input('new_addr', array(
+                                            'type' => 'textarea',
+                                            'class' => 'form-control ',
+                                            'placeholder' => 'Type new adrress here...'
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" id="action" >
                                 <label class="control-label col-md-3">Select Action 
                                 </label>
                                 <div class="form-group">

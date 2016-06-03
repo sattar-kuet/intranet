@@ -151,10 +151,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
+            <file>file:/D:/xampee/htdocs/intranet/app/webroot/js/sum.js</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/webroot/js/ticket.js</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/View/Tickets/create.ctp</file>
+=======
             <file>file:/D:/Server/htdocs/intranet/app/Config/bootstrap.php</file>
             <file>file:/D:/Server/htdocs/intranet/app/Controller/TicketsController.php</file>
             <file>file:/D:/Server/htdocs/intranet/app/View/Tickets/create.ctp</file>
+<<<<<<< HEAD
+>>>>>>> 7ec7223f5803ad605a32403e665c7e9347760bfc
+=======
 >>>>>>> 35958104b6d17e4f62ad1b9bfd1554719d09080c
+>>>>>>> 38c5e904f260425c1558e6779b03976a8251c7f3
         </group>
     </open-files>
 </project-private>
