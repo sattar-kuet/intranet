@@ -67,29 +67,59 @@
                                 </div>
                             </div>
                             <div class="form-group display-hide" id="check_mac">
-                                 <label class="control-label col-md-2">
+                                 <label class="control-label col-md-3">
                                 </label>
-                                <div class="col-md-5">
+                                <div class="col-md-8">
                                     <div class="checkbox-list">
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="inlineCheckbox1" value="option1"> Checkbox 1 </label>
+                                            <input type="checkbox" id="inlineCheckbox1" value="option1"> MAC1</label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="inlineCheckbox2" value="option2"> Checkbox 2 </label>
+                                            <input type="checkbox" id="inlineCheckbox2" value="option2"> MAC2</label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="inlineCheckbox3" value="option3" > Disabled </label>
+                                            <input type="checkbox" id="inlineCheckbox3" value="option3" > MAC3 </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="inlineCheckbox3" value="option3" > Disabled </label>
+                                            <input type="checkbox" id="inlineCheckbox3" value="option3" > MAC$</label>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group display-hide" id="hold">
+                               <div class="form-group display-hide" id="hold">
                                 <label class="control-label col-md-3">Hold Date<span class="required">
                                         * </span>
                                 </label>
                                 <div class="form-group">
                                     <div class="col-md-4">
                                         <?php
-                                        echo $this->Form->input('issue_id', array(
+                                        echo $this->Form->input('hold_date', array(
+                                            'type' => 'date',
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group display-hide" id="canceldate">
+                                <label class="control-label col-md-3">Cancel Date<span class="required">
+                                        * </span>
+                                </label>
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <?php
+                                        echo $this->Form->input('cancelled_date', array(
+                                            'type' => 'date',
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group display-hide" id="pickup_date">
+                                <label class="control-label col-md-3">Pickup Date<span class="required">
+                                        * </span>
+                                </label>
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <?php
+                                        echo $this->Form->input('pickup_date', array(
                                             'type' => 'date',
                                                 )
                                         );
@@ -105,7 +135,7 @@
 
                                     <div class="col-md-4">
                                         <?php
-                                        echo $this->Form->input('issue_id', array(
+                                        echo $this->Form->input('unhold_date', array(
                                             'type' => 'date',
                                                 )
                                         );
@@ -121,7 +151,7 @@
 
                                     <div class="col-md-4">
                                         <?php
-                                        echo $this->Form->input('issue_id', array(
+                                        echo $this->Form->input('reconnect_date', array(
                                             'type' => 'date',
                                                 )
                                         );

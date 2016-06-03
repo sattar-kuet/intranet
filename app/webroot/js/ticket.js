@@ -111,7 +111,7 @@ $(document).ready(function () {
             $('#shipmentshow_hide').show();
         }
     });
-<<<<<<< HEAD
+
     
     $('.issueChange').change(function(){
        var selected = $('.issueChange option:selected').text().toLowerCase();
@@ -138,57 +138,58 @@ $(document).ready(function () {
     
     $('.issueChange').change(function () {
         var selected = $('.issueChange option:selected').text().toLowerCase();
-        var check = "cancel";
-        if (selected.indexOf(check) != -1) {
+        var canceled = "cancel";
+        var holded = "hold";
+        var unholded = "unhold";
+        var recono = "reconnect";
+
+        if (selected.indexOf(canceled) != -1) {
             $('#check_mac').show();
+            $('#canceldate').show();
+            $('#pickup_date').show();
+            $('#hold').hide();
+            $('#unhold').hide();
+            $('#reconnect').hide();
+            $('#action').hide(); 
         }
-       else{ 
-            $('#check_mac').hide();
-       }   
-        });
-    
-    $('.issueChange').change(function () {
-        var selected = $('.issueChange option:selected').text().toLowerCase();
-        var check = "hold";
-        if (selected.indexOf(check) != -1 && selected.indexOf('unhold') == -1) {
+        else if (selected.indexOf(holded) != -1 && selected.indexOf(unholded) == -1) {
             $('#check_mac').show();
-           $('#hold').show();
+            $('#hold').show();
+            $('#unhold').hide();
+            $('#reconnect').hide();
+            $('#canceldate').hide();
+            $('#pickup_date').hide();
+            $('#action').hide(); 
         }
-       else {
-            $('#check_mac').hide();
-        }
-    });
-    
-    $('.issueChange').change(function () {
-        var selected = $('.issueChange option:selected').text().toLowerCase();
-        var check = "unhold";
-        if (selected.indexOf(check) != -1) {
+        else if (selected.indexOf(unholded) != -1) {
             $('#check_mac').show();
-             $('#unhold').show();
+            $('#unhold').show();
+            $('#hold').hide();
+            $('#reconnect').hide();
+              $('#canceldate').hide();
+            $('#pickup_date').hide();
+            $('#action').hide(); 
         }
-       else {
-           $('#check_mac').hide();
-        }
-    });
-    
-    
-    $('.issueChange').change(function () {
-        var selected = $('.issueChange option:selected').text().toLowerCase();
-        var check = "reconnect";
-        if (selected.indexOf(check) != -1) {
+        else if (selected.indexOf(recono) != -1) {
             $('#check_mac').show();
-             $('#reconnect').show();
+            $('#reconnect').show();
+            $('#hold').hide();
+            $('#unhold').hide();
+              $('#canceldate').hide();
+            $('#pickup_date').hide();
+            $('#action').hide(); 
         }
         else {
             $('#check_mac').hide();
+            $('#hold').hide();
+            $('#unhold').hide();
+            $('#reconnect').hide();
+            $('#canceldate').hide();
+            $('#pickup_date').hide();
+            $('#action').show(); 
         }
     });
-=======
-
-    
-
-
->>>>>>> 38c5e904f260425c1558e6779b03976a8251c7f3
+  
 });
 
 
