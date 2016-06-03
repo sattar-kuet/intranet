@@ -16,7 +16,8 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-plus"></i>Add new Ticket
+                            <i class="fa fa-plus "></i>
+                            <span><?php echo show_mac($customers['PackageCustomer']);?></span>
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="reload">

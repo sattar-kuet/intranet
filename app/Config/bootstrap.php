@@ -294,3 +294,18 @@ function getInvoiceNumbe($number) {
     }
     return $number;
 }
+
+function show_mac($data) {
+    $output = '';
+    $macs = json_decode($data['mac']);
+
+    $sys = json_decode($data['system']);
+    if (is_array($macs)) {
+        foreach ($macs as $index => $mac) {
+            $output.='<span class="fa fa-star" style="font-size: 21px; letter-spacing: 1px;">&nbsp;' . $mac . '(' . $sys[$index] . ')</span> &nbsp;';
+        }
+    }
+
+
+    return $output;
+}
