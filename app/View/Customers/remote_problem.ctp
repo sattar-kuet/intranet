@@ -11,7 +11,7 @@
     <div class="page-content">
         <!-- BEGIN PAGE HEADER-->
         <h3 class="page-title">
-         Remote Problem<small></small>
+            Remote Problem<small></small>
         </h3>
         <!-- END PAGE HEADER-->
         <!-- BEGIN PAGE CONTENT-->
@@ -75,7 +75,8 @@
                                     ?>
                                     <tr>
                                         <td class="hidden-480">
-                                            <?php echo $results['customers']['created']; ?>                            
+                                            <?php echo $results['customers']['created']; ?> <br>
+                                            <?php echo $results['users']['name']; ?>                             
                                         </td>
                                         <td>
                                             <a href="<?php

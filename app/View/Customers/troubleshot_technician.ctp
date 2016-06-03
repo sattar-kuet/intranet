@@ -69,6 +69,7 @@
                             <tbody>
                                 <?php
                                 foreach ($filteredData as $results):
+                                  // pr($results); exit;
                                     $customer = $results['customers'];
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
@@ -76,7 +77,8 @@
                                     ?>
                                     <tr>
                                         <td class="hidden-480">
-                                            <?php echo $results['customers']['created']; ?>                            
+                                            <?php echo $results['customers']['created']; ?><br>
+                                            <?php echo $results['users']['name']; ?>                              
                                         </td>
                                         <td>
                                             <a href="<?php
