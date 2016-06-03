@@ -228,7 +228,19 @@ class CustomersController extends AppController {
             $this->PackageCustomer->id = $id;
             $dateObj = $this->request->data['PackageCustomer']['exp_date'];
             $this->request->data['PackageCustomer']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
-//            pr($this->request->data); exit;
+          
+
+                 
+            
+            if (!empty($this->request->data['PackageCustomer']['attachment']['name'])) {
+                $result = $this->processAttachment($this->request->data['PackageCustomer']);
+                $this->request->data['PackageCustomer']['attachment'] = $result['file_dst_name'];
+                
+            } else {
+                $this->request->data['PackageCustomer']['attachment'] = '';
+               
+            }
+
             $this->PackageCustomer->save($this->request->data['PackageCustomer']);
             //update last comment
             if ($this->request->data['PackageCustomer']['comment_id']) {
@@ -647,7 +659,7 @@ class CustomersController extends AppController {
         $this->loadModel('PackageCustomer');
         $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
                     left join comments c on pc.id = c.package_customer_id
-                    left join users u on c.user_id = u.id
+                    left join users u on pc.user_id = u.id
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                      left join issues i on pc.issue_id = i.id
@@ -865,7 +877,7 @@ class CustomersController extends AppController {
         $this->loadModel('PackageCustomer');
         $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
                     left join comments c on pc.id = c.package_customer_id
-                    left join users u on c.user_id = u.id
+                    left join users u on pc.user_id = u.id
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id
@@ -988,7 +1000,7 @@ class CustomersController extends AppController {
         $this->loadModel('PackageCustomer');
         $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
                     left join comments c on pc.id = c.package_customer_id
-                    left join users u on c.user_id = u.id
+                    left join users u on pc.user_id = u.id
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id

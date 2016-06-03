@@ -578,22 +578,38 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-2 signupfont">
-                                        Installation Date:
+                                    <div class="col-md-2 signupfont status-date">
+
                                     </div>
                                     <div class="col-md-4">
                                         <div class="input-list style-4 clearfix">
                                             <div>
                                                 <?php
                                                 echo $this->Form->input(
-                                                        'created', array(
-                                                    'class' => ''
+                                                        'date', array(
+                                                    'type' => 'text',
+                                                    'class' => 'datepicker form-control '
                                                         )
                                                 );
                                                 ?> 
                                             </div>                            
                                         </div>
-                                    </div>
+                                        <div id="status-history" class="alert alert-success display-hide" style="text-align: inherit;">
+                                            <?php
+                                            foreach ($hstatus as $history):
+                                                ?>
+                                                <span class="fa fa-hand-o-right pull-left"> <?php echo $history['status_histories']['status']; ?></span> &nbsp;
+                                                <span class="fa fa-clock-o pull-right"> <?php echo $history['status_histories']['date']; ?> </span> <br>
+                                            <?php endforeach; ?>
+                                        </div>
+
+                                        <span  id="#status-history" title="Status History of Customer" class="toggleDiv">
+                                            <i class="fa fa-eye pull-right"> </i>
+                                        </span>
+
+
+                                    </div>                                
+
                                 </div>
                                 &nbsp;
 
@@ -627,11 +643,12 @@
                                                 <?php
                                                 echo $this->Form->input('status', array(
                                                     'type' => 'select',
-                                                    'options' => array('active' => 'Active', 'blocked' => 'Blocked', 'canceled' => 'Canceled', 'requested' => 'Requested', 'ready' => 'Ready'),
+                                                    'options' => array('active' => 'Active', 'hold' => 'Hold', 'unhold' => 'Unhold', 'canceled' => 'Canceled', 'requested' => 'Requested', 'ready' => 'Ready'),
                                                     //'default' => $selected['package'],
                                                     'empty' => 'Select Status',
                                                     'class' => 'span12 uniform nostyle select1',
-                                                    'name' => 'status'
+                                                    'name' => 'status',
+                                                    'id' => 'status'
                                                         //'id'=>'stbn',
                                                         )
                                                 );

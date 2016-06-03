@@ -16,7 +16,7 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-pencil"></i>Edit role
+                            <i class="fa fa-pencil"></i>Edit u
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="reload">

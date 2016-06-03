@@ -79,7 +79,8 @@
                                     ?>
                                     <tr>
                                         <td class="hidden-480">
-                                            <?php echo $results['customers']['created']; ?>                            
+                                            <?php echo $results['customers']['created']; ?>  <br>
+                                            <?php echo $results['users']['name']; ?>                            
                                         </td>
                                         <td>
                                             <a href="<?php

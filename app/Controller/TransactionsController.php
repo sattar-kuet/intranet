@@ -114,13 +114,19 @@ class TransactionsController extends AppController {
     }
 
     function edit_customer_data($id = null) {
+     
         $pcid = $id;
+        
         $loggedUser = $this->Auth->user();
         if ($this->request->is('post') || $this->request->is('put')) {
+            $this->request->data['PackageCustomer']['status'] = $this->request->data['status'];
+            //pr($this->request->data);
+            // exit;
             if (isset($this->request->data['PackageCustomer']['mac'])) {
                 $this->request->data['PackageCustomer']['mac'] = json_encode($this->request->data['PackageCustomer']['mac']);
                 $this->request->data['PackageCustomer']['system'] = json_encode($this->request->data['PackageCustomer']['system']);
             }
+            
             $this->loadModel('PackageCustomer');
             $this->loadModel('CustomPackage');
             $this->loadModel('Ticket');
@@ -144,8 +150,20 @@ class TransactionsController extends AppController {
                 $this->request->data['PackageCustomer']['custom_package_id'] = $cp['CustomPackage']['id'];
             }
             //Ends Custom_package data entry  
+//        pr($pcid); exit;
+            $shistory = $this->PackageCustomer->save($this->request->data['PackageCustomer']);
 
-            $this->PackageCustomer->save($this->request->data['PackageCustomer']);
+
+
+            $this->request->data['StatusHistorie']['package_customer_id'] = [$pcid];
+            $this->request->data['StatusHistorie']['date'] = $this->request->data['PackageCustomer']['date'];
+            $this->request->data['StatusHistorie']['status'] = $shistory['PackageCustomer']['status'];
+// pr($this->request->data);
+//            exit;
+            $this->request->data['StatusHistorie']['package_customer_id'] = $this->request->data['StatusHistorie']['package_customer_id'][0];
+           
+           
+            $this->StatusHistorie->save($this->request->data['StatusHistorie']);
             $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <strong> Customer information updated successfully </strong>
@@ -170,9 +188,11 @@ class TransactionsController extends AppController {
             //END OF DUE UPDATE
             $this->Track->save($trackData);
         }
+        
+        
         $this->loadModel('PackageCustomer');
         $customer_info = $this->PackageCustomer->findById($pcid);
-
+//   pr($customer_info); exit;
         //Show default value for custome package
         $custom_package_charge = $customer_info['CustomPackage']['charge'];
         $custom_package_duration = $customer_info['CustomPackage']['duration'];
@@ -244,6 +264,7 @@ class TransactionsController extends AppController {
             'order' => array('Transaction.id' => 'DESC')
                 )
         );
+         
         //echo $this->Transaction->getLastQuery();
         $yyyy = 0;
         $mm = -1;
@@ -263,10 +284,12 @@ class TransactionsController extends AppController {
 //       pr($transactions_data);   exit;
         if (count($transactions_data)) {
             $this->request->data['Transaction'] = $transactions_data['0']['transactions'];
-        }
-
-//        $transactions_data = $this->Transaction->find('all', array('conditions' => array('Transaction.package_customer_id' => $pcid)));
-        $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge', 'latestcardInfo', 'transactions_data'));
+        }        
+        $this->loadModel('StatusHistorie');
+//        $hstatus = $this->StatusHistory->find('all', array('conditions' => array('StatusHistory.package_customer_id' => $pcid)));
+        $hstatus = $this->StatusHistorie->query("select * from status_histories where package_customer_id = $pcid ");
+//       pr($hstatus); exit;
+        $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge', 'latestcardInfo', 'transactions_data','hstatus'));
     }
 
     function updatecardinfo($id = null) {
