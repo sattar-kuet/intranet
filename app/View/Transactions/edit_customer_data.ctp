@@ -597,7 +597,6 @@
                                         <div id="status-history" class="alert alert-success display-hide" style="text-align: inherit;">
                                             <?php
                                             foreach ($hstatus as $history):
-                                                // pr($history['status_histories']); exit;
                                                 ?>
                                                 <span class="fa fa-hand-o-right pull-left"> <?php echo $history['status_histories']['status']; ?></span> &nbsp;
                                                 <span class="fa fa-clock-o pull-right"> <?php echo $history['status_histories']['date']; ?> </span> <br>

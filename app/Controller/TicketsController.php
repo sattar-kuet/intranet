@@ -123,8 +123,9 @@ class TicketsController extends AppController {
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
 
         $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
-
-        $this->set(compact('users', 'roles', 'issues'));
+        $customers = $this->PackageCustomer->findById($customer_id);
+      //  pr($customers['PackageCustomer']); exit;
+        $this->set(compact('users', 'roles', 'issues','customers'));
     }
 
     function close($id = null) {

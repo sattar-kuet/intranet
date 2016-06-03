@@ -1,4 +1,3 @@
-
 <style type="text/css">
     .alert {
         padding: 6px;
@@ -10,11 +9,12 @@
     .txtArea { width:300px; }
 
 </style>
+
 <div class="page-content-wrapper">
     <div class="page-content">
         <!-- BEGIN PAGE HEADER-->
         <h3 class="page-title">
-            Inidvidual  Customer  tickets history<small></small>
+           Individual  Customer  tickets history<small></small>
         </h3>
 
         <!-- END PAGE HEADER-->
@@ -28,8 +28,7 @@
                             <i class="fa fa-ticket"></i>List of all tickets
                         </div>
                         <div class="tools">
-                            <a href="javascript:;" class="reload">
-                            </a>
+                               <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'create', $this->request->params['pass'][0])) ?>" style="font-weight: bold; color: #E02222;">Generate Ticket</a>
                         </div>
                     </div>
                     <div class="portlet-body">
@@ -57,7 +56,7 @@
                                         <td><?php echo $issue['i']['name']; ?></td>
                                         <td>
                                             <ul>
-                                                <li> Name: <?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?> </li> 
+                                                <li> Name: <?php echo $customer['first_name'].' '.$customer['middle_name'].' '.$customer['last_name']; ?> </li> 
                                                 <li> Cell: <?php echo $customer['cell']; ?> </li> 
                                             </ul>
                                         </td>
@@ -79,11 +78,12 @@
                                                         }
                                                         ?>
                                                         <?php echo $history['fb']['name']; ?>
-                                                        <p><strong>Forwarded To:</strong><ul><li><?php echo $history['fi']['name']; ?> </li><li><?php echo $history['fd']['name']; ?> </li></ul>
+                                                            <p><strong>Forwarded To:</strong><ul><li><?php echo $history['fi']['name']; ?> </li><li><?php echo $history['fd']['name']; ?> </li></ul>
                                                         <strong>Time:</strong> <?php echo $history['tr']['created']; ?>
 
                                                         &nbsp;&nbsp;<strong>Status:</strong> <?php echo $history['tr']['status']; ?><br>
-                                                        <?php
+                                                         <?php
+
                                                         if (!empty($history['tr']['comment'])):
                                                             echo '<strong>';
                                                             echo 'Comment : ';
@@ -96,9 +96,15 @@
                                                 <?php endforeach; ?>
                                             </ol>
                                         </td>
+
+
                                         <td>   
                                             <div class="controls center text-center">
+
+
                                                 <?php if ($lasthistory['status'] == 'open') { ?>
+
+
                                                     <a 
                                                         href="#" title="Solved">
                                                         <span id="<?php echo $ticket['id']; ?>" class="fa fa-check fa-lg solve_ticket"></span>
@@ -107,14 +113,23 @@
                                                     <a 
                                                         href="#" title="Unresolved">
                                                         <span id="<?php echo $ticket['id']; ?>" class="fa fa-times fa-lg unsolve_ticket"></span>
+
+
                                                     </a>
                                                     &nbsp;
+
                                                     <a 
                                                         href="#" title="Forward">
 
                                                         <span id="<?php echo $ticket['id']; ?>" class="fa fa-mail-forward fa-lg forward_ticket"></span>
                                                     </a>
+
+
+
                                                     <div id="forward_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
+
+
+                                                        
                                                         <?php
                                                         echo $this->Form->create('Track', array(
                                                             'inputDefaults' => array(
@@ -128,6 +143,7 @@
                                                                 )
                                                         );
                                                         ?>
+
                                                         <?php
                                                         echo $this->Form->input('ticket_id', array(
                                                             'type' => 'hidden',
@@ -141,8 +157,11 @@
                                                                 You have some form errors. Please check below.
                                                             </div>
                                                             <?php echo $this->Session->flash(); ?>
+
                                                             <div class="form-group">
+
                                                                 <div class="form-group">
+
                                                                     <div class="col-md-12">
                                                                         <?php
                                                                         echo $this->Form->input('user_id', array(
@@ -157,7 +176,9 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
+
                                                                 <div class="form-group">
+
                                                                     <div class="col-md-12">
                                                                         <?php
                                                                         echo $this->Form->input('role_id', array(
@@ -172,7 +193,9 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
+
                                                                 <div class="form-group">
+
                                                                     <div class="col-md-12">
                                                                         <?php
                                                                         echo $this->Form->input('priority', array(
@@ -187,7 +210,9 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
+
                                                                 <div class="form-group">
+
                                                                     <div class="col-md-12">
                                                                         <?php
                                                                         echo $this->Form->input('comment', array(
@@ -200,7 +225,9 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+
                                                         </div>
+
                                                         <div class="form-actions">
                                                             <div class="row">
                                                                 <div class="col-md-offset-7 col-md-4">
@@ -213,8 +240,12 @@
                                                             </div>
                                                         </div>
                                                         <?php echo $this->Form->end(); ?>
+                                                        
                                                     </div>
+
                                                     <div id="solve_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
+
+                                                         
                                                         <?php
                                                         echo $this->Form->create('Track', array(
                                                             'inputDefaults' => array(
@@ -243,15 +274,6 @@
                                                                 )
                                                         );
                                                         ?>
-
-                                                        <?php
-                                                        echo $this->Form->input('forwarded_by', array(
-                                                            'type' => 'hidden',
-                                                            'value' => $lasthistory['forwarded_by'],
-                                                                )
-                                                        );
-                                                        ?>
-
                                                         <?php
                                                         echo $this->Form->input('role_id', array(
                                                             'type' => 'hidden',
@@ -273,8 +295,12 @@
                                                                 You have some form errors. Please check below.
                                                             </div>
                                                             <?php echo $this->Session->flash(); ?>
+
+
                                                             <div class="form-group">
+
                                                                 <div class="form-group">
+
                                                                     <div class="col-md-12">
                                                                         <?php
                                                                         echo $this->Form->input('comment', array(
@@ -287,7 +313,9 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+
                                                         </div>
+
                                                         <div class="form-actions">
                                                             <div class="row">
                                                                 <div class="col-md-offset-7 col-md-4">
@@ -300,9 +328,12 @@
                                                             </div>
                                                         </div>
                                                         <?php echo $this->Form->end(); ?>
+                                                         
                                                     </div> 
 
                                                     <div id="unsolve_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
+
+                                                         
                                                         <?php
                                                         echo $this->Form->create('Track', array(
                                                             'inputDefaults' => array(
@@ -331,15 +362,6 @@
                                                                 )
                                                         );
                                                         ?>
-
-                                                        <?php
-                                                        echo $this->Form->input('forwarded_by', array(
-                                                            'type' => 'hidden',
-                                                            'value' => $lasthistory['forwarded_by'],
-                                                                )
-                                                        );
-                                                        ?>
-
                                                         <?php
                                                         echo $this->Form->input('role_id', array(
                                                             'type' => 'hidden',
@@ -354,14 +376,19 @@
                                                                 )
                                                         );
                                                         ?>
+
                                                         <div class="form-body">
                                                             <div class="alert alert-danger display-hide">
                                                                 <button class="close" data-close="alert"></button>
                                                                 You have some form errors. Please check below.
                                                             </div>
                                                             <?php echo $this->Session->flash(); ?>
+
+
                                                             <div class="form-group">
+
                                                                 <div class="form-group">
+
                                                                     <div class="col-md-12">
                                                                         <?php
                                                                         echo $this->Form->input('comment', array(
@@ -389,20 +416,25 @@
                                                             </div>
                                                         </div>
                                                         <?php echo $this->Form->end(); ?>
-
+                                                         
                                                     </div> 
-                                                    <br> <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'create', $this->request->params['pass'][0])) ?>" target="_blank" style=" color: #E02222;">Generate Ticket</a>
+
                                                     <?php
                                                 } else {
                                                     echo 'Nothing to do';
                                                 }
                                                 ?>
+
+
+
                                             </div>
                                         </td>
                                     </tr>
+
                                     <?php
                                 endforeach;
                                 ?>
+
                             </tbody>
                         </table>
                     </div>
