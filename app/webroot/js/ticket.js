@@ -111,6 +111,10 @@ $(document).ready(function () {
             $('#shipmentshow_hide').show();
         }
     });
+
+    
+
+
 });
 
 //registration form validation

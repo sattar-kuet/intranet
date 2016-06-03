@@ -50,8 +50,13 @@ class TicketsController extends AppController {
                     return $this->redirect($this->referer());
                 }
                 $this->PackageCustomer->id = $customer_id;
-                $this->PackageCustomer->saveField("issue_id", $this->request->data['Ticket']['issue_id']);
-                $this->PackageCustomer->saveField("comments", $this->request->data['Ticket']['content']);
+                $data['PackageCustomer'] = array(
+                    "issue_id" => $this->request->data['Ticket']['issue_id'],
+                    "comments" => $this->request->data['Ticket']['content'],
+                    "user_id" => $loggedUser['id']
+                );
+                $this->PackageCustomer->save($data);
+               
 
                 if (trim($this->request->data['Ticket']['action_type']) == 'solved') {
                     $this->request->data['Ticket']['priority'] = 'low';
@@ -78,10 +83,17 @@ class TicketsController extends AppController {
                     $this->updateCustomer('Request to cancel', $customer_id);
                 }
                 if (trim($this->request->data['Ticket']['action_type']) == "ready") {
+                    $data['PackageCustomer'] = array(
+                        'status' => 'old_ready',
+                        'shipment_equipment' => $this->request->data['Ticket']['shipment_equipment'],
+                        'shipment_note' => $this->request->data['Ticket']['shipment_note']
+                    );
                     $this->PackageCustomer->id = $customer_id;
-                    $this->PackageCustomer->saveField("status", "old_ready");
+                    $this->PackageCustomer->save($data['PackageCustomer']);
+                    
                 }
                 if (trim($this->request->data['Ticket']['action_type']) == 'shipment') {
+
                     if ($this->request->data['Ticket']['shipment_equipment'] == 'OTHER') {
                         $this->request->data['Ticket']['shipment_equipment'] = $this->request->data['Ticket']['shipment_equipment_other'];
                     }
@@ -90,6 +102,7 @@ class TicketsController extends AppController {
                         'shipment_equipment' => $this->request->data['Ticket']['shipment_equipment'],
                         'shipment_note' => $this->request->data['Ticket']['shipment_note']
                     );
+                    $this->PackageCustomer->id = $customer_id;
                     $this->PackageCustomer->save($data['PackageCustomer']);
                     //$log = $this->PackageCustomer->getDataSource()->getLog(false, false);
                 }

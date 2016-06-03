@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-<<<<<<< HEAD
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="23">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="25">
         <file>
             <url>app/Controller/ReportsController.php</url>
             <bookmark id="19">
@@ -24,7 +23,7 @@
             </bookmark>
             <bookmark id="6">
                 <name/>
-                <line>108</line>
+                <line>117</line>
                 <key/>
             </bookmark>
         </file>
@@ -40,7 +39,7 @@
             <url>app/Controller/TransactionsController.php</url>
             <bookmark id="13">
                 <name/>
-                <line>272</line>
+                <line>293</line>
                 <key/>
             </bookmark>
         </file>
@@ -93,60 +92,60 @@
             </bookmark>
             <bookmark id="22">
                 <name/>
-                <line>1081</line>
+                <line>1069</line>
                 <key/>
             </bookmark>
         </file>
         <file>
             <url>app/View/Transactions/edit_customer_data.ctp</url>
+            <bookmark id="25">
+                <name/>
+                <line>67</line>
+                <key/>
+            </bookmark>
             <bookmark id="11">
                 <name/>
                 <line>71</line>
                 <key/>
             </bookmark>
+            <bookmark id="24">
+                <name/>
+                <line>606</line>
+                <key/>
+            </bookmark>
             <bookmark id="10">
                 <name/>
-                <line>636</line>
+                <line>659</line>
                 <key/>
             </bookmark>
             <bookmark id="9">
                 <name/>
-                <line>1433</line>
+                <line>1456</line>
                 <key/>
             </bookmark>
             <bookmark id="7">
                 <name/>
-                <line>1441</line>
+                <line>1464</line>
                 <key/>
             </bookmark>
             <bookmark id="8">
                 <name/>
-                <line>1518</line>
+                <line>1541</line>
                 <key/>
             </bookmark>
             <bookmark id="12">
                 <name/>
-                <line>1571</line>
+                <line>1594</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Customers/edit_registration.ctp</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/webroot/js/sum.js</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/Controller/TransactionsController25516.php</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/Controller/TransactionsController.php</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Customers/shipment.ctp</file>
             <file>file:/D:/xampp/htdocs/intranet/app/Controller/CustomersController.php</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Customers/moving.ctp</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/webroot/js/customerRegistration.js</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Tickets/customertickethistory.ctp</file>
-=======
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/Server/htdocs/intranet/app/Controller/TicketsController24516.php</file>
-            <file>file:/D:/Server/htdocs/intranet/app/View/Tickets/create.ctp</file>
->>>>>>> 02f4c83541fe4151a18079ab7acdecdbbd44b673
         </group>
     </open-files>
 </project-private>

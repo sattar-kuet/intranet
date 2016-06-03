@@ -27,6 +27,11 @@ function initialization() {
 }
 
 $(document).ready(function () {
+    
+     var selected = $('#status').val().trim();
+      selected = selected.substr(0,1).toUpperCase()+selected.substr(1) + ' Date: ';
+        $('.status-date').text(selected);
+//       alert(selected);
     $('#shipment_equipment_list').change(function () {
         var selected_equipment = $(this).val();
         if (selected_equipment == 'OTHER') {
@@ -36,6 +41,17 @@ $(document).ready(function () {
             $('#other_shipment_equipment').hide();
         }
     });
-    
+
+    $("#status").change(function () {
+        var selected = $(this).val().trim();
+        selected = selected.substr(0,1).toUpperCase()+selected.substr(1) + ' Date';
+        $('.status-date').text(selected);
+    });
+
+   $('.toggleDiv').click(function(){
+       var showElement = $(this).attr('id');
+       $(showElement).toggle(1000);
+   });
+
     initialization();
 });

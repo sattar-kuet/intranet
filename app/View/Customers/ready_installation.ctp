@@ -80,7 +80,8 @@
                                     ?>
                                     <tr>
                                         <td class="hidden-480">
-                                            <?php echo $results['customers']['created']; ?>                            
+                                            <?php echo $results['customers']['created']; ?>  <br>
+                                            <?php echo $results['users']['name']; ?>                            
                                         </td>
                                         <td>
                                             <a href="<?php
@@ -128,12 +129,17 @@
                                         <td>
                                             <div class="col-md-12 col-sm-12 mix category_2 category_1">
                                                 <div class="mix-inner">
-                                                    <img class="img-responsive" src="<?php echo $this->webroot . 'attchment' . '/' . $customer['attachment']; ?>" alt="">
-                                                    <div class="mix-details">
-                                                        <a class="mix-preview fancybox-button" href="<?php echo $this->webroot . 'attchment' . '/' . $customer['attachment']; ?>" title="Project Name" data-rel="fancybox-button">
-                                                            <i class="fa fa-eye pull-right"></i>
-                                                        </a>
-                                                    </div>
+                                                     <?php if (!empty($customer['attachment'])) { ?>
+                                                        <img class="img-responsive" src="<?php echo $this->webroot . 'attchment' . '/' . $customer['attachment']; ?>" alt="">
+                                                        <div class="mix-details">
+                                                            <a class="mix-preview fancybox-button" href="<?php echo $this->webroot . 'attchment' . '/' . $customer['attachment']; ?>" title="Project Name" data-rel="fancybox-button">
+                                                                <i class="fa fa-eye pull-right"></i>
+                                                            </a>
+                                                        </div>
+                                                        <?php } else{ ?>
+                                                        <h4> No Attachment</h4>
+
+                                                    <?php } ?>
                                                 </div>
                                             </div>
                                         </td>
