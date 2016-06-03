@@ -66,7 +66,69 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="form-group display-hide" id="check_mac">
+                                 <label class="control-label col-md-2">
+                                </label>
+                                <div class="col-md-5">
+                                    <div class="checkbox-list">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="inlineCheckbox1" value="option1"> Checkbox 1 </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="inlineCheckbox2" value="option2"> Checkbox 2 </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="inlineCheckbox3" value="option3" > Disabled </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="inlineCheckbox3" value="option3" > Disabled </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group display-hide" id="hold">
+                                <label class="control-label col-md-3">Hold Date<span class="required">
+                                        * </span>
+                                </label>
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <?php
+                                        echo $this->Form->input('issue_id', array(
+                                            'type' => 'date',
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group display-hide" id="unhold">
+                                <label class="control-label col-md-3">Unhold Date<span class="required">
+                                        * </span>
+                                </label>
+                                <div class="form-group">
 
+                                    <div class="col-md-4">
+                                        <?php
+                                        echo $this->Form->input('issue_id', array(
+                                            'type' => 'date',
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group display-hide"id="reconnect">
+                                <label class="control-label col-md-3">Reconnect Date<span class="required">
+                                        * </span>
+                                </label>
+                                <div class="form-group">
+
+                                    <div class="col-md-4">
+                                        <?php
+                                        echo $this->Form->input('issue_id', array(
+                                            'type' => 'date',
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="form-group display-hide" id="new_addr" >
                                 <label class="control-label col-md-3">New Address
                                 </label>

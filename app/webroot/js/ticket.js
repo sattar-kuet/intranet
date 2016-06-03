@@ -134,7 +134,56 @@ $(document).ready(function () {
        
        
     });
+    
+    $('.issueChange').change(function () {
+        var selected = $('.issueChange option:selected').text().toLowerCase();
+        var check = "cancel";
+        if (selected.indexOf(check) != -1) {
+            $('#check_mac').show();
+        }
+       else{ 
+            $('#check_mac').hide();
+       }   
+        });
+    
+    $('.issueChange').change(function () {
+        var selected = $('.issueChange option:selected').text().toLowerCase();
+        var check = "hold";
+        if (selected.indexOf(check) != -1 && selected.indexOf('unhold') == -1) {
+            $('#check_mac').show();
+           $('#hold').show();
+        }
+       else {
+            $('#check_mac').hide();
+        }
+    });
+    
+    $('.issueChange').change(function () {
+        var selected = $('.issueChange option:selected').text().toLowerCase();
+        var check = "unhold";
+        if (selected.indexOf(check) != -1) {
+            $('#check_mac').show();
+             $('#unhold').show();
+        }
+       else {
+           $('#check_mac').hide();
+        }
+    });
+    
+    
+    $('.issueChange').change(function () {
+        var selected = $('.issueChange option:selected').text().toLowerCase();
+        var check = "reconnect";
+        if (selected.indexOf(check) != -1) {
+            $('#check_mac').show();
+             $('#reconnect').show();
+        }
+        else {
+            $('#check_mac').hide();
+        }
+    });
 });
+
 
 //registration form validation
 //$(document).ready(function () {
