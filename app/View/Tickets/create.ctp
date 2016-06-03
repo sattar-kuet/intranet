@@ -58,7 +58,7 @@
                                             'type' => 'select',
                                             'options' => $issues,
                                             'empty' => 'Select Issue',
-                                            'class' => 'form-control select2me required',
+                                            'class' => 'form-control select2me required  issueChange',
                                                 )
                                         );
                                         ?>
@@ -66,7 +66,23 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group display-hide" id="new_addr" >
+                                <label class="control-label col-md-3">New Address
+                                </label>
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <?php
+                                        echo $this->Form->input('new_addr', array(
+                                            'type' => 'textarea',
+                                            'class' => 'form-control ',
+                                            'placeholder' => 'Type new adrress here...'
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" id="action" >
                                 <label class="control-label col-md-3">Select Action 
                                 </label>
                                 <div class="form-group">

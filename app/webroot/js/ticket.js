@@ -111,6 +111,29 @@ $(document).ready(function () {
             $('#shipmentshow_hide').show();
         }
     });
+    
+    $('.issueChange').change(function(){
+       var selected = $('.issueChange option:selected').text().toLowerCase();
+       //alert(selected);
+       if(selected.trim() == "moving" ){
+            $('#action').hide();
+        $('#new_addr').show();
+       }
+      else  if(selected.trim() == "wiring problem" ){
+          $('#action').hide(); 
+          $('#new_addr').hide();
+       }
+      else  if(selected.trim() == "remote problem" ){
+          $('#action').hide(); 
+          $('#new_addr').hide();
+       }
+       else{
+           $('#action').show();
+           $('#new_addr').hide();
+       }
+       
+       
+    });
 });
 
 //registration form validation
