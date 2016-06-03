@@ -22,7 +22,12 @@ class TicketsController extends AppController {
         $this->PackageCustomer->id = $cid;
         $this->PackageCustomer->saveField("status", $status);
     }
-
+    function addNewAddr($new_addr, $cid) {
+        $this->loadModel('PackageCustomer');
+        $this->PackageCustomer->id = $cid;
+        $this->PackageCustomer->saveField("new_addr", $new_addr);
+    }
+    
     function create($customer_id = null) {
         if ($customer_id == null) {
             $this->redirect('/admins/servicemanage');
@@ -37,6 +42,7 @@ class TicketsController extends AppController {
         $this->loadModel('TicketDepartment');
         $this->loadModel('PackageCustomer');
         if ($this->request->is('post')) {
+             
             $this->Ticket->set($this->request->data);
             if ($this->Ticket->validates()) {
                 if (empty($this->request->data['Ticket']['user_id']) &&
@@ -72,6 +78,9 @@ class TicketsController extends AppController {
                     'ticket_id' => $tickect['Ticket']['id'],
                     'forwarded_by' => $loggedUser['id']
                 );
+                if (trim($this->request->data['Ticket']['issue_id']) == 17) {
+                    $this->addNewAddr($this->request->data['Ticket']['new_addr'], $customer_id);
+                }
                 if (trim($this->request->data['Ticket']['issue_id']) == 21) {
 
                     $this->updateCustomer('Request to hold', $customer_id);

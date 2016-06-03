@@ -1071,7 +1071,7 @@ class CustomersController extends AppController {
         $this->loadModel('PackageCustomer');
         $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
                     left join comments c on pc.id = c.package_customer_id
-                    left join users u on c.user_id = u.id
+                    left join users u on pc.user_id = u.id
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id

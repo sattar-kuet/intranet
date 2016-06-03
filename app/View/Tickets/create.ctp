@@ -89,7 +89,7 @@
                                 <div class="form-group">
                                     <div class="col-md-4">
                                         <?php
-                                        echo $this->Form->input('issue_id', array(
+                                        echo $this->Form->input('date', array(
                                             'type' => 'date',
                                                 )
                                         );
@@ -97,38 +97,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group display-hide" id="unhold">
-                                <label class="control-label col-md-3">Unhold Date<span class="required">
-                                        * </span>
-                                </label>
-                                <div class="form-group">
-
-                                    <div class="col-md-4">
-                                        <?php
-                                        echo $this->Form->input('issue_id', array(
-                                            'type' => 'date',
-                                                )
-                                        );
-                                        ?>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group display-hide"id="reconnect">
-                                <label class="control-label col-md-3">Reconnect Date<span class="required">
-                                        * </span>
-                                </label>
-                                <div class="form-group">
-
-                                    <div class="col-md-4">
-                                        <?php
-                                        echo $this->Form->input('issue_id', array(
-                                            'type' => 'date',
-                                                )
-                                        );
-                                        ?>
-                                    </div>
-                                </div>
-                            </div>
+                            
+                            
                             <div class="form-group display-hide" id="new_addr" >
                                 <label class="control-label col-md-3">New Address
                                 </label>

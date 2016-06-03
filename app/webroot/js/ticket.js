@@ -111,7 +111,7 @@ $(document).ready(function () {
             $('#shipmentshow_hide').show();
         }
     });
-<<<<<<< HEAD
+
     
     $('.issueChange').change(function(){
        var selected = $('.issueChange option:selected').text().toLowerCase();
@@ -183,12 +183,8 @@ $(document).ready(function () {
             $('#check_mac').hide();
         }
     });
-=======
-
-    
 
 
->>>>>>> 38c5e904f260425c1558e6779b03976a8251c7f3
 });
 
 

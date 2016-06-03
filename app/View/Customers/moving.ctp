@@ -50,7 +50,7 @@
                                         Issue
                                     </th>
                                     <th>
-                                        Equipment
+                                      New Address
                                     </th>
                                     <th>
                                         Comment
@@ -122,7 +122,7 @@
                                             </td>-->
 
                                         <td>
-                                            <?php echo $customer['shipment_equipment'] . ' ' . $customer['shipment_note']; ?>
+                                            <?php echo $customer['new_addr']; ?>
                                         </td>
                                         <td>
                                             <ul>
