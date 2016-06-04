@@ -131,7 +131,6 @@ class TransactionsController extends AppController {
             $this->loadModel('CustomPackage');
             $this->loadModel('Ticket');
             $this->loadModel('Track');
-            $this->loadModel('StatusHistorie');
             $tmsg = 'Information of  ' . $this->request->data['PackageCustomer']['first_name'] . '  ' .
                     $this->request->data['PackageCustomer']['middle_name'] . '  ' .
                     $this->request->data['PackageCustomer']['last_name'] . ' has been updated';
@@ -286,7 +285,9 @@ class TransactionsController extends AppController {
         }        
         
 //        $hstatus = $this->StatusHistory->find('all', array('conditions' => array('StatusHistory.package_customer_id' => $pcid)));
-        $hstatus = $this->StatusHistorie->query("select * from status_histories where package_customer_id = '$pcid' order by id desc");
+//        $hstatus = $this->StatusHistorie->query("select * from status_histories where package_customer_id = '$pcid' order by id desc");
+         $this->loadModel('StatusHistorie');
+        $hstatus = $this->StatusHistorie->query("select * from status_histories where package_customer_id = $pcid order by id desc");
 //       pr($hstatus); exit;
         $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge', 'latestcardInfo', 'transactions_data','hstatus'));
     }

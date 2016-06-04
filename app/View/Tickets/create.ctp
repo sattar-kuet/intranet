@@ -105,7 +105,8 @@
                                     <div class="col-md-4">
                                         <?php
                                         echo $this->Form->input('cancelled_date', array(
-                                            'type' => 'date',
+                                            'type' => 'text',
+                                                    'class' => 'datepicker form-control '
                                                 )
                                         );
                                         ?>
@@ -120,7 +121,8 @@
                                     <div class="col-md-4">
                                         <?php
                                         echo $this->Form->input('pickup_date', array(
-                                            'type' => 'date',
+                                         'type' => 'text',
+                                                    'class' => 'datepicker form-control '
                                                 )
                                         );
                                         ?>
