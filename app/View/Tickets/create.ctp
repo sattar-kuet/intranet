@@ -17,7 +17,7 @@
                     <div class="portlet-title">
                         <div class="caption">
                             <i class="fa fa-plus "></i>
-                            <span><?php echo show_mac($customers['PackageCustomer']);?></span>
+                            <span><?php echo show_mac($customers['PackageCustomer']); ?></span>
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="reload">
@@ -67,22 +67,15 @@
                                 </div>
                             </div>
                             <div class="form-group display-hide" id="check_mac">
-                                 <label class="control-label col-md-3">
+                                <label class="control-label col-md-3">
                                 </label>
                                 <div class="col-md-8">
                                     <div class="checkbox-list">
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" id="inlineCheckbox1" value="option1"> MAC1</label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" id="inlineCheckbox2" value="option2"> MAC2</label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" id="inlineCheckbox3" value="option3" > MAC3 </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" id="inlineCheckbox3" value="option3" > MAC$</label>
+                                        <?php echo generate_mac($customers['PackageCustomer']); ?>
                                     </div>
                                 </div>
                             </div>
-                               <div class="form-group display-hide" id="hold">
+                            <div class="form-group display-hide" id="hold">
                                 <label class="control-label col-md-3">Hold Date<span class="required">
                                         * </span>
                                 </label>
@@ -90,7 +83,8 @@
                                     <div class="col-md-4">
                                         <?php
                                         echo $this->Form->input('hold_date', array(
-                                            'type' => 'date',
+                                            'type' => 'text',
+                                            'class' => 'datepicker form-control'
                                                 )
                                         );
                                         ?>
@@ -105,7 +99,8 @@
                                     <div class="col-md-4">
                                         <?php
                                         echo $this->Form->input('cancelled_date', array(
-                                            'type' => 'date',
+                                            'type' => 'text',
+                                            'class' => 'datepicker form-control'
                                                 )
                                         );
                                         ?>
@@ -120,7 +115,8 @@
                                     <div class="col-md-4">
                                         <?php
                                         echo $this->Form->input('pickup_date', array(
-                                            'type' => 'date',
+                                            'type' => 'text',
+                                            'class' => 'datepicker form-control '
                                                 )
                                         );
                                         ?>
@@ -136,7 +132,8 @@
                                     <div class="col-md-4">
                                         <?php
                                         echo $this->Form->input('unhold_date', array(
-                                            'type' => 'date',
+                                            'type' => 'text',
+                                            'class' => 'datepicker form-control'
                                                 )
                                         );
                                         ?>

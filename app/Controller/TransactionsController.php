@@ -114,7 +114,7 @@ class TransactionsController extends AppController {
     }
 
     function edit_customer_data($id = null) {
-     
+     $this->loadModel('StatusHistorie');
         $pcid = $id;
         
         $loggedUser = $this->Auth->user();
@@ -158,10 +158,8 @@ class TransactionsController extends AppController {
             $this->request->data['StatusHistorie']['package_customer_id'] = [$pcid];
             $this->request->data['StatusHistorie']['date'] = $this->request->data['PackageCustomer']['date'];
             $this->request->data['StatusHistorie']['status'] = $shistory['PackageCustomer']['status'];
-// pr($this->request->data);
-//            exit;
+ 
             $this->request->data['StatusHistorie']['package_customer_id'] = $this->request->data['StatusHistorie']['package_customer_id'][0];
-           
            
             $this->StatusHistorie->save($this->request->data['StatusHistorie']);
             $msg = '<div class="alert alert-success">
@@ -285,9 +283,11 @@ class TransactionsController extends AppController {
         if (count($transactions_data)) {
             $this->request->data['Transaction'] = $transactions_data['0']['transactions'];
         }        
-        $this->loadModel('StatusHistorie');
+        
 //        $hstatus = $this->StatusHistory->find('all', array('conditions' => array('StatusHistory.package_customer_id' => $pcid)));
-        $hstatus = $this->StatusHistorie->query("select * from status_histories where package_customer_id = $pcid ");
+//        $hstatus = $this->StatusHistorie->query("select * from status_histories where package_customer_id = '$pcid' order by id desc");
+         $this->loadModel('StatusHistorie');
+        $hstatus = $this->StatusHistorie->query("select * from status_histories where package_customer_id = $pcid order by id desc");
 //       pr($hstatus); exit;
         $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge', 'latestcardInfo', 'transactions_data','hstatus'));
     }
