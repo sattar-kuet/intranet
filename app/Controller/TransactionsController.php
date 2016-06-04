@@ -114,7 +114,7 @@ class TransactionsController extends AppController {
     }
 
     function edit_customer_data($id = null) {
-     
+     $this->loadModel('StatusHistorie');
         $pcid = $id;
         
         $loggedUser = $this->Auth->user();

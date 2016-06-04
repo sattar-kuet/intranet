@@ -38,23 +38,25 @@
                                     <th>
                                         Contact Date
                                     </th>
-
                                     <th>
-                                        Customer Name
+                                        Customer detail
                                     </th>
+
                                     <th>
                                         Issue
                                     </th>
                                     <th>
-                                        Address
+                                        Mac will be canceled
                                     </th>
-                                   
+
                                     <th>
-                                        Emergency Contact
+                                        Canceled Date
                                     </th>
+
                                     <th>
-                                    Mac will be canceled
+                                        Expected pick up date
                                     </th>
+
                                     <th>
                                         Comment
                                     </th>
@@ -70,50 +72,61 @@
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
                                             . $customer['zip'];
-                                  //   pr($customer);
-                                    //  exit;
                                     ?>
                                     <tr>
                                         <td class="hidden-480">
                                             <?php echo $results['customers']['created']; ?>   <br>
-                                             <?php echo $results['users']['name']; ?>  
+                                            <?php echo $results['users']['name']; ?>  
                                         </td>
                                         <td>
-                                            <a href="<?php
-                                            echo Router::url(array('controller' => 'customers',
-                                                'action' => 'edit_registration', $results['customers']['id']))
-                                            ?>" 
-                                               target="_blank">
-                                                   <?php
-                                                   echo $results['customers']['first_name'] . " " .
-                                                   $results['customers']['middle_name'] . " " .
-                                                   $results['customers']['last_name'];
-                                                   ?>
-                                            </a>
+                                            <ul>
+                                                <b>  Name :</b>  <a href="<?php
+                                                echo Router::url(array('controller' => 'customers',
+                                                    'action' => 'edit_registration', $results['customers']['id']))
+                                                ?>" 
+                                                                    target="_blank">
+                                                                        <?php
+                                                                        echo $results['customers']['first_name'] . " " .
+                                                                        $results['customers']['middle_name'] . " " .
+                                                                        $results['customers']['last_name'];
+                                                                        ?>
+                                                </a><br>
+                                                <b>  Address :  </b> <?php echo $customer_address; ?> <br>
+
+                                                <?php if (!empty($customer['cell'])): ?>
+                                                    <b> Cell :</b> <a href="tel:<?php echo $customer['cell'] ?>"><?php echo $customer['cell']; ?></a><br>
+                                                <?php endif; ?>
+                                                <?php if (!empty($customer['home'])): ?>
+                                                    <b>  Home :</b>  <a href="tel:<?php echo $customer['home'] ?>"><?php echo $customer['home']; ?></a>
+                                                <?php endif; ?> 
+                                            </ul>
 
                                         </td>
+
                                         <td>
                                             <?php echo $results['issue']; ?>
                                         </td>
                                         <td>
-                                            <?php echo $customer_address; ?> 
-                                        </td>
-                                      
-                                        <td class="hidden-480">
-                                            <?php if (!empty($customer['cell'])): ?>
-                                                <a href="tel:<?php echo $customer['cell'] ?>"><?php echo $customer['cell']; ?></a> &nbsp;&nbsp;
-                                            <?php endif; ?>
-                                            <?php if (!empty($customer['home'])): ?>
-                                                <a href="tel:<?php echo $customer['home'] ?>"><?php echo $customer['home']; ?></a>
-                                            <?php endif; ?> 
+                                            <?php echo get_canceled_mac($customer['mac'], $customer['cancel_mac']); ?>
                                         </td>
                                         <td>
-                                            <?php echo get_canceled_mac($customer['mac'],$customer['cancel_mac']); ?>
+                                            <ul>
+                                                <?php if (!empty($results['customers']['cancelled_date'])): ?>
+                                                    <?php echo $results['customers']['cancelled_date'] ?>
+                                                <?php endif ?>
+                                            </ul>
+                                        </td>
+                                        <td>
+                                            <ul>
+                                                <?php if (!empty($results['customers']['pickup_date'])): ?>
+                                                    <?php echo $results['customers']['pickup_date'] ?>
+                                                <?php endif ?>
+                                            </ul>
                                         </td>
                                         <td>
                                             <ul>
                                                 <?php if (!empty($results['customers']['comments'])): ?>
-                                                    <li><?php echo $results['customers']['comments'] ?> </li>
+                                                    <?php echo $results['customers']['comments'] ?> 
                                                 <?php endif ?>
                                             </ul>
                                         </td>
