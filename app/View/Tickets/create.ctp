@@ -71,14 +71,7 @@
                                 </label>
                                 <div class="col-md-8">
                                     <div class="checkbox-list">
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" id="inlineCheckbox1" value="option1"> MAC1</label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" id="inlineCheckbox2" value="option2"> MAC2</label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" id="inlineCheckbox3" value="option3" > MAC3 </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" id="inlineCheckbox3" value="option3" > MAC$</label>
+                                    <?php echo generate_mac($customers['PackageCustomer']);?>
                                     </div>
                                 </div>
                             </div>

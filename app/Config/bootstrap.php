@@ -309,3 +309,32 @@ function show_mac($data) {
 
     return $output;
 }
+
+function generate_mac($data) {
+
+    $output = '';
+    $macs = json_decode($data['mac']);
+//    $sys = json_decode($data['system']);
+    if (is_array($macs)) {
+        foreach ($macs as $index => $mac) {
+            $output.='<label class="checkbox-inline"><input type="checkbox" name="mac[]" id="inlineCheckbox1" value="' . $index . '">' . $mac . '</label>';
+        }
+    }
+    return $output;
+}
+
+function get_canceled_mac($macs = array(), $cancel_mac = array()) {
+
+    $output = 'No mac was selected to cancel';
+    $macs = json_decode($macs);
+    $cancel_macs = json_decode($cancel_mac);
+//    $sys = json_decode($data['system']);
+
+    if (is_array($cancel_macs)) {
+        $output = '';
+        foreach ($cancel_macs as $index => $val) {
+            $output.='<li>' . $macs[$val] . '</li>';
+        }
+    }
+    return $output;
+}
