@@ -275,7 +275,7 @@
                                         echo $this->Form->input('user_id', array(
                                             'type' => 'select',
                                             'options' => $users,
-                                            'empty' => 'Select From Existing admins panel user',
+                                            'empty' => 'Select user',
                                             'class' => 'form-control select2me',
                                                 )
                                         );
