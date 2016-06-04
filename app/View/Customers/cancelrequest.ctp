@@ -6,7 +6,6 @@
         border-radius: 4px;
         text-align: center;
     }
-
 </style>
 <div class="page-content-wrapper">
     <div class="page-content">
@@ -49,14 +48,12 @@
                                     <th>
                                         Address
                                     </th>
-                                    <th>
-                                        Attachment
-                                    </th>
+                                   
                                     <th>
                                         Emergency Contact
                                     </th>
                                     <th>
-                                        Equipment Needed
+                                    Mac will be canceled
                                     </th>
                                     <th>
                                         Comment
@@ -73,12 +70,13 @@
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
                                             . $customer['zip'];
-                                    //  pr($customer);
+                                  //   pr($customer);
                                     //  exit;
                                     ?>
                                     <tr>
                                         <td class="hidden-480">
-                                            <?php echo $results['customers']['created']; ?>                            
+                                            <?php echo $results['customers']['created']; ?>   <br>
+                                             <?php echo $results['users']['name']; ?>  
                                         </td>
                                         <td>
                                             <a href="<?php
@@ -100,18 +98,7 @@
                                         <td>
                                             <?php echo $customer_address; ?> 
                                         </td>
-                                        <td>
-                                            <div class="col-md-12 col-sm-12 mix category_2 category_1">
-                                                <div class="mix-inner">
-                                                    <img class="img-responsive" src="<?php echo $this->webroot . 'attchment' . '/' . $customer['attachment']; ?>" alt="">
-                                                    <div class="mix-details">
-                                                        <a class="mix-preview fancybox-button" href="<?php echo $this->webroot . 'attchment' . '/' . $customer['attachment']; ?>" title="Project Name" data-rel="fancybox-button">
-                                                            <i class="fa fa-eye pull-right"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
+                                      
                                         <td class="hidden-480">
                                             <?php if (!empty($customer['cell'])): ?>
                                                 <a href="tel:<?php echo $customer['cell'] ?>"><?php echo $customer['cell']; ?></a> &nbsp;&nbsp;
@@ -121,7 +108,7 @@
                                             <?php endif; ?> 
                                         </td>
                                         <td>
-                                            <?php echo $customer['shipment_equipment'] . ' ' . $customer['shipment_note']; ?>
+                                            <?php echo get_canceled_mac($customer['mac'],$customer['cancel_mac']); ?>
                                         </td>
                                         <td>
                                             <ul>

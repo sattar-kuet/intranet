@@ -42,7 +42,7 @@ class TicketsController extends AppController {
         $this->loadModel('TicketDepartment');
         $this->loadModel('PackageCustomer');
         if ($this->request->is('post')) {
-             
+           //pr($this->request->data['Ticket']['cancelled_date']); exit;
             $this->Ticket->set($this->request->data);
             if ($this->Ticket->validates()) {
                 if (empty($this->request->data['Ticket']['user_id']) &&
@@ -62,8 +62,6 @@ class TicketsController extends AppController {
                     "user_id" => $loggedUser['id']
                 );
                 $this->PackageCustomer->save($data);
-               
-
                 if (trim($this->request->data['Ticket']['action_type']) == 'solved') {
                     $this->request->data['Ticket']['priority'] = 'low';
                 }
@@ -88,8 +86,15 @@ class TicketsController extends AppController {
                 if (trim($this->request->data['Ticket']['issue_id']) == 24 || trim($this->request->data['Ticket']['issue_id']) == 31) {
                     $this->updateCustomer('Request to unhold', $customer_id);
                 }
-                if (trim($this->request->data['Ticket']['issue_id']) == 20) {
+                if (trim($this->request->data['Ticket']['issue_id']) == 20 || trim($this->request->data['Ticket']['issue_id']) == 28) {
                     $this->updateCustomer('Request to cancel', $customer_id);
+                    $mac = json_encode($this->request->data['mac']);
+                    $data = array(
+                        'cancel_mac'=>$mac,
+                        'cancelled_date'=> $this->request->data['Ticket']['cancelled_date'],
+                        'pickup_date'=> $this->request->data['Ticket']['pickup_date'],
+                        );
+                    $this->PackageCustomer->save($data);
                 }
                 if (trim($this->request->data['Ticket']['action_type']) == "ready") {
                     $data['PackageCustomer'] = array(
