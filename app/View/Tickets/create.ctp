@@ -108,7 +108,7 @@
                                 </div>
                             </div>
                             <div class="form-group display-hide" id="pickup_date">
-                                <label class="control-label col-md-3">Pickup Date<span class="required">
+                                <label class="control-label col-md-3">Expected Pickup Date<span class="required">
                                         * </span>
                                 </label>
                                 <div class="form-group">
@@ -149,7 +149,8 @@
                                     <div class="col-md-4">
                                         <?php
                                         echo $this->Form->input('reconnect_date', array(
-                                            'type' => 'date',
+                                            'type' => 'text',
+                                            'class'=> 'datepicker form-control'
                                                 )
                                         );
                                         ?>
@@ -194,7 +195,6 @@
                                     </div>
                                 </div>
                             </div>
-
 
                             <div id="shipmentshow_hide" style="display: none" class="alert alert-success">
                                 <div class="form-group">

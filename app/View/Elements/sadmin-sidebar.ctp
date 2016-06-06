@@ -562,7 +562,7 @@
 
             <li 
             <?php
-            $customerRequest = array('Customerscancelrequest', 'Customersholdrequest', 'Customersunholdrequest');
+            $customerRequest = array('Customerscancelrequest', 'Customersholdrequest', 'Customersunholdrequest','CustomersreconnectionRequest');
 
             if (in_array($this->name . '' . $this->action, $customerRequest)):
                 ?>
@@ -616,6 +616,20 @@
                         <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'unholdrequest')) ?>">
                             <i class="fa fa-wrench"></i>
                             Unhold Request</a>
+                    </li>
+                    
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'CustomersreconnectionRequest'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+
+                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'reconnectionRequest')) ?>">
+                            <i class="fa fa-wrench"></i>
+                            Reconnection Request</a>
                     </li>
 
 

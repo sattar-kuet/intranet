@@ -65,7 +65,7 @@ $(document).ready(function () {
         e.preventDefault();
     });
 
- 
+
     //partial payment
     $(document).on("change", ".partial", function () {
         var sum = 0;
@@ -99,30 +99,30 @@ $(document).ready(function () {
         }
     });
 
-    
-    $('.issueChange').change(function(){
-       var selected = $('.issueChange option:selected').text().toLowerCase();
-       //alert(selected);
-       if(selected.trim() == "moving" ){
+
+    $('.issueChange').change(function () {
+        var selected = $('.issueChange option:selected').text().toLowerCase();
+        //alert(selected);
+        if (selected.trim() == "moving") {
             $('#action').hide();
-        $('#new_addr').show();
-       }
-      else  if(selected.trim() == "wiring problem" ){
-          $('#action').hide(); 
-          $('#new_addr').hide();
-       }
-      else  if(selected.trim() == "remote problem" ){
-          $('#action').hide(); 
-          $('#new_addr').hide();
-       }
-       else{
-           $('#action').show();
-           $('#new_addr').hide();
-       }
-       
-       
+            $('#new_addr').show();
+        }
+        else if (selected.trim() == "wiring problem") {
+            $('#action').hide();
+            $('#new_addr').hide();
+        }
+        else if (selected.trim() == "remote problem") {
+            $('#action').hide();
+            $('#new_addr').hide();
+        }
+        else {
+            $('#action').show();
+            $('#new_addr').hide();
+        }
+
+
     });
-    
+
     $('.issueChange').change(function () {
         var selected = $('.issueChange option:selected').text().toLowerCase();
         var canceled = "cancel";
@@ -137,7 +137,7 @@ $(document).ready(function () {
             $('#hold').hide();
             $('#unhold').hide();
             $('#reconnect').hide();
-            $('#action').hide(); 
+            $('#action').hide();
         }
         else if (selected.indexOf(holded) != -1 && selected.indexOf(unholded) == -1) {
             $('#check_mac').show();
@@ -146,25 +146,25 @@ $(document).ready(function () {
             $('#reconnect').hide();
             $('#canceldate').hide();
             $('#pickup_date').hide();
-            $('#action').hide(); 
+            $('#action').hide();
         }
         else if (selected.indexOf(unholded) != -1) {
             $('#check_mac').show();
             $('#unhold').show();
             $('#hold').hide();
             $('#reconnect').hide();
-              $('#canceldate').hide();
+            $('#canceldate').hide();
             $('#pickup_date').hide();
-            $('#action').hide(); 
+            $('#action').hide();
         }
         else if (selected.indexOf(recono) != -1) {
             $('#check_mac').show();
             $('#reconnect').show();
             $('#hold').hide();
             $('#unhold').hide();
-              $('#canceldate').hide();
+            $('#canceldate').hide();
             $('#pickup_date').hide();
-            $('#action').hide(); 
+            $('#action').hide();
         }
         else {
             $('#check_mac').hide();
@@ -173,7 +173,7 @@ $(document).ready(function () {
             $('#reconnect').hide();
             $('#canceldate').hide();
             $('#pickup_date').hide();
-            $('#action').show(); 
+            $('#action').show();
         }
     });
 

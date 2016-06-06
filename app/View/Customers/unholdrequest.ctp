@@ -11,7 +11,7 @@
     <div class="page-content">
         <!-- BEGIN PAGE HEADER-->
         <h3 class="page-title">
-            Troubleshot Shipment<small></small>
+            Unhold Request<small></small>
         </h3>
 
         <!-- END PAGE HEADER-->
@@ -46,11 +46,11 @@
                                         Issue
                                     </th>
                                     <th>
-                                        Mac will be canceled
+                                        Mac will be unhold
                                     </th>
 
                                     <th>
-                                        Canceled Date
+                                        unhold Date
                                     </th>
                                     <th>
                                         Comment
@@ -106,8 +106,8 @@
                                         </td>
                                         <td>
                                             <ul>
-                                                <?php if (!empty($results['customers']['cancelled_date'])): ?>
-                                                    <?php echo $results['customers']['cancelled_date'] ?>
+                                                <?php if (!empty($results['customers']['unhold_date'])): ?>
+                                                    <?php echo $results['customers']['unhold_date'] ?>
                                                 <?php endif ?>
                                             </ul>
                                         </td>
