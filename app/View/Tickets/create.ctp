@@ -66,6 +66,63 @@
                                     </div>
                                 </div>
                             </div>
+                                <div class="form-group display-hide" id="equepment">
+                                <label class="control-label col-md-1">SD:<span class="required">
+                                    </span>
+                                </label>
+                                <div class="col-md-2">
+                                    <?php
+                                    echo $this->Form->input(
+                                            'deposit', array(
+                                        'class' => 'form-control  partial',
+                                        'type' => 'number'
+                                            )
+                                    );
+                                    ?>
+                                </div>
+                                <label class="control-label col-md-1">MB:<span class="required">
+                                    </span>
+                                </label>
+                                <div class="col-md-2">
+                                    <?php
+                                    echo $this->Form->input(
+                                            'monthly_bill', array(
+                                        'class' => 'form-control  partial ',
+                                        'type' => 'number'
+                                            )
+                                    );
+                                    ?>
+                                </div>
+
+
+                                <label class="control-label col-md-1">Equipment:<span class="required">
+                                    </span>
+                                </label>
+                                <div class="col-md-2">
+                                    <?php
+                                    echo $this->Form->input(
+                                            'others', array(
+                                        'class' => 'form-control  partial',
+                                        'type' => 'number'
+                                            )
+                                    );
+                                    ?>
+                                </div>
+                                <label class="control-label col-md-1">Total:<span class="required">
+                                    </span>
+                                </label>
+                                <div class="col-md-2">
+                                    <?php
+                                    echo $this->Form->input(
+                                            'total', array(
+                                        'class' => 'form-control input-sm total',
+                                        'type' => 'number',
+                                        'readonly' => 'readonly'
+                                            )
+                                    );
+                                    ?>
+                                </div>
+                            </div>
                             <div class="form-group display-hide" id="check_mac">
                                 <label class="control-label col-md-3">
                                 </label>

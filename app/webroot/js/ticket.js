@@ -102,6 +102,8 @@ $(document).ready(function () {
     
     $('.issueChange').change(function(){
        var selected = $('.issueChange option:selected').text().toLowerCase();
+       //alert(selected);
+        var box="2nd box";
         var canceled = "cancel";
         var holded = "hold";
         var unholded = "unhold";
@@ -157,10 +159,14 @@ $(document).ready(function () {
             $('#reconnect').show();
             $('#hold').hide();
             $('#unhold').hide();
-              $('#canceldate').hide();
+            $('#canceldate').hide();
             $('#pickup_date').hide();
             $('#action').hide(); 
         }
+        else if(selected.indexOf(box) != -1){
+            $('#equepment').show();
+        }
+        
         else {
             $('#check_mac').hide();
             $('#hold').hide();
@@ -168,6 +174,7 @@ $(document).ready(function () {
             $('#reconnect').hide();
             $('#canceldate').hide();
             $('#pickup_date').hide();
+            $('#equepment').hide();
            // $('#action').show(); 
         }
        
