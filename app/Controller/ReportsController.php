@@ -163,10 +163,10 @@ class ReportsController extends AppController {
             $endd = $de->format('m/y'); // 2003-10-16
             $conditions = "";
             if (!empty($issue)) {
-                $conditions .= " issue_id = $issue AND";
+                $conditions .= " tr.issue_id = $issue AND";
             }
             if (!empty($agent)) {
-                $conditions .=" forwarded_by = $agent AND";
+                $conditions .=" tr.forwarded_by = $agent AND";
             }
             if (count($datrange)) {
                 $conditions .=" t.created >='" . $datrange['start'] . "' AND  t.created <='" . $datrange['end'] . "'";
