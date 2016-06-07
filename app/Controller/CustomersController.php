@@ -567,16 +567,17 @@ class CustomersController extends AppController {
 
     function shedule_assian($id = null) {
         $this->loadModel('PackageCustomer');
+         
         $this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
         $this->PackageCustomer->technician_id = $this->request->data['PackageCustomer']['technician_id'];
-        $datrange = json_decode($this->request->data['PackageCustomer']['daterange'], true);
-
-        $this->request->data['PackageCustomer']['from'] = $datrange['start'];
-        $this->request->data['PackageCustomer']['to'] = $datrange['end'];
+//        $datrange = json_decode($this->request->data['PackageCustomer']['daterange'], true);
+//        $this->request->data['PackageCustomer']['from'] = $datrange['start'];
+//        $this->request->data['PackageCustomer']['to'] = $datrange['end'];
+        $this->request->data['PackageCustomer']['schedule_date'] = $this->request->data['PackageCustomer']['schedule_date'].' '. $this->request->data['PackageCustomer']['sTime'];
+        
         $loggedUser = $this->Auth->user();
         $this->request->data['PackageCustomer']['user_id'] = $loggedUser['id'];
         $this->request->data['PackageCustomer']['status'] = 'Scheduled';
-//        pr($this->request->data); exit;        
         $this->PackageCustomer->save($this->request->data);
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
