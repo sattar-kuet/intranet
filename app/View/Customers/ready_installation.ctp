@@ -71,7 +71,6 @@
                             </thead>
                             <tbody>
                                 <?php
-                                
                                 foreach ($filteredData as $results):
                                     $customer = $results['customers'];
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
@@ -111,7 +110,7 @@
                                             <?php if (!empty($results['package']['name'])): ?>
                                                 Name:<?php echo $results['package']['name'] ?><br>
                                                 Duration:<?php echo $results['package']['duration']; ?><br>
-                                                Amount: <?php echo $results['package']['amount']; ?>
+                                                Amount: $<?php echo $results['package']['amount']; ?>
                                             <?php endif; ?>
                                         </td>
 
@@ -129,14 +128,14 @@
                                         <td>
                                             <div class="col-md-12 col-sm-12 mix category_2 category_1">
                                                 <div class="mix-inner">
-                                                     <?php if (!empty($customer['attachment'])) { ?>
+                                                    <?php if (!empty($customer['attachment'])) { ?>
                                                         <img class="img-responsive" src="<?php echo $this->webroot . 'attchment' . '/' . $customer['attachment']; ?>" alt="">
                                                         <div class="mix-details">
                                                             <a class="mix-preview fancybox-button" href="<?php echo $this->webroot . 'attchment' . '/' . $customer['attachment']; ?>" title="Project Name" data-rel="fancybox-button">
                                                                 <i class="fa fa-eye pull-right"></i>
                                                             </a>
                                                         </div>
-                                                        <?php } else{ ?>
+                                                    <?php } else { ?>
                                                         <h4> No Attachment</h4>
 
                                                     <?php } ?>
@@ -194,10 +193,28 @@
                                                         <div class="col-md-4">
                                                             <?php
                                                             echo $this->Form->input(
-                                                                    'daterange', array(
-                                                                'class' => 'span9 text required e3'
+                                                                    'schedule_date', array(
+                                                                'type' => 'text',
+                                                                'class' => "datepicker form-control"
                                                             ));
                                                             ?>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" >
+                                                        <div class="col-md-12">
+                                                            <div class="input-group">
+                                                                <?php
+                                                                echo $this->Form->input(
+                                                                        'sTime', array(
+                                                                    'class' => 'form-control timepicker timepicker-no-seconds required',
+                                                                    'type' => 'text'
+                                                                        )
+                                                                );
+                                                                ?>
+                                                                <span class="input-group-btn">
+                                                                    <button  class="btn default"  style="height: 34px;" type="button"><i class="fa fa-clock-o"></i></button>
+                                                                </span>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="form-actions">

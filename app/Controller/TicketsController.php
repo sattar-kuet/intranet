@@ -43,7 +43,7 @@ class TicketsController extends AppController {
         $this->loadModel('TicketDepartment');
         $this->loadModel('PackageCustomer');
         if ($this->request->is('post')) {
-            //pr($this->request->data['Ticket']['cancelled_date']); exit;
+//            pr($this->request->data); exit;
             $this->Ticket->set($this->request->data);
             if ($this->Ticket->validates()) {
                 if (empty($this->request->data['Ticket']['user_id']) &&
@@ -56,12 +56,19 @@ class TicketsController extends AppController {
                     $this->Session->setFlash($msg);
                     return $this->redirect($this->referer());
                 }
+               
                 $this->PackageCustomer->id = $customer_id;
                 $data['PackageCustomer'] = array(
+                    "deposit" => $this->request->data['Ticket']['deposit'],
+                    "monthly_bill" => $this->request->data['Ticket']['monthly_bill'],
+                    "others" => $this->request->data['Ticket']['others'],
+                    "total" => $this->request->data['Ticket']['total'],
+                    
                     "issue_id" => $this->request->data['Ticket']['issue_id'],
                     "comments" => $this->request->data['Ticket']['content'],
                     "user_id" => $loggedUser['id']
                 );
+//                 pr($data); exit;
                 $this->PackageCustomer->save($data);
                 if (trim($this->request->data['Ticket']['action_type']) == 'solved') {
                     $this->request->data['Ticket']['priority'] = 'low';
@@ -90,6 +97,20 @@ class TicketsController extends AppController {
 //                    pr($data); exit;
                      $this->PackageCustomer->save($data);
                 }
+                
+                if (trim($this->request->data['Ticket']['issue_id']) == 36) {
+                    $this->updateCustomer('Request to reconnection', $customer_id);
+                    $mac = json_encode($this->request->data['mac']);
+                    $data = array(
+                        'cancel_mac' => $mac,
+                        'reconnect_date' => $this->request->data['Ticket']['reconnect_date']
+                    );
+//                    pr($data);
+//                    exit;
+                    
+                    $this->PackageCustomer->save($data);
+                }
+                
                 if (trim($this->request->data['Ticket']['issue_id']) == 24 || trim($this->request->data['Ticket']['issue_id']) == 31) {
                     $this->updateCustomer('Request to unhold', $customer_id);
                     $mac = json_encode($this->request->data['mac']);
@@ -134,6 +155,7 @@ class TicketsController extends AppController {
                     $this->PackageCustomer->save($data['PackageCustomer']);
                     //$log = $this->PackageCustomer->getDataSource()->getLog(false, false);
                 }
+//                 pr('here'); exit;
                 $this->Track->save($trackData); // Data save in Track
                 $msg = '<div class="alert alert-success">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
