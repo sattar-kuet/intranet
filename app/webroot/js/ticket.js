@@ -175,7 +175,7 @@ $(document).ready(function () {
             $('#canceldate').hide();
             $('#pickup_date').hide();
             $('#equepment').hide();
-           // $('#action').show(); 
+           
         }
        
     });
