@@ -90,6 +90,20 @@ class TicketsController extends AppController {
 //                    pr($data); exit;
                      $this->PackageCustomer->save($data);
                 }
+                
+                if (trim($this->request->data['Ticket']['issue_id']) == 36) {
+                    $this->updateCustomer('Request to reconnection', $customer_id);
+                    $mac = json_encode($this->request->data['mac']);
+                    $data = array(
+                        'cancel_mac' => $mac,
+                        'reconnect_date' => $this->request->data['Ticket']['reconnect_date']
+                    );
+//                    pr($data);
+//                    exit;
+                    
+                    $this->PackageCustomer->save($data);
+                }
+                
                 if (trim($this->request->data['Ticket']['issue_id']) == 24 || trim($this->request->data['Ticket']['issue_id']) == 31) {
                     $this->updateCustomer('Request to unhold', $customer_id);
                     $mac = json_encode($this->request->data['mac']);

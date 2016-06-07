@@ -66,6 +66,63 @@
                                     </div>
                                 </div>
                             </div>
+                                <div class="form-group display-hide" id="equepment">
+                                <label class="control-label col-md-1">SD:<span class="required">
+                                    </span>
+                                </label>
+                                <div class="col-md-2">
+                                    <?php
+                                    echo $this->Form->input(
+                                            'deposit', array(
+                                        'class' => 'form-control  partial',
+                                        'type' => 'number'
+                                            )
+                                    );
+                                    ?>
+                                </div>
+                                <label class="control-label col-md-1">MB:<span class="required">
+                                    </span>
+                                </label>
+                                <div class="col-md-2">
+                                    <?php
+                                    echo $this->Form->input(
+                                            'monthly_bill', array(
+                                        'class' => 'form-control  partial ',
+                                        'type' => 'number'
+                                            )
+                                    );
+                                    ?>
+                                </div>
+
+
+                                <label class="control-label col-md-1">Equipment:<span class="required">
+                                    </span>
+                                </label>
+                                <div class="col-md-2">
+                                    <?php
+                                    echo $this->Form->input(
+                                            'others', array(
+                                        'class' => 'form-control  partial',
+                                        'type' => 'number'
+                                            )
+                                    );
+                                    ?>
+                                </div>
+                                <label class="control-label col-md-1">Total:<span class="required">
+                                    </span>
+                                </label>
+                                <div class="col-md-2">
+                                    <?php
+                                    echo $this->Form->input(
+                                            'total', array(
+                                        'class' => 'form-control input-sm total',
+                                        'type' => 'number',
+                                        'readonly' => 'readonly'
+                                            )
+                                    );
+                                    ?>
+                                </div>
+                            </div>
                             <div class="form-group display-hide" id="check_mac">
                                 <label class="control-label col-md-3">
                                 </label>
@@ -108,7 +165,7 @@
                                 </div>
                             </div>
                             <div class="form-group display-hide" id="pickup_date">
-                                <label class="control-label col-md-3">Pickup Date<span class="required">
+                                <label class="control-label col-md-3">Expected Pickup Date<span class="required">
                                         * </span>
                                 </label>
                                 <div class="form-group">
@@ -149,7 +206,8 @@
                                     <div class="col-md-4">
                                         <?php
                                         echo $this->Form->input('reconnect_date', array(
-                                            'type' => 'date',
+                                            'type' => 'text',
+                                            'class'=> 'datepicker form-control'
                                                 )
                                         );
                                         ?>
@@ -194,7 +252,6 @@
                                     </div>
                                 </div>
                             </div>
-
 
                             <div id="shipmentshow_hide" style="display: none" class="alert alert-success">
                                 <div class="form-group">

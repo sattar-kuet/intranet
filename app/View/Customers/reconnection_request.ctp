@@ -11,7 +11,7 @@
     <div class="page-content">
         <!-- BEGIN PAGE HEADER-->
         <h3 class="page-title">
-            Troubleshot Shipment<small></small>
+            Reconnect Request<small></small>
         </h3>
 
         <!-- END PAGE HEADER-->
@@ -46,15 +46,15 @@
                                         Issue
                                     </th>
                                     <th>
-                                        Mac will be hold
+                                        Mac will be reconnect
                                     </th>
 
                                     <th>
-                                        Hold Date
+                                        Reconnect Date
                                     </th>
 
                                     <th>
-                                        Expected unhold Date
+                                        Expected pick up date
                                     </th>
 
                                     <th>
@@ -111,8 +111,8 @@
                                         </td>
                                         <td>
                                             <ul>
-                                                <?php if (!empty($results['customers']['hold_date'])): ?>
-                                                    <?php echo $results['customers']['hold_date'] ?>
+                                                <?php if (!empty($results['customers']['reconnect_date'])): ?>
+                                                    <?php echo $results['customers']['reconnect_date'] ?>
                                                 <?php endif ?>
                                             </ul>
                                         </td>
