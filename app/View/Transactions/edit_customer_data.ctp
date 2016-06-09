@@ -579,7 +579,7 @@
                                     </div>
 
                                     <div class="col-md-2 signupfont status-date">
-
+<!--                                       Active Date:-->
                                     </div>
                                     <div class="col-md-4">
                                         <div class="input-list style-4 clearfix">
@@ -614,10 +614,10 @@
                                 &nbsp;
 
                                 <div class="col-md-12 margin-bottom-25" >
-                                    <div class="col-md-2 signupfont">
+                                    <div class="col-md-1 signupfont">
                                         Comment
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="input-list style-4 clearfix">
                                             <div>
                                                 <?php
@@ -637,7 +637,7 @@
                                     <div class="col-md-2 signupfont">
                                         Status Update
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-2">
                                         <div class="input-list style-4 clearfix">
                                             <div>
                                                 <?php
@@ -653,6 +653,24 @@
                                                         )
                                                 );
                                                 ?>
+                                            </div>                            
+                                        </div>
+                                    </div>
+                                        <div class="col-md-2 signupfont">
+                                        Next Payment Date:
+
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="input-list style-4 clearfix">
+                                            <div>
+                                                <?php
+                                                echo $this->Form->input(
+                                                        'exp_date', array(
+                                                    'class' => 'datepicker ',
+                                                        )
+                                                );
+                                                ?>
+
                                             </div>                            
                                         </div>
                                     </div>
