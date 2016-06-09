@@ -561,57 +561,77 @@ class TechniciansController extends AppController {
         return $this->redirect($this->referer());
     }
 
-    function postPone() {
+    function postPone($id = null) {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Comment');
-
+        $this->PackageCustomer->id = $id;
+        
         $loggedUser = $this->Auth->user();
         $this->request->data['PackageCustomer']['status'] = 'post pone';
         $this->request->data['PackageCustomer']['user_id'] = $loggedUser['id'];
-//        $this->request->data['Comment']['package_customer_id'] = $this->request->data['PackageCustomer']['package_customer_id'];
-//        $this->request->data['Comment']['content'] = $this->request->data['PackageCustomer']['comment'];
-//        $this->request->data['Comment']['user_id'] = $loggedUser['id'];
-
-
+        $this->PackageCustomer->id = $this->request->data['PackageCustomer']['package_customer_id'];
         $commentdata = $this->PackageCustomer->save($this->request->data['PackageCustomer']);
-
-        $this->request->data['Comment']['package_customer_id'] = $commentdata['PackageCustomer']['id'];
+        
+        $this->request->data['Comment']['package_customer_id'] = $commentdata['PackageCustomer']['package_customer_id'];
         $this->request->data['Comment']['content'] = $this->request->data['PackageCustomer']['comment'];
         $this->request->data['Comment']['user_id'] = $commentdata['PackageCustomer']['user_id'];
-
-//pr($commentdata);
-//        exit;
         $this->Comment->save($this->request->data['Comment']);
-
-
+        
         $msg = '<div class="alert alert-warning">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong> Post successfully </strong>
+        <strong> Post pone successfully </strong>
         </div>';
         $this->Session->setFlash($msg);
         return $this->redirect($this->referer());
     }
-
-    function reschedule() {
+    
+    function reschedule($id = null) {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Comment');
+        $this->PackageCustomer->id = $id;
+        
         $loggedUser = $this->Auth->user();
         $this->request->data['PackageCustomer']['status'] = 'scheduled';
         $this->request->data['PackageCustomer']['user_id'] = $loggedUser['id'];
+        $this->PackageCustomer->id = $this->request->data['PackageCustomer']['package_customer_id'];
         $commentdata = $this->PackageCustomer->save($this->request->data['PackageCustomer']);
+        
+        $this->request->data['Comment']['package_customer_id'] = $commentdata['PackageCustomer']['package_customer_id'];
         $this->request->data['Comment']['content'] = $this->request->data['PackageCustomer']['comment'];
         $this->request->data['Comment']['user_id'] = $commentdata['PackageCustomer']['user_id'];
-
-//        pr($commentdata);
-//        exit;
         $this->Comment->save($this->request->data['Comment']);
+        
         $msg = '<div class="alert alert-warning">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong> Reschedule successfully </strong>
+        <strong> Rescheduled successfully </strong>
         </div>';
         $this->Session->setFlash($msg);
         return $this->redirect($this->referer());
-    }
+    }    
+    
+    function cancel($id = null) {
+        $this->loadModel('PackageCustomer');
+        $this->loadModel('Comment');
+        $this->PackageCustomer->id = $id;
+        
+        $loggedUser = $this->Auth->user();
+        $this->request->data['PackageCustomer']['status'] = 'canceled';
+        $this->request->data['PackageCustomer']['user_id'] = $loggedUser['id'];
+        $this->PackageCustomer->id = $this->request->data['PackageCustomer']['package_customer_id'];
+        $commentdata = $this->PackageCustomer->save($this->request->data['PackageCustomer']);
+        
+        $this->request->data['Comment']['package_customer_id'] = $commentdata['PackageCustomer']['package_customer_id'];
+        $this->request->data['Comment']['content'] = $this->request->data['PackageCustomer']['comment'];
+        $this->request->data['Comment']['user_id'] = $commentdata['PackageCustomer']['user_id'];
+        $this->Comment->save($this->request->data['Comment']);
+        
+        $msg = '<div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong> Rescheduled successfully </strong>
+        </div>';
+        $this->Session->setFlash($msg);
+        return $this->redirect($this->referer());
+    }    
 
 }
 

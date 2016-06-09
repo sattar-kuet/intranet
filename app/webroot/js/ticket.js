@@ -46,16 +46,27 @@ $(document).ready(function () {
 
     $(".post_pone").click(function (e) {
         var id = $(this).attr('id');
-        var forwardForm = "#post_pone" + id;
-        $('#reschedule' + id).hide();
+        var forwardForm = "#post_pone_dialog" + id;
+        $('#reschedule_dialog' + id).hide();
+        $('#cancel_dialog' + id).hide();
         $(forwardForm).toggle();
         e.preventDefault();
     });
 
     $(".reschedule").click(function (e) {
         var id = $(this).attr('id');
-        var forwardForm = "#reschedule" + id;
-        $('#post_pone' + id).hide();
+        var forwardForm = "#reschedule_dialog" + id;
+        $('#post_pone_dialog' + id).hide();
+        $('#cancel_dialog' + id).hide();
+        $(forwardForm).toggle();
+        e.preventDefault();
+    });
+   
+    $(".cancel").click(function (e) {
+        var id = $(this).attr('id');
+        var forwardForm = "#cancel_dialog" + id;
+        $('#post_pone_dialog' + id).hide();
+        $('#reschedule_dialog' + id).hide();
         $(forwardForm).toggle();
         e.preventDefault();
     });

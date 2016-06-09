@@ -156,21 +156,21 @@
                                             <div class="controls center text-center">
                                                 <a 
                                                     href="#" title="Post Pone">
-                                                    <span id="<?php echo $results['customers']['id']; ?>" class="fa fa-check fa-lg post_pone"></span>
+                                                    <span id="<?php echo $results['customers']['id']; ?>" class="fa fa-pause fa-lg post_pone"></span>
                                                 </a>
                                                 &nbsp;
                                                 <a 
                                                     href="#" title="Reschedule">
-                                                    <span id="<?php echo $results['customers']['id']; ?>" class="fa fa-times fa-lg reschedule"></span>
+                                                    <span id="<?php echo $results['customers']['id']; ?>" class="fa fa-repeat fa-lg reschedule"></span>
                                                 </a>
 
                                                 &nbsp;
                                                 <a 
                                                     href="#" title="Cancel">
-                                                    <span id="<?php echo $results['customers']['id']; ?>" class="fa fa-comment fa-lg cancel"></span>
+                                                    <span id="<?php echo $results['customers']['id']; ?>" class="fa fa-remove fa-lg cancel"></span>
                                                 </a>   
 
-                                                <div id="post_pone<?php echo $results['customers']['id']; ?>" class="portlet-body form" style="display: none;">
+                                                <div id="post_pone_dialog<?php echo $results['customers']['id']; ?>" class="portlet-body form" style="display: none;">
                                                     <!-- BEGIN FORM-->
                                                     <?php
                                                     echo $this->Form->create('PackageCustomer', array(
@@ -215,7 +215,7 @@
                                                                     echo $this->Form->input('comment', array(
                                                                         'type' => 'textarea',
                                                                         'class' => 'form-control required txtArea',
-                                                                        'placeholder' => 'Write your comments'
+                                                                        'placeholder' => 'Write your comments for post pone'
                                                                             )
                                                                     );
                                                                     ?>
@@ -237,8 +237,8 @@
                                                     <?php echo $this->Form->end(); ?>
                                                     <!-- END FORM-->
                                                 </div>
-
-                                                <div id="reschedule<?php echo $results['customers']['id']; ?>" class="portlet-body form" style="display: none;">
+                                                
+                                                <div id="reschedule_dialog<?php echo $results['customers']['id']; ?>" class="portlet-body form" style="display: none;">
                                                     <!-- BEGIN FORM-->
                                                     <?php
                                                     echo $this->Form->create('PackageCustomer', array(
@@ -283,7 +283,7 @@
                                                                     echo $this->Form->input('comment', array(
                                                                         'type' => 'textarea',
                                                                         'class' => 'form-control required txtArea',
-                                                                        'placeholder' => 'Write your comments'
+                                                                        'placeholder' => 'Write your comments for reschedule'
                                                                             )
                                                                     );
                                                                     ?>
@@ -305,7 +305,75 @@
                                                     <?php echo $this->Form->end(); ?>
                                                     <!-- END FORM-->
                                                 </div>
-                                                
+
+                                                <div id="cancel_dialog<?php echo $results['customers']['id']; ?>" class="portlet-body form" style="display: none;">
+                                                    <!-- BEGIN FORM-->
+                                                    <?php
+                                                    echo $this->Form->create('PackageCustomer', array(
+                                                        'inputDefaults' => array(
+                                                            'label' => false,
+                                                            'div' => false
+                                                        ),
+                                                        'id' => 'form_sample_3',
+                                                        'class' => 'form-horizontal',
+                                                        'novalidate' => 'novalidate',
+                                                        'url' => array('controller' => 'technicians', 'action' => 'cancel')
+                                                            )
+                                                    );
+                                                    ?>
+
+                                                    <?php
+                                                    echo $this->Form->input('user_id', array(
+                                                        'type' => 'hidden',
+                                                        'value' => $results['users']['id'],
+                                                            )
+                                                    );
+                                                    ?>                                                               
+
+                                                    <?php
+                                                    echo $this->Form->input('package_customer_id', array(
+                                                        'type' => 'hidden',
+                                                        'value' => $results['customers']['id'],
+                                                            )
+                                                    );
+                                                    ?>
+
+                                                    <div class="form-body">
+                                                        <div class="alert alert-danger display-hide">
+                                                            <button class="close" data-close="alert"></button>
+                                                            You have some form errors. Please check below.
+                                                        </div>
+                                                        <?php echo $this->Session->flash(); ?>
+                                                        <div class="form-group">
+                                                            <div class="form-group">
+                                                                <div class="col-md-12">
+                                                                    <?php
+                                                                    echo $this->Form->input('comment', array(
+                                                                        'type' => 'textarea',
+                                                                        'class' => 'form-control required txtArea',
+                                                                        'placeholder' => 'Write your comments for cancel'
+                                                                            )
+                                                                    );
+                                                                    ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-actions">
+                                                        <div class="row">
+                                                            <div class="col-md-offset-7 col-md-4">
+                                                                <?php
+                                                                echo $this->Form->button(
+                                                                        'Done', array('class' => 'btn green', 'type' => 'submit')
+                                                                );
+                                                                ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <?php echo $this->Form->end(); ?>
+                                                    <!-- END FORM-->
+                                                </div>
+
                                             </div>
                                         </td>  
 
