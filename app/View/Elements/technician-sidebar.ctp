@@ -9,43 +9,89 @@
                 <div class="sidebar-toggler">
                 </div>
                 <!-- END SIDEBAR TOGGLER BUTTON -->
-            </li>          
-            <li
-                <?php
-                $technicians = array('Techniciansnew');
-                if ($this->name . '' . $this->action == 'Techniciansnew'):
-                    ?>
-                    class="active"
-                    <?php
-                endif;
-                ?>
-                >
-                <a href="<?php echo Router::url(array('controller' => 'technicians', 'action' => 'newcustomers')) ?>">
-                    <i class="fa icon-umbrella"></i>
-                    <span class="title"> New</span>
-                    <span class="arrow "></span>
-                </a>
-            </li>
-            <li
+            </li>      
+
+            <li 
             <?php
-            $technicians = array('Techniciansdone');
-            if ($this->name . '' . $this->action == 'Techniciansdone'):
+            $technicians = array('TechniciansnewCustomer', 'TechniciansactiveCustomer','TechnicianspostPone','Techniciansreschedule','Technicianscancel');
+            if (in_array($this->name . '' . $this->action, $technicians)):
                 ?>
                     class="active"
                     <?php
                 endif;
                 ?>
                 >
-                <a href="<?php echo Router::url(array('controller' => 'technicians', 'action' => 'active_customers')) ?>">
-                    <i class="fa icon-check"></i>
-                    <span class="title"> Done</span>
+                <a href="javascript:;">
+                    <i class="fa fa-bug"></i>
+                    <span class="title">My Work</span>
                     <span class="arrow "></span>
                 </a>
-            </li>
-
+                <ul class="sub-menu">
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'TechniciansnewCustomer'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'technicians', 'action' => 'newCustomer')) ?>">
+                            <i class="fa fa-plus"></i>
+                            New</a>
+                    </li>
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'TechniciansactiveCustomer'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'technicians', 'action' => 'activeCustomer')) ?>">
+                            <i class="fa fa-pencil"></i>
+                            Done</a>
+                    </li>
+                    
+                      <li
+                    <?php if ($this->name . '' . $this->action == 'TechnicianspostPone'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'technicians', 'action' => 'postPone')) ?>">
+                            <i class="fa fa-pencil"></i>
+                            Post Pone</a>
+                    </li>
+                    
+                      <li
+                    <?php if ($this->name . '' . $this->action == 'Techniciansreschedule'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'technicians', 'action' => 'reschedule')) ?>">
+                            <i class="fa fa-pencil"></i>
+                            Reschedule</a>
+                    </li>
+                    
+                      <li
+                    <?php if ($this->name . '' . $this->action == 'Technicianscancel'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'technicians', 'action' => 'cancel')) ?>">
+                            <i class="fa fa-pencil"></i>
+                            Cancel</a>
+                    </li>
+                </ul>
+            </li> 
         </ul>
-        <!-- END SIDEBAR MENU -->
     </div>
-
-
     <!-- END SIDEBAR -->

@@ -58,11 +58,14 @@ class TicketsController extends AppController {
                 }
                
                 $this->PackageCustomer->id = $customer_id;
+//                pr($this->request->data['Ticket']['remote_no']); exit;
+                
                 $data['PackageCustomer'] = array(
                     "deposit" => $this->request->data['Ticket']['deposit'],
                     "monthly_bill" => $this->request->data['Ticket']['monthly_bill'],
                     "others" => $this->request->data['Ticket']['others'],
                     "total" => $this->request->data['Ticket']['total'],
+                     "remote_no" => $this->request->data['Ticket']['remote_no'],
                     
                     "issue_id" => $this->request->data['Ticket']['issue_id'],
                     "comments" => $this->request->data['Ticket']['content'],

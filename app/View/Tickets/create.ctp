@@ -303,6 +303,21 @@
                                         </div>
 
                                     </div>
+                                    <label class="control-label col-md-2">Number of equipment<span class="required">
+                                        </span>
+                                    </label>
+                                    <div class="col-md-2">
+                                        <?php
+                                        echo $this->Form->input('remote_no', array(
+                                            'type' => 'select',
+                                            'options' => array('1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7',
+                                                '9' => '9', '10' => '10', '11' => '11', '12' => '12', '13' => '13', '14' => '14', '15' => '15'),
+                                            'empty' => 'Select here',
+                                            'class' => 'form-control select2me required priority_input',
+                                                )
+                                        );
+                                        ?>
+                                    </div>
 
                                     <label class="control-label col-md-2">Additional Note<span class="required">
                                         </span>

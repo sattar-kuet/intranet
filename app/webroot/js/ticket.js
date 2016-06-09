@@ -42,6 +42,29 @@ $(document).ready(function () {
 
 //end tracks dialog box design
 
+//start new customer dialog box
+
+    $(".post_pone").click(function (e) {
+        var id = $(this).attr('id');
+        var forwardForm = "#post_pone" + id;
+        $('#reschedule' + id).hide();
+        $(forwardForm).toggle();
+        e.preventDefault();
+    });
+
+    $(".reschedule").click(function (e) {
+        var id = $(this).attr('id');
+        var forwardForm = "#reschedule" + id;
+        $('#post_pone' + id).hide();
+        $(forwardForm).toggle();
+        e.preventDefault();
+    });
+
+
+
+    //end new customer dialog box
+
+
     $(".done").click(function (e) {
         var id = $(this).attr('id');
         var forwardForm = "#done_dialog" + id;

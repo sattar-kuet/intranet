@@ -1,3 +1,5 @@
+
+
 <style type="text/css">
     .alert {
         padding: 6px;
@@ -12,7 +14,7 @@
     <div class="page-content">
         <!-- BEGIN PAGE HEADER-->
         <h3 class="page-title">
-            Sales Technicians <small></small>
+            Follow up customers List<small></small>
         </h3>
 
         <!-- END PAGE HEADER-->
@@ -39,7 +41,6 @@
                                     <th>
                                         Contact Date
                                     </th>
-
                                     <th>
                                         Customer Name
                                     </th>
@@ -59,11 +60,13 @@
                                     <th>
                                         Comment
                                     </th>
-
                                     <th>
                                         Attachment
                                     </th>                                    
 
+                                    <th>
+                                        Dead line
+                                    </th>
                                     <th>
                                         Action
                                     </th>
@@ -72,8 +75,10 @@
                             <tbody>
                                 <?php
                                 foreach ($filteredData as $results):
+//                              pr($results['customers']['id']);
+//                                    exit;
                                     $customer = $results['customers'];
-//                                    pr($customer); exit;
+
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
                                             . $customer['zip'];
@@ -109,14 +114,11 @@
                                         </td>
                                         <td>
                                             <?php if (!empty($results['package']['name'])): ?>
-                                                Name: <?php echo $results['package']['name'] ?><br>
-                                                Duration: <?php echo $results['package']['duration']; ?><br>
-                                                Total: $<?php echo $customer['total']; ?>
-                                               <?php // echo $results['package']['amount']; ?>
+                                                Name:<?php echo $results['package']['name'] ?><br>
+                                                Duration:<?php echo $results['package']['duration']; ?><br>
+                                                Amount: <?php echo $results['package']['amount']; ?>
                                             <?php endif; ?>
                                         </td>
-
-
                                         <td>
                                             <?php echo $customer['shipment_equipment'] . ' ' . $customer['shipment_note']; ?>
                                         </td>
@@ -141,14 +143,35 @@
                                                         <h4> No Attachment</h4>
 
                                                     <?php } ?>
+
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
-                                            <div class="controls center text-center">
+                                            <?php echo $results['customers']['from']; ?>
+                                            <?php echo $results['customers']['to']; ?> 
+                                        </td>
 
-                                                <div class="portlet-body form">
-                                                    <!--BEGIN FORM-->
+                                        <td> 
+                                            <div class="controls center text-center">
+                                                <a 
+                                                    href="#" title="Post Pone">
+                                                    <span id="<?php echo $results['customers']['id']; ?>" class="fa fa-check fa-lg post_pone"></span>
+                                                </a>
+                                                &nbsp;
+                                                <a 
+                                                    href="#" title="Reschedule">
+                                                    <span id="<?php echo $results['customers']['id']; ?>" class="fa fa-times fa-lg reschedule"></span>
+                                                </a>
+
+                                                &nbsp;
+                                                <a 
+                                                    href="#" title="Cancel">
+                                                    <span id="<?php echo $results['customers']['id']; ?>" class="fa fa-comment fa-lg cancel"></span>
+                                                </a>   
+
+                                                <div id="post_pone<?php echo $results['customers']['id']; ?>" class="portlet-body form" style="display: none;">
+                                                    <!-- BEGIN FORM-->
                                                     <?php
                                                     echo $this->Form->create('PackageCustomer', array(
                                                         'inputDefaults' => array(
@@ -158,98 +181,136 @@
                                                         'id' => 'form_sample_3',
                                                         'class' => 'form-horizontal',
                                                         'novalidate' => 'novalidate',
-                                                        'url' => array('controller' => 'customers', 'action' => 'shedule_assian')
+                                                        'url' => array('controller' => 'technicians', 'action' => 'postPone')
                                                             )
                                                     );
                                                     ?>
 
                                                     <?php
-                                                    echo $this->Form->input('id', array(
+                                                    echo $this->Form->input('user_id', array(
+                                                        'type' => 'hidden',
+                                                        'value' => $results['users']['id'],
+                                                            )
+                                                    );
+                                                    ?>                                                               
+
+                                                    <?php
+                                                    echo $this->Form->input('package_customer_id', array(
                                                         'type' => 'hidden',
                                                         'value' => $results['customers']['id'],
                                                             )
                                                     );
                                                     ?>
+
                                                     <div class="form-body">
                                                         <div class="alert alert-danger display-hide">
                                                             <button class="close" data-close="alert"></button>
                                                             You have some form errors. Please check below.
                                                         </div>
+                                                        <?php echo $this->Session->flash(); ?>
                                                         <div class="form-group">
                                                             <div class="form-group">
                                                                 <div class="col-md-12">
                                                                     <?php
-                                                                    echo $this->Form->input('technician_id', array(
-                                                                        'type' => 'select',
-                                                                        'options' => $technician,
-                                                                        'empty' => 'Select Technician',
-                                                                        'class' => 'form-control select2me required',
+                                                                    echo $this->Form->input('comment', array(
+                                                                        'type' => 'textarea',
+                                                                        'class' => 'form-control required txtArea',
+                                                                        'placeholder' => 'Write your comments'
                                                                             )
                                                                     );
                                                                     ?>
-                                                                </div>
-                                                            </div>
-                                                        </div>  
-                                                        <div class="form-group">                               
-                                                            <div class="col-md-8">
-                                                                <div class="input-group">
-
-                                                                    <?php
-                                                                    echo $this->Form->input(
-                                                                            'sTime', array(
-                                                                        'class' => 'form-control timepicker timepicker-no-seconds required',
-                                                                        'type' => 'text'
-                                                                            )
-                                                                    );
-                                                                    ?>
-                                                                    <span class="input-group-btn">
-                                                                        <button  class="btn default"  style="height: 34px;" type="button"><i class="fa fa-clock-o"></i></button>
-                                                                    </span>
-                                                                    <?php
-                                                                    echo $this->Form->input(
-                                                                            'eTime', array(
-                                                                        'class' => 'form-control timepicker timepicker-no-seconds required',
-                                                                        'type' => 'text'
-                                                                            )
-                                                                    );
-                                                                    ?>
-                                                                    <span class="input-group-btn">
-                                                                        <button  class="btn default"  style="height: 34px;" type="button"><i class="fa fa-clock-o"></i></button>
-                                                                    </span>
                                                                 </div>
                                                             </div>
                                                         </div>
-
-                                                        <div class="form-group">                               
-                                                            <div class="col-md-5">
-                                                                <?php
-                                                                echo $this->Form->input(
-                                                                        'schedule_date', array(
-                                                                    'type' => 'text',
-                                                                    'placeholder' => 'Click & select date',
-                                                                    'class' => "datepicker form-control"
-                                                                ));
-                                                                ?>
-                                                            </div>
-                                                        </div> 
                                                     </div>
-
                                                     <div class="form-actions">
                                                         <div class="row">
                                                             <div class="col-md-offset-7 col-md-4">
                                                                 <?php
                                                                 echo $this->Form->button(
-                                                                        'Submit', array('class' => 'btn green', 'type' => 'submit')
+                                                                        'Done', array('class' => 'btn green', 'type' => 'submit')
                                                                 );
                                                                 ?>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <?php echo $this->Form->end(); ?>
-                                                    <!--END FORM-->
+                                                    <!-- END FORM-->
                                                 </div>
+
+                                                <div id="reschedule<?php echo $results['customers']['id']; ?>" class="portlet-body form" style="display: none;">
+                                                    <!-- BEGIN FORM-->
+                                                    <?php
+                                                    echo $this->Form->create('PackageCustomer', array(
+                                                        'inputDefaults' => array(
+                                                            'label' => false,
+                                                            'div' => false
+                                                        ),
+                                                        'id' => 'form_sample_3',
+                                                        'class' => 'form-horizontal',
+                                                        'novalidate' => 'novalidate',
+                                                        'url' => array('controller' => 'technicians', 'action' => 'reschedule')
+                                                            )
+                                                    );
+                                                    ?>
+
+                                                    <?php
+                                                    echo $this->Form->input('user_id', array(
+                                                        'type' => 'hidden',
+                                                        'value' => $results['users']['id'],
+                                                            )
+                                                    );
+                                                    ?>                                                               
+
+                                                    <?php
+                                                    echo $this->Form->input('package_customer_id', array(
+                                                        'type' => 'hidden',
+                                                        'value' => $results['customers']['id'],
+                                                            )
+                                                    );
+                                                    ?>
+
+                                                    <div class="form-body">
+                                                        <div class="alert alert-danger display-hide">
+                                                            <button class="close" data-close="alert"></button>
+                                                            You have some form errors. Please check below.
+                                                        </div>
+                                                        <?php echo $this->Session->flash(); ?>
+                                                        <div class="form-group">
+                                                            <div class="form-group">
+                                                                <div class="col-md-12">
+                                                                    <?php
+                                                                    echo $this->Form->input('comment', array(
+                                                                        'type' => 'textarea',
+                                                                        'class' => 'form-control required txtArea',
+                                                                        'placeholder' => 'Write your comments'
+                                                                            )
+                                                                    );
+                                                                    ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-actions">
+                                                        <div class="row">
+                                                            <div class="col-md-offset-7 col-md-4">
+                                                                <?php
+                                                                echo $this->Form->button(
+                                                                        'Done', array('class' => 'btn green', 'type' => 'submit')
+                                                                );
+                                                                ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <?php echo $this->Form->end(); ?>
+                                                    <!-- END FORM-->
+                                                </div>
+                                                
                                             </div>
-                                        </td>
+                                        </td>  
+
+
+
                                     </tr>
                                 <?php endforeach; ?>  
 
@@ -264,6 +325,3 @@
     </div>
 </div>
 <!-- END CONTENT -->
-
-
-

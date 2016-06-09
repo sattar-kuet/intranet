@@ -110,7 +110,9 @@
                                             <?php if (!empty($results['package']['name'])): ?>
                                                 Name:<?php echo $results['package']['name'] ?><br>
                                                 Duration:<?php echo $results['package']['duration']; ?><br>
-                                                Amount: <?php echo $results['package']['amount']; ?>
+                                                <?php if (!empty($customer['total'])): ?>
+                                                Total: $<?php echo $customer['total']; ?>
+                                                 <?php endif; ?>
                                             <?php endif; ?>
                                         </td>
                                         <td>
