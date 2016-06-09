@@ -69,7 +69,7 @@
                             <tbody>
                                 <?php
                                 foreach ($filteredData as $results):
-                                  // pr($results); exit;
+                                    // pr($results); exit;
                                     $customer = $results['customers'];
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
@@ -117,7 +117,7 @@
                                                 <?php endif ?>
                                             </ul>
                                         </td>
-<!--                                        <td>
+    <!--                                        <td>
                                             <div class="col-md-12 col-sm-12 mix category_2 category_1">
                                                 <div class="mix-inner">
                                                     <img class="img-responsive" src="<?php echo $this->webroot . 'attchment' . '/' . $customer['attachment']; ?>" alt="">
@@ -161,7 +161,7 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <div class="form-group">
-                                                                <div class="col-md-12">
+                                                                <div class="col-md-4">
                                                                     <?php
                                                                     echo $this->Form->input('technician_id', array(
                                                                         'type' => 'select',
@@ -173,18 +173,50 @@
                                                                     ?>
                                                                 </div>
                                                             </div>
-                                                        </div>                                               
-                                                    </div>
-                                                    <div class="form-group">                               
-                                                        <div class="col-md-4">
-                                                            <?php
-                                                            echo $this->Form->input(
-                                                                    'daterange', array(
-                                                                'class' => 'span9 text required e3'
-                                                            ));
-                                                            ?>
+                                                        </div> 
+                                                        <div class="form-group">                               
+                                                            <div class="col-md-8">
+                                                                <div class="input-group">
+
+                                                                    <?php
+                                                                    echo $this->Form->input(
+                                                                            'sTime', array(
+                                                                        'class' => 'form-control timepicker timepicker-no-seconds required',
+                                                                        'type' => 'text'
+                                                                            )
+                                                                    );
+                                                                    ?>
+                                                                    <span class="input-group-btn">
+                                                                        <button  class="btn default"  style="height: 34px;" type="button"><i class="fa fa-clock-o"></i></button>
+                                                                    </span>
+                                                                    <?php
+                                                                    echo $this->Form->input(
+                                                                            'eTime', array(
+                                                                        'class' => 'form-control timepicker timepicker-no-seconds required',
+                                                                        'type' => 'text'
+                                                                            )
+                                                                    );
+                                                                    ?>
+                                                                    <span class="input-group-btn">
+                                                                        <button  class="btn default"  style="height: 34px;" type="button"><i class="fa fa-clock-o"></i></button>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
                                                         </div>
+
+                                                        <div class="form-group">                               
+                                                            <div class="col-md-5">
+                                                                <?php
+                                                                echo $this->Form->input(
+                                                                        'schedule_date', array(
+                                                                    'type' => 'text',
+                                                                    'class' => "datepicker form-control"
+                                                                ));
+                                                                ?>
+                                                            </div>
+                                                        </div> 
                                                     </div>
+
                                                     <div class="form-actions">
                                                         <div class="row">
                                                             <div class="col-md-offset-7 col-md-4">
