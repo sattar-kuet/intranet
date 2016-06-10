@@ -171,6 +171,7 @@
                                     <tbody>                                    
                                         <?php
                                         foreach ($transactions as $info):
+                                            pr($info);exit();
                                             ?>
                                             <tr>
                                                 <td><?php echo $info['PackageCustomer']['c_acc_no']; ?></td>
