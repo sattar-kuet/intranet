@@ -60,7 +60,7 @@
                         endif;
                         ?>
                         >
-                        <a href="<?php echo Router::url(array('controller' => 'technicians', 'action' => 'postPone')) ?>">
+                        <a href="<?php echo Router::url(array('controller' => 'technicians', 'action' => 'postponeView')) ?>">
                             <i class="fa fa-pencil"></i>
                             Post Pone</a>
                     </li>
