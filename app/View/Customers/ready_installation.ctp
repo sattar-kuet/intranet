@@ -73,6 +73,7 @@
                                 <?php
                                 foreach ($filteredData as $results):
                                     $customer = $results['customers'];
+//                                    pr($customer); exit;
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
                                             . $customer['zip'];
@@ -108,9 +109,10 @@
                                         </td>
                                         <td>
                                             <?php if (!empty($results['package']['name'])): ?>
-                                                Name:<?php echo $results['package']['name'] ?><br>
-                                                Duration:<?php echo $results['package']['duration']; ?><br>
-                                                Amount: $<?php echo $results['package']['amount']; ?>
+                                                Name: <?php echo $results['package']['name'] ?><br>
+                                                Duration: <?php echo $results['package']['duration']; ?><br>
+                                                Total: $<?php echo $customer['total']; ?>
+                                               <?php // echo $results['package']['amount']; ?>
                                             <?php endif; ?>
                                         </td>
 
@@ -187,36 +189,51 @@
                                                                     ?>
                                                                 </div>
                                                             </div>
-                                                        </div>                                               
-                                                    </div>
-                                                    <div class="form-group">                               
-                                                        <div class="col-md-4">
-                                                            <?php
-                                                            echo $this->Form->input(
-                                                                    'schedule_date', array(
-                                                                'type' => 'text',
-                                                                'class' => "datepicker form-control"
-                                                            ));
-                                                            ?>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group" >
-                                                        <div class="col-md-12">
-                                                            <div class="input-group">
-                                                                <?php
-                                                                echo $this->Form->input(
-                                                                        'sTime', array(
-                                                                    'class' => 'form-control timepicker timepicker-no-seconds required',
-                                                                    'type' => 'text'
-                                                                        )
-                                                                );
-                                                                ?>
-                                                                <span class="input-group-btn">
-                                                                    <button  class="btn default"  style="height: 34px;" type="button"><i class="fa fa-clock-o"></i></button>
-                                                                </span>
+                                                        </div>  
+                                                        <div class="form-group">                               
+                                                            <div class="col-md-8">
+                                                                <div class="input-group">
+
+                                                                    <?php
+                                                                    echo $this->Form->input(
+                                                                            'sTime', array(
+                                                                        'class' => 'form-control timepicker timepicker-no-seconds required',
+                                                                        'type' => 'text'
+                                                                            )
+                                                                    );
+                                                                    ?>
+                                                                    <span class="input-group-btn">
+                                                                        <button  class="btn default"  style="height: 34px;" type="button"><i class="fa fa-clock-o"></i></button>
+                                                                    </span>
+                                                                    <?php
+                                                                    echo $this->Form->input(
+                                                                            'eTime', array(
+                                                                        'class' => 'form-control timepicker timepicker-no-seconds required',
+                                                                        'type' => 'text'
+                                                                            )
+                                                                    );
+                                                                    ?>
+                                                                    <span class="input-group-btn">
+                                                                        <button  class="btn default"  style="height: 34px;" type="button"><i class="fa fa-clock-o"></i></button>
+                                                                    </span>
+                                                                </div>
                                                             </div>
                                                         </div>
+
+                                                        <div class="form-group">                               
+                                                            <div class="col-md-5">
+                                                                <?php
+                                                                echo $this->Form->input(
+                                                                        'schedule_date', array(
+                                                                    'type' => 'text',
+                                                                    'placeholder' => 'Click & select date',
+                                                                    'class' => "datepicker form-control"
+                                                                ));
+                                                                ?>
+                                                            </div>
+                                                        </div> 
                                                     </div>
+
                                                     <div class="form-actions">
                                                         <div class="row">
                                                             <div class="col-md-offset-7 col-md-4">

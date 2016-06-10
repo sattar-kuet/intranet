@@ -573,8 +573,8 @@ class CustomersController extends AppController {
 //        $datrange = json_decode($this->request->data['PackageCustomer']['daterange'], true);
 //        $this->request->data['PackageCustomer']['from'] = $datrange['start'];
 //        $this->request->data['PackageCustomer']['to'] = $datrange['end'];
-        $this->request->data['PackageCustomer']['schedule_date'] = $this->request->data['PackageCustomer']['schedule_date'].' '. $this->request->data['PackageCustomer']['sTime'];
-        
+       
+        $this->request->data['PackageCustomer']['schedule_date'] = $this->request->data['PackageCustomer']['schedule_date'].' '.$this->request->data['PackageCustomer']['sTime'].' -- '.$this->request->data['PackageCustomer']['eTime'];
         $loggedUser = $this->Auth->user();
         $this->request->data['PackageCustomer']['user_id'] = $loggedUser['id'];
         $this->request->data['PackageCustomer']['status'] = 'Scheduled';

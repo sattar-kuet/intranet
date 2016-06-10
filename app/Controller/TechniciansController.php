@@ -313,17 +313,18 @@ class TechniciansController extends AppController {
         }
         $this->set(compact('filteredData'));
     }
-    
-      function newcustomers() {
+
+    function newCustomer() {
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
+        $loggedUser = $this->Auth->user();
         $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
                     left join comments c on pc.id = c.package_customer_id
                     left join users u on c.user_id = u.id
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id
-                    WHERE pc.technician_id = 92 and pc.status = 'scheduled'");
+                    WHERE pc.technician_id = ".$loggedUser['id']." and pc.status = 'scheduled'");
         // echo $sql; exit;
         $filteredData = array();
         $unique = array();
@@ -382,70 +383,8 @@ class TechniciansController extends AppController {
     }
 
 
-//    function newcustomers() {
-//        $this->loadModel('User');
-//        $loggedUser = $this->Auth->user();
-//        $id = $loggedUser['id'];
-//        $this->loadModel('PackageCustomer');
-//        $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
-//                    left join comments c on pc.id = c.package_customer_id
-//                    left join users u on c.user_id = u.id
-//                    left join psettings ps on ps.id = pc.psetting_id
-//                    left join custom_packages cp on cp.id = pc.custom_package_id 
-//                    WHERE pc.technician_id = $id and pc.status = 'scheduled'");
-//        pr($allData); exit;
-//        $filteredData = array();
-//        $unique = array();
-//        $index = 0;
-//        foreach ($allData as $key => $data) {
-//            $pd = $data['pc']['id'];
-//            if (isset($unique[$pd])) {
-//                //  echo 'already exist'.$key.'<br/>';
-//                if (!empty($data['c']['content'])) {
-//                    //  $temp = $data['c'];// array('id' => $data['psettings']['id'], 'duration' => $data['psettings']['duration'], 'amount' => $data['psettings']['amount'], 'offer' => $data['psettings']['offer']);
-//                    //pr($temp); exit;
-//                    $temp = array('content' => $data['c'], 'user' => $data['u']);
-//                    $filteredData[$index]['comments'][] = $temp;
-//                }
-//            } else {
-//                if ($key != 0)
-//                    $index++;
-//                $unique[$pd] = 'set';
-//
-//                $filteredData[$index]['customers'] = $data['pc'];
-//                $filteredData[$index]['users'] = $data['u'];
-//
-//                $filteredData[$index]['package'] = array(
-//                    'name' => 'No package dealings',
-//                    'duration' => 'Not Applicable',
-//                    'amount' => 'not Applicable'
-//                );
-//
-//                if (!empty($data['ps']['id'])) {
-//                    $filteredData[$index]['package'] = array(
-//                        'name' => $data['ps']['name'],
-//                        'duration' => $data['ps']['duration'],
-//                        'amount' => $data['ps']['amount']
-//                    );
-//                }
-//                if (!empty($data['cp']['id'])) {
-//                    $filteredData[$index]['package'] = array(
-//                        'name' => $data['cp']['duration'] . ' months custom package',
-//                        'duration' => $data['cp']['duration'],
-//                        'amount' => $data['cp']['charge']
-//                    );
-//                }
-//                $filteredData[$index]['comments'] = array();
-//                if (!empty($data['c']['content'])) {
-//                    $temp = array('content' => $data['c'], 'user' => $data['u']);
-//                    $filteredData[$index]['comments'][] = $temp;
-//                }
-//            }
-//        }
-//        $this->set(compact('filteredData'));
-//    }
 
-    function active_customers() {
+    function activeCustomer() {
         $this->loadModel('User');
         $loggedUser = $this->Auth->user();
         $id = $loggedUser['id'];
@@ -517,7 +456,7 @@ class TechniciansController extends AppController {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Comment');
         $this->PackageCustomer->id = $this->request->data['Comment']['package_customer_id'];
-        $this->PackageCustomer->saveField("status", "active");        
+        $this->PackageCustomer->saveField("status", "active");
         $this->Comment->save($this->request->data);
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -560,6 +499,139 @@ class TechniciansController extends AppController {
         $this->PackageCustomer->saveField("status", "active");
         $this->Session->setFlash($msg);
         return $this->redirect($this->referer());
+    }
+
+    function postPone($id = null) {
+        $this->loadModel('PackageCustomer');
+        $this->loadModel('Comment');
+        $this->PackageCustomer->id = $id;
+        
+        $loggedUser = $this->Auth->user();
+        $this->request->data['PackageCustomer']['status'] = 'post pone';
+        $this->request->data['PackageCustomer']['user_id'] = $loggedUser['id'];
+        $this->PackageCustomer->id = $this->request->data['PackageCustomer']['package_customer_id'];
+        $commentdata = $this->PackageCustomer->save($this->request->data['PackageCustomer']);
+        
+        $this->request->data['Comment']['package_customer_id'] = $commentdata['PackageCustomer']['package_customer_id'];
+        $this->request->data['Comment']['content'] = $this->request->data['PackageCustomer']['comment'];
+        $this->request->data['Comment']['user_id'] = $commentdata['PackageCustomer']['user_id'];
+        $this->Comment->save($this->request->data['Comment']);
+        
+        $msg = '<div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong> Post pone successfully </strong>
+        </div>';
+        $this->Session->setFlash($msg);
+        return $this->redirect($this->referer());
+    }
+    
+    function reschedule($id = null) {
+        $this->loadModel('PackageCustomer');
+        $this->loadModel('Comment');
+        $this->PackageCustomer->id = $id;
+        
+        $loggedUser = $this->Auth->user();
+        $this->request->data['PackageCustomer']['status'] = 'scheduled';
+        $this->request->data['PackageCustomer']['user_id'] = $loggedUser['id'];
+        $this->PackageCustomer->id = $this->request->data['PackageCustomer']['package_customer_id'];
+        $commentdata = $this->PackageCustomer->save($this->request->data['PackageCustomer']);
+        
+        $this->request->data['Comment']['package_customer_id'] = $commentdata['PackageCustomer']['package_customer_id'];
+        $this->request->data['Comment']['content'] = $this->request->data['PackageCustomer']['comment'];
+        $this->request->data['Comment']['user_id'] = $commentdata['PackageCustomer']['user_id'];
+        $this->Comment->save($this->request->data['Comment']);
+        
+        $msg = '<div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong> Rescheduled successfully </strong>
+        </div>';
+        $this->Session->setFlash($msg);
+        return $this->redirect($this->referer());
+    }    
+    
+    function cancel($id = null) {
+        $this->loadModel('PackageCustomer');
+        $this->loadModel('Comment');
+        $this->PackageCustomer->id = $id;
+        
+        $loggedUser = $this->Auth->user();
+        $this->request->data['PackageCustomer']['status'] = 'canceled';
+        $this->request->data['PackageCustomer']['user_id'] = $loggedUser['id'];
+        $this->PackageCustomer->id = $this->request->data['PackageCustomer']['package_customer_id'];
+        $commentdata = $this->PackageCustomer->save($this->request->data['PackageCustomer']);
+        
+        $this->request->data['Comment']['package_customer_id'] = $commentdata['PackageCustomer']['package_customer_id'];
+        $this->request->data['Comment']['content'] = $this->request->data['PackageCustomer']['comment'];
+        $this->request->data['Comment']['user_id'] = $commentdata['PackageCustomer']['user_id'];
+        $this->Comment->save($this->request->data['Comment']);
+        
+        $msg = '<div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong> Rescheduled successfully </strong>
+        </div>';
+        $this->Session->setFlash($msg);
+        return $this->redirect($this->referer());
+    } 
+    
+    
+    function postponeView() {
+        $this->loadModel('User');
+        $this->loadModel('PackageCustomer');
+        $loggedUser = $this->Auth->user();
+        $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
+                    left join comments c on pc.id = c.package_customer_id
+                    left join users u on c.user_id = u.id
+                    left join psettings ps on ps.id = pc.psetting_id
+                    left join custom_packages cp on cp.id = pc.custom_package_id 
+                    left join issues i on pc.issue_id = i.id
+                    WHERE pc.technician_id = ".$loggedUser['id']." and pc.status = 'post pone'");
+        $filteredData = array();
+        $unique = array();
+        $index = 0;
+        foreach ($allData as $key => $data) {
+            $pd = $data['pc']['id'];
+            if (isset($unique[$pd])) {
+                if (!empty($data['c']['content'])) {
+                    $temp = array('content' => $data['c'], 'user' => $data['u']);
+                    $filteredData[$index]['comments'][] = $temp;
+                }
+            } else {
+                if ($key != 0)
+                    $index++;
+                $unique[$pd] = 'set';
+
+                $filteredData[$index]['customers'] = $data['pc'];
+                $filteredData[$index]['users'] = $data['u'];
+
+                $filteredData[$index]['package'] = array(
+                    'name' => 'No package dealings',
+                    'duration' => 'Not Applicable',
+                    'amount' => 'not Applicable'
+                );
+
+                if (!empty($data['ps']['id'])) {
+                    $filteredData[$index]['package'] = array(
+                        'name' => $data['ps']['name'],
+                        'duration' => $data['ps']['duration'],
+                        'amount' => $data['ps']['amount']
+                    );
+                }
+                if (!empty($data['cp']['id'])) {
+                    $filteredData[$index]['package'] = array(
+                        'name' => $data['cp']['duration'] . ' months custom package',
+                        'duration' => $data['cp']['duration'],
+                        'amount' => $data['cp']['charge']
+                    );
+                }
+                $filteredData[$index]['comments'] = array();
+                if (!empty($data['c']['content'])) {
+                    $temp = array('content' => $data['c'], 'user' => $data['u']);
+                    $filteredData[$index]['comments'][] = $temp;
+                }
+            }
+        }
+        $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
+        $this->set(compact('filteredData', 'technician'));
     }
 
 }

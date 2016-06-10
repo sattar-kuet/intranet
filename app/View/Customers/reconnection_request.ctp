@@ -53,9 +53,6 @@
                                         Reconnect Date
                                     </th>
 
-                                    <th>
-                                        Expected pick up date
-                                    </th>
 
                                     <th>
                                         Comment
@@ -116,13 +113,7 @@
                                                 <?php endif ?>
                                             </ul>
                                         </td>
-                                        <td>
-                                            <ul>
-                                                <?php if (!empty($results['customers']['pickup_date'])): ?>
-                                                    <?php echo $results['customers']['pickup_date'] ?>
-                                                <?php endif ?>
-                                            </ul>
-                                        </td>
+                                      
                                         <td>
                                             <ul>
                                                 <?php if (!empty($results['customers']['comments'])): ?>

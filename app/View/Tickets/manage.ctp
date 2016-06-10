@@ -40,9 +40,13 @@
                         <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                             <thead>
                                 <tr>
-                                    <th>Subject</th>
-                                    <th>Customer Info</th>
-                                    <th>Open Time</th>
+                                    <th>Contact Date</th>
+                                    <th>Customer Name</th>
+                                    <th>Address</th>
+                                    <th>Phone</th>
+                                    <th>Issue</th>
+
+
                                     <th>Detail</th>
                                     <th>History</th>
                                     <th>Action</th>
@@ -50,6 +54,7 @@
                             </thead>
                             <tbody>
                                 <?php
+//                                pr($data); exit;
                                 foreach ($data as $single):
 
 
@@ -58,20 +63,36 @@
                                     $agent_name = $customer['fb']['name'];
                                     $customer = $customer['pc'];
                                     $ticket = $single['ticket'];
-//                                    pr($ticket);   exit();
-                                    
+
+
+                                    $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
+                                            $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
+                                            . $customer['zip'];
+//                                    pr($issue['i']['name']);   exit();
                                     ?>
                                     <tr >
-                                        <td><?php echo $issue['i']['name']; ?></td>
-                                        <td>
-                                            <ul>
-                                                <li> Name: <?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?> </li> 
-                                                <li> Cell: <?php echo $customer['cell']; ?> </li> 
-                                            </ul>
-                                        </td>
                                         <td><?php echo $ticket['created']; ?>
                                             <?php echo $agent_name; ?>
                                         </td>
+                                        <td>
+
+                                            <?php
+                                            echo $customer['first_name'] . " " .
+                                            $customer['middle_name'] . " " .
+                                            $customer['last_name'];
+                                            ?>
+
+                                        </td>
+                                        <td><?php echo $customer_address; ?></td>
+                                        <td class="hidden-480">
+                                            <?php if (!empty($customer['cell'])): ?>
+                                                <a href="tel:<?php echo $customer['cell'] ?>"><?php echo $customer['cell']; ?></a> &nbsp;&nbsp;
+                                            <?php endif; ?>
+                                            <?php if (!empty($customer['home'])): ?>
+                                                <a href="tel:<?php echo $customer['home'] ?>"><?php echo $customer['home']; ?></a>
+                                            <?php endif; ?> 
+                                        </td>
+                                        <td><?php echo $issue['i']['name']; ?></td>
                                         <td><?php echo $ticket['content']; ?></td>
                                         <td>
                                             <ol>
@@ -314,7 +335,7 @@
                                                                 <button class="close" data-close="alert"></button>
                                                                 You have some form errors. Please check below.
                                                             </div>
-        <?php echo $this->Session->flash(); ?>
+                                                            <?php echo $this->Session->flash(); ?>
 
 
                                                             <div class="form-group">
@@ -322,14 +343,14 @@
                                                                 <div class="form-group">
 
                                                                     <div class="col-md-12">
-        <?php
-        echo $this->Form->input('comment', array(
-            'type' => 'textarea',
-            'class' => 'form-control required txtArea',
-            'placeholder' => 'Write your comments'
-                )
-        );
-        ?>
+                                                                        <?php
+                                                                        echo $this->Form->input('comment', array(
+                                                                            'type' => 'textarea',
+                                                                            'class' => 'form-control required txtArea',
+                                                                            'placeholder' => 'Write your comments'
+                                                                                )
+                                                                        );
+                                                                        ?>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -339,34 +360,34 @@
                                                         <div class="form-actions">
                                                             <div class="row">
                                                                 <div class="col-md-offset-7 col-md-4">
-        <?php
-        echo $this->Form->button(
-                'Done', array('class' => 'btn green', 'type' => 'submit')
-        );
-        ?>
+                                                                    <?php
+                                                                    echo $this->Form->button(
+                                                                            'Done', array('class' => 'btn green', 'type' => 'submit')
+                                                                    );
+                                                                    ?>
                                                                 </div>
                                                             </div>
                                                         </div>
-        <?php echo $this->Form->end(); ?>
+                                                        <?php echo $this->Form->end(); ?>
                                                         <!-- END FORM-->
                                                     </div> 
 
                                                     <div id="unsolve_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
 
                                                         <!-- BEGIN FORM-->
-        <?php
-        echo $this->Form->create('Track', array(
-            'inputDefaults' => array(
-                'label' => false,
-                'div' => false
-            ),
-            'id' => 'form_sample_3',
-            'class' => 'form-horizontal',
-            'novalidate' => 'novalidate',
-            'url' => array('controller' => 'tickets', 'action' => 'unsolve')
-                )
-        );
-        ?>
+                                                        <?php
+                                                        echo $this->Form->create('Track', array(
+                                                            'inputDefaults' => array(
+                                                                'label' => false,
+                                                                'div' => false
+                                                            ),
+                                                            'id' => 'form_sample_3',
+                                                            'class' => 'form-horizontal',
+                                                            'novalidate' => 'novalidate',
+                                                            'url' => array('controller' => 'tickets', 'action' => 'unsolve')
+                                                                )
+                                                        );
+                                                        ?>
 
                                                         <?php
                                                         echo $this->Form->input('ticket_id', array(
@@ -377,13 +398,13 @@
                                                         ?>
 
 
-        <?php
-        echo $this->Form->input('forwarded_by', array(
-            'type' => 'hidden',
-            'value' => $lasthistory['forwarded_by'],
-                )
-        );
-        ?>
+                                                        <?php
+                                                        echo $this->Form->input('forwarded_by', array(
+                                                            'type' => 'hidden',
+                                                            'value' => $lasthistory['forwarded_by'],
+                                                                )
+                                                        );
+                                                        ?>
 
                                                         <?php
                                                         echo $this->Form->input('user_id', array(
@@ -412,7 +433,7 @@
                                                                 <button class="close" data-close="alert"></button>
                                                                 You have some form errors. Please check below.
                                                             </div>
-        <?php echo $this->Session->flash(); ?>
+                                                            <?php echo $this->Session->flash(); ?>
 
 
                                                             <div class="form-group">
@@ -420,14 +441,14 @@
                                                                 <div class="form-group">
 
                                                                     <div class="col-md-12">
-        <?php
-        echo $this->Form->input('comment', array(
-            'type' => 'textarea',
-            'class' => 'form-control required txtArea',
-            'placeholder' => 'Write your comments'
-                )
-        );
-        ?>
+                                                                        <?php
+                                                                        echo $this->Form->input('comment', array(
+                                                                            'type' => 'textarea',
+                                                                            'class' => 'form-control required txtArea',
+                                                                            'placeholder' => 'Write your comments'
+                                                                                )
+                                                                        );
+                                                                        ?>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -437,23 +458,23 @@
                                                         <div class="form-actions">
                                                             <div class="row">
                                                                 <div class="col-md-offset-7 col-md-4">
-        <?php
-        echo $this->Form->button(
-                'Done', array('class' => 'btn green', 'type' => 'submit')
-        );
-        ?>
+                                                                    <?php
+                                                                    echo $this->Form->button(
+                                                                            'Done', array('class' => 'btn green', 'type' => 'submit')
+                                                                    );
+                                                                    ?>
                                                                 </div>
                                                             </div>
                                                         </div>
-        <?php echo $this->Form->end(); ?>
+                                                        <?php echo $this->Form->end(); ?>
                                                         <!-- END FORM-->
                                                     </div> 
 
-        <?php
-    } else {
-        echo 'Nothing to do';
-    }
-    ?>
+                                                    <?php
+                                                } else {
+                                                    echo 'Nothing to do';
+                                                }
+                                                ?>
 
 
 
@@ -461,9 +482,9 @@
                                         </td>
                                     </tr>
 
-    <?php
-endforeach;
-?>
+                                    <?php
+                                endforeach;
+                                ?>
 
                             </tbody>
                         </table>
