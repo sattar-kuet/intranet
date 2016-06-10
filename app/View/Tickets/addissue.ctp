@@ -46,7 +46,7 @@
                             <?php echo $this->Session->flash(); ?>
                            
                             <div class="form-group">
-                                <label class="control-label col-md-3">Name of issue:<span class="required">
+                                <label class="control-label col-md-3">Name of Issue:<span class="required">
                                         *</span>
                                 </label>
                                 <div class="col-md-4">

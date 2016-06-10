@@ -25,13 +25,13 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-user"></i>List of all admins
+                            <i class="fa fa-user"></i>List of All Admins
                         </div>
 
-                        <div class="tools">
+<!--                        <div class="tools">
                             <a href="javascript:;" class="reload">
                             </a>
-                        </div>
+                        </div>-->
                     </div>
                     <div class="portlet-body">
 

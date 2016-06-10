@@ -15,12 +15,12 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-search"></i>Search customer information by cell no
+                            <i class="fa fa-search"></i>Search Customer Information
                         </div>
-                        <div class="tools">
+<!--                        <div class="tools">
                             <a href="javascript:;" class="reload">
                             </a>
-                        </div>
+                        </div>-->
                     </div>
                     <div class="portlet-body form">
                         <!-- BEGIN FORM-->

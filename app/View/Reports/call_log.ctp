@@ -50,7 +50,7 @@
                             </div>
                             <?php echo $this->Session->flash(); ?>
                             <div class="form-group">                                
-                                <label class="control-label col-md-3" for="required">Select date</label>
+                                <label class="control-label col-md-3" for="required">Select Date:</label>
                                 <div class="col-md-4">
                                     <?php
                                     echo $this->Form->input(
@@ -64,7 +64,7 @@
                             </div>
 
                             <div class="form-group">                                
-                                <label class="control-label col-md-3" for="required">Issue</label>
+                                <label class="control-label col-md-3" for="required">Issue:</label>
                                 <div class="col-md-4">
                                     <?php
                                     echo $this->Form->input('issue_id', array(
@@ -79,7 +79,7 @@
                             </div>
 
                             <div class="form-group">                                
-                                <label class="control-label col-md-3" for="required">Agent</label>
+                                <label class="control-label col-md-3" for="required">Agent:</label>
                                 <div class="col-md-4">
                                     <?php
                                     echo $this->Form->input('user_id', array(

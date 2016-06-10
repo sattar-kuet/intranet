@@ -16,12 +16,12 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-pencil"></i>Edit u
+                            <i class="fa fa-pencil"></i>Edit Role
                         </div>
-                        <div class="tools">
+<!--                        <div class="tools">
                             <a href="javascript:;" class="reload">
                             </a>
-                        </div>
+                        </div>-->
                     </div>
                     <div class="portlet-body form">
                         <!-- BEGIN FORM-->
