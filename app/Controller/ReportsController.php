@@ -74,28 +74,56 @@ class ReportsController extends AppController {
         $this->set(compact('transactions'));
     }
 
-    function invoice_printqueue() {
+    function closeInvoice() {
         $this->loadModel('Package_customer');
         $this->loadModel('Transaction');
         $clicked = false;
         if ($this->request->is('post') || $this->request->is('put')) {
             $datrange = json_decode($this->request->data['Package_customer']['daterange'], true);
             $conditions = array('Transaction.created >=' => $datrange['start'], 'Transaction.created <=' => $datrange['end']);
+
             $packagecustomers = $this->Transaction->query("SELECT tr.id, tr.package_customer_id, 
             CONCAT( first_name,' ', middle_name,' ', last_name ) AS name, pc.psetting_id, pc.mac,
-            ps.name, p.name, ps.amount, ps.duration FROM transactions tr
+            ps.name, p.name, tr.paid_amount, ps.amount, ps.duration FROM transactions tr
             left join package_customers pc on tr.package_customer_id = pc.id
             left join psettings ps on ps.id = pc.psetting_id
-            LEFT JOIN packages p ON p.id = ps.package_id WHERE amount !=0 and
+            LEFT JOIN packages p ON p.id = ps.package_id 
+            WHERE paid_amount !=0 and
             tr.created >='" . $datrange['start'] . "' AND tr.created <='" . $datrange['end'] . "'");
-//             pr($packagecustomers);
-//                                                exit; 
+//            pr($packagecustomers);
+//            exit;
             $clicked = true;
             $this->set(compact('packagecustomers'));
         }
         $this->set(compact('clicked'));
     }
 
+    
+    function openInvoice() {
+        $this->loadModel('Package_customer');
+        $this->loadModel('Transaction');
+        $clicked = false;
+        if ($this->request->is('post') || $this->request->is('put')) {
+            $datrange = json_decode($this->request->data['Package_customer']['daterange'], true);
+            $conditions = array('Transaction.created >=' => $datrange['start'], 'Transaction.created <=' => $datrange['end']);
+
+            $packagecustomers = $this->Transaction->query("SELECT tr.id, tr.package_customer_id, 
+            CONCAT( first_name,' ', middle_name,' ', last_name ) AS name, pc.psetting_id, pc.mac,
+            ps.name, p.name, tr.paid_amount, ps.amount, ps.duration FROM transactions tr
+            left join package_customers pc on tr.package_customer_id = pc.id
+            left join psettings ps on ps.id = pc.psetting_id
+            LEFT JOIN packages p ON p.id = ps.package_id 
+            WHERE paid_amount !=0 and
+            tr.created >='" . $datrange['start'] . "' AND tr.created <='" . $datrange['end'] . "'");
+//            pr($packagecustomers);
+//            exit;
+            $clicked = true;
+            $this->set(compact('packagecustomers'));
+        }
+        $this->set(compact('clicked'));
+    }
+
+    
     function pexp_invoice() {
         
     }
