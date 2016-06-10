@@ -3,16 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/D:/xampee/htdocs/intranet/app/View/Reports/newcustomers.ctp</file>
             <file>file:/D:/xampee/htdocs/intranet/app/webroot/js/sum.js</file>
-            <file>file:/D:/xampee/htdocs/intranet/app/View/Customers/registration.ctp</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/View/Reports/invoice.ctp</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
             <file>file:/D:/xampee/htdocs/intranet/app/webroot/js/ticket.js</file>
             <file>file:/D:/xampee/htdocs/intranet/app/View/Tickets/create.ctp</file>
             <file>file:/D:/xampee/htdocs/intranet/app/Controller/ReportsController.php</file>
-=======
-            <file>file:/D:/Server/htdocs/intranet/app/View/Tickets/create.ctp</file>
->>>>>>> b1c50f58a0a0ff6c46e6b7ddbb0b368e64bf7c49
+            <file>file:/D:/xampee/htdocs/intranet/app/View/Reports/invoice_printqueue.ctp</file>
         </group>
     </open-files>
 </project-private>

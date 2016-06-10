@@ -666,7 +666,8 @@
                                                 <?php
                                                 echo $this->Form->input(
                                                         'exp_date', array(
-                                                    'class' => 'datepicker ',
+                                                    'class' => 'datepicker form-control ',
+                                                    'type' => 'text',
                                                         )
                                                 );
                                                 ?>
