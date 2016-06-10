@@ -197,6 +197,7 @@ echo $this->Html->script(
             'multipleImgUpload',
             'singleImgUpload',
             'ticket',
+            'toggle',
             'sum',
             'customerRegistration',
             
