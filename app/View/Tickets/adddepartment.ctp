@@ -16,7 +16,7 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-plus"></i>Add new Department
+                            <i class="fa fa-plus"></i>Add New Department
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="reload">
@@ -46,7 +46,7 @@
                             <?php echo $this->Session->flash(); ?>
                             
                             <div class="form-group">
-                                <label class="control-label col-md-3">Name of department:<span class="required">
+                                <label class="control-label col-md-3">  Department Name:<span class="required">
                                         * </span>
                                 </label>
                                 <div class="col-md-4">

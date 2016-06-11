@@ -16,7 +16,7 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-plus"></i>Edit message information
+                            <i class="fa fa-plus"></i>Edit Message Information
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="reload">
@@ -81,7 +81,7 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3">Message :
                                 </label>
-                                <div class="col-md-4">
+                                <div class="col-md-9">
                                     <?php
                                     echo $this->Form->input(
                                             'message', array(

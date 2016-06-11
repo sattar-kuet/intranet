@@ -18,10 +18,10 @@
                         <div class="caption">
                             <i class="fa fa-plus"></i>Add Message
                         </div>
-                        <div class="tools">
+<!--                        <div class="tools">
                             <a href="javascript:;" class="reload">
                             </a>
-                        </div>
+                        </div>-->
                     </div>
                     <div class="portlet-body form">
                         <!-- BEGIN FORM-->

@@ -162,22 +162,18 @@
 
                                         <td> 
                                             <div class="controls center text-center">
-
                                                 <a 
                                                     href="commentDiv<?php echo $results['customers']['id']; ?>" title="Comment" class="toggleDiv">
-
                                                     <span  class="fa fa-comment fa-lg "></span>
                                                 </a>
-
                                                 <a 
-                                                    onclick="if (confirm( & quot; Are you sure to approve this data? & quot; )) {
+                                                    onclick="if (confirm('Are you sure to approve this data?')) {
                                                                 return true;
                                                             }
                                                             return false;"
                                                     href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'approved', $results['customers']['id'])) ?>" title="Approve">
                                                     <span class="fa fa-check"></span>
                                                 </a>
-
                                                 <div id="commentDiv<?php echo $results['customers']['id']; ?>" class=" hideRest portlet-body form" style="display: none;">
                                                     <!-- BEGIN FORM-->
                                                     <?php

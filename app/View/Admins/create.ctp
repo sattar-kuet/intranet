@@ -16,12 +16,12 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-plus"></i>Add new Admin
+                            <i class="fa fa-plus"></i>Add New Admin
                         </div>
-                        <div class="tools">
+<!--                        <div class="tools">
                             <a href="javascript:;" class="reload">
                             </a>
-                        </div>
+                        </div>-->
                     </div>
                     <div class="portlet-body form">
                         <!-- BEGIN FORM-->

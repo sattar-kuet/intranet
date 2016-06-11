@@ -1,3 +1,4 @@
+
 <!-- BEGIN SIDEBAR -->
 <div class="page-sidebar-wrapper">   
     <div class="page-sidebar navbar-collapse collapse" style="width: 247px; margin-top: 11px; height: 100%;">
@@ -13,7 +14,7 @@
 
             <li 
             <?php
-            $technicians = array('TechniciansnewCustomer', 'TechniciansdoneCustomer','TechnicianspostPone','Techniciansreschedule','TechnicianscancelledCustomer');
+            $technicians = array('TechniciansnewCustomer', 'TechniciansdoneCustomer','TechnicianspostPone','TechniciansrecheduledCustomer','TechnicianscancelledCustomer','TechnicianspostponeView');
             if (in_array($this->name . '' . $this->action, $technicians)):
                 ?>
                     class="active"
@@ -53,7 +54,7 @@
                     </li>
                     
                       <li
-                    <?php if ($this->name . '' . $this->action == 'TechnicianspostPone'):
+                    <?php if ($this->name . '' . $this->action == 'TechnicianspostponeView'):
                         ?>
                             class="active"
                             <?php
@@ -95,3 +96,4 @@
         </ul>
     </div>
     <!-- END SIDEBAR -->
+

@@ -25,7 +25,7 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-ticket"></i>List of all tickets
+                            <i class="fa fa-ticket"></i>List of All Tickets
                         </div>
 
                         <div class="tools">

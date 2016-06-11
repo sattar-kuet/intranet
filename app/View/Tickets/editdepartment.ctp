@@ -46,7 +46,7 @@
                             <?php echo $this->Session->flash(); ?>
 
                             <div class="form-group">
-                                <label class="control-label col-md-3">Select Department
+                                <label class="control-label col-md-3">Select Department:
                                 </label>
                                 <div class="col-md-4">
                                     <?php
@@ -61,7 +61,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-3">Enter a new name:<span class="required">
+                                <label class="control-label col-md-3">Enter  New Name:<span class="required">
                                         * </span>
                                 </label>
                                 <div class="col-md-4">

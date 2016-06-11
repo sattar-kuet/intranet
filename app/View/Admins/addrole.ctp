@@ -16,12 +16,12 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-plus"></i>Add a new role
+                            <i class="fa fa-plus"></i>Add Role
                         </div>
-                        <div class="tools">
+<!--                        <div class="tools">
                             <a href="javascript:;" class="reload">
                             </a>
-                        </div>
+                        </div>-->
                     </div>
                     <div class="portlet-body form">
                         <!-- BEGIN FORM-->
@@ -47,7 +47,7 @@
 
                             
                             <div class="form-group">
-                                <label class="control-label col-md-3">Name of role:<span class="required">
+                                <label class="control-label col-md-3"> Role Name:<span class="required">
                                         * </span>
                                 </label>
                                 <div class="col-md-4">
