@@ -636,7 +636,7 @@
                         endif;
                         ?>
                         >
-                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'moving')) ?>">
+                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'cancelledbytech')) ?>">
                             <i class="fa icon-like"></i>
                             Canceled By Tech</a>
                     </li>
