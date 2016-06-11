@@ -556,13 +556,101 @@
                     </li>
                 </ul>
             </li> 
+            <li 
+            <?php
+            $services = array('Adminsassignedtotech', 'Customersmoving', 'Customersshipment', 'Customerstroubleshot_technician', 'Customerstroubleshot_shipment', 'Customerswire_problem', 'Customersremote_problem');
+            if (in_array($this->name . '' . $this->action, $services)):
+                ?>
+                    class="active"
+                    <?php
+                endif;
+                ?>
+                >
+                <a href="javascript:;">
+                    <i class="fa icon-users"></i>
+                    <span class="title">Work Status</span>
+                    <span class="arrow "></span>
+                </a>
 
+                <ul class="sub-menu">                 
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Adminsassignedtotech'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'assignedtotech')) ?>">
+                            <i class="fa icon-like"></i>
+                            Assigned To Tech</a>
+                    </li>
 
-            </li>
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Adminsdonebytech'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'donebytech')) ?>">
+
+                            <i class="fa fa-plane"></i>
+                            done by tech </a>
+                    </li>
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Adminspostponebytech'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'postponebytech')) ?>">
+                            <i class="fa icon-like"></i>
+                            Postpone by Tech</a>
+                    </li>
+
+                    <li
+
+                        <?php if ($this->name . '' . $this->action == 'Adminsrecheduledbytech'):
+                            ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+
+                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'recheduledbytech')) ?>">
+
+                            <i class="fa icon-like"></i>
+                           Rescheduled by Tech</a>
+                    </li>
+
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Adminscancelledbytech'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'moving')) ?>">
+                            <i class="fa icon-like"></i>
+                            Canceled By Tech</a>
+                    </li>
+
+                </ul>
+            </li> 
 
             <li 
             <?php
+
             $customerRequest = array('Customerscancelrequest', 'Customersholdrequest', 'Customersunholdrequest', 'CustomersreconnectionRequest');
+
+
+            $customerRequest = array('Customerscancelrequest', 'Customersholdrequest', 'Customersunholdrequest','CustomersreconnectionRequest');
 
             if (in_array($this->name . '' . $this->action, $customerRequest)):
                 ?>
@@ -571,7 +659,6 @@
                 endif;
                 ?>
                 >
-
                 <a href="javascript:;">
                     <i class="fa fa-envelope"></i>
                     <span class="title">Change Service</span>
