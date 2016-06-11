@@ -217,7 +217,6 @@
                                             </div>
                                             
                                             <div id="rechedueledDiv<?php echo $results['customers']['id']; ?>" class="hideRest controls center text-center" >
-
                                                 <div class="portlet-body form">
                                                     <!--BEGIN FORM-->
                                                     <?php

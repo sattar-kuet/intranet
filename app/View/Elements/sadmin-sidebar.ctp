@@ -558,7 +558,7 @@
             </li> 
             <li 
             <?php
-            $services = array('Adminsassignedtotech', 'Adminsdonebytech', 'Adminspostponebytech', 'Adminsrecheduledbytech', 'Adminscancelledbytech',);
+            $services = array('Adminsassignedtotech', 'Adminsdonebytech', 'Adminspostponebytech', 'Adminsrecheduledbytech', 'Adminscancelledbytech','Adminsdonebyadmin');
             if (in_array($this->name . '' . $this->action, $services)):
                 ?>
                     class="active"
@@ -636,11 +636,25 @@
                         endif;
                         ?>
                         >
-
                         <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'cancelledbytech')) ?>">
 
                             <i class="fa icon-like"></i>
                             Canceled By Tech</a>
+                    </li>
+                    
+                        <li
+                    <?php if ($this->name . '' . $this->action == 'Adminsdonebyadmin'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+
+                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'donebyadmin')) ?>">
+
+                            <i class="fa icon-like"></i>
+                            Done By Admin</a>
                     </li>
 
                 </ul>
