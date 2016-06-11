@@ -42,62 +42,6 @@ $(document).ready(function () {
 
 //end tracks dialog box design
 
-//start new customer dialog box
-
-    $(".post_pone").click(function (e) {
-        var id = $(this).attr('id');
-        var forwardForm = "#post_pone_dialog" + id;
-        $('#reschedule_dialog' + id).hide();
-        $('#cancel_dialog' + id).hide();
-        $(forwardForm).toggle();
-        e.preventDefault();
-    });
-
-    $(".reschedule").click(function (e) {
-        var id = $(this).attr('id');
-        var forwardForm = "#reschedule_dialog" + id;
-        $('#post_pone_dialog' + id).hide();
-        $('#cancel_dialog' + id).hide();
-        $(forwardForm).toggle();
-        e.preventDefault();
-    });
-   
-    $(".cancel").click(function (e) {
-        var id = $(this).attr('id');
-        var forwardForm = "#cancel_dialog" + id;
-        $('#post_pone_dialog' + id).hide();
-        $('#reschedule_dialog' + id).hide();
-        $(forwardForm).toggle();
-        e.preventDefault();
-    });
-
-
-
-    //end new customer dialog box
-
-
-    $(".done").click(function (e) {
-        var id = $(this).attr('id');
-        var forwardForm = "#done_dialog" + id;
-        $('#ready_dialog' + id).hide();
-        $(forwardForm).toggle();
-        e.preventDefault();
-    });
-
-    $(".ready").click(function (e) {
-        var id = $(this).attr('id');
-        var forwardForm = "#ready_dialog" + id;
-        $('#done_dialog' + id).hide();
-        $(forwardForm).toggle();
-        e.preventDefault();
-    });
-
-    $(".shedule").click(function (e) {
-        var id = $(this).attr('id');
-        var forwardForm = "#shedule_dialog" + id;
-        $(forwardForm).toggle();
-        e.preventDefault();
-    });
 
 
     //partial payment
@@ -111,11 +55,13 @@ $(document).ready(function () {
 
     $("#action_type").change(function () {
         var selected = $(this).val().trim();
+       // alert(selected);
         if (selected == '') {
             $('.assign_single').show();
             $('.assign_group').show();
             $('.priority .priority_input').addClass('required');
             $('.priority').show();
+            $('#shipmentshow_hide').hide();
         }
         if (selected == 'solved') {
             $('.assign_single').hide();
@@ -124,7 +70,7 @@ $(document).ready(function () {
             $('.priority').hide();
             $('#shipmentshow_hide').hide();
         }
-        else {
+        else if (selected == 'shipment'|| selected == 'ready'){
             $('.assign_single').hide();
             $('.assign_group').hide();
             $('.priority .priority_input').addClass('required');
@@ -132,6 +78,7 @@ $(document).ready(function () {
             $('#shipmentshow_hide').show();
         }
     });
+
 
 
 
@@ -154,18 +101,17 @@ $(document).ready(function () {
             $('#action').show();
             $('#new_addr').hide();
         }
-
-
     });
-
-
-
 
 
     $('.issueChange').change(function () {
         var selected = $('.issueChange option:selected').text().toLowerCase();
         //alert(selected);
         var box = "2nd box";
+        var twbox = "3rd box";
+        var twthbox = "2nd & 3rd box";
+        var thbox = "3rd & 4th box";
+        var fobox = "4th box";
         var canceled = "cancel";
         var holded = "hold";
         var unholded = "unhold";
@@ -181,7 +127,7 @@ $(document).ready(function () {
             $('#new_addr').hide();
         }
         else if (selected.trim() == "remote problem") {
-            $('#action').hide();
+            //$('#action').hide();
             $('#new_addr').hide();
         }
         else {
@@ -197,6 +143,7 @@ $(document).ready(function () {
             $('#unhold').hide();
             $('#reconnect').hide();
             $('#action').hide();
+            $('#equepment').hide();
         }
         else if (selected.indexOf(holded) != -1 && selected.indexOf(unholded) == -1) {
             $('#check_mac').show();
@@ -206,8 +153,9 @@ $(document).ready(function () {
             $('#canceldate').hide();
             $('#pickup_date').hide();
             $('#action').hide();
+            $('#equepment').hide();
         }
-        else if (selected.indexOf(unholded) != -1) {
+        else if (selected.indexOf(unholded) !=-1) {
             $('#check_mac').show();
             $('#unhold').show();
             $('#hold').hide();
@@ -215,8 +163,9 @@ $(document).ready(function () {
             $('#canceldate').hide();
             $('#pickup_date').hide();
             $('#action').hide();
+            $('#equepment').hide();
         }
-        else if (selected.indexOf(recono) != -1) {
+        else if (selected.indexOf(recono) !=-1) {
             $('#check_mac').show();
             $('#reconnect').show();
             $('#hold').hide();
@@ -224,8 +173,9 @@ $(document).ready(function () {
             $('#canceldate').hide();
             $('#pickup_date').hide();
             $('#action').hide();
+            $('#equepment').hide();
         }
-        else if (selected.indexOf(box) != -1) {
+        else if (selected.indexOf(box)!= -1 || selected.indexOf(twbox)!= -1 || selected.indexOf(thbox)!= -1 || selected.indexOf(fobox)!= -1 || selected.indexOf(twthbox)!= -1 ) {
             $('#equepment').show();
         }
 
@@ -236,9 +186,9 @@ $(document).ready(function () {
             $('#reconnect').hide();
             $('#canceldate').hide();
             $('#pickup_date').hide();
-
             //$('#action').show();
             $('#equepment').hide();
+
         }
 
     });

@@ -13,7 +13,7 @@
 
             <li 
             <?php
-            $technicians = array('TechniciansnewCustomer', 'TechniciansactiveCustomer','TechnicianspostPone','Techniciansreschedule','Technicianscancel');
+            $technicians = array('TechniciansnewCustomer', 'TechniciansdoneCustomer','TechnicianspostPone','Techniciansreschedule','TechnicianscancelledCustomer');
             if (in_array($this->name . '' . $this->action, $technicians)):
                 ?>
                     class="active"
@@ -47,7 +47,7 @@
                         endif;
                         ?>
                         >
-                        <a href="<?php echo Router::url(array('controller' => 'technicians', 'action' => 'activeCustomer')) ?>">
+                        <a href="<?php echo Router::url(array('controller' => 'technicians', 'action' => 'doneCustomer')) ?>">
                             <i class="fa fa-pencil"></i>
                             Done</a>
                     </li>
@@ -66,14 +66,14 @@
                     </li>
                     
                       <li
-                    <?php if ($this->name . '' . $this->action == 'Techniciansreschedule'):
+                    <?php if ($this->name . '' . $this->action == 'TechniciansrecheduledCustomer'):
                         ?>
                             class="active"
                             <?php
                         endif;
                         ?>
                         >
-                        <a href="<?php echo Router::url(array('controller' => 'technicians', 'action' => 'reschedule')) ?>">
+                        <a href="<?php echo Router::url(array('controller' => 'technicians', 'action' => 'recheduledCustomer')) ?>">
                             <i class="fa fa-pencil"></i>
                             Reschedule</a>
                     </li>
@@ -86,8 +86,8 @@
                         endif;
                         ?>
                         >
-                        <a href="<?php echo Router::url(array('controller' => 'technicians', 'action' => 'cancel')) ?>">
-                            <i class="fa fa-pencil"></i>
+                        <a href="<?php echo Router::url(array('controller' => 'technicians', 'action' => 'cancelledCustomer')) ?>">
+                            <i class="fa fa-times"></i>
                             Cancel</a>
                     </li>
                 </ul>

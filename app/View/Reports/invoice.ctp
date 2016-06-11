@@ -53,9 +53,18 @@
                             <ul class="list-unstyled" style="text-align: left; padding: 45px 0px 0px 13px;">                                    
                                 <li style="color: #555; border-left: #990000 7px  solid;">
                                     <?php
+                                   
+                                    
                                     foreach ($transactions as $single):
+                                         $pcaddress = $single['pc'];
+                                       
+                                        $customer_address = $pcaddress['house_no'] . ' ' . $pcaddress['street'] . ' ' .
+                                            $pcaddress['apartment'] . ' ' . $pcaddress['city'] . ' ' . $pcaddress['state'] . ' '
+                                            . $pcaddress['zip'];
+                                        
                                         ?>
-                                        &nbsp; INVOICE TO:   <?php echo $single['0']['name']; ?>
+                                    &nbsp; INVOICE TO:   <b><?php echo $single['0']['name']; ?></b><br>
+                                    &nbsp; Address : <i><b><?php echo $customer_address; ?></b></i>
                                         <?php
                                     endforeach
                                     ?>

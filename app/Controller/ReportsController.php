@@ -62,13 +62,15 @@ class ReportsController extends AppController {
         $this->loadModel('Transaction');
         $this->Transaction->id = $id;
         $transactions = $this->Transaction->query("SELECT tr.id, tr.package_customer_id, 
-            CONCAT( first_name,  ' ', middle_name,  ' ', last_name ) AS name, pc.psetting_id, pc.mac, ps.name, p.name, ps.amount, ps.duration
+            CONCAT( first_name,  ' ', middle_name,  ' ', last_name ) AS name, pc.psetting_id, pc.mac,pc.house_no,
+            pc.street,pc.apartment,pc.city,pc.state,pc.zip, ps.name, p.name, ps.amount, ps.duration
                 FROM transactions tr
                 LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id
                 LEFT JOIN psettings ps ON ps.id = pc.psetting_id
                 LEFT JOIN packages p ON p.id = ps.package_id
                 WHERE tr.id = $id
                 ");
+//        pr($transactions); exit;
         $mac = count(json_decode($transactions['0']['pc']['mac']));
         $transactions[0]['pc']['mac'] = $mac;
         $this->set(compact('transactions'));
