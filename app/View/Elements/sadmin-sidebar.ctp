@@ -116,7 +116,7 @@
 
             <li 
             <?php
-            $tickets = array('Ticketscreate', 'Ticketsmanage', 'TicketsAssigned_to_me', 'TicketsForwarded_by', 'Ticketssolved_ticket');
+            $tickets = array('Ticketscreate', 'Ticketsmanage', 'TicketsAssigned_to_me', 'TicketsForwarded_by', 'Ticketssolved_ticket','Ticketsin_progress');
             if (in_array($this->name . '' . $this->action, $tickets)):
                 ?>
                     class="active"
@@ -179,6 +179,18 @@
                         <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'Forwarded_by')) ?>">
                             <i class="fa icon-control-rewind"></i>
                             Forwarded by</a>
+                    </li>
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'in_progress'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'in_progress ')) ?>">
+                            <i class="fa fa-fast-forward"></i>
+                           In Progress  </a>
                     </li>
                     <li
                     <?php if ($this->name . '' . $this->action == 'solved_ticket'):

@@ -94,7 +94,7 @@ $(document).ready(function () {
             $('#new_addr').hide();
         }
         else if (selected.trim() == "remote problem") {
-            $('#action').hide();
+            $('#action').show();
             $('#new_addr').hide();
         }
         else {

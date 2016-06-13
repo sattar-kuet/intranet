@@ -73,8 +73,8 @@
                             <tbody>
                                 <?php
                                 foreach ($filteredData as $results):
-                                    //   pr($results);
-                                    //        exit;
+//                                       pr($results);
+//                                            exit;
                                     $customer = $results['customers'];
 
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .

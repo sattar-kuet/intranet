@@ -78,7 +78,6 @@
                             <i class="fa fa-pencil"></i>
                             Reschedule</a>
                     </li>
-                    
                       <li
                     <?php if ($this->name . '' . $this->action == 'Technicianscancel'):
                         ?>

@@ -974,12 +974,15 @@ class AdminsController extends AppController {
     function approved($id = null) {
         $this->loadModel('PackageCustomer');
         $this->PackageCustomer->id = $id;
+        $loggedUser = $this->Auth->user();
+      
         $this->PackageCustomer->saveField("approved", "1");
+        $this->PackageCustomer->saveField("user_id", $loggedUser['id']);
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
 	<strong>Succeesfully approved </strong></div>';
         $this->Session->setFlash($msg);
-        return $this->redirect('postponebytech');
+        return $this->redirect($this->referer());
     }
 
 }
