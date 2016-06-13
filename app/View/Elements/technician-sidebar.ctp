@@ -14,7 +14,7 @@
 
             <li 
             <?php
-            $technicians = array('TechniciansnewCustomer', 'TechniciansdoneCustomer','TechnicianspostPone','TechniciansrecheduledCustomer','TechnicianscancelledCustomer','TechnicianspostponeView','Ticketsin_progress');
+            $technicians = array('TechniciansnewCustomer', 'TechniciansdoneCustomer','TechnicianspostPone','TechniciansrecheduledCustomer','TechnicianscancelledCustomer','TechnicianspostponeView');
             if (in_array($this->name . '' . $this->action, $technicians)):
                 ?>
                     class="active"
@@ -78,19 +78,6 @@
                             <i class="fa fa-pencil"></i>
                             Reschedule</a>
                     </li>
-                    <li
-                    <?php if ($this->name . '' . $this->action == 'in_progress'):
-                        ?>
-                            class="active"
-                            <?php
-                        endif;
-                        ?>
-                        >
-                        <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'in_progress ')) ?>">
-                            <i class="fa glyphicon glyphicon-check"></i>
-                           In Progress  </a>
-                    </li>
-                    
                       <li
                     <?php if ($this->name . '' . $this->action == 'Technicianscancel'):
                         ?>

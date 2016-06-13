@@ -189,7 +189,7 @@
                         ?>
                         >
                         <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'in_progress ')) ?>">
-                            <i class="fa glyphicon glyphicon-check"></i>
+                            <i class="fa fa-fast-forward"></i>
                            In Progress  </a>
                     </li>
                     <li
