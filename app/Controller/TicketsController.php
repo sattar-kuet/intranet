@@ -125,6 +125,14 @@ class TicketsController extends AppController {
 
                 if (trim($this->request->data['Ticket']['issue_id']) == 20 || trim($this->request->data['Ticket']['issue_id']) == 28) {
                     $this->updateCustomer('Request to cancel', $customer_id);
+                    if (!array_key_exists('mac',$this->request->data)) {
+                        $msg = '<div class="alert alert-danger">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong> No mac was selected !</strong>
+			</div>';
+                        $this->Session->setFlash($msg);
+                        return $this->redirect($this->referer());
+                    }
                     $mac = json_encode($this->request->data['mac']);
                     $data = array(
                         'cancel_mac' => $mac,
@@ -590,8 +598,8 @@ class TicketsController extends AppController {
             }
         }
     }
-    
-   function  in_progress() {
+
+    function in_progress() {
         $this->loadModel('Track');
         $this->loadModel('User');
         $this->loadModel('Role');
