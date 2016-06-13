@@ -11,7 +11,7 @@
     <div class="page-content">
         <!-- BEGIN PAGE HEADER-->
         <h3 class="page-title">
-           Cancel Request <small></small>
+            Cancel Request <small></small>
         </h3>
 
         <!-- END PAGE HEADER-->
@@ -175,18 +175,38 @@
                                                                     ?>
                                                                 </div>
                                                             </div>
-                                                        </div>                                               
-                                                    </div>
-                                                    <div class="form-group">                               
-                                                        <div class="col-md-4">
-                                                            <?php
-                                                            echo $this->Form->input(
-                                                                    'daterange', array(
-                                                                'class' => 'span9 text required e3'
-                                                            ));
-                                                            ?>
-                                                        </div>
-                                                    </div>
+                                                        </div> 
+
+                                                         <div class="form-group">                               
+                                                            <div class="col-md-12">
+                                                                <?php
+                                                                echo $this->Form->input(
+                                                                        'schedule_date', array(
+                                                                    'type' => 'text',
+                                                                    'placeholder' => 'Select date',
+                                                                    'class' => "datepicker form-control",
+                                                                    'title' => 'Click & select date'
+                                                                ));
+                                                                ?>
+                                                            </div>
+                                                        </div> 
+                                                        <div class="form-group">                               
+                                                            <div class="col-md-12">
+                                                                <?php
+                                                                echo $this->Form->input(
+                                                                        'seTime', array(
+                                                                    'type' => 'text',
+                                                                    'class' => 'form-control',
+                                                                    'placeholder' => 'Write time range',
+                                                                    'title' => 'Write time range'
+                                                                        )
+                                                                );
+                                                                ?> 
+
+                                                            </div>
+                                                        </div> 
+
+                                                    </div> 
                                                     <div class="form-actions">
                                                         <div class="row">
                                                             <div class="col-md-offset-7 col-md-4">
