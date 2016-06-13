@@ -68,6 +68,9 @@
                                       Assigned to
                                     </th>
                                     <th>
+                                      Deadline
+                                    </th>
+                                    <th>
                                         Action
                                     </th>
                                 </tr>
@@ -75,8 +78,8 @@
                             <tbody>
                                 <?php
                                 foreach ($filteredData as $results):
-                                    //   pr($results);
-                                    //        exit;
+//                                       pr($results['customers']['schedule_date'] );
+//                                            exit;
                                     $customer = $results['customers'];
 
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
@@ -159,6 +162,11 @@
                                             </ul>
 
                                         </td>
+                                        <td>
+                                          
+                                     <?php echo $results['customers']['schedule_date']; ?> 
+                                             
+                                        </td>
 
                                         <td> 
                                             <div class="controls center text-center">
@@ -177,10 +185,10 @@
                                                     echo $this->Form->create('Comment', array(
                                                         'inputDefaults' => array(
                                                             'label' => false,
-                                                            'div' => false
+                                                            'div' => false,
+                                                            'id' => false
                                                         ),
-                                                        'id' => 'form_sample_3',
-                                                        'class' => 'form-horizontal',
+                                                        'class' => 'form-horizontal normalForm',
                                                         'novalidate' => 'novalidate',
                                                         'url' => array('controller' => 'technicians', 'action' => 'comment')
                                                             )

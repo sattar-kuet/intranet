@@ -188,6 +188,7 @@
                                         <th class="hidden-480" style="background-color: silver">
                                             PRICE
                                         </th>
+                                        
                                         <th class="hidden-480" style="background-color:whitesmoke; text-align: center;">
                                             SUBSCRIPION
                                         </th>
@@ -198,12 +199,15 @@
                                         <th class="hidden-480  center text-center">
                                             Action
                                         </th>
-
                                     </tr>
                                 </thead>
                                 <tbody>                                    
                                     <?php
-                                    foreach ($packagecustomers as $single):
+                                   
+                                    foreach (
+                                    
+                                            
+                                            $packagecustomers as $single):
                                         ?>
                                         <tr>
                                             <td  style=" text-align: center; background-color:#990000; font-size: 19px; font-weight: bold; color: white; width: 101px;">
@@ -221,9 +225,10 @@
                                             <td style="background-color: silver; text-align: center;">
                                                 <?php echo count(json_decode($single['pc']['mac'])); ?> 
                                             </td>
-                                            <td style="background-color: silver">
+                                             <td style="background-color: silver">
                                                 $ <?php echo $single['ps']['amount']; ?>.00
                                             </td>
+                                           
                                             <td style="background-color:whitesmoke; text-align: center;">
                                                 <?php echo $single['ps']['duration']; ?>
                                             </td>

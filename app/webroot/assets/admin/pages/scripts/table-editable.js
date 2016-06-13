@@ -59,7 +59,7 @@ var TableEditable = function () {
                 [5, 15, 20, "All"] // change per page values here
             ],
             // set the initial value
-            "pageLength": 10,
+            "pageLength": 10000,
             "language": {
                 "lengthMenu": " _MENU_ records"
             },
