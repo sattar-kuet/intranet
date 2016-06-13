@@ -260,48 +260,35 @@
                                                                 </div>
                                                             </div>
                                                         </div>  
-                                                        <div class="form-group">                               
-                                                            <div class="col-md-8">
-                                                                <div class="input-group">
-
-                                                                    <?php
-                                                                    echo $this->Form->input(
-                                                                            'sTime', array(
-                                                                        'class' => 'form-control timepicker timepicker-no-seconds required',
-                                                                        'type' => 'text'
-                                                                            )
-                                                                    );
-                                                                    ?>
-                                                                    <span class="input-group-btn">
-                                                                        <button  class="btn default"  style="height: 34px;" type="button"><i class="fa fa-clock-o"></i></button>
-                                                                    </span>
-                                                                    <?php
-                                                                    echo $this->Form->input(
-                                                                            'eTime', array(
-                                                                        'class' => 'form-control timepicker timepicker-no-seconds required',
-                                                                        'type' => 'text'
-                                                                            )
-                                                                    );
-                                                                    ?>
-                                                                    <span class="input-group-btn">
-                                                                        <button  class="btn default"  style="height: 34px;" type="button"><i class="fa fa-clock-o"></i></button>
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="form-group">                               
-                                                            <div class="col-md-5">
+                                                        
+                                                         <div class="form-group">                               
+                                                            <div class="col-md-12">
                                                                 <?php
                                                                 echo $this->Form->input(
                                                                         'schedule_date', array(
                                                                     'type' => 'text',
-                                                                    'placeholder' => 'Click & select date',
-                                                                    'class' => "datepicker form-control"
+                                                                    'placeholder' => 'Select date',
+                                                                    'class' => "datepicker form-control",
+                                                                    'title' => 'Click & select date'
                                                                 ));
                                                                 ?>
                                                             </div>
                                                         </div> 
+                                                        <div class="form-group">                               
+                                                            <div class="col-md-12">
+                                                                <?php
+                                                                echo $this->Form->input(
+                                                                        'seTime', array(
+                                                                    'type' => 'text',
+                                                                    'class' => 'form-control',
+                                                                    'placeholder' => 'Write time range',
+                                                                    'title' => 'Write time range'
+                                                                        )
+                                                                );
+                                                                ?> 
+
+                                                            </div>
+                                                        </div>
                                                     </div>
 
                                                     <div class="form-actions">

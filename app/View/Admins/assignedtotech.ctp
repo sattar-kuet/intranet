@@ -68,6 +68,9 @@
                                       Assigned to
                                     </th>
                                     <th>
+                                      Deadline
+                                    </th>
+                                    <th>
                                         Action
                                     </th>
                                 </tr>
@@ -75,8 +78,8 @@
                             <tbody>
                                 <?php
                                 foreach ($filteredData as $results):
-                                    //   pr($results);
-                                    //        exit;
+//                                       pr($results['customers']['schedule_date'] );
+//                                            exit;
                                     $customer = $results['customers'];
 
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
@@ -158,6 +161,11 @@
                                                 <li > <?php echo $results['tech']['email']; ?> </li> 
                                             </ul>
 
+                                        </td>
+                                        <td>
+                                          
+                                     <?php echo $results['customers']['schedule_date']; ?> 
+                                             
                                         </td>
 
                                         <td> 
