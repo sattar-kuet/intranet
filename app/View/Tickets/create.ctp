@@ -67,7 +67,7 @@
                                 </div>
                             </div>
                                 <div class="form-group display-hide" id="equepment">
-                                <label class="control-label col-md-1">SD:<span class="required">
+                                <label class="control-label col-md-1">SD:<span class="">
                                     </span>
                                 </label>
                                 <div class="col-md-2">
@@ -80,7 +80,7 @@
                                     );
                                     ?>
                                 </div>
-                                <label class="control-label col-md-1">MB:<span class="required">
+                                <label class="control-label col-md-1">MB:<span class="">
                                     </span>
                                 </label>
                                 <div class="col-md-2">
@@ -95,7 +95,7 @@
                                 </div>
 
 
-                                <label class="control-label col-md-1">Equipment:<span class="required">
+                                <label class="control-label col-md-1">Equipment:<span class="">
                                     </span>
                                 </label>
                                 <div class="col-md-2">
@@ -108,7 +108,7 @@
                                     );
                                     ?>
                                 </div>
-                                <label class="control-label col-md-1">Total:<span class="required">
+                                <label class="control-label col-md-1">Total:<span class="">
                                     </span>
                                 </label>
                                 <div class="col-md-2">
@@ -133,7 +133,7 @@
                                 </div>
                             </div>
                             <div class="form-group display-hide" id="hold">
-                                <label class="control-label col-md-3">Hold Date<span class="required">
+                                <label class="control-label col-md-3">Hold Date<span class="">
                                         * </span>
                                 </label>
                                 <div class="form-group">
@@ -149,7 +149,7 @@
                                 </div>
                             </div>
                             <div class="form-group display-hide" id="canceldate">
-                                <label class="control-label col-md-3">Cancel Date<span class="required">
+                                <label class="control-label col-md-3">Cancel Date<span class="">
                                         * </span>
                                 </label>
                                 <div class="form-group">
@@ -165,7 +165,7 @@
                                 </div>
                             </div>
                             <div class="form-group display-hide" id="pickup_date">
-                                <label class="control-label col-md-3">Expected Pickup Date<span class="required">
+                                <label class="control-label col-md-3">Expected Pickup Date<span class="">
                                         * </span>
                                 </label>
                                 <div class="form-group">
@@ -181,7 +181,7 @@
                                 </div>
                             </div>
                             <div class="form-group display-hide" id="unhold">
-                                <label class="control-label col-md-3">Unhold Date<span class="required">
+                                <label class="control-label col-md-3">Unhold Date<span class="">
                                         * </span>
                                 </label>
                                 <div class="form-group">
@@ -198,7 +198,7 @@
                                 </div>
                             </div>
                             <div class="form-group display-hide"id="reconnect">
-                                <label class="control-label col-md-3">Reconnect Date<span class="required">
+                                <label class="control-label col-md-3">Reconnect Date<span class="">
                                         * </span>
                                 </label>
                                 <div class="form-group">
@@ -255,7 +255,7 @@
 
                             <div id="shipmentshow_hide" style="display: none" class="alert alert-success">
                                 <div class="form-group">
-                                    <label class="control-label col-md-2">Select Equipment to be sent<span class="required">
+                                    <label class="control-label col-md-2">Select Equipment to be sent<span class="">
                                         </span>
                                     </label>
                                     <div class="col-md-2">
@@ -288,7 +288,7 @@
                                     </div>
 
                                     <div class="display-hide" id="other_shipment_equipment">
-                                        <label class="control-label col-md-2">Type Equipment Here<span class="required">
+                                        <label class="control-label col-md-2">Type Equipment Here<span class="">
                                             </span>
                                         </label>
                                         <div class="col-md-2">
@@ -303,7 +303,7 @@
                                         </div>
 
                                     </div>
-                                    <label class="control-label col-md-2">Number of equipment<span class="required">
+                                    <label class="control-label col-md-2">Number of equipment<span class="">
                                         </span>
                                     </label>
                                     <div class="col-md-2">
@@ -313,13 +313,13 @@
                                             'options' => array('1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7',
                                                 '9' => '9', '10' => '10', '11' => '11', '12' => '12', '13' => '13', '14' => '14', '15' => '15'),
                                             'empty' => 'Select here',
-                                            'class' => 'form-control select2me required priority_input',
+                                            'class' => 'form-control select2me  priority_input',
                                                 )
                                         );
                                         ?>
                                     </div>
 
-                                    <label class="control-label col-md-2">Additional Note<span class="required">
+                                    <label class="control-label col-md-2">Additional Note<span class="">
                                         </span>
                                     </label>
                                     <div class="col-md-2">

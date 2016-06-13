@@ -56,17 +56,16 @@ class TicketsController extends AppController {
                     $this->Session->setFlash($msg);
                     return $this->redirect($this->referer());
                 }
-               
+
                 $this->PackageCustomer->id = $customer_id;
 //                pr($this->request->data['Ticket']['remote_no']); exit;
-                
+
                 $data['PackageCustomer'] = array(
                     "deposit" => $this->request->data['Ticket']['deposit'],
                     "monthly_bill" => $this->request->data['Ticket']['monthly_bill'],
                     "others" => $this->request->data['Ticket']['others'],
                     "total" => $this->request->data['Ticket']['total'],
-                     "remote_no" => $this->request->data['Ticket']['remote_no'],
-                    
+                    "remote_no" => $this->request->data['Ticket']['remote_no'],
                     "issue_id" => $this->request->data['Ticket']['issue_id'],
                     "comments" => $this->request->data['Ticket']['content'],
                     "user_id" => $loggedUser['id']
@@ -98,9 +97,9 @@ class TicketsController extends AppController {
                         'hold_date' => $this->request->data['Ticket']['hold_date']
                     );
 //                    pr($data); exit;
-                     $this->PackageCustomer->save($data);
+                    $this->PackageCustomer->save($data);
                 }
-                
+
                 if (trim($this->request->data['Ticket']['issue_id']) == 36) {
                     $this->updateCustomer('Request to reconnection', $customer_id);
                     $mac = json_encode($this->request->data['mac']);
@@ -110,10 +109,10 @@ class TicketsController extends AppController {
                     );
 //                    pr($data);
 //                    exit;
-                    
+
                     $this->PackageCustomer->save($data);
                 }
-                
+
                 if (trim($this->request->data['Ticket']['issue_id']) == 24 || trim($this->request->data['Ticket']['issue_id']) == 31) {
                     $this->updateCustomer('Request to unhold', $customer_id);
                     $mac = json_encode($this->request->data['mac']);
