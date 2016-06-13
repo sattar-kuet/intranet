@@ -177,10 +177,10 @@
                                                     echo $this->Form->create('Comment', array(
                                                         'inputDefaults' => array(
                                                             'label' => false,
-                                                            'div' => false
+                                                            'div' => false,
+                                                            'id' => false
                                                         ),
-                                                        'id' => 'form_sample_3',
-                                                        'class' => 'form-horizontal',
+                                                        'class' => 'form-horizontal normalForm',
                                                         'novalidate' => 'novalidate',
                                                         'url' => array('controller' => 'technicians', 'action' => 'comment')
                                                             )
