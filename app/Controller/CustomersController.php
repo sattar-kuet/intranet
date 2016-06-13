@@ -578,6 +578,7 @@ class CustomersController extends AppController {
         $loggedUser = $this->Auth->user();
         $this->request->data['PackageCustomer']['user_id'] = $loggedUser['id'];
         $this->request->data['PackageCustomer']['status'] = 'Scheduled';
+//        pr($this->request->data); exit;
         $this->PackageCustomer->save($this->request->data);
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
