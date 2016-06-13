@@ -57,7 +57,7 @@ class TicketsController extends AppController {
                     return $this->redirect($this->referer());
                 }
 
-                $this->PackageCustomer->id = $customer_id;
+                $this->PackageCustomer->id = $customer_id;                
 //                pr($this->request->data['Ticket']['remote_no']); exit;
 
                 $data['PackageCustomer'] = array(
@@ -70,11 +70,14 @@ class TicketsController extends AppController {
                     "comments" => $this->request->data['Ticket']['content'],
                     "user_id" => $loggedUser['id']
                 );
+                
+              
 //                 pr($data); exit;
                 $this->PackageCustomer->save($data);
                 if (trim($this->request->data['Ticket']['action_type']) == 'solved') {
                     $this->request->data['Ticket']['priority'] = 'low';
                 }
+                 
                 $tickect = $this->Ticket->save($this->request->data['Ticket']); // Data save in Ticket
 
                 $trackData['Track'] = array(
@@ -162,6 +165,7 @@ class TicketsController extends AppController {
                         'shipment_note' => $this->request->data['Ticket']['shipment_note']
                     );
                     $this->PackageCustomer->id = $customer_id;
+                     pr($this->request->data); exit;
                     $this->PackageCustomer->save($data['PackageCustomer']);
                     //$log = $this->PackageCustomer->getDataSource()->getLog(false, false);
                 }

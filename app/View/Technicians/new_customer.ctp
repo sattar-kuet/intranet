@@ -282,7 +282,7 @@
                                                                     echo $this->Form->input('content', array(
                                                                         'type' => 'textarea',
                                                                         'class' => 'form-control required txtArea',
-                                                                        'placeholder' => 'Write your comments for post pone'
+                                                                        'placeholder' => 'Write your comments here'
                                                                             )
                                                                     );
                                                                     ?>
