@@ -68,6 +68,7 @@
                                 <?php
                                 foreach ($filteredData as $results):
                                     $customer = $results['customers'];
+//                                    pr($customer['shipment_equipment']); exit;
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
                                             . $customer['zip'];

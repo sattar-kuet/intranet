@@ -521,6 +521,7 @@
                                     ?>
                                 </div>
                             </div>
+                            <br>
                             <div class="form-group">
                                     <label class="control-label col-md-2">Select Equipment to be sent<span class="required">
                                         </span>
@@ -567,7 +568,7 @@
                                             ?>
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <?php
                                         echo $this->Form->input(
                                                 'shipment_note', array(
@@ -581,7 +582,7 @@
                                     <label class="control-label col-md-2"><span class="required">
                                         </span>
                                     </label>
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <?php
                                         echo $this->Form->input(
                                                 'attachment', array(
