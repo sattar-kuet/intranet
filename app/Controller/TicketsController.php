@@ -56,26 +56,28 @@ class TicketsController extends AppController {
                     $this->Session->setFlash($msg);
                     return $this->redirect($this->referer());
                 }
-               
+
                 $this->PackageCustomer->id = $customer_id;
-//                pr($this->request->data['Ticket']['remote_no']); exit;
-                
+//                pr($this->request->data); exit;
+
                 $data['PackageCustomer'] = array(
                     "deposit" => $this->request->data['Ticket']['deposit'],
                     "monthly_bill" => $this->request->data['Ticket']['monthly_bill'],
                     "others" => $this->request->data['Ticket']['others'],
                     "total" => $this->request->data['Ticket']['total'],
-                     "remote_no" => $this->request->data['Ticket']['remote_no'],
-                    
+                    "remote_no" => $this->request->data['Ticket']['remote_no'],
                     "issue_id" => $this->request->data['Ticket']['issue_id'],
                     "comments" => $this->request->data['Ticket']['content'],
                     "user_id" => $loggedUser['id']
                 );
+
+
 //                 pr($data); exit;
                 $this->PackageCustomer->save($data);
                 if (trim($this->request->data['Ticket']['action_type']) == 'solved') {
                     $this->request->data['Ticket']['priority'] = 'low';
                 }
+
                 $tickect = $this->Ticket->save($this->request->data['Ticket']); // Data save in Ticket
 
                 $trackData['Track'] = array(
@@ -98,9 +100,9 @@ class TicketsController extends AppController {
                         'hold_date' => $this->request->data['Ticket']['hold_date']
                     );
 //                    pr($data); exit;
-                     $this->PackageCustomer->save($data);
+                    $this->PackageCustomer->save($data);
                 }
-                
+
                 if (trim($this->request->data['Ticket']['issue_id']) == 36) {
                     $this->updateCustomer('Request to reconnection', $customer_id);
                     $mac = json_encode($this->request->data['mac']);
@@ -110,10 +112,10 @@ class TicketsController extends AppController {
                     );
 //                    pr($data);
 //                    exit;
-                    
+
                     $this->PackageCustomer->save($data);
                 }
-                
+
                 if (trim($this->request->data['Ticket']['issue_id']) == 24 || trim($this->request->data['Ticket']['issue_id']) == 31) {
                     $this->updateCustomer('Request to unhold', $customer_id);
                     $mac = json_encode($this->request->data['mac']);
@@ -126,6 +128,14 @@ class TicketsController extends AppController {
 
                 if (trim($this->request->data['Ticket']['issue_id']) == 20 || trim($this->request->data['Ticket']['issue_id']) == 28) {
                     $this->updateCustomer('Request to cancel', $customer_id);
+                    if (!array_key_exists('mac',$this->request->data)) {
+                        $msg = '<div class="alert alert-danger">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong> No mac was selected !</strong>
+			</div>';
+                        $this->Session->setFlash($msg);
+                        return $this->redirect($this->referer());
+                    }
                     $mac = json_encode($this->request->data['mac']);
                     $data = array(
                         'cancel_mac' => $mac,
@@ -155,6 +165,18 @@ class TicketsController extends AppController {
                         'shipment_note' => $this->request->data['Ticket']['shipment_note']
                     );
                     $this->PackageCustomer->id = $customer_id;
+//                     pr($this->request->data); exit;
+                    if (empty($this->request->data['Ticket']['shipment_equipment'])) {
+                        $data['PackageCustomer'] = array(
+                            'shipment_equipment' => ''
+                        );
+                    }
+                    if (empty($this->request->data['Ticket']['shipment_note'])) {
+                        $data['PackageCustomer'] = array(
+                            'shipment_note' => ''
+                        );
+                    }
+
                     $this->PackageCustomer->save($data['PackageCustomer']);
                     //$log = $this->PackageCustomer->getDataSource()->getLog(false, false);
                 }
@@ -591,8 +613,8 @@ class TicketsController extends AppController {
             }
         }
     }
-    
-   function  in_progress() {
+
+    function in_progress() {
         $this->loadModel('Track');
         $this->loadModel('User');
         $this->loadModel('Role');
