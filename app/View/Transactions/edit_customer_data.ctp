@@ -579,7 +579,7 @@
                                     </div>
 
                                     <div class="col-md-2 signupfont status-date">
-<!--                                       Active Date:-->
+                                        <!--                                       Active Date:-->
                                     </div>
                                     <div class="col-md-4">
                                         <div class="input-list style-4 clearfix">
@@ -657,13 +657,12 @@
                                             </div>                            
                                         </div>
                                     </div>
-                                        <div class="col-md-2 signupfont">
+                                    <div class="col-md-2 signupfont">
                                         Next Payment Date:
 
                                     </div>
                                     <div class="col-md-2">
                                         <div class="input-list style-4 clearfix">
-                                            <div>
                                                 <?php
                                                 echo $this->Form->input(
                                                         'exp_date', array(
@@ -673,7 +672,6 @@
                                                 );
                                                 ?>
 
-                                            </div>                            
                                         </div>
                                     </div>
                                 </div>
@@ -700,7 +698,7 @@
 
                         </div>
                     </div>
-                <!-- -------------Begin card info update--------------------------->
+                    <!-- -------------Begin card info update--------------------------->
 
                     <div class="portlet box lightseagreen" style="background-color:  lightseagreen; border: lightseagreen solid 2px;">
                         <div class="portlet-title">
@@ -851,7 +849,7 @@
                     </div>
                     <!-------------------------------------END CARD INFO UPDATE---------------------->
 
-                        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                    <!-- BEGIN EXAMPLE TABLE PORTLET-->
                     <div class="portlet box  blue-dark" style="background-color: blue-dark; border: blue-dark solid 2px;">
                         <div class="portlet-title">
                             <div class="caption">
