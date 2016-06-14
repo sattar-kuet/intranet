@@ -339,6 +339,7 @@ class PaymentsController extends AppController {
     public function individual_transaction_by_check() {
         $this->loadModel('Transaction');
         $loggedUser = $this->Auth->user();
+      
         $cid = $this->request->data['Transaction']['cid'];
         $this->request->data['Transaction']['package_customer_id'] = $cid;
         $this->request->data['Transaction']['user_id'] = $loggedUser['id'];

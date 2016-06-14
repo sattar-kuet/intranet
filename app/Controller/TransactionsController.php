@@ -114,9 +114,9 @@ class TransactionsController extends AppController {
     }
 
     function edit_customer_data($id = null) {
-     $this->loadModel('StatusHistorie');
+        $this->loadModel('StatusHistory');
         $pcid = $id;
-        
+
         $loggedUser = $this->Auth->user();
         if ($this->request->is('post') || $this->request->is('put')) {
             $this->request->data['PackageCustomer']['status'] = $this->request->data['status'];
@@ -126,7 +126,7 @@ class TransactionsController extends AppController {
                 $this->request->data['PackageCustomer']['mac'] = json_encode($this->request->data['PackageCustomer']['mac']);
                 $this->request->data['PackageCustomer']['system'] = json_encode($this->request->data['PackageCustomer']['system']);
             }
-            
+
             $this->loadModel('PackageCustomer');
             $this->loadModel('CustomPackage');
             $this->loadModel('Ticket');
@@ -152,16 +152,14 @@ class TransactionsController extends AppController {
             //Ends Custom_package data entry  
 //        pr($pcid); exit;
             $shistory = $this->PackageCustomer->save($this->request->data['PackageCustomer']);
+            $data4statusHistory = array();
+            $data4statusHistory['StatusHistory'] = array(
+                'package_customer_id' => $pcid,
+                'date' => $this->request->data['PackageCustomer']['date'],
+                'status' => $this->request->data['PackageCustomer']['status'],
+            );
 
-
-
-            $this->request->data['StatusHistorie']['package_customer_id'] = [$pcid];
-            $this->request->data['StatusHistorie']['date'] = $this->request->data['PackageCustomer']['date'];
-            $this->request->data['StatusHistorie']['status'] = $shistory['PackageCustomer']['status'];
- 
-            $this->request->data['StatusHistorie']['package_customer_id'] = $this->request->data['StatusHistorie']['package_customer_id'][0];
-           
-            $this->StatusHistorie->save($this->request->data['StatusHistorie']);
+            $this->StatusHistory->save($data4statusHistory);
             $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <strong> Customer information updated successfully </strong>
@@ -186,12 +184,14 @@ class TransactionsController extends AppController {
             //END OF DUE UPDATE
             $this->Track->save($trackData);
         }
-        
-        
+
+
         $this->loadModel('PackageCustomer');
         $customer_info = $this->PackageCustomer->findById($pcid);
-//   pr($customer_info); exit;
+        $statusHistories = $this->StatusHistory->find('all', array('conditions' => array('StatusHistory.package_customer_id' => $pcid)));
+        $lastStatus = end($statusHistories);
         //Show default value for custome package
+        $customer_info['PackageCustomer']['date'] = $lastStatus['StatusHistory']['date'];
         $custom_package_charge = $customer_info['CustomPackage']['charge'];
         $custom_package_duration = $customer_info['CustomPackage']['duration'];
 
@@ -211,12 +211,12 @@ class TransactionsController extends AppController {
         //pr($macstb);exit;
         $c_acc_no = $customer_info['PackageCustomer']['c_acc_no'];
 
-
+//pr($customer_info); exit;
 
         $pcustomer_id = $this->request->data = $customer_info;    //transaction history view by customer id
         $transactions = $this->Transaction->find('all', array('conditions' => array('Transaction.package_customer_id' => $id)));
 
-        $this->set(compact('transactions', 'c_acc_no', 'macstb', 'custom_package_duration', 'checkMark'));
+        $this->set(compact('transactions', 'c_acc_no', 'macstb', 'custom_package_duration', 'checkMark','statusHistories'));
         $response = $this->getAllTickectsByCustomer($id);
         $data = $response['data'];
 //        pr($data);        exit;
@@ -258,11 +258,11 @@ class TransactionsController extends AppController {
         $this->loadModel('Transaction');
 
         $temp = $this->Transaction->find('first', array(
-            'conditions' => array('package_customer_id' => $pcid),
+            'conditions' => array('package_customer_id' => $pcid, 'Transaction.exp_date !=' => ''),
             'order' => array('Transaction.id' => 'DESC')
                 )
         );
-         
+        //   pr($temp['Transaction']); exit;
         //echo $this->Transaction->getLastQuery();
         $yyyy = 0;
         $mm = -1;
@@ -282,14 +282,9 @@ class TransactionsController extends AppController {
 //       pr($transactions_data);   exit;
         if (count($transactions_data)) {
             $this->request->data['Transaction'] = $transactions_data['0']['transactions'];
-        }        
-        
-//        $hstatus = $this->StatusHistory->find('all', array('conditions' => array('StatusHistory.package_customer_id' => $pcid)));
-//        $hstatus = $this->StatusHistorie->query("select * from status_histories where package_customer_id = '$pcid' order by id desc");
-         $this->loadModel('StatusHistorie');
-        $hstatus = $this->StatusHistorie->query("select * from status_histories where package_customer_id = $pcid order by id desc");
-//       pr($hstatus); exit;
-        $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge', 'latestcardInfo', 'transactions_data','hstatus'));
+        }
+
+        $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge', 'latestcardInfo', 'transactions_data'));
     }
 
     function updatecardinfo($id = null) {

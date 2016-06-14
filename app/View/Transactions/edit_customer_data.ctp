@@ -473,8 +473,8 @@
                                                         echo $this->Form->input('system.', array(
                                                             'type' => 'select',
                                                             'options' => array('CMS1' => 'CMS1', 'CMS2' => 'CMS2', 'CMS3' => 'CMS3', 'PORTAL' => 'PORTAL', 'PORTAL1' => 'PORTAL1'),
-                                                            'default' => $system,
-                                                            'empty' => 'Select Stbs',
+                                                            'default' => trim($system),
+                                                            'empty' => 'Select System',
                                                             'class' => 'span12 uniform nostyle select1 required'
 
                                                                 //'id'=>'stbn',
@@ -596,10 +596,11 @@
                                         </div>
                                         <div id="status-history" class="alert alert-success display-hide" style="text-align: inherit;">
                                             <?php
-                                            foreach ($hstatus as $history):
+                                            foreach ($statusHistories as $history):
+                                                //pr($history); exit;
                                                 ?>
-                                                <span class="fa fa-hand-o-right pull-left"> <?php echo $history['status_histories']['status']; ?></span> &nbsp;
-                                                <span class="fa fa-clock-o pull-right"> <?php echo $history['status_histories']['date']; ?> </span> <br>
+                                                <span class="fa fa-hand-o-right pull-left"> <?php echo $history['StatusHistory']['status']; ?></span> &nbsp;
+                                                <span class="fa fa-clock-o pull-right"> <?php echo $history['StatusHistory']['date']; ?> </span> <br>
                                             <?php endforeach; ?>
                                         </div>
 
@@ -1154,7 +1155,7 @@
                                                                     echo $this->Form->input(
                                                                             'check_image', array(
                                                                         'type' => 'file',
-                                                                        'class' => 'form-control input-sm required',
+                                                                        'class' => 'form-control input-sm ',
                                                                         'value' => ''
                                                                     ));
                                                                     ?>
@@ -1253,7 +1254,7 @@
                                                                     echo $this->Form->input(
                                                                             'check_image', array(
                                                                         'type' => 'file',
-                                                                        'class' => 'form-control input-sm required',
+                                                                        'class' => 'form-control input-sm ',
                                                                         'value' => ''
                                                                     ));
                                                                     ?>
@@ -1354,7 +1355,7 @@
                                                                     echo $this->Form->input(
                                                                             'check_image', array(
                                                                         'type' => 'file',
-                                                                        'class' => 'form-control input-sm required',
+                                                                        'class' => 'form-control input-sm ',
                                                                         'value' => ''
                                                                     ));
                                                                     ?>

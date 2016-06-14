@@ -57,8 +57,8 @@ class TicketsController extends AppController {
                     return $this->redirect($this->referer());
                 }
 
-                $this->PackageCustomer->id = $customer_id;                
-//                pr($this->request->data['Ticket']['remote_no']); exit;
+                $this->PackageCustomer->id = $customer_id;
+//                pr($this->request->data); exit;
 
                 $data['PackageCustomer'] = array(
                     "deposit" => $this->request->data['Ticket']['deposit'],
@@ -70,14 +70,14 @@ class TicketsController extends AppController {
                     "comments" => $this->request->data['Ticket']['content'],
                     "user_id" => $loggedUser['id']
                 );
-                
-              
+
+
 //                 pr($data); exit;
                 $this->PackageCustomer->save($data);
                 if (trim($this->request->data['Ticket']['action_type']) == 'solved') {
                     $this->request->data['Ticket']['priority'] = 'low';
                 }
-                 
+
                 $tickect = $this->Ticket->save($this->request->data['Ticket']); // Data save in Ticket
 
                 $trackData['Track'] = array(
@@ -157,7 +157,18 @@ class TicketsController extends AppController {
                         'shipment_note' => $this->request->data['Ticket']['shipment_note']
                     );
                     $this->PackageCustomer->id = $customer_id;
-                     pr($this->request->data); exit;
+//                     pr($this->request->data); exit;
+                    if (empty($this->request->data['Ticket']['shipment_equipment'])) {
+                        $data['PackageCustomer'] = array(
+                            'shipment_equipment' => ''
+                        );
+                    }
+                    if (empty($this->request->data['Ticket']['shipment_note'])) {
+                        $data['PackageCustomer'] = array(
+                            'shipment_note' => ''
+                        );
+                    }
+
                     $this->PackageCustomer->save($data['PackageCustomer']);
                     //$log = $this->PackageCustomer->getDataSource()->getLog(false, false);
                 }
@@ -594,8 +605,8 @@ class TicketsController extends AppController {
             }
         }
     }
-    
-   function  in_progress() {
+
+    function in_progress() {
         $this->loadModel('Track');
         $this->loadModel('User');
         $this->loadModel('Role');
