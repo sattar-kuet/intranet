@@ -125,6 +125,7 @@ class CustomersController extends AppController {
 
     function registration() {
         $this->loadModel('PackageCustomer');
+        $this->loadModel('StatusHistory');
         $this->loadModel('CustomPackage');
         $this->loadModel('PaidCustomer');
         $this->loadModel('Country');
@@ -159,6 +160,15 @@ class CustomersController extends AppController {
                 $this->request->data['PackageCustomer']['attachment'] = '';
             }
             $pc = $this->PackageCustomer->save($this->request->data['PackageCustomer']);
+//            pr(); exit;
+            $data4statusHistory = array();
+            $data4statusHistory['StatusHistory'] = array(
+                'package_customer_id' => $pc['PackageCustomer']['id'],
+                'date' => date('m/d/Y'),
+                'status' => $this->request->data['PackageCustomer']['status'],
+            );
+//                        pr($data4statusHistory); exit;
+            $this->StatusHistory->save($data4statusHistory);
 //            data for comment
             $comment['Comment']['package_customer_id'] = $pc['PackageCustomer']['id'];
             $loggedUser = $this->Auth->user();
@@ -1063,7 +1073,7 @@ class CustomersController extends AppController {
             }
         }
         $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
-//        pr($technician); exit;
+//        pr($filteredData); exit;
         $this->set(compact('filteredData', 'technician'));
     }
 
