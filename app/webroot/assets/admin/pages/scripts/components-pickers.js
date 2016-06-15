@@ -50,12 +50,12 @@ var ComponentsPickers = function () {
 
         $('#defaultrange').daterangepicker({
                 opens: (Metronic.isRTL() ? 'left' : 'right'),
-                format: 'MM/DD/YYYY',
+                format: 'YYYY-MM-DD',
                 separator: ' to ',
                 startDate: moment().subtract('days', 29),
                 endDate: moment(),
-                minDate: '01/01/2012',
-                maxDate: '12/31/2018',
+                minDate: '2007-01-01',
+                maxDate: '2100-01-01',
             },
             function (start, end) {
                 $('#defaultrange input').val(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
