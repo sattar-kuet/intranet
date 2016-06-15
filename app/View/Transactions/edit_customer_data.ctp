@@ -644,7 +644,7 @@
                                                 <?php
                                                 echo $this->Form->input('status', array(
                                                     'type' => 'select',
-                                                    'options' => array('active' => 'Active', 'hold' => 'Hold', 'unhold' => 'Unhold', 'canceled' => 'Canceled', 'requested' => 'Requested', 'ready' => 'Ready'),
+                                                    'options' => array('active' => 'Active', 'hold' => 'Hold', 'unhold' => 'Unhold', 'canceled' => 'Canceled', 'reconnection' => 'Reconnection', 'ready' => 'Ready'),
                                                     //'default' => $selected['package'],
                                                     'empty' => 'Select Status',
                                                     'class' => 'span12 uniform nostyle select1',
