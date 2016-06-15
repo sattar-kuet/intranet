@@ -324,7 +324,8 @@ class TechniciansController extends AppController {
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id
-                    WHERE pc.technician_id = " . $loggedUser['id'] . " and pc.status = 'scheduled'");
+                    WHERE pc.technician_id = " . $loggedUser['id'] . " and pc.status = 'scheduled' "
+                . " ORDER BY pc.id");
         // echo $sql; exit;
         $filteredData = array();
         $unique = array();
@@ -399,7 +400,7 @@ class TechniciansController extends AppController {
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id
-                    WHERE pc.technician_id = " . $loggedUser['id'] . " and pc.status = 'done'");
+                    WHERE pc.technician_id = " . $loggedUser['id'] . " and pc.status = 'done' ORDER BY pc.id");
         // echo $sql; exit;
         $filteredData = array();
         $unique = array();
@@ -445,6 +446,13 @@ class TechniciansController extends AppController {
                         'amount' => $data['cp']['charge']
                     );
                 }
+
+                $filteredData[$index]['issues'] = array();
+                if (!empty($data['i']['name'])) {
+                    $temp = array('name' => $data['i']);
+                    $filteredData[$index]['issues'][] = $temp;
+                }
+
                 $filteredData[$index]['comments'] = array();
                 if (!empty($data['c']['content'])) {
                     $temp = array('content' => $data['c'], 'user' => $data['u']);
@@ -455,19 +463,6 @@ class TechniciansController extends AppController {
         $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
 //        pr($technician); exit;
         $this->set(compact('filteredData', 'technician'));
-    }
-
-    function done($id = null) {
-        $this->loadModel('PackageCustomer');
-        $this->loadModel('Comment');
-        $this->PackageCustomer->id = $this->request->data['Comment']['package_customer_id'];
-        $this->PackageCustomer->saveField("status", "active");
-        $this->Comment->save($this->request->data);
-        $msg = '<div class="alert alert-success">
-	<button type="button" class="close" data-dismiss="alert">&times;</button>
-	<strong>  succeesfully done </strong></div>';
-        $this->Session->setFlash($msg);
-        return $this->redirect($this->referer());
     }
 
     function ready($id = null) {
@@ -625,14 +620,19 @@ class TechniciansController extends AppController {
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id
-                    WHERE pc.technician_id = " . $loggedUser['id'] . " and pc.status = 'post pone'");
+                    WHERE pc.technician_id = " . $loggedUser['id'] . " and pc.status = 'post pone' ORDER BY pc.id");
         $filteredData = array();
         $unique = array();
         $index = 0;
         foreach ($allData as $key => $data) {
+            //pr($data); exit;
             $pd = $data['pc']['id'];
             if (isset($unique[$pd])) {
+                //  echo 'already exist'.$key.'<br/>';
                 if (!empty($data['c']['content'])) {
+                    //  $temp = $data['c'];// array('id' => $data['psettings']['id'], 'duration' => $data['psettings']['duration'], 'amount' => $data['psettings']['amount'], 'offer' => $data['psettings']['offer']);
+                    //pr($temp); exit;
+
                     $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
                 }
@@ -664,6 +664,13 @@ class TechniciansController extends AppController {
                         'amount' => $data['cp']['charge']
                     );
                 }
+
+                $filteredData[$index]['issues'] = array();
+                if (!empty($data['i']['name'])) {
+                    $temp = array('name' => $data['i']);
+                    $filteredData[$index]['issues'][] = $temp;
+                }
+
                 $filteredData[$index]['comments'] = array();
                 if (!empty($data['c']['content'])) {
                     $temp = array('content' => $data['c'], 'user' => $data['u']);
@@ -685,7 +692,7 @@ class TechniciansController extends AppController {
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id
-                    WHERE pc.technician_id = " . $loggedUser['id'] . " and pc.status = 'rescheduled'");
+                    WHERE pc.technician_id = " . $loggedUser['id'] . " and pc.status = 'rescheduled' ORDER BY pc.id");
         $filteredData = array();
         $unique = array();
         $index = 0;
@@ -745,14 +752,19 @@ class TechniciansController extends AppController {
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id
-                    WHERE pc.technician_id = " . $loggedUser['id'] . " and pc.status = 'canceled'");
+                    WHERE pc.technician_id = " . $loggedUser['id'] . " and pc.status = 'canceled' ORDER BY pc.id");
         $filteredData = array();
         $unique = array();
         $index = 0;
         foreach ($allData as $key => $data) {
+            //pr($data); exit;
             $pd = $data['pc']['id'];
             if (isset($unique[$pd])) {
+                //  echo 'already exist'.$key.'<br/>';
                 if (!empty($data['c']['content'])) {
+                    //  $temp = $data['c'];// array('id' => $data['psettings']['id'], 'duration' => $data['psettings']['duration'], 'amount' => $data['psettings']['amount'], 'offer' => $data['psettings']['offer']);
+                    //pr($temp); exit;
+
                     $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
                 }
@@ -784,6 +796,13 @@ class TechniciansController extends AppController {
                         'amount' => $data['cp']['charge']
                     );
                 }
+
+                $filteredData[$index]['issues'] = array();
+                if (!empty($data['i']['name'])) {
+                    $temp = array('name' => $data['i']);
+                    $filteredData[$index]['issues'][] = $temp;
+                }
+
                 $filteredData[$index]['comments'] = array();
                 if (!empty($data['c']['content'])) {
                     $temp = array('content' => $data['c'], 'user' => $data['u']);

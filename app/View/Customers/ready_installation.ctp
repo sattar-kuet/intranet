@@ -171,6 +171,13 @@
                                                             )
                                                     );
                                                     ?>
+                                                    <?php
+                                                        echo $this->Form->input('repair_type', array(
+                                                            'type' => 'hidden',
+                                                            'value' => 'new',
+                                                                )
+                                                        );
+                                                        ?>
                                                       <div class="form-body">
                                                         <div class="alert alert-danger display-hide">
                                                             <button class="close" data-close="alert"></button>

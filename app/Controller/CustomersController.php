@@ -584,6 +584,7 @@ class CustomersController extends AppController {
 //        $this->request->data['PackageCustomer']['from'] = $datrange['start'];
 //        $this->request->data['PackageCustomer']['to'] = $datrange['end'];
         $this->request->data['PackageCustomer']['schedule_date'] = $this->request->data['PackageCustomer']['schedule_date'].' '.$this->request->data['PackageCustomer']['seTime'];
+      
         $loggedUser = $this->Auth->user();
         $this->request->data['PackageCustomer']['user_id'] = $loggedUser['id'];
         $this->request->data['PackageCustomer']['status'] = 'Scheduled';
