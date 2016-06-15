@@ -12,7 +12,7 @@
     <div class="page-content">
         <!-- BEGIN PAGE HEADER-->
         <h3 class="page-title">
-            Sales Shipment<small></small>
+            Sales Shipment
         </h3>
 
         <!-- END PAGE HEADER-->
@@ -111,8 +111,8 @@
                                                 Name:<?php echo $results['package']['name'] ?><br>
                                                 Duration:<?php echo $results['package']['duration']; ?><br>
                                                 <?php if (!empty($customer['total'])): ?>
-                                                Total: $<?php echo $customer['total']; ?>
-                                                 <?php endif; ?>
+                                                    Total: $<?php echo $customer['total']; ?>
+                                                <?php endif; ?>
                                             <?php endif; ?>
                                         </td>
                                         <td>
@@ -152,7 +152,8 @@
                                                     echo $this->Form->create('PackageCustomer', array(
                                                         'inputDefaults' => array(
                                                             'label' => false,
-                                                            'div' => false
+                                                            'div' => false,
+                                                            'id' => false,
                                                         ),
                                                         'id' => 'form_sample_3',
                                                         'class' => 'form-horizontal',
@@ -169,7 +170,16 @@
                                                             )
                                                     );
                                                     ?>
-                                                   <div class="form-body">
+
+                                                    <?php
+                                                    echo $this->Form->input('repair_type', array(
+                                                        'type' => 'hidden',
+                                                        'value' => 'new',
+                                                            )
+                                                    );
+                                                    ?>
+
+                                                    <div class="form-body">
                                                         <div class="alert alert-danger display-hide">
                                                             <button class="close" data-close="alert"></button>
                                                             You have some form errors. Please check below.
@@ -190,7 +200,7 @@
                                                             </div>
                                                         </div> 
 
-                                                         <div class="form-group">                               
+                                                        <div class="form-group">                               
                                                             <div class="col-md-12">
                                                                 <?php
                                                                 echo $this->Form->input(
