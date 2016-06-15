@@ -120,12 +120,17 @@
                                         <td>
                                             <?php echo $customer['shipment_equipment'] . ' ' . $customer['shipment_note']; ?>
                                         </td>
-                                        <td>
-                                            <ul>
-                                                <?php if (!empty($results['customers']['comments'])): ?>
-                                                    <?php echo $results['customers']['comments'] ?> 
-                                                <?php endif ?>
-                                            </ul>
+                                         <td>
+                                            <?php
+                                            foreach ($results['comments'] as $comment):
+                                                // pr($comment);
+                                                ?>
+                                                <span title="<?php echo $comment['content']['created']; ?>" class="fa fa-hand-o-right ">  <?php echo $comment['content']['content']; ?> &nbsp;&nbsp;</span> <i> <?php echo $comment['user']['name']; ?></i>
+                                                <br> 
+                                                <br> 
+
+                                            <?php endforeach;
+                                            ?>
                                         </td>
                                         <td>
                                             <div class="col-md-12 col-sm-12 mix category_2 category_1">

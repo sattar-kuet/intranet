@@ -122,7 +122,7 @@
                                         <td>
                                             <?php echo $customer['shipment_equipment'] . ' ' . $customer['shipment_note']; ?>
                                         </td>
-                                        <td>
+                                         <td>
                                             <?php
                                             foreach ($results['comments'] as $comment):
                                                 // pr($comment);
