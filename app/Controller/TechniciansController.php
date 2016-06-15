@@ -370,6 +370,13 @@ class TechniciansController extends AppController {
                         'amount' => $data['cp']['charge']
                     );
                 }
+
+                $filteredData[$index]['issues'] = array();
+                if (!empty($data['i']['name'])) {
+                    $temp = array('name' => $data['i']);
+                    $filteredData[$index]['issues'][] = $temp;
+                }
+
                 $filteredData[$index]['comments'] = array();
                 if (!empty($data['c']['content'])) {
                     $temp = array('content' => $data['c'], 'user' => $data['u']);
@@ -378,7 +385,7 @@ class TechniciansController extends AppController {
             }
         }
         $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
-//        pr($technician); exit;
+//        pr($filteredData); exit;
         $this->set(compact('filteredData', 'technician'));
     }
 
@@ -518,7 +525,7 @@ class TechniciansController extends AppController {
         $this->loadModel('Comment');
         $loggedUser = $this->Auth->user();
         $this->request->data['PackageCustomer']['status'] = 'done';
-         $this->request->data['PackageCustomer']['approved'] = 0;
+        $this->request->data['PackageCustomer']['approved'] = 0;
         $this->request->data['PackageCustomer']['user_id'] = $loggedUser['id'];
         $this->PackageCustomer->id = $this->request->data['PackageCustomer']['package_customer_id'];
         $this->PackageCustomer->save($this->request->data['PackageCustomer']);
@@ -541,7 +548,7 @@ class TechniciansController extends AppController {
         $this->loadModel('Comment');
         $loggedUser = $this->Auth->user();
         $this->request->data['PackageCustomer']['status'] = 'post pone';
-         $this->request->data['PackageCustomer']['approved'] = 0;
+        $this->request->data['PackageCustomer']['approved'] = 0;
         $this->request->data['PackageCustomer']['user_id'] = $loggedUser['id'];
         $this->PackageCustomer->id = $this->request->data['PackageCustomer']['package_customer_id'];
         $this->PackageCustomer->save($this->request->data['PackageCustomer']);
@@ -565,7 +572,7 @@ class TechniciansController extends AppController {
         $this->loadModel('Comment');
         $loggedUser = $this->Auth->user();
         $this->request->data['PackageCustomer']['status'] = 'rescheduled';
-         $this->request->data['PackageCustomer']['approved'] = 0;
+        $this->request->data['PackageCustomer']['approved'] = 0;
         $this->request->data['PackageCustomer']['user_id'] = $loggedUser['id'];
         $this->PackageCustomer->id = $this->request->data['PackageCustomer']['package_customer_id'];
         $this->PackageCustomer->save($this->request->data['PackageCustomer']);
@@ -583,6 +590,7 @@ class TechniciansController extends AppController {
         $this->Session->setFlash($msg);
         return $this->redirect($this->referer());
     }
+
     function cancel() {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Comment');
@@ -606,8 +614,6 @@ class TechniciansController extends AppController {
         $this->Session->setFlash($msg);
         return $this->redirect($this->referer());
     }
-
-   
 
     function postponeView() {
         $this->loadModel('User');
@@ -728,6 +734,7 @@ class TechniciansController extends AppController {
         $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
         $this->set(compact('filteredData', 'technician'));
     }
+
     function cancelledCustomer() {
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');

@@ -42,7 +42,9 @@
                                     <th>
                                         Customer detail
                                     </th>
-
+                                    <th>
+                                        Payment
+                                    </th>
                                     <th>
                                         Issue
                                     </th>
@@ -63,8 +65,12 @@
                             </thead>
                             <tbody>
                                 <?php
+                                 
                                 foreach ($filteredData as $results):
+                                  
+                                   
                                     $customer = $results['customers'];
+//                                 pr($customer['total']); exit; 
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
                                             . $customer['zip'];
@@ -100,8 +106,15 @@
                                         </td>
 
                                         <td>
-                                            <?php echo $results['issue']; ?>
+                                            <?php if(!empty($customer['total'])): ?>
+                                            <?php echo $customer['total']; ?>
+                                            <?php endif ;?>
                                         </td>
+                                        <td>
+                                            <?php if(!empty($results['issues'][0]['name']['name'])): ?>
+                                            <?php echo $results['issues'][0]['name']['name']; ?>
+                                            <?php endif ;?>
+                                        </td>$customer['total']
                                         <td>
                                             <?php echo get_canceled_mac($customer['mac'], $customer['cancel_mac']); ?>
                                         </td>

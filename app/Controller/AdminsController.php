@@ -494,24 +494,18 @@ class AdminsController extends AppController {
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id
-                    WHERE pc.status = 'scheduled' ");
+                    WHERE pc.status = 'scheduled'  ORDER BY pc.id");
 
         $filteredData = array();
         $unique = array();
         $index = 0;
-
+    //    pr($allData); exit;
         foreach ($allData as $key => $data) {
             //pr($data); exit;
             $pd = $data['pc']['id'];
             if (isset($unique[$pd])) {
-                //  echo 'already exist'.$key.'<br/>';
-                if (!empty($data['c']['content'])) {
-                    //  $temp = $data['c'];// array('id' => $data['psettings']['id'], 'duration' => $data['psettings']['duration'], 'amount' => $data['psettings']['amount'], 'offer' => $data['psettings']['offer']);
-                    //pr($temp); exit;
-
-                    $temp = array('content' => $data['c'], 'user' => $data['u']);
-                    $filteredData[$index]['comments'][] = $temp;
-                }
+                $temp = array('content' => $data['c'], 'user' => $data['u']);
+                $filteredData[$index]['comments'][] = $temp;
             } else {
                 if ($key != 0)
                     $index++;
@@ -542,14 +536,14 @@ class AdminsController extends AppController {
                     );
                 }
                 $filteredData[$index]['comments'] = array();
-                if (!empty($data['c']['content'])) {
-                    $temp = array('content' => $data['c'], 'user' => $data['u']);
-                    $filteredData[$index]['comments'][] = $temp;
-                }
+                $temp = array('content' => $data['c'], 'user' => $data['u']);
+                $filteredData[$index]['comments'][] = $temp;
             }
         }
         $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
 
+       // pr($filteredData);
+      //  exit;
 
         $this->set(compact('filteredData', 'technician'));
     }
@@ -564,7 +558,7 @@ class AdminsController extends AppController {
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id
-                    WHERE pc.status = 'done' AND approved=0");
+                    WHERE pc.status = 'done' AND approved=0 ORDER BY pc.id");
 
         $filteredData = array();
         $unique = array();
@@ -623,7 +617,7 @@ class AdminsController extends AppController {
 
         $this->set(compact('filteredData', 'technician'));
     }
-    
+
     function donebyadmin() {
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
@@ -704,7 +698,7 @@ class AdminsController extends AppController {
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id
-                    WHERE pc.status = 'post pone' AND approved=0");
+                    WHERE pc.status = 'post pone' AND approved=0  ORDER BY pc.id");
 
         $filteredData = array();
         $unique = array();
@@ -763,9 +757,9 @@ class AdminsController extends AppController {
 
         $this->set(compact('filteredData', 'technician'));
     }
-    
+
     function recheduledbytech() {
-        
+
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
         $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
@@ -774,7 +768,7 @@ class AdminsController extends AppController {
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id
-                    WHERE pc.status = 'rescheduled'");
+                    WHERE pc.status = 'rescheduled' ORDER BY pc.id");
 
         $filteredData = array();
         $unique = array();
@@ -831,7 +825,7 @@ class AdminsController extends AppController {
 
 
         $this->set(compact('filteredData', 'technician'));
-        
+
 //        $this->loadModel('User');
 //        $this->loadModel('PackageCustomer');
 //        $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
@@ -900,7 +894,7 @@ class AdminsController extends AppController {
 //
 //        $this->set(compact('filteredData', 'technician'));
     }
-    
+
     function cancelledbytech() {
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
@@ -911,7 +905,7 @@ class AdminsController extends AppController {
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id
-                    WHERE pc.status = 'canceled' AND approved=0");
+                    WHERE pc.status = 'canceled' AND approved=0 ORDER BY pc.id");
 
         $filteredData = array();
         $unique = array();
@@ -975,7 +969,7 @@ class AdminsController extends AppController {
         $this->loadModel('PackageCustomer');
         $this->PackageCustomer->id = $id;
         $loggedUser = $this->Auth->user();
-      
+
         $this->PackageCustomer->saveField("approved", "1");
         $this->PackageCustomer->saveField("user_id", $loggedUser['id']);
         $msg = '<div class="alert alert-success">
