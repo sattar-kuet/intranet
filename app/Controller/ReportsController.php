@@ -100,8 +100,7 @@ class ReportsController extends AppController {
         $this->set(compact('clicked'));
     }
 
-    
-    function openInvoice() {
+    function openInvoice_back() {
         $this->loadModel('Package_customer');
         $this->loadModel('Transaction');
         $clicked = false;
@@ -125,7 +124,22 @@ class ReportsController extends AppController {
         $this->set(compact('clicked'));
     }
 
-    
+    function openInvoice25() {
+        $this->loadModel('Package_customer');
+        $this->loadModel('Transaction');
+        
+        $date = date('Y-m-d', strtotime("+25 days"));
+       // pr($date); exit;
+        $packagecustomers = $this->Transaction->query("SELECT tr.id, tr.package_customer_id, 
+            CONCAT( first_name,' ', middle_name,' ', last_name ) AS name, pc.psetting_id, pc.mac,pc.package_exp_date,
+            ps.name, p.name, tr.paid_amount, ps.amount, ps.duration FROM transactions tr
+            left join package_customers pc on tr.package_customer_id = pc.id
+            left join psettings ps on ps.id = pc.psetting_id
+            LEFT JOIN packages p ON p.id = ps.package_id 
+            WHERE  `package_exp_date` <= $date");
+        $this->set(compact('packagecustomers'));
+    }
+
     function pexp_invoice() {
         
     }
