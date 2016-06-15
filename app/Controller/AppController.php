@@ -77,6 +77,11 @@ class AppController extends Controller {
         // $this->loadFooter();
     }
 
+    function getFormatedDate($date = null) {
+        $temp = explode('/',$date);
+        return $temp[2].'-'.$temp[0].'-'.$temp[1];
+    }
+
     function loadFooter() {
         $this->loadModel('Footer');
         $footer = $this->Footer->find('all');
@@ -263,7 +268,6 @@ class AppController extends Controller {
             return false;
         }
     }
-
 
     public function getYM() {
         $cy = date('Y');
