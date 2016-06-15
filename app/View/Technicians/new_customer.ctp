@@ -114,7 +114,7 @@
                                             <?php if(!empty($results['issues'][0]['name']['name'])): ?>
                                             <?php echo $results['issues'][0]['name']['name']; ?>
                                             <?php endif ;?>
-                                        </td>$customer['total']
+                                        </td>
                                         <td>
                                             <?php echo get_canceled_mac($customer['mac'], $customer['cancel_mac']); ?>
                                         </td>
