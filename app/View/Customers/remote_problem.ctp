@@ -122,6 +122,7 @@
 
                                         <td>
                                             <?php echo $customer['shipment_equipment'] . ' ' . $customer['shipment_note']; ?>
+                                            <br> ( <?php echo $results['customers']['remote_no']?> )
                                         </td>
                                         <td>
                                             <ul>
