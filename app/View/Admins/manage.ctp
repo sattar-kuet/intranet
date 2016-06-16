@@ -28,10 +28,10 @@
                             <i class="fa fa-user"></i>List of All Admins
                         </div>
 
-<!--                        <div class="tools">
-                            <a href="javascript:;" class="reload">
-                            </a>
-                        </div>-->
+                        <!--                        <div class="tools">
+                                                    <a href="javascript:;" class="reload">
+                                                    </a>
+                                                </div>-->
                     </div>
                     <div class="portlet-body">
 
@@ -53,10 +53,15 @@
                                 <?php
                                 foreach ($agents as $single):
                                     $agent = $single['User'];
+//                                    pr($agent['picture']); exit;
                                     ?>
                                     <tr >
                                         <td><?php echo $agent['name']; ?></td>
-                                        <td><img src="<?php echo $this->webroot . 'pictures' . '/' . $agent['picture']; ?>"  width="50px" height="50px" /></td>
+                                        <td>
+                                            <?php if (!empty($agent['picture'])): ?>
+                                                <img src="<?php echo $this->webroot . 'pictures' . '/' . $agent['picture']; ?>"  width="50px" height="50px" />
+                                            <?php endif ?>
+                                        </td>
                                         <td><?php echo $agent['email']; ?></td>
                                         <td><?php echo $single['Role']['name']; ?></td>
                                         <td><?php echo $agent['status']; ?></td>
