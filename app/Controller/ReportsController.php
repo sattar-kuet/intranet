@@ -129,7 +129,7 @@ class ReportsController extends AppController {
         $this->loadModel('Transaction');
         
         $date = date('Y-m-d', strtotime("+25 days"));
-       // pr($date); exit;
+        //pr($date); exit;
 //        $packagecustomers = $this->Transaction->query("SELECT tr.id, tr.package_customer_id, 
 //            CONCAT( first_name,' ', middle_name,' ', last_name ) AS name, pc.psetting_id, pc.mac,pc.package_exp_date,
 //            ps.name, p.name, tr.paid_amount, ps.amount, ps.duration FROM transactions tr
@@ -137,7 +137,7 @@ class ReportsController extends AppController {
 //            left join psettings ps on ps.id = pc.psetting_id
 //            LEFT JOIN packages p ON p.id = ps.package_id 
 //            WHERE  `package_exp_date` <= $date");
-        $invoice=$this->Transaction->query("SELECT pc.id,CONCAT('first_name','middle_name','last_name') As name ,pc.stbs,pc.package_exp_date,
+        $invoice=$this->Transaction->query("SELECT pc.id,CONCAT(pc.first_name,',',pc.middle_name,',',pc.last_name) As name ,pc.stbs,pc.package_exp_date,
                 pc.psetting_id,ps.name,ps.amount,ps.duration FROM package_customers pc left join psettings ps on pc.psetting_id= ps.id left join 
                  packages pa on ps.package_id = pa.id  WHERE  `package_exp_date` <= $date ");
         $this->set(compact('invoice'));

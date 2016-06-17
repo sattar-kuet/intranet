@@ -143,7 +143,7 @@
                                     <tr>
                                         <td  style=" text-align: center; background-color:#990000; font-size: 19px; font-weight: bold; color: white; width: 101px;">
                                             <?php
-                                            echo getInvoiceNumbe($single['tr']['id']);
+                                            echo getInvoiceNumbe($single['pc']['id']);
                                             ?>
                                         </td>
                                         <td style="background-color:whitesmoke">
@@ -151,7 +151,7 @@
                                         </td>
                                         <td style="background-color:whitesmoke">
                                             <b><?php echo $single['ps']['name']; ?></b><br>
-                                            <?php echo $single['p']['name']; ?>
+                                            <?php echo $single['pa']['name']; ?>
                                         </td> 
                                         <td style="background-color: silver; text-align: center;">
                                             <?php echo count(json_decode($single['pc']['mac'])); ?> 
@@ -168,7 +168,7 @@
                                         </td>
                                         <td>
                                             <div class="controls center text-center">
-                                                <a   target="_blank" title="Add to pdf" href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'invoice', $single['tr']['id'])) ?>" class="btn default btn-xs green-stripe">
+                                                <a   target="_blank" title="Add to pdf" href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'invoice', $single['pc']['id'])) ?>" class="btn default btn-xs green-stripe">
                                                     Invoice </a>
                                             </div>
                                             <!--                                                <div class="controls center text-center">
