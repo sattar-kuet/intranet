@@ -1,11 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="2">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="7">
         <file>
-            <url>app/View/Customers/ready_installation.ctp</url>
-            <bookmark id="1">
+            <url>app/Controller/ReportsController.php</url>
+            <bookmark id="4">
                 <name/>
-                <line>172</line>
+                <line>60</line>
+                <key/>
+            </bookmark>
+            <bookmark id="5">
+                <name/>
+                <line>148</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>app/View/Reports/allinvoice.ctp</url>
+            <bookmark id="7">
+                <name/>
+                <line>0</line>
+                <key/>
+            </bookmark>
+            <bookmark id="6">
+                <name/>
+                <line>0</line>
                 <key/>
             </bookmark>
         </file>
@@ -13,7 +31,15 @@
             <url>app/Controller/AdminsController.php</url>
             <bookmark id="2">
                 <name/>
-                <line>555</line>
+                <line>560</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>app/View/Customers/ready_installation.ctp</url>
+            <bookmark id="1">
+                <name/>
+                <line>172</line>
                 <key/>
             </bookmark>
         </file>
