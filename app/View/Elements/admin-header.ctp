@@ -54,9 +54,16 @@ echo $this->Html->css(
                     <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
                     <li class="dropdown dropdown-user">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                            <img alt="" class="img-circle" src="<?php echo $this->webroot; ?>images/support-512.png">
+
+
+                            <!--<img alt="" class="img-circle" src="<?php echo $this->webroot; ?>images/support-512.png">-->
+                            
+                            <?php if (!empty($loggedUserpic)): ?>
+                                <img alt="" class="img-circle" src="<?php echo $this->webroot . 'pictures' . '/' . $loggedUserpic; ?>"  width="50px" height="50px" />
+                            <?php endif ?>
+
                             <span class="username username-hide-on-mobile">
-                                <?php echo $loggedUser;?></span>
+                                <?php echo $loggedUser; ?></span>
                             <i class="fa fa-angle-down"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-default">

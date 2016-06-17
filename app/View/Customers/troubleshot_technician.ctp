@@ -56,6 +56,9 @@
                                         Equipment
                                     </th>
                                     <th>
+                                        Payment
+                                    </th>
+                                    <th>
                                         Comment
                                     </th>
 <!--                                    <th>
@@ -69,8 +72,9 @@
                             <tbody>
                                 <?php
                                 foreach ($filteredData as $results):
-                                    // pr($results); exit;
+//                                     pr($results); exit;
                                     $customer = $results['customers'];
+//                                pr($customer['deposit']); exit;
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
                                             . $customer['zip'];
@@ -111,13 +115,25 @@
                                             <?php echo $customer['shipment_equipment'] . ' ' . $customer['shipment_note']; ?>
                                         </td>
                                         <td>
+                                            <?php if (!empty($customer['deposit'])): ?>
+                                                <strong>Payment: </strong>
+                                                <ul>
+                                                    <li>SD: <?php echo $customer['deposit']; ?>$</li>
+                                                    <li>MB: <?php echo $customer['monthly_bill']; ?>$</li>
+                                                    <li>Equipment: <?php echo $customer['others']; ?>$</li>
+                                                    <li>Total: <?php echo $customer['total']; ?>$</li>
+                                                </ul>
+                                            <?php endif ?>
+                                        </td>
+ 
+                                        <td>
                                             <ul>
-                                                <?php if (!empty($results['customers']['comments'])): ?>
-                                                    <li><?php echo $results['customers']['comments'] ?> </li>
+                                                <?php if (!empty($customer['comments'])): ?>
+                                                    <li><?php echo $customer['comments']; ?> </li>
                                                 <?php endif ?>
                                             </ul>
                                         </td>
-    <!--                                        <td>
+            <!--                                        <td>
                                             <div class="col-md-12 col-sm-12 mix category_2 category_1">
                                                 <div class="mix-inner">
                                                     <img class="img-responsive" src="<?php echo $this->webroot . 'attchment' . '/' . $customer['attachment']; ?>" alt="">
@@ -154,7 +170,16 @@
                                                             )
                                                     );
                                                     ?>
-                                                     <div class="form-body">
+
+                                                    <?php
+                                                    echo $this->Form->input('repair_type', array(
+                                                        'type' => 'hidden',
+                                                        'value' => 'old',
+                                                            )
+                                                    );
+                                                    ?>
+
+                                                    <div class="form-body">
                                                         <div class="alert alert-danger display-hide">
                                                             <button class="close" data-close="alert"></button>
                                                             You have some form errors. Please check below.
@@ -175,7 +200,7 @@
                                                             </div>
                                                         </div> 
 
-                                                         <div class="form-group">                               
+                                                        <div class="form-group">                               
                                                             <div class="col-md-12">
                                                                 <?php
                                                                 echo $this->Form->input(

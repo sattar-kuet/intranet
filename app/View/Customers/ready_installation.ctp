@@ -80,7 +80,8 @@
                                     ?>
                                     <tr>
                                         <td class="hidden-480">
-                                            <?php echo $results['customers']['created']; ?>  <br>
+                                            <?php 
+                                           echo date_format( new DateTime($results['customers']['created']) , 'm-d-Y' );?> <br>
                                             <?php echo $results['users']['name']; ?>                            
                                         </td>
                                         <td>
@@ -171,6 +172,13 @@
                                                             )
                                                     );
                                                     ?>
+                                                    <?php
+                                                        echo $this->Form->input('repair_type', array(
+                                                            'type' => 'hidden',
+                                                            'value' => 'new',
+                                                                )
+                                                        );
+                                                        ?>
                                                       <div class="form-body">
                                                         <div class="alert alert-danger display-hide">
                                                             <button class="close" data-close="alert"></button>

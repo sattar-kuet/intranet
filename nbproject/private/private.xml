@@ -3,8 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/xampee/htdocs/intranet/app/View/Customers/reconnection_request.ctp</file>
             <file>file:/D:/xampee/htdocs/intranet/app/View/Reports/open_invoice25.ctp</file>
-            <file>file:/D:/xampee/htdocs/intranet/app/Controller/ReportsController.php</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/Controller/TechniciansController.php</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/View/Customers/unholdrequest.ctp</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/View/Admins/donebyadmin.ctp</file>
         </group>
     </open-files>
 </project-private>

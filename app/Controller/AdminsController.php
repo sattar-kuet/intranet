@@ -94,10 +94,13 @@ class AdminsController extends AppController {
         }
         // after submit login form check this step
         if ($this->request->is('post')) {
+
+
             if ($this->Auth->login()) {
                 // pr($this->Auth); exit;
                 if ($this->Auth->user('status') == 'active') {
                     // user is activated
+                    $pic = $this->Auth->user('picture');
 
                     return $this->redirect('/admins/servicemanage');
                 } else {
@@ -229,6 +232,8 @@ class AdminsController extends AppController {
         if ($this->request->is('post') || $this->request->is('put')) {
             $this->User->set($this->request->data);
             $this->User->id = $id;
+
+
             $this->User->save($this->request->data['User']);
             $msg = '<div class="alert alert-success">
 		<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -499,7 +504,7 @@ class AdminsController extends AppController {
         $filteredData = array();
         $unique = array();
         $index = 0;
-    //    pr($allData); exit;
+        //    pr($allData); exit;
         foreach ($allData as $key => $data) {
             //pr($data); exit;
             $pd = $data['pc']['id'];
@@ -542,8 +547,8 @@ class AdminsController extends AppController {
         }
         $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
 
-       // pr($filteredData);
-      //  exit;
+        // pr($filteredData);
+        //  exit;
 
         $this->set(compact('filteredData', 'technician'));
     }

@@ -1,3 +1,4 @@
+
 <style type="text/css">
     .alert {
         padding: 6px;
@@ -6,13 +7,12 @@
         border-radius: 4px;
         text-align: center;
     }
-
 </style>
 <div class="page-content-wrapper">
     <div class="page-content">
         <!-- BEGIN PAGE HEADER-->
         <h3 class="page-title">
-            Follow up customers List<small></small>
+            Unhold Request<small></small>
         </h3>
 
         <!-- END PAGE HEADER-->
@@ -40,29 +40,13 @@
                                         Contact Date
                                     </th>
                                     <th>
-                                        Customer Name
-                                    </th>
-                                    <th>
-                                        Address
-                                    </th>
-                                    <th>
-                                        Phone
-                                    </th>
-                                    <th>
-                                        Package
-                                    </th>
-
-                                    <th>
-                                        Equipment
+                                        Customer detail
                                     </th>
                                     <th>
                                         Comment
                                     </th>
                                     <th>
-                                        Attachment
-                                    </th>                                    
-                                    <th>
-                                        Approved From Admin
+                                        Detail Information
                                     </th>
                                     <th>
                                         Action
@@ -71,54 +55,47 @@
                             </thead>
                             <tbody>
                                 <?php
+//                                pr($filteredData);
+//                                exit;
                                 foreach ($filteredData as $results):
-                                    //  pr($results);
-                                    //      exit;
-                                    $customer = $results['customers'];
 
+
+                                    $customer = $results['customers'];
+//                                 pr($customer['repair_type']); exit; 
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
                                             . $customer['zip'];
                                     ?>
                                     <tr>
                                         <td class="hidden-480">
-                                            <?php echo $results['customers']['created']; ?>  <br>
-                                            <?php echo $results['users']['name']; ?>                            
+                                            <?php echo $results['customers']['created']; ?>   <br>
+                                            <?php echo $results['users']['name']; ?>  
                                         </td>
                                         <td>
-                                            <a href="<?php
-                                            echo Router::url(array('controller' => 'customers',
-                                                'action' => 'edit_registration', $results['customers']['id']))
-                                            ?>" 
-                                               target="_blank">
-                                                   <?php
-                                                   echo $results['customers']['first_name'] . " " .
-                                                   $results['customers']['middle_name'] . " " .
-                                                   $results['customers']['last_name'];
-                                                   ?>
-                                            </a>
+                                            <ul>
+                                                <b>  Name :</b>  <a href="<?php
+                                                echo Router::url(array('controller' => 'customers',
+                                                    'action' => 'edit_registration', $results['customers']['id']))
+                                                ?>" 
+                                                                    target="_blank">
+                                                                        <?php
+                                                                        echo $results['customers']['first_name'] . " " .
+                                                                        $results['customers']['middle_name'] . " " .
+                                                                        $results['customers']['last_name'];
+                                                                        ?>
+                                                </a><br>
+                                                <b>  Address :  </b> <?php echo $customer_address; ?> <br>
+
+                                                <?php if (!empty($customer['cell'])): ?>
+                                                    <b> Cell :</b> <a href="tel:<?php echo $customer['cell'] ?>"><?php echo $customer['cell']; ?></a><br>
+                                                <?php endif; ?>
+                                                <?php if (!empty($customer['home'])): ?>
+                                                    <b>  Home :</b>  <a href="tel:<?php echo $customer['home'] ?>"><?php echo $customer['home']; ?></a>
+                                                <?php endif; ?> 
+                                            </ul>
+
                                         </td>
-                                        <td>
-                                            <?php echo $customer_address; ?> 
-                                        </td>
-                                        <td class="hidden-480">
-                                            <?php if (!empty($customer['cell'])): ?>
-                                                <a href="tel:<?php echo $customer['cell'] ?>"><?php echo $customer['cell']; ?></a> &nbsp;&nbsp;
-                                            <?php endif; ?>
-                                            <?php if (!empty($customer['home'])): ?>
-                                                <a href="tel:<?php echo $customer['home'] ?>"><?php echo $customer['home']; ?></a>
-                                            <?php endif; ?> 
-                                        </td>
-                                        <td>
-                                            <?php if (!empty($results['package']['name'])): ?>
-                                                Name:<?php echo $results['package']['name'] ?><br>
-                                                Duration:<?php echo $results['package']['duration']; ?><br>
-                                                Amount: <?php echo $results['package']['amount']; ?>
-                                            <?php endif; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $customer['shipment_equipment'] . ' ' . $customer['shipment_note']; ?>
-                                        </td>
+
                                         <td>
                                             <?php
                                             foreach ($results['comments'] as $comment):
@@ -131,32 +108,34 @@
                                             <?php endforeach;
                                             ?>
                                         </td>
-                                        <td>
-                                            <div class="col-md-12 col-sm-12 mix category_2 category_1">
-                                                <div class="mix-inner">
-                                                    <?php if (!empty($customer['attachment'])) { ?>
-                                                        <img class="img-responsive" src="<?php echo $this->webroot . 'attchment' . '/' . $customer['attachment']; ?>" alt="">
-                                                        <div class="mix-details">
-                                                            <a class="mix-preview fancybox-button" href="<?php echo $this->webroot . 'attchment' . '/' . $customer['attachment']; ?>" title="Project Name" data-rel="fancybox-button">
-                                                                <i class="fa fa-eye pull-right"></i>
-                                                            </a>
-                                                        </div>
-                                                    <?php } else { ?>
-                                                        <h4> No Attachment</h4>
 
-                                                    <?php } ?>
-
-                                                </div>
-                                            </div>
-                                        </td>
                                         <td>
-                                            <?php
-                                            $key = $customer['approved'];
-                                            $approve = array(0 => 'Not Approved', 1 => 'Approved');
-                                            echo $approve[$key];
+                                            <?php if (trim($results['customers']['repair_type']) == 'old') { ?>
+                                                <strong>Customer Type: </strong> Existing <br>
+                                                <strong>Issue: </strong> <?php echo $results['issues'][0]['name']['name']; ?> <br>
+                                                <strong>Equipment: </strong> <?php
+                                                echo $results['customers']['shipment_equipment'] . ' ' .
+                                                $results['customers']['shipment_note'] . '(' . $results['customers']['remote_no'] . ')';
+                                                ?> <br>
+                                                <strong>Mac: </strong> <?php echo $results['customers']['cancel_mac']; ?>
+                                            <?php } else { ?>
+                                                <strong>Customer Type: </strong> New <br>
+                                                <strong>Package: </strong> <?php $results['package']['name']; ?> <br>
+                                                <strong>Payment: </strong> <ul>
+                                                    <li>SD: <?php echo $results['customers']['deposit']; ?>$</li>
+                                                    <li>MB: <?php echo $results['customers']['monthly_bill']; ?>$</li>
+                                                    <li>Equipment: <?php echo $results['customers']['others']; ?>$</li>
+                                                    <li>Total: <?php echo $results['customers']['total']; ?>$</li>
+                                                </ul>  <br>
+                                                <strong>Equipment: </strong> <?php
+                                                echo $results['customers']['shipment_equipment'] . ' ' .
+                                                $results['customers']['shipment_note'] . '(' . $results['customers']['remote_no'] . ')';
+                                                ?>
+                                            <?php }
                                             ?>
-                                        </td>
 
+
+                                        </td>
                                         <td> 
                                             <div class="controls center text-center">
                                                 <a 
@@ -192,12 +171,13 @@
                                                     echo $this->Form->create('PackageCustomer', array(
                                                         'inputDefaults' => array(
                                                             'label' => false,
-                                                            'div' => false
+                                                            'div' => false,
+                                                            'id' => false
                                                         ),
                                                         'id' => 'form_sample_3',
                                                         'class' => 'form-horizontal',
                                                         'novalidate' => 'novalidate',
-                                                        'url' => array('controller' => 'technicians', 'action' => 'done')
+                                                        'url' => array('controller' => 'technicians', 'action' => 'dodone')
                                                             )
                                                     );
                                                     ?>
@@ -253,7 +233,8 @@
                                                     echo $this->Form->create('Comment', array(
                                                         'inputDefaults' => array(
                                                             'label' => false,
-                                                            'div' => false
+                                                            'div' => false,
+                                                            'id' => false
                                                         ),
                                                         'id' => 'form_sample_3',
                                                         'class' => 'form-horizontal',
@@ -312,7 +293,8 @@
                                                     echo $this->Form->create('PackageCustomer', array(
                                                         'inputDefaults' => array(
                                                             'label' => false,
-                                                            'div' => false
+                                                            'div' => false,
+                                                            'id' => false
                                                         ),
                                                         'id' => 'form_sample_3',
                                                         'class' => 'form-horizontal',
@@ -373,7 +355,8 @@
                                                     echo $this->Form->create('PackageCustomer', array(
                                                         'inputDefaults' => array(
                                                             'label' => false,
-                                                            'div' => false
+                                                            'div' => false,
+                                                            'id' => false
                                                         ),
                                                         'id' => 'form_sample_3',
                                                         'class' => 'form-horizontal',
@@ -435,7 +418,8 @@
                                                     echo $this->Form->create('PackageCustomer', array(
                                                         'inputDefaults' => array(
                                                             'label' => false,
-                                                            'div' => false
+                                                            'div' => false,
+                                                            'id' => false
                                                         ),
                                                         'id' => 'form_sample_3',
                                                         'class' => 'form-horizontal',
@@ -509,3 +493,6 @@
     </div>
 </div>
 <!-- END CONTENT -->
+
+
+

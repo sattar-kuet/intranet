@@ -114,6 +114,9 @@
                                         Name
                                     </th>
                                     <th class="hidden-480" style="background-color:whitesmoke">
+                                        Expire Date
+                                    </th>
+                                    <th class="hidden-480" style="background-color:whitesmoke">
                                         DESCRIPTION
                                     </th>
                                     <th class="hidden-480"  style="background-color: silver; text-align: center;">
@@ -136,10 +139,7 @@
                                 </tr>
                             </thead>
                             <tbody>                                    
-                                <?php
-                                foreach (
-                                $invoice as $single):
-                                    ?>
+                                <?php foreach ($packagecustomers as $single): ?>
                                     <tr>
                                         <td  style=" text-align: center; background-color:#990000; font-size: 19px; font-weight: bold; color: white; width: 101px;">
                                             <?php
@@ -148,6 +148,9 @@
                                         </td>
                                         <td style="background-color:whitesmoke">
                                             <?php echo $single['0']['name']; ?>
+                                        </td>
+                                        <td style="background-color:whitesmoke">
+                                            <?php echo $single['pc']['package_exp_date']; ?>
                                         </td>
                                         <td style="background-color:whitesmoke">
                                             <b><?php echo $single['ps']['name']; ?></b><br>
@@ -171,10 +174,6 @@
                                                 <a   target="_blank" title="Add to pdf" href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'invoice', $single['pc']['id'])) ?>" class="btn default btn-xs green-stripe">
                                                     Invoice </a>
                                             </div>
-                                            <!--                                                <div class="controls center text-center">
-                                                                                                <a   target="_blank" title="Add to pdf" href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'invoice', $single['tr']['id'])) ?>" class="btn default btn-xs green-stripe">
-                                                                                                    Invoice </a>
-                                                                                            </div>-->
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>                           
@@ -185,8 +184,11 @@
             </div>
         </div>
     </div>
+    <div class="controls center text-center">
+        <a   target="_blank" title="Add to pdf" href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'allInvoice')) ?>" class="btn default btn-xs green-stripe">
+           Generate All Invoice </a>
+    </div>
 </div>
-
 <!-- END CONTENT -->
 
 

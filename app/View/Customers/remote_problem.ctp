@@ -122,6 +122,7 @@
 
                                         <td>
                                             <?php echo $customer['shipment_equipment'] . ' ' . $customer['shipment_note']; ?>
+                                            <br> ( <?php echo $results['customers']['remote_no'] ?> )
                                         </td>
                                         <td>
                                             <ul>
@@ -155,7 +156,16 @@
                                                             )
                                                     );
                                                     ?>
-                                                   <div class="form-body">
+
+                                                    <?php
+                                                    echo $this->Form->input('repair_type', array(
+                                                        'type' => 'hidden',
+                                                        'value' => 'new',
+                                                            )
+                                                    );
+                                                    ?>
+
+                                                    <div class="form-body">
                                                         <div class="alert alert-danger display-hide">
                                                             <button class="close" data-close="alert"></button>
                                                             You have some form errors. Please check below.
@@ -176,7 +186,7 @@
                                                             </div>
                                                         </div> 
 
-                                                         <div class="form-group">                               
+                                                        <div class="form-group">                               
                                                             <div class="col-md-12">
                                                                 <?php
                                                                 echo $this->Form->input(
