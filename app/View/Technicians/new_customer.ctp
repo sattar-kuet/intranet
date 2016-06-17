@@ -48,6 +48,9 @@
                                     <th>
                                         Detail Information
                                     </th>
+                                     <th>
+                                        Dead Line
+                                    </th>
                                     <th>
                                         Action
                                     </th>
@@ -61,7 +64,7 @@
 
 
                                     $customer = $results['customers'];
-//                                 pr($customer['repair_type']); exit; 
+//                                 pr($customer['schedule_date']); exit; 
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
                                             . $customer['zip'];
@@ -116,16 +119,24 @@
                                                 <strong>Equipment: </strong> <?php
                                                 echo $results['customers']['shipment_equipment'] . ' ' .
                                                 $results['customers']['shipment_note'] . '(' . $results['customers']['remote_no'] . ')';
+                                                
+                                                
                                                 ?> <br>
-                                                <strong>Mac: </strong> <?php echo $results['customers']['cancel_mac']; ?>
+                                                <strong>Mac: </strong> <?php echo $results['customers']['cancel_mac']; ?> <br>
+                                                <strong>Payment: </strong> <ul>
+                                                    <li>SD: $<?php echo $results['customers']['deposit']; ?></li>
+                                                    <li>MB: $<?php echo $results['customers']['monthly_bill']; ?></li>
+                                                    <li>Equipment: $<?php echo $results['customers']['others']; ?></li>
+                                                    <li>Total: $<?php echo $results['customers']['total']; ?></li>
+                                                </ul>  <br>
                                             <?php } else { ?>
                                                 <strong>Customer Type: </strong> New <br>
                                                 <strong>Package: </strong> <?php $results['package']['name']; ?> <br>
                                                 <strong>Payment: </strong> <ul>
-                                                    <li>SD: <?php echo $results['customers']['deposit']; ?>$</li>
-                                                    <li>MB: <?php echo $results['customers']['monthly_bill']; ?>$</li>
-                                                    <li>Equipment: <?php echo $results['customers']['others']; ?>$</li>
-                                                    <li>Total: <?php echo $results['customers']['total']; ?>$</li>
+                                                    <li>SD: $<?php echo $results['customers']['deposit']; ?></li>
+                                                    <li>MB: $<?php echo $results['customers']['monthly_bill']; ?></li>
+                                                    <li>Equipment: $<?php echo $results['customers']['others']; ?></li>
+                                                    <li>Total: $<?php echo $results['customers']['total']; ?></li>
                                                 </ul>  <br>
                                                 <strong>Equipment: </strong> <?php
                                                 echo $results['customers']['shipment_equipment'] . ' ' .
@@ -136,6 +147,7 @@
 
 
                                         </td>
+                                        <td><?php echo $customer['schedule_date']; ?></td>
                                         <td> 
                                             <div class="controls center text-center">
                                                 <a 

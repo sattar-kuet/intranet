@@ -78,8 +78,11 @@ class AppController extends Controller {
     }
 
     function getFormatedDate($date = null) {
-        $temp = explode('/',$date);
-        return $temp[2].'-'.$temp[0].'-'.$temp[1];
+        $temp = explode('/', $date);
+        if (count($temp)>1) {
+            return $temp[2] . '-' . $temp[0] . '-' . $temp[1];
+        }
+        return $date;
     }
 
     function loadFooter() {
