@@ -133,7 +133,7 @@ class TicketsController extends AppController {
 
                 if (trim($this->request->data['Ticket']['issue_id']) == 20 || trim($this->request->data['Ticket']['issue_id']) == 28) {
                     $this->updateCustomer('Request to cancel', $customer_id);
-                    if (!array_key_exists('mac',$this->request->data)) {
+                    if (!array_key_exists('mac', $this->request->data)) {
                         $msg = '<div class="alert alert-danger">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
 				<strong> No mac was selected !</strong>
@@ -492,9 +492,6 @@ class TicketsController extends AppController {
     function forward() {
         $this->loadModel('Track');
         $loggedUser = $this->Auth->user();
-
-//        pr($this->request->data);
-//        exit;
 
         $this->request->data['Track']['forwarded_by'] = $loggedUser['id'];
         if (empty($this->request->data['Track']['user_id']) && empty($this->request->data['Track']['role_id'])) {

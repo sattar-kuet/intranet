@@ -68,13 +68,12 @@ class AppController extends Controller {
             $sidebar = $admin['Role']['name'];
             $this->set(compact('sidebar'));
         }
-
-        $loggedUser = $this->Auth->user();
-
+      
+        $loggedUser = $this->Auth->user();      
         $this->set('loggedUser', $loggedUser['name']);
-        //   $this->loadMenu();
-        // $this->loadLeftMenu();
-        // $this->loadFooter();
+        
+     //   $loggedUserpic = $this->Auth->user();       
+      //  $this->set('loggedUserpic', $loggedUser['picture']);
     }
 
     function getFormatedDate($date = null) {
