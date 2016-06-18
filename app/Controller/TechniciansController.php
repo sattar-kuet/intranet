@@ -315,6 +315,7 @@ class TechniciansController extends AppController {
     }
 
     function newCustomer() {
+        
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
         $loggedUser = $this->Auth->user();
@@ -337,9 +338,6 @@ class TechniciansController extends AppController {
             if (isset($unique[$pd])) {
                 //  echo 'already exist'.$key.'<br/>';
                 if (!empty($data['c']['content'])) {
-                    //  $temp = $data['c'];// array('id' => $data['psettings']['id'], 'duration' => $data['psettings']['duration'], 'amount' => $data['psettings']['amount'], 'offer' => $data['psettings']['offer']);
-                    //pr($temp); exit;
-
                     $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
                 }
