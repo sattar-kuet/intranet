@@ -125,7 +125,7 @@
 
                                     </td>
                                     <td>
-                                        <?php echo $results['customers']['follow_date']; ?>
+                                        <?php  echo date_format( new DateTime($results['customers']['follow_date']) , 'm-d-Y' ); ?>
                                     </td>
                                     <td>
                                         <ul>
