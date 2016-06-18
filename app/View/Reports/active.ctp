@@ -120,7 +120,7 @@
                                         ?>
                                     </td>
                                     <td>
-                                        <?php echo $results['PackageCustomer']['created']; ?>
+                                        <?php echo date_format( new DateTime($results['PackageCustomer']['created']) , 'm-d-Y' ); ?>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>                           

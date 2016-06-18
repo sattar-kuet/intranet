@@ -131,7 +131,7 @@
                                         ?>
                                     </td>
                                     <td>
-                                        <?php echo $results['PackageCustomer']['created']; ?>
+                                        <?phpecho date_format( new DateTime($results['PackageCustomer']['created']) , 'm-d-Y' );?>
                                     </td>
                                     <td>
                                         <?php echo $results['PackageCustomer']['status']; ?>
