@@ -185,7 +185,6 @@
                                                             You have some form errors. Please check below.
                                                         </div>
                                                         <div class="form-group">
-                                                            <div class="form-group">
                                                                 <div class="col-md-12">
                                                                     <?php
                                                                     echo $this->Form->input('technician_id', array(
@@ -198,21 +197,19 @@
                                                                     ?>
                                                                 </div>
                                                             </div>
-                                                        </div> 
-
                                                         <div class="form-group">                               
-                                                            <div class="col-md-12">
-                                                                <?php
-                                                                echo $this->Form->input(
-                                                                        'schedule_date', array(
-                                                                    'type' => 'text',
-                                                                    'placeholder' => 'Select date',
-                                                                    'class' => "datepicker form-control",
-                                                                    'title' => 'Click & select date'
-                                                                ));
-                                                                ?>
-                                                            </div>
-                                                        </div> 
+                                                                <div class="col-md-12">
+                                                                    <?php
+                                                                    echo $this->Form->input(
+                                                                            'schedule_date', array(
+                                                                        'type' => 'text',
+                                                                        'placeholder' => 'Select date',
+                                                                        'class' => "datepicker form-control",
+                                                                        'title' => 'Click & select date'
+                                                                    ));
+                                                                    ?>
+                                                                </div>
+                                                            </div> 
                                                         <div class="form-group">                               
                                                             <div class="col-md-12">
                                                                 <?php

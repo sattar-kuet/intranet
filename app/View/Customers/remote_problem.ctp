@@ -170,7 +170,6 @@
                                                             <button class="close" data-close="alert"></button>
                                                             You have some form errors. Please check below.
                                                         </div>
-                                                        <div class="form-group">
                                                             <div class="form-group">
                                                                 <div class="col-md-12">
                                                                     <?php
@@ -184,8 +183,6 @@
                                                                     ?>
                                                                 </div>
                                                             </div>
-                                                        </div> 
-
                                                         <div class="form-group">                               
                                                             <div class="col-md-12">
                                                                 <?php
