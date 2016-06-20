@@ -171,11 +171,7 @@
                                     <tbody>                                    
                                         <?php
                                         foreach ($transactions as $info):
-<<<<<<< HEAD
-//                                            pr($info['PackageCustomer']['Psetting']['name']);exit();
-=======
-                                           pr($info);exit();
->>>>>>> a070e91d8a3d6f1883649017e5393f7708c5f0b4
+
                                             ?>
                                             <tr>
                                                 <td><?php echo $info['PackageCustomer']['c_acc_no']; ?></td>
