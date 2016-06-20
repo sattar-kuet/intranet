@@ -31,7 +31,7 @@
                 ?>
 
 
-            <div  id="printableArea" style="page-break-before: always;">               
+            <div  id="printableArea">              
                     <div class="row">
                         <div class="col-xs-4">                              
                             <ul class="list-unstyled" style=" text-align: left; color: #555; margin-left: 1px;">
@@ -202,10 +202,10 @@
                     </div> 
                     <hr style="border-color: #ccc !important; margin-top: 175px;  border-width: 1px;">
                 </div>
-
+           
 
             <?php endforeach; ?>  
-           
+            <div style="page-break-after: always; "></div><br/>
         </div>          
     </div> 
 </div>

@@ -73,7 +73,7 @@
                             <tbody>
                                 <?php
                                 foreach ($filteredData as $results):
-//                                       pr($results);
+//                                       pr();
 //                                            exit;
                                     $customer = $results['customers'];
 
@@ -126,6 +126,8 @@
                                                 // pr($comment);
                                                 ?>
                                                 <span title="<?php echo $comment['content']['created']; ?>" class="fa fa-hand-o-right ">  <?php echo $comment['content']['content']; ?> &nbsp;&nbsp;</span> <i> <?php echo $comment['user']['name']; ?></i>
+                                                
+                                                <br><?php echo $comment['content']['created']; ?>
                                                 <br> 
                                                 <br> 
 

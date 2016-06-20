@@ -170,6 +170,7 @@
                                     <tbody>                                    
                                         <?php
                                         foreach ($transactions as $info):
+                                          //  pr($info); exit;
                                             ?>
                                             <tr>
                                                 <td><?php echo $info['PackageCustomer']['c_acc_no']; ?></td>
@@ -179,8 +180,14 @@
                                                 <td><?php echo $info['PackageCustomer']['cell']; ?></td>
                                                 <td>
                                                     <?php
-                                                    if ($info['PackageCustomer']['custom_package_id'] == null) {
-                                                        echo $info['PackageCustomer']['Psetting']['name'];
+                                                    if ($info['PackageCustomer']['custom_package_id'] == null ) {
+                                                        if(count($info['PackageCustomer']['Psetting']) ==0){
+                                                            echo 'No package was selected with this customer';
+                                                        }
+                                                        else{
+                                                            echo $info['PackageCustomer']['Psetting']['name'];
+                                                        }
+                                                        
                                                     } else {
                                                         echo $info['PackageCustomer']['CustomPackage']['duration'] . ' Months, Custom package ' . $info['PackageCustomer']['CustomPackage']['charge'] . '$';
                                                     }

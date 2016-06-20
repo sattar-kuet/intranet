@@ -9,6 +9,7 @@
     }
 </style>
 <div class="page-content-wrapper">
+
     <div class="page-content">
         <!-- BEGIN PAGE HEADER-->
         <h3 class="page-title">
@@ -19,6 +20,7 @@
         <!-- BEGIN PAGE CONTENT-->
         <div class="row">
             <div class="col-md-12">
+
                 <!-- BEGIN EXAMPLE TABLE PORTLET-->
                 <div class="portlet box green">
                     <div class="portlet-title">
@@ -31,9 +33,10 @@
                             </a>
                         </div>
                     </div>
+
                     <div class="portlet-body">
                         <?php echo $this->Session->flash(); ?> 
-                        <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+                          <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                             <thead>
                                 <tr>
                                     <th>
@@ -42,13 +45,13 @@
                                     <th>
                                         Customer detail
                                     </th>
-                                    <th>
+<!--                                    <th>
                                         Comment
-                                    </th>
+                                    </th>-->
                                     <th>
                                         Detail Information
                                     </th>
-                                     <th>
+                                    <th>
                                         Dead Line
                                     </th>
                                     <th>
@@ -99,29 +102,26 @@
 
                                         </td>
 
-                                        <td>
+<!--                                        <td>
                                             <?php
-                                            foreach ($results['comments'] as $comment):
-                                                // pr($comment);
+//                                            foreach ($results['comments'] as $comment):
                                                 ?>
-                                                <span title="<?php echo $comment['content']['created']; ?>" class="fa fa-hand-o-right ">  <?php echo $comment['content']['content']; ?> &nbsp;&nbsp;</span> <i> <?php echo $comment['user']['name']; ?></i>
+                                                <span title="<?php // echo $comment['content']['created']; ?>" class="fa fa-hand-o-right ">  <?php echo $comment['content']['content']; ?> &nbsp;&nbsp;</span> <i> <?php echo $comment['user']['name']; ?></i>
                                                 <br> 
                                                 <br> 
 
-                                            <?php endforeach;
+                                            <?php // endforeach;
                                             ?>
-                                        </td>
+                                        </td>-->
 
                                         <td>
                                             <?php if (trim($results['customers']['repair_type']) == 'old') { ?>
                                                 <strong>Customer Type: </strong> Existing <br>
                                                 <strong>Issue: </strong> <?php echo $results['issues'][0]['name']['name']; ?> <br>
-                                                <strong>Equipment: </strong> <?php
-                                                echo $results['customers']['shipment_equipment'] . ' ' .
-                                                $results['customers']['shipment_note'] . '(' . $results['customers']['remote_no'] . ')';
-                                                
-                                                
-                                                ?> <br>
+<!--                                                <strong>Equipment: </strong> <?php
+//                                                echo $results['customers']['shipment_equipment'] . ' ' .
+//                                                $results['customers']['shipment_note'] . '(' . $results['customers']['remote_no'] . ')';
+                                                ?> <br>-->
                                                 <strong>Mac: </strong> <?php echo $results['customers']['cancel_mac']; ?> <br>
                                                 <strong>Payment: </strong> <ul>
                                                     <li>SD: $<?php echo $results['customers']['deposit']; ?></li>

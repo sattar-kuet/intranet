@@ -455,7 +455,7 @@
                                                         <?php
                                                         echo $this->Form->input(
                                                                 'mac.', array(
-                                                            'class' => 'required',
+                                                            'class' => '',
                                                             'placeholder' => 'Optional',
                                                             'value' => $mac
                                                                 )
@@ -475,7 +475,7 @@
                                                             'options' => array('CMS1' => 'CMS1', 'CMS2' => 'CMS2', 'CMS3' => 'CMS3', 'PORTAL' => 'PORTAL', 'PORTAL1' => 'PORTAL1'),
                                                             'default' => trim($system),
                                                             'empty' => 'Select System',
-                                                            'class' => 'span12 uniform nostyle select1 required'
+                                                            'class' => 'span12 uniform nostyle select1'
 
                                                                 //'id'=>'stbn',
                                                                 )
