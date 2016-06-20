@@ -23,7 +23,7 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-plus"></i>New Customers
+                            <i class="fa fa-plus"></i>Expired Customers
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="reload">
@@ -50,9 +50,8 @@
                                 You have some form errors. Please check below.
                             </div>
                             <?php echo $this->Session->flash(); ?>
-
                             <div class="form-group">                                
-                                <label class="control-label col-md-3" for="required">Select Date:</label>
+                                <label class="control-label col-md-3" for="required">Select date</label>
                                 <div class="col-md-4">
                                     <?php
                                     echo $this->Form->input(
@@ -86,7 +85,6 @@
         </div>
         <!-- END PAGE CONTENT -->
         <?php if ($clicked): ?>    
-
             <div class="page-content-wrapper" style="margin: 0px; padding: 0px;">
                 <div class="">
                     <!-- BEGIN PAGE HEADER-->
@@ -107,12 +105,12 @@
                     </div>
                     <!-- END PAGE HEADER-->
                     <!-- BEGIN PAGE CONTENT-->
-                    <div class="invoice"  id="printableArea">
+                    <div class="invoice" id="printableArea">
                         <div class="row invoice-logo">
                             <div class="col-xs-12 invoice-logo-space">
                                 <div class="row">
                                     <div class="col-xs-12" style="text-align: center; margin-bottom: 41px;">
-                                        <h4 class="page-title"  style="color: #353535; font-weight: bold;"><u>New Customers</u></h4>
+                                        <h4 class="page-title"  style="color: #353535; font-weight: bold;"><u>Expired Customers</u></h4>
                                         <div>Total Cable USA</div>
                                         <div>P.O. BOX 770068,</div>
                                         <div>WOODSIDE, NY 11377</div>
@@ -166,16 +164,16 @@
                                             <th class="hidden-480">
                                                 Registration Date
                                             </th>
+
                                         </tr>
                                     </thead>
                                     <tbody>                                    
                                         <?php
                                         foreach ($transactions as $info):
-
                                             ?>
                                             <tr>
                                                 <td><?php echo $info['PackageCustomer']['c_acc_no']; ?></td>
-                                                <td> <a href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit_customer_data', $info['PackageCustomer']['id'])) ?>" target="_blank"><?php echo $info['PackageCustomer']['middle_name']. " " . $info['PackageCustomer']['last_name']; ?></a> </td>
+                                                <td> <a href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit_customer_data', $info['PackageCustomer']['id'])) ?>" target="_blank"><?php echo $info['PackageCustomer']['middle_name'] . " " . $info['PackageCustomer']['last_name']; ?></a> </td>
                                                 <td><?php echo $info['Transaction']['address']; ?></td>
                                                 <td><?php echo $info['PackageCustomer']['mac']; ?></td>
                                                 <td><?php echo $info['PackageCustomer']['cell']; ?></td>
@@ -184,13 +182,13 @@
                                                     if ($info['PackageCustomer']['custom_package_id'] == null) {
                                                         echo $info['PackageCustomer']['Psetting']['name'];
                                                     } else {
-                                                        echo $info['PackageCustomer']['CustomPackage']['duration'].' Months, Custom package '.$info['PackageCustomer']['CustomPackage']['charge'] . '$';
+                                                        echo $info['PackageCustomer']['CustomPackage']['duration'] . ' Months, Custom package ' . $info['PackageCustomer']['CustomPackage']['charge'] . '$';
                                                     }
                                                     ?>
                                                 </td>
                                                 <td><?php echo $info['Transaction']['due']; ?></td>
-                                                <td><?php echo date_format( new DateTime($info['Transaction']['exp_date']) , 'm-d-Y' ); ?></td>
-                                                <td><?php  echo date_format( new DateTime($info['PackageCustomer']['created']) , 'm-d-Y' );?></td>                                                
+                                                <td><?php echo $info['Transaction']['exp_date']; ?></td>
+                                                <td><?php echo $info['PackageCustomer']['created']; ?></td>                                                 
                                             </tr>
                                         <?php endforeach; ?>                           
                                     </tbody>
@@ -199,7 +197,7 @@
                         </div>
                     </div>
                 </div>
-            </div>                             
+            </div>                            
         <?php endif; ?>
     </div>
 </div>

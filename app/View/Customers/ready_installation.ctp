@@ -184,9 +184,9 @@
                                                             <button class="close" data-close="alert"></button>
                                                             You have some form errors. Please check below.
                                                         </div>
-                                                        <div class="form-group">
+                                                       
                                                             <div class="form-group">
-                                                                <div class="col-md-10">
+                                                                <div class="col-md-12">
                                                                     <?php
                                                                     echo $this->Form->input('technician_id', array(
                                                                         'type' => 'select',
@@ -198,7 +198,7 @@
                                                                     ?>
                                                                 </div>
                                                             </div>
-                                                        </div> 
+                                                        
 
                                                          <div class="form-group">                               
                                                             <div class="col-md-12">
