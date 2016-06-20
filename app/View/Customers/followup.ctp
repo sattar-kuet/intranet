@@ -125,7 +125,7 @@
 
                                     </td>
                                     <td>
-                                        <?php echo $results['customers']['follow_date']; ?>
+                                        <?php  echo date_format( new DateTime($results['customers']['follow_date']) , 'm-d-Y' ); ?>
                                     </td>
                                     <td>
                                         <ul>
@@ -228,12 +228,11 @@
                                             );
                                             ?>
                                             <div class="form-body">
-                                                <div class="alert alert-danger display-hide">
-                                                    <button class="close" data-close="alert"></button>
-                                                    You have some form errors. Please check below.
-                                                </div>
-                                                <?php echo $this->Session->flash(); ?>
-                                                <div class="form-group">
+                                                    <div class="alert alert-danger display-hide">
+                                                        <button class="close" data-close="alert"></button>
+                                                        You have some form errors. Please check below.
+                                                    </div>
+                                                    <?php echo $this->Session->flash(); ?>
                                                     <div class="form-group">
                                                         <div class="col-md-12">
                                                             <?php
@@ -247,7 +246,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
                                             <div class="form-actions">
                                                 <div class="row">
                                                     <div class="col-md-offset-7 col-md-4">

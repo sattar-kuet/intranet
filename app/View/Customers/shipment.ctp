@@ -79,7 +79,7 @@
                                     ?>
                                     <tr>
                                         <td class="hidden-480">
-                                            <?php echo $results['customers']['created']; ?>  <br>
+                                            <?php echo date_format( new DateTime($results['customers']['created']) , 'm-d-Y' );?> <br>
                                             <?php echo $results['users']['name']; ?>                            
                                         </td>
                                         <td>
@@ -184,7 +184,6 @@
                                                             <button class="close" data-close="alert"></button>
                                                             You have some form errors. Please check below.
                                                         </div>
-                                                        <div class="form-group">
                                                             <div class="form-group">
                                                                 <div class="col-md-12">
                                                                     <?php
@@ -198,8 +197,6 @@
                                                                     ?>
                                                                 </div>
                                                             </div>
-                                                        </div> 
-
                                                         <div class="form-group">                               
                                                             <div class="col-md-12">
                                                                 <?php

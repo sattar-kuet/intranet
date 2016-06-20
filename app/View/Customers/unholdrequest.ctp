@@ -70,7 +70,7 @@
                                     ?>
                                     <tr>
                                         <td class="hidden-480">
-                                            <?php echo $results['customers']['created']; ?>   <br>
+                                            <?php  echo date_format( new DateTime($results['customers']['created']) , 'm-d-Y' );?>   <br>
                                             <?php echo $results['users']['name']; ?>  
                                         </td>
                                         <td>
@@ -107,7 +107,7 @@
                                         <td>
                                             <ul>
                                                 <?php if (!empty($results['customers']['unhold_date'])): ?>
-                                                    <?php echo $results['customers']['unhold_date'] ?>
+                                                    <?php echo date_format( new DateTime($results['customers']['unhold_date']) , 'm-d-Y' );?>
                                                 <?php endif ?>
                                             </ul>
                                         </td>

@@ -579,7 +579,7 @@
                                     </div>
 
                                     <div class="col-md-2 signupfont status-date">
-<!--                                       Active Date:-->
+                                        <!--                                       Active Date:-->
                                     </div>
                                     <div class="col-md-4">
                                         <div class="input-list style-4 clearfix">
@@ -644,10 +644,27 @@
                                                 <?php
                                                 echo $this->Form->input('status', array(
                                                     'type' => 'select',
-                                                    'options' => array('active' => 'Active', 'hold' => 'Hold', 'unhold' => 'Unhold', 'canceled' => 'Canceled', 'reconnection' => 'Reconnection', 'ready' => 'Ready'),
+                                                    'options' => array(
+                                                        'active' => 'Active',
+                                                        'canceled' => 'Canceled',
+                                                        'requested' => 'Requested',
+                                                        'done' => 'Done',
+                                                        'ready' => 'Ready to install',
+                                                        'old_ready' => 'Troubleshot',
+                                                        'scheduled' => 'Scheduled',
+                                                        'Request to cancel' => 'Request to cancel',
+                                                        'Request to hold' => 'Request to hold',
+                                                        'Request to unhold' => 'Request to unhold',
+                                                        'hold' => 'Hold',
+                                                        'unhold' => 'Unhold',
+                                                        'Request to reconnection' => 'Request to reconnection',
+                                                        'post pone' => 'Post pone',
+                                                        'done' => 'Done',
+                                                        'rescheduled' => 'Reschedu'
+                                                    ),
                                                     //'default' => $selected['package'],
                                                     'empty' => 'Select Status',
-                                                    'class' => 'span12 uniform nostyle select1',
+                                                    'class' => 'span12 uniform nostyle select1 required',
                                                     'name' => 'status',
                                                     'id' => 'status'
                                                         //'id'=>'stbn',
@@ -657,26 +674,24 @@
                                             </div>                            
                                         </div>
                                     </div>
-                                        <div class="col-md-2 signupfont">
+                                    <div class="col-md-2 signupfont">
                                         Next Payment Date:
 
                                     </div>
                                     <div class="col-md-2">
                                         <div class="input-list style-4 clearfix">
-                                            <div>
-                                                <?php
-                                                echo $this->Form->input(
-                                                        'package_exp_date', array(
-                                                    'class' => 'datepicker form-control ',
-                                                    'type' => 'text',
-                                                        )
-                                                );
-                                                ?>
+                                            <?php
+                                            echo $this->Form->input(
+                                                    'package_exp_date ', array(
+                                                'class' => 'datepicker form-control ',
+                                                'type' => 'text',
+                                                    )
+                                            );
+                                            ?>
 
-                                            </div>                            
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                                 &nbsp;
 
@@ -701,7 +716,7 @@
 
                         </div>
                     </div>
-                <!-- -------------Begin card info update--------------------------->
+                    <!-- -------------Begin card info update--------------------------->
 
                     <div class="portlet box lightseagreen" style="background-color:  lightseagreen; border: lightseagreen solid 2px;">
                         <div class="portlet-title">
@@ -765,7 +780,7 @@
                                                 'type' => 'select',
                                                 'options' => $ym['year'],
                                                 'empty' => 'Select Year',
-                                                'class' => 'span12 uniform nostyle select1  required',
+                                                'class' => 'span12 uniform nostyle select1 required',
                                                 'div' => array('class' => 'span12 '),
                                                 'id' => 'year'
                                                     )
@@ -778,7 +793,7 @@
                                                 'type' => 'select',
                                                 'options' => $ym['month'],
                                                 'empty' => 'Select Month',
-                                                'class' => 'span12 uniform nostyle   select1 required',
+                                                'class' => 'span12 uniform nostyle select1 required',
                                                 'div' => array('class' => 'span12 '),
                                                 'id' => 'month'
                                                     )
@@ -814,7 +829,7 @@
                                                     'address_on_card', array(
                                                 'type' => 'text',
                                                 'class' => 'form-control input-sm',
-                                                'placeholder' => 'detail (optional)',
+                                                'placeholder' => 'detail(optional)',
                                             ));
                                             ?>
                                         </div>
@@ -852,7 +867,7 @@
                     </div>
                     <!-------------------------------------END CARD INFO UPDATE---------------------->
 
-                        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                    <!-- BEGIN EXAMPLE TABLE PORTLET-->
                     <div class="portlet box  blue-dark" style="background-color: blue-dark; border: blue-dark solid 2px;">
                         <div class="portlet-title">
                             <div class="caption">
@@ -1000,7 +1015,7 @@
                                                                         'type' => 'select',
                                                                         'options' => $ym['year'],
                                                                         'empty' => 'Select Year',
-                                                                        'class' => 'span12 uniform nostyle select1  required',
+                                                                        'class' => 'span12 uniform nostyle select1 required',
                                                                         'div' => array('class' => 'span12 '),
                                                                         'id' => 'showyear'
                                                                             )
@@ -1013,7 +1028,7 @@
                                                                         'type' => 'select',
                                                                         'options' => $ym['month'],
                                                                         'empty' => 'Select Month',
-                                                                        'class' => 'span12 uniform nostyle   select1 required',
+                                                                        'class' => 'span12 uniform nostyle select1 required',
                                                                         'div' => array('class' => 'span12 '),
                                                                         'id' => 'showmonth'
                                                                             )
@@ -1063,7 +1078,7 @@
                                                                         'type' => 'text',
                                                                         'value' => '',
                                                                         'class' => 'form-control input-sm',
-                                                                        'placeholder' => 'detail (optional)',
+                                                                        'placeholder' => 'detail(optional)',
                                                                         'id' => 'addressdetail'
                                                                     ));
                                                                     ?>
@@ -1594,7 +1609,7 @@
                                             'type' => 'select',
                                             'options' => $ym['year'],
                                             'empty' => 'Select Year',
-                                            'class' => 'span12 form-control uniform nostyle select1  required',
+                                            'class' => 'span12 form-control uniform nostyle select1 required',
                                             'id' => 'year',
                                             'value' => $latestcardInfo['exp_date']['year']
                                                 )
@@ -2245,7 +2260,7 @@
                                     'id' => 'form-validate',
                                     'class' => 'form-horizontal',
                                     'novalidate' => 'novalidate',
-                                    'enctype' => 'multipart/form-data'
+                                    'enctype' => 'multipart/form-data                                                                                                                                                                                              '
                                         )
                                 );
                                 ?>

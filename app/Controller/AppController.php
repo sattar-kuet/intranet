@@ -72,13 +72,16 @@ class AppController extends Controller {
         $loggedUser = $this->Auth->user();      
         $this->set('loggedUser', $loggedUser['name']);
         
-        $loggedUserpic = $this->Auth->user();       
-        $this->set('loggedUserpic', $loggedUser['picture']);
+     //   $loggedUserpic = $this->Auth->user();       
+      //  $this->set('loggedUserpic', $loggedUser['picture']);
     }
 
     function getFormatedDate($date = null) {
-        $temp = explode('/',$date);
-        return $temp[2].'-'.$temp[0].'-'.$temp[1];
+        $temp = explode('/', $date);
+        if (count($temp)>1) {
+            return $temp[2] . '-' . $temp[0] . '-' . $temp[1];
+        }
+        return $date;
     }
 
     function loadFooter() {

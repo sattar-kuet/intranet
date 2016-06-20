@@ -171,7 +171,11 @@
                                     <tbody>                                    
                                         <?php
                                         foreach ($transactions as $info):
+<<<<<<< HEAD
 //                                            pr($info['PackageCustomer']['Psetting']['name']);exit();
+=======
+                                           pr($info);exit();
+>>>>>>> a070e91d8a3d6f1883649017e5393f7708c5f0b4
                                             ?>
                                             <tr>
                                                 <td><?php echo $info['PackageCustomer']['c_acc_no']; ?></td>
@@ -189,8 +193,8 @@
                                                     ?>
                                                 </td>
                                                 <td><?php echo $info['Transaction']['due']; ?></td>
-                                                <td><?php echo $info['Transaction']['exp_date']; ?></td>
-                                                <td><?php echo $info['PackageCustomer']['created']; ?></td>                                                
+                                                <td><?php echo date_format( new DateTime($info['Transaction']['exp_date']) , 'm-d-Y' ); ?></td>
+                                                <td><?php  echo date_format( new DateTime($info['PackageCustomer']['created']) , 'm-d-Y' );?></td>                                                
                                             </tr>
                                         <?php endforeach; ?>                           
                                     </tbody>

@@ -194,8 +194,8 @@
                                                     ?>
                                                 </td>
                                                 <td><?php echo $info['Transaction']['due']; ?></td>
-                                                <td><?php echo $info['Transaction']['exp_date']; ?></td>
-                                                <td><?php echo $info['PackageCustomer']['created']; ?></td>                                                 
+                                                <td><?php echo date_format( new DateTime($info['Transaction']['exp_date']) , 'm-d-Y' );  ?></td>
+                                                <td><?php echo date_format( new DateTime($info['PackageCustomer']['created']) , 'm-d-Y' );?></td>                                                 
                                             </tr>
                                         <?php endforeach; ?>                           
                                     </tbody>

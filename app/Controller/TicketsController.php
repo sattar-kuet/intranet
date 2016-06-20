@@ -89,6 +89,11 @@ class TicketsController extends AppController {
                     'ticket_id' => $tickect['Ticket']['id'],
                     'forwarded_by' => $loggedUser['id']
                 );
+                
+                  if (trim($this->request->data['Ticket']['action_type']) == 'solved') {
+                    $trackData['Track']['status'] = 'solved';
+                }
+                
                 if (trim($this->request->data['Ticket']['issue_id']) == 17) {
                     $this->addNewAddr($this->request->data['Ticket']['new_addr'], $customer_id);
                 }
