@@ -36,7 +36,7 @@
 
                     <div class="portlet-body">
                         <?php echo $this->Session->flash(); ?> 
-                          <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+                        <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                             <thead>
                                 <tr>
                                     <th>
@@ -61,28 +61,28 @@
                             </thead>
                             <tbody>
                                 <?php
-//                                pr($filteredData);
-//                                exit;
                                 foreach ($filteredData as $results):
 
+//                                     pr($results['installations'][0]['user_id']['id']);
+//                                exit;
 
                                     $customer = $results['customers'];
-//                                 pr($customer['schedule_date']); exit; 
+//                                  pr($results['customers']['id']); exit;
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
                                             . $customer['zip'];
                                     ?>
                                     <tr>
                                         <td class="hidden-480">
-                                            <?php echo $results['customers']['created']; ?>   <br>
+                                            <?php echo $results['installations'][0]['user_id']['created']; ?>   <br>
                                             <?php echo $results['users']['name']; ?>  
                                         </td>
                                         <td>
                                             <ul>
                                                 <b>  Name :</b>  <a href="<?php
-                                                echo Router::url(array('controller' => 'customers',
-                                                    'action' => 'edit_registration', $results['customers']['id']))
-                                                ?>" 
+                                        echo Router::url(array('controller' => 'customers',
+                                            'action' => 'edit_registration', $results['customers']['id']))
+                                            ?>" 
                                                                     target="_blank">
                                                                         <?php
                                                                         echo $results['customers']['first_name'] . " " .
@@ -102,23 +102,27 @@
 
                                         </td>
 
-<!--                                        <td>
-                                            <?php
+    <!--                                        <td>
+                                        <?php
 //                                            foreach ($results['comments'] as $comment):
-                                                ?>
-                                                <span title="<?php // echo $comment['content']['created']; ?>" class="fa fa-hand-o-right ">  <?php echo $comment['content']['content']; ?> &nbsp;&nbsp;</span> <i> <?php echo $comment['user']['name']; ?></i>
-                                                <br> 
-                                                <br> 
+                                        ?>
+                                                    <span title="<?php // echo $comment['content']['created']; ?>" class="fa fa-hand-o-right ">  <?php echo $comment['content']['content']; ?> &nbsp;&nbsp;</span> <i> <?php echo $comment['user']['name']; ?></i>
+                                                    <br> 
+                                                    <br> 
 
-                                            <?php // endforeach;
-                                            ?>
-                                        </td>-->
+                                        <?php // endforeach;
+                                        ?>
+                                            </td>-->
 
                                         <td>
                                             <?php if (trim($results['customers']['repair_type']) == 'old') { ?>
                                                 <strong>Customer Type: </strong> Existing <br>
-                                                <strong>Issue: </strong> <?php echo $results['issues'][0]['name']['name']; ?> <br>
-<!--                                                <strong>Equipment: </strong> <?php
+                                                <strong>Issue: </strong>
+                                                <?php if (!empty($results['issues'][0]['name']['name'])): ?>
+                                                    <?php echo $results['issues'][0]['name']['name']; ?>
+                                                <?php endif; ?>
+                                                <br>
+        <!--                                                <strong>Equipment: </strong> <?php
 //                                                echo $results['customers']['shipment_equipment'] . ' ' .
 //                                                $results['customers']['shipment_note'] . '(' . $results['customers']['remote_no'] . ')';
                                                 ?> <br>-->
@@ -147,11 +151,11 @@
 
 
                                         </td>
-                                        <td><?php echo $customer['schedule_date']; ?></td>
+                                        <td><?php echo $results['installations'][0]['user_id']['schedule_date']; ?></td>
                                         <td> 
                                             <div class="controls center text-center">
                                                 <a 
-                                                    href="doneDiv<?php echo $results['customers']['id']; ?>" title="Done" class="toggleDiv">
+                                                    href="doneDiv<?php echo $results['installations'][0]['user_id']['id']; ?>" title="Done" class="toggleDiv">
 
                                                     <span  class="fa fa-check fa-lg "></span>
                                                 </a>
@@ -177,7 +181,8 @@
                                                     <span class="fa fa-remove fa-lg "></span>
                                                 </a>   
 
-                                                <div id="doneDiv<?php echo $results['customers']['id']; ?>" class="hideRest portlet-body form" style="display: none;">
+                                                <div id="doneDiv<?php echo $results['installations'][0]['user_id']['id']; ?>" class="hideRest portlet-body form" style="display: none;">
+                                                    
                                                     <!-- BEGIN FORM-->
                                                     <?php
                                                     echo $this->Form->create('PackageCustomer', array(
@@ -203,6 +208,14 @@
                                                     );
                                                     ?>
 
+                                                    <?php
+                                                    echo $this->Form->input('id', array(
+                                                        'type' => 'hidden',
+                                                        'value' => $results['installations'][0]['user_id']['id'],
+                                                            )
+                                                    );
+                                                    ?>
+
                                                     <div class="form-body">
                                                         <div class="alert alert-danger display-hide">
                                                             <button class="close" data-close="alert"></button>
@@ -216,7 +229,7 @@
                                                                     echo $this->Form->input('comment', array(
                                                                         'type' => 'textarea',
                                                                         'class' => 'form-control required txtArea',
-                                                                        'placeholder' => 'Write your comments for cancel'
+                                                                        'placeholder' => 'Write your comments for done'
                                                                             )
                                                                     );
                                                                     ?>
@@ -276,7 +289,7 @@
                                                                     echo $this->Form->input('content', array(
                                                                         'type' => 'textarea',
                                                                         'class' => 'form-control required txtArea',
-                                                                        'placeholder' => 'Write your comments for post pone'
+                                                                        'placeholder' => 'Write your comments'
                                                                             )
                                                                     );
                                                                     ?>
@@ -487,10 +500,7 @@
                                                 </div>
 
                                             </div>
-                                        </td>  
-
-
-
+                                        </td> 
                                     </tr>
                                 <?php endforeach; ?>  
 

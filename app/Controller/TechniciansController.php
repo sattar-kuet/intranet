@@ -315,7 +315,6 @@ class TechniciansController extends AppController {
     }
 
     function newCustomer() {
-        
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
         $loggedUser = $this->Auth->user();
@@ -325,15 +324,16 @@ class TechniciansController extends AppController {
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id
-                    WHERE pc.technician_id = " . $loggedUser['id'] . " and pc.status = 'scheduled' "
-                . " ORDER BY pc.id");
+                    left join installations ins on ins.package_customer_id = pc.id 
+                    WHERE ins.user_id = " . $loggedUser['id'] . " and ins.status = 'scheduled' "
+                . " ORDER BY ins.id");
         // echo $sql; exit;
         $filteredData = array();
         $unique = array();
         $index = 0;
 //        pr($allData); exit;
         foreach ($allData as $key => $data) {
-            //pr($data); exit;
+//            pr($data); exit;
             $pd = $data['pc']['id'];
             if (isset($unique[$pd])) {
                 //  echo 'already exist'.$key.'<br/>';
@@ -380,6 +380,12 @@ class TechniciansController extends AppController {
                 if (!empty($data['c']['content'])) {
                     $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
+                }
+
+                $filteredData[$index]['installations'] = array();
+                if (!empty($data['ins']['user_id'])) {
+                    $temp = array('user_id' => $data['ins'], 'user' => $data['u']);
+                    $filteredData[$index]['installations'][] = $temp;
                 }
             }
         }
@@ -516,6 +522,15 @@ class TechniciansController extends AppController {
     function dodone() {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Comment');
+        $this->loadModel('Installation');
+        
+        $this->Installation->id = $this->request->data['PackageCustomer']['id'];
+
+        $this->request->data['Installation']['status'] = 'done by tech';
+//        pr($this->request->data);
+//        exit;
+        $this->Installation->save($this->request->data);
+
         $loggedUser = $this->Auth->user();
         $this->request->data['PackageCustomer']['status'] = 'done';
         $this->request->data['PackageCustomer']['approved'] = 0;

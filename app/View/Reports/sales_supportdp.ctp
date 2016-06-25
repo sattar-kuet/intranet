@@ -70,6 +70,9 @@
                                     Total Call
                                 </th>
                                 <th class="hidden-480" style="text-align: center;">
+                                    New Order Taken
+                                </th>
+                                <th class="hidden-480" style="text-align: center;">
                                     Sales Done
                                 </th>
                                 <th style="text-align: center;">
@@ -85,7 +88,7 @@
                                     Unhold
                                 </th>
                                 <th class="hidden-480" style="text-align: center;">
-                                    VOD
+                                    Reconnect
                                 </th>
                             </tr>
                         </thead>
@@ -94,6 +97,11 @@
                                 <td style="text-align: center;">  
                                     <?php if (!empty($total['call'])) : ?> 
                                         <?php echo $total['call']; ?> 
+                                    <?php endif; ?>
+                                </td>  
+                                <td style="text-align: center;">   
+                                    <?php if (!empty($total['ready'])): ?>
+                                        <?php echo $total['ready']; ?> 
                                     <?php endif; ?>
                                 </td>  
                                 <td style="text-align: center;">   
@@ -122,7 +130,9 @@
                                     <?php endif; ?>
                                 </td>  
                                 <td style="text-align: center;">                                        
-                                    <?php // echo $results['hold'];  ?> 
+                                   <?php if (!empty($total['reconnection'])): ?>
+                                        <?php echo $total['reconnection']; ?> 
+                                    <?php endif; ?>
                                 </td> 
                             </tr>                                                 
                         </tbody>
