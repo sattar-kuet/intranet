@@ -403,8 +403,10 @@ class TechniciansController extends AppController {
                     left join users u on c.user_id = u.id
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
-                    left join issues i on pc.issue_id = i.id
-                    WHERE pc.technician_id = " . $loggedUser['id'] . " and pc.status = 'done' ORDER BY pc.id");
+                    left join issues i on pc.issue_id = i.id                    
+                    left join installations ins on ins.package_customer_id = pc.id 
+                    WHERE ins.user_id = " . $loggedUser['id'] . " and ins.status = 'done'  ORDER BY ins.id");
+        
         // echo $sql; exit;
         $filteredData = array();
         $unique = array();
@@ -632,8 +634,10 @@ class TechniciansController extends AppController {
                     left join users u on c.user_id = u.id
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
-                    left join issues i on pc.issue_id = i.id
-                    WHERE pc.technician_id = " . $loggedUser['id'] . " and pc.status = 'post pone' ORDER BY pc.id");
+                    left join issues i on pc.issue_id = i.id                   
+                    left join installations ins on ins.package_customer_id = pc.id 
+                    WHERE ins.user_id = " . $loggedUser['id'] . " and ins.status = 'post pone'  ORDER BY ins.id");
+                   
         $filteredData = array();
         $unique = array();
         $index = 0;
@@ -704,8 +708,10 @@ class TechniciansController extends AppController {
                     left join users u on c.user_id = u.id
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
-                    left join issues i on pc.issue_id = i.id
-                    WHERE pc.technician_id = " . $loggedUser['id'] . " and pc.status = 'rescheduled' ORDER BY pc.id");
+                    left join issues i on pc.issue_id = i.id                   
+                    left join installations ins on ins.package_customer_id = pc.id 
+                    WHERE ins.user_id = " . $loggedUser['id'] . " and ins.status = 'rescheduled'  ORDER BY ins.id");
+                    
         $filteredData = array();
         $unique = array();
         $index = 0;
@@ -765,7 +771,11 @@ class TechniciansController extends AppController {
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id
-                    WHERE pc.technician_id = " . $loggedUser['id'] . " and pc.status = 'canceled' ORDER BY pc.id");
+                    
+                      left join installations ins on ins.package_customer_id = pc.id 
+                    WHERE ins.user_id = " . $loggedUser['id'] . " and ins.status = 'canceled'  ORDER BY ins.id");
+
+                    
         $filteredData = array();
         $unique = array();
         $index = 0;
