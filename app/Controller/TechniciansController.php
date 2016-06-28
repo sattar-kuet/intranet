@@ -315,7 +315,6 @@ class TechniciansController extends AppController {
     }
 
     function newCustomer() {
-        
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
         $loggedUser = $this->Auth->user();
@@ -325,15 +324,16 @@ class TechniciansController extends AppController {
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id
-                    WHERE pc.technician_id = " . $loggedUser['id'] . " and pc.status = 'scheduled' "
-                . " ORDER BY pc.id");
+                    left join installations ins on ins.package_customer_id = pc.id 
+                    WHERE ins.user_id = " . $loggedUser['id'] . " and ins.status = 'scheduled' "
+                . " ORDER BY ins.id");
         // echo $sql; exit;
         $filteredData = array();
         $unique = array();
         $index = 0;
 //        pr($allData); exit;
         foreach ($allData as $key => $data) {
-            //pr($data); exit;
+//            pr($data); exit;
             $pd = $data['pc']['id'];
             if (isset($unique[$pd])) {
                 //  echo 'already exist'.$key.'<br/>';
@@ -381,6 +381,12 @@ class TechniciansController extends AppController {
                     $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
                 }
+
+                $filteredData[$index]['installations'] = array();
+                if (!empty($data['ins']['user_id'])) {
+                    $temp = array('user_id' => $data['ins'], 'user' => $data['u']);
+                    $filteredData[$index]['installations'][] = $temp;
+                }
             }
         }
         $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
@@ -397,8 +403,10 @@ class TechniciansController extends AppController {
                     left join users u on c.user_id = u.id
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
-                    left join issues i on pc.issue_id = i.id
-                    WHERE pc.technician_id = " . $loggedUser['id'] . " and pc.status = 'done' ORDER BY pc.id");
+                    left join issues i on pc.issue_id = i.id                    
+                    left join installations ins on ins.package_customer_id = pc.id 
+                    WHERE ins.user_id = " . $loggedUser['id'] . " and ins.status = 'done'  ORDER BY ins.id");
+        
         // echo $sql; exit;
         $filteredData = array();
         $unique = array();
@@ -516,6 +524,15 @@ class TechniciansController extends AppController {
     function dodone() {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Comment');
+        $this->loadModel('Installation');
+        
+        $this->Installation->id = $this->request->data['PackageCustomer']['id'];
+
+        $this->request->data['Installation']['status'] = 'done by tech';
+//        pr($this->request->data);
+//        exit;
+        $this->Installation->save($this->request->data);
+
         $loggedUser = $this->Auth->user();
         $this->request->data['PackageCustomer']['status'] = 'done';
         $this->request->data['PackageCustomer']['approved'] = 0;
@@ -617,8 +634,10 @@ class TechniciansController extends AppController {
                     left join users u on c.user_id = u.id
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
-                    left join issues i on pc.issue_id = i.id
-                    WHERE pc.technician_id = " . $loggedUser['id'] . " and pc.status = 'post pone' ORDER BY pc.id");
+                    left join issues i on pc.issue_id = i.id                   
+                    left join installations ins on ins.package_customer_id = pc.id 
+                    WHERE ins.user_id = " . $loggedUser['id'] . " and ins.status = 'post pone'  ORDER BY ins.id");
+                   
         $filteredData = array();
         $unique = array();
         $index = 0;
@@ -689,8 +708,10 @@ class TechniciansController extends AppController {
                     left join users u on c.user_id = u.id
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
-                    left join issues i on pc.issue_id = i.id
-                    WHERE pc.technician_id = " . $loggedUser['id'] . " and pc.status = 'rescheduled' ORDER BY pc.id");
+                    left join issues i on pc.issue_id = i.id                   
+                    left join installations ins on ins.package_customer_id = pc.id 
+                    WHERE ins.user_id = " . $loggedUser['id'] . " and ins.status = 'rescheduled'  ORDER BY ins.id");
+                    
         $filteredData = array();
         $unique = array();
         $index = 0;
@@ -750,7 +771,11 @@ class TechniciansController extends AppController {
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id
-                    WHERE pc.technician_id = " . $loggedUser['id'] . " and pc.status = 'canceled' ORDER BY pc.id");
+                    
+                      left join installations ins on ins.package_customer_id = pc.id 
+                    WHERE ins.user_id = " . $loggedUser['id'] . " and ins.status = 'canceled'  ORDER BY ins.id");
+
+                    
         $filteredData = array();
         $unique = array();
         $index = 0;

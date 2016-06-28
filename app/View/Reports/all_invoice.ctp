@@ -20,7 +20,7 @@
             </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-            
+
             <?php
             foreach ($transactions as $single):
                 $pcaddress = $single['pc'];
@@ -31,7 +31,7 @@
                 ?>
 
 
-            <div  id="printableArea">              
+                <div  id="printableArea">              
                     <div class="row">
                         <div class="col-xs-4">                              
                             <ul class="list-unstyled" style=" text-align: left; color: #555; margin-left: 1px;">
@@ -78,7 +78,7 @@
                             <div class="col-xs-5 invoice-payment">                             
                                 <ul class="list-unstyled" style=" text-align: right; color: #555; margin-right: 17px;">
                                     <li>
-                                        <h1 style=" color: #990000 !important;">INVOICE Inv-2</h1>
+                                        <h1 style=" color: #990000 !important;">INVOICE Inv #<?php echo getInvoiceNumbe($single['tr']['id']); ?></h1>
                                     </li>
                                     <li style="color: #555;">
                                         Date of Invoice: <?php echo date('Y-m-d'); ?>
@@ -101,7 +101,7 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <table class="table table-striped table-hover">
-                                <thead>
+                                <thead style="border-bottom: 10px solid whitesmoke;">
                                     <tr style="height: 101px;">
                                         <th class="hidden-480" style=" padding-bottom: 39px; text-align: center; color: white !important; background-color: #990000 !important; color: white; width: 51px;font-size: 19px; font-weight: bold;">
                                             #
@@ -123,8 +123,8 @@
                                         </th>                                      
                                     </tr>
                                 </thead>
-                                <tbody>                                    
 
+                                <tbody>                                   
                                     <tr style="height: 101px;">
                                         <td  style=" padding: 39px; text-align: center; background-color:#990000 !important; font-size: 19px; font-weight: bold; color: white !important; width: 101px;">
                                             <?php echo getInvoiceNumbe($single['tr']['id']); ?>
@@ -150,6 +150,7 @@
 
                                 </tbody>
                             </table>
+                            <br>
                             <div class="row" style=" margin-top: 49px;">
                                 <div class="col-xs-3">                    
                                 </div>
@@ -182,6 +183,8 @@
                             </div>
                         </div>
                     </div>
+
+                    <hr style="border-color: #ccc !important; margin-top: 175px;  border-width: 1px;">
                     <div class="row">
                         <div class="col-md-12">                              
                             <ul class="list-unstyled" style=" text-align: left; color: #555; margin-left: 10px;">                           
@@ -200,9 +203,8 @@
                             </ul>
                         </div>
                     </div> 
-                    <hr style="border-color: #ccc !important; margin-top: 175px;  border-width: 1px;">
                 </div>
-           
+
 
             <?php endforeach; ?>  
             <div style="page-break-after: always; "></div><br/>

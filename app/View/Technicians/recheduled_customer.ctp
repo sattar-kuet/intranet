@@ -112,7 +112,9 @@
                                         <td>
                                             <?php if (trim($results['customers']['repair_type']) == 'old') { ?>
                                                 <strong>Customer Type: </strong> Existing <br>
-                                                <strong>Issue: </strong> <?php echo $results['issues'][0]['name']['name']; ?> <br>
+                                                <?php if (!empty($results['issues'][0]['name']['name'])):?>
+                                                  <strong>Issue: </strong> <?php echo $results['issues'][0]['name']['name']; ?> <br>
+                                                <?php endif ;?>                                              
                                                 <strong>Equipment: </strong> <?php
                                                 echo $results['customers']['shipment_equipment'] . ' ' .
                                                 $results['customers']['shipment_note'] . '(' . $results['customers']['remote_no'] . ')';
@@ -204,7 +206,7 @@
                                                                     echo $this->Form->input('comment', array(
                                                                         'type' => 'textarea',
                                                                         'class' => 'form-control required txtArea',
-                                                                        'placeholder' => 'Write your comments for cancel'
+                                                                        'placeholder' => 'Write your comments done'
                                                                             )
                                                                     );
                                                                     ?>
@@ -264,7 +266,7 @@
                                                                     echo $this->Form->input('content', array(
                                                                         'type' => 'textarea',
                                                                         'class' => 'form-control required txtArea',
-                                                                        'placeholder' => 'Write your comments for post pone'
+                                                                        'placeholder' => 'Write your comments'
                                                                             )
                                                                     );
                                                                     ?>
@@ -475,10 +477,7 @@
                                                 </div>
 
                                             </div>
-                                        </td>  
-
-
-
+                                        </td> 
                                     </tr>
                                 <?php endforeach; ?>  
 

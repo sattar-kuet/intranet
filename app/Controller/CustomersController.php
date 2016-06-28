@@ -577,22 +577,23 @@ class CustomersController extends AppController {
 
     function shedule_assian($id = null) {
         $this->loadModel('PackageCustomer');
-         
-        $this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
-        $this->PackageCustomer->technician_id = $this->request->data['PackageCustomer']['technician_id'];
-//        $datrange = json_decode($this->request->data['PackageCustomer']['daterange'], true);
-//        $this->request->data['PackageCustomer']['from'] = $datrange['start'];
-//        $this->request->data['PackageCustomer']['to'] = $datrange['end'];
-        $this->request->data['PackageCustomer']['schedule_date'] = $this->request->data['PackageCustomer']['schedule_date'].' '.$this->request->data['PackageCustomer']['seTime'];
-      
+        $this->loadModel('Installation');
+
         $loggedUser = $this->Auth->user();
-        $this->request->data['PackageCustomer']['user_id'] = $loggedUser['id'];
+        $this->request->data['Installation']['assign_by'] = $loggedUser['id'];
+        $this->request->data['Installation']['package_customer_id'] = $this->request->data['PackageCustomer']['id'];
+        $this->request->data['Installation']['schedule_date'] = $this->request->data['PackageCustomer']['schedule_date'] . ' ' . $this->request->data['PackageCustomer']['seTime'];
+        $this->request->data['Installation']['user_id'] = $this->request->data['PackageCustomer']['technician_id'];
+        $this->request->data['Installation']['status'] = 'Scheduled';
+
         $this->request->data['PackageCustomer']['status'] = 'Scheduled';
-//        pr($this->request->data); exit;
         $this->PackageCustomer->save($this->request->data);
+
+        $this->Installation->save($this->request->data);
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
 	<strong> succeesfully done </strong></div>';
+        
         $this->Session->setFlash($msg);
         return $this->redirect($this->referer());
     }
@@ -953,8 +954,8 @@ class CustomersController extends AppController {
 //        pr($technician); exit;
         $this->set(compact('filteredData', 'technician'));
     }
-    
-      function reconnectionRequest() {
+
+    function reconnectionRequest() {
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
         $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
@@ -1026,7 +1027,6 @@ class CustomersController extends AppController {
 //        pr($technician); exit;
         $this->set(compact('filteredData', 'technician'));
     }
-
 
     function wire_problem() {
         $this->loadModel('User');

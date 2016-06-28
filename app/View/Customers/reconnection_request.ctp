@@ -52,8 +52,6 @@
                                     <th>
                                         Reconnect Date
                                     </th>
-
-
                                     <th>
                                         Comment
                                     </th>
