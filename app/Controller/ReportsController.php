@@ -320,8 +320,6 @@ class ReportsController extends AppController {
     function getTotalReconnection() {
         $this->loadModel('PackageCustomer');
         $date = date("Y-m-d");
-//        $date = date(format,timestamp);
-//        pr($date); exit;
         $reconnection = $this->PackageCustomer->query("SELECT count(status) as reconnection FROM package_customers WHERE modified >= $date and status = 'reconnection'");
         return $reconnection[0][0]['reconnection'];
     }
@@ -329,22 +327,14 @@ class ReportsController extends AppController {
     function getTotalNewordertaken() {
         $this->loadModel('PackageCustomer');
         $date = date("Y-m-d");
-        $ready = $this->PackageCustomer->query("SELECT count(pc.status) as ready,DATE_FORMAT( pc.modified, '%Y-%m-%d') AS  'date' FROM package_customers pc 
-                    left join comments c on pc.id = c.package_customer_id
-                    left join users u on c.user_id = u.id
-                    left join psettings ps on ps.id = pc.psetting_id
-                    left join custom_packages cp on cp.id = pc.custom_package_id 
-                    left join issues i on pc.issue_id = i.id
-                    WHERE modified >= $date and pc.status = 'ready'  OR (pc.follow_up=0 AND pc.status ='requested' AND pc.status != 'old_ready' ) AND shipment =0");
-//        pr($ready); exit;
-        $shipment = $this->PackageCustomer->query("SELECT count(pc.status) as shipment,DATE_FORMAT( pc.modified, '%Y-%m-%d') AS  'date' FROM package_customers pc 
-                    left join comments c on pc.id = c.package_customer_id
-                    left join users u on c.user_id = u.id
-                    left join psettings ps on ps.id = pc.psetting_id
-                    left join custom_packages cp on cp.id = pc.custom_package_id 
-                    left join issues i on pc.issue_id = i.id
-                    WHERE modified >= $date and pc.shipment = 1");
-//         pr($shipment); exit;
+        $ready = $this->PackageCustomer->query("SELECT count(pc.status) as ready
+            FROM  `vbpackagecustomers` as pc
+            WHERE pc.date = '$date' and pc.status = 'ready'  OR (pc.follow_up=0 AND pc.status ='requested'
+            AND pc.status != 'old_ready' ) AND shipment =0 ");
+        $shipment = $this->PackageCustomer->query("SELECT COUNT( pc.status ) AS shipment
+            FROM  `vbpackagecustomers` AS pc
+            WHERE DATE =  '$date'
+            AND pc.shipment =1");
         $totalorder = $ready[0][0]['ready'] + $shipment[0][0]['shipment'];
         return $totalorder;
     }
