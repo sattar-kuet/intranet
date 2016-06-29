@@ -397,7 +397,7 @@ class CustomersController extends AppController {
         $filteredData = array();
         $unique = array();
         $index = 0;
-        // pr($allData); exit;
+//         pr($allData); exit;
         foreach ($allData as $key => $data) {
             //pr($data); exit;
             $pd = $data['pc']['id'];
@@ -431,6 +431,7 @@ class CustomersController extends AppController {
                         'amount' => $data['ps']['amount']
                     );
                 }
+                
                 if (!empty($data['cp']['id'])) {
                     $filteredData[$index]['package'] = array(
                         'name' => $data['cp']['duration'] . ' months custom package',
@@ -438,10 +439,17 @@ class CustomersController extends AppController {
                         'amount' => $data['cp']['charge']
                     );
                 }
+                
                 $filteredData[$index]['comments'] = array();
                 if (!empty($data['c']['content'])) {
                     $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
+                }
+                
+                $filteredData[$index]['issue'] = array();
+                if (!empty($data['i']['id'])) {
+                    $temp = array('name' => $data['i']);
+                    $filteredData[$index]['issue'][] = $temp;
                 }
             }
         }
