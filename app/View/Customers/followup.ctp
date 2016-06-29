@@ -52,6 +52,9 @@
                                         Comment
                                     </th>
                                     <th class="hidden-480">
+                                        Attachment
+                                    </th>
+                                    <th class="hidden-480">
                                         Action
                                     </th>
                                 </tr>
@@ -119,22 +122,20 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>
+                                       
                                         <td>
                                             <a 
-                                                href="done_dialog<?php echo $results['customers']['id']; ?>" title="Done">
-                                                <span  class="fa fa-check fa-lg toggleDiv"></span>
+                                                href="done_dialog<?php echo $results['customers']['id']; ?>" title="Done" class="toggleDiv">
+                                                <span  class="fa fa-check fa-lg "></span>
                                             </a>
                                             &nbsp;
                                             <a 
-                                                href="ready_dialog<?php echo $results['customers']['id']; ?>" title="Ready">
-                                                <span id="" class="fa fa-reddit fa-lg toggleDiv"></span>
-                                            </a>
-
-                                               
+                                                href="ready_dialog<?php echo $results['customers']['id']; ?>" title="Ready" class="toggleDiv">
+                                                <span id="" class="fa fa-reddit fa-lg "></span>
+                                            </a>                                             
 
 
-                                            <div id="done_dialog<?php echo $results['customers']['id']; ?>" class="portlet-body form" style="display: none;">
+                                            <div id="done_dialog<?php echo $results['customers']['id']; ?>" class=" hideRest portlet-body form" style="display: none;">
 
                                                 <!-- BEGIN FORM-->
                                                 <?php
@@ -193,7 +194,7 @@
                                                 <?php echo $this->Form->end(); ?>
                                                 <!-- END FORM-->
                                             </div> 
-                                            <div id="ready_dialog<?php echo $results['customers']['id']; ?>" class="portlet-body form" style="display: none;">
+                                            <div id="ready_dialog<?php echo $results['customers']['id']; ?>" class=" hideRest portlet-body form" style="display: none;">
                                                 <!-- BEGIN FORM-->
                                                 <?php
                                                 echo $this->Form->create('Comment', array(
@@ -250,7 +251,7 @@
                                                 <!-- END FORM-->
                                             </div>
                                         </td>
-                                        </td>
+                                       
                                     </tr>
                                 <?php endforeach; ?>  
 

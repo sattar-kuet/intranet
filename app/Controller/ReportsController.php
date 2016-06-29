@@ -147,13 +147,15 @@ class ReportsController extends AppController {
         $this->loadModel('Package_customer');
         $this->loadModel('Transaction');
         $date = trim(date('Y-m-d', strtotime("+25 days")));
+//             pr($date); exit;
         $packagecustomers = $this->Transaction->query("SELECT pc.id,tr.id, CONCAT( first_name,' ', middle_name,' ', last_name ) AS name, pc.psetting_id, pc.mac,pc.house_no,
             pc.street,pc.apartment,pc.city,pc.state,pc.zip,pc.package_exp_date,ps.name, ps.amount, ps.duration,p.name, tr.paid_amount
             FROM package_customers pc
             left join psettings ps on ps.id = pc.psetting_id
             LEFT JOIN packages p ON p.id = ps.package_id 
             left join transactions tr on tr.package_customer_id = pc.id
-            WHERE package_exp_date <= '2016-06-29' and package_exp_date != 0000-00-00");
+            WHERE package_exp_date >= $date and package_exp_date != 0000-00-00");
+//        pr($packagecustomers); exit;
         $this->set(compact('packagecustomers'));
     }
 

@@ -20,18 +20,16 @@
             </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
+            <div  id="printableArea">   
+                <?php
+                foreach ($transactions as $single):
+                    $pcaddress = $single['pc'];
 
-            <?php
-            foreach ($transactions as $single):
-                $pcaddress = $single['pc'];
-
-                $customer_address = $pcaddress['house_no'] . ' ' . $pcaddress['street'] . ' ' .
-                        $pcaddress['apartment'] . ' ' . $pcaddress['city'] . ' ' . $pcaddress['state'] . ' '
-                        . $pcaddress['zip'];
-                ?>
-
-
-                <div  id="printableArea">              
+                    $customer_address = $pcaddress['house_no'] . ' ' . $pcaddress['street'] . ' ' .
+                            $pcaddress['apartment'] . ' ' . $pcaddress['city'] . ' ' . $pcaddress['state'] . ' '
+                            . $pcaddress['zip'];
+                    ?>                
+                    <div style="page-break-before:always" >&nbsp;</div> 
                     <div class="row">
                         <div class="col-xs-4">                              
                             <ul class="list-unstyled" style=" text-align: left; color: #555; margin-left: 1px;">
@@ -202,12 +200,9 @@
                             <ul class="list-unstyled" style=" text-align: right; color: #555; margin-right: 10px;">                            
                             </ul>
                         </div>
-                    </div> 
-                </div>
-
-
-            <?php endforeach; ?>  
-            <div style="page-break-after: always; "></div><br/>
+                    </div>                
+                <?php endforeach; ?>  
+            </div>
         </div>          
     </div> 
 </div>
