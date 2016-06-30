@@ -37,6 +37,9 @@
                             <thead>
                                 <tr>
                                     <th>
+                                        SL.
+                                    </th>
+                                    <th>
                                         Customer Details
                                     </th>
                                     <th class="hidden-480">
@@ -44,6 +47,9 @@
                                     </th>
                                     <th style="text-align: center;">
                                         Package
+                                    </th>
+                                    <th style="text-align: center;">
+                                        Issue
                                     </th>
                                     <th class="hidden-480">
                                         Follow update
@@ -62,7 +68,7 @@
                             <tbody>
                                 <?php
                                 foreach ($filteredData as $results):
-//                                    pr($results['customers']['id']); exit;
+//                                    pr($results); exit;
                                     $customer = $results['customers'];
 
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
@@ -70,6 +76,9 @@
                                             . $customer['zip'];
                                     ?>
                                     <tr>
+                                        <td class="hidden-480">
+                                            <?php echo $results['customers']['id']; ?>                            
+                                        </td>
                                         <td>
                                             <a href="<?php
                                             echo Router::url(array('controller' => 'customers',
@@ -94,6 +103,9 @@
                                                 <li>Amount:  <?php echo $results['package']['amount']; ?> </li>
                                             </ul>
 
+                                        </td>
+                                        <td>
+                                            <?php echo $results['issue']['name']; ?>
                                         </td>
                                         <td>
                                             <?php echo date_format(new DateTime($results['customers']['follow_date']), 'm-d-Y'); ?>

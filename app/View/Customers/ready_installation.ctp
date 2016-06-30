@@ -44,7 +44,7 @@
                                     </th>
 
                                     <th>
-                                        Customer Name
+                                        Customer Detail
                                     </th>
 
                                     <th>
@@ -82,8 +82,6 @@
                                     ?>
                                     <tr>
                                         <td class="hidden-480">
-
-
                                             <?php echo $results['customers']['id']; ?>                            
                                         </td>
                                         <td class="hidden-480">
@@ -103,8 +101,8 @@
                                                    ?>
                                             </a><br>
                                             <?php if (!empty($customer['cell'])): ?>
-                                            <b>Phone:</b>  <a href="tel:<?php echo $customer['cell'] ?>"><?php echo $customer['cell']; ?></a> &nbsp;&nbsp;
-                                            <?php endif; ?>
+                                            <b>Cell:</b>  <a href="tel:<?php echo $customer['cell'] ?>"><?php echo $customer['cell']; ?></a> &nbsp;&nbsp;
+                                            <?php endif; ?><br>
                                             <?php if (!empty($customer['home'])): ?>
                                             <b> Phone: </b> <a href="tel:<?php echo $customer['home'] ?>"><?php echo $customer['home']; ?></a>
                                             <?php endif; ?> <br>
