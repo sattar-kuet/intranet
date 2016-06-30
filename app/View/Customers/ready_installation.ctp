@@ -37,20 +37,21 @@
                             <thead>
                                 <tr>
                                     <th>
+                                        SL.
+                                    </th>
+                                    <th>
                                         Contact Date
                                     </th>
 
                                     <th>
-                                        Customer Name
+                                        Customer Detail
                                     </th>
-                                    <th>
-                                        Address
-                                    </th>
-                                    <th>
-                                        Phone
-                                    </th>
+
                                     <th>
                                         Package
+                                    </th>
+                                    <th>
+                                        Issue
                                     </th>
 
                                     <th>
@@ -72,6 +73,7 @@
                             <tbody>
                                 <?php
                                 foreach ($filteredData as $results):
+//                                      pr($results['issue'][0]['name']['name']); exit;
                                     $customer = $results['customers'];
 //                                    pr($customer); exit;
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
@@ -80,43 +82,48 @@
                                     ?>
                                     <tr>
                                         <td class="hidden-480">
-                                            <?php 
-                                           echo date_format( new DateTime($results['customers']['created']) , 'm-d-Y' );?> <br>
+                                            <?php echo $results['customers']['id']; ?>                            
+                                        </td>
+                                        <td class="hidden-480">
+                                            <?php echo date_format(new DateTime($results['customers']['created']), 'm-d-Y'); ?> <br>
                                             <?php echo $results['users']['name']; ?>                            
                                         </td>
                                         <td>
                                             <a href="<?php
-                                            echo Router::url(array('controller' => 'customers',
-                                                'action' => 'edit_registration', $results['customers']['id']))
+                                        echo Router::url(array('controller' => 'customers',
+                                            'action' => 'edit_registration', $results['customers']['id']))
                                             ?>" 
                                                target="_blank">
-                                                   <?php
+                                                <b>Name:</b> <?php
                                                    echo $results['customers']['first_name'] . " " .
                                                    $results['customers']['middle_name'] . " " .
                                                    $results['customers']['last_name'];
                                                    ?>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <?php echo $customer_address; ?> 
-                                        </td>
-                                        <td class="hidden-480">
+                                            </a><br>
                                             <?php if (!empty($customer['cell'])): ?>
-                                                <a href="tel:<?php echo $customer['cell'] ?>"><?php echo $customer['cell']; ?></a> &nbsp;&nbsp;
-                                            <?php endif; ?>
+                                            <b>Cell:</b>  <a href="tel:<?php echo $customer['cell'] ?>"><?php echo $customer['cell']; ?></a> &nbsp;&nbsp;
+                                            <?php endif; ?><br>
                                             <?php if (!empty($customer['home'])): ?>
-                                                <a href="tel:<?php echo $customer['home'] ?>"><?php echo $customer['home']; ?></a>
-                                            <?php endif; ?> 
+                                            <b> Phone: </b> <a href="tel:<?php echo $customer['home'] ?>"><?php echo $customer['home']; ?></a>
+                                            <?php endif; ?> <br>
+
+                                            <b> Address: </b> <?php echo $customer_address; ?> 
                                         </td>
+
                                         <td>
                                             <?php if (!empty($results['package']['name'])): ?>
                                                 Name: <?php echo $results['package']['name'] ?><br>
                                                 Duration: <?php echo $results['package']['duration']; ?><br>
                                                 Total: $<?php echo $customer['total']; ?>
-                                                <?php // echo $results['package']['amount']; ?>
+                                                <?php // echo $results['package']['amount'];  ?>
                                             <?php endif; ?>
                                         </td>
 
+                                        <td>
+                                            <?php if (!empty($results['issue'][0]['name']['name'])): ?>
+                                                <?php echo $results['issue'][0]['name']['name']; ?>
+                                            <?php endif; ?>
+                                        </td>
 
                                         <td>
                                             <?php echo $customer['shipment_equipment'] . ' ' . $customer['shipment_note']; ?>
@@ -173,34 +180,34 @@
                                                     );
                                                     ?>
                                                     <?php
-                                                        echo $this->Form->input('repair_type', array(
-                                                            'type' => 'hidden',
-                                                            'value' => 'new',
-                                                                )
-                                                        );
-                                                        ?>
-                                                      <div class="form-body">
+                                                    echo $this->Form->input('repair_type', array(
+                                                        'type' => 'hidden',
+                                                        'value' => 'new',
+                                                            )
+                                                    );
+                                                    ?>
+                                                    <div class="form-body">
                                                         <div class="alert alert-danger display-hide">
                                                             <button class="close" data-close="alert"></button>
                                                             You have some form errors. Please check below.
                                                         </div>
-                                                       
-                                                            <div class="form-group">
-                                                                <div class="col-md-12">
-                                                                    <?php
-                                                                    echo $this->Form->input('technician_id', array(
-                                                                        'type' => 'select',
-                                                                        'options' => $technician,
-                                                                        'empty' => 'Select Technician',
-                                                                        'class' => 'form-control select2me required',
-                                                                            )
-                                                                    );
-                                                                    ?>
-                                                                </div>
-                                                            </div>
-                                                        
 
-                                                         <div class="form-group">                               
+                                                        <div class="form-group">
+                                                            <div class="col-md-12">
+                                                                <?php
+                                                                echo $this->Form->input('technician_id', array(
+                                                                    'type' => 'select',
+                                                                    'options' => $technician,
+                                                                    'empty' => 'Select Technician',
+                                                                    'class' => 'form-control select2me required',
+                                                                        )
+                                                                );
+                                                                ?>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="form-group">                               
                                                             <div class="col-md-12">
                                                                 <?php
                                                                 echo $this->Form->input(

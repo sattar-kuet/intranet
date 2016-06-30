@@ -37,6 +37,9 @@
                             <thead>
                                 <tr>
                                     <th>
+                                        SL.
+                                    </th>
+                                    <th>
                                         Customer Details
                                     </th>
                                     <th class="hidden-480">
@@ -45,11 +48,17 @@
                                     <th style="text-align: center;">
                                         Package
                                     </th>
+                                    <th style="text-align: center;">
+                                        Issue
+                                    </th>
                                     <th class="hidden-480">
                                         Follow update
                                     </th>
                                     <th class="hidden-480" style="text-align: center;">
                                         Comment
+                                    </th>
+                                    <th class="hidden-480">
+                                        Attachment
                                     </th>
                                     <th class="hidden-480">
                                         Action
@@ -59,7 +68,7 @@
                             <tbody>
                                 <?php
                                 foreach ($filteredData as $results):
-//                                    pr($results['customers']['id']); exit;
+//                                    pr($results); exit;
                                     $customer = $results['customers'];
 
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
@@ -67,6 +76,9 @@
                                             . $customer['zip'];
                                     ?>
                                     <tr>
+                                        <td class="hidden-480">
+                                            <?php echo $results['customers']['id']; ?>                            
+                                        </td>
                                         <td>
                                             <a href="<?php
                                             echo Router::url(array('controller' => 'customers',
@@ -91,6 +103,9 @@
                                                 <li>Amount:  <?php echo $results['package']['amount']; ?> </li>
                                             </ul>
 
+                                        </td>
+                                        <td>
+                                            <?php echo $results['issue']['name']; ?>
                                         </td>
                                         <td>
                                             <?php echo date_format(new DateTime($results['customers']['follow_date']), 'm-d-Y'); ?>
@@ -119,22 +134,20 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>
+                                       
                                         <td>
                                             <a 
-                                                href="done_dialog<?php echo $results['customers']['id']; ?>" title="Done">
-                                                <span  class="fa fa-check fa-lg toggleDiv"></span>
+                                                href="done_dialog<?php echo $results['customers']['id']; ?>" title="Done" class="toggleDiv">
+                                                <span  class="fa fa-check fa-lg "></span>
                                             </a>
                                             &nbsp;
                                             <a 
-                                                href="ready_dialog<?php echo $results['customers']['id']; ?>" title="Ready">
-                                                <span id="" class="fa fa-reddit fa-lg toggleDiv"></span>
-                                            </a>
-
-                                               
+                                                href="ready_dialog<?php echo $results['customers']['id']; ?>" title="Ready" class="toggleDiv">
+                                                <span id="" class="fa fa-reddit fa-lg "></span>
+                                            </a>                                             
 
 
-                                            <div id="done_dialog<?php echo $results['customers']['id']; ?>" class="portlet-body form" style="display: none;">
+                                            <div id="done_dialog<?php echo $results['customers']['id']; ?>" class=" hideRest portlet-body form" style="display: none;">
 
                                                 <!-- BEGIN FORM-->
                                                 <?php
@@ -193,7 +206,7 @@
                                                 <?php echo $this->Form->end(); ?>
                                                 <!-- END FORM-->
                                             </div> 
-                                            <div id="ready_dialog<?php echo $results['customers']['id']; ?>" class="portlet-body form" style="display: none;">
+                                            <div id="ready_dialog<?php echo $results['customers']['id']; ?>" class=" hideRest portlet-body form" style="display: none;">
                                                 <!-- BEGIN FORM-->
                                                 <?php
                                                 echo $this->Form->create('Comment', array(
@@ -250,7 +263,7 @@
                                                 <!-- END FORM-->
                                             </div>
                                         </td>
-                                        </td>
+                                       
                                     </tr>
                                 <?php endforeach; ?>  
 

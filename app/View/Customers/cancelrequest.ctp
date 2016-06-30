@@ -36,12 +36,18 @@
                             <thead>
                                 <tr>
                                     <th>
+                                        SL.
+                                    </th>
+                                    <th>
                                         Contact Date
                                     </th>
                                     <th>
                                         Customer detail
                                     </th>
 
+                                    <th>
+                                        Package
+                                    </th>
                                     <th>
                                         Issue
                                     </th>
@@ -75,7 +81,10 @@
                                     ?>
                                     <tr>
                                         <td class="hidden-480">
-                                            <?php echo date_format( new DateTime($results['customers']['created']) , 'm-d-Y' ); ?>   <br>
+                                            <?php echo $results['customers']['id']; ?>                            
+                                        </td>
+                                        <td class="hidden-480">
+                                            <?php echo date_format(new DateTime($results['customers']['created']), 'm-d-Y'); ?>   <br>
                                             <?php echo $results['users']['name']; ?>  
                                         </td>
                                         <td>
@@ -102,7 +111,14 @@
                                             </ul>
 
                                         </td>
-
+                                        <td>
+                                            <?php if (!empty($results['package']['name'])): ?>
+                                                Name: <?php echo $results['package']['name'] ?><br>
+                                                Duration: <?php echo $results['package']['duration']; ?><br>
+                                                Total: $<?php echo $customer['total']; ?>
+                                                <?php // echo $results['package']['amount'];  ?>
+                                            <?php endif; ?>
+                                        </td>
                                         <td>
                                             <?php echo $results['issue']; ?>
                                         </td>
@@ -112,14 +128,14 @@
                                         <td>
                                             <ul>
                                                 <?php if (!empty($results['customers']['cancelled_date'])): ?>
-                                                    <?php  echo date_format( new DateTime($results['customers']['cancelled_date']) , 'm-d-Y' );?>
+                                                    <?php echo date_format(new DateTime($results['customers']['cancelled_date']), 'm-d-Y'); ?>
                                                 <?php endif ?>
                                             </ul>
                                         </td>
                                         <td>
                                             <ul>
                                                 <?php if (!empty($results['customers']['pickup_date'])): ?>
-                                                    <?php echo date_format( new DateTime($results['customers']['pickup_date']) , 'm-d-Y' ); ?>
+                                                    <?php echo date_format(new DateTime($results['customers']['pickup_date']), 'm-d-Y'); ?>
                                                 <?php endif ?>
                                             </ul>
                                         </td>
@@ -177,7 +193,7 @@
                                                             </div>
                                                         </div> 
 
-                                                         <div class="form-group">                               
+                                                        <div class="form-group">                               
                                                             <div class="col-md-12">
                                                                 <?php
                                                                 echo $this->Form->input(
