@@ -57,6 +57,9 @@
                                         Equipment
                                     </th>
                                     <th>
+                                        Payment
+                                    </th>
+                                    <th>
                                         Comment
                                     </th>
                                     <th>
@@ -126,6 +129,17 @@
                                         <td>
                                             <?php echo $customer['shipment_equipment'] . ' ' . $customer['shipment_note']; ?>
                                         </td>
+                                        <td>
+                                                <?php if (!empty($customer['deposit'])): ?>
+                                                    <strong>Payment: </strong>
+                                                    <ul>
+                                                        <li>SD: <?php echo $customer['deposit']; ?>$</li>
+                                                        <li>MB: <?php echo $customer['monthly_bill']; ?>$</li>
+                                                        <li>Equipment: <?php echo $customer['others']; ?>$</li>
+                                                        <li>Total: <?php echo $customer['total']; ?>$</li>
+                                                    </ul>
+                                                <?php endif ?>
+                                            </td>
                                         <td>
                                             <ul>
                                                 <?php if (!empty($results['customers']['comments'])): ?>
