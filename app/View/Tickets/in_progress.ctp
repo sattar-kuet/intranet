@@ -40,6 +40,7 @@
                         <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                             <thead>
                                 <tr>
+                                    <th>SL.</th>
                                     <th>Subject</th>
                                     <th>Customer Info</th>
                                     <th>Open Time</th>
@@ -60,6 +61,9 @@
                                 //     pr($customer); exit;
                                     ?>
                                     <tr >
+                                        <td >
+                                            <?php echo $single['ticket']['id']; ?>                            
+                                        </td>
                                         <td><?php echo $issue['i']['name']; ?></td>
                                         <td>
                                             <ul>

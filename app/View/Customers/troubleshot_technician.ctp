@@ -56,9 +56,9 @@
                                     <th>
                                         Equipment
                                     </th>
-                                    <th>
+<!--                                    <th>
                                         Payment
-                                    </th>
+                                    </th>-->
                                     <th>
                                         Comment
                                     </th>
@@ -124,7 +124,7 @@
                                         <td>
                                             <?php echo $customer['shipment_equipment'] . ' ' . $customer['shipment_note']; ?>
                                         </td>
-                                        <td>
+<!--                                        <td>
                                             <?php if (!empty($customer['deposit'])): ?>
                                                 <strong>Payment: </strong>
                                                 <ul>
@@ -134,7 +134,7 @@
                                                     <li>Total: <?php echo $customer['total']; ?>$</li>
                                                 </ul>
                                             <?php endif ?>
-                                        </td>
+                                        </td>-->
  
                                         <td>
                                             <ul>

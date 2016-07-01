@@ -105,7 +105,9 @@
 
                                         </td>
                                         <td>
-                                            <?php echo $results['issue']['name']; ?>
+                                            <?php if (!empty($results['issue']['name'])): ?>
+                                                <?php echo $results['issue']['name']; ?>
+                                            <?php endif; ?>
                                         </td>
                                         <td>
                                             <?php echo date_format(new DateTime($results['customers']['follow_date']), 'm-d-Y'); ?>
@@ -134,7 +136,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                       
+
                                         <td>
                                             <a 
                                                 href="done_dialog<?php echo $results['customers']['id']; ?>" title="Done" class="toggleDiv">
@@ -263,7 +265,7 @@
                                                 <!-- END FORM-->
                                             </div>
                                         </td>
-                                       
+
                                     </tr>
                                 <?php endforeach; ?>  
 

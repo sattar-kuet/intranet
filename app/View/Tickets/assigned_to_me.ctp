@@ -40,6 +40,7 @@
                         <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                             <thead>
                                 <tr>
+                                    <th>SL.</th>
                                     <th>Subject</th>
                                     <th>Customer Info</th>
                                     <th>Open Time</th>
@@ -50,13 +51,16 @@
                             </thead>
                             <tbody>
                                 <?php
-                                foreach ($data as $single):
+                                foreach ($data as $single):                                   
                                     $issue = end($single['history']);
                                     $customer = end($single['history']);
                                     $customer = $customer['pc'];
                                     $ticket = $single['ticket'];
                                     ?>
                                     <tr >
+                                         <td >
+                                            <?php echo $single['ticket']['id']; ?>                            
+                                        </td>
                                         <td><?php echo $issue['i']['name']; ?></td>
                                         <td>
                                             <ul>
