@@ -716,6 +716,113 @@
 
                         </div>
                     </div>
+                    
+                    
+                    <!--                    Begin update next payment date-->
+
+                    <div class="portlet box lightseagreen" style="background-color:#daae2b; border: #daae2b solid 2px;">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-list-ul"></i>Next payment info update
+                            </div>
+
+                            <div class="tools">
+                                <a  class="reload toggle"data-id="updatepayinfo">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="row display-hide" id="updatepayinfo"> 
+                                <div class="col-md-12">
+                                    <?php
+                                    echo $this->Form->create('payment_histories', array(
+                                        'inputDefaults' => array(
+                                            'label' => false,
+                                            'div' => false
+                                        ),
+                                        'class' => 'form-horizontal',
+                                        'novalidate' => 'novalidate',
+                                        'url' => array('controller' => 'transactions', 'action' => 'updatecardinfo')
+                                            )
+                                    );
+                                    ?>
+
+                                    <?php
+                                    echo $this->Form->input(
+                                            'id', array(
+                                        'type' => 'hidden',
+                                        'value' => $this->params['pass'][0],
+                                    ));
+                                    ?>
+                                                                                       
+
+                                   
+                                    <div class="row">
+                                        <div class="col-md-3 signupfont">
+                                           Next payment date: 
+                                        </div>
+                                        <div class="col-md-4">
+                                            <?php
+                                            echo $this->Form->input(
+                                                    'nextpayment_date', array(
+                                                'type' => 'text',
+                                                'class' => 'datepicker form-control ',
+                                                
+                                            ));
+                                            ?>
+                                        </div>
+                                    </div>
+                                    &nbsp;
+                                    <div class="row">
+                                        <div class="col-md-3 signupfont">
+                                           Next payment amount:
+                                        </div>
+                                        <div class="col-md-4">
+                                            <?php
+                                            echo $this->Form->input(
+                                                    'payable_amount', array(
+                                                'type' => 'text',
+                                                'class' => 'form-control input-sm',
+                                            ));
+                                            ?>
+                                        </div>
+                                    </div>
+                                    &nbsp;
+                                    <div class="row">
+                                        <div class="col-md-4 " > 
+                                            <?php
+                                            echo $this->Form->button(
+                                                    'New Entry', array(
+                                                'class' => 'btn btn-primary submitbtn',
+                                                'style' => "background-color:#daae2b;float: right; ",
+                                                'type' => 'submit',
+                                                'id' => ''
+                                            ));
+                                            ?>
+
+                                        </div>
+                                            <div class="col-md-4"> 
+                                            <?php
+                                            echo $this->Form->button(
+                                                    'Update current record', array(
+                                                'class' => 'btn btn-primary submitbtn',
+                                                'style' => "background-color: #daae2b;",
+                                                'type' => 'submit',
+                                                'id' => ''
+                                            ));
+                                            ?>
+
+                                        </div>
+                                    </div>
+                                    <?php echo $this->Form->end(); ?>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--                    End update next payment date-->
+
                     <!-- -------------Begin card info update--------------------------->
 
                     <div class="portlet box lightseagreen" style="background-color:  lightseagreen; border: lightseagreen solid 2px;">
@@ -2275,3 +2382,5 @@
             </div>
         </div>
         <!-- END CONTENT -->        
+    </div>
+</div>

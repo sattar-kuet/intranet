@@ -4,7 +4,28 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/D:/Server/htdocs/intranet/app/Controller/ReportsController.php</file>
+=======
+            <file>file:/D:/xampee/htdocs/intranet/app/View/Reports/cancel.ctp</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/View/Customers/ready_installation.ctp</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/View/Customers/troubleshot_technician.ctp</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/View/Reports/expcustomers.ctp</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/View/Customers/moving.ctp</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/View/Tickets/manage.ctp</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/View/Customers/shipment.ctp</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/View/Reports/call_log.ctp</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/Controller/TicketsController.php</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/View/Customers/troubleshot_shipment.ctp</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/View/Customers/wire_problem.ctp</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/View/Customers/reconnection_request.ctp</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/View/Reports/newcustomers.ctp</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/View/Reports/active.ctp</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/View/Customers/followup.ctp</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/Controller/AdminsController.php</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/View/Customers/remote_problem.ctp</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/Controller/ReportsController.php</file>
+>>>>>>> 45966dc9376999cd3c67cc9776bee24da20a3d56
 =======
 <<<<<<< HEAD
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="16">
