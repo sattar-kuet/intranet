@@ -78,7 +78,7 @@
                                 <th style="text-align: center;">
                                     Sales Query
                                 </th>
-                                <th class="hidden-480" style="text-align: center;">
+<!--                                <th class="hidden-480" style="text-align: center;">
                                     Cancel
                                 </th>
                                 <th class="hidden-480" style="text-align: center;">
@@ -89,14 +89,14 @@
                                 </th>
                                 <th class="hidden-480" style="text-align: center;">
                                     Reconnect
-                                </th>
+                                </th>-->
                             </tr>
                         </thead>
                         <tbody>                           
                             <tr>
                                 <td style="text-align: center;">  
-                                    <?php if (!empty($total['call'])) : ?> 
-                                        <?php echo $total['call']; ?> 
+                                    <?php if (!empty($total['0'])) : ?> 
+                                        <?php echo $total['0']; ?> 
                                     <?php endif; ?>
                                 </td>  
                                 <td style="text-align: center;">   
@@ -114,7 +114,7 @@
                                         <?php echo $total['sales_query']; ?> 
                                     <?php endif; ?>
                                 </td>  
-                                <td style="text-align: center;"> 
+<!--                                <td style="text-align: center;"> 
                                     <?php if (!empty($total['cancel'])): ?>
                                         <?php echo $total['cancel']; ?> 
                                     <?php endif; ?>
@@ -133,7 +133,7 @@
                                    <?php if (!empty($total['reconnection'])): ?>
                                         <?php echo $total['reconnection']; ?> 
                                     <?php endif; ?>
-                                </td> 
+                                </td> -->
                             </tr>                                                 
                         </tbody>
                     </table>

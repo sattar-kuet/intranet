@@ -40,10 +40,9 @@
                         <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                             <thead>
                                 <tr>
+                                    <th>SL.</th>
                                     <th>Contact Date</th>
-                                    <th>Customer Name</th>
-                                    <th>Address</th>
-                                    <th>Phone</th>
+                                    <th>Customer Detail</th>                                    
                                     <th>Issue</th>
 
 
@@ -54,9 +53,9 @@
                             </thead>
                             <tbody>
                                 <?php
-//                                pr($data); exit;
+                               
                                 foreach ($data as $single):
-
+// pr($single); exit;
 
                                     $issue = end($single['history']);
                                     $customer = end($single['history']);
@@ -71,6 +70,9 @@
 //                                    pr($issue['i']['name']);   exit();
                                     ?>
                                     <tr >
+                                        <td >
+                                            <?php echo $single['ticket']['id']; ?>                            
+                                        </td>
                                         <td><?php  echo date_format( new DateTime($ticket['created']) , 'm-d-Y h:i:sa' ); ?>
                                             <?php echo $agent_name; ?>
                                         </td>
@@ -80,18 +82,18 @@
                                             echo $customer['first_name'] . " " .
                                             $customer['middle_name'] . " " .
                                             $customer['last_name'];
-                                            ?>
+                                            ?><br>
+                                                <b>  Address :  </b> <?php echo $customer_address; ?> <br>
+
+                                                <?php if (!empty($customer['cell'])): ?>
+                                                    <b> Cell :</b> <a href="tel:<?php echo $customer['cell'] ?>"><?php echo $customer['cell']; ?></a><br>
+                                                <?php endif; ?>
+                                                <?php if (!empty($customer['home'])): ?>
+                                                    <b>  Home :</b>  <a href="tel:<?php echo $customer['home'] ?>"><?php echo $customer['home']; ?></a>
+                                                <?php endif; ?>
 
                                         </td>
-                                        <td><?php echo $customer_address; ?></td>
-                                        <td class="hidden-480">
-                                            <?php if (!empty($customer['cell'])): ?>
-                                                <a href="tel:<?php echo $customer['cell'] ?>"><?php echo $customer['cell']; ?></a> &nbsp;&nbsp;
-                                            <?php endif; ?>
-                                            <?php if (!empty($customer['home'])): ?>
-                                                <a href="tel:<?php echo $customer['home'] ?>"><?php echo $customer['home']; ?></a>
-                                            <?php endif; ?> 
-                                        </td>
+                                        
                                         <td><?php echo $issue['i']['name']; ?></td>
                                         <td><?php echo $ticket['content']; ?></td>
                                         <td>

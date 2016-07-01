@@ -340,14 +340,17 @@ class ReportsController extends AppController {
 
     function salesSupportdp() {
         $total = array();
-        $total['call'] = $this->getTotalCall();
-        $total['cancel'] = $this->getTotalCancel();
-        $total['sales_query'] = $this->getTotalSalesQuery();
-        $total['hold'] = $this->getTotalHold();
-        $total['unhold'] = $this->getTotalUnhold();
+//        $total['call'] = $this->getTotalCall();
+//        $total['cancel'] = $this->getTotalCancel();        
+//        $total['hold'] = $this->getTotalHold();
+//        $total['unhold'] = $this->getTotalUnhold();
+//        $total['reconnection'] = $this->getTotalReconnection();
         $total['done'] = $this->getTotalDone();
-        $total['reconnection'] = $this->getTotalReconnection();
         $total['ready'] = $this->getTotalNewordertaken();
+        $total['sales_query'] = $this->getTotalSalesQuery();
+        $total[0] = $total['done']+$total['ready'];
+        
+//        pr($total['0']); exit;
         $this->set(compact('total'));
     }
 
