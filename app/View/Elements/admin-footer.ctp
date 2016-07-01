@@ -13,8 +13,6 @@
 <?php
 echo $this->Html->script(
         array(
-            'admin/ajaxLoad',
-            'admin/orderManagement',
             'admin/menu',
             //div view by payment category
             'customerinfo',

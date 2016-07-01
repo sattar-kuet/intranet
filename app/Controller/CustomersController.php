@@ -325,6 +325,7 @@ class CustomersController extends AppController {
                     left join users u on c.user_id = u.id
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
+                    left join issues i on pc.issue_id = i.id
                     WHERE pc.status = 'requested' AND pc.follow_up = 1");
         // echo $sql; exit;
         $filteredData = array();
@@ -356,6 +357,10 @@ class CustomersController extends AppController {
                     'duration' => 'Not Applicable',
                     'amount' => 'not Applicable'
                 );
+                
+                if (!empty($data['i']['id'])) {
+                    $filteredData[$index]['issue'] = $data['i'];
+                }
 
                 if (!empty($data['ps']['id'])) {
                     $filteredData[$index]['package'] = array(
@@ -397,7 +402,7 @@ class CustomersController extends AppController {
         $filteredData = array();
         $unique = array();
         $index = 0;
-        // pr($allData); exit;
+//         pr($allData); exit;
         foreach ($allData as $key => $data) {
             //pr($data); exit;
             $pd = $data['pc']['id'];
@@ -431,6 +436,7 @@ class CustomersController extends AppController {
                         'amount' => $data['ps']['amount']
                     );
                 }
+                
                 if (!empty($data['cp']['id'])) {
                     $filteredData[$index]['package'] = array(
                         'name' => $data['cp']['duration'] . ' months custom package',
@@ -438,10 +444,17 @@ class CustomersController extends AppController {
                         'amount' => $data['cp']['charge']
                     );
                 }
+                
                 $filteredData[$index]['comments'] = array();
                 if (!empty($data['c']['content'])) {
                     $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
+                }
+                
+                $filteredData[$index]['issue'] = array();
+                if (!empty($data['i']['id'])) {
+                    $temp = array('name' => $data['i']);
+                    $filteredData[$index]['issue'][] = $temp;
                 }
             }
         }
@@ -577,22 +590,23 @@ class CustomersController extends AppController {
 
     function shedule_assian($id = null) {
         $this->loadModel('PackageCustomer');
-         
-        $this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
-        $this->PackageCustomer->technician_id = $this->request->data['PackageCustomer']['technician_id'];
-//        $datrange = json_decode($this->request->data['PackageCustomer']['daterange'], true);
-//        $this->request->data['PackageCustomer']['from'] = $datrange['start'];
-//        $this->request->data['PackageCustomer']['to'] = $datrange['end'];
-        $this->request->data['PackageCustomer']['schedule_date'] = $this->request->data['PackageCustomer']['schedule_date'].' '.$this->request->data['PackageCustomer']['seTime'];
-      
+        $this->loadModel('Installation');
+
         $loggedUser = $this->Auth->user();
-        $this->request->data['PackageCustomer']['user_id'] = $loggedUser['id'];
+        $this->request->data['Installation']['assign_by'] = $loggedUser['id'];
+        $this->request->data['Installation']['package_customer_id'] = $this->request->data['PackageCustomer']['id'];
+        $this->request->data['Installation']['schedule_date'] = $this->request->data['PackageCustomer']['schedule_date'] . ' ' . $this->request->data['PackageCustomer']['seTime'];
+        $this->request->data['Installation']['user_id'] = $this->request->data['PackageCustomer']['technician_id'];
+        $this->request->data['Installation']['status'] = 'Scheduled';
+
         $this->request->data['PackageCustomer']['status'] = 'Scheduled';
-//        pr($this->request->data); exit;
         $this->PackageCustomer->save($this->request->data);
+
+        $this->Installation->save($this->request->data);
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
 	<strong> succeesfully done </strong></div>';
+        
         $this->Session->setFlash($msg);
         return $this->redirect($this->referer());
     }
@@ -656,6 +670,11 @@ class CustomersController extends AppController {
                 if (!empty($data['c']['content'])) {
                     $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
+                }
+                $filteredData[$index]['issue'] = array();
+                if (!empty($data['i']['id'])) {
+                    $temp = array('name' => $data['i']);
+                    $filteredData[$index]['issue'][] = $temp;
                 }
             }
         }
@@ -780,6 +799,10 @@ class CustomersController extends AppController {
                     'duration' => 'Not Applicable',
                     'amount' => 'not Applicable'
                 );
+                
+                if(!empty($data['i']['id'])){
+                    $filteredData[$index]['issue'] = $data['i'];
+                }
 
                 if (!empty($data['ps']['id'])) {
                     $filteredData[$index]['package'] = array(
@@ -953,8 +976,8 @@ class CustomersController extends AppController {
 //        pr($technician); exit;
         $this->set(compact('filteredData', 'technician'));
     }
-    
-      function reconnectionRequest() {
+
+    function reconnectionRequest() {
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
         $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
@@ -1027,7 +1050,6 @@ class CustomersController extends AppController {
         $this->set(compact('filteredData', 'technician'));
     }
 
-
     function wire_problem() {
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
@@ -1070,6 +1092,20 @@ class CustomersController extends AppController {
                 if (!empty($data['c']['content'])) {
                     $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
+                }
+                if (!empty($data['ps']['id'])) {
+                    $filteredData[$index]['package'] = array(
+                        'name' => $data['ps']['name'],
+                        'duration' => $data['ps']['duration'],
+                        'amount' => $data['ps']['amount']
+                    );
+                }
+                if (!empty($data['cp']['id'])) {
+                    $filteredData[$index]['package'] = array(
+                        'name' => $data['cp']['duration'] . ' months custom package',
+                        'duration' => $data['cp']['duration'],
+                        'amount' => $data['cp']['charge']
+                    );
                 }
             }
         }
@@ -1192,6 +1228,20 @@ class CustomersController extends AppController {
                     $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
                 }
+                 if (!empty($data['ps']['id'])) {
+                    $filteredData[$index]['package'] = array(
+                        'name' => $data['ps']['name'],
+                        'duration' => $data['ps']['duration'],
+                        'amount' => $data['ps']['amount']
+                    );
+                }
+                if (!empty($data['cp']['id'])) {
+                    $filteredData[$index]['package'] = array(
+                        'name' => $data['cp']['duration'] . ' months custom package',
+                        'duration' => $data['cp']['duration'],
+                        'amount' => $data['cp']['charge']
+                    );
+                }
             }
         }
         $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
@@ -1237,11 +1287,25 @@ class CustomersController extends AppController {
                 }
 
                 $filteredData[$index]['comments'] = array();
-
                 if (!empty($data['c']['content'])) {
                     $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
                 }
+                 if (!empty($data['ps']['id'])) {
+                    $filteredData[$index]['package'] = array(
+                        'name' => $data['ps']['name'],
+                        'duration' => $data['ps']['duration'],
+                        'amount' => $data['ps']['amount']
+                    );
+                }
+                if (!empty($data['cp']['id'])) {
+                    $filteredData[$index]['package'] = array(
+                        'name' => $data['cp']['duration'] . ' months custom package',
+                        'duration' => $data['cp']['duration'],
+                        'amount' => $data['cp']['charge']
+                    );
+                }
+                
             }
         }
         $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));

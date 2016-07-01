@@ -525,6 +525,9 @@ class AdminsController extends AppController {
                     'duration' => 'Not Applicable',
                     'amount' => 'not Applicable'
                 );
+                if (!empty($data['i']['id'])) {
+                    $filteredData[$index]['issue'] = $data['i'];
+                }
 
                 if (!empty($data['ps']['id'])) {
                     $filteredData[$index]['package'] = array(
@@ -596,6 +599,10 @@ class AdminsController extends AppController {
                     'amount' => 'not Applicable'
                 );
 
+                if (!empty($data['i']['id'])) {
+                    $filteredData[$index]['issue'] = $data['i'];
+                }
+
                 if (!empty($data['ps']['id'])) {
                     $filteredData[$index]['package'] = array(
                         'name' => $data['ps']['name'],
@@ -665,6 +672,10 @@ class AdminsController extends AppController {
                     'duration' => 'Not Applicable',
                     'amount' => 'not Applicable'
                 );
+                
+                if (!empty($data['i']['id'])){
+                    $filteredData[$index]['issue'] = $data['i'];
+                }
 
                 if (!empty($data['ps']['id'])) {
                     $filteredData[$index]['package'] = array(
@@ -736,6 +747,10 @@ class AdminsController extends AppController {
                     'amount' => 'not Applicable'
                 );
 
+                if (!empty($data['i']['id'])) {
+                    $filteredData[$index]['issue'] = $data['i'];
+                }
+
                 if (!empty($data['ps']['id'])) {
                     $filteredData[$index]['package'] = array(
                         'name' => $data['ps']['name'],
@@ -804,6 +819,10 @@ class AdminsController extends AppController {
                     'duration' => 'Not Applicable',
                     'amount' => 'not Applicable'
                 );
+
+                if (!empty($data['i']['id'])) {
+                    $filteredData[$index]['issue'] = $data['i'];
+                }
 
                 if (!empty($data['ps']['id'])) {
                     $filteredData[$index]['package'] = array(
@@ -942,6 +961,10 @@ class AdminsController extends AppController {
                     'duration' => 'Not Applicable',
                     'amount' => 'not Applicable'
                 );
+
+                if (!empty($data['i']['id'])) {
+                    $filteredData[$index]['issue'] = $data['i'];
+                }
 
                 if (!empty($data['ps']['id'])) {
                     $filteredData[$index]['package'] = array(

@@ -37,27 +37,26 @@
                             <thead>
                                 <tr>
                                     <th>
+                                        SL.
+                                    </th>
+                                    <th>
                                         Contact Date
                                     </th>
 
                                     <th>
-                                        Customer Name
+                                         Customer Detail
+                                    </th>
+                                    <th>
+                                        Package
                                     </th>
                                     <th>
                                         Issue
                                     </th>
-                                    <th>
-                                        Address
-                                    </th>
-                                    <th>
-                                        Phone
-                                    </th>
-                                    <th>
-                                        Issue
-                                    </th>                                    
+                                                                                                        
                                     <th>
                                         Equipment
                                     </th>
+                                    
                                     <th>
                                         Comment
                                     </th>
@@ -78,6 +77,9 @@
                                             . $customer['zip'];
                                     ?>
                                     <tr>
+                                         <td class="hidden-480">
+                                            <?php echo $results['customers']['id']; ?>                            
+                                        </td>
                                         <td class="hidden-480">
                                             <?php echo date_format( new DateTime($results['customers']['created']) , 'm-d-Y' );?>  <br>
                                             <?php echo $results['users']['name']; ?> 
@@ -94,25 +96,28 @@
                                                    $results['customers']['middle_name'] . " " .
                                                    $results['customers']['last_name'];
                                                    ?>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <?php echo $results['issue']; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $customer_address; ?> 
-                                        </td>
-                                        <td class="hidden-480">
+                                            </a><br>
                                             <?php if (!empty($customer['cell'])): ?>
-                                                <a href="tel:<?php echo $customer['cell'] ?>"><?php echo $customer['cell']; ?></a> &nbsp;&nbsp;
-                                            <?php endif; ?>
+                                            <b>Cell:</b>  <a href="tel:<?php echo $customer['cell'] ?>"><?php echo $customer['cell']; ?></a> &nbsp;&nbsp;
+                                            <?php endif; ?><br>
                                             <?php if (!empty($customer['home'])): ?>
-                                                <a href="tel:<?php echo $customer['home'] ?>"><?php echo $customer['home']; ?></a>
-                                            <?php endif; ?> 
+                                            <b> Phone: </b> <a href="tel:<?php echo $customer['home'] ?>"><?php echo $customer['home']; ?></a>
+                                            <?php endif; ?> <br>
+
+                                            <b> Address: </b> <?php echo $customer_address; ?> 
+                                        </td>
+                                        <td>
+                                            <?php if (!empty($results['package']['name'])): ?>
+                                                Name: <?php echo $results['package']['name'] ?><br>
+                                                Duration: <?php echo $results['package']['duration']; ?><br>
+                                                Total: $<?php echo $customer['total']; ?>
+                                                <?php // echo $results['package']['amount'];  ?>
+                                            <?php endif; ?>
                                         </td>
                                         <td>
                                             <?php echo $results['issue']; ?>
                                         </td>
+                                        
                                         <td>
                                             <?php echo $customer['shipment_equipment'] . ' ' . $customer['shipment_note']; ?>
                                         </td>

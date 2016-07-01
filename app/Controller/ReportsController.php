@@ -91,7 +91,7 @@ class ReportsController extends AppController {
 //        pr($transactions); exit;
         $mac = count(json_decode($transactions['0']['pc']['mac']));
         $transactions[0]['pc']['mac'] = $mac;
-        
+
         $this->set(compact('transactions'));
     }
 
@@ -146,18 +146,16 @@ class ReportsController extends AppController {
     function openInvoice25() {
         $this->loadModel('Package_customer');
         $this->loadModel('Transaction');
-  
-        $date = trim(date('Y-m-d', strtotime("+25 days")));
-        $packagecustomers = $this->Transaction->query("SELECT tr.id, tr.package_customer_id, 
-            CONCAT( first_name,' ', middle_name,' ', last_name ) AS name, pc.psetting_id, pc.mac,pc.house_no,
-            pc.street,pc.apartment,pc.city,pc.state,pc.zip,pc.package_exp_date,
-            ps.name, p.name, tr.paid_amount, ps.amount, ps.duration FROM transactions tr
-            left join package_customers pc on tr.package_customer_id = pc.id
+        $expiredate = trim(date('Y-m-d', strtotime("+25 days")));
+        $packagecustomers = $this->Transaction->query("SELECT pc.id,tr.id, CONCAT( first_name,' ', middle_name,' ', last_name ) AS name, pc.psetting_id, pc.mac,pc.house_no,
+            pc.street,pc.apartment,pc.city,pc.state,pc.zip,pc.package_exp_date,ps.name, ps.amount, ps.duration,p.name, tr.paid_amount
+            FROM package_customers pc
             left join psettings ps on ps.id = pc.psetting_id
             LEFT JOIN packages p ON p.id = ps.package_id 
-            WHERE  package_exp_date <= '$date' and package_exp_date != 0000-00-00");
+            left join transactions tr on tr.package_customer_id = pc.id
+            WHERE package_exp_date>='".date('Y-m-d'). "' AND package_exp_date<='".$expiredate."' AND package_exp_date != 0000-00-00 "
+                . "GROUP BY pc.id");
         $this->set(compact('packagecustomers'));
-
     }
 
     function pexp_invoice() {
@@ -313,18 +311,46 @@ class ReportsController extends AppController {
 
     function getTotalDone() {
         $this->loadModel('PackageCustomer');
-        $done = $this->PackageCustomer->query("SELECT count(status) as done FROM package_customers WHERE modified >= CURRENT_DATE() and status = 'done'");
+        $date = date("Y-m-d");
+        $done = $this->PackageCustomer->query("SELECT count(status) as done FROM package_customers WHERE modified >= $date and status = 'done'");
         return $done[0][0]['done'];
+    }
+
+    function getTotalReconnection() {
+        $this->loadModel('PackageCustomer');
+        $date = date("Y-m-d");
+        $reconnection = $this->PackageCustomer->query("SELECT count(status) as reconnection FROM package_customers WHERE modified >= $date and status = 'reconnection'");
+        return $reconnection[0][0]['reconnection'];
+    }
+
+    function getTotalNewordertaken() {
+        $this->loadModel('PackageCustomer');
+        $date = date("Y-m-d");
+        $ready = $this->PackageCustomer->query("SELECT count(pc.status) as ready
+            FROM  `vbpackagecustomers` as pc
+            WHERE pc.date = '$date' and pc.status = 'ready'  OR (pc.follow_up=0 AND pc.status ='requested'
+            AND pc.status != 'old_ready' ) AND shipment =0 ");
+        $shipment = $this->PackageCustomer->query("SELECT COUNT( pc.status ) AS shipment
+            FROM  `vbpackagecustomers` AS pc
+            WHERE DATE =  '$date'
+            AND pc.shipment =1");
+        $totalorder = $ready[0][0]['ready'] + $shipment[0][0]['shipment'];
+        return $totalorder;
     }
 
     function salesSupportdp() {
         $total = array();
-        $total['call'] = $this->getTotalCall();
-        $total['cancel'] = $this->getTotalCancel();
-        $total['sales_query'] = $this->getTotalSalesQuery();
-        $total['hold'] = $this->getTotalHold();
-        $total['unhold'] = $this->getTotalUnhold();
+//        $total['call'] = $this->getTotalCall();
+//        $total['cancel'] = $this->getTotalCancel();        
+//        $total['hold'] = $this->getTotalHold();
+//        $total['unhold'] = $this->getTotalUnhold();
+//        $total['reconnection'] = $this->getTotalReconnection();
         $total['done'] = $this->getTotalDone();
+        $total['ready'] = $this->getTotalNewordertaken();
+        $total['sales_query'] = $this->getTotalSalesQuery();
+        $total[0] = $total['done']+$total['ready'];
+        
+//        pr($total['0']); exit;
         $this->set(compact('total'));
     }
 

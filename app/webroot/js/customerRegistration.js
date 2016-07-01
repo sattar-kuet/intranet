@@ -50,10 +50,7 @@ $(document).ready(function () {
         $('.status-date').text(selected);
     });
 
-    $('.toggleDiv').click(function () {
-        var showElement = $(this).attr('id');
-        $(showElement).toggle(1000);
-    });
+  
 
     initialization();
 });

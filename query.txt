@@ -1,0 +1,19 @@
+6:24 PM 6/25/2016
+
+CREATE OR REPLACE VIEW vbpackagecustomers AS 
+SELECT DATE_FORMAT( modified,  '%Y-%m-%d' ) AS  'date', package_customers. * 
+FROM package_customers
+
+12:51 PM 6/27/2016
+
+SELECT count(pc.status) as ready
+FROM  `vbpackagecustomers` as pc
+ WHERE pc.date = '2016-06-23' and pc.status = 'ready'  OR (pc.follow_up=0 AND pc.status ='requested'
+ AND pc.status != 'old_ready' ) AND shipment =0
+
+12:54 PM 6/27/2016
+
+SELECT COUNT( pc.status ) AS shipment
+FROM  `vbpackagecustomers` AS pc
+WHERE DATE =  '2016-06-17'
+AND pc.shipment =1

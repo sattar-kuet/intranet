@@ -36,12 +36,19 @@
                             <thead>
                                 <tr>
                                     <th>
+                                        SL.
+                                    </th>
+                                    <th>
                                         Contact Date
                                     </th>
                                     <th>
                                         Customer detail
                                     </th>
 
+                                    <th>
+                                        Package
+                                    </th>
+                                    
                                     <th>
                                         Issue
                                     </th>
@@ -70,6 +77,9 @@
                                     ?>
                                     <tr>
                                         <td class="hidden-480">
+                                            <?php echo $results['customers']['id']; ?>                            
+                                        </td>
+                                        <td class="hidden-480">
                                             <?php  echo date_format( new DateTime($results['customers']['created']) , 'm-d-Y' );?>   <br>
                                             <?php echo $results['users']['name']; ?>  
                                         </td>
@@ -96,6 +106,15 @@
                                                 <?php endif; ?> 
                                             </ul>
 
+                                        </td>
+                                        
+                                        <td>
+                                            <?php if (!empty($results['package']['name'])): ?>
+                                                Name: <?php echo $results['package']['name'] ?><br>
+                                                Duration: <?php echo $results['package']['duration']; ?><br>
+                                                Total: $<?php echo $customer['total']; ?>
+                                                <?php // echo $results['package']['amount'];  ?>
+                                            <?php endif; ?>
                                         </td>
 
                                         <td>
