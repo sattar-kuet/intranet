@@ -65,7 +65,7 @@ class PaymentsController extends AppController {
     }
 
     public function individual_transaction_by_card() {
-       // pr($this->request->data); exit;
+        // pr($this->request->data); exit;
         //Get ID and Input amount from edit_customer page
         $cid = $this->request->data['Transaction']['cid'];
         $this->request->data['Transaction']['package_customer_id'] = $cid;
@@ -101,8 +101,8 @@ class PaymentsController extends AppController {
         //foreach ($pcustomers as $pcustomer):
         $pc = $this->request->data['Transaction'];
         // pr($pc); exit;
-        $creditCard->setCardNumber($pc['card_no']); 
-        $creditCard->setExpirationDate($pc['exp_date']); 
+        $creditCard->setCardNumber($pc['card_no']);
+        $creditCard->setExpirationDate($pc['exp_date']);
         //     $creditCard->setCardNumber("4117733943147221"); // live
         //  $creditCard->setExpirationDate("07-2019"); //live
         $paymentOne = new AnetAPI\PaymentType();
@@ -249,7 +249,7 @@ class PaymentsController extends AppController {
         $msg = '';
 
         $data4transaction['Transaction']['exp_date'] = $this->request->data['Transaction']['exp_date'];
-       
+
         $data4transaction['Transaction']['card_no'] = $this->request->data['Transaction']['card_no'];
         $data4transaction['Transaction']['user_id'] = $loggedUser['id'];
         if ($response != null) {
@@ -286,7 +286,7 @@ class PaymentsController extends AppController {
 
 
                 $tdata['Ticket'] = array('content' => 'Refund failed for Null response');
-              //  pr($tdata['Ticket']);exit;
+                //  pr($tdata['Ticket']);exit;
                 $tickect = $this->Ticket->save($tdata['Ticket']); // Data save in Ticket
                 $trackData['Track'] = array(
                     'package_customer_id' => $data4transaction['Transaction']['package_customer_id'],
@@ -295,7 +295,6 @@ class PaymentsController extends AppController {
                     'forwarded_by' => $loggedUser['id']
                 );
                 $this->Track->save($trackData);
-
             }
         } else {
             $data4transaction['Transaction']['paid_amount'] = 0;
@@ -339,7 +338,7 @@ class PaymentsController extends AppController {
     public function individual_transaction_by_check() {
         $this->loadModel('Transaction');
         $loggedUser = $this->Auth->user();
-      
+
         $cid = $this->request->data['Transaction']['cid'];
         $this->request->data['Transaction']['package_customer_id'] = $cid;
         $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
@@ -421,6 +420,34 @@ class PaymentsController extends AppController {
                         </div>';
         $this->Session->setFlash($transactionMsg);
         return $this->redirect($this->referer());
+    }
+
+    function custom_payment() {
+        $this->loadModel('Transaction');
+        $this->loadModel('Role');
+        $this->loadModel('User');
+        
+         if ($this->request->is('post')) {
+            $this->Transaction->set($this->request->data);
+            if ($this->Transaction->validates()) { 
+                $temp = explode('/', $this->request->data['Transaction']['created']);
+               $this->request->data['Transaction']['created'] = $temp[2].'-'.$temp[0].'-'.$temp[1].' 00:00:00';
+               // pr($this->request->data); exit;
+                $this->Transaction->save($this->request->data['Transaction']);
+                $msg = '<div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong> Custom payment succeesfully </strong>
+        </div>';
+                $this->Session->setFlash($msg);
+                return $this->redirect($this->referer());
+            } else {
+                $msg = $this->generateError($this->Transaction->validationErrors);
+                $this->Session->setFlash($msg);
+            }
+        }      
+        
+        $pay_to = $this->User->find('list', array('conditions' => array('OR'=>array( array('User.role_id' => 9), array( 'User.role_id' => 11 )))));
+        $this->set(compact('pay_to'));
     }
 
 }
