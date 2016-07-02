@@ -1,5 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/xampee/htdocs/intranet/app/View/Reports/cancel.ctp</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/View/Customers/ready_installation.ctp</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/View/Customers/troubleshot_technician.ctp</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/View/Reports/expcustomers.ctp</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/View/Customers/moving.ctp</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/View/Tickets/manage.ctp</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/View/Customers/shipment.ctp</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/View/Reports/call_log.ctp</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/Controller/TicketsController.php</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/View/Customers/troubleshot_shipment.ctp</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/View/Customers/wire_problem.ctp</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/View/Customers/reconnection_request.ctp</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/View/Reports/newcustomers.ctp</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/View/Reports/active.ctp</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/View/Customers/followup.ctp</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/Controller/AdminsController.php</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/View/Customers/remote_problem.ctp</file>
+            <file>file:/D:/xampee/htdocs/intranet/app/Controller/ReportsController.php</file>
+=======
+<<<<<<< HEAD
+>>>>>>> 51840abfd47c54a5f76e7af1a293e5e8d5dd86be
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="16">
         <file>
             <url>app/Controller/ReportsController.php</url>
@@ -90,9 +117,17 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/D:/xampp/htdocs/intranet/app/Controller/ReportsController.php</file>
             <file>file:/D:/xampp/htdocs/intranet/app/Controller/TicketsController.php</file>
             <file>file:/D:/xampp/htdocs/intranet/app/View/Reports/sales_supportdp.ctp</file>
+=======
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Customers/cancelrequest.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Customers/followup.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/Controller/CustomersController.php</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/Controller/AdminsController.php</file>
+>>>>>>> 3fc5833f55dc76d266dfd99e08310f9731251a7d
+>>>>>>> 51840abfd47c54a5f76e7af1a293e5e8d5dd86be
         </group>
     </open-files>
 </project-private>
