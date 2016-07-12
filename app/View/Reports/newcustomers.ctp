@@ -22,14 +22,14 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-plus"></i>New Customers
+                            <i class="fa fa-plus"></i>Expired Customers
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="reload">
                             </a>
                         </div>
                     </div>
-                    <div class="portlet-body form">
+                     <div class="portlet-body form">
                         <!-- BEGIN FORM-->
                         <?php
                         echo $this->Form->create('Transaction', array(
@@ -85,7 +85,6 @@
         </div>
         <!-- END PAGE CONTENT -->
         <?php if ($clicked): ?>    
-
             <div class="page-content-wrapper" style="margin: 0px; padding: 0px;">
                 <div class="">
                     <!-- BEGIN PAGE HEADER-->
@@ -106,12 +105,12 @@
                     </div>
                     <!-- END PAGE HEADER-->
                     <!-- BEGIN PAGE CONTENT-->
-                    <div class="invoice"  id="printableArea">
+                    <div class="invoice" id="printableArea">
                         <div class="row invoice-logo">
                             <div class="col-xs-12 invoice-logo-space">
                                 <div class="row">
                                     <div class="col-xs-12" style="text-align: center; margin-bottom: 41px;">
-                                        <h4 class="page-title"  style="color: #353535; font-weight: bold;"><u>New Customers</u></h4>
+                                        <h4 class="page-title"  style="color: #353535; font-weight: bold;"><u>Expired Customers</u></h4>
                                         <div>Total Cable USA</div>
                                         <div>P.O. BOX 770068,</div>
                                         <div>WOODSIDE, NY 11377</div>
@@ -170,7 +169,7 @@
                                     <tbody>                                    
                                         <?php
                                         foreach ($transactions as $info):
-                                            
+
                                             ?>
                                             <tr>
                                                 <td><?php echo $info['PackageCustomer']['c_acc_no']; ?></td>
@@ -198,11 +197,10 @@
                         </div>
                     </div>
                 </div>
-            </div>                             
+            </div>                            
         <?php endif; ?>
     </div>
 </div>
 <!-- END CONTENT -->
-
 
 
