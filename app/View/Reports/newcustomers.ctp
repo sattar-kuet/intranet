@@ -1,4 +1,3 @@
-
 <style>
     .ui-datepicker-multi-3 {
         display: table-row-group !important;
@@ -170,7 +169,6 @@
                                     <tbody>                                    
                                         <?php
                                         foreach ($transactions as $info):
-//                                            pr($info['PackageCustomer']['custom_package_id']); exit;
 
                                             ?>
                                             <tr>
@@ -184,7 +182,7 @@
                                                     if ($info['PackageCustomer']['custom_package_id'] == null) {
                                                         echo $info['PackageCustomer']['Psetting']['name'];
                                                     } else {
-                                                        echo $info['PackageCustomer']['CustomPackage']['duration'].' Months, Custom package '.$info['PackageCustomer']['CustomPackage']['charge'] . '$';
+                                                        echo $info['PackageCustomer']['CustomPackage']['duration'] . ' Months, Custom package ' . $info['PackageCustomer']['CustomPackage']['charge'] . '$';
                                                     }
                                                     ?>
                                                 </td>
