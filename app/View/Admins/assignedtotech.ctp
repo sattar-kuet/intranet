@@ -47,8 +47,6 @@
                                     <th>
                                         Customer Detail
                                     </th>
-
-
                                     <th>
                                         Package
                                     </th>
@@ -69,7 +67,7 @@
                                         Assigned to
                                     </th>
                                     <th>
-                                        Deadline
+                                        Schedule
                                     </th>
                                     <th>
                                         Action
