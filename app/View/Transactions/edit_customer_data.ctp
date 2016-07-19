@@ -597,7 +597,7 @@
                                         <div id="status-history" class="alert alert-success display-hide" style="text-align: inherit;">
                                             <?php
                                             foreach ($statusHistories as $history):
-                                                //pr($history); exit;
+//                                                pr($history['StatusHistory']['package_customer_id']); exit;
                                                 ?>
                                                 <span class="fa fa-hand-o-right pull-left"> <?php echo $history['StatusHistory']['status']; ?></span> &nbsp;
                                                 <span class="fa fa-clock-o pull-right"> <?php echo $history['StatusHistory']['date']; ?> </span> <br>
@@ -716,8 +716,8 @@
 
                         </div>
                     </div>
-                    
-                    
+
+
                     <!--                    Begin update next payment date-->
 
                     <div class="portlet box lightseagreen" style="background-color:#daae2b; border: #daae2b solid 2px;">
@@ -735,7 +735,7 @@
                             <div class="row display-hide" id="updatepayinfo"> 
                                 <div class="col-md-12">
                                     <?php
-                                    echo $this->Form->create('payment_histories', array(
+                                    echo $this->Form->create('Transaction', array(
                                         'inputDefaults' => array(
                                             'label' => false,
                                             'div' => false
@@ -748,26 +748,23 @@
                                     ?>
 
                                     <?php
-                                    echo $this->Form->input(
-                                            'id', array(
+                                    echo $this->Form->input('package_customer_id', array(
                                         'type' => 'hidden',
-                                        'value' => $this->params['pass'][0],
-                                    ));
+                                        'value' => $history['StatusHistory']['package_customer_id'],
+                                            )
+                                    );
                                     ?>
-                                                                                       
 
-                                   
                                     <div class="row">
                                         <div class="col-md-3 signupfont">
-                                           Next payment date: 
+                                            Next payment date: 
                                         </div>
                                         <div class="col-md-4">
                                             <?php
                                             echo $this->Form->input(
-                                                    'nextpayment_date', array(
+                                                    'next_payment', array(
                                                 'type' => 'text',
                                                 'class' => 'datepicker form-control ',
-                                                
                                             ));
                                             ?>
                                         </div>
@@ -775,7 +772,7 @@
                                     &nbsp;
                                     <div class="row">
                                         <div class="col-md-3 signupfont">
-                                           Next payment amount:
+                                            Next payment amount:
                                         </div>
                                         <div class="col-md-4">
                                             <?php
@@ -801,18 +798,19 @@
                                             ?>
 
                                         </div>
-                                            <div class="col-md-4"> 
-                                            <?php
-                                            echo $this->Form->button(
-                                                    'Update current record', array(
-                                                'class' => 'btn btn-primary submitbtn',
-                                                'style' => "background-color: #daae2b;",
-                                                'type' => 'submit',
-                                                'id' => ''
-                                            ));
+                                        <!--                                            <div class="col-md-4"> 
+                                                                                    //<?php
+//                                            echo $this->Form->button(
+//                                                    'Update current record', array(
+//                                                'class' => 'btn btn-primary submitbtn',
+//                                                'style' => "background-color: #daae2b;",
+//                                                'type' => 'submit',
+//                                                'id' => ''
+//                                            ));
+//                                            
                                             ?>
-
-                                        </div>
+                                        
+                                                                                </div>-->
                                     </div>
                                     <?php echo $this->Form->end(); ?>
 
