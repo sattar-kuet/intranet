@@ -459,6 +459,23 @@
                 </ul>
             </li>
 
+              <li 
+            <?php
+            $services = array('custom_payment');
+            if (in_array($this->name . '' . $this->action, $services)):
+                ?>
+                    class="active"
+                    <?php
+                endif;
+                ?>
+                >                 
+                <a href="<?php echo Router::url(array('controller' => 'payments', 'action' => 'custom_payment')) ?>">
+                    <i class="fa fa-support"></i>
+                    <span class="title">Custom Payment</span>
+                    <span class="arrow "></span>
+                </a>
+            </li>
+            
             <li 
             <?php
             $services = array('Customersready_installation', 'Customersmoving', 'Customersshipment', 'Customerstroubleshot_technician', 'Customerstroubleshot_shipment', 'Customerswire_problem', 'Customersremote_problem');
