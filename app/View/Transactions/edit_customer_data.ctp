@@ -597,7 +597,6 @@
                                         <div id="status-history" class="alert alert-success display-hide" style="text-align: inherit;">
                                             <?php
                                             foreach ($statusHistories as $history):
-//                                                pr($history['StatusHistory']['package_customer_id']); exit;
                                                 ?>
                                                 <span class="fa fa-hand-o-right pull-left"> <?php echo $history['StatusHistory']['status']; ?></span> &nbsp;
                                                 <span class="fa fa-clock-o pull-right"> <?php echo $history['StatusHistory']['date']; ?> </span> <br>
@@ -688,14 +687,10 @@
                                                     )
                                             );
                                             ?>
-
                                         </div>
                                     </div>
-
                                 </div>
                                 &nbsp;
-
-
                                 <div class="row">
                                     <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20"> 
                                         <?php
@@ -710,10 +705,6 @@
                                 </div>
                                 <?php echo $this->Form->end(); ?> 
                             </div>
-
-
-
-
                         </div>
                     </div>
 
@@ -798,8 +789,8 @@
                                             ?>
 
                                         </div>
-                                        <!--                                            <div class="col-md-4"> 
-                                                                                    //<?php
+                                        <!--    <div class="col-md-4"> 
+                                             //<?php
 //                                            echo $this->Form->button(
 //                                                    'Update current record', array(
 //                                                'class' => 'btn btn-primary submitbtn',
@@ -808,12 +799,10 @@
 //                                                'id' => ''
 //                                            ));
 //                                            
-                                            ?>
-                                        
+                                        ?>                                       
                                                                                 </div>-->
                                     </div>
                                     <?php echo $this->Form->end(); ?>
-
                                 </div>
                             </div>
                         </div>
@@ -1845,540 +1834,706 @@
                 </div>
             </div>
             <div>
-                <!-------------payment history end----------------->
-
-                <!-------------ticket history start----------------->
-
-                <div class="portlet box" style="background-color:  steelblue; border: steelblue solid 2px;">
+                <div class="portlet box " style="background-color: tomato; border: tomato solid 2px;">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-list-ul"></i>Ticket History
+                            <i class="fa fa-list-ul"></i>Statement
                         </div>
                         <div class="tools">
-                            <a  class="reload toggle" data-id="tickethistory">
+                            <a  class="reload toggle" data-id="transaction">
                             </a>
                         </div>
                     </div>
                     <div class="portlet-body">
-                        <div class="row display-hide" id="tickethistory">
+                        <div class="row display-hide" id="transaction">
+
                             <div  class="col-md-12 col-sm-12">
-                                <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
-                                    <thead>
-                                        <tr>
-                                            <th>Subject</th>
-                                            <th>Customer Info</th>
-                                            <th>Open Time</th>
-                                            <th>Detail</th>
-                                            <th>History</th>
-                                            <th>Action</th>
+                                <div  class="col-md-9 col-sm-9">
+                                </div>  
+                                <div  class="col-md-3 col-sm-3">
+                                    <table cellpadding="0" cellspacing="0" border="0" class="responsive dynamicTable display table table-bordered" width="100%" >
+
+                                        <thead>
+                                        <div style="text-align: right; font: bold ; font-size: 19px; margin-right: 2px;">Statement</div>
+                                        <tr >  
+                                            <th>Date</th>
+                                            <th>Statement #</th>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        foreach ($data as $single):
-                                            $issue = end($single['history']);
-                                            $customer = end($single['history']);
-                                            $customer = $customer['pc'];
-                                            $ticket = $single['ticket'];
-                                            ?>
-                                            <tr >
-                                                <td><?php echo $issue['i']['name']; ?></td>
-                                                <td>
-                                                    <ul>
-                                                        <li> Name: <?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?> </li> 
-                                                        <li> Cell: <?php echo $customer['cell']; ?> </li> 
-                                                    </ul>
-                                                </td>
-                                                <td><?php echo $ticket['created']; ?></td>
-                                                <td><?php echo $ticket['content']; ?></td>
-                                                <td>
-                                                    <ol>
-                                                        <?php
-                                                        $lasthistory = $single['history'][0]['tr'];
-//                                                         pr($lasthistory); exit;
-                                                        foreach ($single['history'] as $history):
-                                                            ?>
-                                                            <li>
-                                                                <?php if ($history['tr']['status'] != 'open') { ?>
-                                                                    <strong><?php echo ucfirst($history['tr']['status']); ?> By:</strong>
-                                                                <?php } else {
-                                                                    ?>
-                                                                    <strong>Forwarded By:</strong>
-                                                                    <?php
-                                                                }
-                                                                ?>
-                                                                <?php echo $history['fb']['name']; ?>
-                                                                <p><strong>Forwarded To:</strong><ul><li><?php echo $history['fi']['name']; ?> </li><li><?php echo $history['fd']['name']; ?> </li></ul>
-                                                                <strong>Time:</strong> <?php echo $history['tr']['created']; ?>
-
-                                                                &nbsp;&nbsp;<strong>Status:</strong> <?php echo $history['tr']['status']; ?><br>
-                                                                <?php
-                                                                if (!empty($history['tr']['comment'])):
-                                                                    echo '<strong>';
-                                                                    echo 'Comment : ';
-                                                                    echo '</strong>';
-                                                                    echo $history['tr']['comment'];
-                                                                endif;
-                                                                ?> 
-                                                            </li>
-                                                            <br>
-                                                        <?php endforeach; ?>
-                                                    </ol>
-                                                </td>
-                                                <td>   
-                                                    <div class="controls center text-center">
-                                                        <?php if ($lasthistory['status'] == 'open') { ?>
-                                                            <a 
-                                                                href="#" title="Solved">
-                                                                <span id="<?php echo $ticket['id']; ?>" class="fa fa-check fa-lg solve_ticket"></span>
-                                                            </a>
-                                                            &nbsp;
-                                                            <a 
-                                                                href="#" title="Unresolved">
-                                                                <span id="<?php echo $ticket['id']; ?>" class="fa fa-times fa-lg unsolve_ticket"></span>
-                                                            </a>
-                                                            &nbsp;
-                                                            <a 
-                                                                href="#" title="Forward">
-                                                                <span id="<?php echo $ticket['id']; ?>" class="fa fa-mail-forward fa-lg forward_ticket"></span>
-                                                            </a>
-                                                            &nbsp;
-                                                            <a 
-                                                                href="#" title="Comment">
-                                                                <span id="<?php echo $ticket['id']; ?>" class="fa fa-comment fa-lg comment_ticket"></span>
-                                                            </a>
-                                                            <div id="forward_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
-                                                                <!-- BEGIN FORM-->
-                                                                <?php
-                                                                echo $this->Form->create('Track', array(
-                                                                    'inputDefaults' => array(
-                                                                        'label' => false,
-                                                                        'div' => false
-                                                                    ),
-                                                                    'id' => 'form_sample_3',
-                                                                    'class' => 'form-horizontal',
-                                                                    'novalidate' => 'novalidate',
-                                                                    'url' => array('controller' => 'tickets', 'action' => 'forward')
-                                                                        )
-                                                                );
-                                                                ?>
-
-                                                                <?php
-                                                                echo $this->Form->input('ticket_id', array(
-                                                                    'type' => 'hidden',
-                                                                    'value' => $ticket['id'],
-                                                                        )
-                                                                );
-                                                                ?>
-                                                                <?php
-                                                                echo $this->Form->input('package_customer_id', array(
-                                                                    'type' => 'hidden',
-                                                                    'value' => $lasthistory['package_customer_id'],
-                                                                        )
-                                                                );
-                                                                ?>
-                                                                <div class="form-body">
-                                                                    <div class="alert alert-danger display-hide">
-                                                                        <button class="close" data-close="alert"></button>
-                                                                        You have some form errors. Please check below.
-                                                                    </div>
-                                                                    <?php echo $this->Session->flash(); ?>
-                                                                    <div class="form-group">
-                                                                        <div class="form-group">
-                                                                            <div class="col-md-12">
-                                                                                <?php
-                                                                                echo $this->Form->input('user_id', array(
-                                                                                    'type' => 'select',
-                                                                                    'options' => $users,
-                                                                                    'empty' => 'Select From Existing admins panel user',
-                                                                                    'class' => 'form-control select2me',
-                                                                                        )
-                                                                                );
-                                                                                ?>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group">
-
-                                                                        <div class="form-group">
-
-                                                                            <div class="col-md-12">
-                                                                                <?php
-                                                                                echo $this->Form->input('role_id', array(
-                                                                                    'type' => 'select',
-                                                                                    'options' => $roles,
-                                                                                    'empty' => 'Select Department or Role',
-                                                                                    'class' => 'form-control select2me',
-                                                                                        )
-                                                                                );
-                                                                                ?>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <div class="form-group">
-                                                                            <div class="col-md-12">
-                                                                                <?php
-                                                                                echo $this->Form->input('priority', array(
-                                                                                    'type' => 'select',
-                                                                                    'options' => array('low' => 'Low', 'medium' => 'Medium', 'high' => 'High'),
-                                                                                    'empty' => 'Select Priority',
-                                                                                    'class' => 'form-control select2me required pclass',
-                                                                                        )
-                                                                                );
-                                                                                ?>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <div class="form-group">
-                                                                            <div class="col-md-12">
-                                                                                <?php
-                                                                                echo $this->Form->input('comment', array(
-                                                                                    'type' => 'textarea',
-                                                                                    'class' => 'form-control required',
-                                                                                    'placeholder' => 'Write your comments'
-                                                                                        )
-                                                                                );
-                                                                                ?>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-actions">
-                                                                    <div class="row">
-                                                                        <div class="col-md-offset-7 col-md-4">
-                                                                            <?php
-                                                                            echo $this->Form->button(
-                                                                                    'Forward', array('class' => 'btn green', 'type' => 'submit')
-                                                                            );
-                                                                            ?>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <?php echo $this->Form->end(); ?>
-                                                                <!-- END FORM-->
-                                                            </div>
-
-                                                            <div id="solve_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
-
-                                                                <!-- BEGIN FORM-->
-                                                                <?php
-                                                                echo $this->Form->create('Track', array(
-                                                                    'inputDefaults' => array(
-                                                                        'label' => false,
-                                                                        'div' => false
-                                                                    ),
-                                                                    'id' => 'form_sample_3',
-                                                                    'class' => 'form-horizontal',
-                                                                    'novalidate' => 'novalidate',
-                                                                    'url' => array('controller' => 'tickets', 'action' => 'solve')
-                                                                        )
-                                                                );
-                                                                ?>
-
-                                                                <?php
-                                                                echo $this->Form->input('ticket_id', array(
-                                                                    'type' => 'hidden',
-                                                                    'value' => $ticket['id'],
-                                                                        )
-                                                                );
-                                                                ?>
-
-                                                                <?php
-                                                                echo $this->Form->input('user_id', array(
-                                                                    'type' => 'hidden',
-                                                                    'value' => $lasthistory['user_id'],
-                                                                        )
-                                                                );
-                                                                ?>
-                                                                <?php
-                                                                echo $this->Form->input('role_id', array(
-                                                                    'type' => 'hidden',
-                                                                    'value' => $lasthistory['role_id'],
-                                                                        )
-                                                                );
-                                                                ?>
-                                                                <?php
-                                                                echo $this->Form->input('issue_id', array(
-                                                                    'type' => 'hidden',
-                                                                    'value' => $lasthistory['issue_id'],
-                                                                        )
-                                                                );
-                                                                ?>
-                                                                <?php
-                                                                echo $this->Form->input('package_customer_id', array(
-                                                                    'type' => 'hidden',
-                                                                    'value' => $lasthistory['package_customer_id'],
-                                                                        )
-                                                                );
-                                                                ?>
-
-                                                                <div class="form-body">
-                                                                    <div class="alert alert-danger display-hide">
-                                                                        <button class="close" data-close="alert"></button>
-                                                                        You have some form errors. Please check below.
-                                                                    </div>
-                                                                    <?php echo $this->Session->flash(); ?>
-                                                                    <div class="form-group">
-                                                                        <div class="form-group">
-                                                                            <div class="col-md-12">
-                                                                                <?php
-                                                                                echo $this->Form->input('comment', array(
-                                                                                    'type' => 'textarea',
-                                                                                    'class' => 'form-control required txtArea',
-                                                                                    'placeholder' => 'Write your comments'
-                                                                                        )
-                                                                                );
-                                                                                ?>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-actions">
-                                                                    <div class="row">
-                                                                        <div class="col-md-offset-7 col-md-4">
-                                                                            <?php
-                                                                            echo $this->Form->button(
-                                                                                    'Done', array('class' => 'btn green', 'type' => 'submit')
-                                                                            );
-                                                                            ?>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <?php echo $this->Form->end(); ?>
-                                                                <!-- END FORM-->
-                                                            </div> 
-
-                                                            <div id="unsolve_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
-
-                                                                <!-- BEGIN FORM-->
-                                                                <?php
-                                                                echo $this->Form->create('Track', array(
-                                                                    'inputDefaults' => array(
-                                                                        'label' => false,
-                                                                        'div' => false
-                                                                    ),
-                                                                    'id' => 'form_sample_3',
-                                                                    'class' => 'form-horizontal',
-                                                                    'novalidate' => 'novalidate',
-                                                                    'url' => array('controller' => 'tickets', 'action' => 'unsolve')
-                                                                        )
-                                                                );
-                                                                ?>
-
-                                                                <?php
-                                                                echo $this->Form->input('ticket_id', array(
-                                                                    'type' => 'hidden',
-                                                                    'value' => $ticket['id'],
-                                                                        )
-                                                                );
-                                                                ?>
-                                                                <?php
-                                                                echo $this->Form->input('user_id', array(
-                                                                    'type' => 'hidden',
-                                                                    'value' => $lasthistory['user_id'],
-                                                                        )
-                                                                );
-                                                                ?>
-                                                                <?php
-                                                                echo $this->Form->input('role_id', array(
-                                                                    'type' => 'hidden',
-                                                                    'value' => $lasthistory['role_id'],
-                                                                        )
-                                                                );
-                                                                ?>
-                                                                <?php
-                                                                echo $this->Form->input('issue_id', array(
-                                                                    'type' => 'hidden',
-                                                                    'value' => $lasthistory['issue_id'],
-                                                                        )
-                                                                );
-                                                                ?>
-                                                                <?php
-                                                                echo $this->Form->input('package_customer_id', array(
-                                                                    'type' => 'hidden',
-                                                                    'value' => $lasthistory['package_customer_id'],
-                                                                        )
-                                                                );
-                                                                ?>
-                                                                <div class="form-body">
-                                                                    <div class="alert alert-danger display-hide">
-                                                                        <button class="close" data-close="alert"></button>
-                                                                        You have some form errors. Please check below.
-                                                                    </div>
-                                                                    <?php echo $this->Session->flash(); ?>
-                                                                    <div class="form-group">
-                                                                        <div class="form-group">
-                                                                            <div class="col-md-12">
-                                                                                <?php
-                                                                                echo $this->Form->input('comment', array(
-                                                                                    'type' => 'textarea',
-                                                                                    'class' => 'form-control required txtArea',
-                                                                                    'placeholder' => 'Write your comments'
-                                                                                        )
-                                                                                );
-                                                                                ?>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-actions">
-                                                                    <div class="row">
-                                                                        <div class="col-md-offset-7 col-md-4">
-                                                                            <?php
-                                                                            echo $this->Form->button(
-                                                                                    'Done', array('class' => 'btn green', 'type' => 'submit')
-                                                                            );
-                                                                            ?>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <?php echo $this->Form->end(); ?>
-                                                                <!-- END FORM-->
-                                                            </div> 
-
-
-                                                            <div id="comment_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
-
-                                                                <!-- BEGIN FORM-->
-                                                                <?php
-                                                                echo $this->Form->create('Track', array(
-                                                                    'inputDefaults' => array(
-                                                                        'label' => false,
-                                                                        'div' => false
-                                                                    ),
-                                                                    'id' => 'form_sample_3',
-                                                                    'class' => 'form-horizontal',
-                                                                    'novalidate' => 'novalidate',
-                                                                    'url' => array('controller' => 'tickets', 'action' => 'ticket_comment')
-                                                                        )
-                                                                );
-                                                                ?>
-
-                                                                <?php
-                                                                echo $this->Form->input('ticket_id', array(
-                                                                    'type' => 'hidden',
-                                                                    'value' => $ticket['id'],
-                                                                        )
-                                                                );
-                                                                ?>
-
-                                                                <?php
-                                                                echo $this->Form->input('user_id', array(
-                                                                    'type' => 'hidden',
-                                                                    'value' => $lasthistory['user_id'],
-                                                                        )
-                                                                );
-                                                                ?>
-                                                                <?php
-                                                                echo $this->Form->input('role_id', array(
-                                                                    'type' => 'hidden',
-                                                                    'value' => $lasthistory['role_id'],
-                                                                        )
-                                                                );
-                                                                ?>
-                                                                <?php
-                                                                echo $this->Form->input('issue_id', array(
-                                                                    'type' => 'hidden',
-                                                                    'value' => $lasthistory['issue_id'],
-                                                                        )
-                                                                );
-                                                                ?>
-                                                                <?php
-                                                                echo $this->Form->input('package_customer_id', array(
-                                                                    'type' => 'hidden',
-                                                                    'value' => $lasthistory['package_customer_id'],
-                                                                        )
-                                                                );
-                                                                ?>
-
-                                                                <div class="form-body">
-                                                                    <div class="alert alert-danger display-hide">
-                                                                        <button class="close" data-close="alert"></button>
-                                                                        You have some form errors. Please check below.
-                                                                    </div>
-                                                                    <?php echo $this->Session->flash(); ?>
-                                                                    <div class="form-group">
-                                                                        <div class="form-group">
-                                                                            <div class="col-md-12">
-                                                                                <?php
-                                                                                echo $this->Form->input('comment', array(
-                                                                                    'type' => 'textarea',
-                                                                                    'class' => 'form-control required txtArea',
-                                                                                    'placeholder' => 'Write your comments'
-                                                                                        )
-                                                                                );
-                                                                                ?>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-actions">
-                                                                    <div class="row">
-                                                                        <div class="col-md-offset-7 col-md-4">
-                                                                            <?php
-                                                                            echo $this->Form->button(
-                                                                                    'Comments', array('class' => 'btn green ', 'type' => 'submit')
-                                                                            );
-                                                                            ?>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <?php echo $this->Form->end(); ?>
-                                                                <!-- END FORM-->
-                                                            </div> 
-
-                                                            <?php
-                                                        } else {
-                                                            echo 'Nothing to do';
-                                                        }
-                                                        ?>
-                                                    </div>
-                                                </td>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="odd gradeX">
+                                                <td> <?php echo date('Y-m-d'); ?></td>  
+                                                <?php $transactions_alls = $transactions_all; ?>
+                                                <td><?php echo getInvoiceNumbe($transactions_alls[0]['tr']['package_customer_id']); ?></td>
                                             </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div  class="col-md-12 col-sm-12">
+                                <div  class="col-md-3 col-sm-3">
+                                    <table cellpadding="0" cellspacing="0" border="0" class="responsive dynamicTable display table table-bordered" width="100%" >
+                                        <thead>
+                                            <tr >  
+                                                <th>To</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
                                             <?php
-                                        endforeach;
+                                            $single = $transactions_all;
+                                            $customer_address = $single[0]['pc']['house_no'] . ' ' . $single[0]['pc']['street'] . ' ' .
+                                                    $single[0]['pc']['apartment'] . ' ' . $single[0]['pc']['city'] . ' ' . $single[0]['pc']['state'] . ' '
+                                                    . $single[0]['pc']['zip'];
+                                            ?>
+                                            <tr class="odd gradeX">
+                                                <td>                                            
+                                                    <?php
+                                                    echo $single[0]['pc']['first_name'] . " " .
+                                                    $single[0]['pc']['middle_name'] . " " .
+                                                    $single[0]['pc']['last_name'];
+                                                    ?>
+                                                    <br>
+                                                    <?php if (!empty($single[0]['pc']['cell'])): ?>
+                                                        <b>Cell:</b>  <a href="tel:<?php echo $single[0]['pc']['cell'] ?>"><?php echo $single[0]['pc']['cell']; ?></a> &nbsp;&nbsp;
+                                                    <?php endif; ?><br>
+                                                    <?php if (!empty($single[0]['pc']['home'])): ?>
+                                                        <b> Phone: </b> <a href="tel:<?php echo $single[0]['pc']['home'] ?>"><?php echo $single[0]['pc']['home']; ?></a>
+                                                    <?php endif; ?> <br>
+                                                    <b> Address: </b> <?php echo $customer_address; ?> 
+                                                </td>
+                                            </tr>                                           
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div  class="col-md-9 col-sm-9">                                   
+                                </div>
+                            </div>
+
+                            <div  class="col-md-12 col-sm-12">
+                                <div  class="col-md-9 col-sm-9">
+                                </div>  
+                                <div  class="col-md-3 col-sm-3">
+                                    <table cellpadding="0" cellspacing="0" border="0" class="responsive dynamicTable display table table-bordered" width="100%" >
+                                        <thead>
+                                            <tr >  
+                                                <th>Amount Due</th>
+                                                <th>Enclosed</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="odd gradeX">
+                                                <td>$</td>                                                
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <table cellpadding="0" cellspacing="0" border="0" class="responsive dynamicTable display table table-bordered" width="100%" >
+                                <thead>
+                                    <tr >  
+                                        <th>Date</th>
+                                        <th>Payment info</th>
+                                        <th>Amount</th>
+                                        <th>Balance</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    foreach ($transactions_all as $single):
                                         ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="col-md-2"><a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'create', $this->request->params['pass'][0])) ?>" style="font-weight: bold; color: #E02222;">Generate Ticket</a></div>
-                        </div>
-                    </div>
-                </div>
+                                        <tr class="odd gradeX">
+                                            <td><?php echo $single['tr']['next_payment']; ?></td>
 
-                <!-------------ticket history end----------------->
 
-                <!-- CUSTOMER DATA STARTED-->
-                <div class="row">
-                    <div class="main">
-                        <div class="container">
-                            <?php echo $this->Session->flash() ?>
-                            <div class="col-md-12 col-sm-12" id="block-quicktabs-3">
-                                <?php
-                                echo $this->Form->create('PackageCustomer', array(
-                                    'inputDefaults' => array(
-                                        'label' => false,
-                                        'div' => false
-                                    ),
-                                    'id' => 'form-validate',
-                                    'class' => 'form-horizontal',
-                                    'novalidate' => 'novalidate',
-                                    'enctype' => 'multipart/form-data                                                                                                                                                                                              '
-                                        )
-                                );
+                                            <td>
+                                                <?php if ($single['tr']['pay_mode'] == 'card'): ?>
+                                                    <ul>
+                                                        <li>Pay Mode : <?php echo $single['tr']['pay_mode']; ?></li> 
+                                                        <li>Status : <?php echo $single['tr']['status']; ?></li>
+                                                        <?php if ($single['tr']['status'] == 'error'): ?>
+                                                            <ul>
+                                                                <li>Error Message : <?php echo $single['tr']['error_msg']; ?></li> 
+                                                            </ul>
+                                                        <?php endif;
+                                                        ?>
+                                                        <li>Transaction No : <?php echo $single['tr']['id']; ?></li> 
+                                                        <li>Card No : <?php echo substr($single['tr']['card_no'], 0, 4); ?></li>  
+                                                        <li>Zip Code : <?php echo $single['tr']['zip_code']; ?></li>  
+                                                        <li>CVV Code : <?php echo $single['tr']['cvv_code']; ?></li> 
+                                                        <li>Expire Date : <?php echo $single['tr']['exp_date']; ?></li>
+
+                                                    </ul>
+                                                <?php elseif ($single['tr']['pay_mode'] == 'cash'): ?>
+                                        <li>Pay Mode : <?php echo $single['tr']['pay_mode']; ?></li> 
+                                        Cash By : <?php echo $single['tr']['cash_by']; ?>
+
+                                    <?php elseif ($single['tr']['pay_mode'] == 'refund'): ?>
+                                        <ul><li>Pay Mode : <?php echo $single['tr']['pay_mode']; ?></li>
+                                            <ul> <li>Amount : <?php echo $single['tr']['paid_amount']; ?></li>
+                                                <li>Refund Date : <?php echo $single['tr']['created']; ?></li>
+                                            </ul>
+                                        </ul>
+
+                                    <?php else: ?>
+                                        <li>Pay Mode : <?php echo $single['tr']['pay_mode']; ?></li> 
+                                        <img src="<?php echo $this->webroot . 'check_images' . '/' . $single['tr']['check_image']; ?>"  width="50px" height="50px" />
+
+                                    <?php endif; ?> 
+                                    <td><?php echo $single['tr']['paid_amount']; ?></td>
+
+
+
+                                    <td><?php echo $single['tr'] ['payable_amount']; ?></td>
+
+
+                                    </tr>
+                                    <?php
+                                endforeach;
                                 ?>
-                                <ul class="">
-                                </ul>
-                                <!-- BEGIN SIDEBAR & CONTENT -->
-                            </div>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
-                <!-- END PAGE CONTENT -->
+                <div>
+                    <!-------------payment history end----------------->
+
+
+                    <!-------------ticket history start----------------->
+
+                    <div class="portlet box" style="background-color:  steelblue; border: steelblue solid 2px;">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-list-ul"></i>Ticket History
+                            </div>
+                            <div class="tools">
+                                <a  class="reload toggle" data-id="tickethistory">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="row display-hide" id="tickethistory">
+                                <div  class="col-md-12 col-sm-12">
+                                    <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+                                        <thead>
+                                            <tr>
+                                                <th>Subject</th>
+                                                <th>Customer Info</th>
+                                                <th>Open Time</th>
+                                                <th>Detail</th>
+                                                <th>History</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            foreach ($data as $single):
+                                                $issue = end($single['history']);
+                                                $customer = end($single['history']);
+                                                $customer = $customer['pc'];
+                                                $ticket = $single['ticket'];
+                                                ?>
+                                                <tr >
+                                                    <td><?php echo $issue['i']['name']; ?></td>
+                                                    <td>
+                                                        <ul>
+                                                            <li> Name: <?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?> </li> 
+                                                            <li> Cell: <?php echo $customer['cell']; ?> </li> 
+                                                        </ul>
+                                                    </td>
+                                                    <td><?php echo $ticket['created']; ?></td>
+                                                    <td><?php echo $ticket['content']; ?></td>
+                                                    <td>
+                                                        <ol>
+                                                            <?php
+                                                            $lasthistory = $single['history'][0]['tr'];
+//                                                         pr($lasthistory); exit;
+                                                            foreach ($single['history'] as $history):
+                                                                ?>
+                                                                <li>
+                                                                    <?php if ($history['tr']['status'] != 'open') { ?>
+                                                                        <strong><?php echo ucfirst($history['tr']['status']); ?> By:</strong>
+                                                                    <?php } else {
+                                                                        ?>
+                                                                        <strong>Forwarded By:</strong>
+                                                                        <?php
+                                                                    }
+                                                                    ?>
+                                                                    <?php echo $history['fb']['name']; ?>
+                                                                    <p><strong>Forwarded To:</strong><ul><li><?php echo $history['fi']['name']; ?> </li><li><?php echo $history['fd']['name']; ?> </li></ul>
+                                                                    <strong>Time:</strong> <?php echo $history['tr']['created']; ?>
+
+                                                                    &nbsp;&nbsp;<strong>Status:</strong> <?php echo $history['tr']['status']; ?><br>
+                                                                    <?php
+                                                                    if (!empty($history['tr']['comment'])):
+                                                                        echo '<strong>';
+                                                                        echo 'Comment : ';
+                                                                        echo '</strong>';
+                                                                        echo $history['tr']['comment'];
+                                                                    endif;
+                                                                    ?> 
+                                                                </li>
+                                                                <br>
+                                                            <?php endforeach; ?>
+                                                        </ol>
+                                                    </td>
+                                                    <td>   
+                                                        <div class="controls center text-center">
+                                                            <?php if ($lasthistory['status'] == 'open') { ?>
+                                                                <a 
+                                                                    href="#" title="Solved">
+                                                                    <span id="<?php echo $ticket['id']; ?>" class="fa fa-check fa-lg solve_ticket"></span>
+                                                                </a>
+                                                                &nbsp;
+                                                                <a 
+                                                                    href="#" title="Unresolved">
+                                                                    <span id="<?php echo $ticket['id']; ?>" class="fa fa-times fa-lg unsolve_ticket"></span>
+                                                                </a>
+                                                                &nbsp;
+                                                                <a 
+                                                                    href="#" title="Forward">
+                                                                    <span id="<?php echo $ticket['id']; ?>" class="fa fa-mail-forward fa-lg forward_ticket"></span>
+                                                                </a>
+                                                                &nbsp;
+                                                                <a 
+                                                                    href="#" title="Comment">
+                                                                    <span id="<?php echo $ticket['id']; ?>" class="fa fa-comment fa-lg comment_ticket"></span>
+                                                                </a>
+                                                                <div id="forward_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
+                                                                    <!-- BEGIN FORM-->
+                                                                    <?php
+                                                                    echo $this->Form->create('Track', array(
+                                                                        'inputDefaults' => array(
+                                                                            'label' => false,
+                                                                            'div' => false
+                                                                        ),
+                                                                        'id' => 'form_sample_3',
+                                                                        'class' => 'form-horizontal',
+                                                                        'novalidate' => 'novalidate',
+                                                                        'url' => array('controller' => 'tickets', 'action' => 'forward')
+                                                                            )
+                                                                    );
+                                                                    ?>
+
+                                                                    <?php
+                                                                    echo $this->Form->input('ticket_id', array(
+                                                                        'type' => 'hidden',
+                                                                        'value' => $ticket['id'],
+                                                                            )
+                                                                    );
+                                                                    ?>
+                                                                    <?php
+                                                                    echo $this->Form->input('package_customer_id', array(
+                                                                        'type' => 'hidden',
+                                                                        'value' => $lasthistory['package_customer_id'],
+                                                                            )
+                                                                    );
+                                                                    ?>
+                                                                    <div class="form-body">
+                                                                        <div class="alert alert-danger display-hide">
+                                                                            <button class="close" data-close="alert"></button>
+                                                                            You have some form errors. Please check below.
+                                                                        </div>
+                                                                        <?php echo $this->Session->flash(); ?>
+                                                                        <div class="form-group">
+                                                                            <div class="form-group">
+                                                                                <div class="col-md-12">
+                                                                                    <?php
+                                                                                    echo $this->Form->input('user_id', array(
+                                                                                        'type' => 'select',
+                                                                                        'options' => $users,
+                                                                                        'empty' => 'Select From Existing admins panel user',
+                                                                                        'class' => 'form-control select2me',
+                                                                                            )
+                                                                                    );
+                                                                                    ?>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group">
+
+                                                                            <div class="form-group">
+
+                                                                                <div class="col-md-12">
+                                                                                    <?php
+                                                                                    echo $this->Form->input('role_id', array(
+                                                                                        'type' => 'select',
+                                                                                        'options' => $roles,
+                                                                                        'empty' => 'Select Department or Role',
+                                                                                        'class' => 'form-control select2me',
+                                                                                            )
+                                                                                    );
+                                                                                    ?>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <div class="form-group">
+                                                                                <div class="col-md-12">
+                                                                                    <?php
+                                                                                    echo $this->Form->input('priority', array(
+                                                                                        'type' => 'select',
+                                                                                        'options' => array('low' => 'Low', 'medium' => 'Medium', 'high' => 'High'),
+                                                                                        'empty' => 'Select Priority',
+                                                                                        'class' => 'form-control select2me required pclass',
+                                                                                            )
+                                                                                    );
+                                                                                    ?>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <div class="form-group">
+                                                                                <div class="col-md-12">
+                                                                                    <?php
+                                                                                    echo $this->Form->input('comment', array(
+                                                                                        'type' => 'textarea',
+                                                                                        'class' => 'form-control required',
+                                                                                        'placeholder' => 'Write your comments'
+                                                                                            )
+                                                                                    );
+                                                                                    ?>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-actions">
+                                                                        <div class="row">
+                                                                            <div class="col-md-offset-7 col-md-4">
+                                                                                <?php
+                                                                                echo $this->Form->button(
+                                                                                        'Forward', array('class' => 'btn green', 'type' => 'submit')
+                                                                                );
+                                                                                ?>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <?php echo $this->Form->end(); ?>
+                                                                    <!-- END FORM-->
+                                                                </div>
+
+                                                                <div id="solve_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
+
+                                                                    <!-- BEGIN FORM-->
+                                                                    <?php
+                                                                    echo $this->Form->create('Track', array(
+                                                                        'inputDefaults' => array(
+                                                                            'label' => false,
+                                                                            'div' => false
+                                                                        ),
+                                                                        'id' => 'form_sample_3',
+                                                                        'class' => 'form-horizontal',
+                                                                        'novalidate' => 'novalidate',
+                                                                        'url' => array('controller' => 'tickets', 'action' => 'solve')
+                                                                            )
+                                                                    );
+                                                                    ?>
+
+                                                                    <?php
+                                                                    echo $this->Form->input('ticket_id', array(
+                                                                        'type' => 'hidden',
+                                                                        'value' => $ticket['id'],
+                                                                            )
+                                                                    );
+                                                                    ?>
+
+                                                                    <?php
+                                                                    echo $this->Form->input('user_id', array(
+                                                                        'type' => 'hidden',
+                                                                        'value' => $lasthistory['user_id'],
+                                                                            )
+                                                                    );
+                                                                    ?>
+                                                                    <?php
+                                                                    echo $this->Form->input('role_id', array(
+                                                                        'type' => 'hidden',
+                                                                        'value' => $lasthistory['role_id'],
+                                                                            )
+                                                                    );
+                                                                    ?>
+                                                                    <?php
+                                                                    echo $this->Form->input('issue_id', array(
+                                                                        'type' => 'hidden',
+                                                                        'value' => $lasthistory['issue_id'],
+                                                                            )
+                                                                    );
+                                                                    ?>
+                                                                    <?php
+                                                                    echo $this->Form->input('package_customer_id', array(
+                                                                        'type' => 'hidden',
+                                                                        'value' => $lasthistory['package_customer_id'],
+                                                                            )
+                                                                    );
+                                                                    ?>
+
+                                                                    <div class="form-body">
+                                                                        <div class="alert alert-danger display-hide">
+                                                                            <button class="close" data-close="alert"></button>
+                                                                            You have some form errors. Please check below.
+                                                                        </div>
+                                                                        <?php echo $this->Session->flash(); ?>
+                                                                        <div class="form-group">
+                                                                            <div class="form-group">
+                                                                                <div class="col-md-12">
+                                                                                    <?php
+                                                                                    echo $this->Form->input('comment', array(
+                                                                                        'type' => 'textarea',
+                                                                                        'class' => 'form-control required txtArea',
+                                                                                        'placeholder' => 'Write your comments'
+                                                                                            )
+                                                                                    );
+                                                                                    ?>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-actions">
+                                                                        <div class="row">
+                                                                            <div class="col-md-offset-7 col-md-4">
+                                                                                <?php
+                                                                                echo $this->Form->button(
+                                                                                        'Done', array('class' => 'btn green', 'type' => 'submit')
+                                                                                );
+                                                                                ?>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <?php echo $this->Form->end(); ?>
+                                                                    <!-- END FORM-->
+                                                                </div> 
+
+                                                                <div id="unsolve_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
+
+                                                                    <!-- BEGIN FORM-->
+                                                                    <?php
+                                                                    echo $this->Form->create('Track', array(
+                                                                        'inputDefaults' => array(
+                                                                            'label' => false,
+                                                                            'div' => false
+                                                                        ),
+                                                                        'id' => 'form_sample_3',
+                                                                        'class' => 'form-horizontal',
+                                                                        'novalidate' => 'novalidate',
+                                                                        'url' => array('controller' => 'tickets', 'action' => 'unsolve')
+                                                                            )
+                                                                    );
+                                                                    ?>
+
+                                                                    <?php
+                                                                    echo $this->Form->input('ticket_id', array(
+                                                                        'type' => 'hidden',
+                                                                        'value' => $ticket['id'],
+                                                                            )
+                                                                    );
+                                                                    ?>
+                                                                    <?php
+                                                                    echo $this->Form->input('user_id', array(
+                                                                        'type' => 'hidden',
+                                                                        'value' => $lasthistory['user_id'],
+                                                                            )
+                                                                    );
+                                                                    ?>
+                                                                    <?php
+                                                                    echo $this->Form->input('role_id', array(
+                                                                        'type' => 'hidden',
+                                                                        'value' => $lasthistory['role_id'],
+                                                                            )
+                                                                    );
+                                                                    ?>
+                                                                    <?php
+                                                                    echo $this->Form->input('issue_id', array(
+                                                                        'type' => 'hidden',
+                                                                        'value' => $lasthistory['issue_id'],
+                                                                            )
+                                                                    );
+                                                                    ?>
+                                                                    <?php
+                                                                    echo $this->Form->input('package_customer_id', array(
+                                                                        'type' => 'hidden',
+                                                                        'value' => $lasthistory['package_customer_id'],
+                                                                            )
+                                                                    );
+                                                                    ?>
+                                                                    <div class="form-body">
+                                                                        <div class="alert alert-danger display-hide">
+                                                                            <button class="close" data-close="alert"></button>
+                                                                            You have some form errors. Please check below.
+                                                                        </div>
+                                                                        <?php echo $this->Session->flash(); ?>
+                                                                        <div class="form-group">
+                                                                            <div class="form-group">
+                                                                                <div class="col-md-12">
+                                                                                    <?php
+                                                                                    echo $this->Form->input('comment', array(
+                                                                                        'type' => 'textarea',
+                                                                                        'class' => 'form-control required txtArea',
+                                                                                        'placeholder' => 'Write your comments'
+                                                                                            )
+                                                                                    );
+                                                                                    ?>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-actions">
+                                                                        <div class="row">
+                                                                            <div class="col-md-offset-7 col-md-4">
+                                                                                <?php
+                                                                                echo $this->Form->button(
+                                                                                        'Done', array('class' => 'btn green', 'type' => 'submit')
+                                                                                );
+                                                                                ?>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <?php echo $this->Form->end(); ?>
+                                                                    <!-- END FORM-->
+                                                                </div> 
+
+
+                                                                <div id="comment_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
+
+                                                                    <!-- BEGIN FORM-->
+                                                                    <?php
+                                                                    echo $this->Form->create('Track', array(
+                                                                        'inputDefaults' => array(
+                                                                            'label' => false,
+                                                                            'div' => false
+                                                                        ),
+                                                                        'id' => 'form_sample_3',
+                                                                        'class' => 'form-horizontal',
+                                                                        'novalidate' => 'novalidate',
+                                                                        'url' => array('controller' => 'tickets', 'action' => 'ticket_comment')
+                                                                            )
+                                                                    );
+                                                                    ?>
+
+                                                                    <?php
+                                                                    echo $this->Form->input('ticket_id', array(
+                                                                        'type' => 'hidden',
+                                                                        'value' => $ticket['id'],
+                                                                            )
+                                                                    );
+                                                                    ?>
+
+                                                                    <?php
+                                                                    echo $this->Form->input('user_id', array(
+                                                                        'type' => 'hidden',
+                                                                        'value' => $lasthistory['user_id'],
+                                                                            )
+                                                                    );
+                                                                    ?>
+                                                                    <?php
+                                                                    echo $this->Form->input('role_id', array(
+                                                                        'type' => 'hidden',
+                                                                        'value' => $lasthistory['role_id'],
+                                                                            )
+                                                                    );
+                                                                    ?>
+                                                                    <?php
+                                                                    echo $this->Form->input('issue_id', array(
+                                                                        'type' => 'hidden',
+                                                                        'value' => $lasthistory['issue_id'],
+                                                                            )
+                                                                    );
+                                                                    ?>
+                                                                    <?php
+                                                                    echo $this->Form->input('package_customer_id', array(
+                                                                        'type' => 'hidden',
+                                                                        'value' => $lasthistory['package_customer_id'],
+                                                                            )
+                                                                    );
+                                                                    ?>
+
+                                                                    <div class="form-body">
+                                                                        <div class="alert alert-danger display-hide">
+                                                                            <button class="close" data-close="alert"></button>
+                                                                            You have some form errors. Please check below.
+                                                                        </div>
+                                                                        <?php echo $this->Session->flash(); ?>
+                                                                        <div class="form-group">
+                                                                            <div class="form-group">
+                                                                                <div class="col-md-12">
+                                                                                    <?php
+                                                                                    echo $this->Form->input('comment', array(
+                                                                                        'type' => 'textarea',
+                                                                                        'class' => 'form-control required txtArea',
+                                                                                        'placeholder' => 'Write your comments'
+                                                                                            )
+                                                                                    );
+                                                                                    ?>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-actions">
+                                                                        <div class="row">
+                                                                            <div class="col-md-offset-7 col-md-4">
+                                                                                <?php
+                                                                                echo $this->Form->button(
+                                                                                        'Comments', array('class' => 'btn green ', 'type' => 'submit')
+                                                                                );
+                                                                                ?>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <?php echo $this->Form->end(); ?>
+                                                                    <!-- END FORM-->
+                                                                </div> 
+
+                                                                <?php
+                                                            } else {
+                                                                echo 'Nothing to do';
+                                                            }
+                                                            ?>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <?php
+                                            endforeach;
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-2"><a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'create', $this->request->params['pass'][0])) ?>" style="font-weight: bold; color: #E02222;">Generate Ticket</a></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-------------ticket history end----------------->
+
+                    <!-- CUSTOMER DATA STARTED-->
+                    <div class="row">
+                        <div class="main">
+                            <div class="container">
+                                <?php echo $this->Session->flash() ?>
+                                <div class="col-md-12 col-sm-12" id="block-quicktabs-3">
+                                    <?php
+                                    echo $this->Form->create('PackageCustomer', array(
+                                        'inputDefaults' => array(
+                                            'label' => false,
+                                            'div' => false
+                                        ),
+                                        'id' => 'form-validate',
+                                        'class' => 'form-horizontal',
+                                        'novalidate' => 'novalidate',
+                                        'enctype' => 'multipart/form-data                                                                                                                                                                                              '
+                                            )
+                                    );
+                                    ?>
+                                    <ul class="">
+                                    </ul>
+                                    <!-- BEGIN SIDEBAR & CONTENT -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END PAGE CONTENT -->
+                </div>
             </div>
+            <!-- END CONTENT -->        
         </div>
-        <!-- END CONTENT -->        
     </div>
-</div>
