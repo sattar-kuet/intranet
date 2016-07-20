@@ -294,6 +294,8 @@ class TransactionsController extends AppController {
         $user_info = $this->Auth->user();
         $user_id = $user_info['id'];
         $this->request->data['Transaction']['user_id'] = $user_id;
+        
+        pr($this->request->data); exit;
         $this->Transaction->save($this->request->data['Transaction']);
         $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
