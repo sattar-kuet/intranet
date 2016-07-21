@@ -739,11 +739,13 @@
                                     ?>
 
                                     <?php
-                                    echo $this->Form->input('package_customer_id', array(
-                                        'type' => 'hidden',
-                                        'value' => $history['StatusHistory']['package_customer_id'],
-                                            )
-                                    );
+                                    if (!empty($history['StatusHistory']['package_customer_id'])) {
+                                        echo $this->Form->input('package_customer_id', array(
+                                            'type' => 'hidden',
+                                            'value' => $history['StatusHistory']['package_customer_id'],
+                                                )
+                                        );
+                                    }
                                     ?>
 
                                     <div class="form-body">
@@ -916,7 +918,7 @@
 //                                            
                                         ?>                                       
                                                                                 </div>-->
-                                   
+
 
                                         <div class="form-actions">
                                             <div class="row">
