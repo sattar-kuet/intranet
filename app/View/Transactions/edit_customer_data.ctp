@@ -1976,157 +1976,166 @@
                         </div>
                     </div>
                     <div class="portlet-body">
-                        <div class="row display-hide" id="transaction">
+                        <?php if (count($transactions_all)) { ?>
+                            <div class="row display-hide" id="transaction">
 
-                            <div  class="col-md-12 col-sm-12">
-                                <div  class="col-md-9 col-sm-9">
-                                </div>  
-                                <div  class="col-md-3 col-sm-3">
-                                    <table cellpadding="0" cellspacing="0" border="0" class="responsive dynamicTable display table table-bordered" width="100%" >
+                                <div  class="col-md-12 col-sm-12">
+                                    <div  class="col-md-9 col-sm-9">
+                                    </div>  
+                                    <div  class="col-md-3 col-sm-3">
 
-                                        <thead>
-                                        <div style="text-align: right; font: bold ; font-size: 19px; margin-right: 2px;">Statement</div>
+                                        <table cellpadding="0" cellspacing="0" border="0" class="responsive dynamicTable display table table-bordered" width="100%" >
+
+                                            <thead>
+                                            <div style="text-align: right; font: bold ; font-size: 19px; margin-right: 2px;">Statement</div>
+                                            <tr >  
+                                                <th>Date</th>
+                                                <th>Statement #</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="odd gradeX">
+                                                    <td> <?php echo date('Y-m-d'); ?></td>  
+                                                    <?php $transactions_alls = $transactions_all; ?>
+                                                    <td><?php echo getInvoiceNumbe($transactions_alls[0]['tr']['package_customer_id']); ?></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div  class="col-md-12 col-sm-12">
+                                    <div  class="col-md-3 col-sm-3">
+                                        <table cellpadding="0" cellspacing="0" border="0" class="responsive dynamicTable display table table-bordered" width="100%" >
+                                            <thead>
+                                                <tr >  
+                                                    <th>To</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                $single = $transactions_all;
+                                                $customer_address = $single[0]['pc']['house_no'] . ' ' . $single[0]['pc']['street'] . ' ' .
+                                                        $single[0]['pc']['apartment'] . ' ' . $single[0]['pc']['city'] . ' ' . $single[0]['pc']['state'] . ' '
+                                                        . $single[0]['pc']['zip'];
+                                                ?>
+                                                <tr class="odd gradeX">
+                                                    <td>                                            
+                                                        <?php
+                                                        echo $single[0]['pc']['first_name'] . " " .
+                                                        $single[0]['pc']['middle_name'] . " " .
+                                                        $single[0]['pc']['last_name'];
+                                                        ?>
+                                                        <br>
+                                                        <?php if (!empty($single[0]['pc']['cell'])): ?>
+                                                            <b>Cell:</b>  <a href="tel:<?php echo $single[0]['pc']['cell'] ?>"><?php echo $single[0]['pc']['cell']; ?></a> &nbsp;&nbsp;
+                                                        <?php endif; ?><br>
+                                                        <?php if (!empty($single[0]['pc']['home'])): ?>
+                                                            <b> Phone: </b> <a href="tel:<?php echo $single[0]['pc']['home'] ?>"><?php echo $single[0]['pc']['home']; ?></a>
+                                                        <?php endif; ?> <br>
+                                                        <b> Address: </b> <?php echo $customer_address; ?> 
+                                                    </td>
+                                                </tr>                                           
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div  class="col-md-9 col-sm-9">                                   
+                                    </div>
+                                </div>
+
+                                <div  class="col-md-12 col-sm-12">
+                                    <div  class="col-md-9 col-sm-9">
+                                    </div>  
+                                    <div  class="col-md-3 col-sm-3">
+                                        <table cellpadding="0" cellspacing="0" border="0" class="responsive dynamicTable display table table-bordered" width="100%" >
+                                            <thead>
+                                                <tr >  
+                                                    <th>Amount Due</th>
+                                                    <th>Enclosed</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="odd gradeX">
+                                                    <td>$</td>                                                
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <table cellpadding="0" cellspacing="0" border="0" class="responsive dynamicTable display table table-bordered" width="100%" >
+                                    <thead>
                                         <tr >  
                                             <th>Date</th>
-                                            <th>Statement #</th>
+                                            <th>Payment info</th>
+                                            <th>Amount</th>
+                                            <th>Balance</th>
                                         </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr class="odd gradeX">
-                                                <td> <?php echo date('Y-m-d'); ?></td>  
-                                                <?php $transactions_alls = $transactions_all; ?>
-                                                <td><?php echo getInvoiceNumbe($transactions_alls[0]['tr']['package_customer_id']); ?></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-                            <div  class="col-md-12 col-sm-12">
-                                <div  class="col-md-3 col-sm-3">
-                                    <table cellpadding="0" cellspacing="0" border="0" class="responsive dynamicTable display table table-bordered" width="100%" >
-                                        <thead>
-                                            <tr >  
-                                                <th>To</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            $single = $transactions_all;
-                                            $customer_address = $single[0]['pc']['house_no'] . ' ' . $single[0]['pc']['street'] . ' ' .
-                                                    $single[0]['pc']['apartment'] . ' ' . $single[0]['pc']['city'] . ' ' . $single[0]['pc']['state'] . ' '
-                                                    . $single[0]['pc']['zip'];
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        foreach ($transactions_all as $single):
                                             ?>
                                             <tr class="odd gradeX">
-                                                <td>                                            
-                                                    <?php
-                                                    echo $single[0]['pc']['first_name'] . " " .
-                                                    $single[0]['pc']['middle_name'] . " " .
-                                                    $single[0]['pc']['last_name'];
-                                                    ?>
-                                                    <br>
-                                                    <?php if (!empty($single[0]['pc']['cell'])): ?>
-                                                        <b>Cell:</b>  <a href="tel:<?php echo $single[0]['pc']['cell'] ?>"><?php echo $single[0]['pc']['cell']; ?></a> &nbsp;&nbsp;
-                                                    <?php endif; ?><br>
-                                                    <?php if (!empty($single[0]['pc']['home'])): ?>
-                                                        <b> Phone: </b> <a href="tel:<?php echo $single[0]['pc']['home'] ?>"><?php echo $single[0]['pc']['home']; ?></a>
-                                                    <?php endif; ?> <br>
-                                                    <b> Address: </b> <?php echo $customer_address; ?> 
-                                                </td>
-                                            </tr>                                           
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div  class="col-md-9 col-sm-9">                                   
-                                </div>
-                            </div>
-
-                            <div  class="col-md-12 col-sm-12">
-                                <div  class="col-md-9 col-sm-9">
-                                </div>  
-                                <div  class="col-md-3 col-sm-3">
-                                    <table cellpadding="0" cellspacing="0" border="0" class="responsive dynamicTable display table table-bordered" width="100%" >
-                                        <thead>
-                                            <tr >  
-                                                <th>Amount Due</th>
-                                                <th>Enclosed</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr class="odd gradeX">
-                                                <td>$</td>                                                
-                                                <td></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-                            <table cellpadding="0" cellspacing="0" border="0" class="responsive dynamicTable display table table-bordered" width="100%" >
-                                <thead>
-                                    <tr >  
-                                        <th>Date</th>
-                                        <th>Payment info</th>
-                                        <th>Amount</th>
-                                        <th>Balance</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    foreach ($transactions_all as $single):
-                                        ?>
-                                        <tr class="odd gradeX">
-                                            <td><?php echo $single['tr']['next_payment']; ?></td>
+                                                <td><?php echo $single['tr']['next_payment']; ?></td>
 
 
-                                            <td>
-                                                <?php if ($single['tr']['pay_mode'] == 'card'): ?>
-                                                    <ul>
-                                                        <li>Pay Mode : <?php echo $single['tr']['pay_mode']; ?></li> 
-                                                        <li>Status : <?php echo $single['tr']['status']; ?></li>
-                                                        <?php if ($single['tr']['status'] == 'error'): ?>
-                                                            <ul>
-                                                                <li>Error Message : <?php echo $single['tr']['error_msg']; ?></li> 
-                                                            </ul>
-                                                        <?php endif;
-                                                        ?>
-                                                        <li>Transaction No : <?php echo $single['tr']['id']; ?></li> 
-                                                        <li>Card No : <?php echo substr($single['tr']['card_no'], 0, 4); ?></li>  
-                                                        <li>Zip Code : <?php echo $single['tr']['zip_code']; ?></li>  
-                                                        <li>CVV Code : <?php echo $single['tr']['cvv_code']; ?></li> 
-                                                        <li>Expire Date : <?php echo $single['tr']['exp_date']; ?></li>
+                                                <td>
+                                                    <?php if ($single['tr']['pay_mode'] == 'card'): ?>
+                                                        <ul>
+                                                            <li>Pay Mode : <?php echo $single['tr']['pay_mode']; ?></li> 
+                                                            <li>Status : <?php echo $single['tr']['status']; ?></li>
+                                                            <?php if ($single['tr']['status'] == 'error'): ?>
+                                                                <ul>
+                                                                    <li>Error Message : <?php echo $single['tr']['error_msg']; ?></li> 
+                                                                </ul>
+                                                            <?php endif;
+                                                            ?>
+                                                            <li>Transaction No : <?php echo $single['tr']['id']; ?></li> 
+                                                            <li>Card No : <?php echo substr($single['tr']['card_no'], 0, 4); ?></li>  
+                                                            <li>Zip Code : <?php echo $single['tr']['zip_code']; ?></li>  
+                                                            <li>CVV Code : <?php echo $single['tr']['cvv_code']; ?></li> 
+                                                            <li>Expire Date : <?php echo $single['tr']['exp_date']; ?></li>
 
-                                                    </ul>
-                                                <?php elseif ($single['tr']['pay_mode'] == 'cash'): ?>
-                                        <li>Pay Mode : <?php echo $single['tr']['pay_mode']; ?></li> 
-                                        Cash By : <?php echo $single['tr']['cash_by']; ?>
+                                                        </ul>
+                                                    <?php elseif ($single['tr']['pay_mode'] == 'cash'): ?>
+                                            <li>Pay Mode : <?php echo $single['tr']['pay_mode']; ?></li> 
+                                            Cash By : <?php echo $single['tr']['cash_by']; ?>
 
-                                    <?php elseif ($single['tr']['pay_mode'] == 'refund'): ?>
-                                        <ul><li>Pay Mode : <?php echo $single['tr']['pay_mode']; ?></li>
-                                            <ul> <li>Amount : <?php echo $single['tr']['paid_amount']; ?></li>
-                                                <li>Refund Date : <?php echo $single['tr']['created']; ?></li>
+                                        <?php elseif ($single['tr']['pay_mode'] == 'refund'): ?>
+                                            <ul><li>Pay Mode : <?php echo $single['tr']['pay_mode']; ?></li>
+                                                <ul> <li>Amount : <?php echo $single['tr']['paid_amount']; ?></li>
+                                                    <li>Refund Date : <?php echo $single['tr']['created']; ?></li>
+                                                </ul>
                                             </ul>
-                                        </ul>
 
-                                    <?php else: ?>
-                                        <li>Pay Mode : <?php echo $single['tr']['pay_mode']; ?></li> 
-                                        <img src="<?php echo $this->webroot . 'check_images' . '/' . $single['tr']['check_image']; ?>"  width="50px" height="50px" />
+                                        <?php else: ?>
+                                            <li>Pay Mode : <?php echo $single['tr']['pay_mode']; ?></li> 
+                                            <img src="<?php echo $this->webroot . 'check_images' . '/' . $single['tr']['check_image']; ?>"  width="50px" height="50px" />
 
-                                    <?php endif; ?> 
-                                    <td><?php echo $single['tr']['paid_amount']; ?></td>
-
+                                        <?php endif; ?> 
+                                        <td><?php echo $single['tr']['paid_amount']; ?></td>
 
 
-                                    <td><?php echo $single['tr'] ['payable_amount']; ?></td>
+
+                                        <td><?php echo $single['tr'] ['payable_amount']; ?></td>
 
 
-                                    </tr>
-                                    <?php
-                                endforeach;
-                                ?>
-                                </tbody>
-                            </table>
-                        </div>
+                                        </tr>
+                                        <?php
+                                    endforeach;
+                                    ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <?php }
+                        else{ ?>
+                        <h2> No transaction found for this customer!</h2>
+                      <?php  }
+                        
+                        ?>
+
                     </div>
                 </div>
                 <div>
