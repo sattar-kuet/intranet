@@ -198,6 +198,7 @@ class PaymentsController extends AppController {
             $this->Track->save($trackData);
         }
         $this->Transaction->create();
+       // pr($this->request->data); exit;
         $this->Transaction->save($this->request->data['Transaction']);
         // endforeach;
         //$msg .='</ul>';

@@ -101,7 +101,8 @@ class ReportsController extends AppController {
         $clicked = false;
         if ($this->request->is('post') || $this->request->is('put')) {
             $datrange = json_decode($this->request->data['Package_customer']['daterange'], true);
-            $conditions = array('Transaction.created >=' => $datrange['start'], 'Transaction.created <=' => $datrange['end']);
+            $datrange['start'] = $datrange['start'] . ' 00:00:00';
+            $datrange['end'] = $datrange['end'] . ' 23:59:59';
 
             $packagecustomers = $this->Transaction->query("SELECT tr.id, tr.package_customer_id, 
             CONCAT( first_name,' ', middle_name,' ', last_name ) AS name, pc.psetting_id, pc.mac,
@@ -111,12 +112,40 @@ class ReportsController extends AppController {
             LEFT JOIN packages p ON p.id = ps.package_id 
             WHERE paid_amount !=0 and
             tr.created >='" . $datrange['start'] . "' AND tr.created <='" . $datrange['end'] . "'");
-//            pr($packagecustomers);
-//            exit;
             $clicked = true;
             $this->set(compact('packagecustomers'));
         }
         $this->set(compact('clicked'));
+    }
+
+    function all_invoice_close() {
+        $this->loadModel('Package_customer');
+        $this->loadModel('Transaction');
+        pr($this->request->data);
+        exit;
+        if ($this->request->is('post') || $this->request->is('put')) {
+            pr($this->request->data);
+            exit;
+            $datrange = json_decode($this->request->data['Package_customer']['daterange'], true);
+            $datrange['start'] = $datrange['start'] . ' 00:00:00';
+            $datrange['end'] = $datrange['end'] . ' 23:59:59';
+
+            $transactions = $this->Transaction->query("SELECT tr.id, tr.package_customer_id, 
+            CONCAT( first_name,' ', middle_name,' ', last_name ) AS name, pc.psetting_id, pc.mac,
+            ps.name, p.name, tr.paid_amount, ps.amount, ps.duration, tr.created 
+            
+            FROM transactions tr
+            
+            left join package_customers pc on tr.package_customer_id = pc.id
+            left join psettings ps on ps.id = pc.psetting_id
+            LEFT JOIN packages p ON p.id = ps.package_id 
+            
+            WHERE paid_amount !=0 and
+            tr.created >='" . $datrange['start'] . "' AND tr.created <='" . $datrange['end'] . "'");
+            pr($transactions);
+            exit;
+            $this->set(compact('transactions'));
+        }
     }
 
     function openInvoice_back() {
@@ -153,7 +182,7 @@ class ReportsController extends AppController {
             left join psettings ps on ps.id = pc.psetting_id
             LEFT JOIN packages p ON p.id = ps.package_id 
             left join transactions tr on tr.package_customer_id = pc.id
-            WHERE package_exp_date>='".date('Y-m-d'). "' AND package_exp_date<='".$expiredate."' AND package_exp_date != 0000-00-00 "
+            WHERE package_exp_date>='" . date('Y-m-d') . "' AND package_exp_date<='" . $expiredate . "' AND package_exp_date != 0000-00-00 "
                 . "GROUP BY pc.id");
         $this->set(compact('packagecustomers'));
     }
@@ -348,8 +377,8 @@ class ReportsController extends AppController {
         $total['done'] = $this->getTotalDone();
         $total['ready'] = $this->getTotalNewordertaken();
         $total['sales_query'] = $this->getTotalSalesQuery();
-        $total[0] = $total['done']+$total['ready'];
-        
+        $total[0] = $total['done'] + $total['ready'];
+
 //        pr($total['0']); exit;
         $this->set(compact('total'));
     }
