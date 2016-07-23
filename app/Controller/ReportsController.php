@@ -187,6 +187,12 @@ class ReportsController extends AppController {
         $this->set(compact('packagecustomers'));
     }
 
+    function extraPayment() {
+        $this->loadModel('Transaction');
+        $data = $this->Transaction->find('all', array('conditions' => array('Transaction.status' => 'unpaid','Transaction.type'=>'extra')));
+        pr($data); exit;
+    }
+
     function pexp_invoice() {
         
     }
