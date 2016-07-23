@@ -281,7 +281,7 @@ class TransactionsController extends AppController {
         $this->loadModel('Transaction');
         $user_info = $this->Auth->user();
         $user_id = $user_info['id'];
-        $pcid = $this->request->data['Transaction']['package_customer_id'];
+       
         $this->request->data['Transaction']['user_id'] = $user_id;
 
         $this->request->data['Transaction']['next_payment'] = $this->getFormatedDate($this->request->data['Transaction']['next_payment']);

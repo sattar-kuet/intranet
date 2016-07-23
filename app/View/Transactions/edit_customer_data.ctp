@@ -739,6 +739,7 @@
                                     ?>
 
                                     <?php
+
                                    // pr($this->params['pass'][0]); exit;
                                     echo $this->Form->input('package_customer_id', array(
                                         'type' => 'hidden',
@@ -760,6 +761,7 @@
                                         'value' => 'extra',
                                             )
                                     );
+
                                     ?>
 
                                     <div class="form-body">
