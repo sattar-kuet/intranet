@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-<<<<<<< HEAD
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="24">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="25">
         <file>
             <url>app/Controller/ReportsController.php</url>
             <bookmark id="4">
@@ -17,14 +16,6 @@
             <bookmark id="17">
                 <name/>
                 <line>177</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
-            <url>app/View/Customers/ready_installation.ctp</url>
-            <bookmark id="1">
-                <name/>
-                <line>195</line>
                 <key/>
             </bookmark>
         </file>
@@ -94,7 +85,7 @@
             </bookmark>
             <bookmark id="22">
                 <name/>
-                <line>304</line>
+                <line>301</line>
                 <key/>
             </bookmark>
         </file>
@@ -107,17 +98,30 @@
             </bookmark>
             <bookmark id="20">
                 <name/>
-                <line>748</line>
+                <line>750</line>
                 <key/>
             </bookmark>
             <bookmark id="24">
                 <name/>
-                <line>1865</line>
+                <line>1867</line>
                 <key/>
             </bookmark>
             <bookmark id="23">
                 <name/>
-                <line>1883</line>
+                <line>1885</line>
+                <key/>
+            </bookmark>
+            <bookmark id="25">
+                <name/>
+                <line>1926</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>app/View/Customers/ready_installation.ctp</url>
+            <bookmark id="1">
+                <name/>
+                <line>195</line>
                 <key/>
             </bookmark>
         </file>
@@ -131,14 +135,20 @@
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
-=======
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Server/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
-            <file>file:/D:/Server/htdocs/intranet/app/Controller/TransactionsController.php</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/Model/Package.php</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/Model/Psetting.php</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/Model/Pointtomoney.php</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/Model/Question.php</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/Model/PackageCustomer.php</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/Model/Message.php</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/Model/Point.php</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/Model/Tolet.php</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/Model/OrderProduct.php</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/Model/Option.php</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/Model/Subject.php</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/Model/Level.php</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/Model/PaidCustomer.php</file>
         </group>
->>>>>>> de678c69e89f4e7af3e68f8ae9d17dfd5b6dcd57
     </open-files>
 </project-private>
