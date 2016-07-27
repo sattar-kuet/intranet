@@ -52,7 +52,7 @@
                                         Detail Information
                                     </th>
                                     <th>
-                                        Dead Line
+                                        Schedule date
                                     </th>
                                     <th>
                                         Action
