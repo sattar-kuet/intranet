@@ -913,7 +913,7 @@
 
             <li 
             <?php
-            $printqueues = array('reportsopenInvoice25', 'reportscloseInvoice');
+            $printqueues = array('reportsopenInvoice25', 'reportscloseInvoice','reportsextraPayment');
             if (in_array($this->name . '' . $this->action, $printqueues)):
                 ?>
                     class="active"

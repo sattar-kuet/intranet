@@ -116,13 +116,10 @@ class TransactionsController extends AppController {
     function edit_customer_data($id = null) {
         $this->loadModel('StatusHistory');
         $pcid = $id;
-
         $loggedUser = $this->Auth->user();
-
         if ($this->request->is('post') || $this->request->is('put')) {
             $this->request->data['PackageCustomer']['status'] = $this->request->data['status'];
             $this->request->data['PackageCustomer']['package_exp_date'] = $this->getFormatedDate($this->request->data['PackageCustomer']['package_exp_date']);
-
             if (isset($this->request->data['PackageCustomer']['mac'])) {
                 $this->request->data['PackageCustomer']['mac'] = json_encode($this->request->data['PackageCustomer']['mac']);
                 $this->request->data['PackageCustomer']['system'] = json_encode($this->request->data['PackageCustomer']['system']);

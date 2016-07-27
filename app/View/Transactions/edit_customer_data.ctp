@@ -739,13 +739,29 @@
                                     ?>
 
                                     <?php
-                                    if (!empty($history['StatusHistory']['package_customer_id'])) {
-                                        echo $this->Form->input('package_customer_id', array(
-                                            'type' => 'hidden',
-                                            'value' => $history['StatusHistory']['package_customer_id'],
-                                                )
-                                        );
-                                    }
+
+                                   // pr($this->params['pass'][0]); exit;
+                                    echo $this->Form->input('package_customer_id', array(
+                                        'type' => 'hidden',
+                                        'value' => $this->params['pass'][0],
+                                            )
+                                    );
+                                    ?>
+                                    <?php
+                                   // pr($this->params['pass'][0]); exit;
+                                    echo $this->Form->input('status', array(
+                                        'type' => 'hidden',
+                                        'value' => 'unpaid',
+                                            )
+                                    );
+                                    ?>
+                                    <?php
+                                    echo $this->Form->input('type', array(
+                                        'type' => 'hidden',
+                                        'value' => 'extra',
+                                            )
+                                    );
+
                                     ?>
 
                                     <div class="form-body">
