@@ -128,7 +128,7 @@
                                                                         'class' => 'form-horizontal',
                                                                         'novalidate' => 'novalidate',
                                                                         'enctype' => 'multipart/form-data',
-                                                                        'url' => array('controller' => 'payments', 'action' => 'individual_transaction_by_card')
+                                                                        'url' => array('controller' => 'Extrapayments', 'action' => 'individual_transaction_by_card')
                                                                             )
                                                                     );
                                                                     ?>
@@ -334,18 +334,18 @@
                                                                         'class' => 'form-horizontal',
                                                                         'novalidate' => 'novalidate',
                                                                         'enctype' => 'multipart/form-data',
-                                                                        'url' => array('controller' => 'payments', 'action' => 'individual_transaction_by_check')
+                                                                        'url' => array('controller' => 'Extrapayments', 'action' => 'individual_transaction_by_check')
                                                                             )
                                                                     );
                                                                     ?>
                                                                     <?php
                                                                     echo $this->Form->input(
-                                                                            'cid', array(
+                                                                            'id', array(
                                                                         'type' => 'hidden',
-                                                                        'value' => $single['PackageCustomer']['id']
+                                                                        'value' => $data[0]['Transaction']['id']
                                                                     ));
                                                                     ?>
-
+<!--                                                                    $data[0]['Transaction']['id']-->
                                                                     <?php
                                                                     echo $this->Form->input(
                                                                             'pay_mode', array(
@@ -433,15 +433,16 @@
                                                                         'class' => 'form-horizontal',
                                                                         'novalidate' => 'novalidate',
                                                                         'enctype' => 'multipart/form-data',
-                                                                        'url' => array('controller' => 'payments', 'action' => 'individual_transaction_by_morder')
+                                                                        'url' => array('controller' => 'Extrapayments', 'action' => 'individual_transaction_by_morder')
                                                                             )
                                                                     );
                                                                     ?>
-                                                                    <?php
+                                                                    
+                                                                     <?php
                                                                     echo $this->Form->input(
-                                                                            'cid', array(
+                                                                            'id', array(
                                                                         'type' => 'hidden',
-                                                                        'value' => $single['PackageCustomer']['id']
+                                                                        'value' => $data[0]['Transaction']['id']
                                                                     ));
                                                                     ?>
 
@@ -533,16 +534,16 @@
                                                                         'class' => 'form-horizontal',
                                                                         'novalidate' => 'novalidate',
                                                                         'enctype' => 'multipart/form-data',
-                                                                        'url' => array('controller' => 'payments', 'action' => 'individual_transaction_by_online_bil')
+                                                                        'url' => array('controller' => 'Extrapayments', 'action' => 'individual_transaction_by_online_bil')
                                                                             )
                                                                     );
                                                                     ?>
 
-                                                                    <?php
+                                                                  <?php
                                                                     echo $this->Form->input(
-                                                                            'cid', array(
+                                                                            'id', array(
                                                                         'type' => 'hidden',
-                                                                        'value' => $single['PackageCustomer']['id']
+                                                                        'value' => $data[0]['Transaction']['id']
                                                                     ));
                                                                     ?>
 
@@ -632,17 +633,19 @@
                                                                         'class' => 'form-horizontal',
                                                                         'novalidate' => 'novalidate',
                                                                         'enctype' => 'multipart/form-data',
-                                                                        'url' => array('controller' => 'payments', 'action' => 'individual_transaction_by_cash')
+                                                                        'url' => array('controller' => 'Extrapayments', 'action' => 'individual_transaction_by_cash')
                                                                             )
                                                                     );
                                                                     ?>
-                                                                    <?php
+                                                                   
+                                                                     <?php
                                                                     echo $this->Form->input(
-                                                                            'cid', array(
+                                                                            'id', array(
                                                                         'type' => 'hidden',
-                                                                        'value' => $single['PackageCustomer']['id']
+                                                                        'value' => $data[0]['Transaction']['id']
                                                                     ));
                                                                     ?>
+                                                                    
                                                                     <?php
                                                                     echo $this->Form->input(
                                                                             'pay_mode', array(
