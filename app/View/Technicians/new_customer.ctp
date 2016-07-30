@@ -74,15 +74,22 @@
                                     ?>
                                     <tr>
                                         <td class="hidden-480">
-                                            <?php echo $results['installations'][0]['user_id']['created']; ?>   <br>
-                                            <?php echo $results['users']['name']; ?>  
+                                            <?php if ($results['installations'][0]['user_id']['created']): ?>
+                                                <?php echo $results['installations'][0]['user_id']['created']; ?> 
+                                            <?php endif; ?>
+                                            <br>
+                                            <?php if (!empty($results['users']['name'])): ?>
+                                                <?php echo $results['users']['name']; ?>
+                                            <?php endif; ?> 
                                         </td>
                                         <td>
                                             <ul>
-                                                <b>  Name :</b>  <a href="<?php
-                                        echo Router::url(array('controller' => 'customers',
-                                            'action' => 'edit_registration', $results['customers']['id']))
-                                            ?>" 
+                                                <b>  Name :</b>  <a href="
+
+                                                                    <?php
+                                                                    echo Router::url(array('controller' => 'customers',
+                                                                        'action' => 'edit_registration', $results['customers']['id']))
+                                                                    ?>" 
                                                                     target="_blank">
                                                                         <?php
                                                                         echo $results['customers']['first_name'] . " " .
@@ -90,7 +97,11 @@
                                                                         $results['customers']['last_name'];
                                                                         ?>
                                                 </a><br>
-                                                <b>  Address :  </b> <?php echo $customer_address; ?> <br>
+                                                <b>  Address :  </b>
+                                                <?php if (!empty($customer_address)): ?>
+                                                    <?php echo $customer_address; ?>
+                                                <?php endif; ?>
+                                                <br>
 
                                                 <?php if (!empty($customer['cell'])): ?>
                                                     <b> Cell :</b> <a href="tel:<?php echo $customer['cell'] ?>"><?php echo $customer['cell']; ?></a><br>
@@ -102,17 +113,17 @@
 
                                         </td>
 
-    <!--                                        <td>
+                        <!--                                        <td>
                                         <?php
 //                                            foreach ($results['comments'] as $comment):
                                         ?>
-                                                    <span title="<?php // echo $comment['content']['created']; ?>" class="fa fa-hand-o-right ">  <?php echo $comment['content']['content']; ?> &nbsp;&nbsp;</span> <i> <?php echo $comment['user']['name']; ?></i>
-                                                    <br> 
-                                                    <br> 
+                                                                        <span title="<?php // echo $comment['content']['created'];      ?>" class="fa fa-hand-o-right ">  <?php echo $comment['content']['content']; ?> &nbsp;&nbsp;</span> <i> <?php echo $comment['user']['name']; ?></i>
+                                                                        <br> 
+                                                                        <br> 
 
                                         <?php // endforeach;
                                         ?>
-                                            </td>-->
+                                                                </td>-->
 
                                         <td>
                                             <?php if (trim($results['customers']['repair_type']) == 'old') { ?>
@@ -151,7 +162,11 @@
 
 
                                         </td>
-                                        <td><?php echo $results['installations'][0]['user_id']['schedule_date']; ?></td>
+                                        <td>
+                                            <?php if (!empty($results['installations'][0]['user_id']['schedule_date'])): ?>    
+                                                <?php echo $results['installations'][0]['user_id']['schedule_date']; ?>
+                                            <?php endif; ?>
+                                        </td>
                                         <td> 
                                             <div class="controls center text-center">
                                                 <a 
@@ -182,7 +197,7 @@
                                                 </a>   
 
                                                 <div id="doneDiv<?php echo $results['installations'][0]['user_id']['id']; ?>" class="hideRest portlet-body form" style="display: none;">
-                                                    
+
                                                     <!-- BEGIN FORM-->
                                                     <?php
                                                     echo $this->Form->create('PackageCustomer', array(
