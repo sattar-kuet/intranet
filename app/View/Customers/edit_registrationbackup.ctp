@@ -332,7 +332,17 @@
                                 </div>
                             </div>
                             <div class="form-group">
-
+                                <label class="control-label col-md-2">Router OR Modem<span class="required">
+                                    </span>
+                                </label>
+                                <div class="col-md-2">
+                                    <div class="radio-list">
+                                        <label class="radio-inline">
+                                            <input type="radio" name="data[PackageCustomer][equipment_router]" id="optionsRadios4" value="YES" > YES</label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="data[PackageCustomer][equipment_router]" id="optionsRadios5" value="NO"> NO </label>
+                                    </div>
+                                </div>
                                 <label class="control-label col-md-2">Site Top Box<span class="required">
                                     </span>
                                 </label>
@@ -346,6 +356,67 @@
                                         'options' => $arrCategory,
                                         'label' => false,
                                         'empty' => '--Select Box Number--',
+                                            )
+                                    );
+                                    ?>
+                                </div>
+                                <label class="control-label col-md-2">HDMI<span class="required">
+                                    </span>
+                                </label>
+                                <div class="col-md-2">
+                                    <div class="radio-list">
+                                        <label class="radio-inline">
+                                            <input type="radio" name="data[PackageCustomer][equipment_hdmi]" id="optionsRadios4" value="YES" > YES </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="data[PackageCustomer][equipment_hdmi]" id="optionsRadios5" value="NO">NO</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Wi-fi Adapter<span class="required">
+                                    </span>
+                                </label>
+                                <div class="col-md-2">
+                                    <div class="radio-list">
+                                        <label class="radio-inline">
+                                            <input type="radio" name="data[PackageCustomer][equipment_wi_fi]" id="optionsRadios4" value="YES" > Yes </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="data[PackageCustomer][equipment_wi_fi]" id="optionsRadios5" value="NO"> No</label>
+                                    </div>
+                                </div>
+                                <label class="control-label col-md-2">Power Adapter<span class="required">
+                                    </span>
+                                </label>
+                                <div class="col-md-2">
+                                    <div class="radio-list">
+                                        <label class="radio-inline">
+                                            <input type="radio" name="data[PackageCustomer][equipment_adapter]" id="optionsRadios4" value="YES" > Yes </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="data[PackageCustomer][equipment_adapter]" id="optionsRadios5" value="NO"> No </label>
+                                    </div>
+                                </div>
+                                <label class="control-label col-md-2">Remote Control<span class="required">
+                                    </span>
+                                </label>
+                                <div class="col-md-2">
+                                    <div class="radio-list">
+                                        <label class="radio-inline">
+                                            <input type="radio" name="data[PackageCustomer][equipment_remote]" id="optionsRadios4" value="YES" > Yes </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="data[PackageCustomer][equipment_remote]" id="optionsRadios5" value="NO"> No</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Ethernet Wire<span class="required">
+                                    </span>
+                                </label>
+                                <div class="col-md-2">
+                                    <?php
+                                    echo $this->Form->input(
+                                            'ethernet_wire', array(
+                                        'class' => 'form-control ',
+                                        'type' => 'text'
                                             )
                                     );
                                     ?>
@@ -376,8 +447,22 @@
                                     );
                                     ?>
                                 </div>
-
                             </div>
+                            <div class="form-group">   
+                                <label class="control-label col-md-2"> Installation Date<span class="required">
+                                    </span>
+                                </label>                                 
+                                <div class="col-md-3">
+                                    <?php
+                                    echo $this->Form->input(
+                                            'created', array(
+                                        'class' => ''
+                                            )
+                                    );
+                                    ?>
+                                </div>
+                            </div>
+
                             <hr/>
                             <div class="form-group">
                                 <label class="control-label col-md-1">SD:<span class="required">
