@@ -10,7 +10,7 @@ use net\authorize\api\controller as AnetController;
 
 define("AUTHORIZENET_LOG_FILE", APP . 'Vendor' . DS . 'authorize' . DS . 'phplog');
 
-class PaymentsController extends AppController {
+class ExtrapaymentsController extends AppController {
 
     var $layout = 'admin';
 
@@ -198,7 +198,7 @@ class PaymentsController extends AppController {
             $this->Track->save($trackData);
         }
         $this->Transaction->create();
-       // pr($this->request->data); exit;
+        // pr($this->request->data); exit;
         $this->Transaction->save($this->request->data['Transaction']);
         // endforeach;
         //$msg .='</ul>';
@@ -339,17 +339,16 @@ class PaymentsController extends AppController {
     public function individual_transaction_by_check() {
         $this->loadModel('Transaction');
         $loggedUser = $this->Auth->user();
-
-        $cid = $this->request->data['Transaction']['cid'];
-        $this->request->data['Transaction']['package_customer_id'] = $cid;
         $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
+        $this->request->data['Transaction']['id'] = $this->request->data['Transaction']['id'];
+        $this->request->data['Transaction']['status'] = 'success';
         $result = array();
         if (!empty($this->request->data['Transaction']['check_image']['name'])) {
             $result = $this->processImg($this->request->data['Transaction'], 'check_image');
             $this->request->data['Transaction']['check_image'] = (string) $result['file_dst_name'];
         } else {
             $this->request->data['Transaction']['check_image'] = '';
-        }
+        }        
         $this->Transaction->save($this->request->data['Transaction']);
         $transactionMsg = '<div class = "alert alert-success">
                         <button type = "button" class = "close" data-dismiss = "alert">&times;
@@ -361,19 +360,18 @@ class PaymentsController extends AppController {
     }
 
     public function individual_transaction_by_morder() {
-
         $this->loadModel('Transaction');
         $loggedUser = $this->Auth->user();
-        $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
-        $cid = $this->request->data['Transaction']['cid'];
-        $this->request->data['Transaction']['package_customer_id'] = $cid;
+        $this->request->data['Transaction']['user_id'] = $loggedUser['id'];    
+        $this->request->data['Transaction']['id'] = $this->request->data['Transaction']['id'];
+        $this->request->data['Transaction']['status'] = 'success';
         $result = array();
         if (!empty($this->request->data['Transaction']['check_image']['name'])) {
             $result = $this->processImg($this->request->data['Transaction'], 'check_image');
             $this->request->data['Transaction']['check_image'] = (string) $result['file_dst_name'];
         } else {
             $this->request->data['Transaction']['check_image'] = '';
-        }
+        }        
         $this->Transaction->save($this->request->data['Transaction']);
         $transactionMsg = '<div class = "alert alert-success">
                         <button type = "button" class = "close" data-dismiss = "alert">&times;
@@ -387,16 +385,16 @@ class PaymentsController extends AppController {
     public function individual_transaction_by_online_bil() {
         $this->loadModel('Transaction');
         $loggedUser = $this->Auth->user();
-        $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
-        $cid = $this->request->data['Transaction']['cid'];
-        $this->request->data['Transaction']['package_customer_id'] = $cid;
+        $this->request->data['Transaction']['user_id'] = $loggedUser['id'];  
+        $this->request->data['Transaction']['id'] = $this->request->data['Transaction']['id'];
+        $this->request->data['Transaction']['status'] = 'success';
         $result = array();
         if (!empty($this->request->data['Transaction']['check_image']['name'])) {
             $result = $this->processImg($this->request->data['Transaction'], 'check_image');
             $this->request->data['Transaction']['check_image'] = (string) $result['file_dst_name'];
         } else {
             $this->request->data['Transaction']['check_image'] = '';
-        }
+        }        
         $this->Transaction->save($this->request->data['Transaction']);
         $transactionMsg = '<div class = "alert alert-success">
                         <button type = "button" class = "close" data-dismiss = "alert">&times;
@@ -411,8 +409,8 @@ class PaymentsController extends AppController {
         $this->loadModel('Transaction');
         $loggedUser = $this->Auth->user();
         $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
-        $cid = $this->request->data['Transaction']['cid'];
-        $this->request->data['Transaction']['package_customer_id'] = $cid;
+        $this->request->data['Transaction']['id'] = $this->request->data['Transaction']['id'];
+        $this->request->data['Transaction']['status'] = 'success';
         $this->Transaction->save($this->request->data['Transaction']);
         $transactionMsg = '<div class = "alert alert-success">
                         <button type = "button" class = "close" data-dismiss = "alert">&times;
@@ -427,13 +425,13 @@ class PaymentsController extends AppController {
         $this->loadModel('Transaction');
         $this->loadModel('Role');
         $this->loadModel('User');
-        
-         if ($this->request->is('post')) {
+
+        if ($this->request->is('post')) {
             $this->Transaction->set($this->request->data);
-            if ($this->Transaction->validates()) { 
+            if ($this->Transaction->validates()) {
                 $temp = explode('/', $this->request->data['Transaction']['created']);
-               $this->request->data['Transaction']['created'] = $temp[2].'-'.$temp[0].'-'.$temp[1].' 00:00:00';
-               // pr($this->request->data); exit;
+                $this->request->data['Transaction']['created'] = $temp[2] . '-' . $temp[0] . '-' . $temp[1] . ' 00:00:00';
+                // pr($this->request->data); exit;
                 $this->Transaction->save($this->request->data['Transaction']);
                 $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -445,9 +443,9 @@ class PaymentsController extends AppController {
                 $msg = $this->generateError($this->Transaction->validationErrors);
                 $this->Session->setFlash($msg);
             }
-        }      
-        
-        $pay_to = $this->User->find('list', array('conditions' => array('OR'=>array( array('User.role_id' => 9), array( 'User.role_id' => 11 )))));
+        }
+
+        $pay_to = $this->User->find('list', array('conditions' => array('OR' => array(array('User.role_id' => 9), array('User.role_id' => 11)))));
         $this->set(compact('pay_to'));
     }
 

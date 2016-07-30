@@ -116,27 +116,14 @@ class TransactionsController extends AppController {
     function edit_customer_data($id = null) {
         $this->loadModel('StatusHistory');
         $pcid = $id;
-
         $loggedUser = $this->Auth->user();
-
         if ($this->request->is('post') || $this->request->is('put')) {
             $this->request->data['PackageCustomer']['status'] = $this->request->data['status'];
             $this->request->data['PackageCustomer']['package_exp_date'] = $this->getFormatedDate($this->request->data['PackageCustomer']['package_exp_date']);
-
-//            upadate transaction table start
-            $this->loadModel('Transaction');
-            $last_data = $this->Transaction->query("SELECT * FROM `transactions` WHERE `package_customer_id` = $id order by id desc limit 0,1");
-            $this->request->data['Transaction']['next_payment'] = $this->getFormatedDate($this->request->data['PackageCustomer']['package_exp_date']);
-            $this->request->data['Transaction']['id'] = $last_data[0]['transactions']['id'];
-            $this->Transaction->save($this->request->data['Transaction']);
-//            upadate transaction table end            
-
-
             if (isset($this->request->data['PackageCustomer']['mac'])) {
                 $this->request->data['PackageCustomer']['mac'] = json_encode($this->request->data['PackageCustomer']['mac']);
                 $this->request->data['PackageCustomer']['system'] = json_encode($this->request->data['PackageCustomer']['system']);
             }
-
             $this->loadModel('PackageCustomer');
             $this->loadModel('CustomPackage');
             $this->loadModel('Ticket');
@@ -147,7 +134,6 @@ class TransactionsController extends AppController {
 //            $dateObj = $this->request->data['PackageCustomer']['exp_date'];
 //            $this->request->data['PackageCustomer']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
             $this->PackageCustomer->id = $id; //$customer_info['PackageCustomer']['id'];
-//             pr($this->request->data); exit;
             //For Custom Package data insert
 
             $data4CustomPackage['CustomPackage']['duration'] = $this->request->data['PackageCustomer']['duration'];
@@ -160,8 +146,7 @@ class TransactionsController extends AppController {
                 $this->request->data['PackageCustomer']['custom_package_id'] = $cp['CustomPackage']['id'];
             }
             //Ends Custom_package data entry  
-//            pr($this->request->data);
-//            exit;
+
             $shistory = $this->PackageCustomer->save($this->request->data['PackageCustomer']);
             $data4statusHistory = array();
             $data4statusHistory['StatusHistory'] = array(
@@ -218,19 +203,15 @@ class TransactionsController extends AppController {
         $macstb['mac'] = json_decode($customer_info['PackageCustomer']['mac']);
         $macstb['system'] = json_decode($customer_info['PackageCustomer']['system']);
 
-
-        //pr($macstb);exit;
         $c_acc_no = $customer_info['PackageCustomer']['c_acc_no'];
-
-
 
         $pcustomer_id = $this->request->data = $customer_info;    //transaction history view by customer id
         $transactions = $this->Transaction->find('all', array('conditions' => array('Transaction.package_customer_id' => $id)));
-//pr($transactions); exit;
+
         $this->set(compact('transactions', 'c_acc_no', 'macstb', 'custom_package_duration', 'checkMark', 'statusHistories'));
         $response = $this->getAllTickectsByCustomer($id);
         $data = $response['data'];
-//        pr($data);        exit;
+
         $users = $response['users'];
         $roles = $response['roles'];
         $this->set(compact('data', 'users', 'roles', 'customer_info'));
@@ -253,8 +234,6 @@ class TransactionsController extends AppController {
             $pckagename = $package['Package']['name'];
             $packageList[$pckagename] = $psettingList;
         }
-        //   pr($packageList); exit;
-
         $sql = "SELECT * FROM package_customers "
                 . "LEFT JOIN psettings ON package_customers.psetting_id = psettings.id"
                 . " LEFT JOIN packages ON psettings.package_id = packages.id"
@@ -262,9 +241,6 @@ class TransactionsController extends AppController {
                 " WHERE package_customers.id = '" . $id . "'";
 
         $temp = $this->PackageCustomer->query($sql);
-//        pr($selected); exit;
-        //  $selected['psetting'] = $temp[0]['psettings']['id'];
-        //    $selected['package'] = $temp[0]['packages']['id'];
         $ym = $this->getYm();
         $this->loadModel('Transaction');
 
@@ -273,8 +249,6 @@ class TransactionsController extends AppController {
             'order' => array('Transaction.id' => 'DESC')
                 )
         );
-        //   pr($temp['Transaction']); exit;
-        //echo $this->Transaction->getLastQuery();
         $yyyy = 0;
         $mm = -1;
         if (count($temp)) {
@@ -295,25 +269,22 @@ class TransactionsController extends AppController {
             $this->request->data['Transaction'] = $transactions_data['0']['transactions'];
         }
 
-        $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge', 'latestcardInfo', 'transactions_data'));
+        $transactions_all = $this->Transaction->query("SELECT * 
+            FROM  `transactions` tr
+            INNER JOIN package_customers pc ON pc.id = tr.`package_customer_id` 
+            WHERE package_customer_id = $pcid order by tr.id desc;");
+       
+        $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge', 'latestcardInfo', 'transactions_data', 'transactions_all'));
     }
 
     function updatecardinfo() {
         $this->loadModel('Transaction');
         $user_info = $this->Auth->user();
         $user_id = $user_info['id'];
-        $pcid = $this->request->data['Transaction']['package_customer_id'];
+       
         $this->request->data['Transaction']['user_id'] = $user_id;
+
         $this->request->data['Transaction']['next_payment'] = $this->getFormatedDate($this->request->data['Transaction']['next_payment']);
-
-//            upadate PackageCustomer table start
-        $this->loadModel('PackageCustomer');
-        $data = $this->PackageCustomer->query("SELECT * FROM `package_customers` WHERE id = $pcid");
-        $this->request->data['PackageCustomer']['package_exp_date'] = $this->getFormatedDate($this->request->data['Transaction']['next_payment']);
-        $this->request->data['PackageCustomer']['id'] = $data[0]['package_customers']['id'];
-        $this->PackageCustomer->save($this->request->data['PackageCustomer']);
-//            upadate PackageCustomer table end 
-
         $this->Transaction->save($this->request->data['Transaction']);
         $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
