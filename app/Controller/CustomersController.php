@@ -357,7 +357,7 @@ class CustomersController extends AppController {
                     'duration' => 'Not Applicable',
                     'amount' => 'not Applicable'
                 );
-                
+
                 if (!empty($data['i']['id'])) {
                     $filteredData[$index]['issue'] = $data['i'];
                 }
@@ -436,7 +436,7 @@ class CustomersController extends AppController {
                         'amount' => $data['ps']['amount']
                     );
                 }
-                
+
                 if (!empty($data['cp']['id'])) {
                     $filteredData[$index]['package'] = array(
                         'name' => $data['cp']['duration'] . ' months custom package',
@@ -444,13 +444,13 @@ class CustomersController extends AppController {
                         'amount' => $data['cp']['charge']
                     );
                 }
-                
+
                 $filteredData[$index]['comments'] = array();
                 if (!empty($data['c']['content'])) {
                     $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
                 }
-                
+
                 $filteredData[$index]['issue'] = array();
                 if (!empty($data['i']['id'])) {
                     $temp = array('name' => $data['i']);
@@ -591,14 +591,16 @@ class CustomersController extends AppController {
     function shedule_assian($id = null) {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Installation');
-
-        $loggedUser = $this->Auth->user();
+        $loggedUser = $this->Auth->user();        
+        $date = $this->request->data['PackageCustomer']['schedule_date'] . ' ' . $this->request->data['PackageCustomer']['seTime'];
+        
         $this->request->data['Installation']['assign_by'] = $loggedUser['id'];
         $this->request->data['Installation']['package_customer_id'] = $this->request->data['PackageCustomer']['id'];
-        $this->request->data['Installation']['schedule_date'] = $this->request->data['PackageCustomer']['schedule_date'] . ' ' . $this->request->data['PackageCustomer']['seTime'];
+        $this->request->data['Installation']['schedule_date'] = $date;
         $this->request->data['Installation']['user_id'] = $this->request->data['PackageCustomer']['technician_id'];
         $this->request->data['Installation']['status'] = 'Scheduled';
 
+        $this->request->data['PackageCustomer']['schedule_date'] = $date;
         $this->request->data['PackageCustomer']['status'] = 'Scheduled';
         $this->PackageCustomer->save($this->request->data);
 
@@ -606,7 +608,7 @@ class CustomersController extends AppController {
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
 	<strong> succeesfully done </strong></div>';
-        
+
         $this->Session->setFlash($msg);
         return $this->redirect($this->referer());
     }
@@ -799,8 +801,8 @@ class CustomersController extends AppController {
                     'duration' => 'Not Applicable',
                     'amount' => 'not Applicable'
                 );
-                
-                if(!empty($data['i']['id'])){
+
+                if (!empty($data['i']['id'])) {
                     $filteredData[$index]['issue'] = $data['i'];
                 }
 
@@ -1228,7 +1230,7 @@ class CustomersController extends AppController {
                     $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
                 }
-                 if (!empty($data['ps']['id'])) {
+                if (!empty($data['ps']['id'])) {
                     $filteredData[$index]['package'] = array(
                         'name' => $data['ps']['name'],
                         'duration' => $data['ps']['duration'],
@@ -1291,7 +1293,7 @@ class CustomersController extends AppController {
                     $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
                 }
-                 if (!empty($data['ps']['id'])) {
+                if (!empty($data['ps']['id'])) {
                     $filteredData[$index]['package'] = array(
                         'name' => $data['ps']['name'],
                         'duration' => $data['ps']['duration'],
@@ -1305,7 +1307,6 @@ class CustomersController extends AppController {
                         'amount' => $data['cp']['charge']
                     );
                 }
-                
             }
         }
         $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
