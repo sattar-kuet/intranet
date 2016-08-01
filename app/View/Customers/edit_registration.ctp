@@ -218,7 +218,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-2">Fax<span class="required">
+                                <label class="control-label col-md-1">Fax<span class="required">
                                     </span>
                                 </label>
                                 <div class="col-md-2">
@@ -226,28 +226,44 @@
                                     echo $this->Form->input(
                                             'fax', array(
                                         'class' => 'form-control ',
+                                        'placeholder' => 'Fax',
                                         'type' => 'text'
                                             )
                                     );
                                     ?>
                                 </div>
-                                <div id="regularpackage">
-                                    <label class="control-label col-md-2">Select package:<span class="required">
-                                        </span>
-                                    </label>
-                                    <div class="col-md-2">
-                                        <?php
-                                        echo $this->Form->input('psetting_id', array(
-                                            'type' => 'select',
-                                            'class' => 'form-control',
-                                            'options' => $packageList,
-                                            'empty' => '--Select Package Type--',
-                                            'id' => 'psettingId',
-                                                )
-                                        );
-                                        ?>
-                                    </div>
+
+                                <label class="control-label col-md-1">Issue<span class="required">
+                                    </span>
+                                </label>
+                                <div class="col-md-2">
+                                    <?php
+                                    echo $this->Form->input('issue_id', array(
+                                        'type' => 'select',
+                                        'options' => $issues,
+                                        'empty' => 'Select Issue',
+                                        'class' => 'form-control select2me required  issueChange',
+                                            )
+                                    );
+                                    ?>
                                 </div>
+
+                                <label class="control-label col-md-1">Package<span class="required">
+                                    </span>
+                                </label>
+                                <div class="col-md-2">
+                                    <?php
+                                    echo $this->Form->input('psetting_id', array(
+                                        'type' => 'select',
+                                        'class' => 'form-control',
+                                        'options' => $packageList,
+                                        'empty' => '--Select Package Type--',
+                                        'id' => 'psettingId',
+                                            )
+                                    );
+                                    ?>
+                                </div>
+
                                 <div id="custompackage" style="display: none;">
                                     <div class="col-md-2">
                                         <?php
@@ -263,6 +279,7 @@
                                         );
                                         ?>
                                     </div>
+
                                     <div class="col-md-2">
                                         <?php
                                         echo $this->Form->input(
@@ -275,12 +292,12 @@
                                         );
                                         ?> 
                                     </div>
-                                </div>
 
+                                </div>
                                 <label class="control-label col-md-2"> Custom Package<span class="required">
                                     </span>
                                 </label>
-                                <div class="col-md-2">
+                                <div class="col-md-1">
                                     <div class="checkbox-list">
                                         <label>
                                             <input type="checkbox"id="customcheckbox" > 
