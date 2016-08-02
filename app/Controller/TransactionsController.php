@@ -274,6 +274,7 @@ class TransactionsController extends AppController {
             INNER JOIN package_customers pc ON pc.id = tr.`package_customer_id` 
             WHERE package_customer_id = $pcid order by tr.id desc;");
        
+      //  pr($transactions_all); exit;
         $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge', 'latestcardInfo', 'transactions_data', 'transactions_all'));
     }
 
