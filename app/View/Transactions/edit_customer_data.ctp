@@ -2093,10 +2093,10 @@
                                         foreach ($transactions_all as $single):
                                             if ($single['tr']['payable_amount']) {
                                                 $amount = -1 * $single['tr']['payable_amount'];
-                                                echo $amount;
+                                              //  echo $amount;
                                             } else {
                                                 $amount = $single['tr']['paid_amount'];
-                                                echo '+'.$amount;
+                                               // echo '+'.$amount;
                                             }
                                             ?>
                                             <tr class="odd gradeX">
