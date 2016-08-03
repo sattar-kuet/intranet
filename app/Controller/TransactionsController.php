@@ -292,7 +292,8 @@ class TransactionsController extends AppController {
             <strong> Card information updated successfully </strong>
             </div>';
         $this->Session->setFlash($msg);
-        return $this->redirect($this->referer());
+        return $this->redirect(array('controller' => 'reports', 'action' => 'extraPayment'));
+        //return $this->redirect($this->referer());
     }
 
 }
