@@ -2162,7 +2162,7 @@
                                     endforeach;
                                     
                                       $due = end($balance);
-                                      echo '<span class="due-amount-2">'.$due.'</span>';
+                                      echo '<span class="due-amount-2 ">'.$due.'</span>';
                                     
                                     ?>
                                     </tbody>
