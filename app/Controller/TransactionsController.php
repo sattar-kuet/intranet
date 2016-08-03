@@ -272,7 +272,7 @@ class TransactionsController extends AppController {
         $transactions_all = $this->Transaction->query("SELECT * 
             FROM  `transactions` tr
             INNER JOIN package_customers pc ON pc.id = tr.`package_customer_id` 
-            WHERE package_customer_id = $pcid order by tr.id desc;");
+            WHERE package_customer_id = $pcid order by tr.id ASC;");
        
       //  pr($transactions_all); exit;
         $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge', 'latestcardInfo', 'transactions_data', 'transactions_all'));

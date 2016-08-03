@@ -2070,7 +2070,7 @@
                                             </thead>
                                             <tbody>
                                                 <tr class="odd gradeX">
-                                                    <td>$</td>                                                
+                                                    <td class="due-amount"></td>                                                
                                                     <td></td>
                                                 </tr>
                                             </tbody>
@@ -2089,18 +2089,21 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        // pr($transactions_all); exit;
-                                        foreach ($transactions_all as $single):
+                                        $balance = array();
+                                        foreach ($transactions_all as $i => $single):
                                             if ($single['tr']['payable_amount']) {
                                                 $amount = -1 * $single['tr']['payable_amount'];
-                                              //  echo $amount;
                                             } else {
                                                 $amount = $single['tr']['paid_amount'];
-                                               // echo '+'.$amount;
+                                            }
+                                            if ($i > 0) {
+                                                $balance[$i] = $balance[$i - 1] + $amount;
+                                            } else {
+                                                $balance[$i] = $amount;
                                             }
                                             ?>
                                             <tr class="odd gradeX">
-                                                <td><?php echo $single['tr']['next_payment']; ?></td>
+                                                <td><?php echo $single['tr']['created']; ?></td>
                                                 <td>
                                                     <?php
                                                     if ($single['tr']['payable_amount']) {
@@ -2137,8 +2140,9 @@
 
                                             <?php else: ?>
                                                 <li>Pay Mode : <?php echo $single['tr']['pay_mode']; ?></li> 
-                                                <img src="<?php echo $this->webroot . 'check_images' . '/' . $single['tr']['check_image']; ?>"  width="50px" height="50px" />
-
+                                                <?php if (!empty($single['tr']['check_image'])): ?>
+                                                    <img src="<?php echo $this->webroot . 'check_images' . '/' . $single['tr']['check_image']; ?>"  width="50px" height="50px" />
+                                                <?php endif; ?>
                                             <?php endif; ?> 
                                         <?php } ?>
 
@@ -2147,12 +2151,15 @@
 
 
 
-                                        <td><?php echo $single['tr'] ['payable_amount']; ?></td>
+                                        <td><?php echo $balance[$i]; ?></td>
 
 
                                         </tr>
                                         <?php
                                     endforeach;
+
+                                    $due = end($balance);
+                                    echo '<span class="due-amount-2 hide">' . $due . '</span>';
                                     ?>
                                     </tbody>
                                 </table>
