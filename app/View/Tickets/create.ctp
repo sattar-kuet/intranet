@@ -17,7 +17,24 @@
                     <div class="portlet-title">
                         <div class="caption">
                             <i class="fa fa-plus "></i>
-                            <span><?php echo show_mac($customers['PackageCustomer']); ?></span>
+
+                            <?php if (!empty(($customers['PackageCustomer']))): ?>
+                                <?php $mac = $customers['PackageCustomer']; ?>
+                            <?php endif; ?>
+
+                            <?php
+                            $current_isp_speed = '';
+                            $current_service_provider = '';
+                            if (!empty($customers['PackageCustomer']['current_isp_speed'])):
+                                ?>
+                                <?php $current_isp_speed = $customers['PackageCustomer']['current_isp_speed']; ?>
+                            <?php endif; ?>
+
+                            <?php if (!empty($customers['PackageCustomer']['current_service_provider'])): ?>
+                                <?php $current_service_provider = $customers['PackageCustomer']['current_service_provider']; ?>
+                            <?php endif; ?>
+
+                            <span><?php echo show_mac($mac) . ' ' . $current_isp_speed . ' ' . $current_service_provider; ?></span>
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="reload">
@@ -66,7 +83,7 @@
                                     </div>
                                 </div>
                             </div>
-                                <div class="form-group display-hide" id="equepment">
+                            <div class="form-group display-hide" id="equepment">
                                 <label class="control-label col-md-1">SD:<span class="">
                                     </span>
                                 </label>
@@ -207,7 +224,7 @@
                                         <?php
                                         echo $this->Form->input('reconnect_date', array(
                                             'type' => 'text',
-                                            'class'=> 'datepicker form-control'
+                                            'class' => 'datepicker form-control'
                                                 )
                                         );
                                         ?>

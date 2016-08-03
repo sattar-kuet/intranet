@@ -739,8 +739,7 @@
                                     ?>
 
                                     <?php
-
-                                   // pr($this->params['pass'][0]); exit;
+                                    // pr($this->params['pass'][0]); exit;
                                     echo $this->Form->input('package_customer_id', array(
                                         'type' => 'hidden',
                                         'value' => $this->params['pass'][0],
@@ -748,7 +747,7 @@
                                     );
                                     ?>
                                     <?php
-                                   // pr($this->params['pass'][0]); exit;
+                                    // pr($this->params['pass'][0]); exit;
                                     echo $this->Form->input('status', array(
                                         'type' => 'hidden',
                                         'value' => 'unpaid',
@@ -761,7 +760,6 @@
                                         'value' => 'extra',
                                             )
                                     );
-
                                     ?>
 
                                     <div class="form-body">
@@ -2091,47 +2089,61 @@
                                     </thead>
                                     <tbody>
                                         <?php
+                                        // pr($transactions_all); exit;
                                         foreach ($transactions_all as $single):
+                                            if ($single['tr']['payable_amount']) {
+                                                $amount = -1 * $single['tr']['payable_amount'];
+                                                echo $amount;
+                                            } else {
+                                                $amount = $single['tr']['paid_amount'];
+                                                echo '+'.$amount;
+                                            }
                                             ?>
                                             <tr class="odd gradeX">
                                                 <td><?php echo $single['tr']['next_payment']; ?></td>
-
-
                                                 <td>
-                                                    <?php if ($single['tr']['pay_mode'] == 'card'): ?>
-                                                        <ul>
-                                                            <li>Pay Mode : <?php echo $single['tr']['pay_mode']; ?></li> 
-                                                            <li>Status : <?php echo $single['tr']['status']; ?></li>
-                                                            <?php if ($single['tr']['status'] == 'error'): ?>
-                                                                <ul>
-                                                                    <li>Error Message : <?php echo $single['tr']['error_msg']; ?></li> 
-                                                                </ul>
-                                                            <?php endif;
-                                                            ?>
-                                                            <li>Transaction No : <?php echo $single['tr']['id']; ?></li> 
-                                                            <li>Card No : <?php echo substr($single['tr']['card_no'], 0, 4); ?></li>  
-                                                            <li>Zip Code : <?php echo $single['tr']['zip_code']; ?></li>  
-                                                            <li>CVV Code : <?php echo $single['tr']['cvv_code']; ?></li> 
-                                                            <li>Expire Date : <?php echo $single['tr']['exp_date']; ?></li>
+                                                    <?php
+                                                    if ($single['tr']['payable_amount']) {
+                                                        echo $single['tr']['description_tran'];
+                                                    } else {
+                                                        ?>
+                                                        <?php if ($single['tr']['pay_mode'] == 'card'): ?>
+                                                            <ul>
+                                                                <li>Pay Mode : <?php echo $single['tr']['pay_mode']; ?></li> 
+                                                                <li>Status : <?php echo $single['tr']['status']; ?></li>
+                                                                <?php if ($single['tr']['status'] == 'error'): ?>
+                                                                    <ul>
+                                                                        <li>Error Message : <?php echo $single['tr']['error_msg']; ?></li> 
+                                                                    </ul>
+                                                                <?php endif;
+                                                                ?>
+                                                                <li>Transaction No : <?php echo $single['tr']['id']; ?></li> 
+                                                                <li>Card No : <?php echo substr($single['tr']['card_no'], 0, 4); ?></li>  
+                                                                <li>Zip Code : <?php echo $single['tr']['zip_code']; ?></li>  
+                                                                <li>CVV Code : <?php echo $single['tr']['cvv_code']; ?></li> 
+                                                                <li>Expire Date : <?php echo $single['tr']['exp_date']; ?></li>
 
-                                                        </ul>
-                                                    <?php elseif ($single['tr']['pay_mode'] == 'cash'): ?>
-                                            <li>Pay Mode : <?php echo $single['tr']['pay_mode']; ?></li> 
-                                            Cash By : <?php echo $single['tr']['cash_by']; ?>
+                                                            </ul>
+                                                        <?php elseif ($single['tr']['pay_mode'] == 'cash'): ?>
+                                                <li>Pay Mode : <?php echo $single['tr']['pay_mode']; ?></li> 
+                                                Cash By : <?php echo $single['tr']['cash_by']; ?>
 
-                                        <?php elseif ($single['tr']['pay_mode'] == 'refund'): ?>
-                                            <ul><li>Pay Mode : <?php echo $single['tr']['pay_mode']; ?></li>
-                                                <ul> <li>Amount : <?php echo $single['tr']['paid_amount']; ?></li>
-                                                    <li>Refund Date : <?php echo $single['tr']['created']; ?></li>
+                                            <?php elseif ($single['tr']['pay_mode'] == 'refund'): ?>
+                                                <ul><li>Pay Mode : <?php echo $single['tr']['pay_mode']; ?></li>
+                                                    <ul> <li>Amount : <?php echo $single['tr']['paid_amount']; ?></li>
+                                                        <li>Refund Date : <?php echo $single['tr']['created']; ?></li>
+                                                    </ul>
                                                 </ul>
-                                            </ul>
 
-                                        <?php else: ?>
-                                            <li>Pay Mode : <?php echo $single['tr']['pay_mode']; ?></li> 
-                                            <img src="<?php echo $this->webroot . 'check_images' . '/' . $single['tr']['check_image']; ?>"  width="50px" height="50px" />
+                                            <?php else: ?>
+                                                <li>Pay Mode : <?php echo $single['tr']['pay_mode']; ?></li> 
+                                                <img src="<?php echo $this->webroot . 'check_images' . '/' . $single['tr']['check_image']; ?>"  width="50px" height="50px" />
 
-                                        <?php endif; ?> 
-                                        <td><?php echo $single['tr']['paid_amount']; ?></td>
+                                            <?php endif; ?> 
+                                        <?php } ?>
+
+                                        </td>
+                                        <td><?php echo $amount; ?></td>
 
 
 
@@ -2145,11 +2157,12 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <?php
+                        }
+                        else {
+                            ?>
+                            <h2> No transaction found for this customer!</h2>
                         <?php }
-                        else{ ?>
-                        <h2> No transaction found for this customer!</h2>
-                      <?php  }
-                        
                         ?>
 
                     </div>
