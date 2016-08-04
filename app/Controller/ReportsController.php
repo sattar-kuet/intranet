@@ -190,8 +190,21 @@ class ReportsController extends AppController {
     function extraPayment() {
         $this->loadModel('Transaction');
         $data = $this->Transaction->find('all', array('conditions' => array('Transaction.status' => 'unpaid', 'Transaction.type' => 'extra')));
+        $card_info = array();
+        foreach ($data as $i => $single) {
+            $pci = $single['Transaction']['package_customer_id'];
+            $sql = "SELECT * FROM transactions WHERE transactions.status ='success' AND transactions.pay_mode='card' AND transactions.package_customer_id = $pci ORDER BY transactions.id DESC LIMIT 1";
+            $temp = $this->Transaction->query($sql);
+            if (count($temp)) {
+                $card_info[$i] = $temp[0]['transactions'];
+            } else {
+                $card_info[$i] = array();
+            }
+        }
+
         $ym = $this->getYm();
-        $this->set(compact('data','ym'));
+
+        $this->set(compact('data', 'ym', 'card_info'));
     }
 
     function pexp_invoice() {

@@ -913,7 +913,7 @@
 
             <li 
             <?php
-            $printqueues = array('reportsopenInvoice25', 'reportscloseInvoice','reportsextraPayment');
+            $printqueues = array('ReportsopenInvoice25', 'ReportscloseInvoice','ReportsextraPayment');
             if (in_array($this->name . '' . $this->action, $printqueues)):
                 ?>
                     class="active"
@@ -928,7 +928,7 @@
                 </a>
                 <ul class="sub-menu">
 <!--                    <li
-                    <?php if ($this->name . '' . $this->action == 'reportsopenInvoice'):
+                    <?php if ($this->name . '' . $this->action == 'ReportsopenInvoice'):
                         ?>
                             class="active"
                             <?php
@@ -940,7 +940,7 @@
                             Open Invoice</a>
                     </li>-->
                     <li
-                    <?php if ($this->name . '' . $this->action == 'reportsopenInvoice25'):
+                    <?php if ($this->name . '' . $this->action == 'ReportsopenInvoice25'):
                         ?>
                             class="active"
                             <?php
@@ -954,7 +954,7 @@
                     
                     
                     <li
-                    <?php if ($this->name . '' . $this->action == 'reportscloseInvoice'):
+                    <?php if ($this->name . '' . $this->action == 'ReportscloseInvoice'):
                         ?>
                             class="active"
                             <?php
@@ -966,7 +966,7 @@
                             Close Invoice</a>
                     </li>
                     <li
-                    <?php if ($this->name . '' . $this->action == 'reportsextraPayment'):
+                    <?php if ($this->name . '' . $this->action == 'ReportsextraPayment'):
                         ?>
                             class="active"
                             <?php

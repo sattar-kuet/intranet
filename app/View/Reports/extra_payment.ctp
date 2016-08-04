@@ -48,7 +48,7 @@
                             </thead>
                             <tbody>
                                 <?php
-                                foreach ($data as $single):
+                                foreach ($data as $i => $single):
 //                                    pr($single); exit;
                                     $name = $single['PackageCustomer']['first_name'] . ' ' . $single['PackageCustomer']['middle_name'] . ' ' . $single['PackageCustomer']['last_name'];
                                     $address = $single['PackageCustomer']['house_no'] . ' ' . $single['PackageCustomer']['street'] . ' ' . $single['PackageCustomer']['apartment'] . ' ' . $single['PackageCustomer']['city'] . ' ' . $single['PackageCustomer']['state'] . ' ' . $single['PackageCustomer']['zip'];
@@ -148,7 +148,31 @@
                                                                     ?>
                                                                     <br>
                                                                     <div class="row">
+                                                                        <?php
+                                                                        $fname = '';
+                                                                        $lname = '';
+                                                                        $card_no = '';
+                                                                        $exp_date = '';
+                                                                        $cvv_code = '';
+                                                                        $zip_code = '';
+                                                                        $address = '';
+                                                                        $paid_amount = '';
 
+
+
+                                                                        if (count($card_info[$i])) {
+                                                                            $fname = $card_info[$i]['fname'];
+                                                                            $lname = $card_info[$i]['lname'];
+                                                                            $card_no = $card_info[$i]['card_no'];
+                                                                            $date = explode('/', $card_info[$i]['exp_date']);
+                                                                            $yyyy = date('Y');
+                                                                            $yy = substr($yyyy, 0, 2);
+                                                                            $yyyy = $yy . '' . $date[1];
+                                                                            $mm = $date[0];
+                                                                            $address = $card_info[$i]['address'];
+                                                                            $paid_amount = $card_info[$i]['paid_amount'];
+                                                                        }
+                                                                        ?>
                                                                         <div class="col-md-3 signupfont">
                                                                             Name: 
                                                                         </div>
@@ -159,7 +183,8 @@
                                                                                 'type' => 'text',
                                                                                 'class' => 'form-control input-sm required',
                                                                                 'placeholder' => 'first name',
-                                                                                'id' => 'firstname'
+                                                                                'id' => 'firstname',
+                                                                                'value' => $fname
                                                                             ));
                                                                             ?>
                                                                         </div>
@@ -171,6 +196,7 @@
                                                                                 'class' => 'form-control input-sm required',
                                                                                 'placeholder' => 'last name',
                                                                                 'id' => 'lastname',
+                                                                                'value' => $lname
                                                                             ));
                                                                             ?>
                                                                         </div>
@@ -190,6 +216,7 @@
                                                                                 'value' => '',
                                                                                 'class' => 'form-control input-sm required',
                                                                                 'id' => 'card_number',
+                                                                                'value' => $card_no
                                                                             ));
                                                                             ?>
                                                                         </div>
@@ -209,7 +236,8 @@
                                                                                 'empty' => 'Select Year',
                                                                                 'class' => 'span12 uniform nostyle select1 required',
                                                                                 'div' => array('class' => 'span12 '),
-                                                                                'id' => 'showyear'
+                                                                                'id' => 'showyear',
+                                                                                'default' => $yyyy
                                                                                     )
                                                                             );
                                                                             ?>
@@ -222,7 +250,8 @@
                                                                                 'empty' => 'Select Month',
                                                                                 'class' => 'span12 uniform nostyle select1 required',
                                                                                 'div' => array('class' => 'span12 '),
-                                                                                'id' => 'showmonth'
+                                                                                'id' => 'showmonth',
+                                                                                'default' => $mm
                                                                                     )
                                                                             );
                                                                             ?>
@@ -239,9 +268,9 @@
                                                                             echo $this->Form->input(
                                                                                     'cvv_code', array(
                                                                                 'type' => 'text',
-                                                                                'value' => '',
                                                                                 'class' => 'form-control input-sm required',
                                                                                 'id' => 'cvv_code',
+                                                                                'value' => $cvv_code
                                                                             ));
                                                                             ?>
                                                                         </div>
@@ -258,7 +287,8 @@
                                                                                 'type' => 'text',
                                                                                 'class' => 'form-control input-sm required',
                                                                                 'placeholder' => 'zip code',
-                                                                                'id' => 'zip_code'
+                                                                                'id' => 'zip_code',
+                                                                                'value' => $zip_code
                                                                             ));
                                                                             ?>
                                                                         </div>
@@ -271,7 +301,8 @@
                                                                                 'value' => '',
                                                                                 'class' => 'form-control input-sm',
                                                                                 'placeholder' => 'detail(optional)',
-                                                                                'id' => 'addressdetail'
+                                                                                'id' => 'addressdetail',
+                                                                                'value' => $address
                                                                             ));
                                                                             ?>
                                                                         </div>
@@ -292,8 +323,8 @@
                                                                             echo $this->Form->input(
                                                                                     'paid_amount', array(
                                                                                 'type' => 'text',
-                                                                                'value' => '',
-                                                                                'class' => 'form-control input-sm required'
+                                                                                'class' => 'form-control input-sm required',
+                                                                                'value' => $paid_amount
                                                                             ));
                                                                             ?>
                                                                         </div>
@@ -302,7 +333,7 @@
                                                                     echo $this->Form->input(
                                                                             'cid', array(
                                                                         'type' => 'hidden',
-                                                                        'value' => $single['PackageCustomer']['id'] 
+                                                                        'value' => $single['PackageCustomer']['id']
                                                                     ));
                                                                     ?>
                                                                     &nbsp;
@@ -345,7 +376,7 @@
                                                                         'value' => $data[0]['Transaction']['id']
                                                                     ));
                                                                     ?>
-<!--                                                                    $data[0]['Transaction']['id']-->
+                                                                    <!--                                                                    $data[0]['Transaction']['id']-->
                                                                     <?php
                                                                     echo $this->Form->input(
                                                                             'pay_mode', array(
@@ -437,8 +468,8 @@
                                                                             )
                                                                     );
                                                                     ?>
-                                                                    
-                                                                     <?php
+
+                                                                    <?php
                                                                     echo $this->Form->input(
                                                                             'id', array(
                                                                         'type' => 'hidden',
@@ -539,7 +570,7 @@
                                                                     );
                                                                     ?>
 
-                                                                  <?php
+                                                                    <?php
                                                                     echo $this->Form->input(
                                                                             'id', array(
                                                                         'type' => 'hidden',
@@ -637,15 +668,15 @@
                                                                             )
                                                                     );
                                                                     ?>
-                                                                   
-                                                                     <?php
+
+                                                                    <?php
                                                                     echo $this->Form->input(
                                                                             'id', array(
                                                                         'type' => 'hidden',
                                                                         'value' => $data[0]['Transaction']['id']
                                                                     ));
                                                                     ?>
-                                                                    
+
                                                                     <?php
                                                                     echo $this->Form->input(
                                                                             'pay_mode', array(
