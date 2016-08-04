@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="4">
+        <file>
+            <url>app/View/Reports/extra_payment.ctp</url>
+            <bookmark id="4">
+                <name/>
+                <line>185</line>
+                <key/>
+            </bookmark>
+        </file>
         <file>
             <url>app/View/Transactions/edit_customer_data.ctp</url>
             <bookmark id="1">
@@ -15,7 +23,8 @@
             <file>file:/D:/xampp/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
             <file>file:/D:/xampp/htdocs/intranet/app/Controller/TransactionsController.php</file>
             <file>file:/D:/xampp/htdocs/intranet/app/Controller/ReportsController.php</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Elements/sadmin-sidebar.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Reports/extra_payment.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/Controller/CustomersController.php</file>
         </group>
     </open-files>
 </project-private>
