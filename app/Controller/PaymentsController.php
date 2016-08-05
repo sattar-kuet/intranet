@@ -198,7 +198,7 @@ class PaymentsController extends AppController {
             $this->Track->save($trackData);
         }
         $this->Transaction->create();
-       // pr($this->request->data); exit;
+        // pr($this->request->data); exit;
         $this->Transaction->save($this->request->data['Transaction']);
         // endforeach;
         //$msg .='</ul>';
@@ -350,6 +350,8 @@ class PaymentsController extends AppController {
         } else {
             $this->request->data['Transaction']['check_image'] = '';
         }
+        $this->request->data['Transaction']['status'] = 'success';
+//        pr($this->request->data); exit;
         $this->Transaction->save($this->request->data['Transaction']);
         $transactionMsg = '<div class = "alert alert-success">
                         <button type = "button" class = "close" data-dismiss = "alert">&times;
@@ -427,13 +429,13 @@ class PaymentsController extends AppController {
         $this->loadModel('Transaction');
         $this->loadModel('Role');
         $this->loadModel('User');
-        
-         if ($this->request->is('post')) {
+
+        if ($this->request->is('post')) {
             $this->Transaction->set($this->request->data);
-            if ($this->Transaction->validates()) { 
+            if ($this->Transaction->validates()) {
                 $temp = explode('/', $this->request->data['Transaction']['created']);
-               $this->request->data['Transaction']['created'] = $temp[2].'-'.$temp[0].'-'.$temp[1].' 00:00:00';
-               // pr($this->request->data); exit;
+                $this->request->data['Transaction']['created'] = $temp[2] . '-' . $temp[0] . '-' . $temp[1] . ' 00:00:00';
+                // pr($this->request->data); exit;
                 $this->Transaction->save($this->request->data['Transaction']);
                 $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -445,9 +447,9 @@ class PaymentsController extends AppController {
                 $msg = $this->generateError($this->Transaction->validationErrors);
                 $this->Session->setFlash($msg);
             }
-        }      
-        
-        $pay_to = $this->User->find('list', array('conditions' => array('OR'=>array( array('User.role_id' => 9), array( 'User.role_id' => 11 )))));
+        }
+
+        $pay_to = $this->User->find('list', array('conditions' => array('OR' => array(array('User.role_id' => 9), array('User.role_id' => 11)))));
         $this->set(compact('pay_to'));
     }
 

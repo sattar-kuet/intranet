@@ -3033,3 +3033,93 @@ Wed, 03 Aug 2016 14:36:50 +0000:Response from AnetApi:
 
 Wed, 03 Aug 2016 14:36:50 +0000: Response De-Serialization Begin
 Wed, 03 Aug 2016 14:36:50 +0000: Response De-Serialization End
+Fri, 05 Aug 2016 09:15:38 +0000: Request Serialization Begin
+Fri, 05 Aug 2016 09:15:38 +0000: Request  Serialization End
+Fri, 05 Aug 2016 09:15:38 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Fri, 05 Aug 2016 09:15:38 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[42UHbr9Qa9B]]></name>
+    <transactionKey><![CDATA[7UBSq68ncs65p8QX]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1470388537]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>4564</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[5645654]]></cardNumber>
+        <expirationDate><![CDATA[01/33]]></expirationDate>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Fri, 05 Aug 2016 09:15:38 +0000:Sending http request via Curl
+Fri, 05 Aug 2016 09:15:40 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1470388537</refId><messages><resultCode>Error</resultCode><message><code>E00027</code><text>The transaction was unsuccessful.</text></message></messages><transactionResponse><responseCode>3</responseCode><authCode /><avsResultCode>P</avsResultCode><cvvResultCode /><cavvResultCode /><transId>0</transId><refTransID /><transHash>7273C0A8A6BADE2DC084651208344AB6</transHash><testRequest>0</testRequest><accountNumber>XXXX5654</accountNumber><accountType /><errors><error><errorCode>6</errorCode><errorText>The credit card number is invalid.</errorText></error></errors><transHashSha2 /></transactionResponse></createTransactionResponse>
+
+Fri, 05 Aug 2016 09:15:40 +0000: Response De-Serialization Begin
+Fri, 05 Aug 2016 09:15:40 +0000: Response De-Serialization End
+Fri, 05 Aug 2016 10:15:06 +0000: Request Serialization Begin
+Fri, 05 Aug 2016 10:15:06 +0000: Request  Serialization End
+Fri, 05 Aug 2016 10:15:06 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Fri, 05 Aug 2016 10:15:06 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[42UHbr9Qa9B]]></name>
+    <transactionKey><![CDATA[7UBSq68ncs65p8QX]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1470392106]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>15</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[5645654]]></cardNumber>
+        <expirationDate><![CDATA[03/33]]></expirationDate>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Fri, 05 Aug 2016 10:15:06 +0000:Sending http request via Curl
+Fri, 05 Aug 2016 10:15:08 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1470392106</refId><messages><resultCode>Error</resultCode><message><code>E00027</code><text>The transaction was unsuccessful.</text></message></messages><transactionResponse><responseCode>3</responseCode><authCode /><avsResultCode>P</avsResultCode><cvvResultCode /><cavvResultCode /><transId>0</transId><refTransID /><transHash>91AF28B6DF778FBF2B7DDC679ECDF47B</transHash><testRequest>0</testRequest><accountNumber>XXXX5654</accountNumber><accountType /><errors><error><errorCode>6</errorCode><errorText>The credit card number is invalid.</errorText></error></errors><transHashSha2 /></transactionResponse></createTransactionResponse>
+
+Fri, 05 Aug 2016 10:15:08 +0000: Response De-Serialization Begin
+Fri, 05 Aug 2016 10:15:08 +0000: Response De-Serialization End
+Fri, 05 Aug 2016 10:20:35 +0000: Request Serialization Begin
+Fri, 05 Aug 2016 10:20:35 +0000: Request  Serialization End
+Fri, 05 Aug 2016 10:20:35 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Fri, 05 Aug 2016 10:20:35 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[42UHbr9Qa9B]]></name>
+    <transactionKey><![CDATA[7UBSq68ncs65p8QX]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1470392435]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>rty</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[wert]]></cardNumber>
+        <expirationDate><![CDATA[05/33]]></expirationDate>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Fri, 05 Aug 2016 10:20:35 +0000:Sending http request via Curl
+Fri, 05 Aug 2016 10:20:37 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:amount' element is invalid - The value 'rty' is invalid according to its datatype 'http://www.w3.org/2001/XMLSchema:decimal' - The string 'rty' is not a valid Decimal value.</text></message></messages></ErrorResponse>
+
+Fri, 05 Aug 2016 10:20:37 +0000: Response De-Serialization Begin
+Fri, 05 Aug 2016 10:20:37 +0000: Response De-Serialization End
