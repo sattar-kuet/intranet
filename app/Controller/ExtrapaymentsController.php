@@ -65,7 +65,7 @@ class ExtrapaymentsController extends AppController {
     }
 
     public function individual_transaction_by_card() {
-        // pr($this->request->data); exit;
+       //  pr($this->request->data); exit;
         //Get ID and Input amount from edit_customer page
         $cid = $this->request->data['Transaction']['cid'];
         $this->request->data['Transaction']['package_customer_id'] = $cid;
@@ -94,6 +94,7 @@ class ExtrapaymentsController extends AppController {
         $this->loadModel('Transaction');
         $this->loadModel('Ticket');
         $this->loadModel('Track');
+        $this->Transaction->id = $this->request->data['Transaction']['id'];
         $loggedUser = $this->Auth->user();
         $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
         $pcustomers = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $cid)));
@@ -167,7 +168,7 @@ class ExtrapaymentsController extends AppController {
                 $this->Track->save($trackData);
             } else {
                 $this->request->data['Transaction']['paid_amount'] = 0;
-                $this->request->data['Transaction']['status'] = 'error';
+                $this->request->data['Transaction']['status'] = 'unpaid';
                 $this->request->data['Transaction']['error_msg'] = "Charge Credit Card ERROR :  Invalid response";
                 $msg .='<li> Transaction for ' . $pc['fname'] . ' ' . $pc['lname'] . ' failed for Charge Credit Card ERROR</li>';
 
@@ -183,7 +184,7 @@ class ExtrapaymentsController extends AppController {
             }
         } else {
             $this->request->data['Transaction']['paid_amount'] = 0;
-            $this->request->data['Transaction']['status'] = 'error';
+            $this->request->data['Transaction']['status'] = 'unpaid';
             $this->request->data['Transaction']['error_msg'] = "Charge Credit card Null response returned";
             $msg .='<li> Transaction for ' . $pc['fname'] . ' ' . $pc['lname'] . ' failed for Charge Credit card Null response</li>';
 
@@ -197,7 +198,7 @@ class ExtrapaymentsController extends AppController {
             );
             $this->Track->save($trackData);
         }
-        $this->Transaction->create();
+      
         // pr($this->request->data); exit;
         $this->Transaction->save($this->request->data['Transaction']);
         // endforeach;
@@ -348,7 +349,7 @@ class ExtrapaymentsController extends AppController {
             $this->request->data['Transaction']['check_image'] = (string) $result['file_dst_name'];
         } else {
             $this->request->data['Transaction']['check_image'] = '';
-        }        
+        }    
         $this->Transaction->save($this->request->data['Transaction']);
         $transactionMsg = '<div class = "alert alert-success">
                         <button type = "button" class = "close" data-dismiss = "alert">&times;

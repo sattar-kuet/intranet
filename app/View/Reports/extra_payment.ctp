@@ -134,6 +134,13 @@
                                                                     ?>
                                                                     <?php
                                                                     echo $this->Form->input(
+                                                                            'id', array(
+                                                                        'type' => 'hidden',
+                                                                        'value' => $single['Transaction']['id']
+                                                                    ));
+                                                                    ?>
+                                                                    <?php
+                                                                    echo $this->Form->input(
                                                                             'cid', array(
                                                                         'type' => 'hidden',
                                                                         'value' => $single['PackageCustomer']['id']
@@ -157,18 +164,22 @@
                                                                         $zip_code = '';
                                                                         $address = '';
                                                                         $paid_amount = '';
-
-
+                                                                        $yyyy = '';
+                                                                        $mm = '';
 
                                                                         if (count($card_info[$i])) {
                                                                             $fname = $card_info[$i]['fname'];
                                                                             $lname = $card_info[$i]['lname'];
                                                                             $card_no = $card_info[$i]['card_no'];
                                                                             $date = explode('/', $card_info[$i]['exp_date']);
-                                                                            $yyyy = date('Y');
-                                                                            $yy = substr($yyyy, 0, 2);
-                                                                            $yyyy = $yy . '' . $date[1];
-                                                                            $mm = $date[0];
+                                                                            if (count($date)) {
+                                                                                $yyyy = date('Y');
+                                                                                $yy = substr($yyyy, 0, 2);
+                                                                                if(isset($date[1]))
+                                                                                $yyyy = $yy . '' . $date[1];
+                                                                                $mm = $date[0];
+                                                                            }
+
                                                                             $address = $card_info[$i]['address'];
                                                                             $paid_amount = $card_info[$i]['paid_amount'];
                                                                         }
@@ -376,6 +387,16 @@
                                                                         'value' => $data[0]['Transaction']['id']
                                                                     ));
                                                                     ?>
+
+                                                                    <?php
+                                                                    echo $this->Form->input(
+                                                                            'id', array(
+                                                                        'type' => 'hidden',
+                                                                        'value' => $single['Transaction']['id']
+                                                                    ));
+                                                                    ?>
+
+
                                                                     <!--                                                                    $data[0]['Transaction']['id']-->
                                                                     <?php
                                                                     echo $this->Form->input(
@@ -474,6 +495,14 @@
                                                                             'id', array(
                                                                         'type' => 'hidden',
                                                                         'value' => $data[0]['Transaction']['id']
+                                                                    ));
+                                                                    ?>
+
+                                                                    <?php
+                                                                    echo $this->Form->input(
+                                                                            'id', array(
+                                                                        'type' => 'hidden',
+                                                                        'value' => $single['Transaction']['id']
                                                                     ));
                                                                     ?>
 
@@ -580,6 +609,14 @@
 
                                                                     <?php
                                                                     echo $this->Form->input(
+                                                                            'id', array(
+                                                                        'type' => 'hidden',
+                                                                        'value' => $single['Transaction']['id']
+                                                                    ));
+                                                                    ?>
+
+                                                                    <?php
+                                                                    echo $this->Form->input(
                                                                             'pay_mode', array(
                                                                         'type' => 'hidden',
                                                                         'value' => 'online bill'
@@ -674,6 +711,14 @@
                                                                             'id', array(
                                                                         'type' => 'hidden',
                                                                         'value' => $data[0]['Transaction']['id']
+                                                                    ));
+                                                                    ?>
+
+                                                                    <?php
+                                                                    echo $this->Form->input(
+                                                                            'id', array(
+                                                                        'type' => 'hidden',
+                                                                        'value' => $single['Transaction']['id']
                                                                     ));
                                                                     ?>
 
