@@ -6,6 +6,7 @@
 
 <style type="text/css">
     .alert {
+        
         padding: 6px;
         margin-bottom: 5px;
         border: 1px solid transparent;
