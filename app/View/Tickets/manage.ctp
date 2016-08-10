@@ -53,7 +53,6 @@
                             </thead>
                             <tbody>
                                 <?php
-                               
                                 foreach ($data as $single):
 // pr($single); exit;
 
@@ -73,7 +72,7 @@
                                         <td >
                                             <?php echo $single['ticket']['id']; ?>                            
                                         </td>
-                                        <td><?php  echo date_format( new DateTime($ticket['created']) , 'm-d-Y h:i:sa' ); ?>
+                                        <td><?php echo date_format(new DateTime($ticket['created']), 'm-d-Y h:i:sa'); ?>
                                             <?php echo $agent_name; ?>
                                         </td>
                                         <td>
@@ -83,25 +82,26 @@
                                             $customer['middle_name'] . " " .
                                             $customer['last_name'];
                                             ?><br>
-                                                <b>  Address :  </b> <?php echo $customer_address; ?> <br>
+                                            <b>  Address :  </b> <?php echo $customer_address; ?> <br>
 
-                                                <?php if (!empty($customer['cell'])): ?>
-                                                    <b> Cell :</b> <a href="tel:<?php echo $customer['cell'] ?>"><?php echo $customer['cell']; ?></a><br>
-                                                <?php endif; ?>
-                                                <?php if (!empty($customer['home'])): ?>
-                                                    <b>  Home :</b>  <a href="tel:<?php echo $customer['home'] ?>"><?php echo $customer['home']; ?></a>
-                                                <?php endif; ?>
+                                            <?php if (!empty($customer['cell'])): ?>
+                                                <b> Cell :</b> <a href="tel:<?php echo $customer['cell'] ?>"><?php echo $customer['cell']; ?></a><br>
+                                            <?php endif; ?>
+                                            <?php if (!empty($customer['home'])): ?>
+                                                <b>  Home :</b>  <a href="tel:<?php echo $customer['home'] ?>"><?php echo $customer['home']; ?></a>
+                                            <?php endif; ?>
 
                                         </td>
-                                        
+
                                         <td><?php echo $issue['i']['name']; ?></td>
                                         <td><?php echo $ticket['content']; ?></td>
                                         <td>
                                             <ol>
                                                 <?php
                                                 $lasthistory = $single['history'][0]['tr'];
-//                                                 pr($lasthistory); exit;
+
                                                 foreach ($single['history'] as $history):
+//                                                     pr($history['pc']['id']); exit;
                                                     ?>
                                                     <li>
                                                         <?php if ($history['tr']['status'] != 'open') { ?>
@@ -114,7 +114,7 @@
                                                         ?>
                                                         <?php echo $history['fb']['name']; ?>
                                                         <p><strong>Forwarded To:</strong><ul><li><?php echo $history['fi']['name']; ?> </li><li><?php echo $history['fd']['name']; ?> </li></ul>
-                                                        <strong>Time:</strong> <?php  echo date_format( new DateTime($history['tr']['created']) , 'm-d-Y h:i:sa' );?>
+                                                        <strong>Time:</strong> <?php echo date_format(new DateTime($history['tr']['created']), 'm-d-Y h:i:sa'); ?>
 
                                                         &nbsp;&nbsp;<strong>Status:</strong> <?php echo $history['tr']['status']; ?><br>
                                                         <?php
@@ -182,6 +182,22 @@
                                                         echo $this->Form->input('ticket_id', array(
                                                             'type' => 'hidden',
                                                             'value' => $ticket['id'],
+                                                                )
+                                                        );
+                                                        ?>
+
+                                                        <?php
+                                                        echo $this->Form->input('package_customer_id', array(
+                                                            'type' => 'hidden',
+                                                            'value' => $history['pc']['id'],
+                                                                )
+                                                        );
+                                                        ?>
+
+                                                        <?php
+                                                        echo $this->Form->input('package_customer_id', array(
+                                                            'type' => 'hidden',
+                                                            'value' => $history['pc']['id'],
                                                                 )
                                                         );
                                                         ?>
@@ -303,6 +319,14 @@
                                                         ?>
 
                                                         <?php
+                                                        echo $this->Form->input('package_customer_id', array(
+                                                            'type' => 'hidden',
+                                                            'value' => $history['pc']['id'],
+                                                                )
+                                                        );
+                                                        ?>
+
+                                                        <?php
                                                         echo $this->Form->input('forwarded_by', array(
                                                             'type' => 'hidden',
                                                             'value' => $lasthistory['forwarded_by'],
@@ -399,6 +423,13 @@
                                                         );
                                                         ?>
 
+                                                        <?php
+                                                        echo $this->Form->input('package_customer_id', array(
+                                                            'type' => 'hidden',
+                                                            'value' => $history['pc']['id'],
+                                                                )
+                                                        );
+                                                        ?>
 
                                                         <?php
                                                         echo $this->Form->input('forwarded_by', array(

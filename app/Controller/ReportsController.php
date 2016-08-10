@@ -266,6 +266,7 @@ class ReportsController extends AppController {
             $issue = $this->request->data['Track']['issue_id'];
             $agent = $this->request->data['Track']['user_id'];
             $datrange = json_decode($this->request->data['Track']['daterange'], true);
+            $status = $this->request->data['Track']['status'];
             $ds = new DateTime($datrange['start']);
             $timestamp = $ds->getTimestamp(); // Unix timestamp
             $startd = $ds->format('m/y'); // 2003-10-16
@@ -280,21 +281,28 @@ class ReportsController extends AppController {
                 $conditions .=" tr.forwarded_by = $agent AND";
             }
             if (count($datrange)) {
-                $conditions .=" t.created >='" . $datrange['start'] . "' AND  t.created <='" . $datrange['end'] . "'";
+                $conditions .=" t.created >='" . $datrange['start'] . "' AND  t.created <='" . $datrange['end'] . "' AND ";
             }
+            if (!empty($status)) {
+                $conditions .=" tr.status = '$status'";
+            }
+            
             $conditions.="###";
             $conditions = str_replace("AND###", "", $conditions);
+            $conditions = str_replace("AND ###", "", $conditions);
             $conditions = str_replace("###", "", $conditions);
-
-
-            $tickets = $this->Track->query("SELECT * FROM tracks tr
+            
+            $sql = "SELECT * FROM tracks tr
                         left JOIN tickets t ON tr.ticket_id = t.id
                         left JOIN users fb ON tr.forwarded_by = fb.id
                         left JOIN roles fd ON tr.role_id = fd.id
                         left JOIN users fi ON tr.user_id = fi.id
                         left JOIN issues i ON tr.issue_id = i.id
                         left join package_customers pc on tr.package_customer_id = pc.id
-                         where $conditions");
+                         WHERE $conditions";
+//             pr($sql); exit;
+            $tickets = $this->Track->query($sql);
+            
             $filteredTicket = array();
             $unique = array();
             $index = 0;
@@ -314,14 +322,14 @@ class ReportsController extends AppController {
                 $filteredTicket;
             }
 
-            //pr($data);
             $clicked = true;
             $this->set(compact('filteredTicket'));
         }
-        // pr($filteredTicket); exit;
+         
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
         $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
-        $this->set(compact('clicked', 'data', 'users', 'issues'));
+        $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
+        $this->set(compact('clicked', 'data', 'users', 'issues','roles'));
     }
 
     function getTotalCall() {
