@@ -77,7 +77,7 @@
                                             <ol>
                                                 <?php
                                                 $lasthistory = $single['history'][0]['tr'];
-
+//                                                pr($lasthistory['id']); exit;
                                                 foreach ($single['history'] as $history):
                                                     ?>
                                                     <li>
@@ -288,6 +288,13 @@
                                                         echo $this->Form->input('user_id', array(
                                                             'type' => 'hidden',
                                                             'value' => $lasthistory['user_id'],
+                                                                )
+                                                        );
+                                                        ?>
+                                                        <?php
+                                                        echo $this->Form->input('id', array(
+                                                            'type' => 'hidden',
+                                                            'value' => $lasthistory['id'],
                                                                 )
                                                         );
                                                         ?>
