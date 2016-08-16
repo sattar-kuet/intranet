@@ -273,8 +273,8 @@ class TransactionsController extends AppController {
             FROM  `transactions` tr
             INNER JOIN package_customers pc ON pc.id = tr.`package_customer_id` 
             WHERE package_customer_id = $pcid order by tr.id ASC;");
-       
-      //  pr($transactions_all); exit;
+
+        //  pr($transactions_all); exit;
         $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge', 'latestcardInfo', 'transactions_data', 'transactions_all'));
     }
 
@@ -282,10 +282,9 @@ class TransactionsController extends AppController {
         $this->loadModel('Transaction');
         $user_info = $this->Auth->user();
         $user_id = $user_info['id'];
-       
         $this->request->data['Transaction']['user_id'] = $user_id;
-
-        $this->request->data['Transaction']['next_payment'] = $this->getFormatedDate($this->request->data['Transaction']['next_payment']);
+        $this->request->data['Transaction']['exp_date'] = $this->request->data['PackageCustomer']['exp_date']['month'].'/'.$this->request->data['PackageCustomer']['exp_date']['year'];
+        $this->request->data['Transaction']['package_customer_id'] = $this->request->data['PackageCustomer']['id'];
         $this->Transaction->save($this->request->data['Transaction']);
         $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>

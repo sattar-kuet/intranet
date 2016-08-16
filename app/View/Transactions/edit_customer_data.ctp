@@ -991,6 +991,14 @@
                                         'value' => $this->params['pass'][0],
                                     ));
                                     ?>
+
+                                    <?php
+                                    echo $this->Form->input('package_customer_id', array(
+                                        'type' => 'hidden',
+                                        'value' => $lasthistory['package_customer_id'],
+                                            )
+                                    );
+                                    ?>
                                     <div class="row">
                                         <div class="col-md-3 signupfont" style="padding-right: 0px;">
                                             Card no: 

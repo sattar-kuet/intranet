@@ -289,7 +289,7 @@ class ReportsController extends AppController {
             
             $conditions.="###";
             $conditions = str_replace("AND###", "", $conditions);
-            $conditions = str_replace("AND ###", "", $conditions);
+            $conditions = str_replace("AND ###", "", $conditions);           
             $conditions = str_replace("###", "", $conditions);
             
             $sql = "SELECT * FROM tracks tr
