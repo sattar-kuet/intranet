@@ -84,9 +84,9 @@ class PaymentsController extends AppController {
         // Common setup for API credentials  
         $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
         //   $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
-        $merchantAuthentication->setName("42UHbr9Qa9B"); //42UHbr9Qa9B live mode
+        $merchantAuthentication->setName("7zKH4b45"); //42UHbr9Qa9B live mode
         // $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
-        $merchantAuthentication->setTransactionKey("7UBSq68ncs65p8QX"); // live mode 7UBSq68ncs65p8QX
+        $merchantAuthentication->setTransactionKey("738QpWvHH4vS59vY"); // live mode 7UBSq68ncs65p8QX
         $refId = 'ref' . time();
 // Create the payment data for a credit card
         $creditCard = new AnetAPI\CreditCardType();
@@ -198,7 +198,6 @@ class PaymentsController extends AppController {
             $this->Track->save($trackData);
         }
         $this->Transaction->create();
-        // pr($this->request->data); exit;
         $this->Transaction->save($this->request->data['Transaction']);
         // endforeach;
         //$msg .='</ul>';
@@ -350,8 +349,6 @@ class PaymentsController extends AppController {
         } else {
             $this->request->data['Transaction']['check_image'] = '';
         }
-        $this->request->data['Transaction']['status'] = 'success';
-//        pr($this->request->data); exit;
         $this->Transaction->save($this->request->data['Transaction']);
         $transactionMsg = '<div class = "alert alert-success">
                         <button type = "button" class = "close" data-dismiss = "alert">&times;
@@ -429,13 +426,13 @@ class PaymentsController extends AppController {
         $this->loadModel('Transaction');
         $this->loadModel('Role');
         $this->loadModel('User');
-
-        if ($this->request->is('post')) {
+        
+         if ($this->request->is('post')) {
             $this->Transaction->set($this->request->data);
-            if ($this->Transaction->validates()) {
+            if ($this->Transaction->validates()) { 
                 $temp = explode('/', $this->request->data['Transaction']['created']);
-                $this->request->data['Transaction']['created'] = $temp[2] . '-' . $temp[0] . '-' . $temp[1] . ' 00:00:00';
-                // pr($this->request->data); exit;
+               $this->request->data['Transaction']['created'] = $temp[2].'-'.$temp[0].'-'.$temp[1].' 00:00:00';
+               // pr($this->request->data); exit;
                 $this->Transaction->save($this->request->data['Transaction']);
                 $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -447,9 +444,9 @@ class PaymentsController extends AppController {
                 $msg = $this->generateError($this->Transaction->validationErrors);
                 $this->Session->setFlash($msg);
             }
-        }
-
-        $pay_to = $this->User->find('list', array('conditions' => array('OR' => array(array('User.role_id' => 9), array('User.role_id' => 11)))));
+        }      
+        
+        $pay_to = $this->User->find('list', array('conditions' => array('OR'=>array( array('User.role_id' => 9), array( 'User.role_id' => 11 )))));
         $this->set(compact('pay_to'));
     }
 

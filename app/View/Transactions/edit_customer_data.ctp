@@ -709,251 +709,7 @@
                     </div>
 
 
-                    <!--     Begin Additional Invoice    -->
-
-                    <div class="portlet box lightseagreen" style="background-color:#daae2b; border: #daae2b solid 2px;">
-                        <div class="portlet-title">
-                            <div class="caption">
-                                <i class="fa fa-list-ul"></i>Additional Invoice 
-                            </div>
-
-                            <div class="tools">
-                                <a  class="reload toggle"data-id="updatepayinfo">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="portlet-body">
-                            <div class="row display-hide" id="updatepayinfo"> 
-                                <div class="col-md-12">
-                                    <?php
-                                    echo $this->Form->create('Transaction', array(
-                                        'inputDefaults' => array(
-                                            'label' => false,
-                                            'div' => false
-                                        ),
-                                        'class' => 'form-horizontal',
-                                        'novalidate' => 'novalidate',
-                                        'url' => array('controller' => 'transactions', 'action' => 'updatecardinfo')
-                                            )
-                                    );
-                                    ?>
-
-                                    <?php
-                                    // pr($this->params['pass'][0]); exit;
-                                    echo $this->Form->input('package_customer_id', array(
-                                        'type' => 'hidden',
-                                        'value' => $this->params['pass'][0],
-                                            )
-                                    );
-                                    ?>
-                                    <?php
-                                    // pr($this->params['pass'][0]); exit;
-                                    echo $this->Form->input('status', array(
-                                        'type' => 'hidden',
-                                        'value' => 'unpaid',
-                                            )
-                                    );
-                                    ?>
-                                    <?php
-                                    echo $this->Form->input('type', array(
-                                        'type' => 'hidden',
-                                        'value' => 'extra',
-                                            )
-                                    );
-                                    ?>
-
-                                    <div class="form-body">
-                                        <div class="col-md-12">
-
-                                            <div class="form-group">
-                                                <label class="control-label col-md-1">Description:<span class="required">
-                                                    </span>
-                                                </label>
-                                                <div class="col-md-2">
-                                                    <?php
-                                                    echo $this->Form->input(
-                                                            'description_tran', array(
-                                                        'type' => 'text',
-                                                        'class' => 'form-control ',
-                                                    ));
-                                                    ?>
-                                                </div>
-                                                <label class="control-label col-md-1">Product: <span class="required">
-                                                    </span>
-                                                </label>
-                                                <div class="col-md-2">
-                                                    <?php
-                                                    echo $this->Form->input(
-                                                            'product_type', array(
-                                                        'type' => 'text',
-                                                        'class' => 'form-control',
-                                                    ));
-                                                    ?>
-                                                </div>
-                                                <label class="control-label col-md-1">Quantity:<span class="required">
-                                                    </span>
-                                                </label>
-                                                <div class="col-md-2">
-                                                    <?php
-                                                    echo $this->Form->input(
-                                                            'quantity', array(
-                                                        'type' => 'text',
-                                                        'class' => 'form-control',
-                                                    ));
-                                                    ?>
-                                                </div>
-                                                <label class="control-label col-md-1">Rate:<span class="required">
-                                                    </span>
-                                                </label>
-                                                <div class="col-md-2">
-                                                    <?php
-                                                    echo $this->Form->input(
-                                                            'rate', array(
-                                                        'type' => 'text',
-                                                        'class' => 'form-control',
-                                                    ));
-                                                    ?>
-                                                </div>
-
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-1">Price:<span class="required">
-                                                    </span>
-                                                </label>
-                                                <div class="col-md-2">
-                                                    <?php
-                                                    echo $this->Form->input(
-                                                            'price', array(
-                                                        'type' => 'text',
-                                                        'class' => 'form-control ',
-                                                    ));
-                                                    ?>
-                                                </div>
-                                                <label class="control-label col-md-1">Discount:<span class="required">
-                                                    </span>
-                                                </label>
-                                                <div class="col-md-2">
-                                                    <?php
-                                                    echo $this->Form->input(
-                                                            'discount', array(
-                                                        'type' => 'text',
-                                                        'class' => 'form-control',
-                                                    ));
-                                                    ?>
-                                                </div>
-                                                <label class="control-label col-md-1">Promotion:<span class="required">
-                                                    </span>
-                                                </label>
-                                                <div class="col-md-2">
-                                                    <?php
-                                                    echo $this->Form->input(
-                                                            'promotion', array(
-                                                        'type' => 'text',
-                                                        'class' => 'form-control',
-                                                    ));
-                                                    ?>
-                                                </div>
-                                                <label class="control-label col-md-1">Credit:<span class="required">
-                                                    </span>
-                                                </label>
-                                                <div class="col-md-2">
-                                                    <?php
-                                                    echo $this->Form->input(
-                                                            'credit', array(
-                                                        'type' => 'text',
-                                                        'class' => 'form-control',
-                                                    ));
-                                                    ?>
-                                                </div>
-
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-1">Adjustment: <span class="required">
-                                                    </span>
-                                                </label>
-                                                <div class="col-md-2">
-                                                    <?php
-                                                    echo $this->Form->input(
-                                                            'adjustment', array(
-                                                        'type' => 'text',
-                                                        'class' => 'form-control ',
-                                                    ));
-                                                    ?>
-                                                </div>
-                                                <label class="control-label col-md-1">Note:<span class="required">
-                                                    </span>
-                                                </label>
-                                                <div class="col-md-2">
-                                                    <?php
-                                                    echo $this->Form->input(
-                                                            'note', array(
-                                                        'type' => 'text',
-                                                        'class' => 'form-control',
-                                                    ));
-                                                    ?>
-                                                </div>
-                                                <label class="control-label col-md-1">Payment date: <span class="required">
-                                                    </span>
-                                                </label>
-                                                <div class="col-md-2">
-                                                    <?php
-                                                    echo $this->Form->input(
-                                                            'next_payment', array(
-                                                        'type' => 'text',
-                                                        'class' => 'datepicker form-control ',
-                                                    ));
-                                                    ?>
-                                                </div>
-                                                <label class="control-label col-md-1">Payment amount:<span class="required">
-                                                    </span>
-                                                </label>
-                                                <div class="col-md-2">
-                                                    <?php
-                                                    echo $this->Form->input(
-                                                            'payable_amount', array(
-                                                        'type' => 'text',
-                                                        'class' => 'form-control',
-                                                    ));
-                                                    ?>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                        <!--    <div class="col-md-4"> 
-                                             //<?php
-//                                            echo $this->Form->button(
-//                                                    'Update current record', array(
-//                                                'class' => 'btn btn-primary submitbtn',
-//                                                'style' => "background-color: #daae2b;",
-//                                                'type' => 'submit',
-//                                                'id' => ''
-//                                            ));
-//                                            
-                                        ?>                                       
-                                                                                </div>-->
-
-
-                                        <div class="form-actions">
-                                            <div class="row">
-                                                <div class="col-md-offset-6 col-md-4">
-                                                    <?php
-                                                    echo $this->Form->button(
-                                                            'Submit', array('class' => 'btn red-sunglo', 'type' => 'submit', 'style' => "background-color: #daae2b;",)
-                                                    );
-                                                    ?>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <?php echo $this->Form->end(); ?>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--                    End update next payment date-->
+                
 
                     <!-- -------------Begin card info update--------------------------->
 
@@ -1755,7 +1511,237 @@
                         </div>
                     </div>
                     <!-- end -->
+                   
+                        <!--     Begin Additional Invoice    -->
 
+                    <div class="portlet box lightseagreen" style="background-color:#daae2b; border: #daae2b solid 2px;">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-list-ul"></i>Additional Invoice 
+                            </div>
+
+                            <div class="tools">
+                                <a  class="reload toggle"data-id="updatepayinfo">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="row display-hide" id="updatepayinfo"> 
+                                <div class="col-md-12">
+                                    <?php
+                                    echo $this->Form->create('Transaction', array(
+                                        'inputDefaults' => array(
+                                            'label' => false,
+                                            'div' => false
+                                        ),
+                                        'class' => 'form-horizontal',
+                                        'novalidate' => 'novalidate',
+                                        'url' => array('controller' => 'transactions', 'action' => 'updatecardinfo')
+                                            )
+                                    );
+                                    ?>
+
+                                    <?php
+                                    // pr($this->params['pass'][0]); exit;
+                                    echo $this->Form->input('package_customer_id', array(
+                                        'type' => 'hidden',
+                                        'value' => $this->params['pass'][0],
+                                            )
+                                    );
+                                    ?>
+                                    <?php
+                                    // pr($this->params['pass'][0]); exit;
+                                    echo $this->Form->input('status', array(
+                                        'type' => 'hidden',
+                                        'value' => 'unpaid',
+                                            )
+                                    );
+                                    ?>
+                                    <?php
+                                    echo $this->Form->input('type', array(
+                                        'type' => 'hidden',
+                                        'value' => 'extra',
+                                            )
+                                    );
+                                    ?>
+
+                                    <div class="form-body">
+                                        <div class="col-md-12">
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-1">Description:<span class="required">
+                                                    </span>
+                                                </label>
+                                                <div class="col-md-2">
+                                                    <?php
+                                                    echo $this->Form->input(
+                                                            'description_tran1', array(
+                                                        'type' => 'text',
+                                                        'class' => 'form-control ',
+                                                    ));
+                                                    ?>
+                                                </div>
+                                                <label class="control-label col-md-1">Product: <span class="required">
+                                                    </span>
+                                                </label>
+                                                <div class="col-md-2">
+                                                    <?php
+                                                    echo $this->Form->input(
+                                                            'product_type', array(
+                                                        'type' => 'text',
+                                                        'class' => 'form-control',
+                                                    ));
+                                                    ?>
+                                                </div>
+                                                <label class="control-label col-md-1">Quantity:<span class="required">
+                                                    </span>
+                                                </label>
+                                                <div class="col-md-2">
+                                                    <?php
+                                                    echo $this->Form->input(
+                                                            'quantity', array(
+                                                        'type' => 'text',
+                                                        'class' => 'form-control',
+                                                    ));
+                                                    ?>
+                                                </div>
+                                                <label class="control-label col-md-1">Rate:<span class="required">
+                                                    </span>
+                                                </label>
+                                                <div class="col-md-2">
+                                                    <?php
+                                                    echo $this->Form->input(
+                                                            'rate', array(
+                                                        'type' => 'text',
+                                                        'class' => 'form-control',
+                                                    ));
+                                                    ?>
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-1">Price:<span class="required">
+                                                    </span>
+                                                </label>
+                                                <div class="col-md-2">
+                                                    <?php
+                                                    echo $this->Form->input(
+                                                            'price', array(
+                                                        'type' => 'text',
+                                                        'class' => 'form-control ',
+                                                    ));
+                                                    ?>
+                                                </div>
+                                                <label class="control-label col-md-1">Discount:<span class="required">
+                                                    </span>
+                                                </label>
+                                                <div class="col-md-2">
+                                                    <?php
+                                                    echo $this->Form->input(
+                                                            'discount', array(
+                                                        'type' => 'text',
+                                                        'class' => 'form-control',
+                                                    ));
+                                                    ?>
+                                                </div>
+                                                <label class="control-label col-md-1">Promotion:<span class="required">
+                                                    </span>
+                                                </label>
+                                                <div class="col-md-2">
+                                                    <?php
+                                                    echo $this->Form->input(
+                                                            'promotion', array(
+                                                        'type' => 'text',
+                                                        'class' => 'form-control',
+                                                    ));
+                                                    ?>
+                                                </div>
+                                                <label class="control-label col-md-1">Credit:<span class="required">
+                                                    </span>
+                                                </label>
+                                                <div class="col-md-2">
+                                                    <?php
+                                                    echo $this->Form->input(
+                                                            'credit', array(
+                                                        'type' => 'text',
+                                                        'class' => 'form-control',
+                                                    ));
+                                                    ?>
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-1">Adjustment: <span class="required">
+                                                    </span>
+                                                </label>
+                                                <div class="col-md-2">
+                                                    <?php
+                                                    echo $this->Form->input(
+                                                            'adjustment', array(
+                                                        'type' => 'text',
+                                                        'class' => 'form-control ',
+                                                    ));
+                                                    ?>
+                                                </div>
+                                                <label class="control-label col-md-1">Note:<span class="required">
+                                                    </span>
+                                                </label>
+                                                <div class="col-md-2">
+                                                    <?php
+                                                    echo $this->Form->input(
+                                                            'note', array(
+                                                        'type' => 'text',
+                                                        'class' => 'form-control',
+                                                    ));
+                                                    ?>
+                                                </div>
+                                                <label class="control-label col-md-1">Payment date: <span class="required">
+                                                    </span>
+                                                </label>
+                                                <div class="col-md-2">
+                                                    <?php
+                                                    echo $this->Form->input(
+                                                            'next_payment', array(
+                                                        'type' => 'text',
+                                                        'class' => 'datepicker form-control ',
+                                                    ));
+                                                    ?>
+                                                </div>
+<!--                                                <label class="control-label col-md-1">Payment amount:<span class="required">
+                                                    </span>
+                                                </label>
+                                                <div class="col-md-2">
+                                                    <?php
+//                                                    echo $this->Form->input(
+//                                                            'payable_amount', array(
+//                                                        'type' => 'text',
+//                                                        'class' => 'form-control',
+//                                                    ));
+//                                                    ?>
+                                                </div>-->
+                                            </div>
+                                        </div>
+
+                                        <div class="form-actions">
+                                            <div class="row">
+                                                <div class="col-md-offset-6 col-md-4">
+                                                    <?php
+                                                    echo $this->Form->button(
+                                                            'Submit', array('class' => 'btn red-sunglo', 'type' => 'submit', 'style' => "background-color: #daae2b;",)
+                                                    );
+                                                    ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php echo $this->Form->end(); ?>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--                    End update next payment date-->
 
                 </div>
             </div>
