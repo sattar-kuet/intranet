@@ -52,6 +52,9 @@
                                         Detail Information
                                     </th>
                                     <th>
+                                        New Address
+                                    </th>
+                                    <th>
                                         Schedule date
                                     </th>
                                     <th>
@@ -63,7 +66,7 @@
                                 <?php
                                 foreach ($filteredData as $results):
 
-//                                     pr($results['installations'][0]['user_id']['id']);
+//                                     pr($results['new_addr']);
 //                                exit;
 
                                     $customer = $results['customers'];
@@ -161,6 +164,9 @@
                                             ?>
 
 
+                                        </td>
+                                        <td>
+                                            <?php echo $customer['new_addr']; ?>
                                         </td>
                                         <td>
                                             <?php if (!empty($results['installations'][0]['user_id']['schedule_date'])): ?>    

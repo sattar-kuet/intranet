@@ -47,7 +47,7 @@
                                     <th>Detail</th>
                                     <th>History</th>
                                     <th>Action</th>
-                                    
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -58,7 +58,7 @@
                                     $customer = end($single['history']);
                                     $customer = $customer['pc'];
                                     $ticket = $single['ticket'];
-                                //     pr($customer); exit;
+                                    //     pr($customer); exit;
                                     ?>
                                     <tr >
                                         <td >
@@ -71,13 +71,13 @@
                                                 <li> Cell: <?php echo $customer['cell']; ?> </li> 
                                             </ul>
                                         </td>
-                                        <td><?php echo date_format( new DateTime($ticket['created']) , 'm-d-Y h:i:sa' ); ?></td>
+                                        <td><?php echo date_format(new DateTime($ticket['created']), 'm-d-Y h:i:sa'); ?></td>
                                         <td><?php echo $ticket['content']; ?></td>
                                         <td>
                                             <ol>
                                                 <?php
                                                 $lasthistory = $single['history'][0]['tr'];
-                                             
+//                                                pr($lasthistory['id']); exit;
                                                 foreach ($single['history'] as $history):
                                                     ?>
                                                     <li>
@@ -91,7 +91,7 @@
                                                         ?>
                                                         <?php echo $history['fb']['name']; ?>
                                                         <p><strong>Forwarded To:</strong><ul><li><?php echo $history['fi']['name']; ?> </li><li><?php echo $history['fd']['name']; ?> </li></ul>
-                                                        <strong>Time:</strong> <?php  echo date_format( new DateTime($history['tr']['created']) , 'm-d-Y h:i:sa' );?>
+                                                        <strong>Time:</strong> <?php echo date_format(new DateTime($history['tr']['created']), 'm-d-Y h:i:sa'); ?>
 
                                                         &nbsp;&nbsp;<strong>Status:</strong> <?php echo $history['tr']['status']; ?><br>
                                                         <?php
@@ -161,7 +161,7 @@
                                                                 )
                                                         );
                                                         ?>
-                                                         <?php
+                                                        <?php
                                                         echo $this->Form->input('package_customer_id', array(
                                                             'type' => 'hidden',
                                                             'value' => $lasthistory['package_customer_id'],
@@ -291,6 +291,13 @@
                                                                 )
                                                         );
                                                         ?>
+                                                        <?php
+                                                        echo $this->Form->input('id', array(
+                                                            'type' => 'hidden',
+                                                            'value' => $lasthistory['id'],
+                                                                )
+                                                        );
+                                                        ?>
 
                                                         <?php
                                                         echo $this->Form->input('forwarded_by', array(
@@ -307,6 +314,15 @@
                                                                 )
                                                         );
                                                         ?>
+
+                                                         <?php
+                                                        echo $this->Form->input('package_customer_id', array(
+                                                            'type' => 'hidden',
+                                                            'value' => $lasthistory['package_customer_id'],
+                                                                )
+                                                        );
+                                                        ?>
+
                                                         <?php
                                                         echo $this->Form->input('issue_id', array(
                                                             'type' => 'hidden',
@@ -454,7 +470,7 @@
                                                         <!-- END FORM-->
                                                     </div> 
 
-                                                    
+
                                                     <div id="comment_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
 
                                                         <!-- BEGIN FORM-->
@@ -545,7 +561,7 @@
                                                         <!-- END FORM-->
                                                     </div> 
 
-                                                    
+
                                                     <?php
                                                 } else {
                                                     echo 'Nothing to do';

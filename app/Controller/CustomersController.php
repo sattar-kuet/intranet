@@ -160,8 +160,10 @@ class CustomersController extends AppController {
             } else {
                 $this->request->data['PackageCustomer']['attachment'] = '';
             }
+            
+            
             $pc = $this->PackageCustomer->save($this->request->data['PackageCustomer']);
-//            pr(); exit;
+
             $data4statusHistory = array();
             $data4statusHistory['StatusHistory'] = array(
                 'package_customer_id' => $pc['PackageCustomer']['id'],

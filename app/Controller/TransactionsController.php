@@ -272,8 +272,8 @@ class TransactionsController extends AppController {
         $user_id = $user_info['id'];
 
         $this->request->data['Transaction']['user_id'] = $user_id;
-
-        $this->request->data['Transaction']['next_payment'] = $this->getFormatedDate($this->request->data['Transaction']['next_payment']);
+        $this->request->data['Transaction']['exp_date'] = $this->request->data['PackageCustomer']['exp_date']['month'].'/'.$this->request->data['PackageCustomer']['exp_date']['year'];
+        $this->request->data['Transaction']['package_customer_id'] = $this->request->data['PackageCustomer']['id'];
         $this->Transaction->save($this->request->data['Transaction']);
         $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>

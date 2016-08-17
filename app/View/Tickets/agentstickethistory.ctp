@@ -27,9 +27,9 @@
                         <div class="caption">
                             <i class="fa fa-ticket"></i>List of all tickets
                         </div>
-<!--                        <div class="tools">
+                        <div class="tools">
                                <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'create', $this->request->params['pass'][0])) ?>" style="font-weight: bold; color: #E02222;">Generate Ticket</a>
-                        </div>-->
+                        </div>
                     </div>
                     <div class="portlet-body">
                         <?php echo $this->Session->flash(); ?>

@@ -249,7 +249,8 @@ class ReportsController extends AppController {
             $conditions = array('Transaction.created >=' => $datrange['start'], 'Transaction.created <=' => $datrange['end']);
 
             $transactions = $this->Transaction->find('all', array('conditions' => $conditions));
-
+// pr($transactions);
+//            exit;
             $clicked = true;
             $this->set(compact('transactions'));
         }
@@ -289,7 +290,7 @@ class ReportsController extends AppController {
             
             $conditions.="###";
             $conditions = str_replace("AND###", "", $conditions);
-            $conditions = str_replace("AND ###", "", $conditions);
+            $conditions = str_replace("AND ###", "", $conditions);           
             $conditions = str_replace("###", "", $conditions);
             
             $sql = "SELECT * FROM tracks tr

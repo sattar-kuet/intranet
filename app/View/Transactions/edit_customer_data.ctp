@@ -747,6 +747,8 @@
                                         'value' => $this->params['pass'][0],
                                     ));
                                     ?>
+
+                                    
                                     <div class="row">
                                         <div class="col-md-3 signupfont" style="padding-right: 0px;">
                                             Card no: 
@@ -2193,6 +2195,7 @@
                                         <tbody>
                                             <?php
                                             foreach ($data as $single):
+                                                
                                                 $issue = end($single['history']);
                                                 $customer = end($single['history']);
                                                 $customer = $customer['pc'];
