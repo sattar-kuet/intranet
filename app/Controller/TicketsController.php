@@ -58,7 +58,6 @@ class TicketsController extends AppController {
                 }
 
                 $this->PackageCustomer->id = $customer_id;
-//                pr($this->request->data); exit;
 
                 $data['PackageCustomer'] = array(
                     "deposit" => $this->request->data['Ticket']['deposit'],
@@ -71,13 +70,12 @@ class TicketsController extends AppController {
                     "user_id" => $loggedUser['id']
                 );
 
-
-//                 pr($data); exit;
                 $this->PackageCustomer->save($data);
                 if (trim($this->request->data['Ticket']['action_type']) == 'solved') {
                     $this->request->data['Ticket']['priority'] = 'low';
                 }
-
+                pr($this->request->data); exit;
+                
                 $tickect = $this->Ticket->save($this->request->data['Ticket']); // Data save in Ticket
 
                 $trackData['Track'] = array(
@@ -104,7 +102,6 @@ class TicketsController extends AppController {
                         'cancel_mac' => $mac,
                         'hold_date' => $this->request->data['Ticket']['hold_date']
                     );
-//                    pr($data); exit;
                     $this->PackageCustomer->save($data);
                 }
 
@@ -115,8 +112,6 @@ class TicketsController extends AppController {
                         'cancel_mac' => $mac,
                         'reconnect_date' => $this->request->data['Ticket']['reconnect_date']
                     );
-//                    pr($data);
-//                    exit;
 
                     $this->PackageCustomer->save($data);
                 }
@@ -251,15 +246,13 @@ class TicketsController extends AppController {
 
     function solve() {
         $this->loadModel('Track');
+        $this->Track->set($this->request->data);
+        $this->Track->id = $this->request->data['Track']['id'];
         $this->request->data['Track']['status'] = 'solved';
         $this->request->data['Track']['package_customer_id'] = $this->request->data['Track']['package_customer_id'];
+
         $loggedUser = $this->Auth->user();
-        
         $this->request->data['Track']['forwarded_by'] = $loggedUser['id'];
-        pr($this->request->data);
-        exit;
-        $this->Track->id = $this->request->data['Track']['id'];
-        
         $this->Track->save($this->request->data['Track']);
         $msg = '<div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -445,6 +438,7 @@ class TicketsController extends AppController {
 //                    inner join roles r on  tr.role_id = r.id
 //                    inner join users ft on  tr.user_id = ft.id order by tr.created desc");
         $loggedUser = $this->Auth->user();
+//        pr($loggedUser); exit;
         if ($loggedUser['Role']['name'] == 'sadmin') {
             $tickets = $this->Track->query("SELECT * FROM tracks tr
                         left JOIN tickets t ON tr.ticket_id = t.id
@@ -453,9 +447,8 @@ class TicketsController extends AppController {
                         left JOIN users fi ON tr.user_id = fi.id
                         left JOIN issues i ON tr.issue_id = i.id
 			left join package_customers pc on tr.package_customer_id = pc.id where pc.id = $id order by tr.created DESC");
-//            pr($tickets);
-//        exit;
         } else {
+
             $tickets = $this->Track->query("SELECT * FROM tracks tr
                         left JOIN tickets t ON tr.ticket_id = t.id
                         left JOIN users fb ON tr.forwarded_by = fb.id
@@ -465,8 +458,7 @@ class TicketsController extends AppController {
                         left join package_customers pc on tr.package_customer_id = pc.id where pc.id = $id
                         and tr.role_id =" . $loggedUser['Role']['id'] . " OR tr.user_id =" . $loggedUser['Role']['id'] . " ORDER BY tr.created DESC");
         }
-//        pr('here');
-//        exit;
+
         $filteredTicket = array();
         $unique = array();
         $index = 0;
