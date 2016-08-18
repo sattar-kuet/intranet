@@ -74,7 +74,7 @@ class TicketsController extends AppController {
                 if (trim($this->request->data['Ticket']['action_type']) == 'solved') {
                     $this->request->data['Ticket']['priority'] = 'low';
                 }
-                pr($this->request->data); exit;
+//                pr($this->request->data); exit;
                 
                 $tickect = $this->Ticket->save($this->request->data['Ticket']); // Data save in Ticket
 
