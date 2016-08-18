@@ -77,7 +77,7 @@
                                             <ol>
                                                 <?php
                                                 $lasthistory = $single['history'][0]['tr'];
-//                                                pr($lasthistory['id']); exit;
+//                                                pr($lasthistory['package_customer_id']); exit;
                                                 foreach ($single['history'] as $history):
                                                     ?>
                                                     <li>
@@ -110,7 +110,7 @@
                                         <td>   
                                             <div class="controls center text-center">
                                                 <?php if ($lasthistory['status'] == 'open') { ?>                                            
-
+                                             
                                                     <a 
                                                         href="#" title="Solved">
                                                         <span id="<?php echo $ticket['id']; ?>" class="fa fa-check fa-lg solve_ticket"></span>
@@ -424,6 +424,14 @@
                                                         echo $this->Form->input('issue_id', array(
                                                             'type' => 'hidden',
                                                             'value' => $lasthistory['issue_id'],
+                                                                )
+                                                        );
+                                                        ?>
+                                                        
+                                                        <?php
+                                                        echo $this->Form->input('package_customer_id', array(
+                                                            'type' => 'hidden',
+                                                            'value' => $lasthistory['package_customer_id'],
                                                                 )
                                                         );
                                                         ?>

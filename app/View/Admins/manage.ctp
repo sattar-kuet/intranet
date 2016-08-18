@@ -42,7 +42,7 @@
                             <thead>
                                 <tr>
                                     <th>Name</th>
-                                    <th>Picture</th>                                    
+                                    <!--<th>Picture</th>-->                                    
                                     <th>Email</th>
                                     <th>Role </th>
                                     <th>Status</th>
@@ -57,11 +57,11 @@
                                     ?>
                                     <tr >
                                         <td><?php echo $agent['name']; ?></td>
-                                        <td>
+<!--                                        <td>
                                             <?php if (!empty($agent['picture'])): ?>
-                                                <img src="<?php echo $this->webroot . 'pictures' . '/' . $agent['picture']; ?>"  width="50px" height="50px" />
+                                                <img src="<?php // echo $this->webroot . 'pictures' . '/' . $agent['picture']; ?>"  width="50px" height="50px" />
                                             <?php endif ?>
-                                        </td>
+                                        </td>-->
                                         <td><?php echo $agent['email']; ?></td>
                                         <td><?php echo $single['Role']['name']; ?></td>
                                         <td><?php echo $agent['status']; ?></td>

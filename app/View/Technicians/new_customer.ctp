@@ -65,12 +65,7 @@
                             <tbody>
                                 <?php
                                 foreach ($filteredData as $results):
-
-//                                     pr($results['new_addr']);
-//                                exit;
-
                                     $customer = $results['customers'];
-//                                  pr($results['customers']['id']); exit;
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
                                             . $customer['zip'];

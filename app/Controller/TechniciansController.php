@@ -405,7 +405,7 @@ class TechniciansController extends AppController {
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id                    
                     left join installations ins on ins.package_customer_id = pc.id 
-                    WHERE ins.user_id = " . $loggedUser['id'] . " and ins.status = 'done'  ORDER BY ins.id");
+                    WHERE ins.user_id = " . $loggedUser['id'] . " and ins.status = 'done by tech'  ORDER BY ins.id");
         
         // echo $sql; exit;
         $filteredData = array();

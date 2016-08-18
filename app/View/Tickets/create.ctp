@@ -247,28 +247,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group" id="action" >
-                                <label class="control-label col-md-3">Select Action 
-                                </label>
-                                <div class="form-group">
-                                    <div class="col-md-4">
-                                        <?php
-                                        echo $this->Form->input('action_type', array(
-                                            'type' => 'select',
-                                            'options' => array(
-                                                'ready ' => 'Troubleshoot Tech',
-                                                'shipment' => 'Troubleshoot shipment',
-                                                'solved ' => "It's Solved"
-                                            ),
-                                            'empty' => 'Select Action',
-                                            'class' => 'form-control select2me ',
-                                            'id' => 'action_type'
-                                                )
-                                        );
-                                        ?>
-                                    </div>
-                                </div>
-                            </div>
+                            
 
                             <div id="shipmentshow_hide" style="display: none" class="alert alert-success">
                                 <div class="form-group">
@@ -350,10 +329,7 @@
                                         ?>
                                     </div>
                                 </div>
-
                             </div>
-
-
                             <div class="form-group assign_single">
                                 <label class="control-label col-md-3">Assign to (individual)
                                 </label>
@@ -390,6 +366,30 @@
                                     </div>
                                 </div>
                             </div>
+                            
+                            <div class="form-group" id="action" >
+                                <label class="control-label col-md-3">Select Action 
+                                </label>
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <?php
+                                        echo $this->Form->input('action_type', array(
+                                            'type' => 'select',
+                                            'options' => array(
+                                                'ready ' => 'Troubleshoot Tech',
+                                                'shipment' => 'Troubleshoot shipment',
+                                                'solved ' => "It's Solved"
+                                            ),
+                                            'empty' => 'Select Action',
+                                            'class' => 'form-control select2me ',
+                                            'id' => 'action_type'
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                            
                             <div class="form-group priority">
                                 <label class="control-label col-md-3">Select Priority<span class="required">
                                         * </span>

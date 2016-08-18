@@ -242,7 +242,7 @@
                                         'type' => 'select',
                                         'options' => $issues,
                                         'empty' => 'Select Issue',
-                                        'class' => 'form-control select2me required  issueChange',
+                                        'class' => 'form-control select2me   issueChange',
                                             )
                                     );
                                     ?>

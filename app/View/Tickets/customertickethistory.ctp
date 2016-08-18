@@ -66,6 +66,7 @@
                                             <ol>
                                                 <?php
                                                 $lasthistory = $single['history'][0]['tr'];
+//                                                pr($lasthistory); exit;
                                                 foreach ($single['history'] as $history):
                                                     ?>
                                                     <li>
@@ -268,6 +269,13 @@
                                                         );
                                                         ?>
                                                         <?php
+                                                        echo $this->Form->input('id', array(
+                                                            'type' => 'hidden',
+                                                            'value' => $lasthistory['id'],
+                                                                )
+                                                        );
+                                                        ?>
+                                                        <?php
                                                         echo $this->Form->input('user_id', array(
                                                             'type' => 'hidden',
                                                             'value' => $lasthistory['user_id'],
@@ -285,6 +293,13 @@
                                                         echo $this->Form->input('issue_id', array(
                                                             'type' => 'hidden',
                                                             'value' => $lasthistory['issue_id'],
+                                                                )
+                                                        );
+                                                        ?>
+                                                        <?php
+                                                        echo $this->Form->input('package_customer_id', array(
+                                                            'type' => 'hidden',
+                                                            'value' => $lasthistory['package_customer_id'],
                                                                 )
                                                         );
                                                         ?>
