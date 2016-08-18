@@ -66,8 +66,8 @@
                                 <?php
                                 foreach ($filteredData as $results):
 
-//                                     pr($results['new_addr']);
-//                                exit;
+                                     pr($results);
+                                exit;
 
                                     $customer = $results['customers'];
 //                                  pr($results['customers']['id']); exit;

@@ -74,7 +74,6 @@ class TicketsController extends AppController {
                 if (trim($this->request->data['Ticket']['action_type']) == 'solved') {
                     $this->request->data['Ticket']['priority'] = 'low';
                 }
-                pr($this->request->data); exit;
                 
                 $tickect = $this->Ticket->save($this->request->data['Ticket']); // Data save in Ticket
 
@@ -180,7 +179,7 @@ class TicketsController extends AppController {
                     $this->PackageCustomer->save($data['PackageCustomer']);
                     //$log = $this->PackageCustomer->getDataSource()->getLog(false, false);
                 }
-//                 pr('here'); exit;
+//                 pr($this->request->data); exit;
                 $this->Track->save($trackData); // Data save in Track
                 $msg = '<div class="alert alert-success">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -401,7 +400,6 @@ class TicketsController extends AppController {
                                         WHERE tr.ticket_id IN (SELECT ticket_id from tracks  tr where tr.forwarded_by = " .
                 $loggedUser['id'] . ")" . " ORDER BY tr.id DESC");
 
-// pr($tickets); exit;
         $filteredTicket = array();
         $unique = array();
         $index = 0;
@@ -438,7 +436,6 @@ class TicketsController extends AppController {
 //                    inner join roles r on  tr.role_id = r.id
 //                    inner join users ft on  tr.user_id = ft.id order by tr.created desc");
         $loggedUser = $this->Auth->user();
-//        pr($loggedUser); exit;
         if ($loggedUser['Role']['name'] == 'sadmin') {
             $tickets = $this->Track->query("SELECT * FROM tracks tr
                         left JOIN tickets t ON tr.ticket_id = t.id
@@ -480,8 +477,6 @@ class TicketsController extends AppController {
         $data = $filteredTicket;
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
-        //   pr($data); exit;
-        //  pr($roles); exit;
         $this->set(compact('data', 'users', 'roles'));
     }
 
