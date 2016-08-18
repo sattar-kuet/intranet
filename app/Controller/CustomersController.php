@@ -212,13 +212,12 @@ class CustomersController extends AppController {
         $temp = $this->PackageCustomer->query($sql);
         $ym = $this->getYm();
         $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
-        $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge', 'issues'));
+        $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge','issues'));
         //*************** End Package List ******************
         $ym = $this->getYm();
         $this->set(compact('ym'));
         //   $this->loadModel('User');
         //   $this->loadModel('Role');
-
         $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
         //  pr($technician); exit;
     }
@@ -227,7 +226,6 @@ class CustomersController extends AppController {
         $pcid = $id;
         $this->loadModel('PackageCustomer');
         $this->loadModel('Comment');
-        $this->loadModel('Issue');
         if ($this->request->is('post') || $this->request->is('put')) {
             // pr($this->request->data); exit;
             $this->PackageCustomer->set($this->request->data);
@@ -245,15 +243,13 @@ class CustomersController extends AppController {
             $dateObj = $this->request->data['PackageCustomer']['exp_date'];
             $this->request->data['PackageCustomer']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
 
-
-
-
             if (!empty($this->request->data['PackageCustomer']['attachment']['name'])) {
                 $result = $this->processAttachment($this->request->data['PackageCustomer']);
                 $this->request->data['PackageCustomer']['attachment'] = $result['file_dst_name'];
             } else {
                 $this->request->data['PackageCustomer']['attachment'] = '';
             }
+
             $this->PackageCustomer->save($this->request->data['PackageCustomer']);
             //update last comment
             if ($this->request->data['PackageCustomer']['comment_id']) {
@@ -303,8 +299,11 @@ class CustomersController extends AppController {
         $temp = $this->PackageCustomer->query($sql);
 
         $ym = $this->getYm();
-        $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
-        $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge', 'latestcardInfo', 'issues'));
+
+
+
+
+        $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge', 'latestcardInfo'));
         //*************** End Package List ****************************************************************************************
         $ym = $this->getYm();
 
@@ -593,9 +592,9 @@ class CustomersController extends AppController {
     function shedule_assian($id = null) {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Installation');
-        $loggedUser = $this->Auth->user();
+        $loggedUser = $this->Auth->user();        
         $date = $this->request->data['PackageCustomer']['schedule_date'] . ' ' . $this->request->data['PackageCustomer']['seTime'];
-
+        
         $this->request->data['Installation']['assign_by'] = $loggedUser['id'];
         $this->request->data['Installation']['package_customer_id'] = $this->request->data['PackageCustomer']['id'];
         $this->request->data['Installation']['schedule_date'] = $date;

@@ -786,7 +786,7 @@
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
-                    <li
+<!--                    <li
                     <?php if ($this->name . '' . $this->action == 'Reportsactive'):
                         ?>
                             class="active"
@@ -798,7 +798,7 @@
                         <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'active')) ?>">
                             <i class="fa fa-check-square-o"></i>
                             Active</a>
-                    </li>
+                    </li>-->
                     <li
                     <?php if ($this->name . '' . $this->action == 'Reportscancel'):
                         ?>

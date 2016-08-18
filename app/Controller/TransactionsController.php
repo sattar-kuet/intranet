@@ -171,13 +171,7 @@ class TransactionsController extends AppController {
                 'issue_id' => 100,
                 'forwarded_by' => $loggedUser['id']
             );
-            // INCREASE CHARGED AMOUNT IF TRANSACTION IS SUCCESSFUL
-            // $this->PackageCustomer->id = $cid;
-            //$data = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $cid)));
-            // $present_due['PackageCustomer']['charge_amount'] = (float) $data['PackageCustomer']['charge_amount'] + (float) $charged_amount;
-            //  $this->PackageCustomer->save($present_due);
-            // $this->PackageCustomer->save($this->request->data['PackageCustomer']);
-            //END OF DUE UPDATE
+   
             $this->Track->save($trackData);
         }
 
@@ -243,12 +237,8 @@ class TransactionsController extends AppController {
         $temp = $this->PackageCustomer->query($sql);
         $ym = $this->getYm();
         $this->loadModel('Transaction');
-
-        $temp = $this->Transaction->find('first', array(
-            'conditions' => array('package_customer_id' => $pcid, 'Transaction.exp_date !=' => ''),
-            'order' => array('Transaction.id' => 'DESC')
-                )
-        );
+        $sql = "SELECT * FROM transactions WHERE transactions.status ='success' AND transactions.pay_mode='card' AND transactions.package_customer_id = $pcid ORDER BY transactions.id DESC LIMIT 1";
+        $temp = $this->Transaction->query($sql);
         $yyyy = 0;
         $mm = -1;
         if (count($temp)) {
@@ -263,11 +253,9 @@ class TransactionsController extends AppController {
             $latestcardInfo = array('trx_id' => '', 'card_no' => '', 'exp_date' => array('year' => $yyyy, 'month' => $mm));
         }
         $this->loadModel('Transaction');
-        $transactions_data = $this->Transaction->query("SELECT * FROM transactions WHERE package_customer_id = $pcid order by id desc limit 0,1;");
 
-        if (count($transactions_data)) {
-            $this->request->data['Transaction'] = $transactions_data['0']['transactions'];
-        }
+
+
 
         $transactions_all = $this->Transaction->query("SELECT * 
             FROM  `transactions` tr
@@ -282,6 +270,7 @@ class TransactionsController extends AppController {
         $this->loadModel('Transaction');
         $user_info = $this->Auth->user();
         $user_id = $user_info['id'];
+
         $this->request->data['Transaction']['user_id'] = $user_id;
         $this->request->data['Transaction']['exp_date'] = $this->request->data['PackageCustomer']['exp_date']['month'].'/'.$this->request->data['PackageCustomer']['exp_date']['year'];
         $this->request->data['Transaction']['package_customer_id'] = $this->request->data['PackageCustomer']['id'];
