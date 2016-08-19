@@ -282,16 +282,31 @@ class ReportsController extends AppController {
                 $conditions .=" tr.forwarded_by = $agent AND";
             }
             if (count($datrange)) {
-                $conditions .=" t.created >='" . $datrange['start'] . "' AND  t.created <='" . $datrange['end'] . "' AND ";
+               
+                if ($datrange['start'] == $datrange['end']) {
+                   // SELECT * FROM tracks tr left JOIN tickets t ON tr.ticket_id = t.id 
+                   // where t.created >=' 2016-04-13' and t.created < '2016-04-15'
+                   
+                   // WHERE  t.created >='2016-06-06' AND  t.created <'2016-06-07' 
+                    
+                    $nextday = date('Y-m-d', strtotime($datrange['end'] . "+1 days"));
+                    $conditions .=" t.created >=' " . $datrange['start'] . "' AND  t.created < '" . $nextday . "' AND ";
+                } else {
+
+                    $conditions .=" t.created >='" . $datrange['start'] . "' AND  t.created <='" . $datrange['end'] . "' AND ";
+                }
             }
             if (!empty($status)) {
                 $conditions .=" tr.status = '$status'";
             }
-            
+
             $conditions.="###";
             $conditions = str_replace("AND###", "", $conditions);
-            $conditions = str_replace("AND ###", "", $conditions);           
+            $conditions = str_replace("AND ###", "", $conditions);
             $conditions = str_replace("###", "", $conditions);
+
+            
+            
             
             $sql = "SELECT * FROM tracks tr
                         left JOIN tickets t ON tr.ticket_id = t.id
@@ -301,9 +316,10 @@ class ReportsController extends AppController {
                         left JOIN issues i ON tr.issue_id = i.id
                         left join package_customers pc on tr.package_customer_id = pc.id
                          WHERE $conditions";
-//             pr($sql); exit;
+//            pr($sql);
+//            exit;
             $tickets = $this->Track->query($sql);
-            
+
             $filteredTicket = array();
             $unique = array();
             $index = 0;
@@ -326,11 +342,11 @@ class ReportsController extends AppController {
             $clicked = true;
             $this->set(compact('filteredTicket'));
         }
-         
+
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
         $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
-        $this->set(compact('clicked', 'data', 'users', 'issues','roles'));
+        $this->set(compact('clicked', 'data', 'users', 'issues', 'roles'));
     }
 
     function getTotalCall() {

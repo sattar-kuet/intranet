@@ -160,8 +160,8 @@ class CustomersController extends AppController {
             } else {
                 $this->request->data['PackageCustomer']['attachment'] = '';
             }
-            
-            
+
+
             $pc = $this->PackageCustomer->save($this->request->data['PackageCustomer']);
 
             $data4statusHistory = array();
@@ -212,7 +212,7 @@ class CustomersController extends AppController {
         $temp = $this->PackageCustomer->query($sql);
         $ym = $this->getYm();
         $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
-        $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge','issues'));
+        $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge', 'issues'));
         //*************** End Package List ******************
         $ym = $this->getYm();
         $this->set(compact('ym'));
@@ -226,6 +226,7 @@ class CustomersController extends AppController {
         $pcid = $id;
         $this->loadModel('PackageCustomer');
         $this->loadModel('Comment');
+        $this->loadModel('Issue');
         if ($this->request->is('post') || $this->request->is('put')) {
             // pr($this->request->data); exit;
             $this->PackageCustomer->set($this->request->data);
@@ -302,8 +303,10 @@ class CustomersController extends AppController {
 
 
 
+        $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
+        $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge', 'latestcardInfo', 'issues'));
 
-        $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge', 'latestcardInfo'));
+//        $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge', 'latestcardInfo'));
         //*************** End Package List ****************************************************************************************
         $ym = $this->getYm();
 
@@ -592,9 +595,9 @@ class CustomersController extends AppController {
     function shedule_assian($id = null) {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Installation');
-        $loggedUser = $this->Auth->user();        
+        $loggedUser = $this->Auth->user();
         $date = $this->request->data['PackageCustomer']['schedule_date'] . ' ' . $this->request->data['PackageCustomer']['seTime'];
-        
+
         $this->request->data['Installation']['assign_by'] = $loggedUser['id'];
         $this->request->data['Installation']['package_customer_id'] = $this->request->data['PackageCustomer']['id'];
         $this->request->data['Installation']['schedule_date'] = $date;
