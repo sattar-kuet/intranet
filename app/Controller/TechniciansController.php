@@ -406,7 +406,11 @@ class TechniciansController extends AppController {
                     left join issues i on pc.issue_id = i.id                    
                     left join installations ins on ins.package_customer_id = pc.id 
                     WHERE ins.user_id = " . $loggedUser['id'] . " and ins.status = 'done by tech'  ORDER BY ins.id");
+<<<<<<< HEAD
+
+=======
         
+>>>>>>> 0a92200d2875d01a7bd32f3c6e9263877683eeb2
         // echo $sql; exit;
         $filteredData = array();
         $unique = array();
@@ -525,7 +529,7 @@ class TechniciansController extends AppController {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Comment');
         $this->loadModel('Installation');
-        
+
         $this->Installation->id = $this->request->data['PackageCustomer']['id'];
 
         $this->request->data['Installation']['status'] = 'done by tech';
@@ -556,6 +560,13 @@ class TechniciansController extends AppController {
     function postPone() {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Comment');
+        $this->loadModel('Installation');
+//          pr($this->request->data); exit;
+        $this->Installation->id = $this->request->data['PackageCustomer']['id'];
+        $this->request->data['Installation']['status'] = 'post pone';
+//      
+        $this->Installation->save($this->request->data);
+
         $loggedUser = $this->Auth->user();
         $this->request->data['PackageCustomer']['status'] = 'post pone';
         $this->request->data['PackageCustomer']['approved'] = 0;
@@ -580,6 +591,13 @@ class TechniciansController extends AppController {
     function reschedule() {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Comment');
+        $this->loadModel('Installation');
+
+        $this->Installation->id = $this->request->data['PackageCustomer']['id'];
+        $this->request->data['Installation']['status'] = 'rescheduled';
+//      pr($this->request->data); exit;
+
+        $this->Installation->save($this->request->data);
         $loggedUser = $this->Auth->user();
         $this->request->data['PackageCustomer']['status'] = 'rescheduled';
         $this->request->data['PackageCustomer']['approved'] = 0;
@@ -604,6 +622,12 @@ class TechniciansController extends AppController {
     function cancel() {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Comment');
+
+        $this->loadModel('Installation');
+        $this->Installation->id = $this->request->data['PackageCustomer']['id'];
+        $this->request->data['Installation']['status'] = 'canceled';
+        $this->Installation->save($this->request->data);
+        
         $loggedUser = $this->Auth->user();
         $this->request->data['PackageCustomer']['status'] = 'canceled';
         $this->request->data['PackageCustomer']['approved'] = 0;
@@ -637,7 +661,7 @@ class TechniciansController extends AppController {
                     left join issues i on pc.issue_id = i.id                   
                     left join installations ins on ins.package_customer_id = pc.id 
                     WHERE ins.user_id = " . $loggedUser['id'] . " and ins.status = 'post pone'  ORDER BY ins.id");
-                   
+
         $filteredData = array();
         $unique = array();
         $index = 0;
@@ -711,7 +735,7 @@ class TechniciansController extends AppController {
                     left join issues i on pc.issue_id = i.id                   
                     left join installations ins on ins.package_customer_id = pc.id 
                     WHERE ins.user_id = " . $loggedUser['id'] . " and ins.status = 'rescheduled'  ORDER BY ins.id");
-                    
+
         $filteredData = array();
         $unique = array();
         $index = 0;
@@ -775,7 +799,7 @@ class TechniciansController extends AppController {
                       left join installations ins on ins.package_customer_id = pc.id 
                     WHERE ins.user_id = " . $loggedUser['id'] . " and ins.status = 'canceled'  ORDER BY ins.id");
 
-                    
+
         $filteredData = array();
         $unique = array();
         $index = 0;

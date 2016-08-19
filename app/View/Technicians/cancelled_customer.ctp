@@ -48,9 +48,9 @@
                                     <th>
                                         Detail Information
                                     </th>
-                                    <th>
+<!--                                    <th>
                                         Action
-                                    </th>
+                                    </th>-->
                                 </tr>
                             </thead>
                             <tbody>
@@ -58,7 +58,7 @@
 //                                pr($filteredData);
 //                                exit;
                                 foreach ($filteredData as $results):
-
+//                                    pr($results); exit;
 
                                     $customer = $results['customers'];
 //                                 pr($customer['repair_type']); exit; 
@@ -138,7 +138,7 @@
 
 
                                         </td>
-                                        <td> 
+<!--                                        <td> 
                                             <div class="controls center text-center">
                                                 <a 
                                                     href="doneDiv<?php echo $results['customers']['id']; ?>" title="Done" class="toggleDiv">
@@ -168,7 +168,7 @@
                                                 </a>   
 
                                                 <div id="doneDiv<?php echo $results['customers']['id']; ?>" class="hideRest portlet-body form" style="display: none;">
-                                                    <!-- BEGIN FORM-->
+                                                     BEGIN FORM
                                                     <?php
                                                     echo $this->Form->create('PackageCustomer', array(
                                                         'inputDefaults' => array(
@@ -183,7 +183,14 @@
                                                             )
                                                     );
                                                     ?>
-
+                                                    
+                                                     <?php
+                                                    echo $this->Form->input('id', array(
+                                                        'type' => 'hidden',
+                                                        'value' => $results['installations'][0]['user_id']['id'],
+                                                            )
+                                                    );
+                                                    ?>
 
                                                     <?php
                                                     echo $this->Form->input('package_customer_id', array(
@@ -226,11 +233,11 @@
                                                         </div>
                                                     </div>
                                                     <?php echo $this->Form->end(); ?>
-                                                    <!-- END FORM-->
+                                                     END FORM
                                                 </div>
 
                                                 <div id="commentDiv<?php echo $results['customers']['id']; ?>" class=" hideRest portlet-body form" style="display: none;">
-                                                    <!-- BEGIN FORM-->
+                                                     BEGIN FORM
                                                     <?php
                                                     echo $this->Form->create('Comment', array(
                                                         'inputDefaults' => array(
@@ -245,6 +252,15 @@
                                                             )
                                                     );
                                                     ?>
+                                                    
+                                                     <?php
+                                                    echo $this->Form->input('id', array(
+                                                        'type' => 'hidden',
+                                                        'value' => $results['installations'][0]['user_id']['id'],
+                                                            )
+                                                    );
+                                                    ?>
+                                                    
                                                     <?php
                                                     echo $this->Form->input('package_customer_id', array(
                                                         'type' => 'hidden',
@@ -286,11 +302,11 @@
                                                         </div>
                                                     </div>
                                                     <?php echo $this->Form->end(); ?>
-                                                    <!-- END FORM-->
+                                                     END FORM
                                                 </div>
 
                                                 <div id="postponeDiv<?php echo $results['customers']['id']; ?>" class="hideRest portlet-body form" style="display: none;">
-                                                    <!-- BEGIN FORM-->
+                                                     BEGIN FORM
                                                     <?php
                                                     echo $this->Form->create('PackageCustomer', array(
                                                         'inputDefaults' => array(
@@ -306,6 +322,13 @@
                                                     );
                                                     ?>
 
+                                                         <?php
+                                                    echo $this->Form->input('id', array(
+                                                        'type' => 'hidden',
+                                                        'value' => $results['installations'][0]['user_id']['id'],
+                                                            )
+                                                    );
+                                                    ?>
 
                                                     <?php
                                                     echo $this->Form->input('package_customer_id', array(
@@ -348,11 +371,11 @@
                                                         </div>
                                                     </div>
                                                     <?php echo $this->Form->end(); ?>
-                                                    <!-- END FORM-->
+                                                     END FORM
                                                 </div>
 
                                                 <div id="rescheduleDiv<?php echo $results['customers']['id']; ?>" class="hideRest portlet-body form" style="display: none;">
-                                                    <!-- BEGIN FORM-->
+                                                     BEGIN FORM
                                                     <?php
                                                     echo $this->Form->create('PackageCustomer', array(
                                                         'inputDefaults' => array(
@@ -368,7 +391,13 @@
                                                     );
                                                     ?>
 
-
+                                                     <?php
+                                                    echo $this->Form->input('id', array(
+                                                        'type' => 'hidden',
+                                                        'value' => $results['installations'][0]['user_id']['id'],
+                                                            )
+                                                    );
+                                                    ?>
 
                                                     <?php
                                                     echo $this->Form->input('package_customer_id', array(
@@ -411,11 +440,11 @@
                                                         </div>
                                                     </div>
                                                     <?php echo $this->Form->end(); ?>
-                                                    <!-- END FORM-->
+                                                     END FORM
                                                 </div>
 
                                                 <div id="cancelDiv<?php echo $results['customers']['id']; ?>" class="hideRest portlet-body form" style="display: none;">
-                                                    <!-- BEGIN FORM-->
+                                                     BEGIN FORM
                                                     <?php
                                                     echo $this->Form->create('PackageCustomer', array(
                                                         'inputDefaults' => array(
@@ -431,7 +460,14 @@
                                                     );
                                                     ?>
 
-
+                                                     <?php
+                                                    echo $this->Form->input('id', array(
+                                                        'type' => 'hidden',
+                                                        'value' => $results['installations'][0]['user_id']['id'],
+                                                            )
+                                                    );
+                                                    ?>
+                                                    
                                                     <?php
                                                     echo $this->Form->input('package_customer_id', array(
                                                         'type' => 'hidden',
@@ -473,11 +509,11 @@
                                                         </div>
                                                     </div>
                                                     <?php echo $this->Form->end(); ?>
-                                                    <!-- END FORM-->
+                                                     END FORM
                                                 </div>
 
                                             </div>
-                                        </td>
+                                        </td>-->
                                     </tr>
                                 <?php endforeach; ?>  
 
