@@ -603,6 +603,7 @@ class CustomersController extends AppController {
 
         $this->request->data['PackageCustomer']['schedule_date'] = $date;
         $this->request->data['PackageCustomer']['status'] = 'Scheduled';
+      //  pr($this->request->data); exit;
         $this->PackageCustomer->save($this->request->data);
 
         $this->Installation->save($this->request->data);
@@ -623,7 +624,7 @@ class CustomersController extends AppController {
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id
-                    WHERE pc.shipment = 1");
+                    WHERE pc.shipment = 1 AND pc.status !='Scheduled'");
         // echo $sql; exit;
         $filteredData = array();
         $unique = array();

@@ -65,12 +65,9 @@
                             <tbody>
                                 <?php
                                 foreach ($filteredData as $results):
-
-                                     pr($results);
-                                exit;
-
+//                                  pr($results['installations'][0]['user_id']['id']); exit;
                                     $customer = $results['customers'];
-//                                  pr($results['customers']['id']); exit;
+
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
                                             . $customer['zip'];
@@ -116,17 +113,17 @@
 
                                         </td>
 
-                        <!--                                        <td>
+                            <!--                                        <td>
                                         <?php
 //                                            foreach ($results['comments'] as $comment):
                                         ?>
-                                                                        <span title="<?php // echo $comment['content']['created'];      ?>" class="fa fa-hand-o-right ">  <?php echo $comment['content']['content']; ?> &nbsp;&nbsp;</span> <i> <?php echo $comment['user']['name']; ?></i>
-                                                                        <br> 
-                                                                        <br> 
+                                                                            <span title="<?php // echo $comment['content']['created'];       ?>" class="fa fa-hand-o-right ">  <?php echo $comment['content']['content']; ?> &nbsp;&nbsp;</span> <i> <?php echo $comment['user']['name']; ?></i>
+                                                                            <br> 
+                                                                            <br> 
 
                                         <?php // endforeach;
                                         ?>
-                                                                </td>-->
+                                                                    </td>-->
 
                                         <td>
                                             <?php if (trim($results['customers']['repair_type']) == 'old') { ?>
@@ -289,6 +286,15 @@
                                                             )
                                                     );
                                                     ?>
+                                                    
+                                                     <?php
+                                                    echo $this->Form->input('id', array(
+                                                        'type' => 'hidden',
+                                                        'value' => $results['installations'][0]['user_id']['id'],
+                                                            )
+                                                    );
+                                                    ?>
+                                                    
                                                     <?php
                                                     echo $this->Form->input('package_customer_id', array(
                                                         'type' => 'hidden',
@@ -349,7 +355,13 @@
                                                             )
                                                     );
                                                     ?>
-
+                                                    <?php
+                                                    echo $this->Form->input('id', array(
+                                                        'type' => 'hidden',
+                                                        'value' => $results['installations'][0]['user_id']['id'],
+                                                            )
+                                                    );
+                                                    ?>
 
                                                     <?php
                                                     echo $this->Form->input('package_customer_id', array(
@@ -412,7 +424,13 @@
                                                     );
                                                     ?>
 
-
+                                                    <?php
+                                                    echo $this->Form->input('id', array(
+                                                        'type' => 'hidden',
+                                                        'value' => $results['installations'][0]['user_id']['id'],
+                                                            )
+                                                    );
+                                                    ?>
 
                                                     <?php
                                                     echo $this->Form->input('package_customer_id', array(
@@ -475,6 +493,13 @@
                                                     );
                                                     ?>
 
+                                                    <?php
+                                                    echo $this->Form->input('id', array(
+                                                        'type' => 'hidden',
+                                                        'value' => $results['installations'][0]['user_id']['id'],
+                                                            )
+                                                    );
+                                                    ?>
 
                                                     <?php
                                                     echo $this->Form->input('package_customer_id', array(

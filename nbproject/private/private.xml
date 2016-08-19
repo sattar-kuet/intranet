@@ -1,32 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-<<<<<<< HEAD
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="14">
-=======
-<<<<<<< HEAD
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/Server/htdocs/intranet/app/Controller/AdminsController.php</file>
-            <file>file:/D:/Server/htdocs/intranet/app/Controller/ReportsController.php</file>
-            <file>file:/D:/Server/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
-            <file>file:/D:/Server/htdocs/intranet/app/Controller/CustomersController.php</file>
-            <file>file:/D:/Server/htdocs/intranet/app/Controller/TransactionsController.php</file>
-            <file>file:/D:/Server/htdocs/intranet/app/Controller/TicketsController.php</file>
-            <file>file:/D:/Server/htdocs/intranet/app/View/Elements/sadmin-sidebar.ctp</file>
-=======
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="12">
->>>>>>> 52bc591e79fb33053d89c0af392b975aff4f0254
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="19">
         <file>
             <url>app/Controller/TicketsController.php</url>
-            <bookmark id="14">
+            <bookmark id="15">
                 <name/>
-                <line>85</line>
+                <line>76</line>
                 <key/>
             </bookmark>
-            <bookmark id="13">
+            <bookmark id="14">
                 <name/>
-                <line>437</line>
+                <line>84</line>
+                <key/>
+            </bookmark>
+            <bookmark id="19">
+                <name/>
+                <line>254</line>
+                <key/>
+            </bookmark>
+            <bookmark id="16">
+                <name/>
+                <line>454</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>app/View/Tickets/customertickethistory.ctp</url>
+            <bookmark id="18">
+                <name/>
+                <line>68</line>
+                <key/>
+            </bookmark>
+            <bookmark id="17">
+                <name/>
+                <line>292</line>
                 <key/>
             </bookmark>
         </file>
@@ -71,21 +78,6 @@
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Elements/installation-sidebar.ctp</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/Controller/ReportsController.php</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Layouts/admin-login.ctp</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/Controller/TicketsController.php</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Reports/newcustomers.ctp</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/Controller/CustomersController.php</file>
-<<<<<<< HEAD
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Elements/sadmin-sidebar.ctp</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Layouts/public-login.ctp</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Layouts/profile.ctp</file>
-=======
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Tickets/customertickethistory.ctp</file>
->>>>>>> 8401b9d5fb462ff5eb508360405105375d52dd7c
->>>>>>> 52bc591e79fb33053d89c0af392b975aff4f0254
-        </group>
+        <group/>
     </open-files>
 </project-private>
