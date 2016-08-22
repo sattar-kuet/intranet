@@ -65,13 +65,8 @@
                             <tbody>
                                 <?php
                                 foreach ($filteredData as $results):
-<<<<<<< HEAD
-//                                  pr($results['installations'][0]['user_id']['id']); exit;
-                                    $customer = $results['customers'];
 
-=======
                                     $customer = $results['customers'];
->>>>>>> 0a92200d2875d01a7bd32f3c6e9263877683eeb2
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
                                             . $customer['zip'];
@@ -118,32 +113,6 @@
                                             </ul>
 
                                         </td>
-
-<<<<<<< HEAD
-                            <!--                                        <td>
-                                        <?php
-//                                            foreach ($results['comments'] as $comment):
-                                        ?>
-                                                                            <span title="<?php // echo $comment['content']['created'];       ?>" class="fa fa-hand-o-right ">  <?php echo $comment['content']['content']; ?> &nbsp;&nbsp;</span> <i> <?php echo $comment['user']['name']; ?></i>
-                                                                            <br> 
-                                                                            <br> 
-
-                                        <?php // endforeach;
-                                        ?>
-                                                                    </td>-->
-=======
-                                <!--                                        <td>
-                                        <?php
-//                                            foreach ($results['comments'] as $comment):
-                                        ?>
-                                                                                <span title="<?php // echo $comment['content']['created'];        ?>" class="fa fa-hand-o-right ">  <?php echo $comment['content']['content']; ?> &nbsp;&nbsp;</span> <i> <?php echo $comment['user']['name']; ?></i>
-                                                                                <br> 
-                                                                                <br> 
-
-                                        <?php // endforeach;
-                                        ?>
-                                                                        </td>-->
->>>>>>> 0a92200d2875d01a7bd32f3c6e9263877683eeb2
 
                                         <td>
                                             <?php if (trim($results['customers']['repair_type']) == 'old') { ?>
@@ -308,15 +277,15 @@
                                                             )
                                                     );
                                                     ?>
-                                                    
-                                                     <?php
+
+                                                    <?php
                                                     echo $this->Form->input('id', array(
                                                         'type' => 'hidden',
                                                         'value' => $results['installations'][0]['user_id']['id'],
                                                             )
                                                     );
                                                     ?>
-                                                    
+
                                                     <?php
                                                     echo $this->Form->input('package_customer_id', array(
                                                         'type' => 'hidden',
