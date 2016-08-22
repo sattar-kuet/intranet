@@ -216,7 +216,6 @@
                                     </div>
                                     <div class="col-md-1 signupfont">
                                         State:
-
                                     </div>
                                     <div class="col-md-3">
                                         <div class="input-list style-4 clearfix">
@@ -548,6 +547,7 @@
                                                 echo $this->Form->input(
                                                         'referred_phone', array(
                                                     'class' => '',
+                                                    'id' => 'phone'
                                                         )
                                                 );
                                                 ?> 
@@ -693,7 +693,7 @@
                                 &nbsp;
 
                                 <div class="col-md-12 margin-bottom-25" >
-                                    
+
 
                                     <div class="col-md-2 signupfont">
                                         Auto Recurring
@@ -707,14 +707,14 @@
                                                     'options' => array(
                                                         'empty' => 'Select Year',
                                                         'yes' => 'Yes',
-                                                        'no' => 'No',                                                       
-                                                ), )
+                                                        'no' => 'No',
+                                                    ),)
                                                 );
                                                 ?>
                                             </div>                            
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-md-2 signupfont">
                                         Repeat at Every
                                     </div>
@@ -733,7 +733,7 @@
                                             </div>                            
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-md-2 signupfont">
                                         Recurring From
                                     </div>
@@ -985,8 +985,8 @@
                                                         <div id="option_card">
 
                                                             <?php
-                                                         //   pr($latestcardInfo);
-                                                         //   exit;
+                                                            //   pr($latestcardInfo);
+                                                            //   exit;
 
                                                             echo $this->Form->create('Transaction', array(
                                                                 'inputDefaults' => array(
@@ -1016,6 +1016,131 @@
                                                             ));
                                                             ?>
                                                             <br>
+
+                                                            <div class="row">
+                                                                <div class="col-md-3 signupfont" style="padding-right: 0px;">
+                                                                    Card Number: 
+                                                                </div>
+                                                                <div class="col-md-9">
+                                                                    <?php
+                                                                    echo $this->Form->input(
+                                                                            'card_no', array(
+                                                                        'type' => 'text',
+                                                                        'value' => '',
+                                                                        'class' => 'form-control input-sm required',
+                                                                        'id' => 'card_number',
+                                                                        'value' => $latestcardInfo['card_no']
+                                                                    ));
+                                                                    ?>
+                                                                </div>
+                                                            </div>
+
+                                                            &nbsp;                                                        
+
+                                                            <div class="row">
+                                                                <div class="col-md-3 signupfont">
+                                                                    Expiration Date:
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <?php
+                                                                    echo $this->Form->input('exp_date.year', array(
+                                                                        'type' => 'select',
+                                                                        'options' => $ym['year'],
+                                                                        'empty' => 'Select Year',
+                                                                        'class' => 'span12 uniform nostyle select1 required',
+                                                                        'div' => array('class' => 'span12 '),
+                                                                        'id' => 'showyear',
+                                                                        'default' => $latestcardInfo['exp_date']['year']
+                                                                            )
+                                                                    );
+                                                                    ?>
+                                                                </div>
+                                                                <div class="col-md-5">
+                                                                    <?php
+                                                                    echo $this->Form->input('exp_date.month', array(
+                                                                        'type' => 'select',
+                                                                        'options' => $ym['month'],
+                                                                        'empty' => 'Select Month',
+                                                                        'class' => 'span12 uniform nostyle select1 required',
+                                                                        'div' => array('class' => 'span12 '),
+                                                                        'id' => 'showmonth',
+                                                                        'default' => $latestcardInfo['exp_date']['month']
+                                                                            )
+                                                                    );
+                                                                    ?>
+                                                                </div>
+                                                            </div>
+                                                            &nbsp;
+                                                            <div class="row">
+                                                                <div class="col-md-3 signupfont">
+                                                                    Amount: 
+                                                                </div>
+                                                                <div class="col-md-9">
+                                                                    <?php
+                                                                    echo $this->Form->input(
+                                                                            'paid_amount', array(
+                                                                        'type' => 'text',
+                                                                        'value' => '',
+                                                                        'class' => 'form-control input-sm required'
+                                                                    ));
+                                                                    ?>
+                                                                </div>
+                                                            </div>
+                                                            <hr style="background-color:black;">
+                                                            <div class="row">
+                                                                <div class="col-md-3 signupfont">
+                                                                    Invoice#
+                                                                </div>
+                                                                <div class="col-md-5">
+                                                                    <?php
+                                                                    echo $this->Form->input(
+                                                                            'invoice', array(
+                                                                        'type' => 'text',
+                                                                        'value' => '',
+                                                                        'class' => 'form-control input-sm required'
+                                                                    ));
+                                                                    ?>
+                                                                </div>
+                                                            </div>
+                                                            <br>
+                                                            <div class="row">
+                                                                <div class="col-md-3 signupfont">
+                                                                    Description
+                                                                </div>
+                                                                <div class="col-md-9">
+                                                                    <?php
+                                                                    echo $this->Form->input(
+                                                                            'description', array(
+                                                                        'type' => 'text',
+                                                                        'value' => '',
+                                                                        'class' => 'form-control input-sm required'
+                                                                    ));
+                                                                    ?>
+                                                                </div>
+                                                            </div>
+
+
+                                                            <hr style="color: #333;">
+
+
+
+                                                            <div class="row">
+                                                                <div class="col-md-3 signupfont">
+                                                                    Customer ID 
+                                                                </div>
+                                                                <div class="col-md-5">
+                                                                    <?php
+                                                                    echo $this->Form->input(
+                                                                            'description', array(
+                                                                        'type' => 'text',
+                                                                        'value' => $transactions[0]['Transaction']['package_customer_id'],
+                                                                        'class' => 'form-control input-sm required'
+                                                                    ));
+                                                                    ?>
+                                                                </div>
+                                                            </div>
+                                                            <br>
+
                                                             <div class="row">
 
                                                                 <div class="col-md-3 signupfont">
@@ -1048,60 +1173,145 @@
                                                             </div>
 
                                                             </br>
-
                                                             <div class="row">
                                                                 <div class="col-md-3 signupfont" style="padding-right: 0px;">
-                                                                    Card no: 
+                                                                    Company 
                                                                 </div>
                                                                 <div class="col-md-9">
                                                                     <?php
                                                                     echo $this->Form->input(
-                                                                            'card_no', array(
+                                                                            'company', array(
                                                                         'type' => 'text',
-                                                                        'value' => '',
                                                                         'class' => 'form-control input-sm required',
                                                                         'id' => 'card_number',
-                                                                        'value' => $latestcardInfo['card_no']
+                                                                        'value' => $latestcardInfo['company']
+                                                                    ));
+                                                                    ?>
+                                                                </div>
+                                                            </div>
+                                                            </br>
+                                                            <div class="row">
+                                                                <div class="col-md-3 signupfont" style="padding-right: 0px;">
+                                                                    Address
+                                                                </div>
+                                                                <div class="col-md-5">
+                                                                    <?php
+                                                                    echo $this->Form->input(
+                                                                            'address', array(
+                                                                        'type' => 'text',
+                                                                        'class' => 'form-control input-sm required',
+                                                                        'value' => $latestcardInfo['address']
+                                                                    ));
+                                                                    ?>
+                                                                </div>
+                                                                <div class="col-md-1 signupfont" style="padding-right: 0px;">
+                                                                    City
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <?php
+                                                                    echo $this->Form->input(
+                                                                            'city', array(
+                                                                        'type' => 'text',
+                                                                        'class' => 'form-control input-sm required',
+                                                                        'value' => $latestcardInfo['city']
+                                                                    ));
+                                                                    ?>
+                                                                </div>
+                                                            </div>
+                                                            </br>
+                                                            <div class="row">
+                                                                <div class="col-md-3 signupfont" style="padding-right: 0px;">
+                                                                    State/Province
+                                                                </div>
+                                                                <div class="col-md-5">
+
+                                                                    <?php
+                                                                    echo $this->Form->input(
+                                                                            'state', array(
+                                                                        'type' => 'text',
+                                                                        'id' => 'state',
+                                                                        'class' => 'form-control input-sm required',
+                                                                        'value' => $latestcardInfo['state']
+                                                                    ));
+                                                                    ?>
+                                                                </div>
+                                                                <div class="col-md-2 signupfont" style="padding-right: 0px;">
+                                                                    Zipe Code
+                                                                </div>
+                                                                <div class="col-md-2">
+                                                                    <?php
+                                                                    echo $this->Form->input(
+                                                                            'zip_code', array(
+                                                                        'type' => 'text',
+                                                                        'id' => 'zip_code',
+                                                                        'class' => 'form-control input-sm required',
+                                                                        'value' => $latestcardInfo['zip_code']
                                                                     ));
                                                                     ?>
                                                                 </div>
                                                             </div>
 
-                                                            &nbsp;                                                        
-
+                                                            </br>
                                                             <div class="row">
-                                                                <div class="col-md-3 signupfont">
-                                                                    Exp. Date:
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <?php
-                                                                    echo $this->Form->input('exp_date.year', array(
-                                                                        'type' => 'select',
-                                                                        'options' => $ym['year'],
-                                                                        'empty' => 'Select Year',
-                                                                        'class' => 'span12 uniform nostyle select1 required',
-                                                                        'div' => array('class' => 'span12 '),
-                                                                        'id' => 'showyear',
-                                                                        'default' => $latestcardInfo['exp_date']['year']
-                                                                            )
-                                                                    );
-                                                                    ?>
+                                                                <div class="col-md-3 signupfont" style="padding-right: 0px;">
+                                                                    Country
                                                                 </div>
                                                                 <div class="col-md-5">
                                                                     <?php
-                                                                    echo $this->Form->input('exp_date.month', array(
-                                                                        'type' => 'select',
-                                                                        'options' => $ym['month'],
-                                                                        'empty' => 'Select Month',
-                                                                        'class' => 'span12 uniform nostyle select1 required',
-                                                                        'div' => array('class' => 'span12 '),
-                                                                        'id' => 'showmonth',
-                                                                        'default' => $latestcardInfo['exp_date']['month']
-                                                                            )
-                                                                    );
+                                                                    echo $this->Form->input(
+                                                                            'country', array(
+                                                                        'type' => 'text',
+                                                                        'class' => 'form-control input-sm required',
+                                                                        'value' => $latestcardInfo['country']
+                                                                    ));
+                                                                    ?>
+                                                                </div>
+                                                                <div class="col-md-1 signupfont" style="padding-right: 0px;">
+                                                                    Phone
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <?php
+                                                                    echo $this->Form->input(
+                                                                            'phone', array(
+                                                                        'type' => 'text',
+                                                                        'id' => 'phoneno',
+                                                                        'class' => 'form-control input-sm required',
+                                                                        'value' => $latestcardInfo['phone']
+                                                                    ));
                                                                     ?>
                                                                 </div>
                                                             </div>
+
+                                                            </br>
+                                                            <div class="row">
+                                                                <div class="col-md-3 signupfont" style="padding-right: 0px;">
+                                                                    Email
+                                                                </div>
+                                                                <div class="col-md-5">
+                                                                    <?php
+                                                                    echo $this->Form->input(
+                                                                            'email', array(
+                                                                        'type' => 'text',
+                                                                        'class' => 'form-control input-sm required',
+                                                                        'value' => $latestcardInfo['email']
+                                                                    ));
+                                                                    ?>
+                                                                </div>
+                                                                <div class="col-md-1 signupfont" style="padding-right: 0px;">
+                                                                    Fax
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <?php
+                                                                    echo $this->Form->input(
+                                                                            'fax', array(
+                                                                        'type' => 'text',
+                                                                        'class' => 'form-control input-sm required',
+                                                                        'value' => $latestcardInfo['fax']
+                                                                    ));
+                                                                    ?>
+                                                                </div>
+                                                            </div>
+
 
                                                             &nbsp;
                                                             <div class="row">
@@ -1126,20 +1336,9 @@
                                                                 <div class="col-md-3 signupfont">
                                                                     Address on Card: 
                                                                 </div>
-                                                                <div class="col-md-4">
-                                                                    <?php
-                                                                    echo $this->Form->input(
-                                                                            'zip_code', array(
-                                                                        'type' => 'text',
-                                                                        'class' => 'form-control input-sm required',
-                                                                        'placeholder' => 'zip code',
-                                                                        'id' => 'zip_code',
-                                                                        'value' => $latestcardInfo['zip_code'],
-                                                                    ));
-                                                                    ?>
-                                                                </div>
+                                                               
 
-                                                                <div class="col-md-5">
+                                                                <div class="col-md-9">
                                                                     <?php
                                                                     echo $this->Form->input(
                                                                             'address', array(
@@ -1159,22 +1358,7 @@
                                                                     <input type="checkbox" id="autofillAddrCheck"  /> <span class="signupfont">SAME AS BILLING ADDRESS </span>
                                                                 </div>
                                                             </div>
-                                                            &nbsp;
-                                                            <div class="row">
-                                                                <div class="col-md-3 signupfont">
-                                                                    Charged Amount: 
-                                                                </div>
-                                                                <div class="col-md-9">
-                                                                    <?php
-                                                                    echo $this->Form->input(
-                                                                            'paid_amount', array(
-                                                                        'type' => 'text',
-                                                                        'value' => '',
-                                                                        'class' => 'form-control input-sm required'
-                                                                    ));
-                                                                    ?>
-                                                                </div>
-                                                            </div>
+
                                                             <?php
                                                             echo $this->Form->input(
                                                                     'cid', array(
@@ -1990,6 +2174,7 @@
                             <tbody>
                                 <?php
                                 foreach ($transactions as $single):
+
                                     $info = $single['Transaction'];
                                     ?>
                                     <tr class="odd gradeX">
@@ -2287,7 +2472,7 @@
                                                         <ol>
                                                             <?php
                                                             $lasthistory = $single['history'][0]['tr'];
-//                                                         pr($lasthistory); exit;
+
                                                             foreach ($single['history'] as $history):
                                                                 ?>
                                                                 <li>
