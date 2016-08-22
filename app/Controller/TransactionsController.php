@@ -174,7 +174,7 @@ class TransactionsController extends AppController {
                 'issue_id' => 100,
                 'forwarded_by' => $loggedUser['id']
             );
-   
+
             $this->Track->save($trackData);
         }
 
@@ -244,16 +244,26 @@ class TransactionsController extends AppController {
         $temp = $this->Transaction->query($sql);
         $yyyy = 0;
         $mm = -1;
+        // pr($temp);
         if (count($temp)) {
-            $date = explode('/', $temp['Transaction']['exp_date']);
+            $date = explode('/', $temp[0]['transactions']['exp_date']);
             $yyyy = date('Y');
             $yy = substr($yyyy, 0, 2);
             $yyyy = $yy . '' . $date[1];
             $mm = $date[0];
-            $temp['Transaction']['exp_date'] = array('year' => $yyyy, 'month' => $mm);
-            $latestcardInfo = $temp['Transaction'];
+            $temp[0]['transactions']['exp_date'] = array('year' => $yyyy, 'month' => $mm);
+            $latestcardInfo = $temp[0]['transactions'];
         } else {
-            $latestcardInfo = array('trx_id' => '', 'card_no' => '', 'exp_date' => array('year' => $yyyy, 'month' => $mm));
+            $latestcardInfo = array(
+                'fname' => '',
+                'lname' => '',
+                'cvv_code' => '',
+                'zip_code' => '',
+                'address' => '',
+                'trx_id' => '',
+                'card_no' => '',
+                'exp_date' => array('year' => $yyyy, 'month' => $mm)
+            );
         }
         $this->loadModel('Transaction');
 
@@ -265,7 +275,7 @@ class TransactionsController extends AppController {
             INNER JOIN package_customers pc ON pc.id = tr.`package_customer_id` 
             WHERE package_customer_id = $pcid order by tr.id ASC;");
 
-        //  pr($transactions_all); exit;
+        // pr($latestcardInfo); exit;
         $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge', 'latestcardInfo', 'transactions_data', 'transactions_all'));
     }
 
@@ -275,7 +285,7 @@ class TransactionsController extends AppController {
         $user_id = $user_info['id'];
 
         $this->request->data['Transaction']['user_id'] = $user_id;
-        $this->request->data['Transaction']['exp_date'] = $this->request->data['PackageCustomer']['exp_date']['month'].'/'.$this->request->data['PackageCustomer']['exp_date']['year'];
+        $this->request->data['Transaction']['exp_date'] = $this->request->data['PackageCustomer']['exp_date']['month'] . '/' . $this->request->data['PackageCustomer']['exp_date']['year'];
         $this->request->data['Transaction']['package_customer_id'] = $this->request->data['PackageCustomer']['id'];
         $this->Transaction->save($this->request->data['Transaction']);
         $msg = '<div class="alert alert-success">
@@ -283,6 +293,25 @@ class TransactionsController extends AppController {
             <strong> Card information updated successfully </strong>
             </div>';
         $this->Session->setFlash($msg);
+
+
+        return $this->redirect($this->referer());
+    }
+
+    function extrainvoice() {
+        $this->loadModel('Transaction');
+        $user_info = $this->Auth->user();
+        $user_id = $user_info['id'];
+        $this->request->data['Transaction']['user_id'] = $user_id;
+        $this->request->data['Transaction']['exp_date'] = $this->request->data['PackageCustomer']['exp_date']['month'] . '/' . $this->request->data['PackageCustomer']['exp_date']['year'];
+        $this->request->data['Transaction']['package_customer_id'] = $this->request->data['PackageCustomer']['id'];
+        $this->Transaction->save($this->request->data['Transaction']);
+        $msg = '<div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong> Card information updated successfully </strong>
+            </div>';
+        $this->Session->setFlash($msg);
+
         return $this->redirect(array('controller' => 'reports', 'action' => 'extraPayment'));
         //return $this->redirect($this->referer());
     }

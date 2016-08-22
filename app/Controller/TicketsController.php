@@ -246,13 +246,16 @@ class TicketsController extends AppController {
 
     function solve() {
         $this->loadModel('Track');
-        $this->Track->set($this->request->data);
+        
+      //  $this->Track->set($this->request->data);
         $this->Track->id = $this->request->data['Track']['id'];
         $this->request->data['Track']['status'] = 'solved';
+
         $this->request->data['Track']['package_customer_id'] = $this->request->data['Track']['package_customer_id'];
 
         $loggedUser = $this->Auth->user();
         $this->request->data['Track']['forwarded_by'] = $loggedUser['id'];
+//                pr($this->request->data); exit;
         $this->Track->save($this->request->data['Track']);
         $msg = '<div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert">&times;</button>

@@ -628,7 +628,7 @@
                         <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'donebytech')) ?>">
 
                             <i class="fa fa-plane"></i>
-                            done by tech </a>
+                            Installation Completed </a>
                     </li>
                     <li
                     <?php if ($this->name . '' . $this->action == 'Adminspostponebytech'):
