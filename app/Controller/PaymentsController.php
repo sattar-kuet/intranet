@@ -65,7 +65,7 @@ class PaymentsController extends AppController {
     }
 
     public function individual_transaction_by_card() {
-        // pr($this->request->data); exit;
+     //   pr($this->request->data); exit;
         //Get ID and Input amount from edit_customer page
         $cid = $this->request->data['Transaction']['cid'];
         $this->request->data['Transaction']['package_customer_id'] = $cid;
@@ -111,12 +111,15 @@ class PaymentsController extends AppController {
         $billto = new AnetAPI\CustomerAddressType();
         $billto->setFirstName($pc['fname']);
         $billto->setLastName($pc['lname']);
-        // $billto->setCompany("Souveniropolis");
+         $billto->setCompany($pc['company']);
         //$billto->setAddress("14 Main Street");
-        //$billto->setCity("Pecan Springs");
-        //$billto->setState("TX");
+        $billto->setAddress($pc['address']);
+        $billto->setCity($pc['city']);
+        $billto->setState($pc['state']);
         $billto->setZip($pc['zip_code']);
-        //$billto->setCountry("USA");
+        $billto->setCountry($pc['country']);
+        $billto->setphoneNumber($pc['phone']);
+        $billto->setfaxNumber($pc['fax']);
 //        $customerProfile = new AnetAPI\createCustomerPaymentProfileRequest();
 //        $customerProfile->cardNumber($pc['card_no']);
 //        $customerProfile->billToFirstName($pc['fname']);
