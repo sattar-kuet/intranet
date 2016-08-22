@@ -120,6 +120,7 @@ class TransactionsController extends AppController {
         if ($this->request->is('post') || $this->request->is('put')) {
             $this->request->data['PackageCustomer']['status'] = $this->request->data['status'];
             $this->request->data['PackageCustomer']['package_exp_date'] = $this->getFormatedDate($this->request->data['PackageCustomer']['package_exp_date']);
+            $this->request->data['PackageCustomer']['r_form'] = $this->getFormatedDate($this->request->data['PackageCustomer']['r_form']);
             if (isset($this->request->data['PackageCustomer']['mac'])) {
                 $this->request->data['PackageCustomer']['mac'] = json_encode($this->request->data['PackageCustomer']['mac']);
                 $this->request->data['PackageCustomer']['system'] = json_encode($this->request->data['PackageCustomer']['system']);
@@ -147,6 +148,8 @@ class TransactionsController extends AppController {
             }
             //Ends Custom_package data entry  
 
+//            pr($this->request->data); exit;
+            
             $shistory = $this->PackageCustomer->save($this->request->data['PackageCustomer']);
             $data4statusHistory = array();
             $data4statusHistory['StatusHistory'] = array(

@@ -406,11 +406,7 @@ class TechniciansController extends AppController {
                     left join issues i on pc.issue_id = i.id                    
                     left join installations ins on ins.package_customer_id = pc.id 
                     WHERE ins.user_id = " . $loggedUser['id'] . " and ins.status = 'done by tech'  ORDER BY ins.id");
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> 0a92200d2875d01a7bd32f3c6e9263877683eeb2
         // echo $sql; exit;
         $filteredData = array();
         $unique = array();
@@ -627,7 +623,7 @@ class TechniciansController extends AppController {
         $this->Installation->id = $this->request->data['PackageCustomer']['id'];
         $this->request->data['Installation']['status'] = 'canceled';
         $this->Installation->save($this->request->data);
-        
+
         $loggedUser = $this->Auth->user();
         $this->request->data['PackageCustomer']['status'] = 'canceled';
         $this->request->data['PackageCustomer']['approved'] = 0;

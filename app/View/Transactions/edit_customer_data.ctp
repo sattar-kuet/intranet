@@ -691,6 +691,66 @@
                                     </div>
                                 </div>
                                 &nbsp;
+
+                                <div class="col-md-12 margin-bottom-25" >
+                                    
+
+                                    <div class="col-md-2 signupfont">
+                                        Auto Recurring
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="input-list style-4 clearfix">
+                                            <div>
+                                                <?php
+                                                echo $this->Form->input('auto_r', array(
+                                                    'type' => 'select',
+                                                    'options' => array(
+                                                        'empty' => 'Select Year',
+                                                        'yes' => 'Yes',
+                                                        'no' => 'No',                                                       
+                                                ), )
+                                                );
+                                                ?>
+                                            </div>                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-2 signupfont">
+                                        Repeat at Every
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="input-list style-4 clearfix">
+                                            <div>
+                                                <?php
+                                                echo $this->Form->input(
+                                                        'r_duration', array(
+                                                    'class' => 'form-control',
+                                                    'type' => 'text'
+                                                        )
+                                                );
+                                                ?>
+
+                                            </div>                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-2 signupfont">
+                                        Recurring From
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="input-list style-4 clearfix">
+                                            <?php
+                                            echo $this->Form->input(
+                                                    'r_form', array(
+                                                'class' => 'datepicker form-control ',
+                                                'type' => 'text',
+                                                    )
+                                            );
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                &nbsp;
                                 <div class="row">
                                     <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20"> 
                                         <?php
