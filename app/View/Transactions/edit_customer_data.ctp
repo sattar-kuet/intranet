@@ -303,6 +303,7 @@
                                                 echo $this->Form->input(
                                                         'email', array(
                                                     'class' => '',
+                                                    'id' => 'email'
                                                         )
                                                 );
                                                 ?>
@@ -321,6 +322,7 @@
                                                 echo $this->Form->input(
                                                         'fax', array(
                                                     'class' => '',
+                                                    'id' => 'fax',
                                                     'placeholder' => 'Optional'
                                                         )
                                                 );
@@ -1212,6 +1214,7 @@
                                                                     echo $this->Form->input(
                                                                             'city', array(
                                                                         'type' => 'text',
+                                                                        'id' => 'cityname',
                                                                         'class' => 'form-control input-sm required',
                                                                         'value' => $latestcardInfo['city']
                                                                     ));
@@ -1229,7 +1232,7 @@
                                                                     echo $this->Form->input(
                                                                             'state', array(
                                                                         'type' => 'text',
-                                                                        'id' => 'state',
+                                                                        'id' => 'statename',
                                                                         'class' => 'form-control input-sm required',
                                                                         'value' => $latestcardInfo['state']
                                                                     ));
@@ -1292,6 +1295,7 @@
                                                                     echo $this->Form->input(
                                                                             'email', array(
                                                                         'type' => 'text',
+                                                                        'id' => 'emailadd',
                                                                         'class' => 'form-control input-sm required',
                                                                         'value' => $latestcardInfo['email']
                                                                     ));
@@ -1305,6 +1309,7 @@
                                                                     echo $this->Form->input(
                                                                             'fax', array(
                                                                         'type' => 'text',
+                                                                        'id' => 'faxno',
                                                                         'class' => 'form-control input-sm required',
                                                                         'value' => $latestcardInfo['fax']
                                                                     ));
@@ -1336,7 +1341,7 @@
                                                                 <div class="col-md-3 signupfont">
                                                                     Address on Card: 
                                                                 </div>
-                                                               
+
 
                                                                 <div class="col-md-9">
                                                                     <?php

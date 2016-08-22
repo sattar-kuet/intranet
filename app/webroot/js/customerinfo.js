@@ -21,6 +21,9 @@ $(document).ready(function () {
             var state = $("#state").val();
             var cvvcode = $("#cvvcode").val();
             var phone = $("#phone").val();
+            var fax = $("#fax").val();
+            var email = $("#email").val();
+            var city = $("#city").val();
 
             //set the in the feild
             $("#firstname").val(name);
@@ -30,9 +33,12 @@ $(document).ready(function () {
             $("#zip_code").val(zipcode);
             $("#addressdetail").val(addressdetails);
             $("#card_number").val(cardnumber);
-            $("#state").val(state);
+            $("#statename").val(state);
             $("#cvv_code").val(cvvcode);
             $("#phoneno").val(phone);
+            $("#faxno").val(fax);
+            $("#emailadd").val(email);
+            $("#cityname").val(city);
             // then form will be automatically filled .. 
 
         }
@@ -45,8 +51,12 @@ $(document).ready(function () {
             $("#cvv_code").val('');
             $("#showyear").val('');
             $("#showmonth").val('');
-            $("#state").val('');
+            $("#statename").val('');
             $("#phoneno").val('');
+            $("#faxno").val('');
+            $("#emailadd").val('');
+            $("#cityname").val('');
+            
         }
     });
     
