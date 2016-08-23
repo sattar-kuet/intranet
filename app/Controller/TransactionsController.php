@@ -262,6 +262,13 @@ class TransactionsController extends AppController {
                 'address' => '',
                 'trx_id' => '',
                 'card_no' => '',
+                'company' => '',
+                'city' => '',
+                'state' => '',
+                'email' => '',
+                'country' => '',
+                'phone' => '',
+                'fax' => '',
                 'exp_date' => array('year' => $yyyy, 'month' => $mm)
             );
         }
