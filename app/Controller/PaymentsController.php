@@ -65,7 +65,7 @@ class PaymentsController extends AppController {
     }
 
     public function individual_transaction_by_card() {
-     //   pr($this->request->data); exit;
+        //   pr($this->request->data); exit;
         //Get ID and Input amount from edit_customer page
         $cid = $this->request->data['Transaction']['cid'];
         $this->request->data['Transaction']['package_customer_id'] = $cid;
@@ -100,18 +100,20 @@ class PaymentsController extends AppController {
         $msg = '<ul>';
         //foreach ($pcustomers as $pcustomer):
         $pc = $this->request->data['Transaction'];
-        // pr($pc); exit;
+//        pr($pc);
+//        exit;
         $creditCard->setCardNumber($pc['card_no']);
         $creditCard->setExpirationDate($pc['exp_date']);
-        //     $creditCard->setCardNumber("4117733943147221"); // live
-        //  $creditCard->setExpirationDate("07-2019"); //live
+        //    $creditCard->setCardNumber("4117733943147221"); // live
+        // $creditCard->setExpirationDate("07-2019"); //live
+        $creditCard->setcardCode($pc['cvv_code']); //live
         $paymentOne = new AnetAPI\PaymentType();
         $paymentOne->setCreditCard($creditCard);
         //    Bill To
         $billto = new AnetAPI\CustomerAddressType();
         $billto->setFirstName($pc['fname']);
         $billto->setLastName($pc['lname']);
-         $billto->setCompany($pc['company']);
+        $billto->setCompany($pc['company']);
         //$billto->setAddress("14 Main Street");
         $billto->setAddress($pc['address']);
         $billto->setCity($pc['city']);
@@ -137,7 +139,7 @@ class PaymentsController extends AppController {
         $controller = new AnetController\CreateTransactionController($request);
         // $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX); 
         $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
-        //  pr($response); exit;
+       
         $this->request->data['Transaction']['error_msg'] = '';
         $this->request->data['Transaction']['status'] = '';
         $this->request->data['Transaction']['trx_id'] = '';
@@ -429,13 +431,13 @@ class PaymentsController extends AppController {
         $this->loadModel('Transaction');
         $this->loadModel('Role');
         $this->loadModel('User');
-        
-         if ($this->request->is('post')) {
+
+        if ($this->request->is('post')) {
             $this->Transaction->set($this->request->data);
-            if ($this->Transaction->validates()) { 
+            if ($this->Transaction->validates()) {
                 $temp = explode('/', $this->request->data['Transaction']['created']);
-               $this->request->data['Transaction']['created'] = $temp[2].'-'.$temp[0].'-'.$temp[1].' 00:00:00';
-               // pr($this->request->data); exit;
+                $this->request->data['Transaction']['created'] = $temp[2] . '-' . $temp[0] . '-' . $temp[1] . ' 00:00:00';
+                // pr($this->request->data); exit;
                 $this->Transaction->save($this->request->data['Transaction']);
                 $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -447,9 +449,9 @@ class PaymentsController extends AppController {
                 $msg = $this->generateError($this->Transaction->validationErrors);
                 $this->Session->setFlash($msg);
             }
-        }      
-        
-        $pay_to = $this->User->find('list', array('conditions' => array('OR'=>array( array('User.role_id' => 9), array( 'User.role_id' => 11 )))));
+        }
+
+        $pay_to = $this->User->find('list', array('conditions' => array('OR' => array(array('User.role_id' => 9), array('User.role_id' => 11)))));
         $this->set(compact('pay_to'));
     }
 
