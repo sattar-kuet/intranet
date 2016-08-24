@@ -31,8 +31,8 @@ $(document).ready(function () {
             $("#showyear").val(expyear);
             $("#showmonth").val(expmonth);
             $("#zip_code").val(zipcode);
-            $("#addressdetail").val(addressdetails);
-            $("#card_number").val(cardnumber);
+            
+            
             $("#statename").val(state);
             $("#cvv_code").val(cvvcode);
             $("#phoneno").val(phone);

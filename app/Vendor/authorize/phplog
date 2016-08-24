@@ -3213,3 +3213,33 @@ Tue, 23 Aug 2016 07:41:41 +0000:Response from AnetApi:
 
 Tue, 23 Aug 2016 07:41:41 +0000: Response De-Serialization Begin
 Tue, 23 Aug 2016 07:41:41 +0000: Response De-Serialization End
+Wed, 24 Aug 2016 08:42:50 +0000: Request Serialization Begin
+Wed, 24 Aug 2016 08:42:51 +0000: Request  Serialization End
+Wed, 24 Aug 2016 08:42:51 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Wed, 24 Aug 2016 08:42:51 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472028170]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1254664]]></cardNumber>
+        <expirationDate><![CDATA[05/26]]></expirationDate>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Wed, 24 Aug 2016 08:42:51 +0000:Sending http request via Curl
+Wed, 24 Aug 2016 08:42:53 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><createTransactionResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><refId>ref1472028170</refId><messages><resultCode>Error</resultCode><message><code>E00027</code><text>The transaction was unsuccessful.</text></message></messages><transactionResponse><responseCode>3</responseCode><authCode /><avsResultCode>P</avsResultCode><cvvResultCode /><cavvResultCode /><transId>0</transId><refTransID /><transHash>D512A01E52BA95A52838CF511CB0DACA</transHash><testRequest>0</testRequest><accountNumber>XXXX4664</accountNumber><accountType /><errors><error><errorCode>6</errorCode><errorText>The credit card number is invalid.</errorText></error></errors><transHashSha2 /></transactionResponse></createTransactionResponse>
+
+Wed, 24 Aug 2016 08:42:53 +0000: Response De-Serialization Begin
+Wed, 24 Aug 2016 08:42:54 +0000: Response De-Serialization End

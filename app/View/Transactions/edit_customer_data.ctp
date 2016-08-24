@@ -1336,27 +1336,7 @@
                                                                     ?>
                                                                 </div>
                                                             </div>
-                                                            &nbsp;
-                                                            <div class="row">
-                                                                <div class="col-md-3 signupfont">
-                                                                    Address on Card: 
-                                                                </div>
-
-
-                                                                <div class="col-md-9">
-                                                                    <?php
-                                                                    echo $this->Form->input(
-                                                                            'address', array(
-                                                                        'type' => 'text',
-                                                                        'value' => '',
-                                                                        'class' => 'form-control input-sm',
-                                                                        'placeholder' => 'detail(optional)',
-                                                                        'id' => 'addressdetail',
-                                                                        'value' => $latestcardInfo['address']
-                                                                    ));
-                                                                    ?>
-                                                                </div>
-                                                            </div>
+                                                        
                                                             &nbsp;
                                                             <div class="row">
                                                                 <div class="col-md-10 col-md-offset-3">
