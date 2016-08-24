@@ -48,6 +48,15 @@
                                     <th>
                                         Detail Information
                                     </th>
+                                    <th>
+                                        Issue
+                                    </th>
+                                    <th>
+                                        New Address
+                                    </th>
+                                    <th>
+                                        Attachment
+                                    </th>
 <!--                                    <th>
                                         Action
                                     </th>-->
@@ -135,8 +144,34 @@
                                                 ?>
                                             <?php }
                                             ?>
+<td>
+                                            <?php if (!empty($customer['new_addr'])): ?>
+                                                <?php echo $results['issues'][0]['name']['name']; ?>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td>
+                                            <?php if (!empty($customer['new_addr'])): ?>
+                                                <?php echo $customer['new_addr']; ?>
+                                            <?php endif; ?>
+                                        </td>
+ <td>
+                                            <div class="col-md-12 col-sm-12 mix category_2 category_1">
+                                                <div class="mix-inner">
+                                                    <?php if (!empty($results['attachment'])) { ?>
+                                                        <img class="img-responsive" src="<?php echo $this->webroot . 'attchment' . '/' . $results['attachment']; ?>" alt="">
+                                                        <div class="mix-details">
+                                                            <a class="mix-preview fancybox-button" href="<?php echo $this->webroot . 'attchment' . '/' . $results['attachment']; ?>" title="Project Name" data-rel="fancybox-button">
+                                                                <i class="fa fa-eye pull-right"></i>
+                                                            </a>
+                                                        </div>
+                                                    <?php } else { ?>
+                                                        <h4> No Attachment</h4>
 
+                                                    <?php } ?>
 
+                                                </div>
+                                            </div>
+                                        </td>
                                         </td>
 <!--                                        <td> 
                                             <div class="controls center text-center">

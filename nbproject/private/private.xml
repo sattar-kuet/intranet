@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="38">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="40">
         <file>
             <url>app/Controller/TicketsController.php</url>
             <bookmark id="15">
@@ -129,12 +129,25 @@
                 <key/>
             </bookmark>
         </file>
+        <file>
+            <url>app/View/Technicians/new_customer.ctp</url>
+            <bookmark id="39">
+                <name/>
+                <line>74</line>
+                <key/>
+            </bookmark>
+            <bookmark id="40">
+                <name/>
+                <line>181</line>
+                <key/>
+            </bookmark>
+        </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/Controller/TransactionsController.php</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/webroot/js/customerinfo.js</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Technicians/cancelled_customer.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Technicians/new_customer.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/Controller/TechniciansController.php</file>
         </group>
     </open-files>
 </project-private>
