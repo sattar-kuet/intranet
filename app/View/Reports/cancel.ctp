@@ -101,7 +101,6 @@
                             </tr>
                         </thead>
                         <tbody>
-
                             <?php
                             foreach ($block_customers as $results):
                                 ?>

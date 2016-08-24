@@ -58,7 +58,7 @@
                     </div>                  
                     <hr style="display: block; border-style: inset; border-color:  darkmagenta;">
                     <div class="row invoice-logo">
-                        <div class="row" >                          
+                        <div class="row" style="margin-top: 30px;">                          
                             <div class="col-xs-5">                              
                                 <ul class="list-unstyled" style="text-align: left; padding: 45px 0px 0px 13px;">                                    
                                     <li style="color: #555; border-left: #990000 7px  solid;">
@@ -96,9 +96,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <table class="table table-striped table-hover">
+                    <div class="row"style=" margin-top: 69px;">
+                        <div class="col-xs-12 ">
+                            <table class="table table-striped table-hover margin-top-20" style=" margin-top: 60px;">
                                 <thead style="border-bottom: 10px solid whitesmoke;">
                                     <tr style="height: 101px;">
                                         <th class="hidden-480" style=" padding-bottom: 39px; text-align: center; color: white !important; background-color: #990000 !important; color: white; width: 51px;font-size: 19px; font-weight: bold;">
@@ -149,7 +149,7 @@
                                 </tbody>
                             </table>
                             <br>
-                            <div class="row" style=" margin-top: 49px;">
+                            <div class="row " style=" margin-top: 64px;">
                                 <div class="col-xs-3">                    
                                 </div>
                                 <div class="col-xs-4">
@@ -182,7 +182,7 @@
                         </div>
                     </div>
 
-                    <hr style="border-color: #ccc !important; margin-top: 175px;  border-width: 1px;">
+                    <hr style="border-color: #ccc !important; margin-top: 170px;  border-width: 1px;">
                     <div class="row">
                         <div class="col-md-12">                              
                             <ul class="list-unstyled" style=" text-align: left; color: #555; margin-left: 10px;">                           
