@@ -137,9 +137,8 @@
                             &nbsp;
                             <div class="row">
                                 <div class="col-md-12 ">
-
                                     <div class="col-md-2 signupfont">
-                                        Building Number
+                                        House Number
                                     </div>
                                     <div class="col-md-2">
                                         <div class="input-list style-4 clearfix">
@@ -705,7 +704,7 @@
                                                 echo $this->Form->input('auto_r', array(
                                                     'type' => 'select',
                                                     'options' => array(
-                                                        'empty' => 'Select here',
+                                                        'empty' => 'Select Option',
                                                         'yes' => 'Yes',
                                                         'no' => 'No',
                                                     ),
@@ -779,7 +778,7 @@
                                     <div class="col-md-2">
                                         <?php
                                         echo $this->Form->input(
-                                                'card_no', array(
+                                                'card_check_no', array(
                                             'type' => 'text',
                                             'value' => '',
                                             'class' => 'form-control input-sm required',
@@ -1215,7 +1214,6 @@
                                                                     echo $this->Form->input(
                                                                             'paid_amount', array(
                                                                         'type' => 'text',
-                                                                        'value' => $latestcardInfo['paid_amount'],
                                                                         'class' => 'form-control input-sm required'
                                                                     ));
                                                                     ?>
@@ -1231,8 +1229,9 @@
                                                                     echo $this->Form->input(
                                                                             'invoice', array(
                                                                         'type' => 'text',
-                                                                        'value' => $latestcardInfo['invoice'],
-                                                                        'class' => 'form-control input-sm required'
+                                                                        'value' => '',
+                                                                        'class' => 'form-control input-sm',
+                                                                        'class' => 'form-control input-sm '
                                                                     ));
                                                                     ?>
                                                                 </div>
@@ -1247,8 +1246,8 @@
                                                                     echo $this->Form->input(
                                                                             'description', array(
                                                                         'type' => 'text',
-                                                                        'value' => $latestcardInfo['description'],
-                                                                        'class' => 'form-control input-sm required'
+                                                                        'class' => 'form-control input-sm ',
+                                                                        'value' => $latestcardInfo['description']
                                                                     ));
                                                                     ?>
                                                                 </div>
@@ -1266,9 +1265,9 @@
                                                                 <div class="col-md-5">
                                                                     <?php
                                                                     echo $this->Form->input(
-                                                                            'description', array(
+                                                                            'package_customer_id', array(
                                                                         'type' => 'text',
-                                                                        'value' => $transactions[0]['Transaction']['package_customer_id'],
+                                                                        'value' => $this->params['pass'][0],
                                                                         'class' => 'form-control input-sm required'
                                                                     ));
                                                                     ?>
@@ -1317,7 +1316,7 @@
                                                                     echo $this->Form->input(
                                                                             'company', array(
                                                                         'type' => 'text',
-                                                                        'class' => 'form-control input-sm required',
+                                                                        'class' => 'form-control input-sm ',
                                                                         'id' => 'card_number',
                                                                         'value' => $latestcardInfo['company']
                                                                     ));
@@ -1334,7 +1333,7 @@
                                                                     echo $this->Form->input(
                                                                             'address', array(
                                                                         'type' => 'text',
-                                                                        'class' => 'form-control input-sm required',
+                                                                        'class' => 'form-control input-sm ',
                                                                         'value' => $latestcardInfo['address']
                                                                     ));
                                                                     ?>
@@ -1397,7 +1396,7 @@
                                                                     echo $this->Form->input(
                                                                             'country', array(
                                                                         'type' => 'text',
-                                                                        'class' => 'form-control input-sm required',
+                                                                        'class' => 'form-control input-sm ',
                                                                         'value' => $latestcardInfo['country']
                                                                     ));
                                                                     ?>
@@ -1429,7 +1428,7 @@
                                                                             'email', array(
                                                                         'type' => 'text',
                                                                         'id' => 'emailadd',
-                                                                        'class' => 'form-control input-sm required',
+                                                                        'class' => 'form-control input-sm ',
                                                                         'value' => $latestcardInfo['email']
                                                                     ));
                                                                     ?>
@@ -1443,7 +1442,7 @@
                                                                             'fax', array(
                                                                         'type' => 'text',
                                                                         'id' => 'faxno',
-                                                                        'class' => 'form-control input-sm required',
+                                                                        'class' => 'form-control input-sm ',
                                                                         'value' => $latestcardInfo['fax']
                                                                     ));
                                                                     ?>
@@ -1468,7 +1467,12 @@
                                                                     ));
                                                                     ?>
                                                                 </div>
+<<<<<<< HEAD
+                                                            </div>
+
+=======
                                                             </div>                                                        
+>>>>>>> 7fd1cfb8c6fe732391e10a04365e875d7392da58
                                                             &nbsp;
                                                             <div class="row">
                                                                 <div class="col-md-10 col-md-offset-3">
@@ -1477,6 +1481,7 @@
                                                             </div>
 
                                                             <?php
+                                                            
                                                             echo $this->Form->input(
                                                                     'cid', array(
                                                                 'type' => 'hidden',
@@ -2306,12 +2311,11 @@
                                                         </ul>
                                                     <?php endif;
                                                     ?>
-                                                    <li>Transaction No : <?php echo $info['id']; ?></li> 
                                                     <li>Card No : <?php echo substr($info['card_no'], 0, 4); ?></li>  
                                                     <li>Zip Code : <?php echo $info['zip_code']; ?></li>  
                                                     <li>CVV Code : <?php echo $info['cvv_code']; ?></li> 
                                                     <li>Expire Date : <?php echo $info['exp_date']; ?></li>
-                                                    <li> Zip Code : <?php echo $info['zip_code']; ?></li> 
+                                                    <li> Transaction ID : <?php echo $info['trx_id']; ?></li> 
                                                 </ul>
                                             <?php elseif ($info['pay_mode'] == 'cash'): ?>
                                     <li>Pay Mode : <?php echo $info['pay_mode']; ?></li> 
