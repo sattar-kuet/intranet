@@ -122,24 +122,21 @@ class PaymentsController extends AppController {
         $billto->setCountry($pc['country']);
         $billto->setphoneNumber($pc['phone']);
         $billto->setfaxNumber($pc['fax']);
-    
+
         ////////// ########################## //////////////
-  
-	
-	  
-	 // Create a Customer Profile Request
-	 //  1. create a Payment Profile
-	 //  2. create a Customer Profile   
-	 //  3. Submit a CreateCustomerProfile Request
-	 //  4. Validate Profiiel ID returned
+        // Create a Customer Profile Request
+        //  1. create a Payment Profile
+        //  2. create a Customer Profile   
+        //  3. Submit a CreateCustomerProfile Request
+        //  4. Validate Profiiel ID returned
 
-	  $paymentprofile = new AnetAPI\CustomerPaymentProfileType();
+        $paymentprofile = new AnetAPI\CustomerPaymentProfileType();
 
-	  $paymentprofile->setCustomerType('individual');
-	  $paymentprofile->setBillTo($billto);
-	  $customerProfile = new AnetAPI\CreateCustomerPaymentProfileRequest();
-          $customerProfile->setPaymentProfile($paymentprofile);
-        
+        $paymentprofile->setCustomerType('individual');
+        $paymentprofile->setBillTo($billto);
+        $customerProfile = new AnetAPI\CreateCustomerPaymentProfileRequest();
+        $customerProfile->setPaymentProfile($paymentprofile);
+
         ////////// ########################## //////////////
 //        $customerProfile = new AnetAPI\CreateCustomerPaymentProfileRequest();
 //        pr($customerProfile); exit;
@@ -158,7 +155,7 @@ class PaymentsController extends AppController {
         $request->setRefId($refId);
         $request->setTransactionRequest($transactionRequestType);
         $controller = new AnetController\CreateTransactionController($request);
-    //     $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX); 
+        //     $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX); 
         $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
 
         $this->request->data['Transaction']['error_msg'] = '';
@@ -262,7 +259,7 @@ class PaymentsController extends AppController {
         $loggedUser = $this->Auth->user();
         $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
         $pcustomers = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $cid)));
-        $msg = '<ul>';
+
 
 //        pr($pc);
 //        exit;
@@ -314,7 +311,7 @@ class PaymentsController extends AppController {
 
                 $this->request->data['Transaction']['trx_id'] = $tresponse->getTransId();
                 $this->request->data['Transaction']['auth_code'] = $tresponse->getAuthCode();
-                $msg .='<li> Transaction for ' . $data['fname'] . ' ' . $data['lname'] . ' successfull</li>';
+
                 $tdata['Ticket'] = array('content' => 'Transaction for ' . $data['fname'] . ' ' . $data['lname'] . ' successfull');
 
                 $tickect = $this->Ticket->save($tdata); // Data save in Ticket
@@ -325,6 +322,7 @@ class PaymentsController extends AppController {
                     'forwarded_by' => $loggedUser['id']
                 );
                 $this->Track->save($trackData);
+                $status = 1;
             } else {
                 $this->request->data['Transaction']['paid_amount'] = 0;
                 $this->request->data['Transaction']['status'] = 'error';
@@ -340,6 +338,7 @@ class PaymentsController extends AppController {
                     'forwarded_by' => $loggedUser['id']
                 );
                 $this->Track->save($trackData);
+                $status = 0;
             }
         } else {
             $this->request->data['Transaction']['paid_amount'] = 0;
@@ -356,26 +355,24 @@ class PaymentsController extends AppController {
                 'forwarded_by' => $loggedUser['id']
             );
             $this->Track->save($trackData);
+            $status = 0;
         }
         $this->Transaction->create();
         $this->Transaction->save($this->request->data['Transaction']);
-        // endforeach;
-        //$msg .='</ul>';
-        $transactionMsg = '<div class="alert alert-success">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong>' . $msg . '</strong>
-    </div>';
-        $this->Session->setFlash($transactionMsg);
-        return $this->redirect($this->referer());
+
+        return $status;
         //$this->set(compact('msg'));
     }
 
     function auto_recurring() {
         $this->loadModel('PackageCustomer');
+        $this->loadModel('AutoRecurring');
         $pcs = $this->PackageCustomer->find('all', array('conditions' => array('auto_r' => 'yes')));
+        $success = 0;
+        $failure = 0;
         foreach ($pcs as $single) {
             $pc = $single['PackageCustomer'];
-            pr($pc); exit;
+
             $duration = $pc['r_duration'];
             $rFrom = $pc['r_form'];
 //            $Date = "2010-09-17";
@@ -384,29 +381,43 @@ class PaymentsController extends AppController {
             $deadline = strtotime($temp);
             $temp = date('Y-m-d');
             $now = strtotime($temp);
-            if( $now>= $deadline ){
+            if ($now >= $deadline) {
                 // Time out. So do it right now;
-               $data = array(
-                   'exp_date'=>$pc['exp_date'],
-                   'card_no'=>$pc['state'],
-                   'cvv_code'=>$pc['state'],
-                   'fname'=>$pc['state'],
-                   'lname'=>$pc['state'],
-                   'company'=>$pc['state'],
-                   'address'=>$pc['state'],
-                   'city'=>$pc['state'],
-                   'state' =>$pc['state'],
-                   'zip_code'=>$pc['zip'],
-                   'country'=>'',
-                   'phone'=>$pc['cell'],
-                   'fax'=>$pc['fax'],
-                   'charge_amount'=>$pc['charge_amount'],
-                   'cid'=>$pc['id']
-                   ); 
+                $data = array(
+                    'exp_date' => $pc['exp_date'],
+                    'card_no' => $pc['card_check_no'],
+                    'cvv_code' => $pc['cvv_code'],
+                    'fname' => $pc['fname'],
+                    'lname' => $pc['lname'],
+                    'company' => '',
+                    'address' => $pc['street'] . ' ' . $pc['apartment'],
+                    'city' => $pc['city'],
+                    'state' => $pc['state'],
+                    'zip_code' => $pc['zip'],
+                    'country' => '',
+                    'phone' => $pc['cell'],
+                    'fax' => $pc['fax'],
+                    'charge_amount' => $pc['charge_amount'],
+                    'cid' => $pc['id']
+                );
+                $temp = array();
+                if ($this->individual_auto_recurring($data)) {
+                    $temp = array(
+                        'package_customer_id' => $pc['id'],
+                        'amount' => $data['charge_amount'],
+                        'status' => 'success',
+                    );
+                } else {
+                    $temp = array(
+                        'package_customer_id' => $pc['id'],
+                        'amount' => $data['charge_amount'],
+                        'status' => 'error',
+                    );
+                }
+                $this->AutoRecurring->create();
+                $this->AutoRecurring->save($temp);
             }
-          
         }
-       
     }
 
     function refundTransaction() {
