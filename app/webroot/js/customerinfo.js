@@ -12,15 +12,14 @@ $(document).ready(function () {
             var expyear = $("#year").val();
             var expmonth = $("#month").val();
             var zipcode = $("#zip").val();
-            var addressdetails = $("#address").val();
-            addressdetails += ' ' + $("#street").val();
+            var addressdetails = ' ' + $("#street").val();
             addressdetails += ' ' + $("#apartment").val();
-            addressdetails += ' ' + $("#city").val();
-            addressdetails += ' ' + $("#state").val();
-            var cardnumber = $("#cardnumber").val();
+//            addressdetails += ' ' + $("#city").val();
+//            addressdetails += ' ' + $("#state").val();
+           
             var state = $("#state").val();
             var cvvcode = $("#cvvcode").val();
-            var phone = $("#phone").val();
+            var phone = $("#PackageCustomerCell").val();
             var fax = $("#fax").val();
             var email = $("#email").val();
             var city = $("#city").val();
@@ -31,8 +30,8 @@ $(document).ready(function () {
             $("#showyear").val(expyear);
             $("#showmonth").val(expmonth);
             $("#zip_code").val(zipcode);
-            $("#addressdetail").val(addressdetails);
-            $("#card_number").val(cardnumber);
+            $("#TransactionAddress").val(addressdetails);
+            
             $("#statename").val(state);
             $("#cvv_code").val(cvvcode);
             $("#phoneno").val(phone);

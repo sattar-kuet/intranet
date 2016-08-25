@@ -137,9 +137,8 @@
                             &nbsp;
                             <div class="row">
                                 <div class="col-md-12 ">
-
                                     <div class="col-md-2 signupfont">
-                                        Building Number
+                                        House Number
                                     </div>
                                     <div class="col-md-2">
                                         <div class="input-list style-4 clearfix">
@@ -1082,7 +1081,6 @@
                                                                     echo $this->Form->input(
                                                                             'paid_amount', array(
                                                                         'type' => 'text',
-                                                                        'value' => '',
                                                                         'class' => 'form-control input-sm required'
                                                                     ));
                                                                     ?>
@@ -1099,7 +1097,8 @@
                                                                             'invoice', array(
                                                                         'type' => 'text',
                                                                         'value' => '',
-                                                                        'class' => 'form-control input-sm'
+                                                                        'class' => 'form-control input-sm',
+                                                                        'class' => 'form-control input-sm '
                                                                     ));
                                                                     ?>
                                                                 </div>
@@ -1114,8 +1113,8 @@
                                                                     echo $this->Form->input(
                                                                             'description', array(
                                                                         'type' => 'text',
-                                                                        'value' => '',
-                                                                        'class' => 'form-control input-sm '
+                                                                        'class' => 'form-control input-sm ',
+                                                                        'value' => $latestcardInfo['description']
                                                                     ));
                                                                     ?>
                                                                 </div>
@@ -1135,7 +1134,7 @@
                                                                     echo $this->Form->input(
                                                                             'package_customer_id', array(
                                                                         'type' => 'text',
-                                                                        'value' => $transactions[0]['Transaction']['package_customer_id'],
+                                                                        'value' => $this->params['pass'][0],
                                                                         'class' => 'form-control input-sm required'
                                                                     ));
                                                                     ?>
@@ -1201,7 +1200,7 @@
                                                                     echo $this->Form->input(
                                                                             'address', array(
                                                                         'type' => 'text',
-                                                                        'class' => 'form-control input-sm required',
+                                                                        'class' => 'form-control input-sm ',
                                                                         'value' => $latestcardInfo['address']
                                                                     ));
                                                                     ?>
@@ -1336,27 +1335,7 @@
                                                                     ?>
                                                                 </div>
                                                             </div>
-                                                            &nbsp;
-                                                            <div class="row">
-                                                                <div class="col-md-3 signupfont">
-                                                                    Address on Card: 
-                                                                </div>
 
-
-                                                                <div class="col-md-9">
-                                                                    <?php
-                                                                    echo $this->Form->input(
-                                                                            'address', array(
-                                                                        'type' => 'text',
-                                                                        'value' => '',
-                                                                        'class' => 'form-control input-sm',
-                                                                        'placeholder' => 'detail(optional)',
-                                                                        'id' => 'addressdetail',
-                                                                        'value' => $latestcardInfo['address']
-                                                                    ));
-                                                                    ?>
-                                                                </div>
-                                                            </div>
                                                             &nbsp;
                                                             <div class="row">
                                                                 <div class="col-md-10 col-md-offset-3">
@@ -1365,6 +1344,7 @@
                                                             </div>
 
                                                             <?php
+                                                            
                                                             echo $this->Form->input(
                                                                     'cid', array(
                                                                 'type' => 'hidden',
@@ -2194,12 +2174,11 @@
                                                         </ul>
                                                     <?php endif;
                                                     ?>
-                                                    <li>Transaction No : <?php echo $info['id']; ?></li> 
                                                     <li>Card No : <?php echo substr($info['card_no'], 0, 4); ?></li>  
                                                     <li>Zip Code : <?php echo $info['zip_code']; ?></li>  
                                                     <li>CVV Code : <?php echo $info['cvv_code']; ?></li> 
                                                     <li>Expire Date : <?php echo $info['exp_date']; ?></li>
-                                                    <li> Zip Code : <?php echo $info['zip_code']; ?></li> 
+                                                    <li> Transaction ID : <?php echo $info['trx_id']; ?></li> 
                                                 </ul>
                                             <?php elseif ($info['pay_mode'] == 'cash'): ?>
                                     <li>Pay Mode : <?php echo $info['pay_mode']; ?></li> 

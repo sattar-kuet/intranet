@@ -147,9 +147,8 @@ class TransactionsController extends AppController {
                 $this->request->data['PackageCustomer']['custom_package_id'] = $cp['CustomPackage']['id'];
             }
             //Ends Custom_package data entry  
-
 //            pr($this->request->data); exit;
-            
+
             $shistory = $this->PackageCustomer->save($this->request->data['PackageCustomer']);
             $data4statusHistory = array();
             $data4statusHistory['StatusHistory'] = array(
@@ -254,14 +253,22 @@ class TransactionsController extends AppController {
             $temp[0]['transactions']['exp_date'] = array('year' => $yyyy, 'month' => $mm);
             $latestcardInfo = $temp[0]['transactions'];
         } else {
+            $date = explode('/', $customer_info['PackageCustomer']['exp_date']);
+           
+            if (count($date) == 2) {
+                $yyyy = date('Y');
+                $yy = substr($yyyy, 0, 2);
+                $yyyy = $yy . '' . $date[1];
+                $mm = $date[0];
+            }
             $latestcardInfo = array(
-                'fname' => '',
-                'lname' => '',
-                'cvv_code' => '',
-                'zip_code' => '',
+                'fname' => $customer_info['PackageCustomer']['cfirst_name'],
+                'lname' => $customer_info['PackageCustomer']['clast_name'],
+                'cvv_code' => $customer_info['PackageCustomer']['cvv_code'],
+                'zip_code' => $customer_info['PackageCustomer']['czip'],
                 'address' => '',
                 'trx_id' => '',
-                'card_no' => '',
+                'card_no' => $customer_info['PackageCustomer']['card_check_no'],
                 'company' => '',
                 'city' => '',
                 'state' => '',
@@ -269,6 +276,8 @@ class TransactionsController extends AppController {
                 'country' => '',
                 'phone' => '',
                 'fax' => '',
+                'paid_amount' => '',
+                'description' => '',
                 'exp_date' => array('year' => $yyyy, 'month' => $mm)
             );
         }
@@ -282,7 +291,7 @@ class TransactionsController extends AppController {
             INNER JOIN package_customers pc ON pc.id = tr.`package_customer_id` 
             WHERE package_customer_id = $pcid order by tr.id ASC;");
 
-//         pr($transactions[0]['Transaction']['package_customer_id']); exit;
+//         pr($transactions[0]['paid_amount']); exit;
         $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge', 'latestcardInfo', 'transactions_data', 'transactions_all'));
     }
 
