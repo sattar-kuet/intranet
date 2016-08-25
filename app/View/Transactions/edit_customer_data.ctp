@@ -694,13 +694,11 @@
                                 &nbsp;
 
                                 <div class="col-md-12 margin-bottom-25" >
-
-
-                                    <div class="col-md-2 signupfont">
-                                        Auto Recurring
+                                    <div class="col-md-1 signupfont">
+                                        Recurring
                                     </div>
-                                    <div class="col-md-2">
-                                        <div class="input-list style-4 clearfix">
+                                    <div class="col-md-1">
+                                        <div class="input-list style-2 clearfix">
                                             <div>
                                                 <?php
                                                 echo $this->Form->input('auto_r', array(
@@ -709,7 +707,8 @@
                                                         'empty' => 'Select Option',
                                                         'yes' => 'Yes',
                                                         'no' => 'No',
-                                                    ),)
+                                                    ),
+                                                    'class' => 'recurringChange')
                                                 );
                                                 ?>
                                             </div>                            
@@ -719,12 +718,30 @@
                                     <div class="col-md-2 signupfont">
                                         Repeat at Every
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-1">
                                         <div class="input-list style-4 clearfix">
                                             <div>
                                                 <?php
                                                 echo $this->Form->input(
                                                         'r_duration', array(
+                                                    'class' => 'form-control',
+                                                    'type' => 'text'
+                                                        )
+                                                );
+                                                ?>
+
+                                            </div>                            
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 signupfont">
+                                        Charge Amount
+                                    </div>
+                                    <div class="col-md-1">
+                                        <div class="input-list style-4 clearfix">
+                                            <div>
+                                                <?php
+                                                echo $this->Form->input(
+                                                        'charge_amount', array(
                                                     'class' => 'form-control',
                                                     'type' => 'text'
                                                         )
@@ -752,6 +769,122 @@
                                     </div>
                                 </div>
                                 &nbsp;
+
+
+                                <div class="col-md-12 margin-bottom-25 display-hide" id="recurring" >
+                                    <div class="col-md-2 signupfont" style="padding-right: 0px;">
+                                        Card Number: 
+                                    </div>
+                                    <div class="col-md-2">
+                                        <?php
+                                        echo $this->Form->input(
+                                                'card_check_no', array(
+                                            'type' => 'text',
+                                            'value' => '',
+                                            'class' => 'form-control input-sm required',
+                                            'id' => 'card_number',
+                                            'value' => $latestcardInfo['card_no']
+                                        ));
+                                        ?>
+                                    </div>
+
+                                    <div class="col-md-2 signupfont">
+                                        Expiration Date:
+                                    </div>
+                                    <div class="col-md-1">
+                                        <?php
+                                        echo $this->Form->input('exp_date.year', array(
+                                            'type' => 'select',
+                                            'options' => $ym['year'],
+                                            'empty' => 'Select Year',
+                                            'class' => 'span12 uniform nostyle select1 required',
+                                            'div' => array('class' => 'span12 '),
+                                            'id' => 'showyear',
+                                            'default' => $latestcardInfo['exp_date']['year']
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <?php
+                                        echo $this->Form->input('exp_date.month', array(
+                                            'type' => 'select',
+                                            'options' => $ym['month'],
+                                            'empty' => 'Select Month',
+                                            'class' => 'span12 uniform nostyle select1 required',
+                                            'div' => array('class' => 'span12 '),
+                                            'id' => 'showmonth',
+                                            'default' => $latestcardInfo['exp_date']['month']
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+
+                                    <div class="col-md-1 signupfont">
+                                        Amount: 
+                                    </div>
+                                    <div class="col-md-2">
+                                        <?php
+                                        echo $this->Form->input(
+                                                'paid_amount', array(
+                                            'type' => 'text',
+                                            'value' => $latestcardInfo['paid_amount'],
+                                            'class' => 'form-control input-sm required'
+                                        ));
+                                        ?>
+                                    </div>
+                                    <br>
+                                    &nbsp;
+                                    <div >
+
+                                        <div class="col-md-2">
+                                            Name: 
+                                        </div>
+                                        <div class="col-md-3">
+                                            <?php
+                                            echo $this->Form->input(
+                                                    'fname', array(
+                                                'type' => 'text',
+                                                'class' => 'form-control input-sm required',
+                                                'placeholder' => 'first name',
+                                                'id' => 'firstname',
+                                                'value' => $latestcardInfo['fname']
+                                            ));
+                                            ?>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <?php
+                                            echo $this->Form->input(
+                                                    'lname', array(
+                                                'type' => 'text',
+                                                'class' => 'form-control input-sm required',
+                                                'placeholder' => 'last name',
+                                                'id' => 'lastname',
+                                                'value' => $latestcardInfo['lname']
+                                            ));
+                                            ?>
+                                        </div>
+
+                                        <div class="col-md-2 ">
+                                            CVV Code: 
+                                        </div>
+                                        <div class="col-md-2">
+                                            <?php
+                                            echo $this->Form->input(
+                                                    'cvv_code', array(
+                                                'type' => 'text',
+                                                'value' => '',
+                                                'class' => 'form-control input-sm required',
+                                                'id' => 'cvv_code',
+                                                'value' => $latestcardInfo['cvv_code'],
+                                            ));
+                                            ?>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                &nbsp;
+
                                 <div class="row">
                                     <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20"> 
                                         <?php
@@ -1334,8 +1467,12 @@
                                                                     ));
                                                                     ?>
                                                                 </div>
+<<<<<<< HEAD
                                                             </div>
 
+=======
+                                                            </div>                                                        
+>>>>>>> 7fd1cfb8c6fe732391e10a04365e875d7392da58
                                                             &nbsp;
                                                             <div class="row">
                                                                 <div class="col-md-10 col-md-offset-3">

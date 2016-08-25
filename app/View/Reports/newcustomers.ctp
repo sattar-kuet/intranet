@@ -169,7 +169,6 @@
                                     <tbody>                                    
                                         <?php
                                         foreach ($transactions as $info):
-
                                             ?>
                                             <tr>
                                                 <td><?php echo $info['PackageCustomer']['c_acc_no']; ?></td>
@@ -183,7 +182,7 @@
                                                         echo $info['PackageCustomer']['Psetting']['name'];
                                                     } else {
                                                         echo $info['PackageCustomer']['CustomPackage']['duration'] . ' Months, Custom package ' . $info['PackageCustomer']['CustomPackage']['charge'] . '$';
-                                                    }
+                                                      }
                                                     ?>
                                                 </td>
                                                 <td><?php echo $info['Transaction']['due']; ?></td>

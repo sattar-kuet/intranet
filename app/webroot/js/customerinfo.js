@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
     $('.toggle').click(function () {
         var toggleElementID = $(this).data('id');
         $('#' + toggleElementID).toggle();
@@ -31,7 +32,6 @@ $(document).ready(function () {
             $("#showmonth").val(expmonth);
             $("#zip_code").val(zipcode);
             $("#TransactionAddress").val(addressdetails);
-            
             $("#statename").val(state);
             $("#cvv_code").val(cvvcode);
             $("#phoneno").val(phone);
@@ -55,10 +55,10 @@ $(document).ready(function () {
             $("#faxno").val('');
             $("#emailadd").val('');
             $("#cityname").val('');
-            
+
         }
     });
-    
+
     $('.pmode').change(function () {
         var pmode = $(this).filter(':checked').val();
         if (pmode == 'card') {
@@ -104,7 +104,6 @@ $(document).ready(function () {
         var value = $(this).val();
         var htmlContent = "";
         for (var i = 0; i < value; i++) {
-
             htmlContent = htmlContent + "<div class='row'><div class='col-md-12'><div class='col-md-2 signupfont '>Mac no:</div><div class='col-md-4'><div class='input-list style-4 clearfix'><div><input name='data[PackageCustomer][mac][]' maxlength='220' type='text' id='PackageCustomerMac' class='required' ></div></div></div><div class='col-md-2 signupfont'>System:</div> <div class='col-md-4'><div class='input-list style-4 clearfix'><div><select name='data[PackageCustomer][system][]' class='span12 uniform nostyle select1 required' id='PackageCustomerNumberOfSTBs:s' ><option value=''>Select System</option><option value='CMS1'>CMS1</option><option value='CMS2'>CMS2</option><option value='CMS3'>CMS3</option><option value='PORTAL'>PORTAL</option><option value='PORTAL1'>PORTAL1</option></select></div></div></div>  </div></div>&nbsp;";
         }
 
@@ -114,4 +113,21 @@ $(document).ready(function () {
 
     var due = $('.due-amount-2').text();
     $('.due-amount').text(due);
+
+//    auto recurring strat
+    var selected = $('.recurringChange option:selected').text().toLowerCase();
+    if (selected.trim() == "yes") {
+        $('#recurring').show();
+    }
+
+    $('.recurringChange').change(function () {
+        var selected = $('.recurringChange option:selected').text().toLowerCase();
+        if (selected.trim() == "yes") {
+            $('#recurring').show();
+        } else {
+            $('#recurring').hide();
+        }
+    });
+    //    auto recurring end
+
 });
