@@ -237,10 +237,9 @@ class PaymentsController extends AppController {
         //   pr($this->request->data); exit;
         //Get ID and Input amount from edit_customer page
         $this->request->data['Transaction']['package_customer_id'] = $data['cid'];
+        $cid = $data['cid'];
         // pr($this->request->data); exit;
-
-        $dateObj = $data['exp_date'];
-        $this->request->data['Transaction']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
+        $this->request->data['Transaction']['exp_date'] = $data['exp_date'];
         //pr($this->request->data['Transaction']);
         $this->layout = 'ajax';
         // Common setup for API credentials  
@@ -258,11 +257,6 @@ class PaymentsController extends AppController {
         $this->loadModel('Track');
         $loggedUser = $this->Auth->user();
         $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
-        $pcustomers = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $cid)));
-
-
-//        pr($pc);
-//        exit;
         $creditCard->setCardNumber($data['card_no']);
         $creditCard->setExpirationDate($data['exp_date']);
         //    $creditCard->setCardNumber("4117733943147221"); // live
@@ -327,7 +321,6 @@ class PaymentsController extends AppController {
                 $this->request->data['Transaction']['paid_amount'] = 0;
                 $this->request->data['Transaction']['status'] = 'error';
                 $this->request->data['Transaction']['error_msg'] = "Charge Credit Card ERROR :  Invalid response";
-                $msg .='<li> Transaction for ' . $data['fname'] . ' ' . $data['lname'] . ' failed for Charge Credit Card ERROR</li>';
 
                 $tdata['Ticket'] = array('content' => 'Transaction for ' . $data['fname'] . ' ' . $data['lname'] . ' failed for Charge Credit Card ERROR');
                 $tickect = $this->Ticket->save($tdata); // Data save in Ticket
@@ -344,7 +337,6 @@ class PaymentsController extends AppController {
             $this->request->data['Transaction']['paid_amount'] = 0;
             $this->request->data['Transaction']['status'] = 'error';
             $this->request->data['Transaction']['error_msg'] = "Charge Credit card Null response returned";
-            $msg .='<li> Transaction for ' . $data['fname'] . ' ' . $data['lname'] . ' failed for Charge Credit card Null response</li>';
 
             $tdata['Ticket'] = array('content' => 'Transaction for ' . $data['fname'] . ' ' . $data['lname'] . ' failed for Charge Credit card Null response');
             $tickect = $this->Ticket->save($tdata); // Data save in Ticket
@@ -383,12 +375,13 @@ class PaymentsController extends AppController {
             $now = strtotime($temp);
             if ($now >= $deadline) {
                 // Time out. So do it right now;
+
                 $data = array(
                     'exp_date' => $pc['exp_date'],
                     'card_no' => $pc['card_check_no'],
                     'cvv_code' => $pc['cvv_code'],
-                    'fname' => $pc['fname'],
-                    'lname' => $pc['lname'],
+                    'fname' => $pc['cfirst_name'],
+                    'lname' => $pc['clast_name'],
                     'company' => '',
                     'address' => $pc['street'] . ' ' . $pc['apartment'],
                     'city' => $pc['city'],
@@ -400,6 +393,8 @@ class PaymentsController extends AppController {
                     'charge_amount' => $pc['charge_amount'],
                     'cid' => $pc['id']
                 );
+
+                //  pr($data); exit;
                 $temp = array();
                 if ($this->individual_auto_recurring($data)) {
                     $temp = array(
@@ -418,6 +413,11 @@ class PaymentsController extends AppController {
                 $this->AutoRecurring->save($temp);
             }
         }
+        return $this->redirect('message');
+    }
+
+    function message() {
+        
     }
 
     function refundTransaction() {

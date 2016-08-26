@@ -41,17 +41,53 @@ class ReportsController extends AppController {
         $this->set(compact('due_customers'));
     }
 
-    function payment_history() {
+    function payment_history_old() {
         $this->loadModel('Transaction');
         $clicked = false;
         if ($this->request->is('post') || $this->request->is('put')) {
             $datrange = json_decode($this->request->data['Transaction']['daterange'], true);
             $conditions = array('Transaction.created >=' => $datrange['start'], 'Transaction.created <=' => $datrange['end']);
+
             $transactions = $this->Transaction->query("SELECT tr.id,tr.package_customer_id,concat(first_name,' ',middle_name,' ',last_name) as name,pc.psetting_id, pc.mac,
                 ps.name, p.name,ps.amount,ps.duration FROM transactions tr 
                 left join package_customers pc on pc.id = tr.package_customer_id
                 left join psettings ps on ps.id = pc.psetting_id
                 LEFT JOIN packages p ON p.id = ps.package_id");
+            $clicked = true;
+            $this->set(compact('transactions'));
+        }
+        $this->set(compact('clicked'));
+    }
+
+    function payment_history() {
+        $this->loadModel('Transaction');
+        $clicked = false;
+        if ($this->request->is('post') || $this->request->is('put')) {
+
+            $datrange = json_decode($this->request->data['Transaction']['daterange'], true);
+            $conditions = " tr.status = 'success' AND ";
+            if (isset($this->request->data['Transaction']['pay_mode'])) {
+                $conditions .=" tr.pay_mode = '" . $this->request->data['Transaction']['pay_mode'] . "' AND ";
+            }
+            if ($datrange['start'] == $datrange['end']) {
+                $nextday = date('Y-m-d', strtotime($datrange['end'] . "+1 days"));
+                $conditions .=" tr.created >=' " . $datrange['start'] . "' AND  tr.created < '" . $nextday . "' AND ";
+            } else {
+                $conditions .=" tr.created >='" . $datrange['start'] . "' AND  tr.created <='" . $datrange['end'] . "' AND ";
+            }
+            $conditions.="###";
+            $conditions = str_replace("AND###", "", $conditions);
+            $conditions = str_replace("AND ###", "", $conditions);
+            $conditions = str_replace("###", "", $conditions);
+
+
+
+            $transactions = $this->Transaction->query("SELECT * FROM transactions tr 
+                left join package_customers pc on pc.id = tr.package_customer_id
+                left join psettings ps on ps.id = pc.psetting_id
+                LEFT JOIN packages p ON p.id = ps.package_id 
+                 WHERE $conditions");
+           
             $clicked = true;
             $this->set(compact('transactions'));
         }
@@ -282,13 +318,12 @@ class ReportsController extends AppController {
                 $conditions .=" tr.forwarded_by = $agent AND";
             }
             if (count($datrange)) {
-               
+
                 if ($datrange['start'] == $datrange['end']) {
-                   // SELECT * FROM tracks tr left JOIN tickets t ON tr.ticket_id = t.id 
-                   // where t.created >=' 2016-04-13' and t.created < '2016-04-15'
-                   
-                   // WHERE  t.created >='2016-06-06' AND  t.created <'2016-06-07' 
-                    
+                    // SELECT * FROM tracks tr left JOIN tickets t ON tr.ticket_id = t.id 
+                    // where t.created >=' 2016-04-13' and t.created < '2016-04-15'
+                    // WHERE  t.created >='2016-06-06' AND  t.created <'2016-06-07' 
+
                     $nextday = date('Y-m-d', strtotime($datrange['end'] . "+1 days"));
                     $conditions .=" t.created >=' " . $datrange['start'] . "' AND  t.created < '" . $nextday . "' AND ";
                 } else {
@@ -305,9 +340,9 @@ class ReportsController extends AppController {
             $conditions = str_replace("AND ###", "", $conditions);
             $conditions = str_replace("###", "", $conditions);
 
-            
-            
-            
+
+
+
             $sql = "SELECT * FROM tracks tr
                         left JOIN tickets t ON tr.ticket_id = t.id
                         left JOIN users fb ON tr.forwarded_by = fb.id
