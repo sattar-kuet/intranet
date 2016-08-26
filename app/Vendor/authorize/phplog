@@ -3395,3 +3395,1956 @@ Thu, 25 Aug 2016 06:51:59 +0000:Response from AnetApi:
 
 Thu, 25 Aug 2016 06:51:59 +0000: Response De-Serialization Begin
 Thu, 25 Aug 2016 06:51:59 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:23:22 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:23:22 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:23:22 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:23:22 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472117002]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[]]></cardNumber>
+        <expirationDate><![CDATA[]]></expirationDate>
+        <cardCode><![CDATA[]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:23:22 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:23:24 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardNumber' element is invalid - The value XX is invalid according to its datatype 'String' - The actual length is less than the MinLength value.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:23:24 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:23:24 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:30:33 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:30:33 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:30:33 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:30:33 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472117433]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[]]></cardNumber>
+        <expirationDate><![CDATA[]]></expirationDate>
+        <cardCode><![CDATA[]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:30:33 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:30:36 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardNumber' element is invalid - The value XX is invalid according to its datatype 'String' - The actual length is less than the MinLength value.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:30:36 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:30:36 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:40:55 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:40:55 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:40:55 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:40:55 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118054]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:40:55 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:40:56 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:40:56 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:40:56 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:43:19 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:43:19 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:43:19 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:43:19 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118199]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:43:20 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:43:21 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:43:21 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:43:21 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:44:49 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:44:49 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:44:49 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:44:49 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118289]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:44:49 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:44:51 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:44:51 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:44:51 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:45:36 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:45:36 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:45:36 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:45:36 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118336]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:45:36 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:45:38 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:45:38 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:45:38 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:45:39 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:45:39 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:45:39 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:45:39 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118339]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:45:39 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:45:40 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:45:40 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:45:40 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:45:41 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:45:41 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:45:41 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:45:41 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118341]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:45:41 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:45:42 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:45:42 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:45:42 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:45:43 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:45:43 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:45:43 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:45:43 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118343]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:45:43 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:45:44 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:45:44 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:45:44 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:45:45 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:45:45 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:45:45 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:45:45 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118345]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:45:45 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:45:46 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:45:46 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:45:46 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:45:47 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:45:47 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:45:47 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:45:47 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118347]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:45:47 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:45:49 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:45:49 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:45:49 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:45:50 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:45:50 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:45:50 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:45:50 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118350]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:45:50 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:45:51 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:45:51 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:45:51 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:45:52 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:45:52 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:45:52 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:45:52 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118352]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:45:52 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:45:53 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:45:53 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:45:53 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:45:54 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:45:54 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:45:54 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:45:54 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118354]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:45:54 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:45:55 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:45:55 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:45:55 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:45:56 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:45:56 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:45:56 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:45:56 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118356]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:45:56 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:45:57 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:45:57 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:45:57 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:45:57 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:45:58 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:45:58 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:45:58 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118357]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:45:58 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:45:59 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:45:59 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:45:59 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:45:59 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:45:59 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:45:59 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:45:59 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118359]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:45:59 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:46:01 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:46:01 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:46:01 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:46:01 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:46:01 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:46:01 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:46:01 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118361]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:46:01 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:46:03 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:46:03 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:46:03 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:46:03 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:46:03 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:46:03 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:46:03 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118363]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:46:03 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:46:05 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:46:05 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:46:05 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:46:05 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:46:05 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:46:05 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:46:05 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118365]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:46:05 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:46:06 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:46:06 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:46:06 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:46:07 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:46:07 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:46:07 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:46:07 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118367]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:46:07 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:46:08 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:46:08 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:46:08 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:46:09 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:46:09 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:46:09 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:46:09 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118368]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:46:09 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:46:10 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:46:10 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:46:10 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:46:10 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:46:10 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:46:10 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:46:10 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118370]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:46:10 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:46:12 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:46:12 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:46:12 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:46:12 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:46:12 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:46:12 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:46:12 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118372]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:46:12 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:46:14 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:46:14 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:46:14 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:46:14 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:46:14 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:46:14 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:46:14 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118374]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:46:14 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:46:15 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:46:15 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:46:15 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:46:16 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:46:16 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:46:16 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:46:16 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118376]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:46:16 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:46:17 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:46:17 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:46:17 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:46:18 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:46:18 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:46:18 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:46:18 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118378]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:46:18 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:46:19 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:46:19 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:46:19 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:46:20 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:46:20 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:46:20 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:46:20 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118380]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:46:20 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:46:21 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:46:21 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:46:21 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:46:21 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:46:21 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:46:22 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:46:22 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118381]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:46:22 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:46:23 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:46:23 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:46:23 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:46:23 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:46:23 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:46:23 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:46:23 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118383]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:46:23 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:46:25 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:46:25 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:46:25 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:46:25 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:46:25 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:46:25 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:46:25 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118385]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:46:25 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:46:27 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:46:27 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:46:27 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:46:27 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:46:27 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:46:27 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:46:27 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118387]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:46:27 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:46:29 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:46:29 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:46:29 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:46:29 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:46:29 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:46:29 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:46:29 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118389]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:46:29 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:46:30 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:46:30 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:46:30 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:46:31 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:46:31 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:46:31 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:46:31 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118391]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:46:31 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:46:32 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:46:32 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:46:32 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:46:33 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:46:33 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:46:33 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:46:33 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118393]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:46:33 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:46:34 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:46:34 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:46:34 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:46:35 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:46:35 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:46:35 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:46:35 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118395]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:46:35 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:46:36 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:46:36 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:46:36 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:46:36 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:46:37 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:46:37 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:46:37 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118396]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:46:37 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:46:38 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:46:38 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:46:38 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:46:38 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:46:38 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:46:38 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:46:38 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118398]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:46:38 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:46:40 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:46:40 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:46:40 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:46:40 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:46:40 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:46:40 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:46:40 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118400]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:46:40 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:46:42 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:46:42 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:46:42 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:46:42 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:46:42 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:46:42 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:46:42 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118402]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:46:42 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:46:44 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:46:44 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:46:44 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:46:44 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:46:44 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:46:44 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:46:44 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118404]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:46:44 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:46:46 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:46:46 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:46:46 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:46:46 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:46:46 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:46:46 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:46:46 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118406]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:46:46 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:46:48 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:46:48 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:46:48 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:46:48 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:46:48 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:46:48 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:46:48 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118408]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:46:48 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:46:50 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:46:50 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:46:50 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:46:50 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:46:50 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:46:50 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:46:50 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118410]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:46:50 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:46:52 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:46:52 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:46:52 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:46:52 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:46:52 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:46:52 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:46:52 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118412]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:46:52 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:46:54 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:46:54 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:46:54 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:46:54 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:46:54 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:46:54 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:46:54 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118414]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:46:54 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:46:56 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:46:56 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:46:56 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:46:56 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:46:56 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:46:56 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:46:56 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118416]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:46:56 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:46:58 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:46:58 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:46:58 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:46:59 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:46:59 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:46:59 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:46:59 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118419]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:46:59 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:47:00 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:47:00 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:47:00 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:47:00 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:47:00 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:47:00 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:47:00 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118420]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:47:00 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:47:05 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:47:05 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:47:05 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:47:05 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:47:05 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:47:05 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:47:05 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118425]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:47:05 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:47:07 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:47:07 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:47:07 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:47:07 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:47:07 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:47:07 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:47:07 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118427]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:47:07 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:47:09 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:47:09 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:47:09 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:47:10 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:47:10 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:47:10 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:47:10 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118429]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:47:10 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:47:13 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:47:13 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:47:13 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:47:13 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:47:13 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:47:13 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:47:13 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118433]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:47:13 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:47:15 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:47:15 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:47:15 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:47:15 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:47:15 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:47:15 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:47:15 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118435]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:47:15 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:47:17 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:47:17 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:47:17 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:47:17 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:47:17 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:47:17 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:47:17 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118437]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:47:17 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:47:19 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:47:19 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:47:19 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:47:19 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:47:19 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:47:19 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:47:19 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118439]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:47:19 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:47:21 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:47:21 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:47:21 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:47:21 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:47:21 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:47:21 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:47:21 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118441]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:47:21 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:47:22 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:47:22 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:47:22 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:47:23 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:47:23 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:47:23 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:47:23 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118443]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:47:23 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:47:24 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:47:24 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:47:24 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:47:24 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:47:25 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:47:25 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:47:25 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118444]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:47:25 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:47:26 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:47:26 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:47:26 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:47:26 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:47:26 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:47:26 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:47:26 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118446]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:47:26 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:47:28 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:47:28 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:47:28 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:47:28 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:47:28 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:47:28 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:47:28 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118448]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:47:28 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:47:30 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:47:30 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:47:30 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:48:29 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:48:29 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:48:29 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:48:29 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472118509]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:48:29 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:48:31 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:48:31 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:48:31 +0000: Response De-Serialization End
+Thu, 25 Aug 2016 09:58:24 +0000: Request Serialization Begin
+Thu, 25 Aug 2016 09:58:24 +0000: Request  Serialization End
+Thu, 25 Aug 2016 09:58:24 +0000: Url: https://api2.authorize.net/xml/v1/request.api
+Thu, 25 Aug 2016 09:58:24 +0000:Request to AnetApi: 
+<?xml version="1.0" encoding="UTF-8"?>
+<createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+  <merchantAuthentication>
+    <name><![CDATA[7zKH4b45]]></name>
+    <transactionKey><![CDATA[738QpWvHH4vS59vY]]></transactionKey>
+  </merchantAuthentication>
+  <refId><![CDATA[ref1472119104]]></refId>
+  <transactionRequest>
+    <transactionType><![CDATA[authCaptureTransaction]]></transactionType>
+    <amount>0</amount>
+    <payment>
+      <creditCard>
+        <cardNumber><![CDATA[1234567899]]></cardNumber>
+        <expirationDate><![CDATA[05/20]]></expirationDate>
+        <cardCode><![CDATA[gdafgdf545]]></cardCode>
+      </creditCard>
+    </payment>
+  </transactionRequest>
+</createTransactionRequest>
+
+Sending 'XML' Request type
+Thu, 25 Aug 2016 09:58:24 +0000:Sending http request via Curl
+Thu, 25 Aug 2016 09:58:26 +0000:Response from AnetApi: 
+﻿<?xml version="1.0" encoding="utf-8"?><ErrorResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"><messages><resultCode>Error</resultCode><message><code>E00003</code><text>The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XXXXXXXXXXXX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.</text></message></messages></ErrorResponse>
+
+Thu, 25 Aug 2016 09:58:26 +0000: Response De-Serialization Begin
+Thu, 25 Aug 2016 09:58:26 +0000: Response De-Serialization End

@@ -132,8 +132,8 @@ class TransactionsController extends AppController {
             $tmsg = 'Information of  ' . $this->request->data['PackageCustomer']['first_name'] . '  ' .
                     $this->request->data['PackageCustomer']['middle_name'] . '  ' .
                     $this->request->data['PackageCustomer']['last_name'] . ' has been updated';
-//            $dateObj = $this->request->data['PackageCustomer']['exp_date'];
-//            $this->request->data['PackageCustomer']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
+            $dateObj = $this->request->data['PackageCustomer']['exp_date'];
+            $this->request->data['PackageCustomer']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
             $this->PackageCustomer->id = $id; //$customer_info['PackageCustomer']['id'];
             //For Custom Package data insert
 

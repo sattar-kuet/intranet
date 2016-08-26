@@ -826,9 +826,9 @@
                                     <div class="col-md-2">
                                         <?php
                                         echo $this->Form->input(
-                                                'paid_amount', array(
+                                                'charge_amount', array(
                                             'type' => 'text',
-                                            'value' => $latestcardInfo['paid_amount'],
+                                            
                                             'class' => 'form-control input-sm required'
                                         ));
                                         ?>
@@ -843,7 +843,7 @@
                                         <div class="col-md-3">
                                             <?php
                                             echo $this->Form->input(
-                                                    'fname', array(
+                                                    'cfirst_name', array(
                                                 'type' => 'text',
                                                 'class' => 'form-control input-sm required',
                                                 'placeholder' => 'first name',
@@ -855,7 +855,7 @@
                                         <div class="col-md-3">
                                             <?php
                                             echo $this->Form->input(
-                                                    'lname', array(
+                                                    'clast_name', array(
                                                 'type' => 'text',
                                                 'class' => 'form-control input-sm required',
                                                 'placeholder' => 'last name',

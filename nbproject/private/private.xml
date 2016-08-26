@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+<<<<<<< HEAD
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="48">
         <file>
             <url>app/View/Tickets/create.ctp</url>
@@ -129,6 +130,17 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/xampp/htdocs/intranet/app/Controller/TicketsController.php</file>
+=======
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/Server/htdocs/intranet/app/Controller/PaymentsController.php</file>
+            <file>file:/D:/Server/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
+            <file>file:/D:/Server/htdocs/intranet/app/View/Payments/message.ctp</file>
+            <file>file:/D:/Server/htdocs/intranet/app/Controller/TransactionsController.php</file>
+            <file>file:/D:/Server/htdocs/intranet/app/Model/AutoRecurring.php</file>
+            <file>file:/D:/Server/htdocs/intranet/app/webroot/js/customerinfo.js</file>
+>>>>>>> 016abcaaff3d8e34c8831a72a60fb35b2ad79815
         </group>
     </open-files>
 </project-private>
