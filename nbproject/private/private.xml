@@ -5,10 +5,7 @@
         <group>
             <file>file:/D:/Server/htdocs/intranet/app/Controller/PaymentsController.php</file>
             <file>file:/D:/Server/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
-            <file>file:/D:/Server/htdocs/intranet/app/View/Payments/message.ctp</file>
             <file>file:/D:/Server/htdocs/intranet/app/Controller/TransactionsController.php</file>
-            <file>file:/D:/Server/htdocs/intranet/app/Model/AutoRecurring.php</file>
-            <file>file:/D:/Server/htdocs/intranet/app/webroot/js/customerinfo.js</file>
         </group>
     </open-files>
 </project-private>

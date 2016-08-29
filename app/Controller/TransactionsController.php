@@ -148,7 +148,6 @@ class TransactionsController extends AppController {
             }
             //Ends Custom_package data entry  
 //            pr($this->request->data); exit;
-
             $shistory = $this->PackageCustomer->save($this->request->data['PackageCustomer']);
             $data4statusHistory = array();
             $data4statusHistory['StatusHistory'] = array(
@@ -156,7 +155,6 @@ class TransactionsController extends AppController {
                 'date' => $this->request->data['PackageCustomer']['date'],
                 'status' => $this->request->data['PackageCustomer']['status'],
             );
-
             $this->StatusHistory->save($data4statusHistory);
             $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -173,11 +171,8 @@ class TransactionsController extends AppController {
                 'issue_id' => 100,
                 'forwarded_by' => $loggedUser['id']
             );
-
             $this->Track->save($trackData);
         }
-
-
         $this->loadModel('PackageCustomer');
         $customer_info = $this->PackageCustomer->findById($pcid);
         $statusHistories = $this->StatusHistory->find('all', array('conditions' => array('StatusHistory.package_customer_id' => $pcid)));
@@ -194,7 +189,6 @@ class TransactionsController extends AppController {
         } else {
             $checkMark = FALSE;
         }
-
         //Show mac and stb information which is already in database
         $macstb['mac'] = json_decode($customer_info['PackageCustomer']['mac']);
         $macstb['system'] = json_decode($customer_info['PackageCustomer']['system']);
@@ -243,7 +237,35 @@ class TransactionsController extends AppController {
         $temp = $this->Transaction->query($sql);
         $yyyy = 0;
         $mm = -1;
-        // pr($temp);
+        // pr($temp); exit;
+          $date = explode('/', $customer_info['PackageCustomer']['exp_date']);
+           
+            if (count($date) == 2) {
+                $yyyy = date('Y');
+                $yy = substr($yyyy, 0, 2);
+                $yyyy = $yy . '' . $date[1];
+                $mm = $date[0];
+            }
+           $cardInfo = array(
+                'fname' => $customer_info['PackageCustomer']['cfirst_name'],
+                'lname' => $customer_info['PackageCustomer']['clast_name'],
+                'cvv_code' => $customer_info['PackageCustomer']['cvv_code'],
+                'zip_code' => $customer_info['PackageCustomer']['czip'],
+                'address' => '',
+                'trx_id' => '',
+                'card_no' => $customer_info['PackageCustomer']['card_check_no'],
+                'company' => '',
+                'city' => '',
+                'state' => '',
+                'email' => '',
+                'country' => '',
+                'phone' => '',
+                'fax' => '',
+                'paid_amount' => '',
+                'description' => '',
+                'exp_date' => array('year' => $yyyy, 'month' => $mm)
+            );
+        
         if (count($temp)) {
             $date = explode('/', $temp[0]['transactions']['exp_date']);
             $yyyy = date('Y');
@@ -282,24 +304,19 @@ class TransactionsController extends AppController {
             );
         }
         $this->loadModel('Transaction');
-
-
-
-
         $transactions_all = $this->Transaction->query("SELECT * 
             FROM  `transactions` tr
             INNER JOIN package_customers pc ON pc.id = tr.`package_customer_id` 
             WHERE package_customer_id = $pcid order by tr.id ASC;");
 
 //         pr($transactions[0]['paid_amount']); exit;
-        $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge', 'latestcardInfo', 'transactions_data', 'transactions_all'));
+        $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge', 'latestcardInfo', 'cardInfo', 'transactions_data', 'transactions_all'));
     }
 
     function updatecardinfo() {
         $this->loadModel('Transaction');
         $user_info = $this->Auth->user();
         $user_id = $user_info['id'];
-
         $this->request->data['Transaction']['user_id'] = $user_id;
         $this->request->data['Transaction']['exp_date'] = $this->request->data['PackageCustomer']['exp_date']['month'] . '/' . $this->request->data['PackageCustomer']['exp_date']['year'];
         $this->request->data['Transaction']['package_customer_id'] = $this->request->data['PackageCustomer']['id'];
@@ -309,8 +326,6 @@ class TransactionsController extends AppController {
             <strong> Card information updated successfully </strong>
             </div>';
         $this->Session->setFlash($msg);
-
-
         return $this->redirect($this->referer());
     }
 

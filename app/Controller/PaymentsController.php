@@ -155,9 +155,8 @@ class PaymentsController extends AppController {
         $request->setRefId($refId);
         $request->setTransactionRequest($transactionRequestType);
         $controller = new AnetController\CreateTransactionController($request);
-        //     $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX); 
+        //  $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX); 
         $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
-
         $this->request->data['Transaction']['error_msg'] = '';
         $this->request->data['Transaction']['status'] = '';
         $this->request->data['Transaction']['trx_id'] = '';
@@ -236,10 +235,8 @@ class PaymentsController extends AppController {
     public function individual_auto_recurring($data) {
         //   pr($this->request->data); exit;
         //Get ID and Input amount from edit_customer page
-        $this->request->data['Transaction']['package_customer_id'] = $data['cid'];
         $cid = $data['cid'];
         // pr($this->request->data); exit;
-        $this->request->data['Transaction']['exp_date'] = $data['exp_date'];
         //pr($this->request->data['Transaction']);
         $this->layout = 'ajax';
         // Common setup for API credentials  
@@ -294,6 +291,20 @@ class PaymentsController extends AppController {
         $this->request->data['Transaction']['status'] = '';
         $this->request->data['Transaction']['trx_id'] = '';
         $this->request->data['Transaction']['auth_code'] = '';
+        $this->request->data['Transaction']['package_customer_id'] = $data['cid'];
+        $this->request->data['Transaction']['fname'] = $data['fname'];
+        $this->request->data['Transaction']['lname'] = $data['lname'];
+        $this->request->data['Transaction']['exp_date'] = $data['exp_date'];
+        $this->request->data['Transaction']['address'] = $data['address'];
+        $this->request->data['Transaction']['city'] = $data['city'];
+        $this->request->data['Transaction']['state'] = $data['state'];
+        $this->request->data['Transaction']['zip_code'] = $data['zip_code'];
+        $this->request->data['Transaction']['phone'] = $data['phone'];
+        $this->request->data['Transaction']['paid_amount'] = $data['charge_amount'];
+        $this->request->data['Transaction']['card_no'] = $data['card_no'];
+        $this->request->data['Transaction']['cvv_code'] = $data['cvv_code'];
+        $this->request->data['Transaction']['fax'] = $data['fax'];
+
         if ($response != null) {
             $tresponse = $response->getTransactionResponse();
             // pr($tresponse ); exit;
@@ -301,7 +312,7 @@ class PaymentsController extends AppController {
                 $this->request->data['Transaction']['status'] = 'success';
                 $r_from = date('Y-m-d');
                 $this->PackageCustomer->id = $data['cid'];
-                $this->PackageCustomer->saveField("r_from", $r_from);
+                $this->PackageCustomer->saveField("r_form", $r_from);
 
                 $this->request->data['Transaction']['trx_id'] = $tresponse->getTransId();
                 $this->request->data['Transaction']['auth_code'] = $tresponse->getAuthCode();
@@ -364,7 +375,6 @@ class PaymentsController extends AppController {
         $failure = 0;
         foreach ($pcs as $single) {
             $pc = $single['PackageCustomer'];
-
             $duration = $pc['r_duration'];
             $rFrom = $pc['r_form'];
 //            $Date = "2010-09-17";

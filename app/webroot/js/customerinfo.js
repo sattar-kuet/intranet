@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
     $('.toggle').click(function () {
         var toggleElementID = $(this).data('id');
         $('#' + toggleElementID).toggle();

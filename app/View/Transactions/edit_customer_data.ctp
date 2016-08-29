@@ -783,7 +783,7 @@
                                             'value' => '',
                                             'class' => 'form-control input-sm required',
                                             'id' => 'card_number',
-                                            'value' => $latestcardInfo['card_no']
+                                            'value' => $cardInfo['card_no']
                                         ));
                                         ?>
                                     </div>
@@ -800,7 +800,7 @@
                                             'class' => 'span12 uniform nostyle select1 required',
                                             'div' => array('class' => 'span12 '),
                                             'id' => 'showyear',
-                                            'default' => $latestcardInfo['exp_date']['year']
+                                            'default' => $cardInfo['exp_date']['year']
                                                 )
                                         );
                                         ?>
@@ -814,7 +814,7 @@
                                             'class' => 'span12 uniform nostyle select1 required',
                                             'div' => array('class' => 'span12 '),
                                             'id' => 'showmonth',
-                                            'default' => $latestcardInfo['exp_date']['month']
+                                            'default' => $cardInfo['exp_date']['month']
                                                 )
                                         );
                                         ?>
@@ -848,7 +848,7 @@
                                                 'class' => 'form-control input-sm required',
                                                 'placeholder' => 'first name',
                                                 'id' => 'firstname',
-                                                'value' => $latestcardInfo['fname']
+                                                'value' => $cardInfo['fname']
                                             ));
                                             ?>
                                         </div>
@@ -860,10 +860,11 @@
                                                 'class' => 'form-control input-sm required',
                                                 'placeholder' => 'last name',
                                                 'id' => 'lastname',
-                                                'value' => $latestcardInfo['lname']
+                                                'value' => $cardInfo['lname']
                                             ));
                                             ?>
                                         </div>
+                                    
 
                                         <div class="col-md-2 ">
                                             CVV Code: 
@@ -876,7 +877,7 @@
                                                 'value' => '',
                                                 'class' => 'form-control input-sm required',
                                                 'id' => 'cvv_code',
-                                                'value' => $latestcardInfo['cvv_code'],
+                                                'value' => $cardInfo['cvv_code'],
                                             ));
                                             ?>
                                         </div>
@@ -1467,12 +1468,12 @@
                                                                     ));
                                                                     ?>
                                                                 </div>
-<<<<<<< HEAD
+
                                                             </div>
 
-=======
+
                                                             </div>                                                        
->>>>>>> 7fd1cfb8c6fe732391e10a04365e875d7392da58
+
                                                             &nbsp;
                                                             <div class="row">
                                                                 <div class="col-md-10 col-md-offset-3">

@@ -63,32 +63,32 @@ class ReportsController extends AppController {
         $this->loadModel('Transaction');
         $clicked = false;
         if ($this->request->is('post') || $this->request->is('put')) {
-
+          // pr($this->request->data);
             $datrange = json_decode($this->request->data['Transaction']['daterange'], true);
             $conditions = " tr.status = 'success' AND ";
-            if (isset($this->request->data['Transaction']['pay_mode'])) {
+            if (!empty($this->request->data['Transaction']['pay_mode'])) {
                 $conditions .=" tr.pay_mode = '" . $this->request->data['Transaction']['pay_mode'] . "' AND ";
             }
             if ($datrange['start'] == $datrange['end']) {
                 $nextday = date('Y-m-d', strtotime($datrange['end'] . "+1 days"));
-                $conditions .=" tr.created >=' " . $datrange['start'] . "' AND  tr.created < '" . $nextday . "' AND ";
+                $conditions .=" tr.created >=' " . $datrange['start'] . " 00:00:00' AND  tr.created < '" . $nextday . " 23:59:59' AND ";
             } else {
-                $conditions .=" tr.created >='" . $datrange['start'] . "' AND  tr.created <='" . $datrange['end'] . "' AND ";
+                $conditions .=" tr.created >='" . $datrange['start'] . " 00:00:00' AND  tr.created <='" . $datrange['end'] . " 23:59:59' AND ";
             }
             $conditions.="###";
             $conditions = str_replace("AND###", "", $conditions);
             $conditions = str_replace("AND ###", "", $conditions);
             $conditions = str_replace("###", "", $conditions);
-
-
-
-            $transactions = $this->Transaction->query("SELECT * FROM transactions tr 
+            $sql = "SELECT * FROM transactions tr 
                 left join package_customers pc on pc.id = tr.package_customer_id
                 left join psettings ps on ps.id = pc.psetting_id
                 LEFT JOIN packages p ON p.id = ps.package_id 
-                 WHERE $conditions");
-           
+                 WHERE $conditions";
+           // echo $sql; exit;
+            $transactions = $this->Transaction->query($sql);
+
             $clicked = true;
+          //  pr($transactions); exit;
             $this->set(compact('transactions'));
         }
         $this->set(compact('clicked'));
