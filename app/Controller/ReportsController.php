@@ -87,7 +87,8 @@ class ReportsController extends AppController {
                 left join psettings ps on ps.id = pc.psetting_id
                 LEFT JOIN packages p ON p.id = ps.package_id 
                  WHERE $conditions");
-            pr($transactions); exit;
+//            pr($transactions);
+//            exit;
             $clicked = true;
             $this->set(compact('transactions'));
         }
@@ -157,8 +158,8 @@ class ReportsController extends AppController {
     function all_invoice_close() {
         $this->loadModel('Package_customer');
         $this->loadModel('Transaction');
-        pr($this->request->data);
-        exit;
+//        pr($this->request->data);
+//        exit;
         if ($this->request->is('post') || $this->request->is('put')) {
             pr($this->request->data);
             exit;
@@ -178,8 +179,8 @@ class ReportsController extends AppController {
             
             WHERE paid_amount !=0 and
             tr.created >='" . $datrange['start'] . "' AND tr.created <='" . $datrange['end'] . "'");
-            pr($transactions);
-            exit;
+//            pr($transactions);
+//            exit;
             $this->set(compact('transactions'));
         }
     }
@@ -220,7 +221,74 @@ class ReportsController extends AppController {
             left join transactions tr on tr.package_customer_id = pc.id
             WHERE package_exp_date>='" . date('Y-m-d') . "' AND package_exp_date<='" . $expiredate . "' AND package_exp_date != 0000-00-00 "
                 . "GROUP BY pc.id");
+//        pr($packagecustomers); exit;
         $this->set(compact('packagecustomers'));
+    }
+
+    function outbound() {
+        $this->loadModel('Package_customer');
+        $this->loadModel('Transaction');
+        $this->loadModel('Ticket');
+        $this->loadModel('Track');
+        $loggedUser = $this->Auth->user();
+//          pr($loggedUser);
+//        exit;
+        $expiredate = trim(date('Y-m-d', strtotime("+5 days")));
+        $packagecustomers = $this->Transaction->query("SELECT pc.id,tr.id, CONCAT( first_name,' ', middle_name,' ', last_name ) AS name, pc.psetting_id, pc.mac,pc.house_no,
+            pc.street,pc.apartment,pc.city,pc.state,pc.zip,pc.package_exp_date,ps.name, ps.amount, ps.duration,p.name, tr.paid_amount
+            FROM package_customers pc
+            left join psettings ps on ps.id = pc.psetting_id
+            LEFT JOIN packages p ON p.id = ps.package_id 
+            left join transactions tr on tr.package_customer_id = pc.id
+            WHERE package_exp_date>='" . date('Y-m-d') . "' AND package_exp_date<='" . $expiredate . "' AND package_exp_date != 0000-00-00 "
+                . "GROUP BY pc.id");
+
+
+
+        for ($i = 0; $i < count($packagecustomers); $i++) {
+            $this->request->data['Ticket']['user_id'] = $loggedUser['id'];
+            $this->request->data['Ticket']['role_id'] = $loggedUser['Role']['id'];
+            $tickect = $this->Ticket->save($this->request->data['Ticket']);
+//            $id = $tickect['Ticket']['id'];
+
+            $this->request->data['Track']['package_customer_id'] = $value['pc']['id'];
+
+            $this->request->data['Track']['user_id'] = $tickect['Ticket']['user_id'];
+            $this->request->data['Track']['role_id'] = $tickect['Ticket']['role_id'];
+//            $this->request->data['Track']['ticket_id'] = $id;
+            $this->request->data['Track']['status'] = 'outbound';
+            $this->request->data['Track']['forwarded_by'] = 'admin';
+            $this->Track->save($this->request->data['Track']);
+
+//            $stmt->execute(array($value, $key));
+        }
+
+//        return $this->redirect('message');
+//        pr('here');
+//        exit;
+//        $this->set(compact('packagecustomers'));
+    }
+
+    function outboundView() {
+        $this->loadModel('track');
+        $data = $this->track->query("SELECT * FROM `tracks` tr
+                left join package_customers pc on tr.package_customer_id = pc.id
+                left join tickets ti on tr.ticket_id = ti.id
+                WHERE tr.status = 'outbound'");
+        $this->set(compact('data'));
+    }
+
+    function called($id = null) {
+        $this->loadModel('Track');
+        $this->Track->id = $id;
+//        pr($this->request->data); exit;
+        $this->Track->saveField("status", "called");
+        $msg = '<div class="alert alert-success">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<strong>Called succeesfully </strong>
+        </div>';
+        $this->Session->setFlash($msg);
+        return $this->redirect($this->referer());
     }
 
     function extraPayment() {

@@ -716,7 +716,7 @@
                                     </div>
 
                                     <div class="col-md-2 signupfont">
-                                        Repeat at Every
+                                        &nbsp;  Repeat at Every
                                     </div>
                                     <div class="col-md-1">
                                         <div class="input-list style-4 clearfix">
@@ -1467,12 +1467,9 @@
                                                                     ));
                                                                     ?>
                                                                 </div>
-<<<<<<< HEAD
                                                             </div>
 
-=======
                                                             </div>                                                        
->>>>>>> 7fd1cfb8c6fe732391e10a04365e875d7392da58
                                                             &nbsp;
                                                             <div class="row">
                                                                 <div class="col-md-10 col-md-offset-3">

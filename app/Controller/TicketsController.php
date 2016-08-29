@@ -75,7 +75,7 @@ class TicketsController extends AppController {
                     $this->request->data['Ticket']['priority'] = 'low';
                 }
 
-                
+                pr($this->request->data); exit;
                 $tickect = $this->Ticket->save($this->request->data['Ticket']); // Data save in Ticket
 
                 $trackData['Track'] = array(

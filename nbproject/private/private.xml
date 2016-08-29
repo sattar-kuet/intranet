@@ -1,146 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-<<<<<<< HEAD
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="48">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
         <file>
-            <url>app/View/Tickets/create.ctp</url>
-            <bookmark id="44">
-                <name/>
-                <line>86</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
-            <url>app/Controller/TicketsController.php</url>
-            <bookmark id="19">
-                <name/>
-                <line>254</line>
-                <key/>
-            </bookmark>
-            <bookmark id="48">
-                <name/>
-                <line>659</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
-            <url>app/Controller/TechniciansController.php</url>
-            <bookmark id="23">
-                <name/>
-                <line>322</line>
-                <key/>
-            </bookmark>
-            <bookmark id="24">
-                <name/>
-                <line>526</line>
-                <key/>
-            </bookmark>
-            <bookmark id="22">
-                <name/>
-                <line>565</line>
-                <key/>
-            </bookmark>
-            <bookmark id="21">
-                <name/>
-                <line>654</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
-            <url>app/View/Reports/extra_payment.ctp</url>
-            <bookmark id="5">
-                <name/>
-                <line>134</line>
-                <key/>
-            </bookmark>
-            <bookmark id="4">
-                <name/>
-                <line>196</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
-            <url>app/View/Tickets/customertickethistory.ctp</url>
-            <bookmark id="18">
-                <name/>
-                <line>68</line>
-                <key/>
-            </bookmark>
-            <bookmark id="17">
-                <name/>
-                <line>292</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
-            <url>app/Controller/CustomersController.php</url>
-            <bookmark id="20">
-                <name/>
-                <line>623</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
-            <url>app/View/Transactions/edit_customer_data.ctp</url>
-            <bookmark id="35">
-                <name/>
-                <line>93</line>
-                <key/>
-            </bookmark>
-            <bookmark id="46">
-                <name/>
-                <line>785</line>
-                <key/>
-            </bookmark>
-            <bookmark id="45">
-                <name/>
-                <line>1307</line>
-                <key/>
-            </bookmark>
-            <bookmark id="6">
-                <name/>
-                <line>1451</line>
-                <key/>
-            </bookmark>
-            <bookmark id="47">
-                <name/>
-                <line>1453</line>
-                <key/>
-            </bookmark>
+            <url>app/Controller/ReportsController.php</url>
             <bookmark id="1">
                 <name/>
-                <line>2360</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
-            <url>app/View/Technicians/new_customer.ctp</url>
-            <bookmark id="39">
-                <name/>
-                <line>74</line>
-                <key/>
-            </bookmark>
-            <bookmark id="40">
-                <name/>
-                <line>181</line>
+                <line>221</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Reports/outbound_view.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/Controller/ReportsController.php</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Customers/followup.ctp</file>
             <file>file:/D:/xampp/htdocs/intranet/app/Controller/TicketsController.php</file>
-=======
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/Server/htdocs/intranet/app/Controller/PaymentsController.php</file>
-            <file>file:/D:/Server/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
-            <file>file:/D:/Server/htdocs/intranet/app/View/Payments/message.ctp</file>
-            <file>file:/D:/Server/htdocs/intranet/app/Controller/TransactionsController.php</file>
-            <file>file:/D:/Server/htdocs/intranet/app/Model/AutoRecurring.php</file>
-            <file>file:/D:/Server/htdocs/intranet/app/webroot/js/customerinfo.js</file>
->>>>>>> 016abcaaff3d8e34c8831a72a60fb35b2ad79815
         </group>
     </open-files>
 </project-private>
