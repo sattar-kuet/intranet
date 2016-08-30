@@ -313,12 +313,9 @@ class PaymentsController extends AppController {
                 $r_from = date('Y-m-d');
                 $this->PackageCustomer->id = $data['cid'];
                 $this->PackageCustomer->saveField("r_form", $r_from);
-
                 $this->request->data['Transaction']['trx_id'] = $tresponse->getTransId();
                 $this->request->data['Transaction']['auth_code'] = $tresponse->getAuthCode();
-
                 $tdata['Ticket'] = array('content' => 'Transaction for ' . $data['fname'] . ' ' . $data['lname'] . ' successfull');
-
                 $tickect = $this->Ticket->save($tdata); // Data save in Ticket
                 $trackData['Track'] = array(
                     'package_customer_id' => $data['cid'],
@@ -332,7 +329,6 @@ class PaymentsController extends AppController {
                 $this->request->data['Transaction']['paid_amount'] = 0;
                 $this->request->data['Transaction']['status'] = 'error';
                 $this->request->data['Transaction']['error_msg'] = "Charge Credit Card ERROR :  Invalid response";
-
                 $tdata['Ticket'] = array('content' => 'Transaction for ' . $data['fname'] . ' ' . $data['lname'] . ' failed for Charge Credit Card ERROR');
                 $tickect = $this->Ticket->save($tdata); // Data save in Ticket
                 $trackData['Track'] = array(

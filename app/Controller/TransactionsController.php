@@ -238,34 +238,34 @@ class TransactionsController extends AppController {
         $yyyy = 0;
         $mm = -1;
         // pr($temp); exit;
-          $date = explode('/', $customer_info['PackageCustomer']['exp_date']);
-           
-            if (count($date) == 2) {
-                $yyyy = date('Y');
-                $yy = substr($yyyy, 0, 2);
-                $yyyy = $yy . '' . $date[1];
-                $mm = $date[0];
-            }
-           $cardInfo = array(
-                'fname' => $customer_info['PackageCustomer']['cfirst_name'],
-                'lname' => $customer_info['PackageCustomer']['clast_name'],
-                'cvv_code' => $customer_info['PackageCustomer']['cvv_code'],
-                'zip_code' => $customer_info['PackageCustomer']['czip'],
-                'address' => '',
-                'trx_id' => '',
-                'card_no' => $customer_info['PackageCustomer']['card_check_no'],
-                'company' => '',
-                'city' => '',
-                'state' => '',
-                'email' => '',
-                'country' => '',
-                'phone' => '',
-                'fax' => '',
-                'paid_amount' => '',
-                'description' => '',
-                'exp_date' => array('year' => $yyyy, 'month' => $mm)
-            );
-        
+        $date = explode('/', $customer_info['PackageCustomer']['exp_date']);
+
+        if (count($date) == 2) {
+            $yyyy = date('Y');
+            $yy = substr($yyyy, 0, 2);
+            $yyyy = $yy . '' . $date[1];
+            $mm = $date[0];
+        }
+        $cardInfo = array(
+            'fname' => $customer_info['PackageCustomer']['cfirst_name'],
+            'lname' => $customer_info['PackageCustomer']['clast_name'],
+            'cvv_code' => $customer_info['PackageCustomer']['cvv_code'],
+            'zip_code' => $customer_info['PackageCustomer']['czip'],
+            'address' => '',
+            'trx_id' => '',
+            'card_no' => $customer_info['PackageCustomer']['card_check_no'],
+            'company' => '',
+            'city' => '',
+            'state' => '',
+            'email' => '',
+            'country' => '',
+            'phone' => '',
+            'fax' => '',
+            'paid_amount' => '',
+            'description' => '',
+            'exp_date' => array('year' => $yyyy, 'month' => $mm)
+        );
+
         if (count($temp)) {
             $date = explode('/', $temp[0]['transactions']['exp_date']);
             $yyyy = date('Y');
@@ -276,7 +276,7 @@ class TransactionsController extends AppController {
             $latestcardInfo = $temp[0]['transactions'];
         } else {
             $date = explode('/', $customer_info['PackageCustomer']['exp_date']);
-           
+
             if (count($date) == 2) {
                 $yyyy = date('Y');
                 $yy = substr($yyyy, 0, 2);
@@ -330,19 +330,16 @@ class TransactionsController extends AppController {
     }
 
     function extrainvoice() {
+        // pr($this->request->data); exit;
         $this->loadModel('Transaction');
         $user_info = $this->Auth->user();
         $user_id = $user_info['id'];
-        $this->request->data['Transaction']['user_id'] = $user_id;
-        $this->request->data['Transaction']['exp_date'] = $this->request->data['PackageCustomer']['exp_date']['month'] . '/' . $this->request->data['PackageCustomer']['exp_date']['year'];
-        $this->request->data['Transaction']['package_customer_id'] = $this->request->data['PackageCustomer']['id'];
         $this->Transaction->save($this->request->data['Transaction']);
         $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <strong> Card information updated successfully </strong>
             </div>';
         $this->Session->setFlash($msg);
-
         return $this->redirect(array('controller' => 'reports', 'action' => 'extraPayment'));
         //return $this->redirect($this->referer());
     }
