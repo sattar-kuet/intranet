@@ -1,4 +1,3 @@
-
 <div class="page-content-wrapper">
     <div class="page-content">     
         <div class="">
@@ -25,15 +24,17 @@
                 foreach ($transactions as $single):
                     $pcaddress = $single['pc'];
 
-                    $customer_address = $pcaddress['house_no'] . ' ' . $pcaddress['street'] . ' ' .
-                            $pcaddress['apartment'] . ' ' . $pcaddress['city'] . ' ' . $pcaddress['state'] . ' '
+                    $customer_address_one = $pcaddress['house_no'] . ' ' . $pcaddress['street'] . ' ' .
+                            $pcaddress['apartment'];
+                    
+                   $customer_address_two = $pcaddress['city'] . ' ' . $pcaddress['state'] . ' '
                             . $pcaddress['zip'];
                     ?>                
                     <div style="page-break-before:always" >&nbsp;</div> 
                     <div class="row">
                         <div class="col-xs-4">                              
                             <ul class="list-unstyled" style=" text-align: left; color: #555; margin-left: 1px;">
-                                <img style="margin-top: 41px;"src="<?php echo $this->webroot; ?>assets/frontend/layout/img/totalcable.jpg">                                                  
+                                <img style="margin-top: 31px;"src="<?php echo $this->webroot; ?>assets/frontend/layout/img/totalcable.jpg">                                                  
                             </ul>
                         </div>
                         <div class="col-xs-3">                               
@@ -41,7 +42,7 @@
                             </ul>
                         </div>
                         <div class="col-xs-5 invoice-payment">                             
-                            <ul class="list-unstyled" style=" text-align: right; color: #555; margin-right: 10px;">
+<!--                            <ul class="list-unstyled" style=" text-align: right; color: #555; margin-right: 10px;">
                                 <li style="font-size: 17px; color: #555;">
                                     <h3>Total Cable USA</h3>
                                 </li>
@@ -53,33 +54,44 @@
                                 <li style="color: dodgerblue !important;">
                                     info@totalcableusa.com
                                 </li>
-                            </ul>
+                            </ul>-->
                         </div>
                     </div>                  
                     <hr style="display: block; border-style: inset; border-color:  darkmagenta;">
                     <div class="row invoice-logo">
-                        <div class="row" style="margin-top: 30px;">                          
-                            <div class="col-xs-5">                              
-                                <ul class="list-unstyled" style="text-align: left; padding: 45px 0px 0px 13px;">                                    
-                                    <li style="color: #555; border-left: #990000 7px  solid;">
+                        <div class="row" style="margin-top: 0;">                          
+                            <div class="col-xs-7">                              
+                                                                   
+                                    <!--                                    <li style="color: #555; border-left: #990000 7px  solid;">
+                                    
+                                                                            &nbsp; INVOICE TO:   
+                                                                            &nbsp; Address : <i></b></i>
+                                    
+                                                                        </li>-->
+                                    <table style=" margin-left: 105px; border: #555 solid 1px; min-width: 275px;">
+                                        <th style=" border: #555 solid 1px; padding-left: 2px;">
+                                            <b style=" color: #000;">Bill To</b>
+                                        </th>
+                                        <tr>
+                                            <td style="padding-left: 5px; min-height: 115px; line-height: 15px;">
+                                                <?php echo $single['0']['name']; ?><br>
+                                                <?php echo $customer_address_one; ?><br>
+                                                <?php echo $customer_address_two; ?>
 
-                                        &nbsp; INVOICE TO:   <b><?php echo $single['0']['name']; ?></b><br>
-                                        &nbsp; Address : <i><b><?php echo $customer_address; ?></b></i>
-
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-xs-2">                               
-                                <ul class="list-unstyled">                                   
-                                </ul>
-                            </div>
+                                            </td>
+                                        </tr>
+                                    </table>                               
+                            </div>                            
                             <div class="col-xs-5 invoice-payment">                             
                                 <ul class="list-unstyled" style=" text-align: right; color: #555; margin-right: 17px;">
                                     <li>
-                                        <h1 style=" color: #990000 !important;">INVOICE Inv #<?php echo getInvoiceNumbe($single['tr']['id']); ?></h1>
+                                        <h1 style=" color: #990000 !important;">Invoice #<?php echo getInvoiceNumbe($single['tr']['id']); ?></h1>
                                     </li>
                                     <li style="color: #555;">
-                                        Date of Invoice: <?php echo date('Y-m-d'); ?>
+                                        <b style=" color: #000;">Date of Invoice: </b><?php echo date('Y-m-d'); ?>
+                                    </li>
+                                    <li style="color: #555;">
+                                       <b style=" color: #000;">Terms:</b> Net 7 Days
                                     </li>
                                 </ul>
                             </div>
@@ -96,7 +108,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row"style=" margin-top: 69px;">
+                    <div class="row"style=" margin-top: 9px;">
                         <div class="col-xs-12 ">
                             <table class="table table-striped table-hover margin-top-20" style=" margin-top: 60px;">
                                 <thead style="border-bottom: 10px solid whitesmoke;">
@@ -121,7 +133,6 @@
                                         </th>                                      
                                     </tr>
                                 </thead>
-
                                 <tbody>                                   
                                     <tr style="height: 101px;">
                                         <td  style=" padding: 39px; text-align: center; background-color:#990000 !important; font-size: 19px; font-weight: bold; color: white !important; width: 101px;">
@@ -145,18 +156,17 @@
                                             $<?php echo $single['ps']['amount']; ?>.00 USD
                                         </td>                                          
                                     </tr>
-
                                 </tbody>
                             </table>
                             <br>
-                            <div class="row " style=" margin-top: 64px;">
+                            <div class="row " style=" margin-top: 44px;">
                                 <div class="col-xs-3">                    
                                 </div>
-                                <div class="col-xs-4">
+                                <div class="col-xs-3">
                                 </div>
-                                <div class="col-xs-5 invoice-payment">
-                                    <div class="col-xs-6"style="text-align: right;">  
-                                        SUBTOTAL 
+                                <div class="col-xs-6 invoice-payment">
+                                    <div class="col-xs-6">  
+                                        <b style=" color: #000;">Total Of New Charges</b>
                                     </div>
                                     <div class="col-xs-6" style="text-align: right;">
                                         $<?php echo $single['ps']['amount']; ?>.00 USD      
@@ -167,22 +177,21 @@
                             <div class="row">
                                 <div class="col-xs-3">                    
                                 </div>
-                                <div class="col-xs-4">
+                                <div class="col-xs-3">
                                 </div>
-                                <div class="col-xs-5 invoice-payment">
-                                    <div class="col-xs-6"style="text-align: right;">  
-                                        GRAND TOTAL 
+                                <div class="col-xs-6 invoice-payment">
+                                    <div class="col-xs-6">  
+                                        <b style=" color: #000;">TOTAL Amount Due</b>
                                     </div>
                                     <div class="col-xs-6" style="text-align: right;">
-                                        $<?php echo $single['ps']['amount']; ?>.00 USD      
+                                        $<?php // echo $single['ps']['amount']; ?>.00 USD      
                                     </div>
                                     <hr style="border-color: #990000 !important; ">
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <hr style="border-color: #ccc !important; margin-top: 170px;  border-width: 1px;">
+                    <hr style="border-color: #ccc !important; margin-top: 101px;  border-width: 1px;">
                     <div class="row">
                         <div class="col-md-12">                              
                             <ul class="list-unstyled" style=" text-align: left; color: #555; margin-left: 10px;">                           
