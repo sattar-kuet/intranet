@@ -110,49 +110,49 @@
                     </div>
                     <div class="row"style=" margin-top: 9px;">
                         <div class="col-xs-12 ">
-                            <table class="table table-striped table-hover margin-top-20" style=" margin-top: 60px;">
-                                <thead style="border-bottom: 10px solid whitesmoke;">
-                                    <tr style="height: 101px;">
-                                        <th class="hidden-480" style=" padding-bottom: 39px; text-align: center; color: #000 !important; background-color: #ccc !important; color: white; width: 51px;font-size: 19px; font-weight: bold;">
+                            <table class="table table-striped table-hover margin-top-20" style=" margin-top: 60px; border:  #555 solid 1px;">
+                                <thead  style="border-bottom: #555 solid 3px;">
+                                    <tr style="height: 101px; border:  #555 solid 1px;">
+                                        <th class="hidden-480" style=" padding-bottom: 39px; text-align: center; color: #000 !important; color: white; width: 51px;font-size: 19px; font-weight: bold;">
                                             #
                                         </th>                                    
-                                        <th class="hidden-480" style="background-color:whitesmoke !important; color: #333 !important; padding: 0px 0px 39px 19px;">
+                                        <th class="hidden-480" style=" color: #333 !important; padding: 0px 0px 39px 19px;">
                                             DESCRIPTION
                                         </th>
-                                        <th class="hidden-480"  style="background-color: #ccc !important; color: #333 !important; text-align: center; padding-bottom: 39px;">
+                                        <th class="hidden-480"  style=" color: #333 !important; text-align: center; padding-bottom: 39px;">
                                             STB QUANTITY
                                         </th>
-                                        <th class="hidden-480" style="background-color: #ccc !important; color: #333 !important; padding-bottom: 39px; text-align: center;">
+                                        <th class="hidden-480" style=" color: #333 !important; padding-bottom: 39px; text-align: center;">
                                             PRICE
                                         </th>
-                                        <th class="hidden-480" style="background-color:whitesmoke !important; color: #333 !important; text-align: center; padding-bottom: 39px;">
+                                        <th class="hidden-480" style=" color: #333 !important; text-align: center; padding-bottom: 39px;">
                                             SUBSCRIPION
                                         </th>
-                                        <th class="hidden-480"  style=" padding-bottom: 39px; text-align: center; background-color: #ccc !important; font-size: 15px;  color: #000 !important; width: 101px;">
+                                        <th class="hidden-480"  style=" padding-bottom: 39px; text-align: center; font-size: 15px;  color: #000 !important; width: 101px;">
                                             TOTAL
                                         </th>                                      
                                     </tr>
                                 </thead>
                                 <tbody>                                   
                                     <tr style="height: 101px;">
-                                        <td  style=" padding: 39px; text-align: center; background-color: #ccc !important; font-size: 19px; font-weight: bold; color: #000 !important; width: 101px;">
+                                        <td  style=" padding: 39px; text-align: center; font-size: 19px; font-weight: bold; color: #000 !important; width: 101px;">
                                             <?php echo getInvoiceNumbe($single['tr']['id']); ?>
                                         </td>
-                                        <td style="background-color:whitesmoke !important; color: #333 !important; padding: 43px 0px 0px 19px ;">
+                                        <td style=" color: #333 !important; padding: 43px 0px 0px 19px ;">
                                             <b style="color: #333 !important;"><?php echo $single['ps']['name']; ?></b><br>    
                                             <?php echo $single['p']['name']; ?>
                                         </td> 
-                                        <td style="background-color: #ccc !important; color: #333 !important; text-align: center;  padding: 43px 0px 0px 9px ;">
+                                        <td style=" color: #333 !important; text-align: center;  padding: 43px 0px 0px 9px ;">
                                             <?php echo $single['pc']['mac']; ?>
                                         </td>
-                                        <td style="background-color: #ccc !important; color: #333 !important; padding: 43px 0px 0px 9px; text-align: center;">
+                                        <td style=" color: #333 !important; padding: 43px 0px 0px 9px; text-align: center;">
                                             $ <?php echo $single['ps']['amount']; ?>.00
                                         </td>
 
-                                        <td style="background-color:whitesmoke; color: #333 !important; text-align: center; padding: 43px 0px 0px 9px ;">
+                                        <td style=" color: #333 !important; text-align: center; padding: 43px 0px 0px 9px ;">
                                             <?php echo $single['ps']['duration']; ?>
                                         </td>
-                                        <td  style=" padding: 43px 0px 0px 9px ; text-align: center; background-color: #ccc !important; font-size: 19px; font-weight: bold; color: #000 !important; width: 151px;">
+                                        <td  style=" padding: 43px 0px 0px 9px ; text-align: center; font-size: 19px; font-weight: bold; color: #000 !important; width: 151px;">
                                             $<?php echo $single['ps']['amount']; ?>.00 USD
                                         </td>                                          
                                     </tr>
@@ -191,23 +191,30 @@
                             </div>
                         </div>
                     </div>
-                    <hr style="border-color: #ccc !important; margin-top: 101px;  border-width: 1px;">
-                    <div class="row">
-                        <div class="col-md-12">                              
-                            <ul class="list-unstyled" style=" text-align: left; color: #555; margin-left: 10px;">                           
-                                <h5 style="display:inline;">নিরবিছিন্ন  সংযোগের  জন্য  প্রতি  মাসের ৮ তারিখের মধ্যে বিল পরিশোধ  করুন |</h5>  <h5 style="font-weight: bold; display:inline;">Follow us on Facebook:</h5><h5 style="display:inline;">Total Cable </h5></span>
-                                <li style="color: #555;">
-                                    <h4 style="font-weight: bold; color: black !important; background:#990000"> tel:(212)444-8138,(646)395-9958,(718)569-7014 &nbsp; &bull; e-mail:info@totalcableusa.com &nbsp;&bull; web:totalcableusa.com</h4>
-                                </li>
-                            </ul>
+                    
+                     <div class="row" style="margin-top: 101px;">
+                        <div class="col-xs-4">                              
+                            <h6>Please write <b style="font-weight: normal !important; color:red !important;">INVOICE NUMBER</b> on check</h6>
                         </div>
-                        <div class="col-xs-3">                               
-                            <ul class="list-unstyled">                                   
-                            </ul>
+                        <div class="col-xs-4">                               
+                           
                         </div>
-                        <div class="col-xs-3 invoice-payment">                             
-                            <ul class="list-unstyled" style=" text-align: right; color: #555; margin-right: 10px;">                            
-                            </ul>
+                       
+                         <div class="col-xs-4">                             
+                             <h6>Make check payable to <b style="font-weight: normal !important; color:red !important;">TOTAL CABLE BD</b></h6>
+                        </div>
+                    </div> 
+                   
+                    
+                    <div class="row" style="background-color:  yellowgreen !important; border-top:  red solid 1px;">
+                        <div class="col-xs-4" style="text-align: center;">                              
+                            <h5 style=" color: white !important;"> e-mail: info@totalcablebd.com</h5>
+                        </div>
+                        <div class="col-xs-4">                               
+                           
+                        </div>
+                        <div class="col-xs-4" style="text-align: center;">                             
+                            <h5 style=" color: white !important;">Web: totalcablebd.com</h5>
                         </div>
                     </div>                
                 <?php endforeach; ?>  
