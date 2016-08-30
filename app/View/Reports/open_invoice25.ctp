@@ -80,7 +80,7 @@
                         <div class="col-xs-5 invoice-payment">                             
                             <ul class="list-unstyled" style=" text-align: right; color: #555; margin-right: 17px;">
                                 <li>
-                                    <h1 style=" color: #990000 !important;">INVOICE Inv-2</h1>
+                                    <h1 style=" color: #990000 !important;">Invoice-2</h1>
                                 </li>
                                 <li style="color: #555;">
                                     Date of Invoice: <?php echo date('Y-m-d'); ?>

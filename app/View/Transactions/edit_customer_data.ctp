@@ -21,7 +21,67 @@
             <!-- BEGIN PAGE CONTENT-->
             <div class="row">
                 <div class="col-md-12">
-                    <!-- BEGIN EXAMPLE TABLE PORTLET-->           
+                    <!-- BEGIN EXAMPLE TABLE PORTLET-->    
+                    <!-- -------------Begin exp date update--------------------------->                   
+                    <div class="portlet box green">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-list-ul"></i>Next Payment
+                            </div>
+                        </div>
+                        <div class="portlet-body">  
+                            <?php echo $this->Session->flash() ?>
+                            <?php
+                            echo $this->Form->create('PackageCustomer', array(
+                                'inputDefaults' => array(
+                                    'label' => false,
+                                    'div' => false
+                                ),
+                                'id' => 'form-validate',
+                                'class' => 'form-horizontal',
+                                'novalidate' => 'novalidate',
+                                'enctype' => 'multipart/form-data',
+                                'url' => array('controller' => 'customers', 'action' => 'update_payment')
+                                    )
+                            );
+                            ?>
+                            <br>
+                            <div class="row">                                     
+                                <?php
+                                echo $this->Form->input(
+                                        'id', array(
+                                    'type' => 'hidden',
+                                    'value' => $this->params['pass'][0],
+                                ));
+                                ?>
+                                <br>
+                                <div class="col-md-2 signupfont">
+                                    Next Payment Date:
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-list style-4 clearfix">
+                                        <?php
+                                        echo $this->Form->input(
+                                                'package_exp_date', array(
+                                            'class' => 'datepicker form-control ',
+                                            'type' => 'text',
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+                                </div>
+                                &nbsp;
+                                &nbsp;
+                                <div class="row margin-top-20">
+                                    <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20"> 
+                                        <button class="btn btn-primary submitbtn green" type="submit" id="">Update Customer Information</button>                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <?php echo $this->Form->end(); ?>
+                    </div>
+                    <!-------------------------------------END exp date UPDATE---------------------->
+
                     <!-- END EXAMPLE TABLE PORTLET-->
                     <div class="portlet box green">
                         <div class="portlet-title">
@@ -674,22 +734,7 @@
                                             </div>                            
                                         </div>
                                     </div>
-                                    <div class="col-md-2 signupfont">
-                                        Next Payment Date:
 
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="input-list style-4 clearfix">
-                                            <?php
-                                            echo $this->Form->input(
-                                                    'package_exp_date', array(
-                                                'class' => 'datepicker form-control ',
-                                                'type' => 'text',
-                                                    )
-                                            );
-                                            ?>
-                                        </div>
-                                    </div>
                                 </div>
                                 &nbsp;
 
@@ -1491,9 +1536,13 @@
 
                                                             </div>
 
+<<<<<<< HEAD
 
                                                         </div>                                                        
 
+=======
+                                                        </div>                                                        
+>>>>>>> e5d74f4e3caba374904397a85281c3deb1d92278
                                                         &nbsp;
                                                         <div class="row">
                                                             <div class="col-md-10 col-md-offset-3">

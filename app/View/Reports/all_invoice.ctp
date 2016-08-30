@@ -83,9 +83,9 @@
                                     </table>                               
                             </div>                            
                             <div class="col-xs-5 invoice-payment">                             
-                                <ul class="list-unstyled" style=" text-align: right; color: #555; margin-right: 17px;">
+                                <ul class="list-unstyled" style=" text-align: right; color: #000; margin-right: 17px;">
                                     <li>
-                                        <h1 style=" color: #990000 !important;">Invoice #<?php echo getInvoiceNumbe($single['tr']['id']); ?></h1>
+                                        <h1 style=" color: #000 !important;">Invoice #<?php echo getInvoiceNumbe($single['tr']['id']); ?></h1>
                                     </li>
                                     <li style="color: #555;">
                                         <b style=" color: #000;">Date of Invoice: </b><?php echo date('Y-m-d'); ?>
@@ -113,7 +113,7 @@
                             <table class="table table-striped table-hover margin-top-20" style=" margin-top: 60px;">
                                 <thead style="border-bottom: 10px solid whitesmoke;">
                                     <tr style="height: 101px;">
-                                        <th class="hidden-480" style=" padding-bottom: 39px; text-align: center; color: white !important; background-color: #990000 !important; color: white; width: 51px;font-size: 19px; font-weight: bold;">
+                                        <th class="hidden-480" style=" padding-bottom: 39px; text-align: center; color: #000 !important; background-color: #ccc !important; color: white; width: 51px;font-size: 19px; font-weight: bold;">
                                             #
                                         </th>                                    
                                         <th class="hidden-480" style="background-color:whitesmoke !important; color: #333 !important; padding: 0px 0px 39px 19px;">
@@ -128,14 +128,14 @@
                                         <th class="hidden-480" style="background-color:whitesmoke !important; color: #333 !important; text-align: center; padding-bottom: 39px;">
                                             SUBSCRIPION
                                         </th>
-                                        <th class="hidden-480"  style=" padding-bottom: 39px; text-align: center; background-color: #990000 !important; font-size: 15px;  color: whitesmoke !important; width: 101px;">
+                                        <th class="hidden-480"  style=" padding-bottom: 39px; text-align: center; background-color: #ccc !important; font-size: 15px;  color: #000 !important; width: 101px;">
                                             TOTAL
                                         </th>                                      
                                     </tr>
                                 </thead>
                                 <tbody>                                   
                                     <tr style="height: 101px;">
-                                        <td  style=" padding: 39px; text-align: center; background-color:#990000 !important; font-size: 19px; font-weight: bold; color: white !important; width: 101px;">
+                                        <td  style=" padding: 39px; text-align: center; background-color: #ccc !important; font-size: 19px; font-weight: bold; color: #000 !important; width: 101px;">
                                             <?php echo getInvoiceNumbe($single['tr']['id']); ?>
                                         </td>
                                         <td style="background-color:whitesmoke !important; color: #333 !important; padding: 43px 0px 0px 19px ;">
@@ -152,7 +152,7 @@
                                         <td style="background-color:whitesmoke; color: #333 !important; text-align: center; padding: 43px 0px 0px 9px ;">
                                             <?php echo $single['ps']['duration']; ?>
                                         </td>
-                                        <td  style=" padding: 43px 0px 0px 9px ; text-align: center; background-color: #990000 !important; font-size: 19px; font-weight: bold; color: white !important; width: 151px;">
+                                        <td  style=" padding: 43px 0px 0px 9px ; text-align: center; background-color: #ccc !important; font-size: 19px; font-weight: bold; color: #000 !important; width: 151px;">
                                             $<?php echo $single['ps']['amount']; ?>.00 USD
                                         </td>                                          
                                     </tr>
