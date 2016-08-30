@@ -578,6 +578,19 @@ class CustomersController extends AppController {
         $this->Session->setFlash($msg);
         return $this->redirect($this->referer());
     }
+    
+    function update_payment($id = null) {
+        $this->loadModel('PackageCustomer');
+        $this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
+        $this->request->data['PackageCustomer']['package_exp_date'] = $this->getFormatedDate($this->request->data['PackageCustomer']['package_exp_date']);
+        $this->request->data['PackageCustomer']['ticket_generated'] = 0;
+        $this->PackageCustomer->save($this->request->data);       
+        $msg = '<div class="alert alert-success">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<strong>  succeesfully done </strong></div>';
+        $this->Session->setFlash($msg);
+        return $this->redirect($this->referer());
+    }
 
     function ready($id = null) {
         $this->loadModel('PackageCustomer');
