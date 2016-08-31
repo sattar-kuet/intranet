@@ -1,8 +1,5 @@
 <?php
 
-/**
-
- * */
 App::uses('SimplePasswordHasher', 'Controller/Component/Auth');
 
 class ReportsController extends AppController {
@@ -265,7 +262,7 @@ class ReportsController extends AppController {
                 'priority' => 'medium'
             );
             $this->createTicket($cid, $data);
-            $this->PackageCustomer->id = $data['cid'];
+            $this->PackageCustomer->id = $cid;
             $this->PackageCustomer->saveField("ticket_generated", 1);
         }
         $msg = '<div class="alert alert-success">
@@ -299,16 +296,13 @@ class ReportsController extends AppController {
                 $card_info[$i] = array();
             }
         }
-
         $ym = $this->getYm();
-
         $this->set(compact('data', 'ym', 'card_info'));
     }
 
     function pexp_invoice() {
         
     }
-
     function payment_pdf($id = null) {
         $this->layout = 'blank_page';
         $this->loadModel('Transaction');

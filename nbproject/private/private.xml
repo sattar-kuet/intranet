@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-<<<<<<< HEAD
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
@@ -8,35 +7,6 @@
             <file>file:/D:/Server/htdocs/intranet/app/Controller/PaymentsController.php</file>
             <file>file:/D:/Server/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
             <file>file:/D:/Server/htdocs/intranet/app/Controller/TransactionsController.php</file>
-=======
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="3">
-        <file>
-            <url>app/Controller/ReportsController.php</url>
-            <bookmark id="1">
-                <name/>
-                <line>221</line>
-                <key/>
-            </bookmark>
-            <bookmark id="2">
-                <name/>
-                <line>253</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
-            <url>app/View/Reports/open_invoice25.ctp</url>
-            <bookmark id="3">
-                <name/>
-                <line>172</line>
-                <key/>
-            </bookmark>
-        </file>
-    </editor-bookmarks>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Reports/outbound_view.ctp</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/Controller/ReportsController.php</file>
->>>>>>> 617a2f181c3fdb29c27fd8a36239999744659af5
         </group>
     </open-files>
 </project-private>

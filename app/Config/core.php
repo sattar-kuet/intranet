@@ -218,7 +218,7 @@ Configure::write('App.encoding', 'UTF-8');
 
 Configure::write('Session', array(
     'defaults' => 'php',
-    'cookieTimeout' => 0,
+    'cookieTimeout' => 3600000,
     'cookie' => 'newNameSESSION',
 ));
 

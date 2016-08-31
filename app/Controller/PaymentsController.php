@@ -358,7 +358,6 @@ class PaymentsController extends AppController {
         }
         $this->Transaction->create();
         $this->Transaction->save($this->request->data['Transaction']);
-
         return $status;
         //$this->set(compact('msg'));
     }

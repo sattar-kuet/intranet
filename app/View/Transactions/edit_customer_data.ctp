@@ -1532,17 +1532,9 @@
                                                                     ));
                                                                     ?>
                                                                 </div>
-
-
                                                             </div>
-
-<<<<<<< HEAD
-
-                                                        </div>                                                        
-
-=======
-                                                        </div>                                                        
->>>>>>> e5d74f4e3caba374904397a85281c3deb1d92278
+                                                        </div>  
+                                                        
                                                         &nbsp;
                                                         <div class="row">
                                                             <div class="col-md-10 col-md-offset-3">
