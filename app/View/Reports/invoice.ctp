@@ -34,7 +34,8 @@
                     <div class="row">
                         <div class="col-xs-4">                              
                             <ul class="list-unstyled" style=" text-align: left; color: #555; margin-left: 1px;">
-                                <img style="margin-top: 31px;"src="<?php echo $this->webroot; ?>assets/frontend/layout/img/totalcable.jpg">                                                  
+                                <img style="margin-top: 21px;"src="<?php echo $this->webroot; ?>assets/frontend/layout/img/totalcable.jpg">                                                  
+                                <div style="margin-left: 17px;">P.O BOX 170,E.MEADOM, NY 11554</div>
                             </ul>
                         </div>
                         <div class="col-xs-3">                               
@@ -57,7 +58,7 @@
                             </ul>-->
                         </div>
                     </div>                  
-                    <hr style="display: block; border-style: inset; border-color:  darkmagenta;">
+                    <hr style=" border-color:  white; margin-top: 10px;">
                     <div class="row invoice-logo">
                         <div class="row" style="margin-top: 0;">                          
                             <div class="col-xs-7">                              

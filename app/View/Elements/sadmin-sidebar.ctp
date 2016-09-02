@@ -690,6 +690,37 @@
 
                 </ul>
             </li> 
+            <li 
+            <?php
+            $services = array('AdminsscheduleDone');
+            if (in_array($this->name . '' . $this->action, $services)):
+                ?>
+                    class="active"
+                    <?php
+                endif;
+                ?>
+                >
+                <a href="javascript:;">
+                    <i class="fa icon-users"></i>
+                    <span class="title">Assigned to tech2</span>
+                    <span class="arrow "></span>
+                </a>
+
+                <ul class="sub-menu">                 
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'AdminsscheduleDone'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'scheduleDone')) ?>">
+                            <i class="fa icon-like"></i>
+                            Schedule done</a>
+                    </li>
+                </ul>
+            </li> 
 
             <li 
             <?php

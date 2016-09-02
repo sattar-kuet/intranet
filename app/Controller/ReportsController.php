@@ -226,7 +226,6 @@ class ReportsController extends AppController {
         $this->loadModel('Track');
         $this->loadModel('User');
         $this->loadModel('Role');
-//            pr($this->request->data); exit;
         $this->Ticket->create();
         $tickect = $this->Ticket->save($data); // Data save in Ticket
         $trackData = array(
@@ -234,7 +233,6 @@ class ReportsController extends AppController {
             'package_customer_id' => $customer_id,
             'role_id' => 4 // assign to acounts
         );
-//                 pr($this->request->data); exit;
         $this->Track->create();
         $this->Track->save($trackData); // Data save in Track
     }
@@ -245,8 +243,6 @@ class ReportsController extends AppController {
         $this->loadModel('Ticket');
         $this->loadModel('Track');
         $loggedUser = $this->Auth->user();
-//          pr($loggedUser);
-//        exit;
         $expiredate = trim(date('Y-m-d', strtotime("+5 days")));
         $packagecustomers = $this->Transaction->query("SELECT * 
             FROM package_customers pc

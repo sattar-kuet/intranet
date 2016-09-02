@@ -672,8 +672,8 @@ class AdminsController extends AppController {
                     'duration' => 'Not Applicable',
                     'amount' => 'not Applicable'
                 );
-                
-                if (!empty($data['i']['id'])){
+
+                if (!empty($data['i']['id'])) {
                     $filteredData[$index]['issue'] = $data['i'];
                 }
 
@@ -1005,6 +1005,94 @@ class AdminsController extends AppController {
 	<strong>Succeesfully approved </strong></div>';
         $this->Session->setFlash($msg);
         return $this->redirect($this->referer());
+    }
+
+    function scheduleDone() {
+        $this->loadModel('User');
+        $this->loadModel('PackageCustomer');
+        $clicked = false;
+        if ($this->request->is('post') || $this->request->is('put')) {
+            $datrange = json_decode($this->request->data['PackageCustomer']['daterange'], true);
+            $ds = new DateTime($datrange['start']);
+            $timestamp = $ds->getTimestamp(); // Unix timestamp
+            $startd = $ds->format('m/y'); // 2003-10-16
+            $de = new DateTime($datrange['end']);
+            $timestamp = $de->getTimestamp(); // Unix timestamp
+            $endd = $de->format('m/y'); // 2003-10-16
+            echo
+            $conditions = "";
+            if (count($datrange)) {
+                if ($datrange['start'] == $datrange['end']) {
+
+                    $nextday = date('Y-m-d', strtotime($datrange['end'] . "+1 days"));
+                    $conditions .=" pc.schedule_date  >=' " . $datrange['start'] . "' AND  pc.schedule_date < '" . $nextday . "'";
+                } else {
+
+                    $conditions .=" pc.schedule_date >='" . $datrange['start'] . "' AND  pc.schedule_date <='" . $datrange['end'] . "'";
+                }
+            }
+
+//            pr($datrange); exit;
+            
+            $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
+                    left join comments c on pc.id = c.package_customer_id
+                    left join users u on c.user_id = u.id
+                    left join users ut on pc.technician_id = ut.id
+                    left join psettings ps on ps.id = pc.psetting_id
+                    left join custom_packages cp on cp.id = pc.custom_package_id 
+                    left join issues i on pc.issue_id = i.id
+                    WHERE pc.status = 'scheduled' and  $conditions  ORDER BY pc.id");
+
+            $filteredData = array();
+            $unique = array();
+            $index = 0;
+            foreach ($allData as $key => $data) {
+                $pd = $data['pc']['id'];
+                if (isset($unique[$pd])) {
+                    $temp = array('content' => $data['c'], 'user' => $data['u']);
+                    $filteredData[$index]['comments'][] = $temp;
+                } else {
+                    if ($key != 0)
+                        $index++;
+                    $unique[$pd] = 'set';
+
+                    $filteredData[$index]['customers'] = $data['pc'];
+                    $filteredData[$index]['users'] = $data['u'];
+                    $filteredData[$index]['tech'] = $data['ut'];
+
+                    $filteredData[$index]['package'] = array(
+                        'name' => 'No package dealings',
+                        'duration' => 'Not Applicable',
+                        'amount' => 'not Applicable'
+                    );
+                    if (!empty($data['i']['id'])) {
+                        $filteredData[$index]['issue'] = $data['i'];
+                    }
+
+                    if (!empty($data['ps']['id'])) {
+                        $filteredData[$index]['package'] = array(
+                            'name' => $data['ps']['name'],
+                            'duration' => $data['ps']['duration'],
+                            'amount' => $data['ps']['amount']
+                        );
+                    }
+                    if (!empty($data['cp']['id'])) {
+                        $filteredData[$index]['package'] = array(
+                            'name' => $data['cp']['duration'] . ' months custom package',
+                            'duration' => $data['cp']['duration'],
+                            'amount' => $data['cp']['charge']
+                        );
+                    }
+                    $filteredData[$index]['comments'] = array();
+                    $temp = array('content' => $data['c'], 'user' => $data['u']);
+                    $filteredData[$index]['comments'][] = $temp;
+                }
+            }
+            $clicked = true;
+            $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
+            $this->set(compact('filteredData', 'technician'));
+        }
+        $this->set(compact('clicked'));
     }
 
 }
