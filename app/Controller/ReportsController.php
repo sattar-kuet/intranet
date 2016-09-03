@@ -120,7 +120,13 @@ class ReportsController extends AppController {
             left join psettings ps on ps.id = pc.psetting_id
             LEFT JOIN packages p ON p.id = ps.package_id 
             WHERE  pc.package_exp_date <= '$date' and package_exp_date != 0000-00-00");
-//        pr($transactions); exit;
+
+        foreach ($transactions as $data) {
+            $trid = $data['tr']['id'];
+            $this->Transaction->id = $trid;
+            $this->Transaction->saveField("printed", 1);
+        }        
+
         $mac = count(json_decode($transactions['0']['pc']['mac']));
         $transactions[0]['pc']['mac'] = $mac;
 
@@ -205,18 +211,32 @@ class ReportsController extends AppController {
     }
 
     function openInvoice25() {
-        $this->loadModel('Package_customer');
-        $this->loadModel('Transaction');
+        $this->loadModel('PackageCustomer');
         $expiredate = trim(date('Y-m-d', strtotime("+25 days")));
-        $packagecustomers = $this->Transaction->query("SELECT pc.id,tr.id, CONCAT( first_name,' ', middle_name,' ', last_name ) AS name, pc.psetting_id, pc.mac,pc.house_no,
-            pc.street,pc.apartment,pc.city,pc.state,pc.zip,pc.package_exp_date,ps.name, ps.amount, ps.duration,p.name, tr.paid_amount
+
+        $data = $this->PackageCustomer->query("SELECT  *
+            FROM package_customers 
+            WHERE package_exp_date>='" . date('Y-m-d') .
+                "' AND package_exp_date<='" . $expiredate .
+                "' AND package_exp_date != 0000-00-00 ".
+                " AND invoice_created != 1"
+        );
+        foreach($data as $single){
+            $cid = $single['package_customers']['id'];
+            $this->PackageCustomer->id = $cid;
+            $this->PackageCustomer->saveField('invoice_no', time());
+            $this->PackageCustomer->saveField('invoice_created', 1); // set it as 0 when next payment date will be updated  
+        }
+    
+        $packagecustomers = $this->PackageCustomer->query("SELECT pc.id, CONCAT( first_name,' ', middle_name,' ', last_name ) AS name, pc.psetting_id, pc.mac,pc.house_no,
+            pc.street,pc.apartment,pc.city,pc.state,pc.zip,pc.package_exp_date,pc.invoice_no,ps.name, ps.amount, ps.duration,p.name
             FROM package_customers pc
             left join psettings ps on ps.id = pc.psetting_id
             LEFT JOIN packages p ON p.id = ps.package_id 
-            left join transactions tr on tr.package_customer_id = pc.id
             WHERE package_exp_date>='" . date('Y-m-d') . "' AND package_exp_date<='" . $expiredate . "' AND package_exp_date != 0000-00-00 "
                 . "GROUP BY pc.id");
 //        pr($packagecustomers); exit;
+
         $this->set(compact('packagecustomers'));
     }
 
@@ -299,6 +319,7 @@ class ReportsController extends AppController {
     function pexp_invoice() {
         
     }
+
     function payment_pdf($id = null) {
         $this->layout = 'blank_page';
         $this->loadModel('Transaction');
