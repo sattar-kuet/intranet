@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="5">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="6">
+        <file>
+            <url>app/Controller/ReportsController.php</url>
+            <bookmark id="6">
+                <name/>
+                <line>213</line>
+                <key/>
+            </bookmark>
+        </file>
         <file>
             <url>app/Controller/AdminsController.php</url>
             <bookmark id="1">
@@ -30,7 +38,10 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/xampp/htdocs/intranet/app/Config/database.php</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Reports/all_invoice.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Reports/open_invoice25.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/Controller/ReportsController.php</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Reports/invoice.ctp</file>
         </group>
     </open-files>
 </project-private>

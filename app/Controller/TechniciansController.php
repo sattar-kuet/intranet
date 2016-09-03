@@ -325,7 +325,7 @@ class TechniciansController extends AppController {
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id
                     left join installations ins on ins.package_customer_id = pc.id 
-                    WHERE ins.user_id = " . $loggedUser['id'] . " and ins.status = 'scheduled' "
+                    WHERE ins.user_id = " . $loggedUser['id'] . " and pc.status = 'scheduled' "
                 . " ORDER BY ins.id");
         // echo $sql; exit;
         $filteredData = array();
@@ -512,6 +512,8 @@ class TechniciansController extends AppController {
         $this->loadModel('Comment');
         $loggedUser = $this->Auth->user();
         $this->request->data['Comment']['user_id'] = $loggedUser['id'];
+        $this->request->data['Comment']['status'] = 'done';
+//        pr($this->request->data); exit;
         $this->Comment->save($this->request->data['Comment']);
         $msg = '<div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -527,24 +529,20 @@ class TechniciansController extends AppController {
         $this->loadModel('Installation');
 
         $this->Installation->id = $this->request->data['PackageCustomer']['id'];
-
         $this->request->data['Installation']['status'] = 'done by tech';
-//        pr($this->request->data);
-//        exit;
         $this->Installation->save($this->request->data);
 
-        $loggedUser = $this->Auth->user();
-        $this->request->data['PackageCustomer']['status'] = 'done';
-        $this->request->data['PackageCustomer']['approved'] = 0;
-        $this->request->data['PackageCustomer']['user_id'] = $loggedUser['id'];
+        $loggedUser = $this->Auth->user();        
         $this->PackageCustomer->id = $this->request->data['PackageCustomer']['package_customer_id'];
-        $this->PackageCustomer->save($this->request->data['PackageCustomer']);
+        $this->PackageCustomer->saveField("status","done");
+
         $commentData['Comment'] = array(
             'package_customer_id' => $this->request->data['PackageCustomer']['package_customer_id'],
             'content' => $this->request->data['PackageCustomer']['comment'],
             'user_id' => $loggedUser['id'],
         );
         $this->Comment->save($commentData);
+
         $msg = '<div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <strong> Done Successfully! </strong>
@@ -557,18 +555,15 @@ class TechniciansController extends AppController {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Comment');
         $this->loadModel('Installation');
-//          pr($this->request->data); exit;
+
         $this->Installation->id = $this->request->data['PackageCustomer']['id'];
-        $this->request->data['Installation']['status'] = 'post pone';
-//      
+        $this->request->data['Installation']['status'] = 'post pone';      
         $this->Installation->save($this->request->data);
 
         $loggedUser = $this->Auth->user();
-        $this->request->data['PackageCustomer']['status'] = 'post pone';
-        $this->request->data['PackageCustomer']['approved'] = 0;
-        $this->request->data['PackageCustomer']['user_id'] = $loggedUser['id'];
         $this->PackageCustomer->id = $this->request->data['PackageCustomer']['package_customer_id'];
-        $this->PackageCustomer->save($this->request->data['PackageCustomer']);
+        $this->PackageCustomer->saveField("status","post pone");       
+                
         $commentData['Comment'] = array(
             'package_customer_id' => $this->request->data['PackageCustomer']['package_customer_id'],
             'content' => $this->request->data['PackageCustomer']['comment'],
@@ -591,15 +586,12 @@ class TechniciansController extends AppController {
 
         $this->Installation->id = $this->request->data['PackageCustomer']['id'];
         $this->request->data['Installation']['status'] = 'rescheduled';
-//      pr($this->request->data); exit;
-
-        $this->Installation->save($this->request->data);
+        $this->Installation->save($this->request->data);       
+        
         $loggedUser = $this->Auth->user();
-        $this->request->data['PackageCustomer']['status'] = 'rescheduled';
-        $this->request->data['PackageCustomer']['approved'] = 0;
-        $this->request->data['PackageCustomer']['user_id'] = $loggedUser['id'];
         $this->PackageCustomer->id = $this->request->data['PackageCustomer']['package_customer_id'];
-        $this->PackageCustomer->save($this->request->data['PackageCustomer']);
+        $this->PackageCustomer->saveField("status","rescheduled");  
+        
         $commentData['Comment'] = array(
             'package_customer_id' => $this->request->data['PackageCustomer']['package_customer_id'],
             'content' => $this->request->data['PackageCustomer']['comment'],
@@ -625,11 +617,9 @@ class TechniciansController extends AppController {
         $this->Installation->save($this->request->data);
 
         $loggedUser = $this->Auth->user();
-        $this->request->data['PackageCustomer']['status'] = 'canceled';
-        $this->request->data['PackageCustomer']['approved'] = 0;
-        $this->request->data['PackageCustomer']['user_id'] = $loggedUser['id'];
         $this->PackageCustomer->id = $this->request->data['PackageCustomer']['package_customer_id'];
-        $this->PackageCustomer->save($this->request->data['PackageCustomer']);
+        $this->PackageCustomer->saveField("status","canceled");  
+        
         $commentData['Comment'] = array(
             'package_customer_id' => $this->request->data['PackageCustomer']['package_customer_id'],
             'content' => $this->request->data['PackageCustomer']['comment'],
@@ -656,7 +646,7 @@ class TechniciansController extends AppController {
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id                   
                     left join installations ins on ins.package_customer_id = pc.id 
-                    WHERE ins.user_id = " . $loggedUser['id'] . " and ins.status = 'post pone'  ORDER BY ins.id");
+                    WHERE ins.user_id = " . $loggedUser['id'] . " and pc.status = 'post pone'  ORDER BY ins.id");
 
         $filteredData = array();
         $unique = array();
@@ -730,7 +720,7 @@ class TechniciansController extends AppController {
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id                   
                     left join installations ins on ins.package_customer_id = pc.id 
-                    WHERE ins.user_id = " . $loggedUser['id'] . " and ins.status = 'rescheduled'  ORDER BY ins.id");
+                    WHERE ins.user_id = " . $loggedUser['id'] . " and pc.status = 'rescheduled'  ORDER BY ins.id");
 
         $filteredData = array();
         $unique = array();
@@ -793,7 +783,7 @@ class TechniciansController extends AppController {
                     left join issues i on pc.issue_id = i.id
                     
                       left join installations ins on ins.package_customer_id = pc.id 
-                    WHERE ins.user_id = " . $loggedUser['id'] . " and ins.status = 'canceled'  ORDER BY ins.id");
+                    WHERE ins.user_id = " . $loggedUser['id'] . " and pc.status = 'canceled'  ORDER BY ins.id");
 
 
         $filteredData = array();
