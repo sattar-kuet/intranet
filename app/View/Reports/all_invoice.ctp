@@ -86,7 +86,7 @@
                             <div class="col-xs-5 invoice-payment">                             
                                 <ul class="list-unstyled" style=" text-align: right; color: #000; margin-right: 17px;">
                                     <li>
-                                        <h1 style=" color: #000 !important;">Invoice #<?php echo getInvoiceNumbe($single['tr']['id']); ?></h1>
+                                        <h1 style=" color: #000 !important;">Invoice #<?php echo getInvoiceNumbe($single['pc']['invoice_no']); ?></h1>
                                     </li>
                                     <li style="color: #555;">
                                         <b style=" color: #000;">Date of Invoice: </b><?php echo date('Y-m-d'); ?>
@@ -137,7 +137,7 @@
                                 <tbody>                                   
                                     <tr style="height: 101px;">
                                         <td  style=" padding: 39px; text-align: center; font-size: 19px; font-weight: bold; color: #000 !important; width: 101px;">
-                                            <?php echo getInvoiceNumbe($single['tr']['id']); ?>
+                                            <?php echo getInvoiceNumbe($single['pc']['invoice_no']); ?>
                                         </td>
                                         <td style=" color: #333 !important; padding: 43px 0px 0px 19px ;">
                                             <b style="color: #333 !important;"><?php echo $single['ps']['name']; ?></b><br>    

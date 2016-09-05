@@ -109,27 +109,23 @@ class ReportsController extends AppController {
     }
 
     function allInvoice() {
-        $this->loadModel('Package_customer');
+        $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
-        $date = trim(date('Y-m-d', strtotime("+25 days")));
-        $transactions = $this->Transaction->query("SELECT tr.id, tr.package_customer_id, 
-            CONCAT( first_name,' ', middle_name,' ', last_name ) AS name, pc.psetting_id, pc.mac,pc.house_no,
+        $date = trim(date('Y-m-d', strtotime("+25 days")));       
+        $transactions = $this->Transaction->query("SELECT pc.id, pc.invoice_no,CONCAT( first_name,' ', middle_name,' ', last_name ) AS name,pc.psetting_id, pc.mac,pc.house_no,
             pc.street,pc.apartment,pc.city,pc.state,pc.zip,pc.package_exp_date,
-            ps.name, p.name, tr.paid_amount, ps.amount, ps.duration FROM transactions tr
-            left join package_customers pc on tr.package_customer_id = pc.id
+            ps.name, p.name,ps.amount, ps.duration FROM package_customers pc           
             left join psettings ps on ps.id = pc.psetting_id
             LEFT JOIN packages p ON p.id = ps.package_id 
-            WHERE  pc.package_exp_date <= '$date' and package_exp_date != 0000-00-00");
-
+            WHERE  pc.package_exp_date <= '$date' and pc.printed != 1 and package_exp_date != 0000-00-00");
+//        pr($transactions); exit;
         foreach ($transactions as $data) {
-            $trid = $data['tr']['id'];
-            $this->Transaction->id = $trid;
-            $this->Transaction->saveField("printed", 1);
-        }        
-
+            $pcid = $data['pc']['id'];
+            $this->PackageCustomer->id = $pcid;
+            $this->PackageCustomer->saveField("printed", 1);
+        }      
         $mac = count(json_decode($transactions['0']['pc']['mac']));
         $transactions[0]['pc']['mac'] = $mac;
-
         $this->set(compact('transactions'));
     }
 
@@ -221,10 +217,12 @@ class ReportsController extends AppController {
                 "' AND package_exp_date != 0000-00-00 ".
                 " AND invoice_created != 1"
         );
+//        pr($data); exit;
         foreach($data as $single){
             $cid = $single['package_customers']['id'];
+            $six_digit_random_number = mt_rand(100000000, 999999999);
             $this->PackageCustomer->id = $cid;
-            $this->PackageCustomer->saveField('invoice_no', time());
+            $this->PackageCustomer->saveField('invoice_no', $six_digit_random_number);
             $this->PackageCustomer->saveField('invoice_created', 1); // set it as 0 when next payment date will be updated  
         }
     
