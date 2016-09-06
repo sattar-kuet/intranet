@@ -54,6 +54,7 @@
                                     'value' => $this->params['pass'][0],
                                 ));
                                 ?>
+                              
                                 <br>
                                 <div class="col-md-2 signupfont">
                                     Next Payment Date:

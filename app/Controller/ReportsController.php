@@ -135,7 +135,6 @@ class ReportsController extends AppController {
             $datrange = json_decode($this->request->data['Package_customer']['daterange'], true);
             $datrange['start'] = $datrange['start'] . ' 00:00:00';
             $datrange['end'] = $datrange['end'] . ' 23:59:59';
-
             $packagecustomers = $this->Transaction->query("SELECT tr.id, tr.package_customer_id, 
             CONCAT( first_name,' ', middle_name,' ', last_name ) AS name, pc.psetting_id, pc.mac,
             ps.name, p.name, tr.paid_amount, ps.amount, ps.duration FROM transactions tr
@@ -219,7 +218,6 @@ class ReportsController extends AppController {
 //        pr($packagecustomers); exit;
         $this->set(compact('packagecustomers'));
     }
-
     function createTicket($customer_id = null, $data = array()) {
         $loggedUser = $this->Auth->user();
         $this->loadModel('Ticket');

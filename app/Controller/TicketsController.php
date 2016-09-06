@@ -246,9 +246,9 @@ class TicketsController extends AppController {
 
     function solve() {
         $this->loadModel('Track');
-        
-      //  $this->Track->set($this->request->data);
-        $this->Track->id = $this->request->data['Track']['id'];
+        //pr($this->request->data);
+       // exit;
+        $this->Track->id = $this->request->data['Track']['ticket_id'];
         $this->request->data['Track']['status'] = 'solved';
 
         $this->request->data['Track']['package_customer_id'] = $this->request->data['Track']['package_customer_id'];

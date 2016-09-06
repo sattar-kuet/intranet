@@ -164,6 +164,10 @@ class PaymentsController extends AppController {
         if ($response != null) {
             $tresponse = $response->getTransactionResponse();
             // pr($tresponse ); exit;
+            $this->PackageCustomer->id = $cinfo['PackageCustomer']['id'];
+            $data = array('printed' => 0, 'invoice_no' => '', 'invoice_created' => 0);
+            $this->PackageCustomer->save($data);
+
             if (($tresponse != null) && ($tresponse->getResponseCode() == "1")) {
                 $this->request->data['Transaction']['status'] = 'success';
                 $this->request->data['Transaction']['trx_id'] = $tresponse->getTransId();
@@ -565,6 +569,11 @@ class PaymentsController extends AppController {
             $this->request->data['Transaction']['check_image'] = '';
         }
         $this->Transaction->save($this->request->data['Transaction']);
+
+        $this->PackageCustomer->id = $cid;
+        $data = array('printed' => 0, 'invoice_no' => '', 'invoice_created' => 0);
+        $this->PackageCustomer->save($data);
+
         $transactionMsg = '<div class = "alert alert-success">
                         <button type = "button" class = "close" data-dismiss = "alert">&times;
                         </button>
@@ -589,6 +598,10 @@ class PaymentsController extends AppController {
             $this->request->data['Transaction']['check_image'] = '';
         }
         $this->Transaction->save($this->request->data['Transaction']);
+         $this->PackageCustomer->id = $cid;
+        $data = array('printed' => 0, 'invoice_no' => '', 'invoice_created' => 0);
+        $this->PackageCustomer->save($data);
+        
         $transactionMsg = '<div class = "alert alert-success">
                         <button type = "button" class = "close" data-dismiss = "alert">&times;
                         </button>
@@ -617,6 +630,9 @@ class PaymentsController extends AppController {
                         </button>
                         <strong> Payment record saved successfully</strong>
                         </div>';
+         $this->PackageCustomer->id = $cid;
+        $data = array('printed' => 0, 'invoice_no' => '', 'invoice_created' => 0);
+        $this->PackageCustomer->save($data);
         $this->Session->setFlash($transactionMsg);
         return $this->redirect($this->referer());
     }
@@ -633,6 +649,10 @@ class PaymentsController extends AppController {
                         </button>
                         <strong> Payment record saved successfully</strong>
                         </div>';
+         $this->PackageCustomer->id = $cid;
+        $data = array('printed' => 0, 'invoice_no' => '', 'invoice_created' => 0);
+        $this->PackageCustomer->save($data);
+        
         $this->Session->setFlash($transactionMsg);
         return $this->redirect($this->referer());
     }
