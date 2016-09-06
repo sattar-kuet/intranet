@@ -137,7 +137,7 @@ class ReportsController extends AppController {
         $this->set(compact('packagecustomers'));
     }
 
-    function printedInvoice() {
+    function passedInvoice() {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
         $transactions = $this->Transaction->query("SELECT pc.id,pc.printed, pc.invoice_no,CONCAT( first_name,' ', middle_name,' ', last_name ) AS name,pc.psetting_id, pc.mac,pc.house_no,
