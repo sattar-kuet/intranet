@@ -584,6 +584,12 @@ class CustomersController extends AppController {
         $this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
         $this->request->data['PackageCustomer']['package_exp_date'] = $this->getFormatedDate($this->request->data['PackageCustomer']['package_exp_date']);
         $this->request->data['PackageCustomer']['ticket_generated'] = 0;
+        
+        // when change package exp date then these fields will be update
+        $this->request->data['PackageCustomer']['invoice_no'] = '';
+        $this->request->data['PackageCustomer']['invoice_created'] = 0;
+        $this->request->data['PackageCustomer']['printed'] = 0;
+        pr($this->request->data); exit;
         $this->PackageCustomer->save($this->request->data);
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>

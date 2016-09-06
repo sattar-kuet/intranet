@@ -193,7 +193,7 @@
                         </div>
                     </div>
                     
-                     <div class="row" style="margin-top: 101px;">
+                     <div class="row" style="margin-top: 191px;">
                         <div class="col-xs-4">                              
                             <h6>Please write <b style="font-weight: normal !important; color:red !important;">INVOICE NUMBER</b> on check</h6>
                         </div>
