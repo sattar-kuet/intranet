@@ -241,7 +241,7 @@ class ReportsController extends AppController {
             LEFT JOIN packages p ON p.id = ps.package_id 
             WHERE package_exp_date>='" . date('Y-m-d') . "' AND package_exp_date<='" . $expiredate . "' "
                 . "AND package_exp_date != 0000-00-00. "
-                . " AND invoice_created != 1."
+                . " AND pc.printed!= 1."
                 . "GROUP BY pc.id");
         $this->set(compact('packagecustomers'));
     }

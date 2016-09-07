@@ -589,7 +589,7 @@
             </li> 
             <li 
             <?php
-            $services = array('Adminsassignedtotech', 'Adminsdonebytech', 'Adminspostponebytech', 'Adminsrecheduledbytech', 'Adminscancelledbytech', 'Adminsdonebyadmin');
+            $services = array('AdminsscheduleDone','Adminsassignedtotech', 'Adminsdonebytech', 'Adminspostponebytech', 'Adminsrecheduledbytech', 'Adminscancelledbytech', 'Adminsdonebyadmin');
             if (in_array($this->name . '' . $this->action, $services)):
                 ?>
                     class="active"
@@ -604,7 +604,7 @@
                 </a>
 
                 <ul class="sub-menu">                 
-                    <li
+<!--                    <li
                     <?php if ($this->name . '' . $this->action == 'Adminsassignedtotech'):
                         ?>
                             class="active"
@@ -615,6 +615,19 @@
                         <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'assignedtotech')) ?>">
                             <i class="fa icon-like"></i>
                             Assigned To Tech</a>
+                    </li>-->
+                    
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'AdminsscheduleDone'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'scheduleDone')) ?>">
+                            <i class="fa icon-like"></i>
+                            Schedule done</a>
                     </li>
 
                     <li
@@ -690,37 +703,7 @@
 
                 </ul>
             </li> 
-            <li 
-            <?php
-            $services = array('AdminsscheduleDone');
-            if (in_array($this->name . '' . $this->action, $services)):
-                ?>
-                    class="active"
-                    <?php
-                endif;
-                ?>
-                >
-                <a href="javascript:;">
-                    <i class="fa icon-users"></i>
-                    <span class="title">Assigned to tech2</span>
-                    <span class="arrow "></span>
-                </a>
-
-                <ul class="sub-menu">                 
-                    <li
-                    <?php if ($this->name . '' . $this->action == 'AdminsscheduleDone'):
-                        ?>
-                            class="active"
-                            <?php
-                        endif;
-                        ?>
-                        >
-                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'scheduleDone')) ?>">
-                            <i class="fa icon-like"></i>
-                            Schedule done</a>
-                    </li>
-                </ul>
-            </li> 
+             
 
             <li 
             <?php
