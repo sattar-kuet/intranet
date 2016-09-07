@@ -589,8 +589,8 @@ class CustomersController extends AppController {
         $this->request->data['PackageCustomer']['invoice_no'] = '';
         $this->request->data['PackageCustomer']['invoice_created'] = 0;
         $this->request->data['PackageCustomer']['printed'] = 0;
-        pr($this->request->data); exit;
         $this->PackageCustomer->save($this->request->data);
+        
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
 	<strong>  succeesfully done </strong></div>';

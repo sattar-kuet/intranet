@@ -21,7 +21,7 @@
             <!-- BEGIN PAGE CONTENT-->
             <div  id="printableArea">   
                 <?php
-                foreach ($transactions as $single):
+                foreach ($packagecustomers as $single):
                     $pcaddress = $single['pc'];
 
                     $customer_address_one = $pcaddress['house_no'] . ' ' . $pcaddress['street'] . ' ' .

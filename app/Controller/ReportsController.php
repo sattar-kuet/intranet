@@ -91,33 +91,22 @@ class ReportsController extends AppController {
     }
 
     function invoice($id = null) {
-        $this->loadModel('Transaction');
-        $this->Transaction->id = $id;
-        $transactions = $this->Transaction->query("SELECT tr.id, tr.package_customer_id, 
-            CONCAT( first_name,  ' ', middle_name,  ' ', last_name ) AS name, pc.psetting_id, pc.mac,pc.house_no,
-            pc.street,pc.apartment,pc.city,pc.state,pc.zip, ps.name, p.name, ps.amount, ps.duration
-                FROM transactions tr
-                LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id
-                LEFT JOIN psettings ps ON ps.id = pc.psetting_id
-                LEFT JOIN packages p ON p.id = ps.package_id
-                WHERE tr.id = $id
-                ");
-//        pr($transactions); exit;
-        $mac = count(json_decode($transactions['0']['pc']['mac']));
-        $transactions[0]['pc']['mac'] = $mac;
-        $this->set(compact('transactions'));
+        $this->loadModel('PackageCustomer');
+        $this->PackageCustomer->id = $id;
+        $packagecustomers = $this->PackageCustomer->query("SELECT pc.id, CONCAT( first_name,' ', middle_name,' ', last_name ) AS name, pc.psetting_id, pc.mac,pc.house_no,
+            pc.street,pc.apartment,pc.city,pc.state,pc.zip,pc.package_exp_date,pc.invoice_no,ps.name, ps.amount, ps.duration,p.name
+            FROM package_customers pc
+            left join psettings ps on ps.id = pc.psetting_id
+            LEFT JOIN packages p ON p.id = ps.package_id 
+            WHERE pc.id = $id ");
+        $mac = count(json_decode($packagecustomers['0']['pc']['mac']));
+        $packagecustomers[0]['pc']['mac'] = $mac;
+        $this->set(compact('packagecustomers'));
     }
 
     function allInvoice() {
         $this->loadModel('PackageCustomer');
-        $this->loadModel('Transaction');
         $expiredate = trim(date('Y-m-d', strtotime("+25 days")));
-//        $transactions = $this->Transaction->query("SELECT pc.id, pc.invoice_no,CONCAT( first_name,' ', middle_name,' ', last_name ) AS name,pc.psetting_id, pc.mac,pc.house_no,
-//            pc.street,pc.apartment,pc.city,pc.state,pc.zip,pc.package_exp_date,
-//            ps.name, p.name,ps.amount, ps.duration FROM package_customers pc           
-//            left join psettings ps on ps.id = pc.psetting_id
-//            LEFT JOIN packages p ON p.id = ps.package_id 
-//            WHERE  pc.package_exp_date <= '$date' and pc.printed != 1 and package_exp_date != 0000-00-00");
         $packagecustomers = $this->PackageCustomer->query("SELECT pc.id, CONCAT( first_name,' ', middle_name,' ', last_name ) AS name, pc.psetting_id, pc.mac,pc.house_no,
             pc.street,pc.apartment,pc.city,pc.state,pc.zip,pc.package_exp_date,pc.invoice_no,ps.name, ps.amount, ps.duration,p.name
             FROM package_customers pc
@@ -125,8 +114,6 @@ class ReportsController extends AppController {
             LEFT JOIN packages p ON p.id = ps.package_id 
             WHERE package_exp_date>='" . date('Y-m-d') . "' AND package_exp_date<='" . $expiredate . "' AND package_exp_date != 0000-00-00 "
                 . "GROUP BY pc.id");
-      
-//        pr($packagecustomers); exit;
         foreach ($packagecustomers as $data) {
             $pcid = $data['pc']['id'];
             $this->PackageCustomer->id = $pcid;
@@ -139,15 +126,13 @@ class ReportsController extends AppController {
 
     function passedInvoice() {
         $this->loadModel('PackageCustomer');
-        $this->loadModel('Transaction');
-        $transactions = $this->Transaction->query("SELECT pc.id,pc.printed, pc.invoice_no,CONCAT( first_name,' ', middle_name,' ', last_name ) AS name,pc.psetting_id, pc.mac,pc.house_no,
+        $packagecustomers = $this->PackageCustomer->query("SELECT pc.id,pc.printed, pc.invoice_no,CONCAT( first_name,' ', middle_name,' ', last_name ) AS name,pc.psetting_id, pc.mac,pc.house_no,
             pc.street,pc.apartment,pc.city,pc.state,pc.zip,pc.package_exp_date,
             ps.name, p.name,ps.amount, ps.duration FROM package_customers pc           
             left join psettings ps on ps.id = pc.psetting_id
             LEFT JOIN packages p ON p.id = ps.package_id 
             WHERE  pc.printed = 1");
-//        pr($transactions); exit;       
-        $this->set(compact('transactions'));
+        $this->set(compact('packagecustomers'));
     }
 
     function closeInvoice() {
@@ -230,7 +215,6 @@ class ReportsController extends AppController {
     function openInvoice25() {
         $this->loadModel('PackageCustomer');
         $expiredate = trim(date('Y-m-d', strtotime("+25 days")));
-
         $data = $this->PackageCustomer->query("SELECT  *
             FROM package_customers 
             WHERE package_exp_date>='" . date('Y-m-d') .
@@ -238,16 +222,6 @@ class ReportsController extends AppController {
                 "' AND package_exp_date != 0000-00-00 " .
                 " AND invoice_created != 1"
         );
- // pr($data); exit;
-        
-//        if (count($data) = 0) {
-//            $msg = '<div class="alert alert-success">
-//	<button type="button" class="close" data-dismiss="alert">&times;</button>
-//	<strong> No customer found </strong>
-//        </div>';
-//            $this->Session->setFlash($msg);
-//            return $this->redirect($this->referer());
-//        }
         foreach ($data as $single) {
             $cid = $single['package_customers']['id'];
             $six_digit_random_number = mt_rand(100000000, 999999999);
@@ -255,16 +229,15 @@ class ReportsController extends AppController {
             $this->PackageCustomer->saveField('invoice_no', $six_digit_random_number);
             $this->PackageCustomer->saveField('invoice_created', 1); // set it as 0 when next payment date will be updated  
         }
-
         $packagecustomers = $this->PackageCustomer->query("SELECT pc.id, CONCAT( first_name,' ', middle_name,' ', last_name ) AS name, pc.psetting_id, pc.mac,pc.house_no,
             pc.street,pc.apartment,pc.city,pc.state,pc.zip,pc.package_exp_date,pc.invoice_no,ps.name, ps.amount, ps.duration,p.name
             FROM package_customers pc
             left join psettings ps on ps.id = pc.psetting_id
             LEFT JOIN packages p ON p.id = ps.package_id 
-            WHERE package_exp_date>='" . date('Y-m-d') . "' AND package_exp_date<='" . $expiredate . "' AND package_exp_date != 0000-00-00 "
+            WHERE package_exp_date>='" . date('Y-m-d') . "' AND package_exp_date<='" . $expiredate . "' "
+                . "AND package_exp_date != 0000-00-00. "
+                . " AND invoice_created != 1."
                 . "GROUP BY pc.id");
-        
-
         $this->set(compact('packagecustomers'));
     }
 
@@ -276,8 +249,6 @@ class ReportsController extends AppController {
             left join psettings ps on ps.id = pc.psetting_id
             LEFT JOIN packages p ON p.id = ps.package_id 
             WHERE pc.printed = 1");
-//        pr($packagecustomers);
-//        exit;
         $this->set(compact('packagecustomers'));
     }
 
