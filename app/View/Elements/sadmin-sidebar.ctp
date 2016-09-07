@@ -981,6 +981,19 @@
                             <i class="fa fa-plus"></i>
                             Open Invoice</a>
                     </li>
+                    
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'ReportspassedInvoice'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'passedInvoice')) ?>">
+                            <i class="fa fa-wrench"></i>
+                            Passed Due</a>
+                    </li>
 
 
                     <li
@@ -1007,18 +1020,7 @@
                             <i class="fa fa-wrench"></i>
                             Extra Payment</a>
                     </li>
-                    <li
-                    <?php if ($this->name . '' . $this->action == 'ReportspassedInvoice'):
-                        ?>
-                            class="active"
-                            <?php
-                        endif;
-                        ?>
-                        >
-                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'passedInvoice')) ?>">
-                            <i class="fa fa-wrench"></i>
-                            Passed</a>
-                    </li>
+                    
                 </ul>
             </li>
             <li 
