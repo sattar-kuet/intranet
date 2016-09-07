@@ -21,7 +21,7 @@
             <!-- BEGIN PAGE CONTENT-->
             <div  id="printableArea">   
                 <?php
-                foreach ($transactions as $single):
+                foreach ($packagecustomers as $single):
                     $pcaddress = $single['pc'];
 
                     $customer_address_one = $pcaddress['house_no'] . ' ' . $pcaddress['street'] . ' ' .
@@ -34,7 +34,7 @@
                     <div class="row">
                         <div class="col-xs-4">                              
                             <ul class="list-unstyled" style=" text-align: left; color: #555; margin-left: 1px;">
-                                <img style="margin-top: 21px;"src="<?php echo $this->webroot; ?>assets/frontend/layout/img/totalcable.jpg">                                                  
+                                <img style="margin-top: 31px;"src="<?php echo $this->webroot; ?>assets/frontend/layout/img/totalcable.jpg">                                                  
                                 <div style="margin-left: 17px;">P.O BOX 170,E.MEADOM, NY 11554</div>
                             </ul>
                         </div>
@@ -58,7 +58,7 @@
                             </ul>-->
                         </div>
                     </div>                  
-                    <hr style=" border-color:  white; margin-top: 10px;">
+                    <hr style="display: block; border-style: inset; border-color:  darkmagenta;">
                     <div class="row invoice-logo">
                         <div class="row" style="margin-top: 0;">                          
                             <div class="col-xs-7">                              
@@ -86,7 +86,7 @@
                             <div class="col-xs-5 invoice-payment">                             
                                 <ul class="list-unstyled" style=" text-align: right; color: #000; margin-right: 17px;">
                                     <li>
-                                        <h1 style=" color: #000 !important;">Invoice #<?php echo getInvoiceNumbe($single['tr']['id']); ?></h1>
+                                        <h1 style=" color: #000 !important;">Invoice #<?php echo getInvoiceNumbe($single['pc']['invoice_no']); ?></h1>
                                     </li>
                                     <li style="color: #555;">
                                         <b style=" color: #000;">Date of Invoice: </b><?php echo date('Y-m-d'); ?>
@@ -137,7 +137,7 @@
                                 <tbody>                                   
                                     <tr style="height: 101px;">
                                         <td  style=" padding: 39px; text-align: center; font-size: 19px; font-weight: bold; color: #000 !important; width: 101px;">
-                                            <?php echo getInvoiceNumbe($single['tr']['id']); ?>
+                                            <?php echo getInvoiceNumbe($single['pc']['invoice_no']); ?>
                                         </td>
                                         <td style=" color: #333 !important; padding: 43px 0px 0px 19px ;">
                                             <b style="color: #333 !important;"><?php echo $single['ps']['name']; ?></b><br>    
@@ -193,7 +193,7 @@
                         </div>
                     </div>
                     
-                     <div class="row" style="margin-top: 191px;">
+                     <div class="row" style="margin-top: 141px;">
                         <div class="col-xs-4">                              
                             <h6>Please write <b style="font-weight: normal !important; color:red !important;">INVOICE NUMBER</b> on check</h6>
                         </div>
