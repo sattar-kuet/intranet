@@ -21,7 +21,7 @@
             <!-- BEGIN PAGE CONTENT-->
             <div  id="printableArea">   
                 <?php
-                foreach ($packagecustomers as $single):
+                foreach ($transactions as $single):
                     $pcaddress = $single['pc'];
 
                     $customer_address_one = $pcaddress['house_no'] . ' ' . $pcaddress['street'] . ' ' .
@@ -193,7 +193,7 @@
                         </div>
                     </div>
                     
-                     <div class="row" style="margin-top: 141px;">
+                     <div class="row" style="margin-top: 191px;">
                         <div class="col-xs-4">                              
                             <h6>Please write <b style="font-weight: normal !important; color:red !important;">INVOICE NUMBER</b> on check</h6>
                         </div>

@@ -690,6 +690,37 @@
 
                 </ul>
             </li> 
+            <li 
+            <?php
+            $services = array('AdminsscheduleDone');
+            if (in_array($this->name . '' . $this->action, $services)):
+                ?>
+                    class="active"
+                    <?php
+                endif;
+                ?>
+                >
+                <a href="javascript:;">
+                    <i class="fa icon-users"></i>
+                    <span class="title">Assigned to tech2</span>
+                    <span class="arrow "></span>
+                </a>
+
+                <ul class="sub-menu">                 
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'AdminsscheduleDone'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'scheduleDone')) ?>">
+                            <i class="fa icon-like"></i>
+                            Schedule done</a>
+                    </li>
+                </ul>
+            </li> 
 
             <li 
             <?php
@@ -912,7 +943,7 @@
 
             <li 
             <?php
-            $printqueues = array('ReportsopenInvoice25', 'ReportscloseInvoice', 'ReportsextraPayment');
+            $printqueues = array('ReportsopenInvoice25', 'ReportscloseInvoice', 'ReportsextraPayment', 'ReportspassedInvoice');
             if (in_array($this->name . '' . $this->action, $printqueues)):
                 ?>
                     class="active"
@@ -975,6 +1006,18 @@
                         <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'extraPayment')) ?>">
                             <i class="fa fa-wrench"></i>
                             Extra Payment</a>
+                    </li>
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'ReportspassedInvoice'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'passedInvoice')) ?>">
+                            <i class="fa fa-wrench"></i>
+                            Passed</a>
                     </li>
                 </ul>
             </li>

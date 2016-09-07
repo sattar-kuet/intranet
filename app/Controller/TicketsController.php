@@ -94,6 +94,8 @@ class TicketsController extends AppController {
 
                 if (trim($this->request->data['Ticket']['issue_id']) == 17) {
                     $this->addNewAddr($this->request->data['Ticket']['new_addr'], $customer_id);
+                    $trackData['Track']['status'] = 'others';
+                    
                 }
                 if (trim($this->request->data['Ticket']['issue_id']) == 21 || trim($this->request->data['Ticket']['issue_id']) == 30) {
                     $this->updateCustomer('Request to hold', $customer_id);

@@ -578,13 +578,19 @@ class CustomersController extends AppController {
         $this->Session->setFlash($msg);
         return $this->redirect($this->referer());
     }
-    
+
     function update_payment($id = null) {
         $this->loadModel('PackageCustomer');
         $this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
         $this->request->data['PackageCustomer']['package_exp_date'] = $this->getFormatedDate($this->request->data['PackageCustomer']['package_exp_date']);
         $this->request->data['PackageCustomer']['ticket_generated'] = 0;
-        $this->PackageCustomer->save($this->request->data);       
+        
+        // when change package exp date then these fields will be update
+        $this->request->data['PackageCustomer']['invoice_no'] = '';
+        $this->request->data['PackageCustomer']['invoice_created'] = 0;
+        $this->request->data['PackageCustomer']['printed'] = 0;
+        pr($this->request->data); exit;
+        $this->PackageCustomer->save($this->request->data);
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
 	<strong>  succeesfully done </strong></div>';
@@ -609,8 +615,10 @@ class CustomersController extends AppController {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Installation');
         $loggedUser = $this->Auth->user();
-        $date = $this->request->data['PackageCustomer']['schedule_date'] . ' ' . $this->request->data['PackageCustomer']['seTime'];
-
+//        $date = $this->request->data['PackageCustomer']['schedule_date'] . ' ' . $this->request->data['PackageCustomer']['seTime'];
+        $temp = explode('/', $this->request->data['PackageCustomer']['schedule_date']);//date format change and insert
+        $dateformat = $this->request->data['PackageCustomer']['schedule_date'] = $temp[2] . '-' . $temp[0] . '-' . $temp[1];
+        $date = $dateformat . ' ' . $this->request->data['PackageCustomer']['seTime'];
         $this->request->data['Installation']['assign_by'] = $loggedUser['id'];
         $this->request->data['Installation']['package_customer_id'] = $this->request->data['PackageCustomer']['id'];
         $this->request->data['Installation']['schedule_date'] = $date;
@@ -619,7 +627,7 @@ class CustomersController extends AppController {
 
         $this->request->data['PackageCustomer']['schedule_date'] = $date;
         $this->request->data['PackageCustomer']['status'] = 'Scheduled';
-      //  pr($this->request->data); exit;
+        //  pr($this->request->data); exit;
         $this->PackageCustomer->save($this->request->data);
 
         $this->Installation->save($this->request->data);

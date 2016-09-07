@@ -186,8 +186,8 @@
         </div>
     </div>
     <div class="controls center text-center">
-        <a   target="_blank" title="Add to pdf" href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'allInvoice')) ?>" class="btn default btn-xs green-stripe">
-           Generate All Invoice </a>
+        <a   target="_blank" title="Add to pdf" href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'printedInvoice')) ?>" class="btn default btn-xs green-stripe">
+           Generate Invoice </a>
     </div>
 </div>
 <!-- END CONTENT -->
