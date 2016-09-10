@@ -5,17 +5,17 @@
             <url>app/Controller/ReportsController.php</url>
             <bookmark id="9">
                 <name/>
-                <line>127</line>
+                <line>120</line>
                 <key/>
             </bookmark>
             <bookmark id="6">
                 <name/>
-                <line>230</line>
+                <line>220</line>
                 <key/>
             </bookmark>
             <bookmark id="8">
                 <name/>
-                <line>255</line>
+                <line>234</line>
                 <key/>
             </bookmark>
         </file>
@@ -47,13 +47,6 @@
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Reports/all_invoice.ctp</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Reports/passed_invoice.ctp</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/Controller/ReportsController.php</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/Controller/CustomersController.php</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Elements/sadmin-sidebar.ctp</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Reports/invoice.ctp</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

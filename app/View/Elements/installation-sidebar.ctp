@@ -505,7 +505,7 @@
             </li>
             
 
-            <li 
+<!--            <li 
             <?php
             $printqueues = array('ReportsopenInvoice25', 'ReportscloseInvoice', 'ReportsextraPayment');
             if (in_array($this->name . '' . $this->action, $printqueues)):
@@ -521,7 +521,7 @@
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
-                    <!--                    <li
+                                        <li
                     <?php if ($this->name . '' . $this->action == 'ReportsopenInvoice'):
                         ?>
                                                         class="active"
@@ -532,7 +532,7 @@
                                             <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'openInvoice')) ?>">
                                                 <i class="fa fa-plus"></i>
                                                 Open Invoice</a>
-                                        </li>-->
+                                        </li>
                     <li
                     <?php if ($this->name . '' . $this->action == 'ReportsopenInvoice25'):
                         ?>
@@ -572,7 +572,7 @@
                             Extra Payment</a>
                     </li>
                 </ul>
-            </li>
+            </li>-->
             <li 
             <?php
             $Otherspayments = array('OtherspaymentsCreate', 'OtherspaymentsManage');

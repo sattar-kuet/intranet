@@ -665,6 +665,53 @@ class PaymentsController extends AppController {
         $this->set(compact('pay_to'));
     }
 
+    function add_settings() {
+        $this->loadModel('PaymentSetting');
+        if ($this->request->is('post')) {
+            $this->PaymentSetting->set($this->request->data);
+            if ($this->PaymentSetting->validates()) {
+                $loggedUser = $this->Auth->user();
+                $this->request->data['PaymentSetting']['user_id'] = $loggedUser['id'];
+                $this->PaymentSetting->save($this->request->data['PaymentSetting']);
+                $msg = '<div class="alert alert-success">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong> Payment settings succeesfully </strong>
+			</div>';
+                $this->Session->setFlash($msg);
+                return $this->redirect('add_settings');
+            } else {
+                $msg = $this->generateError($this->PaymentSetting->validationErrors);
+                $this->Session->setFlash($msg);
+            }
+        }
+    }
+
+    function manage_settings() {
+        $this->loadModel('PaymentSetting');
+        $paymentsettings = $this->PaymentSetting->find('all');
+        $this->set(compact('paymentsettings'));
+    }
+
+    function edit_settings($id = null) {
+        $this->loadModel('PaymentSetting');
+        if ($this->request->is('post') || $this->request->is('put')) {
+            $this->PaymentSetting->set($this->request->data);
+            $this->PaymentSetting->id = $id;
+            $this->PaymentSetting->save($this->request->data['PaymentSetting']);
+            $msg = '<div class="alert alert-success">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<strong>  Payment settings updated succeesfully </strong>
+	</div>';
+            $this->Session->setFlash($msg);
+            return $this->redirect($this->referer());
+        }
+        if (!$this->request->data) {
+            $data = $this->PaymentSetting->findById($id);
+            $this->request->data = $data;
+            $this->set(compact('data'));
+        }
+    }
+
 }
 
 ?>

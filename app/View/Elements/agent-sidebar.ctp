@@ -138,7 +138,7 @@
                             <i class="fa icon-user-following"></i>
                             Opportunity Follow-up </a>
                     </li>
-                    <li
+<!--                    <li
 
                         <?php if ($this->name . '' . $this->action == 'Customersschedule_done'):
                             ?>
@@ -152,7 +152,7 @@
 
                             <i class="fa icon-like"></i>
                             Schedule Done </a>
-                    </li>
+                    </li>-->
                 </ul>
             </li>
 
