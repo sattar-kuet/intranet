@@ -47,7 +47,7 @@
                                     <th>
                                         Customer Detail
                                     </th>
-                                   
+
                                     <th>
                                         Package
                                     </th>
@@ -76,10 +76,7 @@
                             <tbody>
                                 <?php
                                 foreach ($filteredData as $results):
-                                    //   pr($results);
-                                    //        exit;
                                     $customer = $results['customers'];
-
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
                                             . $customer['zip'];
@@ -89,7 +86,7 @@
                                             <?php echo $results['customers']['id']; ?>                            
                                         </td>
                                         <td class="hidden-480">
-                                            <?php  echo date_format( new DateTime($results['customers']['created']) , 'm-d-Y' );?>  <br>
+                                            <?php echo date_format(new DateTime($results['customers']['created']), 'm-d-Y'); ?>  <br>
                                             <?php echo $results['users']['name']; ?>                            
                                         </td>
                                         <td>
@@ -113,7 +110,7 @@
 
                                             <b> Address: </b> <?php echo $customer_address; ?> 
                                         </td>
-                                        
+
                                         <td>
                                             <?php if (!empty($results['package']['name'])): ?>
                                                 Name:<?php echo $results['package']['name'] ?><br>
@@ -121,7 +118,7 @@
                                                 Amount: <?php echo $results['package']['amount']; ?>
                                             <?php endif; ?>
                                         </td>
-                                         <td>
+                                        <td>
                                             <?php if (!empty($results['issue']['name'])): ?>
                                                 <?php echo $results['issue']['name']; ?>
                                             <?php endif; ?>
@@ -129,10 +126,9 @@
                                         <td>
                                             <?php echo $customer['shipment_equipment'] . ' ' . $customer['shipment_note']; ?>
                                         </td>
-                                         <td>
+                                        <td>
                                             <?php
                                             foreach ($results['comments'] as $comment):
-                                                // pr($comment);
                                                 ?>
                                                 <span title="<?php echo $comment['content']['created']; ?>" class="fa fa-hand-o-right ">  <?php echo $comment['content']['content']; ?> &nbsp;&nbsp;</span> <i> <?php echo $comment['user']['name']; ?></i>
                                                 <br> 
@@ -161,12 +157,11 @@
                                         </td>
                                         <td>
                                             <ul>
-                                                <li > <?php echo $results['tech']['name']; ?> </li>
+                                                <li > <?php echo $results['tech']['name']; ?> </li>                                                
                                                 <li > <?php echo $results['tech']['email']; ?> </li> 
                                             </ul>
 
                                         </td>
-
                                         <td> 
                                             <div class="controls center text-center">
                                                 <a 
@@ -178,7 +173,7 @@
                                                                 return true;
                                                             }
                                                             return false;"
-                                                    href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'approved', $results['customers']['id'])) ?>" title="Approve">
+                                                    href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'approved', $results['customers']['id'], $results['tech']['id'])) ?>" title="Approve">
                                                     <span class="fa fa-check"></span>
                                                 </a>
                                                 <div id="commentDiv<?php echo $results['customers']['id']; ?>" class=" hideRest portlet-body form" style="display: none;">
@@ -239,14 +234,8 @@
                                                     <?php echo $this->Form->end(); ?>
                                                     <!-- END FORM-->
                                                 </div>
-
-
-
                                             </div>
-                                        </td>  
-
-
-
+                                        </td>
                                     </tr>
                                 <?php endforeach; ?>  
 

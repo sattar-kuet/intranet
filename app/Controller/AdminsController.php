@@ -988,17 +988,15 @@ class AdminsController extends AppController {
             }
         }
         $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
-
-
         $this->set(compact('filteredData', 'technician'));
     }
 
-    function approved($id = null) {
+    function approved($id = null,$tid=null) {
         $this->loadModel('PackageCustomer');
         $this->PackageCustomer->id = $id;
         $loggedUser = $this->Auth->user();
-
         $this->PackageCustomer->saveField("approved", "1");
+        $this->PackageCustomer->saveField("ins_by", $tid);
         $this->PackageCustomer->saveField("user_id", $loggedUser['id']);
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>

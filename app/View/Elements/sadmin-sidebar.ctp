@@ -101,7 +101,7 @@
             $payment = array('paymenthistory');
             if (in_array($this->name . '' . $this->action, $payment)):
                 ?>
-                                                                    class="active"
+                                                                        class="active"
                 <?php
             endif;
             ?>
@@ -135,7 +135,7 @@
                     <!--                    <li
                     <?php if ($this->name . '' . $this->action == 'Ticketscreate'):
                         ?>
-                                                                                                            class="active"
+                                                                                                                class="active"
                         <?php
                     endif;
                     ?>
@@ -305,7 +305,7 @@
 
             if (in_array($this->name . '' . $this->action, $transactions)):
                 ?>
-                                                                                class="active"
+                                                                                    class="active"
                 <?php
             endif;
             ?>
@@ -320,7 +320,7 @@
                     <li
             <?php if ($this->name . '' . $this->action == 'Transactionssearch'):
                 ?>
-                                                                                        class="active"
+                                                                                            class="active"
                 <?php
             endif;
             ?>
@@ -333,7 +333,7 @@
                     <li
             <?php if ($this->name . '' . $this->action == 'Transactionsexpire_customer'):
                 ?>
-                                                                                        class="active"
+                                                                                            class="active"
                 <?php
             endif;
             ?>
@@ -444,7 +444,7 @@
                     
                     <?php if ($this->name . '' . $this->action == 'Customersschedule_done'):
                         ?>
-                                                        class="active"
+                                                            class="active"
                         <?php
                     endif;
                     ?>
@@ -589,7 +589,7 @@
             </li> 
             <li 
             <?php
-            $services = array('AdminsscheduleDone','Adminsassignedtotech', 'Adminsdonebytech', 'Adminspostponebytech', 'Adminsrecheduledbytech', 'Adminscancelledbytech', 'Adminsdonebyadmin');
+            $services = array('AdminsscheduleDone', 'Adminsassignedtotech', 'Adminsdonebytech', 'Adminspostponebytech', 'Adminsrecheduledbytech', 'Adminscancelledbytech', 'Adminsdonebyadmin');
             if (in_array($this->name . '' . $this->action, $services)):
                 ?>
                     class="active"
@@ -604,7 +604,7 @@
                 </a>
 
                 <ul class="sub-menu">                 
-<!--                    <li
+                    <li
                     <?php if ($this->name . '' . $this->action == 'Adminsassignedtotech'):
                         ?>
                             class="active"
@@ -615,8 +615,8 @@
                         <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'assignedtotech')) ?>">
                             <i class="fa icon-like"></i>
                             Assigned To Tech</a>
-                    </li>-->
-                    
+                    </li>
+
                     <li
                     <?php if ($this->name . '' . $this->action == 'AdminsscheduleDone'):
                         ?>
@@ -703,7 +703,7 @@
 
                 </ul>
             </li> 
-             
+
 
             <li 
             <?php
@@ -800,19 +800,19 @@
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
-<!--                    <li
+                    <!--                    <li
                     <?php if ($this->name . '' . $this->action == 'Reportsactive'):
                         ?>
-                            class="active"
-                            <?php
-                        endif;
-                        ?>
-                        >
-
-                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'active')) ?>">
-                            <i class="fa fa-check-square-o"></i>
-                            Active</a>
-                    </li>-->
+                                                    class="active"
+                        <?php
+                    endif;
+                    ?>
+                                            >
+                    
+                                            <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'active')) ?>">
+                                                <i class="fa fa-check-square-o"></i>
+                                                Active</a>
+                                        </li>-->
                     <li
                     <?php if ($this->name . '' . $this->action == 'Reportscancel'):
                         ?>
@@ -912,7 +912,7 @@
                     <!--                    <li
                     <?php if ($this->name . '' . $this->action == 'Reportsaccountsdp'):
                         ?>
-                                                                class="active"
+                                                                    class="active"
                         <?php
                     endif;
                     ?>
@@ -943,7 +943,7 @@
                     <!--                    <li
                     <?php if ($this->name . '' . $this->action == 'ReportsopenInvoice'):
                         ?>
-                                                        class="active"
+                                                            class="active"
                         <?php
                     endif;
                     ?>
@@ -964,7 +964,7 @@
                             <i class="fa fa-plus"></i>
                             Open Invoice</a>
                     </li>
-                    
+
                     <li
                     <?php if ($this->name . '' . $this->action == 'ReportspassedInvoice'):
                         ?>
@@ -1003,7 +1003,7 @@
                             <i class="fa fa-wrench"></i>
                             Extra Payment</a>
                     </li>
-                    
+
                 </ul>
             </li>
             <li 
@@ -1048,6 +1048,50 @@
                     </li>
                 </ul>
             </li>
+
+            <li 
+            <?php
+            $paymentsettings = array('paymentsAdd_settings', 'paymentsManage_settings');
+            if (in_array($this->name . '' . $this->action, $dailyreports)):
+                ?>
+                    class="active"
+                    <?php
+                endif;
+                ?>
+                >
+                <a href="javascript:;">
+                    <i class="fa fa-envelope"></i>
+                    <span class="title">Tech Payment Settings</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'paymentsAdd_settings'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'payments', 'action' => 'Add_settings')) ?>">
+                            <i class="fa fa-plus"></i>
+                            Add</a>
+                    </li>
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'paymentsManage_settings'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'payments', 'action' => 'manage_settings')) ?>">
+                            <i class="fa fa-wrench"></i>
+                            Manage</a>
+                    </li>
+                </ul>
+            </li>
+
         </ul>
         <!-- END SIDEBAR MENU -->
     </div>
