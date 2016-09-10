@@ -99,6 +99,11 @@ class ReportsController extends AppController {
             left join psettings ps on ps.id = pc.psetting_id
             LEFT JOIN packages p ON p.id = ps.package_id 
             WHERE pc.id = $id ");
+        foreach ($packagecustomers as $data) {
+            $pcid = $data['pc']['id'];
+            $this->PackageCustomer->id = $pcid;
+            $this->PackageCustomer->saveField("printed", 1);
+        }
         $mac = count(json_decode($packagecustomers['0']['pc']['mac']));
         $packagecustomers[0]['pc']['mac'] = $mac;
         $this->set(compact('packagecustomers'));
@@ -237,6 +242,7 @@ class ReportsController extends AppController {
                 . "AND package_exp_date != 0000-00-00. "
                 . " AND pc.printed = 0"
                 . " GROUP BY pc.id");
+
         $this->set(compact('packagecustomers'));
     }
 
