@@ -152,7 +152,7 @@
                                                 <?php
                                                 echo $this->Form->input(
                                                         'first_name', array(
-                                                    'class' => 'required',
+                                                    'class' => '',
                                                     'id' => 'first'
                                                         )
                                                 );
@@ -185,7 +185,7 @@
                                                 <?php
                                                 echo $this->Form->input(
                                                         'last_name', array(
-                                                    'class' => 'required',
+                                                    'class' => '',
                                                     'id' => 'last'
                                                         )
                                                 );
@@ -225,7 +225,7 @@
                                                 <?php
                                                 echo $this->Form->input(
                                                         'street', array(
-                                                    'class' => 'required',
+                                                    'class' => '',
                                                     'id' => 'street'
                                                         )
                                                 );
@@ -266,7 +266,7 @@
                                                 <?php
                                                 echo $this->Form->input(
                                                         'city', array(
-                                                    'class' => 'required',
+                                                    'class' => '',
                                                     'id' => 'city'
                                                         )
                                                 );
@@ -283,7 +283,7 @@
                                                 <?php
                                                 echo $this->Form->input(
                                                         'state', array(
-                                                    'class' => 'required',
+                                                    'class' => '',
                                                     'id' => 'state'
                                                         )
                                                 );
@@ -300,7 +300,7 @@
                                                 <?php
                                                 echo $this->Form->input(
                                                         'zip', array(
-                                                    'class' => 'required',
+                                                    'class' => '',
                                                     'id' => 'zip'
                                                         )
                                                 );
@@ -323,7 +323,7 @@
                                                 <?php
                                                 echo $this->Form->input(
                                                         'home', array(
-                                                    'class' => 'required',
+                                                    'class' => '',
                                                         )
                                                 );
                                                 ?> 
@@ -443,7 +443,7 @@
                                         echo 'display: none;';
                                     } else {
                                         echo '';
-                                        $class = 'required';
+                                        $class = '';
                                     }
                                     ?>">
                                         <div class="col-md-2 signupfont">
@@ -725,7 +725,7 @@
                                                     ),
                                                     //'default' => $selected['package'],
                                                     'empty' => 'Select Status',
-                                                    'class' => 'span12 uniform nostyle select1 required',
+                                                    'class' => 'span12 uniform nostyle select1 ',
                                                     'name' => 'status',
                                                     'id' => 'status'
                                                         //'id'=>'stbn',
@@ -828,7 +828,7 @@
                                                 'card_check_no', array(
                                             'type' => 'text',
                                             'value' => '',
-                                            'class' => 'form-control input-sm required',
+                                            'class' => 'form-control input-sm ',
                                             'id' => 'card_number',
                                             'value' => $cardInfo['card_no']
                                         ));
@@ -844,7 +844,7 @@
                                             'type' => 'select',
                                             'options' => $ym['year'],
                                             'empty' => 'Select Year',
-                                            'class' => 'span12 uniform nostyle select1 required',
+                                            'class' => 'span12 uniform nostyle select1 ',
                                             'div' => array('class' => 'span12 '),
                                             'id' => 'showyear',
                                             'default' => $cardInfo['exp_date']['year']
@@ -858,7 +858,7 @@
                                             'type' => 'select',
                                             'options' => $ym['month'],
                                             'empty' => 'Select Month',
-                                            'class' => 'span12 uniform nostyle select1 required',
+                                            'class' => 'span12 uniform nostyle select1 ',
                                             'div' => array('class' => 'span12 '),
                                             'id' => 'showmonth',
                                             'default' => $cardInfo['exp_date']['month']
@@ -875,7 +875,7 @@
                                         echo $this->Form->input(
                                                 'charge_amount', array(
                                             'type' => 'text',
-                                            'class' => 'form-control input-sm required'
+                                            'class' => 'form-control input-sm '
                                         ));
                                         ?>
                                     </div>
@@ -891,7 +891,7 @@
                                             echo $this->Form->input(
                                                     'cfirst_name', array(
                                                 'type' => 'text',
-                                                'class' => 'form-control input-sm required',
+                                                'class' => 'form-control input-sm ',
                                                 'placeholder' => 'first name',
                                                 'id' => 'firstname',
                                                 'value' => $cardInfo['fname']
@@ -903,7 +903,7 @@
                                             echo $this->Form->input(
                                                     'clast_name', array(
                                                 'type' => 'text',
-                                                'class' => 'form-control input-sm required',
+                                                'class' => 'form-control input-sm ',
                                                 'placeholder' => 'last name',
                                                 'id' => 'lastname',
                                                 'value' => $cardInfo['lname']
@@ -921,7 +921,7 @@
                                                     'cvv_code', array(
                                                 'type' => 'text',
                                                 'value' => '',
-                                                'class' => 'form-control input-sm required',
+                                                'class' => 'form-control input-sm ',
                                                 'id' => 'cvv_code',
                                                 'value' => $cardInfo['cvv_code'],
                                             ));
@@ -939,7 +939,7 @@
                                                     'czip', array(
                                                 'type' => 'text',
                                                 'value' => '',
-                                                'class' => 'form-control input-sm required',
+                                                'class' => 'form-control input-sm ',
                                                 'id' => 'cvv_code',
                                                 'value' => $cardInfo['zip_code'],
                                             ));
@@ -1018,7 +1018,7 @@
                     echo $this->Form->input(
                             'card_check_no', array(
                         'type' => 'text',
-                        'class' => 'form-control input-sm required',
+                        'class' => 'form-control input-sm ',
                         'id' => 'cardnumber'
                     ));
                     ?>
@@ -1037,7 +1037,7 @@
                         'type' => 'select',
                         'options' => $ym['year'],
                         'empty' => 'Select Year',
-                        'class' => 'span12 uniform nostyle select1 required',
+                        'class' => 'span12 uniform nostyle select1 ',
                         'div' => array('class' => 'span12 '),
                         'id' => 'year'
                             )
@@ -1050,7 +1050,7 @@
                         'type' => 'select',
                         'options' => $ym['month'],
                         'empty' => 'Select Month',
-                        'class' => 'span12 uniform nostyle select1 required',
+                        'class' => 'span12 uniform nostyle select1 ',
                         'div' => array('class' => 'span12 '),
                         'id' => 'month'
                             )
@@ -1069,7 +1069,7 @@
                     echo $this->Form->input(
                             'cvv_code', array(
                         'type' => 'text',
-                        'class' => 'form-control input-sm required',
+                        'class' => 'form-control input-sm ',
                         'id' => 'cvvcode'
                     ));
                     ?>
@@ -1095,7 +1095,7 @@
                     echo $this->Form->input(
                             'zip', array(
                         'type' => 'text',
-                        'class' => 'form-control input-sm required',
+                        'class' => 'form-control input-sm ',
                         'placeholder' => 'zip code',
                     ));
                     ?>
@@ -1227,7 +1227,7 @@
                                                                             'card_no', array(
                                                                         'type' => 'text',
                                                                         'value' => '',
-                                                                        'class' => 'form-control input-sm required',
+                                                                        'class' => 'form-control input-sm ',
                                                                         'id' => 'card_number',
                                                                         'value' => $latestcardInfo['card_no']
                                                                     ));
@@ -1247,7 +1247,7 @@
                                                                         'type' => 'select',
                                                                         'options' => $ym['year'],
                                                                         'empty' => 'Select Year',
-                                                                        'class' => 'span12 uniform nostyle select1 required',
+                                                                        'class' => 'span12 uniform nostyle select1 ',
                                                                         'div' => array('class' => 'span12 '),
                                                                         'id' => 'showyear',
                                                                         'default' => $latestcardInfo['exp_date']['year']
@@ -1261,7 +1261,7 @@
                                                                         'type' => 'select',
                                                                         'options' => $ym['month'],
                                                                         'empty' => 'Select Month',
-                                                                        'class' => 'span12 uniform nostyle select1 required',
+                                                                        'class' => 'span12 uniform nostyle select1 ',
                                                                         'div' => array('class' => 'span12 '),
                                                                         'id' => 'showmonth',
                                                                         'default' => $latestcardInfo['exp_date']['month']
@@ -1280,7 +1280,7 @@
                                                                     echo $this->Form->input(
                                                                             'paid_amount', array(
                                                                         'type' => 'text',
-                                                                        'class' => 'form-control input-sm required'
+                                                                        'class' => 'form-control input-sm '
                                                                     ));
                                                                     ?>
                                                                 </div>
@@ -1334,7 +1334,7 @@
                                                                             'package_customer_id', array(
                                                                         'type' => 'text',
                                                                         'value' => $this->params['pass'][0],
-                                                                        'class' => 'form-control input-sm required'
+                                                                        'class' => 'form-control input-sm '
                                                                     ));
                                                                     ?>
                                                                 </div>
@@ -1351,7 +1351,7 @@
                                                                     echo $this->Form->input(
                                                                             'fname', array(
                                                                         'type' => 'text',
-                                                                        'class' => 'form-control input-sm required',
+                                                                        'class' => 'form-control input-sm ',
                                                                         'placeholder' => 'first name',
                                                                         'id' => 'firstname',
                                                                         'value' => $latestcardInfo['fname']
@@ -1363,7 +1363,7 @@
                                                                     echo $this->Form->input(
                                                                             'lname', array(
                                                                         'type' => 'text',
-                                                                        'class' => 'form-control input-sm required',
+                                                                        'class' => 'form-control input-sm ',
                                                                         'placeholder' => 'last name',
                                                                         'id' => 'lastname',
                                                                         'value' => $latestcardInfo['lname']
@@ -1413,7 +1413,7 @@
                                                                             'city', array(
                                                                         'type' => 'text',
                                                                         'id' => 'cityname',
-                                                                        'class' => 'form-control input-sm required',
+                                                                        'class' => 'form-control input-sm ',
                                                                         'value' => $latestcardInfo['city']
                                                                     ));
                                                                     ?>
@@ -1431,7 +1431,7 @@
                                                                             'state', array(
                                                                         'type' => 'text',
                                                                         'id' => 'statename',
-                                                                        'class' => 'form-control input-sm required',
+                                                                        'class' => 'form-control input-sm ',
                                                                         'value' => $latestcardInfo['state']
                                                                     ));
                                                                     ?>
@@ -1445,7 +1445,7 @@
                                                                             'zip_code', array(
                                                                         'type' => 'text',
                                                                         'id' => 'zip_code',
-                                                                        'class' => 'form-control input-sm required',
+                                                                        'class' => 'form-control input-sm ',
                                                                         'value' => $latestcardInfo['zip_code']
                                                                     ));
                                                                     ?>
@@ -1476,7 +1476,7 @@
                                                                             'phone', array(
                                                                         'type' => 'text',
                                                                         'id' => 'phoneno',
-                                                                        'class' => 'form-control input-sm required',
+                                                                        'class' => 'form-control input-sm ',
                                                                         'value' => $latestcardInfo['phone']
                                                                     ));
                                                                     ?>
@@ -1527,7 +1527,7 @@
                                                                             'cvv_code', array(
                                                                         'type' => 'text',
                                                                         'value' => '',
-                                                                        'class' => 'form-control input-sm required',
+                                                                        'class' => 'form-control input-sm ',
                                                                         'id' => 'cvv_code',
                                                                         'value' => $latestcardInfo['cvv_code'],
                                                                     ));
@@ -1624,7 +1624,7 @@
                                                                     echo $this->Form->input(
                                                                             'paid_amount', array(
                                                                         'type' => 'text',
-                                                                        'class' => 'form-control input-sm required',
+                                                                        'class' => 'form-control input-sm ',
                                                                         'value' => '',
                                                                     ));
                                                                     ?>
@@ -1640,7 +1640,7 @@
                                                                     echo $this->Form->input(
                                                                             'check_info', array(
                                                                         'type' => 'text',
-                                                                        'class' => 'form-control input-sm required',
+                                                                        'class' => 'form-control input-sm ',
                                                                         'placeholder' => 'Check No, Bank Name',
                                                                         'value' => '',
                                                                     ));
@@ -1724,7 +1724,7 @@
                                                                     echo $this->Form->input(
                                                                             'paid_amount', array(
                                                                         'type' => 'text',
-                                                                        'class' => 'form-control input-sm required',
+                                                                        'class' => 'form-control input-sm ',
                                                                         'value' => '',
                                                                     ));
                                                                     ?>
@@ -1741,7 +1741,7 @@
                                                                     echo $this->Form->input(
                                                                             'check_info', array(
                                                                         'type' => 'text',
-                                                                        'class' => 'form-control input-sm required',
+                                                                        'class' => 'form-control input-sm ',
                                                                         'placeholder' => 'Check No, Bank Name',
                                                                         'value' => '',
                                                                     ));
@@ -1824,7 +1824,7 @@
                                                                     echo $this->Form->input(
                                                                             'paid_amount', array(
                                                                         'type' => 'text',
-                                                                        'class' => 'form-control input-sm required',
+                                                                        'class' => 'form-control input-sm ',
                                                                         'value' => '',
                                                                     ));
                                                                     ?>
@@ -1840,7 +1840,7 @@
                                                                     echo $this->Form->input(
                                                                             'check_info', array(
                                                                         'type' => 'text',
-                                                                        'class' => 'form-control input-sm required',
+                                                                        'class' => 'form-control input-sm ',
                                                                         'placeholder' => 'Check No, Bank Name',
                                                                         'value' => '',
                                                                     ));
@@ -1905,7 +1905,7 @@
                                                                     echo $this->Form->input(
                                                                             'paid_amount', array(
                                                                         'type' => 'text',
-                                                                        'class' => 'form-control input-sm required',
+                                                                        'class' => 'form-control input-sm ',
                                                                         'value' => ''
                                                                     ));
                                                                     ?>
@@ -1921,7 +1921,7 @@
                                                                     echo $this->Form->input(
                                                                             'cash_by', array(
                                                                         'type' => 'text',
-                                                                        'class' => 'form-control input-sm required',
+                                                                        'class' => 'form-control input-sm ',
                                                                         'value' => '',
                                                                     ));
                                                                     ?>
@@ -2011,7 +2011,7 @@
                                         <div class="col-md-12">
 
                                             <div class="form-group">
-                                                <label class="control-label col-md-1">Description:<span class="required">
+                                                <label class="control-label col-md-1">Description:<span class="">
                                                     </span>
                                                 </label>
                                                 <div class="col-md-2">
@@ -2023,7 +2023,7 @@
                                                     ));
                                                     ?>
                                                 </div>
-                                                <label class="control-label col-md-1">Product: <span class="required">
+                                                <label class="control-label col-md-1">Product: <span class="">
                                                     </span>
                                                 </label>
                                                 <div class="col-md-2">
@@ -2035,7 +2035,7 @@
                                                     ));
                                                     ?>
                                                 </div>
-                                                <label class="control-label col-md-1">Quantity:<span class="required">
+                                                <label class="control-label col-md-1">Quantity:<span class="">
                                                     </span>
                                                 </label>
                                                 <div class="col-md-2">
@@ -2047,7 +2047,7 @@
                                                     ));
                                                     ?>
                                                 </div>
-                                                <label class="control-label col-md-1">Rate:<span class="required">
+                                                <label class="control-label col-md-1">Rate:<span class="">
                                                     </span>
                                                 </label>
                                                 <div class="col-md-2">
@@ -2062,7 +2062,7 @@
 
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-md-1">Price:<span class="required">
+                                                <label class="control-label col-md-1">Price:<span class="">
                                                     </span>
                                                 </label>
                                                 <div class="col-md-2">
@@ -2074,7 +2074,7 @@
                                                     ));
                                                     ?>
                                                 </div>
-                                                <label class="control-label col-md-1">Discount:<span class="required">
+                                                <label class="control-label col-md-1">Discount:<span class="">
                                                     </span>
                                                 </label>
                                                 <div class="col-md-2">
@@ -2086,7 +2086,7 @@
                                                     ));
                                                     ?>
                                                 </div>
-                                                <label class="control-label col-md-1">Promotion:<span class="required">
+                                                <label class="control-label col-md-1">Promotion:<span class="">
                                                     </span>
                                                 </label>
                                                 <div class="col-md-2">
@@ -2098,7 +2098,7 @@
                                                     ));
                                                     ?>
                                                 </div>
-                                                <label class="control-label col-md-1">Credit:<span class="required">
+                                                <label class="control-label col-md-1">Credit:<span class="">
                                                     </span>
                                                 </label>
                                                 <div class="col-md-2">
@@ -2113,7 +2113,7 @@
 
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-md-1">Adjustment: <span class="required">
+                                                <label class="control-label col-md-1">Adjustment: <span class="">
                                                     </span>
                                                 </label>
                                                 <div class="col-md-2">
@@ -2125,7 +2125,7 @@
                                                     ));
                                                     ?>
                                                 </div>
-                                                <label class="control-label col-md-1">Note:<span class="required">
+                                                <label class="control-label col-md-1">Note:<span class="">
                                                     </span>
                                                 </label>
                                                 <div class="col-md-2">
@@ -2137,7 +2137,7 @@
                                                     ));
                                                     ?>
                                                 </div>
-                                                <label class="control-label col-md-1">Payment date: <span class="required">
+                                                <label class="control-label col-md-1">Payment date: <span class="">
                                                     </span>
                                                 </label>
                                                 <div class="col-md-2">
@@ -2149,7 +2149,7 @@
                                                     ));
                                                     ?>
                                                 </div>
-<!--                                                <label class="control-label col-md-1">Payment amount:<span class="required">
+<!--                                                <label class="control-label col-md-1">Payment amount:<span class="">
                                                     </span>
                                                 </label>
                                                 <div class="col-md-2">
@@ -2237,28 +2237,28 @@
                             ?>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="control-label col-md-3">Transaction Number<span class="required">
+                                    <label class="control-label col-md-3">Transaction Number<span class="">
                                         </span>
                                     </label>
                                     <div class="col-md-3">
                                         <?php
                                         echo $this->Form->input(
                                                 'trx_no', array(
-                                            'class' => 'form-control required',
+                                            'class' => 'form-control ',
                                             'type' => 'text',
                                             'value' => $latestcardInfo['trx_id']
                                                 )
                                         );
                                         ?>
                                     </div>
-                                    <label class="control-label col-md-3">Card Number(Last 4 digit)<span class="required">
+                                    <label class="control-label col-md-3">Card Number(Last 4 digit)<span class="">
                                         </span>
                                     </label>
                                     <div class="col-md-3">
                                         <?php
                                         echo $this->Form->input(
                                                 'card_no', array(
-                                            'class' => 'form-control required',
+                                            'class' => 'form-control ',
                                             'type' => 'text',
                                             'value' => $latestcardInfo['card_no']
                                                 )
@@ -2277,7 +2277,7 @@
                                             'type' => 'select',
                                             'options' => $ym['year'],
                                             'empty' => 'Select Year',
-                                            'class' => 'span12 form-control uniform nostyle select1 required',
+                                            'class' => 'span12 form-control uniform nostyle select1 ',
                                             'id' => 'year',
                                             'value' => $latestcardInfo['exp_date']['year']
                                                 )
@@ -2290,7 +2290,7 @@
                                             'type' => 'select',
                                             'options' => $ym['month'],
                                             'empty' => 'Select Month',
-                                            'class' => 'span12 form-control uniform nostyle select1 required',
+                                            'class' => 'span12 form-control uniform nostyle select1 ',
                                             'id' => 'month',
                                             'value' => $latestcardInfo['exp_date']['month']
                                                 )
@@ -2298,14 +2298,14 @@
                                         ?>
                                     </div>
 
-                                    <label class="control-label col-md-3">Refund Amount<span class="required">
+                                    <label class="control-label col-md-3">Refund Amount<span class="">
                                         </span>
                                     </label>
                                     <div class="col-md-3">
                                         <?php
                                         echo $this->Form->input(
                                                 'refund_amount', array(
-                                            'class' => 'form-control required',
+                                            'class' => 'form-control ',
                                             'type' => 'text'
                                                 )
                                         );
@@ -2783,7 +2783,7 @@
                                                                                         'type' => 'select',
                                                                                         'options' => array('low' => 'Low', 'medium' => 'Medium', 'high' => 'High'),
                                                                                         'empty' => 'Select Priority',
-                                                                                        'class' => 'form-control select2me required pclass',
+                                                                                        'class' => 'form-control select2me  pclass',
                                                                                             )
                                                                                     );
                                                                                     ?>
@@ -2796,7 +2796,7 @@
                                                                                     <?php
                                                                                     echo $this->Form->input('comment', array(
                                                                                         'type' => 'textarea',
-                                                                                        'class' => 'form-control required',
+                                                                                        'class' => 'form-control ',
                                                                                         'placeholder' => 'Write your comments'
                                                                                             )
                                                                                     );
@@ -2886,7 +2886,7 @@
                                                                                     <?php
                                                                                     echo $this->Form->input('comment', array(
                                                                                         'type' => 'textarea',
-                                                                                        'class' => 'form-control required txtArea',
+                                                                                        'class' => 'form-control  txtArea',
                                                                                         'placeholder' => 'Write your comments'
                                                                                             )
                                                                                     );
@@ -2974,7 +2974,7 @@
                                                                                     <?php
                                                                                     echo $this->Form->input('comment', array(
                                                                                         'type' => 'textarea',
-                                                                                        'class' => 'form-control required txtArea',
+                                                                                        'class' => 'form-control  txtArea',
                                                                                         'placeholder' => 'Write your comments'
                                                                                             )
                                                                                     );
@@ -3065,7 +3065,7 @@
                                                                                     <?php
                                                                                     echo $this->Form->input('comment', array(
                                                                                         'type' => 'textarea',
-                                                                                        'class' => 'form-control required txtArea',
+                                                                                        'class' => 'form-control  txtArea',
                                                                                         'placeholder' => 'Write your comments'
                                                                                             )
                                                                                     );
