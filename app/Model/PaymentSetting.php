@@ -4,10 +4,10 @@ class PaymentSetting extends AppModel {
 
     var $name = 'payment_settings';
     public $validate = array(
-        'action' => array(
+        'issue_id' => array(
             'rule' => 'isUnique',
             'required' => true,
-            'message' => 'action already exist'
+            'message' => 'Issue already exist'
         )
     );
 

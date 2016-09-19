@@ -667,6 +667,7 @@ class PaymentsController extends AppController {
 
     function add_settings() {
         $this->loadModel('PaymentSetting');
+        $this->loadModel('Issue');
         if ($this->request->is('post')) {
             $this->PaymentSetting->set($this->request->data);
             if ($this->PaymentSetting->validates()) {
@@ -684,6 +685,8 @@ class PaymentsController extends AppController {
                 $this->Session->setFlash($msg);
             }
         }
+        $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
+        $this->set(compact('issues'));
     }
 
     function manage_settings() {
