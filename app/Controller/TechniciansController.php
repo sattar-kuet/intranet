@@ -405,21 +405,17 @@ class TechniciansController extends AppController {
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id                    
                     left join installations ins on ins.package_customer_id = pc.id 
+                    LEFT JOIN payment_settings pays ON pays.issue_id = i.id
                     WHERE ins.user_id = " . $loggedUser['id'] . " and ins.status = 'done by tech'  ORDER BY ins.id");
-
-        // echo $sql; exit;
         $filteredData = array();
         $unique = array();
         $index = 0;
-//        pr($allData); exit;
         foreach ($allData as $key => $data) {
-            //pr($data); exit;
             $pd = $data['pc']['id'];
             if (isset($unique[$pd])) {
                 //  echo 'already exist'.$key.'<br/>';
                 if (!empty($data['c']['content'])) {
                     //  $temp = $data['c'];// array('id' => $data['psettings']['id'], 'duration' => $data['psettings']['duration'], 'amount' => $data['psettings']['amount'], 'offer' => $data['psettings']['offer']);
-                    //pr($temp); exit;
 
                     $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
@@ -452,11 +448,18 @@ class TechniciansController extends AppController {
                         'amount' => $data['cp']['charge']
                     );
                 }
-
                 $filteredData[$index]['issues'] = array();
                 if (!empty($data['i']['name'])) {
                     $temp = array('name' => $data['i']);
                     $filteredData[$index]['issues'][] = $temp;
+                }
+
+                $filteredData[$index]['payment_settings'] = array();
+
+                if (!empty($data['pays']['id'])) {
+                    $filteredData[$index]['payment_settings'] = array(
+                        'payment' => $data['pays']['payment']
+                    );
                 }
 
                 $filteredData[$index]['comments'] = array();
@@ -467,7 +470,6 @@ class TechniciansController extends AppController {
             }
         }
         $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
-//        pr($technician); exit;
         $this->set(compact('filteredData', 'technician'));
     }
 
@@ -532,9 +534,9 @@ class TechniciansController extends AppController {
         $this->request->data['Installation']['status'] = 'done by tech';
         $this->Installation->save($this->request->data);
 
-        $loggedUser = $this->Auth->user();        
+        $loggedUser = $this->Auth->user();
         $this->PackageCustomer->id = $this->request->data['PackageCustomer']['package_customer_id'];
-        $this->PackageCustomer->saveField("status","done");
+        $this->PackageCustomer->saveField("status", "done");
 
         $commentData['Comment'] = array(
             'package_customer_id' => $this->request->data['PackageCustomer']['package_customer_id'],
@@ -557,13 +559,13 @@ class TechniciansController extends AppController {
         $this->loadModel('Installation');
 
         $this->Installation->id = $this->request->data['PackageCustomer']['id'];
-        $this->request->data['Installation']['status'] = 'post pone';      
+        $this->request->data['Installation']['status'] = 'post pone';
         $this->Installation->save($this->request->data);
 
         $loggedUser = $this->Auth->user();
         $this->PackageCustomer->id = $this->request->data['PackageCustomer']['package_customer_id'];
-        $this->PackageCustomer->saveField("status","post pone");       
-                
+        $this->PackageCustomer->saveField("status", "post pone");
+
         $commentData['Comment'] = array(
             'package_customer_id' => $this->request->data['PackageCustomer']['package_customer_id'],
             'content' => $this->request->data['PackageCustomer']['comment'],
@@ -586,12 +588,12 @@ class TechniciansController extends AppController {
 
         $this->Installation->id = $this->request->data['PackageCustomer']['id'];
         $this->request->data['Installation']['status'] = 'rescheduled';
-        $this->Installation->save($this->request->data);       
-        
+        $this->Installation->save($this->request->data);
+
         $loggedUser = $this->Auth->user();
         $this->PackageCustomer->id = $this->request->data['PackageCustomer']['package_customer_id'];
-        $this->PackageCustomer->saveField("status","rescheduled");  
-        
+        $this->PackageCustomer->saveField("status", "rescheduled");
+
         $commentData['Comment'] = array(
             'package_customer_id' => $this->request->data['PackageCustomer']['package_customer_id'],
             'content' => $this->request->data['PackageCustomer']['comment'],
@@ -618,8 +620,8 @@ class TechniciansController extends AppController {
 
         $loggedUser = $this->Auth->user();
         $this->PackageCustomer->id = $this->request->data['PackageCustomer']['package_customer_id'];
-        $this->PackageCustomer->saveField("status","canceled");  
-        
+        $this->PackageCustomer->saveField("status", "canceled");
+
         $commentData['Comment'] = array(
             'package_customer_id' => $this->request->data['PackageCustomer']['package_customer_id'],
             'content' => $this->request->data['PackageCustomer']['comment'],

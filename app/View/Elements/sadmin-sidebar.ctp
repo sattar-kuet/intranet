@@ -784,7 +784,7 @@
             </li>
             <li 
             <?php
-            $reports = array('Reportsduecustomers', 'Reportscall_log', 'Reportspayment_history', 'Reportscancel', 'Reportspaidcustomers', 'Reportsactive', 'Reportsblock', 'Reportspayment', 'Reportsnewcustomers', 'Reportsexpcustomers');
+            $reports = array('Reportsduecustomers','ReportsdoneCustomer', 'Reportscall_log', 'Reportspayment_history', 'Reportscancel', 'Reportspaidcustomers', 'Reportsactive', 'Reportsblock', 'Reportspayment', 'Reportsnewcustomers', 'Reportsexpcustomers');
 
             if (in_array($this->name . '' . $this->action, $reports)):
                 ?>
@@ -876,6 +876,18 @@
                         <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'call_log')) ?>">
                             <i class="fa fa-warning"></i>
                             Call Log</a>
+                    </li>
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'ReportsdoneCustomer'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'doneCustomer')) ?>">
+                            <i class="fa fa-warning"></i>
+                            Technician Payment</a>
                     </li>
                 </ul>
             </li>

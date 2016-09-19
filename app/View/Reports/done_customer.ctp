@@ -44,18 +44,9 @@
                                     </th>
 
                                     <th>
-                                        Comment
-                                    </th>
-                                    <th>
                                         Detail Information
                                     </th>
 
-                                    <th>
-                                        New Address
-                                    </th>
-                                    <th>
-                                        Attachment
-                                    </th>
                                     <th>
                                         Payment
                                     </th>
@@ -99,17 +90,6 @@
 
                                         </td>
 
-                                        <td>
-                                            <?php
-                                            foreach ($results['comments'] as $comment):
-                                                ?>
-                                                <span title="<?php echo $comment['content']['created']; ?>" class="fa fa-hand-o-right ">  <?php echo $comment['content']['content']; ?> &nbsp;&nbsp;</span> <i> <?php echo $comment['user']['name']; ?></i>
-                                                <br> 
-                                                <br> 
-
-                                            <?php endforeach;
-                                            ?>
-                                        </td>
 
                                         <td>
                                             <?php if (trim($results['customers']['repair_type']) == 'old') { ?>
@@ -136,29 +116,6 @@
                                             <?php }
                                             ?>
 
-                                        <td>
-                                            <?php if (!empty($customer['new_addr'])): ?>
-                                                <?php echo $customer['new_addr']; ?>
-                                            <?php endif; ?>
-                                        </td>
-                                        <td>
-                                            <div class="col-md-12 col-sm-12 mix category_2 category_1">
-                                                <div class="mix-inner">
-                                                    <?php if (!empty($results['attachment'])) { ?>
-                                                        <img class="img-responsive" src="<?php echo $this->webroot . 'attchment' . '/' . $results['attachment']; ?>" alt="">
-                                                        <div class="mix-details">
-                                                            <a class="mix-preview fancybox-button" href="<?php echo $this->webroot . 'attchment' . '/' . $results['attachment']; ?>" title="Project Name" data-rel="fancybox-button">
-                                                                <i class="fa fa-eye pull-right"></i>
-                                                            </a>
-                                                        </div>
-                                                    <?php } else { ?>
-                                                        <h4> No Attachment</h4>
-
-                                                    <?php } ?>
-
-                                                </div>
-                                            </div>
-                                        </td>
                                         <td>
                                             <?php if (count($results['payment_settings'])): ?>
                                                 $<?php echo $results['payment_settings']['payment']; ?>                                            

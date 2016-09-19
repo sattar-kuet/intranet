@@ -1092,6 +1092,9 @@ class AdminsController extends AppController {
         }
         $this->set(compact('clicked'));
     }
+    
+  
+
 
 }
 
