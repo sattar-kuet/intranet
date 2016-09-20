@@ -329,7 +329,6 @@ class TransactionsController extends AppController {
     }
 
     function extrainvoice() {
-        // pr($this->request->data); exit;
         $this->loadModel('Transaction');
         $user_info = $this->Auth->user();
         $user_id = $user_info['id'];
