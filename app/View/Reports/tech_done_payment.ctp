@@ -42,19 +42,21 @@
                                     <th>
                                         Customer detail
                                     </th>
-
                                     <th>
                                         Detail Information
                                     </th>
-
                                     <th>
                                         Payment
+                                    </th>
+                                    <th>
+                                        Action
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
                                 foreach ($filteredData as $results):
+//                                    pr($results); exit;
                                     $customer = $results['customers'];
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
@@ -68,9 +70,9 @@
                                         <td>
                                             <ul>
                                                 <b>  Name :</b>  <a href="<?php
-                                        echo Router::url(array('controller' => 'customers',
-                                            'action' => 'edit_registration', $results['customers']['id']))
-                                            ?>" 
+                                                echo Router::url(array('controller' => 'customers',
+                                                    'action' => 'edit_registration', $results['customers']['id']))
+                                                ?>" 
                                                                     target="_blank">
                                                                         <?php
                                                                         echo $results['customers']['first_name'] . " " .
@@ -120,6 +122,16 @@
                                             <?php if (count($results['payment_settings'])): ?>
                                                 $<?php echo $results['payment_settings']['payment']; ?>                                            
                                             <?php endif; ?>
+                                        </td>
+                                        <td>
+                                            <a 
+                                                onclick="if (confirm('Are you sure to approve this data?')) {
+                                                            return true;
+                                                        }
+                                                        return false;"
+                                                href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'confiramTechPayment', $results['customers']['id'])) ?>" title="Approve">
+                                                <span class="fa fa-check"></span>
+                                            </a>
                                         </td>
 
                                         </td>
@@ -464,8 +476,7 @@
                                             </div>
                                         </td>  -->
                                     </tr>
-                                <?php endforeach; //exit;  ?>  
-
+                                <?php endforeach; //exit;  ?> 
                             </tbody>
                         </table>
                     </div>

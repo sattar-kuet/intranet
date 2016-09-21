@@ -56,9 +56,9 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/xampp/htdocs/intranet/app/Controller/ReportsController.php</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/Controller/TechniciansController.php</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Reports/done_customer.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/Controller/TransactionsController.php</file>
+            <file>file:/D:/xampp/htdocs/intranet/app/webroot/js/customerinfo.js</file>
         </group>
     </open-files>
 </project-private>
