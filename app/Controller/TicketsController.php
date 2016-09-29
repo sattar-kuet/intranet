@@ -1,8 +1,11 @@
 <?php
 
+App::uses('CakeEmail', 'Network/Email');
+App::uses('HttpSocket', 'Network/Http');
 /**
  * 
  */
+App::uses('AppController', 'Controller');
 App::uses('SimplePasswordHasher', 'Controller/Component/Auth');
 
 class TicketsController extends AppController {
@@ -45,13 +48,6 @@ class TicketsController extends AppController {
         if ($this->request->is('post')) {
             $this->Ticket->set($this->request->data);
             if ($this->Ticket->validates()) {
-//                $s_id = $this->request->params['pass'];
-//                pr($s_id);
-//                exit;
-
-
-
-
                 if (empty($this->request->data['Ticket']['user_id']) &&
                         empty($this->request->data['Ticket']['role_id']) &&
                         empty($this->request->data['Ticket']['action_type'])) {
@@ -76,7 +72,6 @@ class TicketsController extends AppController {
                 );
 
                 $cusinfo = $this->PackageCustomer->save($data);
-//               pr($cusinfo); exit;
                 if (trim($this->request->data['Ticket']['action_type']) == 'solved') {
                     $this->request->data['Ticket']['priority'] = 'low';
                 }
@@ -184,13 +179,33 @@ class TicketsController extends AppController {
                         );
                     }
                     $this->PackageCustomer->save($data['PackageCustomer']);
-                }               
-
+                }
                 $customer = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $customer_id)));
-                
-                
-                pr($customer);
-                exit;
+
+                if (!empty($customer['PackageCustomer']['email'])) {
+                    // send mail :
+                    $from = 'info@totalcableusa.com';
+                    $subject = "Ticket create";
+                    $to = array($customer['PackageCustomer']['email']);
+                    $cus_name = $customer['PackageCustomer']['first_name'] . ' ' . $customer['PackageCustomer']['middle_name'] . ' ' . $customer['PackageCustomer']['last_name'];
+                    $address = $customer['PackageCustomer']['house_no'];
+
+                    $mail_content = __('Name:                      ', 'beopen') . $cus_name . PHP_EOL .
+                            __('Address:                   ', 'beopen') . $address . PHP_EOL;
+
+                    if (!empty($refer_name)):
+                        $mail_content .= __('Reference Name:            ', 'beopen') . $refer_name . PHP_EOL .
+                                __('Reference Phone:           ', 'beopen') . $refer_no . PHP_EOL;
+                    endif;
+
+                    $mail_content .= __('Sale status:               ', 'beopen') . $cus_name . PHP_EOL .
+                            __('Note:                      ', 'beopen') . $address . PHP_EOL;
+
+                    sendEmail($from, $cus_name, $to, $subject, $mail_content);
+                    // End send mail 
+                }
+
+
                 $this->Track->save($trackData); // Data save in Track
                 $msg = '<div class="alert alert-success">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
