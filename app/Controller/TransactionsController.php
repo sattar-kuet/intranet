@@ -232,7 +232,7 @@ class TransactionsController extends AppController {
         $temp = $this->PackageCustomer->query($sql);
         $ym = $this->getYm();
         $this->loadModel('Transaction');
-        $sql = "SELECT * FROM transactions WHERE transactions.status ='success' AND transactions.pay_mode='card' AND transactions.package_customer_id = $pcid ORDER BY transactions.id DESC LIMIT 1";
+        $sql = "SELECT * FROM transactions WHERE (transactions.status ='success' OR transactions.status ='update') AND transactions.pay_mode='card' AND transactions.package_customer_id = $pcid ORDER BY transactions.id DESC LIMIT 1";
         $temp = $this->Transaction->query($sql);
         $yyyy = 0;
         $mm = -1;

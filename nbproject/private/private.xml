@@ -1,55 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-<<<<<<< HEAD
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
-=======
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="11">
->>>>>>> 094e7ee2d2912c5f3705aa166ef9724c970d8cc3
-        <file>
-            <url>app/Controller/TicketsController.php</url>
-            <bookmark id="1">
-                <name/>
-<<<<<<< HEAD
-                <line>94</line>
-=======
-                <line>503</line>
-                <key/>
-            </bookmark>
-            <bookmark id="5">
-                <name/>
-                <line>546</line>
-                <key/>
-            </bookmark>
-            <bookmark id="4">
-                <name/>
-                <line>1088</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
-            <url>app/Controller/CustomersController.php</url>
-            <bookmark id="3">
-                <name/>
-                <line>617</line>
->>>>>>> 094e7ee2d2912c5f3705aa166ef9724c970d8cc3
-                <key/>
-            </bookmark>
-        </file>
-        <file>
-            <url>app/Controller/PaymentsController.php</url>
-            <bookmark id="11">
-                <name/>
-                <line>702</line>
-                <key/>
-            </bookmark>
-        </file>
-    </editor-bookmarks>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Transactions/edit_customer_data.ctp</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/View/Admins/donebytech.ctp</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/Controller/AdminsController.php</file>
-            <file>file:/D:/xampp/htdocs/intranet/app/Controller/PaymentsController.php</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

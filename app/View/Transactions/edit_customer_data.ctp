@@ -54,7 +54,7 @@
                                     'value' => $this->params['pass'][0],
                                 ));
                                 ?>
-                              
+
                                 <br>
                                 <div class="col-md-2 signupfont">
                                     Next Payment Date:
@@ -1535,7 +1535,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>  
-                                                        
+
                                                         &nbsp;
                                                         <div class="row">
                                                             <div class="col-md-10 col-md-offset-3">
@@ -1552,7 +1552,21 @@
                                                         ?>
                                                         &nbsp;
                                                         <div class="row">
-                                                            <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20"> 
+                                                            <div class="col-lg-6  padding-left-0 padding-top-20 pull-left"> 
+
+                                                                <?php
+                                                                echo $this->Form->button(
+                                                                        'Update Card', array(
+                                                                    'class' => 'btn btn-primary submitbtn blue',
+                                                                    'type' => 'submit',
+                                                                    'name' => 'updateCard',
+                                                                    'confirm' => 'Are you sure to update the card info?'
+                                                                ));
+                                                                ?>
+
+                                                            </div>
+
+                                                            <div class="col-lg-6  padding-left-0 padding-top-20 pull-right"> 
 
                                                                 <?php
                                                                 echo $this->Form->button(
@@ -1564,7 +1578,11 @@
                                                                 ?>
 
                                                             </div>
+
                                                         </div>
+
+
+
                                                         <?php echo $this->Form->end(); ?>
                                                         </div>
                                                         &nbsp;
