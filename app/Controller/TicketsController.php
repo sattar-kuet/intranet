@@ -43,9 +43,15 @@ class TicketsController extends AppController {
         $this->loadModel('TicketDepartment');
         $this->loadModel('PackageCustomer');
         if ($this->request->is('post')) {
-//            pr($this->request->data); exit;
             $this->Ticket->set($this->request->data);
             if ($this->Ticket->validates()) {
+//                $s_id = $this->request->params['pass'];
+//                pr($s_id);
+//                exit;
+
+
+
+
                 if (empty($this->request->data['Ticket']['user_id']) &&
                         empty($this->request->data['Ticket']['role_id']) &&
                         empty($this->request->data['Ticket']['action_type'])) {
@@ -58,7 +64,6 @@ class TicketsController extends AppController {
                 }
 
                 $this->PackageCustomer->id = $customer_id;
-
                 $data['PackageCustomer'] = array(
                     "deposit" => $this->request->data['Ticket']['deposit'],
                     "monthly_bill" => $this->request->data['Ticket']['monthly_bill'],
@@ -70,14 +75,12 @@ class TicketsController extends AppController {
                     "user_id" => $loggedUser['id']
                 );
 
-                $this->PackageCustomer->save($data);
+                $cusinfo = $this->PackageCustomer->save($data);
+//               pr($cusinfo); exit;
                 if (trim($this->request->data['Ticket']['action_type']) == 'solved') {
                     $this->request->data['Ticket']['priority'] = 'low';
                 }
-
-//                pr($this->request->data); exit;
                 $tickect = $this->Ticket->save($this->request->data['Ticket']); // Data save in Ticket
-
                 $trackData['Track'] = array(
                     'issue_id' => $this->request->data['Ticket']['issue_id'],
                     'package_customer_id' => $customer_id,
@@ -104,7 +107,7 @@ class TicketsController extends AppController {
                         'cancel_mac' => $mac,
                         'hold_date' => $this->request->data['Ticket']['hold_date']
                     );
-                    $this->PackageCustomer->save($data);
+                    $cusinfo = $this->PackageCustomer->save($data);
                 }
 
                 if (trim($this->request->data['Ticket']['issue_id']) == 36) {
@@ -116,7 +119,7 @@ class TicketsController extends AppController {
                         'reconnect_date' => $this->request->data['Ticket']['reconnect_date']
                     );
 
-                    $this->PackageCustomer->save($data);
+                    $cusinfo = $this->PackageCustomer->save($data);
                 }
 
                 if (trim($this->request->data['Ticket']['issue_id']) == 24 || trim($this->request->data['Ticket']['issue_id']) == 31) {
@@ -127,7 +130,7 @@ class TicketsController extends AppController {
                         'cancel_mac' => $mac,
                         'unhold_date' => $this->request->data['Ticket']['unhold_date']
                     );
-                    $this->PackageCustomer->save($data);
+                    $cusinfo = $this->PackageCustomer->save($data);
                 }
 
                 if (trim($this->request->data['Ticket']['issue_id']) == 20 || trim($this->request->data['Ticket']['issue_id']) == 28) {
@@ -147,7 +150,7 @@ class TicketsController extends AppController {
                         'cancelled_date' => $this->request->data['Ticket']['cancelled_date'],
                         'pickup_date' => $this->request->data['Ticket']['pickup_date'],
                     );
-                    $this->PackageCustomer->save($data);
+                    $cusinfo = $this->PackageCustomer->save($data);
                 }
 
                 if (trim($this->request->data['Ticket']['action_type']) == "ready") {
@@ -157,7 +160,7 @@ class TicketsController extends AppController {
                         'shipment_note' => $this->request->data['Ticket']['shipment_note']
                     );
                     $this->PackageCustomer->id = $customer_id;
-                    $this->PackageCustomer->save($data['PackageCustomer']);
+                    $cusinfo = $this->PackageCustomer->save($data['PackageCustomer']);
                 }
                 if (trim($this->request->data['Ticket']['action_type']) == 'shipment') {
 
@@ -170,7 +173,6 @@ class TicketsController extends AppController {
                         'shipment_note' => $this->request->data['Ticket']['shipment_note']
                     );
                     $this->PackageCustomer->id = $customer_id;
-//                     pr($this->request->data); exit;
                     if (empty($this->request->data['Ticket']['shipment_equipment'])) {
                         $data['PackageCustomer'] = array(
                             'shipment_equipment' => ''
@@ -181,11 +183,14 @@ class TicketsController extends AppController {
                             'shipment_note' => ''
                         );
                     }
-
                     $this->PackageCustomer->save($data['PackageCustomer']);
-                    //$log = $this->PackageCustomer->getDataSource()->getLog(false, false);
-                }
-//                 pr($this->request->data); exit;
+                }               
+
+                $customer = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $customer_id)));
+                
+                
+                pr($customer);
+                exit;
                 $this->Track->save($trackData); // Data save in Track
                 $msg = '<div class="alert alert-success">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -204,7 +209,6 @@ class TicketsController extends AppController {
 
         $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
         $customers = $this->PackageCustomer->findById($customer_id);
-        //  pr($customers['PackageCustomer']); exit;
         $this->set(compact('users', 'roles', 'issues', 'customers'));
     }
 
@@ -251,8 +255,8 @@ class TicketsController extends AppController {
 
     function solve() {
         $this->loadModel('Track');
-        
-      //  $this->Track->set($this->request->data);
+
+        //  $this->Track->set($this->request->data);
         $this->Track->id = $this->request->data['Track']['id'];
         $this->request->data['Track']['status'] = 'solved';
 
