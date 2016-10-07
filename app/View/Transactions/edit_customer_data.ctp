@@ -54,6 +54,7 @@
                                     'value' => $this->params['pass'][0],
                                 ));
                                 ?>
+
                                 <br>
                                 <div class="col-md-2 signupfont">
                                     Next Payment Date:
@@ -70,7 +71,6 @@
                                         ?>
                                     </div>
                                 </div>
-
                                 &nbsp;
                                 &nbsp;
                                 <div class="row margin-top-20">
@@ -1552,7 +1552,21 @@
                                                         ?>
                                                         &nbsp;
                                                         <div class="row">
-                                                            <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20"> 
+                                                            <div class="col-lg-6  padding-left-0 padding-top-20 pull-left"> 
+
+                                                                <?php
+                                                                echo $this->Form->button(
+                                                                        'Update Card', array(
+                                                                    'class' => 'btn btn-primary submitbtn blue',
+                                                                    'type' => 'submit',
+                                                                    'name' => 'updateCard',
+                                                                    'confirm' => 'Are you sure to update the card info?'
+                                                                ));
+                                                                ?>
+
+                                                            </div>
+
+                                                            <div class="col-lg-6  padding-left-0 padding-top-20 pull-right"> 
 
                                                                 <?php
                                                                 echo $this->Form->button(
@@ -1564,7 +1578,11 @@
                                                                 ?>
 
                                                             </div>
+
                                                         </div>
+
+
+
                                                         <?php echo $this->Form->end(); ?>
                                                         </div>
                                                         &nbsp;
@@ -2070,8 +2088,7 @@
                                                     echo $this->Form->input(
                                                             'price', array(
                                                         'type' => 'text',
-                                                        'id' => 'priceAmount',
-                                                        'class' => 'form-control'
+                                                        'class' => 'form-control ',
                                                     ));
                                                     ?>
                                                 </div>
@@ -2083,7 +2100,7 @@
                                                     echo $this->Form->input(
                                                             'discount', array(
                                                         'type' => 'text',
-                                                        'class' => 'form-control minusAmount',
+                                                        'class' => 'form-control',
                                                     ));
                                                     ?>
                                                 </div>
@@ -2095,7 +2112,7 @@
                                                     echo $this->Form->input(
                                                             'promotion', array(
                                                         'type' => 'text',
-                                                        'class' => 'form-control minusAmount',
+                                                        'class' => 'form-control',
                                                     ));
                                                     ?>
                                                 </div>
@@ -2107,7 +2124,7 @@
                                                     echo $this->Form->input(
                                                             'credit', array(
                                                         'type' => 'text',
-                                                        'class' => 'form-control minusAmount',
+                                                        'class' => 'form-control',
                                                     ));
                                                     ?>
                                                 </div>
@@ -2122,7 +2139,7 @@
                                                     echo $this->Form->input(
                                                             'adjustment', array(
                                                         'type' => 'text',
-                                                        'class' => 'form-control minusAmount',
+                                                        'class' => 'form-control ',
                                                     ));
                                                     ?>
                                                 </div>
@@ -2150,25 +2167,10 @@
                                                     ));
                                                     ?>
                                                 </div>
-
-                                                <label class="control-label col-md-1">Net Payment:<span class="">
+<!--                                                <label class="control-label col-md-1">Payment amount:<span class="">
                                                     </span>
-                                                </label> 
-
+                                                </label>
                                                 <div class="col-md-2">
-                                                    <?php
-                                                    echo $this->Form->input(
-                                                            'net_price', array(
-                                                        'type' => 'text',
-                                                        'class' => 'form-control',
-                                                        'id' => 'netPrice'
-                                                    ));
-                                                    ?>
-                                                </div>
-                <!--                                                <label class="control-label col-md-1">Payment amount:<span class="">
-                                                                    </span>
-                                                                </label>
-                                                                <div class="col-md-2">
                                                 <?php
 //                                                    echo $this->Form->input(
 //                                                            'payable_amount', array(
@@ -2177,7 +2179,7 @@
 //                                                    ));
 //                                                    
                                                 ?>
-                                                                </div>-->
+                                                </div>-->
                                             </div>
                                         </div>
 
@@ -2862,6 +2864,14 @@
                                                                     ?>
 
                                                                     <?php
+                                                                    echo $this->Form->input('id', array(
+                                                                        'type' => 'hidden',
+                                                                        'value' => $single['history'][0]['tr']['id'],
+                                                                            )
+                                                                    );
+                                                                    ?>
+
+                                                                    <?php
                                                                     echo $this->Form->input('user_id', array(
                                                                         'type' => 'hidden',
                                                                         'value' => $lasthistory['user_id'],
@@ -3127,7 +3137,7 @@
                     <!-------------ticket history end----------------->
 
                     <!-- CUSTOMER DATA STARTED-->
-                    <div class="row">
+<!--                    <div class="row">
                         <div class="main">
                             <div class="container">
                                 <?php echo $this->Session->flash() ?>
@@ -3147,14 +3157,31 @@
                                     ?>
                                     <ul class="">
                                     </ul>
-                                    <!-- BEGIN SIDEBAR & CONTENT -->
+                                     BEGIN SIDEBAR & CONTENT 
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                     <!-- END PAGE CONTENT -->
                 </div>
             </div>
             <!-- END CONTENT -->        
+        </div>
+         <div class="col-md-offset-6 col-md-4">
+            <?php
+            echo $this->Form->create('PackageCustomer', array(
+                'inputDefaults' => array(
+                    'label' => false,
+                    'div' => false
+                ),
+                'id' => 'form_sample_3',
+                'class' => 'form-horizontal',
+                'novalidate' => 'novalidate',
+                'url' => array('controller' => 'customers', 'action' => 'delete')
+                    )
+            );
+            ?>
+            <button class="btn red-sunglo" onclick="if (confirm(&quot; Are you sure to Delete this Customer?&quot; )) { return true; } return false;" type="submit" style="background-color: red;">Delete customer</button>     
+            <?php echo $this->Form->end(); ?>
         </div>
     </div>

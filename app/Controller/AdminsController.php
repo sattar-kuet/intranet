@@ -1019,6 +1019,7 @@ class AdminsController extends AppController {
             $endd = $de->format('m/y'); // 2003-10-16
             echo
             $conditions = "";
+            
             if (count($datrange)) {
                 if ($datrange['start'] == $datrange['end']) {
 
@@ -1040,7 +1041,7 @@ class AdminsController extends AppController {
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id
                     WHERE pc.status = 'scheduled' and  $conditions  ORDER BY pc.id");
-
+            echo $allData; 
             $filteredData = array();
             $unique = array();
             $index = 0;

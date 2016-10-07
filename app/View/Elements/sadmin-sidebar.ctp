@@ -101,7 +101,7 @@
             $payment = array('paymenthistory');
             if (in_array($this->name . '' . $this->action, $payment)):
                 ?>
-                                                                            class="active"
+                                                                        class="active"
                 <?php
             endif;
             ?>
@@ -135,7 +135,7 @@
                     <!--                    <li
                     <?php if ($this->name . '' . $this->action == 'Ticketscreate'):
                         ?>
-                                                                                                                    class="active"
+                                                                                                                class="active"
                         <?php
                     endif;
                     ?>
@@ -305,7 +305,7 @@
 
             if (in_array($this->name . '' . $this->action, $transactions)):
                 ?>
-                                                                                        class="active"
+                                                                                    class="active"
                 <?php
             endif;
             ?>
@@ -320,7 +320,7 @@
                     <li
             <?php if ($this->name . '' . $this->action == 'Transactionssearch'):
                 ?>
-                                                                                                class="active"
+                                                                                            class="active"
                 <?php
             endif;
             ?>
@@ -333,7 +333,7 @@
                     <li
             <?php if ($this->name . '' . $this->action == 'Transactionsexpire_customer'):
                 ?>
-                                                                                                class="active"
+                                                                                            class="active"
                 <?php
             endif;
             ?>
@@ -444,7 +444,7 @@
                     
                     <?php if ($this->name . '' . $this->action == 'Customersschedule_done'):
                         ?>
-                                                                class="active"
+                                                            class="active"
                         <?php
                     endif;
                     ?>
@@ -803,7 +803,7 @@
                     <!--                    <li
                     <?php if ($this->name . '' . $this->action == 'Reportsactive'):
                         ?>
-                                                        class="active"
+                                                    class="active"
                         <?php
                     endif;
                     ?>
@@ -877,52 +877,9 @@
                             <i class="fa fa-warning"></i>
                             Call Log</a>
                     </li>
-                   
                 </ul>
             </li>
-            <li 
-            <?php
-            $techs = array('techstechPendingPayment','techstechDonePayment');
-            if (in_array($this->name . '' . $this->action, $techs)):
-                ?>
-                    class="active"
-                    <?php
-                endif;
-                ?>
-                >
-                <a href="javascript:;">
-                    <i class="fa fa-envelope"></i>
-                    <span class="title">Technician Payment</span>
-                    <span class="arrow"></span>
-                </a>
-                <ul class="sub-menu">
-                    <li
-                    <?php if ($this->name . '' . $this->action == 'techstechPendingPayment'):
-                        ?>
-                            class="active"
-                            <?php
-                        endif;
-                        ?>
-                        >
-                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'techPendingPayment')) ?>">
-                            <i class="fa fa-plus"></i>
-                            Pending</a>
-                    </li>   
-                    <li
-                    <?php if ($this->name . '' . $this->action == 'techstechDonePayment'):
-                        ?>
-                            class="active"
-                            <?php
-                        endif;
-                        ?>
-                        >
-                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'techDonePayment')) ?>">
-                            <i class="fa fa-plus"></i>
-                            Done</a>
-                    </li>   
-                   
-                </ul>
-            </li>
+
 
             <li 
             <?php
@@ -955,7 +912,7 @@
                     <!--                    <li
                     <?php if ($this->name . '' . $this->action == 'Reportsaccountsdp'):
                         ?>
-                                                                        class="active"
+                                                                    class="active"
                         <?php
                     endif;
                     ?>
@@ -986,7 +943,7 @@
                     <!--                    <li
                     <?php if ($this->name . '' . $this->action == 'ReportsopenInvoice'):
                         ?>
-                                                                class="active"
+                                                            class="active"
                         <?php
                     endif;
                     ?>
@@ -1094,45 +1051,19 @@
 
             <li 
             <?php
-            $paymentsettings = array('paymentsAdd_settings', 'paymentsManage_settings');
-            if (in_array($this->name . '' . $this->action, $dailyreports)):
+            $deleted = array('delete');
+            if (in_array($this->name . '' . $this->action, $deleted)):
                 ?>
                     class="active"
                     <?php
                 endif;
                 ?>
-                >
-                <a href="javascript:;">
-                    <i class="fa fa-envelope"></i>
-                    <span class="title">Tech Payment Settings</span>
+                >                 
+                <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'manage_delete_data')) ?>">
+                    <i class="fa fa-support"></i>
+                    <span class="title">Delete Data</span>
                     <span class="arrow "></span>
                 </a>
-                <ul class="sub-menu">
-                    <li
-                    <?php if ($this->name . '' . $this->action == 'paymentsAdd_settings'):
-                        ?>
-                            class="active"
-                            <?php
-                        endif;
-                        ?>
-                        >
-                        <a href="<?php echo Router::url(array('controller' => 'payments', 'action' => 'Add_settings')) ?>">
-                            <i class="fa fa-plus"></i>
-                            Add</a>
-                    </li>
-                    <li
-                    <?php if ($this->name . '' . $this->action == 'paymentsManage_settings'):
-                        ?>
-                            class="active"
-                            <?php
-                        endif;
-                        ?>
-                        >
-                        <a href="<?php echo Router::url(array('controller' => 'payments', 'action' => 'manage_settings')) ?>">
-                            <i class="fa fa-wrench"></i>
-                            Manage</a>
-                    </li>
-                </ul>
             </li>
 
         </ul>

@@ -893,7 +893,7 @@ class CustomersController extends AppController {
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                      left join issues i on pc.issue_id = i.id
                     WHERE LOWER(pc.status) like '%request to unhold%' and $conditions";
-            
+
             $allData = $this->PackageCustomer->query($sql);
             $filteredData = array();
             $unique = array();
@@ -1401,6 +1401,41 @@ class CustomersController extends AppController {
         $this->set(compact('filteredData', 'technician'));
     }
 
+    //duplicate data manage start
+
+    function delete($id = null) {
+        $this->loadModel('PackageCustomer');
+        $this->loadModel('BackupPackageCustomer');
+        $cusdata = $this->PackageCustomer->findById($id);
+        $cusdata['BackupPackageCustomer'] = $cusdata['PackageCustomer'];
+
+        $this->BackupPackageCustomer->save($cusdata);
+        $this->PackageCustomer->delete($id);
+        $msg = '<div class="alert alert-success">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<strong> Customer deleted succeesfully and it is stored in trash </strong>
+</div>';
+        $this->Session->setFlash($msg);
+        return $this->redirect(array('controller' => 'admins', 'action' => 'servicemanage'));
+    }
+
+    function manage_delete_data() {
+        $this->loadModel('BackupPackageCustomer');
+        $data = $this->BackupPackageCustomer->find('all');
+        $this->set(compact('data'));
+    }
+
+    function restore($id) {
+        $this->loadModel('BackupPackageCustomer');
+        $this->loadModel('PackageCustomer');
+        $customer = $this->BackupPackageCustomer->findById($id);
+        $data['PackageCustomer'] = $customer['BackupPackageCustomer'];
+        $this->PackageCustomer->save($data);
+        $this->BackupPackageCustomer->delete($id);
+        $this->redirect(array('controller' => 'admins', 'action' => 'servicemanage'));
+    }
+
+    //duplicate data manage end
 }
 
 ?>
