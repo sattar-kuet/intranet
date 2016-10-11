@@ -94,6 +94,23 @@
                     <span class="arrow "></span>
                 </a>
             </li>
+           
+            <li 
+            <?php
+            $transactionId = array('transactionId');
+            if (in_array($this->name . '' . $this->action, $transactionId)):
+                ?>
+                    class="active"
+                    <?php
+                endif;
+                ?>
+                >                 
+                <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'transactionId')) ?>">
+                    <i class="fa fa-support"></i>
+                    <span class="title">Transaction ID</span>
+                    <span class="arrow "></span>
+                </a>
+            </li>
 
 
             <!--            <li 

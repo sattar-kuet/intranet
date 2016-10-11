@@ -55,7 +55,7 @@
                                     <?php
                                     echo $this->Form->input(
                                             'daterange', array(
-                                        'id' => 'e1', /* e1 is past to current date, e2 is past to future date */
+                                        'id' => 'e2', /* e1 is past to current date, e2 is past to future date */
                                         'class' => 'span9 text'
                                             )
                                     );
