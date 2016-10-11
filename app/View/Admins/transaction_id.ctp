@@ -15,7 +15,7 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-search"></i>Search Transaction Information
+                            <i class="fa fa-search"></i>Search Payment Information by transaction ID
                         </div>
                         <!--                        <div class="tools">
                                                     <a href="javascript:;" class="reload">

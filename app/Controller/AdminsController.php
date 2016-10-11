@@ -384,14 +384,12 @@ class AdminsController extends AppController {
     function transactionId($trx_id = null) {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
-        $idtrx = $this->request->data['Transaction']['trx_id'];
         $clicked = false;
         if ($this->request->is('post')) {
+            $idtrx = $this->request->data['Transaction']['trx_id'];
             $trinfo = $this->Transaction->query("SELECT * FROM `transactions` tr
             left join package_customers  pc on tr.package_customer_id =pc.id 
             where trx_id = $idtrx");
-//            pr($trinfo);
-//            exit;
             $clicked = true;
             $this->set(compact('trinfo'));
         }
