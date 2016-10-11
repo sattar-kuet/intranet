@@ -381,6 +381,21 @@ class AdminsController extends AppController {
         $this->set(compact('cells', 'clicked', 'admin_messages'));
     }
 
+    function transactionId($trx_id = null) {
+        $this->loadModel('PackageCustomer');
+        $this->loadModel('Transaction');
+        $clicked = false;
+        if ($this->request->is('post')) {
+            $idtrx = $this->request->data['Transaction']['trx_id'];
+            $trinfo = $this->Transaction->query("SELECT * FROM `transactions` tr
+            left join package_customers  pc on tr.package_customer_id =pc.id 
+            where trx_id = $idtrx");
+            $clicked = true;
+            $this->set(compact('trinfo'));
+        }
+        $this->set(compact('clicked'));
+    }
+
     function changeservice($id = null) {
         $this->loadModel('PackageCustomer');
         if ($this->request->data['PackageCustomer']['status'] == 'ticket') {
@@ -991,7 +1006,7 @@ class AdminsController extends AppController {
         $this->set(compact('filteredData', 'technician'));
     }
 
-    function approved($id = null,$tid=null) {
+    function approved($id = null, $tid = null) {
         $this->loadModel('PackageCustomer');
         $this->PackageCustomer->id = $id;
         $loggedUser = $this->Auth->user();
@@ -1017,30 +1032,32 @@ class AdminsController extends AppController {
             $de = new DateTime($datrange['end']);
             $timestamp = $de->getTimestamp(); // Unix timestamp
             $endd = $de->format('m/y'); // 2003-10-16
-            echo
             $conditions = "";
+
             if (count($datrange)) {
                 if ($datrange['start'] == $datrange['end']) {
 
                     $nextday = date('Y-m-d', strtotime($datrange['end'] . "+1 days"));
-                    $conditions .=" pc.schedule_date  >=' " . $datrange['start'] . "' AND  pc.schedule_date < '" . $nextday . "'";
+                    //  convert(varchar(10),pc.schedule_date, 120) = '2014-02-07'
+                    //CAST(pc.schedule_date as DATE)
+                    $conditions .=" CAST(pc.schedule_date as DATE)  >=' " . $datrange['start'] . "' AND  CAST(pc.schedule_date as DATE) < '" . $nextday . "'";
                 } else {
 
-                    $conditions .=" pc.schedule_date >='" . $datrange['start'] . "' AND  pc.schedule_date <='" . $datrange['end'] . "'";
+                    $conditions .=" CAST(pc.schedule_date as DATE) >='" . $datrange['start'] . "' AND  CAST(pc.schedule_date as DATE) <='" . $datrange['end'] . "'";
                 }
             }
-
-//            pr($datrange); exit;
-            
-            $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
+            $sql = "SELECT * FROM package_customers pc 
                     left join comments c on pc.id = c.package_customer_id
                     left join users u on c.user_id = u.id
                     left join users ut on pc.technician_id = ut.id
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id
-                    WHERE pc.status = 'scheduled' and  $conditions  ORDER BY pc.id");
+                    WHERE pc.status = 'scheduled' and $conditions ORDER BY pc.id";
 
+
+            $allData = $this->PackageCustomer->query($sql);
+            //$allData; 
             $filteredData = array();
             $unique = array();
             $index = 0;
@@ -1092,9 +1109,6 @@ class AdminsController extends AppController {
         }
         $this->set(compact('clicked'));
     }
-    
-  
-
 
 }
 

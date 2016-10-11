@@ -52,13 +52,7 @@
                                         Detail Information
                                     </th>
                                     <th>
-                                        Issue
-                                    </th>
-                                    <th>
                                         New Address
-                                    </th>
-                                    <th>
-                                        Attachment
                                     </th>
                                     <th>
                                         Schedule date
@@ -71,7 +65,7 @@
                             <tbody>
                                 <?php
                                 foreach ($filteredData as $results):
-//                                    pr($results); exit;
+
                                     $customer = $results['customers'];
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
@@ -92,10 +86,11 @@
                                         <td>
                                             <ul>
                                                 <b>  Name :</b>  <a href="
-                                                <?php
-                                                echo Router::url(array('controller' => 'customers',
-                                                    'action' => 'edit_registration', $results['customers']['id']))
-                                                ?>" 
+
+                                                                    <?php
+                                                                    echo Router::url(array('controller' => 'customers',
+                                                                        'action' => 'edit_registration', $results['customers']['id']))
+                                                                    ?>" 
                                                                     target="_blank">
                                                                         <?php
                                                                         echo $results['customers']['first_name'] . " " .
@@ -118,31 +113,6 @@
                                             </ul>
 
                                         </td>
-                                <!--                                        <td>
-                                        <?php
-//                                            foreach ($results['comments'] as $comment):
-                                        ?>
-                                                                                <span title="<?php // echo $comment['content']['created'];         ?>" class="fa fa-hand-o-right ">  <?php echo $comment['content']['content']; ?> &nbsp;&nbsp;</span> <i> <?php echo $comment['user']['name']; ?></i>
-                                                                                <br> 
-                                                                                <br> 
-
-                                        <?php // endforeach;
-                                        ?>
-                                                                        </td>-->
-
-                                        <!--                                        <td>
-                                        <?php
-//                                            foreach ($results['comments'] as $comment):
-                                        ?>
-                                                                                        <span title="<?php // echo $comment['content']['created'];          ?>" class="fa fa-hand-o-right ">  <?php echo $comment['content']['content']; ?> &nbsp;&nbsp;</span> <i> <?php echo $comment['user']['name']; ?></i>
-                                                                                        <br> 
-                                                                                        <br> 
-
-                                        <?php // endforeach;
-                                        ?>
-                                                                                </td>-->
-
-
 
                                         <td>
                                             <?php if (trim($results['customers']['repair_type']) == 'old') { ?>
@@ -178,34 +148,11 @@
                                                 ?>
                                             <?php }
                                             ?>
-                                        </td>
-                                        <td>
-                                            <?php if (!empty($customer['new_addr'])): ?>
-                                                <?php echo $results['issues'][0]['name']['name']; ?>
-                                            <?php endif; ?>
-                                        </td>
-                                        <td>
-                                            <?php if (!empty($customer['new_addr'])): ?>
-                                                <?php echo $customer['new_addr']; ?>
-                                            <?php endif; ?>
-                                        </td>
-                                        <td>
-                                            <div class="col-md-12 col-sm-12 mix category_2 category_1">
-                                                <div class="mix-inner">
-                                                    <?php if (!empty($results['attachment'])) { ?>
-                                                        <img class="img-responsive" src="<?php echo $this->webroot . 'attchment' . '/' . $results['attachment']; ?>" alt="">
-                                                        <div class="mix-details">
-                                                            <a class="mix-preview fancybox-button" href="<?php echo $this->webroot . 'attchment' . '/' . $results['attachment']; ?>" title="Project Name" data-rel="fancybox-button">
-                                                                <i class="fa fa-eye pull-right"></i>
-                                                            </a>
-                                                        </div>
-                                                    <?php } else { ?>
-                                                        <h4> No Attachment</h4>
 
-                                                    <?php } ?>
 
-                                                </div>
-                                            </div>
+                                        </td>
+                                        <td>
+                                            <?php echo $customer['new_addr']; ?>
                                         </td>
                                         <td>
                                             <?php if (!empty($results['installations'][0]['user_id']['schedule_date'])): ?>    

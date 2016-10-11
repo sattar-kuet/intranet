@@ -49,10 +49,13 @@
                                         Detail Information
                                     </th>
                                     <th>
+                                        Issue
+                                    </th>
+                                    <th>
                                         New Address
                                     </th>
                                     <th>
-                                        Schedule date
+                                        Attachment
                                     </th>
 <!--                                    <th>
                                         Action
@@ -64,7 +67,7 @@
 //                                pr($filteredData);
 //                                exit;
                                 foreach ($filteredData as $results):
-
+//                                    pr($results); exit;
 
                                     $customer = $results['customers'];
 //                                 pr($customer['repair_type']); exit; 
@@ -118,9 +121,9 @@
                                         <td>
                                             <?php if (trim($results['customers']['repair_type']) == 'old') { ?>
                                                 <strong>Customer Type: </strong> Existing <br>
-                                                <?php if (!empty($results['issues'][0]['name']['name'])):?>
-                                                  <strong>Issue: </strong> <?php echo $results['issues'][0]['name']['name']; ?> <br>
-                                                <?php endif ;?>                                              
+                                                <?php if(!empty($results['issues'][0]['name']['name'])): ?>
+                                                <strong>Issue: </strong> <?php echo $results['issues'][0]['name']['name']; ?> <br>
+                                                <?php endif ;?>
                                                 <strong>Equipment: </strong> <?php
                                                 echo $results['customers']['shipment_equipment'] . ' ' .
                                                 $results['customers']['shipment_note'] . '(' . $results['customers']['remote_no'] . ')';
@@ -141,18 +144,35 @@
                                                 ?>
                                             <?php }
                                             ?>
-
-
+<td>
+                                            <?php if (!empty($customer['new_addr'])): ?>
+                                                <?php echo $results['issues'][0]['name']['name']; ?>
+                                            <?php endif; ?>
                                         </td>
-                                        
-                                         <td>
+                                        <td>
+                                            <?php if (!empty($customer['new_addr'])): ?>
                                                 <?php echo $customer['new_addr']; ?>
-                                            </td>
-                                            <td>
-                                                <?php if (!empty($results['customers']['schedule_date'])): ?>    
-                                                    <?php echo $results['customers']['schedule_date']; ?>
-                                                <?php endif; ?>
-                                            </td>
+                                            <?php endif; ?>
+                                        </td>
+ <td>
+                                            <div class="col-md-12 col-sm-12 mix category_2 category_1">
+                                                <div class="mix-inner">
+                                                    <?php if (!empty($results['attachment'])) { ?>
+                                                        <img class="img-responsive" src="<?php echo $this->webroot . 'attchment' . '/' . $results['attachment']; ?>" alt="">
+                                                        <div class="mix-details">
+                                                            <a class="mix-preview fancybox-button" href="<?php echo $this->webroot . 'attchment' . '/' . $results['attachment']; ?>" title="Project Name" data-rel="fancybox-button">
+                                                                <i class="fa fa-eye pull-right"></i>
+                                                            </a>
+                                                        </div>
+                                                    <?php } else { ?>
+                                                        <h4> No Attachment</h4>
+
+                                                    <?php } ?>
+
+                                                </div>
+                                            </div>
+                                        </td>
+                                        </td>
 <!--                                        <td> 
                                             <div class="controls center text-center">
                                                 <a 
@@ -198,7 +218,14 @@
                                                             )
                                                     );
                                                     ?>
-
+                                                    
+                                                     <?php
+                                                    echo $this->Form->input('id', array(
+                                                        'type' => 'hidden',
+                                                        'value' => $results['installations'][0]['user_id']['id'],
+                                                            )
+                                                    );
+                                                    ?>
 
                                                     <?php
                                                     echo $this->Form->input('package_customer_id', array(
@@ -221,7 +248,7 @@
                                                                     echo $this->Form->input('comment', array(
                                                                         'type' => 'textarea',
                                                                         'class' => 'form-control required txtArea',
-                                                                        'placeholder' => 'Write your comments done'
+                                                                        'placeholder' => 'Write your comments for done'
                                                                             )
                                                                     );
                                                                     ?>
@@ -260,6 +287,15 @@
                                                             )
                                                     );
                                                     ?>
+                                                    
+                                                     <?php
+                                                    echo $this->Form->input('id', array(
+                                                        'type' => 'hidden',
+                                                        'value' => $results['installations'][0]['user_id']['id'],
+                                                            )
+                                                    );
+                                                    ?>
+                                                    
                                                     <?php
                                                     echo $this->Form->input('package_customer_id', array(
                                                         'type' => 'hidden',
@@ -321,6 +357,13 @@
                                                     );
                                                     ?>
 
+                                                         <?php
+                                                    echo $this->Form->input('id', array(
+                                                        'type' => 'hidden',
+                                                        'value' => $results['installations'][0]['user_id']['id'],
+                                                            )
+                                                    );
+                                                    ?>
 
                                                     <?php
                                                     echo $this->Form->input('package_customer_id', array(
@@ -383,7 +426,13 @@
                                                     );
                                                     ?>
 
-
+                                                     <?php
+                                                    echo $this->Form->input('id', array(
+                                                        'type' => 'hidden',
+                                                        'value' => $results['installations'][0]['user_id']['id'],
+                                                            )
+                                                    );
+                                                    ?>
 
                                                     <?php
                                                     echo $this->Form->input('package_customer_id', array(
@@ -446,7 +495,14 @@
                                                     );
                                                     ?>
 
-
+                                                     <?php
+                                                    echo $this->Form->input('id', array(
+                                                        'type' => 'hidden',
+                                                        'value' => $results['installations'][0]['user_id']['id'],
+                                                            )
+                                                    );
+                                                    ?>
+                                                    
                                                     <?php
                                                     echo $this->Form->input('package_customer_id', array(
                                                         'type' => 'hidden',
@@ -492,7 +548,7 @@
                                                 </div>
 
                                             </div>
-                                        </td> -->
+                                        </td>-->
                                     </tr>
                                 <?php endforeach; ?>  
 

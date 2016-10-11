@@ -17,10 +17,10 @@
                         <div class="caption">
                             <i class="fa fa-search"></i>Search Customer Information
                         </div>
-<!--                        <div class="tools">
-                            <a href="javascript:;" class="reload">
-                            </a>
-                        </div>-->
+                        <!--                        <div class="tools">
+                                                    <a href="javascript:;" class="reload">
+                                                    </a>
+                                                </div>-->
                     </div>
                     <div class="portlet-body form">
                         <!-- BEGIN FORM-->
@@ -157,18 +157,19 @@
                         <th>Name</th>
                         <th>Customer Detail</th>
                         <th>Package</th>
+                        <th>Status</th>
                         <th>Action</th>
 
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                
                     foreach ($data['customer'] as $index => $d):
                         $customer = $d;
-                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
-                                            $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
-                                            . $customer['zip'];
+//                        pr($customer['status']); exit;
+                        $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
+                                $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
+                                . $customer['zip'];
                         $package = array();
                         if (count($data['package']) > 0) {
                             $package = $data['package'][$index];
@@ -183,6 +184,7 @@
                                     <li>Address:<?php echo $customer_address; ?></li>
                                 </ul>
                             </td>
+                            
                             <td>
                                 <?php if (count($package) > 0): ?>
                                     <ul>
@@ -193,6 +195,9 @@
                                     <?php
                                 endif;
                                 ?>
+                            </td>
+                            <td>                               
+                                <?php echo $customer['status']; ?>                               
                             </td>
                             <td>
                                 <?php

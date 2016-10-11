@@ -71,21 +71,6 @@
                                         ?>
                                     </div>
                                 </div>
-                                <div class="col-md-2 signupfont">
-                                    Payment amount:
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="input-list style-4 clearfix">
-                                        <?php
-                                        echo $this->Form->input(
-                                                'payable_amount', array(
-                                            'type' => 'text',
-                                            'class' => 'form-control',
-                                        ));
-                                        ?>
-                                    </div>
-                                </div>
-
                                 &nbsp;
                                 &nbsp;
                                 <div class="row margin-top-20">
@@ -2543,7 +2528,7 @@
                                 <table cellpadding="0" cellspacing="0" border="0" class="responsive dynamicTable display table table-bordered" width="100%" >
                                     <thead>
                                         <tr >  
-                                            <th>Invoice Information</th>
+                                            <th>Date</th>
                                             <th>Payment info</th>
                                             <th>Amount</th>
                                             <th>Balance</th>
@@ -2552,9 +2537,7 @@
                                     <tbody>
                                         <?php
                                         $balance = array();
-                                        
                                         foreach ($transactions_all as $i => $single):
-//                                            pr($single); exit;
                                             if ($single['tr']['payable_amount']) {
                                                 $amount = -1 * $single['tr']['payable_amount'];
                                             } else {
@@ -2567,11 +2550,7 @@
                                             }
                                             ?>
                                             <tr class="odd gradeX">
-                                                <td>                                                    
-                                                    <?php echo $single['tr']['invoice']; ?><br>
-                                                    <?php echo $single['pc']['stbs']; ?><br>
-                                                    <?php echo $single['tr']['price']; ?>  
-                                                </td>
+                                                <td><?php echo $single['tr']['created']; ?></td>
                                                 <td>
                                                     <?php
                                                     if ($single['tr']['payable_amount']) {
@@ -2613,7 +2592,7 @@
                                                 <?php endif; ?>
                                             <?php endif; ?> 
                                         <?php } ?>
-                                        Date: <?php echo $single['tr']['created']; ?>
+
                                         </td>
                                         <td><?php echo $amount; ?></td>
 
@@ -3198,14 +3177,11 @@
                 'id' => 'form_sample_3',
                 'class' => 'form-horizontal',
                 'novalidate' => 'novalidate',
-                'url' => array('controller' => 'customers', 'action' => 'delete')
+                'url' => array('controller' => 'transactions', 'action' => 'delete')
                     )
             );
             ?>
-            <button class="btn red-sunglo" onclick="if (confirm( & quot; Are you sure to Delete this Customer? & quot; )) {
-                        return true;
-                    }
-                    return false;" type="submit" style="background-color: red;">Delete customer</button>     
+            <button class="btn red-sunglo" onclick="if (confirm(&quot; Are you sure to Delete this Customer?&quot; )) { return true; } return false;" type="submit" style="background-color: red;">Delete customer</button>     
             <?php echo $this->Form->end(); ?>
         </div>
     </div>

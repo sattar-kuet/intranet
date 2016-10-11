@@ -65,8 +65,8 @@ class CustomersController extends AppController {
         }
         $upload->process($this->img_config['target_path']['attachment']);
         if (!$upload->processed) {
-//            pr($upload->error);
-//            exit;
+            pr($upload->error);
+            exit;
             $msg = $this->generateError($upload->error);
             $this->Session->setFlash($msg);
             return $this->redirect($this->referer());
@@ -581,52 +581,21 @@ class CustomersController extends AppController {
 
     function update_payment($id = null) {
         $this->loadModel('PackageCustomer');
-        
-         function random_string($length) {
-            $key = '';
-            $keys = array_merge(range(0, 9));
-
-            for ($i = 0; $i < $length; $i++) {
-                $key .= $keys[array_rand($keys)];
-            }
-
-            return $key;
-        }
-
-        $invoice = random_string(9);
-        
-        
         $this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
         $this->request->data['PackageCustomer']['package_exp_date'] = $this->getFormatedDate($this->request->data['PackageCustomer']['package_exp_date']);
         $this->request->data['PackageCustomer']['ticket_generated'] = 0;
 
         // when change package exp date then these fields will be update
-        $this->request->data['PackageCustomer']['invoice_no'] = $invoice;
+        $this->request->data['PackageCustomer']['invoice_no'] = '';
         $this->request->data['PackageCustomer']['invoice_created'] = 0;
         $this->request->data['PackageCustomer']['printed'] = 0;
-        $pc_data = $this->PackageCustomer->save($this->request->data);
+        $this->PackageCustomer->save($this->request->data);
 
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
 	<strong>  succeesfully done </strong></div>';
-        $this->Session->setFlash($msg);      
-
-
-        $data['Transaction'] = array(
-            'package_customer_id' => $id,
-            'status' => 'open',
-            'invoice' => $pc_data['PackageCustomer']['invoice_no'],
-            'next_payment' => $pc_data['PackageCustomer']['package_exp_date'],
-            'payable_amount' => $pc_data['PackageCustomer']['payable_amount']
-        );
-
-        $this->generateInvoice($data);
+        $this->Session->setFlash($msg);
         return $this->redirect($this->referer());
-    }
-
-    function generateInvoice($data = array()) {
-        $this->loadModel('Transaction');
-        $this->Transaction->save($data);
     }
 
     function ready($id = null) {

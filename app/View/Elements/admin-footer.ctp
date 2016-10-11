@@ -36,7 +36,7 @@ echo $this->Html->script(
     $(function () {
         $(".dateRange").daterangepicker();
     });
-        
+
     $("#e2").daterangepicker({
         presetRanges: [{
                 text: 'Today',
@@ -75,9 +75,9 @@ echo $this->Html->script(
         datepickerOptions: {
             maxDate: null
         }
-    } );
-            
-      $(".e3").daterangepicker({
+    });
+
+    $(".e3").daterangepicker({
         presetRanges: [{
                 text: 'Today',
                 dateStart: function () {
@@ -115,8 +115,51 @@ echo $this->Html->script(
         datepickerOptions: {
             maxDate: null
         }
-    }       
-            );
+    }
+    );
+
+
+
+    $("#e4").daterangepicker({
+        presetRanges: [{
+                text: 'Today',
+                dateStart: function () {
+                    return moment()
+                },
+                dateEnd: function () {
+                    return moment()
+                }
+            }, {
+                text: 'Tomorrow',
+                dateStart: function () {
+                    return moment().add('days', 1)
+                },
+                dateEnd: function () {
+                    return moment().add('days', 1)
+                }
+            }, {
+                text: 'Next 7 Days',
+                dateStart: function () {
+                    return moment()
+                },
+                dateEnd: function () {
+                    return moment().add('days', 6)
+                }
+            }, {
+                text: 'Next Week',
+                dateStart: function () {
+                    return moment().add('weeks', 1).startOf('week')
+                },
+                dateEnd: function () {
+                    return moment().add('weeks', 1).endOf('week')
+                }
+            }],
+        applyOnMenuSelect: false,
+        datepickerOptions: {
+            minDate: 0,
+            maxDate: null
+        }
+    });
 </script>
 </body>
 <!-- END BODY -->

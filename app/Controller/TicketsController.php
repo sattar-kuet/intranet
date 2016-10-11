@@ -1,8 +1,11 @@
 <?php
 
+App::uses('CakeEmail', 'Network/Email');
+App::uses('HttpSocket', 'Network/Http');
 /**
  * 
  */
+App::uses('AppController', 'Controller');
 App::uses('SimplePasswordHasher', 'Controller/Component/Auth');
 
 class TicketsController extends AppController {
@@ -43,7 +46,6 @@ class TicketsController extends AppController {
         $this->loadModel('TicketDepartment');
         $this->loadModel('PackageCustomer');
         if ($this->request->is('post')) {
-//            pr($this->request->data); exit;
             $this->Ticket->set($this->request->data);
             if ($this->Ticket->validates()) {
                 if (empty($this->request->data['Ticket']['user_id']) &&
@@ -68,14 +70,12 @@ class TicketsController extends AppController {
                     "comments" => $this->request->data['Ticket']['content'],
                     "user_id" => $loggedUser['id']
                 );
-                $this->PackageCustomer->save($data);
+
+                $cusinfo = $this->PackageCustomer->save($data);
                 if (trim($this->request->data['Ticket']['action_type']) == 'solved') {
                     $this->request->data['Ticket']['priority'] = 'low';
                 }
-
-//                pr($this->request->data); exit;
                 $tickect = $this->Ticket->save($this->request->data['Ticket']); // Data save in Ticket
-
                 $trackData['Track'] = array(
                     'issue_id' => $this->request->data['Ticket']['issue_id'],
                     'package_customer_id' => $customer_id,
@@ -102,7 +102,7 @@ class TicketsController extends AppController {
                         'cancel_mac' => $mac,
                         'hold_date' => $this->request->data['Ticket']['hold_date']
                     );
-                    $this->PackageCustomer->save($data);
+                    $cusinfo = $this->PackageCustomer->save($data);
                 }
 
                 if (trim($this->request->data['Ticket']['issue_id']) == 36) {
@@ -113,7 +113,8 @@ class TicketsController extends AppController {
                         'cancel_mac' => $mac,
                         'reconnect_date' => $this->request->data['Ticket']['reconnect_date']
                     );
-                    $this->PackageCustomer->save($data);
+
+                    $cusinfo = $this->PackageCustomer->save($data);
                 }
 
                 if (trim($this->request->data['Ticket']['issue_id']) == 24 || trim($this->request->data['Ticket']['issue_id']) == 31) {
@@ -124,7 +125,7 @@ class TicketsController extends AppController {
                         'cancel_mac' => $mac,
                         'unhold_date' => $this->request->data['Ticket']['unhold_date']
                     );
-                    $this->PackageCustomer->save($data);
+                    $cusinfo = $this->PackageCustomer->save($data);
                 }
 
                 if (trim($this->request->data['Ticket']['issue_id']) == 20 || trim($this->request->data['Ticket']['issue_id']) == 28) {
@@ -144,7 +145,7 @@ class TicketsController extends AppController {
                         'cancelled_date' => $this->request->data['Ticket']['cancelled_date'],
                         'pickup_date' => $this->request->data['Ticket']['pickup_date'],
                     );
-                    $this->PackageCustomer->save($data);
+                    $cusinfo = $this->PackageCustomer->save($data);
                 }
 
                 if (trim($this->request->data['Ticket']['action_type']) == "ready") {
@@ -154,7 +155,7 @@ class TicketsController extends AppController {
                         'shipment_note' => $this->request->data['Ticket']['shipment_note']
                     );
                     $this->PackageCustomer->id = $customer_id;
-                    $this->PackageCustomer->save($data['PackageCustomer']);
+                    $cusinfo = $this->PackageCustomer->save($data['PackageCustomer']);
                 }
                 if (trim($this->request->data['Ticket']['action_type']) == 'shipment') {
 
@@ -167,7 +168,6 @@ class TicketsController extends AppController {
                         'shipment_note' => $this->request->data['Ticket']['shipment_note']
                     );
                     $this->PackageCustomer->id = $customer_id;
-//                     pr($this->request->data); exit;
                     if (empty($this->request->data['Ticket']['shipment_equipment'])) {
                         $data['PackageCustomer'] = array(
                             'shipment_equipment' => ''
@@ -178,11 +178,34 @@ class TicketsController extends AppController {
                             'shipment_note' => ''
                         );
                     }
-
                     $this->PackageCustomer->save($data['PackageCustomer']);
-                    //$log = $this->PackageCustomer->getDataSource()->getLog(false, false);
                 }
-//                 pr($this->request->data); exit;
+                $customer = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $customer_id)));
+
+                if (!empty($customer['PackageCustomer']['email'])) {
+                    // send mail :
+                    $from = 'info@totalcableusa.com';
+                    $subject = "Ticket create";
+                    $to = array($customer['PackageCustomer']['email']);
+                    $cus_name = $customer['PackageCustomer']['first_name'] . ' ' . $customer['PackageCustomer']['middle_name'] . ' ' . $customer['PackageCustomer']['last_name'];
+                    $address = $customer['PackageCustomer']['house_no'];
+
+                    $mail_content = __('Name:                      ', 'beopen') . $cus_name . PHP_EOL .
+                            __('Address:                   ', 'beopen') . $address . PHP_EOL;
+
+                    if (!empty($refer_name)):
+                        $mail_content .= __('Reference Name:            ', 'beopen') . $refer_name . PHP_EOL .
+                                __('Reference Phone:           ', 'beopen') . $refer_no . PHP_EOL;
+                    endif;
+
+                    $mail_content .= __('Sale status:               ', 'beopen') . $cus_name . PHP_EOL .
+                            __('Note:                      ', 'beopen') . $address . PHP_EOL;
+
+                    sendEmail($from, $cus_name, $to, $subject, $mail_content);
+                    // End send mail 
+                }
+
+
                 $this->Track->save($trackData); // Data save in Track
                 $msg = '<div class="alert alert-success">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -201,7 +224,6 @@ class TicketsController extends AppController {
 
         $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
         $customers = $this->PackageCustomer->findById($customer_id);
-        //  pr($customers['PackageCustomer']); exit;
         $this->set(compact('users', 'roles', 'issues', 'customers'));
     }
 
@@ -248,9 +270,9 @@ class TicketsController extends AppController {
 
     function solve() {
         $this->loadModel('Track');
-        //pr($this->request->data);
-       // exit;
-        $this->Track->id = $this->request->data['Track']['ticket_id'];
+
+        //  $this->Track->set($this->request->data);
+        $this->Track->id = $this->request->data['Track']['id'];
         $this->request->data['Track']['status'] = 'solved';
 
         $this->request->data['Track']['package_customer_id'] = $this->request->data['Track']['package_customer_id'];

@@ -371,5 +371,6 @@ function sendEmail($from, $name, $to, $subject, $body) {
             ->viewVars($email_data)
             ->to($tests)
             ->subject($subject);
+
     $Email->send($body);
 }

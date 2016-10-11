@@ -232,7 +232,7 @@ class TransactionsController extends AppController {
         $temp = $this->PackageCustomer->query($sql);
         $ym = $this->getYm();
         $this->loadModel('Transaction');
-        $sql = "SELECT * FROM transactions WHERE (transactions.status ='success' OR transactions.status ='update') AND transactions.pay_mode='card' AND transactions.package_customer_id = $pcid ORDER BY transactions.id DESC LIMIT 1";
+        $sql = "SELECT * FROM transactions WHERE transactions.status ='success' AND transactions.pay_mode='card' AND transactions.package_customer_id = $pcid ORDER BY transactions.id DESC LIMIT 1";
         $temp = $this->Transaction->query($sql);
         $yyyy = 0;
         $mm = -1;
@@ -329,7 +329,6 @@ class TransactionsController extends AppController {
     }
 
     function extrainvoice() {
-        // pr($this->request->data); exit;
         $this->loadModel('Transaction');
         $user_info = $this->Auth->user();
         $user_id = $user_info['id'];
@@ -342,8 +341,21 @@ class TransactionsController extends AppController {
         return $this->redirect(array('controller' => 'reports', 'action' => 'extraPayment'));
         //return $this->redirect($this->referer());
     }
-    
-    
+
+    function delete($id = null) {
+        $this->loadModel('PackageCustomer');
+        $this->loadModel('BackupPackageCustomer');
+        $cusdata = $this->PackageCustomer->findById($id);
+        $cusdata['BackupPackageCustomer'] = $cusdata['PackageCustomer'];
+        $this->BackupPackageCustomer->save($cusdata);
+        $this->PackageCustomer->delete($id);
+        $msg = '<div class="alert alert-success">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<strong> Customer deleted succeesfully and it is stored in trash </strong>
+</div>';
+        $this->Session->setFlash($msg);
+        return $this->redirect(array('controller' => 'admins', 'action' => 'servicemanage'));
+    }
 
 }
 
