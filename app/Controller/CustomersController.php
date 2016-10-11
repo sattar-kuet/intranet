@@ -584,13 +584,13 @@ class CustomersController extends AppController {
         $this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
         $this->request->data['PackageCustomer']['package_exp_date'] = $this->getFormatedDate($this->request->data['PackageCustomer']['package_exp_date']);
         $this->request->data['PackageCustomer']['ticket_generated'] = 0;
-        
+
         // when change package exp date then these fields will be update
         $this->request->data['PackageCustomer']['invoice_no'] = '';
         $this->request->data['PackageCustomer']['invoice_created'] = 0;
         $this->request->data['PackageCustomer']['printed'] = 0;
         $this->PackageCustomer->save($this->request->data);
-        
+
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
 	<strong>  succeesfully done </strong></div>';
@@ -616,7 +616,7 @@ class CustomersController extends AppController {
         $this->loadModel('Installation');
         $loggedUser = $this->Auth->user();
 //        $date = $this->request->data['PackageCustomer']['schedule_date'] . ' ' . $this->request->data['PackageCustomer']['seTime'];
-        $temp = explode('/', $this->request->data['PackageCustomer']['schedule_date']);//date format change and insert
+        $temp = explode('/', $this->request->data['PackageCustomer']['schedule_date']); //date format change and insert
         $dateformat = $this->request->data['PackageCustomer']['schedule_date'] = $temp[2] . '-' . $temp[0] . '-' . $temp[1];
         $date = $dateformat . ' ' . $this->request->data['PackageCustomer']['seTime'];
         $this->request->data['Installation']['assign_by'] = $loggedUser['id'];
@@ -787,295 +787,356 @@ class CustomersController extends AppController {
     function cancelrequest() {
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
-        $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
+        $clicked = false;
+        if ($this->request->is('post') || $this->request->is('put')) {
+            $datrange = json_decode($this->request->data['PackageCustomer']['daterange'], true);
+            $start = explode('-', $datrange['start']);
+            $start = $start[1] . '/' . $start[2] . '/' . $start[0];
+            $end = explode('-', $datrange['end']);
+            $end = $end[1] . '/' . $end[2] . '/' . $end[0];
+            $conditions = 'pc.cancelled_date >="' . $start . '" AND pc.cancelled_date <="' . $end . '"';
+            $sql = "SELECT * FROM package_customers pc 
                     left join comments c on pc.id = c.package_customer_id
                     left join users u on c.user_id = u.id
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                      left join issues i on pc.issue_id = i.id
-                    WHERE LOWER(pc.status) like '%request to cancel%'");
-        // echo $sql; exit;
-        $filteredData = array();
-        $unique = array();
-        $index = 0;
-//        pr($allData); exit;
-        foreach ($allData as $key => $data) {
-            //pr($data); exit;
-            $pd = $data['pc']['id'];
-            if (isset($unique[$pd])) {
-                //  echo 'already exist'.$key.'<br/>';
-                if (!empty($data['c']['content'])) {
-                    //  $temp = $data['c'];// array('id' => $data['psettings']['id'], 'duration' => $data['psettings']['duration'], 'amount' => $data['psettings']['amount'], 'offer' => $data['psettings']['offer']);
-                    //pr($temp); exit;
+                    WHERE LOWER(pc.status) like '%request to cancel%' and $conditions";
+            $allData = $this->PackageCustomer->query($sql);
+            $filteredData = array();
+            $unique = array();
+            $index = 0;
+            foreach ($allData as $key => $data) {
+                $pd = $data['pc']['id'];
+                if (isset($unique[$pd])) {
+                    if (!empty($data['c']['content'])) {
+                        //  $temp = $data['c'];// array('id' => $data['psettings']['id'], 'duration' => $data['psettings']['duration'], 'amount' => $data['psettings']['amount'], 'offer' => $data['psettings']['offer']);
+                        $temp = array('content' => $data['c'], 'user' => $data['u']);
+                        $filteredData[$index]['comments'][] = $temp;
+                    }
+                    if (count($data['i'])) {
+                        $filteredData[$index]['issue'] = $data['i']['name'];
+                    }
+                } else {
+                    if ($key != 0)
+                        $index++;
+                    $unique[$pd] = 'set';
 
-                    $temp = array('content' => $data['c'], 'user' => $data['u']);
-                    $filteredData[$index]['comments'][] = $temp;
-                }
-                if (count($data['i'])) {
-                    $filteredData[$index]['issue'] = $data['i']['name'];
-                }
-            } else {
-                if ($key != 0)
-                    $index++;
-                $unique[$pd] = 'set';
+                    $filteredData[$index]['customers'] = $data['pc'];
+                    $filteredData[$index]['users'] = $data['u'];
 
-                $filteredData[$index]['customers'] = $data['pc'];
-                $filteredData[$index]['users'] = $data['u'];
-
-                $filteredData[$index]['package'] = array(
-                    'name' => 'No package dealings',
-                    'duration' => 'Not Applicable',
-                    'amount' => 'not Applicable'
-                );
-
-                if (!empty($data['i']['id'])) {
-                    $filteredData[$index]['issue'] = $data['i'];
-                }
-
-                if (!empty($data['ps']['id'])) {
                     $filteredData[$index]['package'] = array(
-                        'name' => $data['ps']['name'],
-                        'duration' => $data['ps']['duration'],
-                        'amount' => $data['ps']['amount']
+                        'name' => 'No package dealings',
+                        'duration' => 'Not Applicable',
+                        'amount' => 'not Applicable'
                     );
-                }
-                if (!empty($data['cp']['id'])) {
-                    $filteredData[$index]['package'] = array(
-                        'name' => $data['cp']['duration'] . ' months custom package',
-                        'duration' => $data['cp']['duration'],
-                        'amount' => $data['cp']['charge']
-                    );
-                }
-                $filteredData[$index]['comments'] = array();
-                if (!empty($data['c']['content'])) {
-                    $temp = array('content' => $data['c'], 'user' => $data['u']);
-                    $filteredData[$index]['comments'][] = $temp;
-                }
-                if (count($data['i'])) {
-                    $filteredData[$index]['issue'] = $data['i']['name'];
+
+                    if (!empty($data['i']['id'])) {
+                        $filteredData[$index]['issue'] = $data['i'];
+                    }
+
+                    if (!empty($data['ps']['id'])) {
+                        $filteredData[$index]['package'] = array(
+                            'name' => $data['ps']['name'],
+                            'duration' => $data['ps']['duration'],
+                            'amount' => $data['ps']['amount']
+                        );
+                    }
+                    if (!empty($data['cp']['id'])) {
+                        $filteredData[$index]['package'] = array(
+                            'name' => $data['cp']['duration'] . ' months custom package',
+                            'duration' => $data['cp']['duration'],
+                            'amount' => $data['cp']['charge']
+                        );
+                    }
+                    $filteredData[$index]['comments'] = array();
+                    if (!empty($data['c']['content'])) {
+                        $temp = array('content' => $data['c'], 'user' => $data['u']);
+                        $filteredData[$index]['comments'][] = $temp;
+                    }
+                    if (count($data['i'])) {
+                        $filteredData[$index]['issue'] = $data['i']['name'];
+                    }
                 }
             }
+            $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
+            $clicked = true;
+            $this->set(compact('filteredData', 'technician'));
         }
-        $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
-        // pr($filteredData); exit;
-        $this->set(compact('filteredData', 'technician'));
+        $this->set(compact('clicked'));
     }
 
     function holdrequest() {
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
-        $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
+        $clicked = false;
+        if ($this->request->is('post') || $this->request->is('put')) {
+//            $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
+//                    left join comments c on pc.id = c.package_customer_id
+//                    left join users u on c.user_id = u.id
+//                    left join psettings ps on ps.id = pc.psetting_id
+//                    left join custom_packages cp on cp.id = pc.custom_package_id 
+//                     left join issues i on pc.issue_id = i.id
+//                    WHERE LOWER(pc.status) like '%request to hold%'");
+            // echo $sql; exit;
+//                pr($allData); exit;
+            $datrange = json_decode($this->request->data['PackageCustomer']['daterange'], true);
+            $start = explode('-', $datrange['start']);
+            $start = $start[1] . '/' . $start[2] . '/' . $start[0];
+            $end = explode('-', $datrange['end']);
+            $end = $end[1] . '/' . $end[2] . '/' . $end[0];
+            $conditions = 'pc.hold_date >="' . $start . '" AND pc.hold_date <="' . $end . '"';
+            $sql = "SELECT * FROM package_customers pc 
                     left join comments c on pc.id = c.package_customer_id
                     left join users u on c.user_id = u.id
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                      left join issues i on pc.issue_id = i.id
-                    WHERE LOWER(pc.status) like '%request to hold%'");
-        // echo $sql; exit;
-//                pr($allData); exit;
-        $filteredData = array();
-        $unique = array();
-        $index = 0;
-        /// pr($allData); exit;
-        foreach ($allData as $key => $data) {
-            //pr($data); exit;
-            $pd = $data['pc']['id'];
-            if (isset($unique[$pd])) {
-                //  echo 'already exist'.$key.'<br/>';
-                if (!empty($data['c']['content'])) {
-                    $temp = array('content' => $data['c'], 'user' => $data['u']);
-                    $filteredData[$index]['comments'][] = $temp;
-                }
-                if (count($data['i'])) {
-                    $filteredData[$index]['issue'] = $data['i']['name'];
-                }
-            } else {
-                if ($key != 0)
-                    $index++;
-                $unique[$pd] = 'set';
+                    WHERE LOWER(pc.status) like '%request to unhold%' and $conditions";
+            
+            $allData = $this->PackageCustomer->query($sql);
+            $filteredData = array();
+            $unique = array();
+            $index = 0;
+            /// pr($allData); exit;
+            foreach ($allData as $key => $data) {
+                //pr($data); exit;
+                $pd = $data['pc']['id'];
+                if (isset($unique[$pd])) {
+                    //  echo 'already exist'.$key.'<br/>';
+                    if (!empty($data['c']['content'])) {
+                        $temp = array('content' => $data['c'], 'user' => $data['u']);
+                        $filteredData[$index]['comments'][] = $temp;
+                    }
+                    if (count($data['i'])) {
+                        $filteredData[$index]['issue'] = $data['i']['name'];
+                    }
+                } else {
+                    if ($key != 0)
+                        $index++;
+                    $unique[$pd] = 'set';
 
-                $filteredData[$index]['customers'] = $data['pc'];
-                $filteredData[$index]['users'] = $data['u'];
+                    $filteredData[$index]['customers'] = $data['pc'];
+                    $filteredData[$index]['users'] = $data['u'];
 
-                $filteredData[$index]['package'] = array(
-                    'name' => 'No package dealings',
-                    'duration' => 'Not Applicable',
-                    'amount' => 'not Applicable'
-                );
-
-                if (!empty($data['ps']['id'])) {
                     $filteredData[$index]['package'] = array(
-                        'name' => $data['ps']['name'],
-                        'duration' => $data['ps']['duration'],
-                        'amount' => $data['ps']['amount']
+                        'name' => 'No package dealings',
+                        'duration' => 'Not Applicable',
+                        'amount' => 'not Applicable'
                     );
-                }
-                if (!empty($data['cp']['id'])) {
-                    $filteredData[$index]['package'] = array(
-                        'name' => $data['cp']['duration'] . ' months custom package',
-                        'duration' => $data['cp']['duration'],
-                        'amount' => $data['cp']['charge']
-                    );
-                }
-                $filteredData[$index]['comments'] = array();
-                if (!empty($data['c']['content'])) {
-                    $temp = array('content' => $data['c'], 'user' => $data['u']);
-                    $filteredData[$index]['comments'][] = $temp;
-                }
-                if (count($data['i'])) {
-                    $filteredData[$index]['issue'] = $data['i']['name'];
+
+                    if (!empty($data['ps']['id'])) {
+                        $filteredData[$index]['package'] = array(
+                            'name' => $data['ps']['name'],
+                            'duration' => $data['ps']['duration'],
+                            'amount' => $data['ps']['amount']
+                        );
+                    }
+                    if (!empty($data['cp']['id'])) {
+                        $filteredData[$index]['package'] = array(
+                            'name' => $data['cp']['duration'] . ' months custom package',
+                            'duration' => $data['cp']['duration'],
+                            'amount' => $data['cp']['charge']
+                        );
+                    }
+                    $filteredData[$index]['comments'] = array();
+                    if (!empty($data['c']['content'])) {
+                        $temp = array('content' => $data['c'], 'user' => $data['u']);
+                        $filteredData[$index]['comments'][] = $temp;
+                    }
+                    if (count($data['i'])) {
+                        $filteredData[$index]['issue'] = $data['i']['name'];
+                    }
                 }
             }
+            $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
+            $clicked = true;
+
+            $this->set(compact('filteredData', 'technician'));
         }
-        $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
-//        pr($technician); exit;
-        $this->set(compact('filteredData', 'technician'));
+        $this->set(compact('clicked'));
     }
 
     function unholdrequest() {
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
-        $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
+        $clicked = false;
+        if ($this->request->is('post') || $this->request->is('put')) {
+//            $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
+//                    left join comments c on pc.id = c.package_customer_id
+//                    left join users u on c.user_id = u.id
+//                    left join psettings ps on ps.id = pc.psetting_id
+//                    left join custom_packages cp on cp.id = pc.custom_package_id 
+//                     left join issues i on pc.issue_id = i.id
+//                    WHERE LOWER(pc.status) like '%request to unhold%'");
+            // echo $sql; exit;
+            $datrange = json_decode($this->request->data['PackageCustomer']['daterange'], true);
+            $start = explode('-', $datrange['start']);
+            $start = $start[1] . '/' . $start[2] . '/' . $start[0];
+            $end = explode('-', $datrange['end']);
+            $end = $end[1] . '/' . $end[2] . '/' . $end[0];
+            $conditions = 'pc.unhold_date >="' . $start . '" AND pc.unhold_date <="' . $end . '"';
+            $sql = "SELECT * FROM package_customers pc 
                     left join comments c on pc.id = c.package_customer_id
                     left join users u on c.user_id = u.id
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                      left join issues i on pc.issue_id = i.id
-                    WHERE LOWER(pc.status) like '%request to unhold%'");
-        // echo $sql; exit;
-        $filteredData = array();
-        $unique = array();
-        $index = 0;
+                    WHERE LOWER(pc.status) like '%request to unhold%' and $conditions";
+            $allData = $this->PackageCustomer->query($sql);
+            $filteredData = array();
+            $unique = array();
+            $index = 0;
 //        pr($allData); exit;
-        foreach ($allData as $key => $data) {
-            //pr($data); exit;
-            $pd = $data['pc']['id'];
-            if (isset($unique[$pd])) {
-                //  echo 'already exist'.$key.'<br/>';
-                if (!empty($data['c']['content'])) {
-                    //  $temp = $data['c'];// array('id' => $data['psettings']['id'], 'duration' => $data['psettings']['duration'], 'amount' => $data['psettings']['amount'], 'offer' => $data['psettings']['offer']);
-                    //pr($temp); exit;
+            foreach ($allData as $key => $data) {
+                //pr($data); exit;
+                $pd = $data['pc']['id'];
+                if (isset($unique[$pd])) {
+                    //  echo 'already exist'.$key.'<br/>';
+                    if (!empty($data['c']['content'])) {
+                        //  $temp = $data['c'];// array('id' => $data['psettings']['id'], 'duration' => $data['psettings']['duration'], 'amount' => $data['psettings']['amount'], 'offer' => $data['psettings']['offer']);
+                        //pr($temp); exit;
 
-                    $temp = array('content' => $data['c'], 'user' => $data['u']);
-                    $filteredData[$index]['comments'][] = $temp;
-                }
-                if (count($data['i'])) {
-                    $filteredData[$index]['issue'] = $data['i']['name'];
-                }
-            } else {
-                if ($key != 0)
-                    $index++;
-                $unique[$pd] = 'set';
+                        $temp = array('content' => $data['c'], 'user' => $data['u']);
+                        $filteredData[$index]['comments'][] = $temp;
+                    }
+                    if (count($data['i'])) {
+                        $filteredData[$index]['issue'] = $data['i']['name'];
+                    }
+                } else {
+                    if ($key != 0)
+                        $index++;
+                    $unique[$pd] = 'set';
 
-                $filteredData[$index]['customers'] = $data['pc'];
-                $filteredData[$index]['users'] = $data['u'];
+                    $filteredData[$index]['customers'] = $data['pc'];
+                    $filteredData[$index]['users'] = $data['u'];
 
-                $filteredData[$index]['package'] = array(
-                    'name' => 'No package dealings',
-                    'duration' => 'Not Applicable',
-                    'amount' => 'not Applicable'
-                );
-
-                if (!empty($data['ps']['id'])) {
                     $filteredData[$index]['package'] = array(
-                        'name' => $data['ps']['name'],
-                        'duration' => $data['ps']['duration'],
-                        'amount' => $data['ps']['amount']
+                        'name' => 'No package dealings',
+                        'duration' => 'Not Applicable',
+                        'amount' => 'not Applicable'
                     );
-                }
-                if (!empty($data['cp']['id'])) {
-                    $filteredData[$index]['package'] = array(
-                        'name' => $data['cp']['duration'] . ' months custom package',
-                        'duration' => $data['cp']['duration'],
-                        'amount' => $data['cp']['charge']
-                    );
-                }
-                $filteredData[$index]['comments'] = array();
-                if (!empty($data['c']['content'])) {
-                    $temp = array('content' => $data['c'], 'user' => $data['u']);
-                    $filteredData[$index]['comments'][] = $temp;
-                }
-                if (count($data['i'])) {
-                    $filteredData[$index]['issue'] = $data['i']['name'];
+
+                    if (!empty($data['ps']['id'])) {
+                        $filteredData[$index]['package'] = array(
+                            'name' => $data['ps']['name'],
+                            'duration' => $data['ps']['duration'],
+                            'amount' => $data['ps']['amount']
+                        );
+                    }
+                    if (!empty($data['cp']['id'])) {
+                        $filteredData[$index]['package'] = array(
+                            'name' => $data['cp']['duration'] . ' months custom package',
+                            'duration' => $data['cp']['duration'],
+                            'amount' => $data['cp']['charge']
+                        );
+                    }
+                    $filteredData[$index]['comments'] = array();
+                    if (!empty($data['c']['content'])) {
+                        $temp = array('content' => $data['c'], 'user' => $data['u']);
+                        $filteredData[$index]['comments'][] = $temp;
+                    }
+                    if (count($data['i'])) {
+                        $filteredData[$index]['issue'] = $data['i']['name'];
+                    }
                 }
             }
+            $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
+            $clicked = true;
+            $this->set(compact('filteredData', 'technician'));
         }
-        $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
-//        pr($technician); exit;
-        $this->set(compact('filteredData', 'technician'));
+        $this->set(compact('clicked'));
     }
 
     function reconnectionRequest() {
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
-        $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
+        $clicked = false;
+        if ($this->request->is('post') || $this->request->is('put')) {
+//            $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
+//                    left join comments c on pc.id = c.package_customer_id
+//                    left join users u on c.user_id = u.id
+//                    left join psettings ps on ps.id = pc.psetting_id
+//                    left join custom_packages cp on cp.id = pc.custom_package_id 
+//                     left join issues i on pc.issue_id = i.id
+//                    WHERE LOWER(pc.status) like '%Request to reconnection%'");
+            // echo $sql; exit;
+            $datrange = json_decode($this->request->data['PackageCustomer']['daterange'], true);
+            $start = explode('-', $datrange['start']);
+            $start = $start[1] . '/' . $start[2] . '/' . $start[0];
+            $end = explode('-', $datrange['end']);
+            $end = $end[1] . '/' . $end[2] . '/' . $end[0];
+            $conditions = 'pc.reconnect_date >="' . $start . '" AND pc.reconnect_date <="' . $end . '"';
+            $sql = "SELECT * FROM package_customers pc 
                     left join comments c on pc.id = c.package_customer_id
                     left join users u on c.user_id = u.id
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                      left join issues i on pc.issue_id = i.id
-                    WHERE LOWER(pc.status) like '%Request to reconnection%'");
-        // echo $sql; exit;
-        $filteredData = array();
-        $unique = array();
-        $index = 0;
+                    WHERE LOWER(pc.status) like '%request to reconnection%' and $conditions";
+            $allData = $this->PackageCustomer->query($sql);
+            $filteredData = array();
+            $unique = array();
+            $index = 0;
 //        pr($allData); exit;
-        foreach ($allData as $key => $data) {
-            //pr($data); exit;
-            $pd = $data['pc']['id'];
-            if (isset($unique[$pd])) {
-                //  echo 'already exist'.$key.'<br/>';
-                if (!empty($data['c']['content'])) {
-                    //  $temp = $data['c'];// array('id' => $data['psettings']['id'], 'duration' => $data['psettings']['duration'], 'amount' => $data['psettings']['amount'], 'offer' => $data['psettings']['offer']);
-                    //pr($temp); exit;
+            foreach ($allData as $key => $data) {
+                //pr($data); exit;
+                $pd = $data['pc']['id'];
+                if (isset($unique[$pd])) {
+                    //  echo 'already exist'.$key.'<br/>';
+                    if (!empty($data['c']['content'])) {
+                        //  $temp = $data['c'];// array('id' => $data['psettings']['id'], 'duration' => $data['psettings']['duration'], 'amount' => $data['psettings']['amount'], 'offer' => $data['psettings']['offer']);
+                        //pr($temp); exit;
 
-                    $temp = array('content' => $data['c'], 'user' => $data['u']);
-                    $filteredData[$index]['comments'][] = $temp;
-                }
-                if (count($data['i'])) {
-                    $filteredData[$index]['issue'] = $data['i']['name'];
-                }
-            } else {
-                if ($key != 0)
-                    $index++;
-                $unique[$pd] = 'set';
+                        $temp = array('content' => $data['c'], 'user' => $data['u']);
+                        $filteredData[$index]['comments'][] = $temp;
+                    }
+                    if (count($data['i'])) {
+                        $filteredData[$index]['issue'] = $data['i']['name'];
+                    }
+                } else {
+                    if ($key != 0)
+                        $index++;
+                    $unique[$pd] = 'set';
 
-                $filteredData[$index]['customers'] = $data['pc'];
-                $filteredData[$index]['users'] = $data['u'];
+                    $filteredData[$index]['customers'] = $data['pc'];
+                    $filteredData[$index]['users'] = $data['u'];
 
-                $filteredData[$index]['package'] = array(
-                    'name' => 'No package dealings',
-                    'duration' => 'Not Applicable',
-                    'amount' => 'not Applicable'
-                );
-
-                if (!empty($data['ps']['id'])) {
                     $filteredData[$index]['package'] = array(
-                        'name' => $data['ps']['name'],
-                        'duration' => $data['ps']['duration'],
-                        'amount' => $data['ps']['amount']
+                        'name' => 'No package dealings',
+                        'duration' => 'Not Applicable',
+                        'amount' => 'not Applicable'
                     );
-                }
-                if (!empty($data['cp']['id'])) {
-                    $filteredData[$index]['package'] = array(
-                        'name' => $data['cp']['duration'] . ' months custom package',
-                        'duration' => $data['cp']['duration'],
-                        'amount' => $data['cp']['charge']
-                    );
-                }
-                $filteredData[$index]['comments'] = array();
-                if (!empty($data['c']['content'])) {
-                    $temp = array('content' => $data['c'], 'user' => $data['u']);
-                    $filteredData[$index]['comments'][] = $temp;
-                }
-                if (count($data['i'])) {
-                    $filteredData[$index]['issue'] = $data['i']['name'];
+
+                    if (!empty($data['ps']['id'])) {
+                        $filteredData[$index]['package'] = array(
+                            'name' => $data['ps']['name'],
+                            'duration' => $data['ps']['duration'],
+                            'amount' => $data['ps']['amount']
+                        );
+                    }
+                    if (!empty($data['cp']['id'])) {
+                        $filteredData[$index]['package'] = array(
+                            'name' => $data['cp']['duration'] . ' months custom package',
+                            'duration' => $data['cp']['duration'],
+                            'amount' => $data['cp']['charge']
+                        );
+                    }
+                    $filteredData[$index]['comments'] = array();
+                    if (!empty($data['c']['content'])) {
+                        $temp = array('content' => $data['c'], 'user' => $data['u']);
+                        $filteredData[$index]['comments'][] = $temp;
+                    }
+                    if (count($data['i'])) {
+                        $filteredData[$index]['issue'] = $data['i']['name'];
+                    }
                 }
             }
+            $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
+            $clicked = true;
+            $this->set(compact('filteredData', 'technician'));
         }
-        $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
-//        pr($technician); exit;
-        $this->set(compact('filteredData', 'technician'));
+        $this->set(compact('clicked'));
     }
 
     function wire_problem() {

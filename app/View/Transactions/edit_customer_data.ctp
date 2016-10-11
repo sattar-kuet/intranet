@@ -71,6 +71,7 @@
                                         ?>
                                     </div>
                                 </div>
+
                                 &nbsp;
                                 &nbsp;
                                 <div class="row margin-top-20">
@@ -2088,7 +2089,8 @@
                                                     echo $this->Form->input(
                                                             'price', array(
                                                         'type' => 'text',
-                                                        'class' => 'form-control ',
+                                                        'id' => 'priceAmount',
+                                                        'class' => 'form-control'
                                                     ));
                                                     ?>
                                                 </div>
@@ -2100,7 +2102,7 @@
                                                     echo $this->Form->input(
                                                             'discount', array(
                                                         'type' => 'text',
-                                                        'class' => 'form-control',
+                                                        'class' => 'form-control minusAmount',
                                                     ));
                                                     ?>
                                                 </div>
@@ -2112,7 +2114,7 @@
                                                     echo $this->Form->input(
                                                             'promotion', array(
                                                         'type' => 'text',
-                                                        'class' => 'form-control',
+                                                        'class' => 'form-control minusAmount',
                                                     ));
                                                     ?>
                                                 </div>
@@ -2124,7 +2126,7 @@
                                                     echo $this->Form->input(
                                                             'credit', array(
                                                         'type' => 'text',
-                                                        'class' => 'form-control',
+                                                        'class' => 'form-control minusAmount',
                                                     ));
                                                     ?>
                                                 </div>
@@ -2139,7 +2141,7 @@
                                                     echo $this->Form->input(
                                                             'adjustment', array(
                                                         'type' => 'text',
-                                                        'class' => 'form-control ',
+                                                        'class' => 'form-control minusAmount',
                                                     ));
                                                     ?>
                                                 </div>
@@ -2167,10 +2169,25 @@
                                                     ));
                                                     ?>
                                                 </div>
-<!--                                                <label class="control-label col-md-1">Payment amount:<span class="">
+
+                                                <label class="control-label col-md-1">Net Payment:<span class="">
                                                     </span>
-                                                </label>
+                                                </label> 
+
                                                 <div class="col-md-2">
+                                                    <?php
+                                                    echo $this->Form->input(
+                                                            'net_price', array(
+                                                        'type' => 'text',
+                                                        'class' => 'form-control',
+                                                        'id' => 'netPrice'
+                                                    ));
+                                                    ?>
+                                                </div>
+                <!--                                                <label class="control-label col-md-1">Payment amount:<span class="">
+                                                                    </span>
+                                                                </label>
+                                                                <div class="col-md-2">
                                                 <?php
 //                                                    echo $this->Form->input(
 //                                                            'payable_amount', array(
@@ -2179,7 +2196,7 @@
 //                                                    ));
 //                                                    
                                                 ?>
-                                                </div>-->
+                                                                </div>-->
                                             </div>
                                         </div>
 

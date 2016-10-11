@@ -16,7 +16,7 @@ $(document).ready(function () {
             addressdetails += ' ' + $("#apartment").val();
 //            addressdetails += ' ' + $("#city").val();
 //            addressdetails += ' ' + $("#state").val();
-           
+
             var state = $("#state").val();
             var cvvcode = $("#cvvcode").val();
             var phone = $("#PackageCustomerCell").val();
@@ -128,5 +128,21 @@ $(document).ready(function () {
         }
     });
     //    auto recurring end
+
+    //    Net price calculation strat
+
+    $('#priceAmount').on('change', function () {
+        var price = $('#priceAmount').val();
+        $('#netPrice').val(price);
+    });
+
+    $('.minusAmount').on('change', function () {
+        var net = $('#netPrice').val() - $(this).val();
+        $('#netPrice').val(net);
+    });
+
+    //    Net price calculation end
+
+
 
 });
