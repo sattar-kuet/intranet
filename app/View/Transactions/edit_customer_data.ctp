@@ -2588,7 +2588,7 @@
                                                                     </ul>
                                                                 <?php endif;
                                                                 ?>
-                                                                <li>Transaction No : <?php echo $single['tr']['id']; ?></li> 
+                                                                <li>Transaction No : <?php echo $single['tr']['trx_id']; ?></li> 
                                                                 <li>Card No : <?php echo substr($single['tr']['card_no'], 0, 4); ?></li>  
                                                                 <li>Zip Code : <?php echo $single['tr']['zip_code']; ?></li>  
                                                                 <li>CVV Code : <?php echo $single['tr']['cvv_code']; ?></li> 
