@@ -2588,7 +2588,7 @@
                                                                     </ul>
                                                                 <?php endif;
                                                                 ?>
-                                                                <li>Transaction No : <?php echo $single['tr']['id']; ?></li> 
+                                                                <li>Transaction No : <?php echo $single['tr']['trx_id']; ?></li> 
                                                                 <li>Card No : <?php echo substr($single['tr']['card_no'], 0, 4); ?></li>  
                                                                 <li>Zip Code : <?php echo $single['tr']['zip_code']; ?></li>  
                                                                 <li>CVV Code : <?php echo $single['tr']['cvv_code']; ?></li> 
@@ -3202,7 +3202,7 @@
                     )
             );
             ?>
-            <button class="btn red-sunglo" onclick="if (confirm( & quot; Are you sure to Delete this Customer? & quot; )) {
+            <button class="btn red-sunglo" onclick="if (confirm('Are you sure to Delete this Customer?')) {
                         return true;
                     }
                     return false;" type="submit" style="background-color: red;">Delete customer</button>     
