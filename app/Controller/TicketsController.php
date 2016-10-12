@@ -511,7 +511,6 @@ class TicketsController extends AppController {
     function forward() {
         $this->loadModel('Track');
         $loggedUser = $this->Auth->user();
-
         $this->request->data['Track']['forwarded_by'] = $loggedUser['id'];
         if (empty($this->request->data['Track']['user_id']) && empty($this->request->data['Track']['role_id'])) {
             $msg = '<div class="alert alert-error">
@@ -521,6 +520,7 @@ class TicketsController extends AppController {
             $this->Session->setFlash($msg);
             return $this->redirect($this->referer());
         }
+        //pr($this->request->data); exit;
         $this->Track->save($this->request->data['Track']);
         $msg = '<div class="alert alert-success">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
