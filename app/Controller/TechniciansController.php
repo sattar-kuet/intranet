@@ -327,11 +327,11 @@ class TechniciansController extends AppController {
                     left join installations ins on ins.package_customer_id = pc.id 
                     WHERE ins.user_id = " . $loggedUser['id'] . " and pc.status = 'scheduled' "
                 . " ORDER BY ins.id");
-        // echo $sql; exit;
+//         echo $sql; exit;
         $filteredData = array();
         $unique = array();
         $index = 0;
-//        pr($allData); exit;
+       // pr($allData); exit;
         foreach ($allData as $key => $data) {
 //            pr($data); exit;
             $pd = $data['pc']['id'];
@@ -532,6 +532,7 @@ class TechniciansController extends AppController {
 
         $this->Installation->id = $this->request->data['PackageCustomer']['id'];
         $this->request->data['Installation']['status'] = 'done by tech';
+//        pr($this->request->data); exit;
         $this->Installation->save($this->request->data);
 
         $loggedUser = $this->Auth->user();
