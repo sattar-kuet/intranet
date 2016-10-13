@@ -56,7 +56,7 @@
                                     <?php
                                     echo $this->Form->input(
                                             'daterange', array(
-                                        'id' => 'e1', /* e1 is past to current date, e2 is past to future date */
+                                        'id' => 'e2', /* e1 is past to current date, e2 is past to future date */
                                         'class' => 'span9 text'
                                             )
                                     );
@@ -161,41 +161,41 @@
                                             <th class="hidden-480">
                                                 Exp Date
                                             </th>
-                                            <th class="hidden-480">
-                                                Registration Date
-                                            </th>
+                                          
 
                                         </tr>
                                     </thead>
                                     <tbody>                                    
                                         <?php
-                                        foreach ($transactions as $info):
-                                          //  pr($info); exit;
+                                        foreach ($customers as $info):
+                                             $customer_address = $info['PackageCustomer']['house_no'] . ' ' . $info['PackageCustomer']['street'] . ' ' .
+                                                        $info['PackageCustomer']['apartment'] . ' ' . $info['PackageCustomer']['city'] . ' ' . $info['PackageCustomer']['state'] . ' '
+                                                        . $info['PackageCustomer']['zip'];
+                                           // pr($info); exit;
                                             ?>
                                             <tr>
                                                 <td><?php echo $info['PackageCustomer']['c_acc_no']; ?></td>
                                                 <td> <a href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit_customer_data', $info['PackageCustomer']['id'])) ?>" target="_blank"><?php echo $info['PackageCustomer']['middle_name'] . " " . $info['PackageCustomer']['last_name']; ?></a> </td>
-                                                <td><?php echo $info['Transaction']['address']; ?></td>
+                                                <td><?php echo $customer_address; ?></td>
                                                 <td><?php echo $info['PackageCustomer']['mac']; ?></td>
                                                 <td><?php echo $info['PackageCustomer']['cell']; ?></td>
                                                 <td>
                                                     <?php
                                                     if ($info['PackageCustomer']['custom_package_id'] == null ) {
-                                                        if(count($info['PackageCustomer']['Psetting']) ==0){
+                                                        if(count($info['Psetting']) ==0){
                                                             echo 'No package was selected with this customer';
                                                         }
                                                         else{
-                                                            echo $info['PackageCustomer']['Psetting']['name'];
+                                                            echo $info['Psetting']['name'];
                                                         }
                                                         
                                                     } else {
-                                                        echo $info['PackageCustomer']['CustomPackage']['duration'] . ' Months, Custom package ' . $info['PackageCustomer']['CustomPackage']['charge'] . '$';
+                                                        echo $info['CustomPackage']['duration'] . ' Months, Custom package ' . $info['CustomPackage']['charge'] . '$';
                                                     }
                                                     ?>
                                                 </td>
-                                                <td><?php echo $info['Transaction']['due']; ?></td>
-                                                <td><?php echo date_format( new DateTime($info['Transaction']['exp_date']) , 'm-d-Y' );  ?></td>
-                                                <td><?php echo date_format( new DateTime($info['PackageCustomer']['created']) , 'm-d-Y' );?></td>                                                 
+                                                <td>$<?php echo $info['PackageCustomer']['payable_amount']; ?></td>
+                                                <td><?php echo date_format( new DateTime($info['PackageCustomer']['package_exp_date']) , 'm-d-Y' );  ?></td>
                                             </tr>
                                         <?php endforeach; ?>                           
                                     </tbody>

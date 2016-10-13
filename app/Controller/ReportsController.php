@@ -347,21 +347,23 @@ class ReportsController extends AppController {
     }
 
     function expcustomers() {
-        $this->loadModel('Transaction');
+        $this->loadModel('PackageCustomer');
         $clicked = false;
         if ($this->request->is('post') || $this->request->is('put')) {
             $datrange = json_decode($this->request->data['Transaction']['daterange'], true);
-            $ds = new DateTime($datrange['start']);
-            $timestamp = $ds->getTimestamp(); // Unix timestamp
-            $startd = $ds->format('m/y'); // 2003-10-16
-            $de = new DateTime($datrange['end']);
-            $timestamp = $de->getTimestamp(); // Unix timestamp
-            $endd = $de->format('m/y'); // 2003-10-16
-            $conditions = array('Transaction.exp_date >=' => $startd, 'Transaction.exp_date <=' => $endd);
+//            pr($this->request->data); exit;
+//            $ds = new DateTime($datrange['start']);
+//            $timestamp = $ds->getTimestamp(); // Unix timestamp
+//            $startd = $ds->format('m/y'); // 2003-10-16
+//            $de = new DateTime($datrange['end']);
+//            $timestamp = $de->getTimestamp(); // Unix timestamp
+//            $endd = $de->format('m/y'); // 2003-10-16
+            $conditions = array('PackageCustomer.package_exp_date >=' => $datrange['start'], 'PackageCustomer.package_exp_date <=' => $datrange['end']);
 //            pr($conditions); exit;
-            $transactions = $this->Transaction->find('all', array('conditions' => $conditions));
+            $customers = $this->PackageCustomer->find('all', array('conditions' => $conditions));
             $clicked = true;
-            $this->set(compact('transactions'));
+          
+            $this->set(compact('customers'));
         }
         $this->set(compact('clicked'));
     }

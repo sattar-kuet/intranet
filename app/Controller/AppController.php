@@ -343,5 +343,16 @@ class AppController extends Controller {
         $return['roles'] = $roles;
         return $return;
     }
+    
+      function random_string($length) {
+            $key = '';
+            $keys = array_merge(range(0, 9));
+
+            for ($i = 0; $i < $length; $i++) {
+                $key .= $keys[array_rand($keys)];
+            }
+
+            return $key;
+        }
 
 }
