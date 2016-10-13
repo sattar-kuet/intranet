@@ -368,15 +368,12 @@ class ReportsController extends AppController {
     }
 
     function newcustomers() {
-        $this->loadModel('Transaction');
+        $this->loadModel('PackageCustomer');
         $clicked = false;
         if ($this->request->is('post') || $this->request->is('put')) {
-            $datrange = json_decode($this->request->data['Transaction']['daterange'], true);
-            $conditions = array('Transaction.created >=' => $datrange['start'], 'Transaction.created <=' => $datrange['end']);
-
-            $transactions = $this->Transaction->find('all', array('conditions' => $conditions));
-// pr($transactions);
-//            exit;
+            $datrange = json_decode($this->request->data['PackageCustomer']['daterange'], true);
+            $conditions = array('PackageCustomer.created >=' => $datrange['start'], 'PackageCustomer.created <=' => $datrange['end']);
+            $transactions = $this->PackageCustomer->find('all', array('conditions' => $conditions));
             $clicked = true;
             $this->set(compact('transactions'));
         }

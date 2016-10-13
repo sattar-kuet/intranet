@@ -2568,9 +2568,9 @@
                                             ?>
                                             <tr class="odd gradeX">
                                                 <td>                                                    
-                                                    <?php echo $single['tr']['invoice']; ?><br>
-                                                    <?php echo $single['pc']['stbs']; ?><br>
-                                                    <?php echo $single['tr']['price']; ?>  
+                                                  Invoice No:  <?php echo $single['tr']['invoice']; ?><br>
+                                                  STB Quantity:  <?php echo $single['pc']['stbs']; ?><br>
+                                                  Price:  <?php echo $single['tr']['price']; ?>  
                                                 </td>
                                                 <td>
                                                     <?php
@@ -2613,7 +2613,7 @@
                                                 <?php endif; ?>
                                             <?php endif; ?> 
                                         <?php } ?>
-                                        Date: <?php echo $single['tr']['created']; ?>
+                                       Payment Date: <?php echo $single['tr']['created']; ?>
                                         </td>
                                         <td><?php echo $amount; ?></td>
 
