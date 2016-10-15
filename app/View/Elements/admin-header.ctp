@@ -67,10 +67,13 @@ echo $this->Html->css(
                             <i class="fa fa-angle-down"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-default">
-
                             <li>
                                 <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'logout')) ?>">
                                     <i class="icon-key"></i> Log Out </a>
+                            </li>
+                            <li>
+                                <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'changePassword')) ?>">
+                                    <i class="icon-pencil"></i> Change Password</a>
                             </li>
                         </ul>
                     </li>
