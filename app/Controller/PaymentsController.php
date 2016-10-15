@@ -63,12 +63,14 @@ class PaymentsController extends AppController {
         $return['file_dst_name'] = $upload->file_dst_name;
         return $return;
     }
+   public function process(){
+        
+    }
 
     public function individual_transaction_by_card() {
         $this->loadModel('Transaction');
         $loggedUser = $this->Auth->user();
         $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
-        
         if (array_key_exists('updateCard', $this->request->data)) {
             $this->request->data['Transaction']['status'] = 'update';
             $this->request->data['Transaction']['paid_amount'] = 0;
