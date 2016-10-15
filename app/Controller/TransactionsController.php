@@ -307,9 +307,14 @@ class TransactionsController extends AppController {
             FROM  `transactions` tr
             INNER JOIN package_customers pc ON pc.id = tr.`package_customer_id` 
             WHERE package_customer_id = $pcid order by tr.id ASC;");
+        $customers = $this->Transaction->query("SELECT *  FROM transactions 
+left join package_customers on transactions.package_customer_id = package_customers.id
+left join psettings on package_customers.psetting_id = psettings.id
+left join packages on psettings.package_id = packages.id
+left join custom_packages on package_customers.custom_package_id = custom_packages.id
+WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open' order by transactions.id DESC;");
 
-//         pr($transactions[0]['paid_amount']); exit;
-        $this->set(compact('packageList', 'psettings', 'selected', 'ym', 'custom_package_charge', 'latestcardInfo', 'cardInfo', 'transactions_data', 'transactions_all'));
+        $this->set(compact('customers', 'packageList', 'psettings', 'selected', 'ym', 'custom_package_charge', 'latestcardInfo', 'cardInfo', 'transactions_data', 'transactions_all'));
     }
 
     function updatecardinfo() {
@@ -342,8 +347,6 @@ class TransactionsController extends AppController {
         return $this->redirect(array('controller' => 'reports', 'action' => 'extraPayment'));
         //return $this->redirect($this->referer());
     }
-    
-    
 
 }
 

@@ -98,233 +98,368 @@
                     </div>
                     <!-------------------------------------END exp date UPDATE---------------------->
                     <!--Invoice start-->
-                    <div class="portlet box lightseagreen" style=" background-color: #000; border: #000 solid 2px;">
-                        <div class="portlet-title">
-                            <div class="caption">
-                                <i class="fa fa-list-ul"></i>Open Invoice 
-                            </div>
-
-                            <div class="tools">
-                                <a  class="reload toggle"data-id="updatepayinfo">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="portlet-body">
-                            <div class="row " id="updatepayinfo"> 
-                                <div class="col-md-12">
-                                    <?php
-                                    echo $this->Form->create('Transaction', array(
-                                        'inputDefaults' => array(
-                                            'label' => false,
-                                            'div' => false
-                                        ),
-                                        'class' => 'form-horizontal',
-                                        'novalidate' => 'novalidate',
-                                        'url' => array('controller' => 'transactions', 'action' => 'extrainvoice')
-                                            )
-                                    );
-                                    ?>
-
-                                    <?php
-                                    // pr($this->params['pass'][0]); exit;
-                                    echo $this->Form->input('package_customer_id', array(
-                                        'type' => 'hidden',
-                                        'value' => $this->params['pass'][0],
-                                            )
-                                    );
-                                    ?>
-                                    <?php
-                                    // pr($this->params['pass'][0]); exit;
-                                    echo $this->Form->input('status', array(
-                                        'type' => 'hidden',
-                                        'value' => 'unpaid',
-                                            )
-                                    );
-                                    ?>
-                                    <?php
-                                    echo $this->Form->input('type', array(
-                                        'type' => 'hidden',
-                                        'value' => 'extra',
-                                            )
-                                    );
-                                    ?>
-
-                                    <div class="form-body">
-                                        <div class="col-md-12">
-
-                                            <div class="form-group">
-                                                <label class="control-label col-md-1">Description:<span class="">
-                                                    </span>
-                                                </label>
-                                                <div class="col-md-2">
-                                                    <?php
-                                                    echo $this->Form->input(
-                                                            'description_tran1', array(
-                                                        'type' => 'text',
-                                                        'class' => 'form-control ',
-                                                    ));
-                                                    ?>
+                    <!--                    <div class="portlet box lightseagreen" style=" background-color: #000; border: #000 solid 2px;">
+                                            <div class="portlet-title">
+                                                <div class="caption">
+                                                    <i class="fa fa-list-ul"></i>Open Invoice 
                                                 </div>
-                                                <label class="control-label col-md-1">Product: <span class="">
-                                                    </span>
-                                                </label>
-                                                <div class="col-md-2">
-                                                    <?php
-                                                    echo $this->Form->input(
-                                                            'product_type', array(
-                                                        'type' => 'text',
-                                                        'class' => 'form-control',
-                                                    ));
-                                                    ?>
+                    
+                                                <div class="tools">
+                                                    <a  class="reload toggle"data-id="updatepayinfo">
+                                                    </a>
                                                 </div>
-                                                <label class="control-label col-md-1">Quantity:<span class="">
-                                                    </span>
-                                                </label>
-                                                <div class="col-md-2">
-                                                    <?php
-                                                    echo $this->Form->input(
-                                                            'quantity', array(
-                                                        'type' => 'text',
-                                                        'class' => 'form-control',
-                                                    ));
-                                                    ?>
-                                                </div>
-                                                <label class="control-label col-md-1">Rate:<span class="">
-                                                    </span>
-                                                </label>
-                                                <div class="col-md-2">
-                                                    <?php
-                                                    echo $this->Form->input(
-                                                            'rate', array(
-                                                        'type' => 'text',
-                                                        'class' => 'form-control',
-                                                    ));
-                                                    ?>
-                                                </div>
-
                                             </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-1">Price:<span class="">
-                                                    </span>
-                                                </label>
-                                                <div class="col-md-2">
-                                                    <?php
-                                                    echo $this->Form->input(
-                                                            'price', array(
-                                                        'type' => 'text',
-                                                        'class' => 'form-control ',
-                                                    ));
-                                                    ?>
-                                                </div>
-                                                <label class="control-label col-md-1">Discount:<span class="">
-                                                    </span>
-                                                </label>
-                                                <div class="col-md-2">
-                                                    <?php
-                                                    echo $this->Form->input(
-                                                            'discount', array(
-                                                        'type' => 'text',
-                                                        'class' => 'form-control',
-                                                    ));
-                                                    ?>
-                                                </div>
-                                                <label class="control-label col-md-1">Promotion:<span class="">
-                                                    </span>
-                                                </label>
-                                                <div class="col-md-2">
-                                                    <?php
-                                                    echo $this->Form->input(
-                                                            'promotion', array(
-                                                        'type' => 'text',
-                                                        'class' => 'form-control',
-                                                    ));
-                                                    ?>
-                                                </div>
-                                                <label class="control-label col-md-1">Credit:<span class="">
-                                                    </span>
-                                                </label>
-                                                <div class="col-md-2">
-                                                    <?php
-                                                    echo $this->Form->input(
-                                                            'credit', array(
-                                                        'type' => 'text',
-                                                        'class' => 'form-control',
-                                                    ));
-                                                    ?>
-                                                </div>
-
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-1">Adjustment: <span class="">
-                                                    </span>
-                                                </label>
-                                                <div class="col-md-2">
-                                                    <?php
-                                                    echo $this->Form->input(
-                                                            'adjustment', array(
-                                                        'type' => 'text',
-                                                        'class' => 'form-control ',
-                                                    ));
-                                                    ?>
-                                                </div>
-                                                <label class="control-label col-md-1">Note:<span class="">
-                                                    </span>
-                                                </label>
-                                                <div class="col-md-2">
-                                                    <?php
-                                                    echo $this->Form->input(
-                                                            'note', array(
-                                                        'type' => 'text',
-                                                        'class' => 'form-control',
-                                                    ));
-                                                    ?>
-                                                </div>
-                                                <label class="control-label col-md-1">Payment date: <span class="">
-                                                    </span>
-                                                </label>
-                                                <div class="col-md-2">
-                                                    <?php
-                                                    echo $this->Form->input(
-                                                            'next_payment', array(
-                                                        'type' => 'text',
-                                                        'class' => 'datepicker form-control ',
-                                                    ));
-                                                    ?>
-                                                </div>
-<!--                                                <label class="control-label col-md-1">Payment amount:<span class="">
-                                                    </span>
-                                                </label>
-                                                <div class="col-md-2">
-                                                <?php
+                                            
+                                            
+                                            <div class="portlet-body">
+                                                <div class="row " id="updatepayinfo"> 
+                                                    <div class="col-md-12">
+                    <?php
+                    echo $this->Form->create('Transaction', array(
+                        'inputDefaults' => array(
+                            'label' => false,
+                            'div' => false
+                        ),
+                        'class' => 'form-horizontal',
+                        'novalidate' => 'novalidate',
+                        'url' => array('controller' => 'transactions', 'action' => 'extrainvoice')
+                            )
+                    );
+                    ?>
+                    
+                    <?php
+                    // pr($this->params['pass'][0]); exit;
+                    echo $this->Form->input('package_customer_id', array(
+                        'type' => 'hidden',
+                        'value' => $this->params['pass'][0],
+                            )
+                    );
+                    ?>
+                    <?php
+                    // pr($this->params['pass'][0]); exit;
+                    echo $this->Form->input('status', array(
+                        'type' => 'hidden',
+                        'value' => 'unpaid',
+                            )
+                    );
+                    ?>
+                    <?php
+                    echo $this->Form->input('type', array(
+                        'type' => 'hidden',
+                        'value' => 'extra',
+                            )
+                    );
+                    ?>
+                    
+                                                        <div class="form-body">
+                                                            <div class="col-md-12">
+                    
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-1">Description:<span class="">
+                                                                        </span>
+                                                                    </label>
+                                                                    <div class="col-md-2">
+                    <?php
+                    echo $this->Form->input(
+                            'description_tran1', array(
+                        'type' => 'text',
+                        'class' => 'form-control ',
+                    ));
+                    ?>
+                                                                    </div>
+                                                                    <label class="control-label col-md-1">Product: <span class="">
+                                                                        </span>
+                                                                    </label>
+                                                                    <div class="col-md-2">
+                    <?php
+                    echo $this->Form->input(
+                            'product_type', array(
+                        'type' => 'text',
+                        'class' => 'form-control',
+                    ));
+                    ?>
+                                                                    </div>
+                                                                    <label class="control-label col-md-1">Quantity:<span class="">
+                                                                        </span>
+                                                                    </label>
+                                                                    <div class="col-md-2">
+                    <?php
+                    echo $this->Form->input(
+                            'quantity', array(
+                        'type' => 'text',
+                        'class' => 'form-control',
+                    ));
+                    ?>
+                                                                    </div>
+                                                                    <label class="control-label col-md-1">Rate:<span class="">
+                                                                        </span>
+                                                                    </label>
+                                                                    <div class="col-md-2">
+                    <?php
+                    echo $this->Form->input(
+                            'rate', array(
+                        'type' => 'text',
+                        'class' => 'form-control',
+                    ));
+                    ?>
+                                                                    </div>
+                    
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-1">Price:<span class="">
+                                                                        </span>
+                                                                    </label>
+                                                                    <div class="col-md-2">
+                    <?php
+                    echo $this->Form->input(
+                            'price', array(
+                        'type' => 'text',
+                        'class' => 'form-control ',
+                    ));
+                    ?>
+                                                                    </div>
+                                                                    <label class="control-label col-md-1">Discount:<span class="">
+                                                                        </span>
+                                                                    </label>
+                                                                    <div class="col-md-2">
+                    <?php
+                    echo $this->Form->input(
+                            'discount', array(
+                        'type' => 'text',
+                        'class' => 'form-control',
+                    ));
+                    ?>
+                                                                    </div>
+                                                                    <label class="control-label col-md-1">Promotion:<span class="">
+                                                                        </span>
+                                                                    </label>
+                                                                    <div class="col-md-2">
+                    <?php
+                    echo $this->Form->input(
+                            'promotion', array(
+                        'type' => 'text',
+                        'class' => 'form-control',
+                    ));
+                    ?>
+                                                                    </div>
+                                                                    <label class="control-label col-md-1">Credit:<span class="">
+                                                                        </span>
+                                                                    </label>
+                                                                    <div class="col-md-2">
+                    <?php
+                    echo $this->Form->input(
+                            'credit', array(
+                        'type' => 'text',
+                        'class' => 'form-control',
+                    ));
+                    ?>
+                                                                    </div>
+                    
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-1">Adjustment: <span class="">
+                                                                        </span>
+                                                                    </label>
+                                                                    <div class="col-md-2">
+                    <?php
+                    echo $this->Form->input(
+                            'adjustment', array(
+                        'type' => 'text',
+                        'class' => 'form-control ',
+                    ));
+                    ?>
+                                                                    </div>
+                                                                    <label class="control-label col-md-1">Note:<span class="">
+                                                                        </span>
+                                                                    </label>
+                                                                    <div class="col-md-2">
+                    <?php
+                    echo $this->Form->input(
+                            'note', array(
+                        'type' => 'text',
+                        'class' => 'form-control',
+                    ));
+                    ?>
+                                                                    </div>
+                                                                    <label class="control-label col-md-1">Payment date: <span class="">
+                                                                        </span>
+                                                                    </label>
+                                                                    <div class="col-md-2">
+                    <?php
+                    echo $this->Form->input(
+                            'next_payment', array(
+                        'type' => 'text',
+                        'class' => 'datepicker form-control ',
+                    ));
+                    ?>
+                                                                    </div>
+                                                                    <label class="control-label col-md-1">Payment amount:<span class="">
+                                                                        </span>
+                                                                    </label>
+                                                                    <div class="col-md-2">
+                    <?php
 //                                                    echo $this->Form->input(
 //                                                            'payable_amount', array(
 //                                                        'type' => 'text',
 //                                                        'class' => 'form-control',
 //                                                    ));
 //                                                    
-                                                ?>
-                                                </div>-->
-                                            </div>
-                                        </div>
-
-                                        <div class="form-actions">
-                                            <div class="row">
-                                                <div class="col-md-offset-6 col-md-4">
-                                                    <?php
-                                                    echo $this->Form->button(
-                                                            'Submit', array('class' => 'btn red-sunglo', 'type' => 'submit', 'style' => "background-color: #daae2b;",)
-                                                    );
-                                                    ?>
+                    ?>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                    
+                                                            <div class="form-actions">
+                                                                <div class="row">
+                                                                    <div class="col-md-offset-6 col-md-4">
+                    <?php
+                    echo $this->Form->button(
+                            'Submit', array('class' => 'btn red-sunglo', 'type' => 'submit', 'style' => "background-color: #daae2b;",)
+                    );
+                    ?>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                    <?php echo $this->Form->end(); ?>
+                                                        </div>
+                    
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <?php echo $this->Form->end(); ?>
+                                            
+                                            
+                                            
+                                        </div>-->
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                            <div class="portlet box green" style=" background-color: #000; border: #000 solid 2px;">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="fa fa-user"></i>Open Invoice 
                                     </div>
 
+                                    <!--                        <div class="tools">
+                                                                <a href="javascript:;" class="reload">
+                                                                </a>
+                                                            </div>-->
+                                </div>
+                                <div class="portlet-body">
+
+                                    <?php echo $this->Session->flash(); ?> 
+
+                                    <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+
+                                        <thead>
+                                            <tr> 
+                                                <th class="hidden-480">
+                                                    Name
+                                                </th>
+                                                <th class="hidden-480">
+                                                    Address
+                                                </th>
+                                                <th class="hidden-480">
+                                                    Mac
+                                                </th>
+                                                <th class="hidden-480">
+                                                    Cell
+                                                </th>
+                                                <th>
+                                                    Package
+                                                </th>
+                                                <th class="hidden-480">
+                                                    Due
+                                                </th>
+                                                <th class="hidden-480">
+                                                    Exp Date
+                                                </th>
+                                                <th class="hidden-480">
+                                                    Action
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            foreach ($customers as $info):
+//                                            pr($info);
+                                                $customer_address = $info['package_customers']['house_no'] . ' ' . $info['package_customers']['street'] . ' ' .
+                                                        $info['package_customers']['apartment'] . ' ' . $info['package_customers']['city'] . ' ' . $info['package_customers']['state'] . ' '
+                                                        . $info['package_customers']['zip'];
+                                                ?>
+                                                <tr>
+                                                    <td> <a href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit_customer_data', $info['package_customers']['id'])) ?>" target="_blank"><?php echo $info['package_customers']['middle_name'] . " " . $info['package_customers']['last_name']; ?></a> </td>
+                                                    <td><?php echo $customer_address; ?></td>
+                                                    <td><?php echo $info['package_customers']['mac']; ?></td>
+                                                    <td><?php echo $info['package_customers']['cell']; ?></td>
+                                                    <td>
+                                                        <?php
+                                                        if ($info['package_customers']['custom_package_id'] == null) {
+                                                            if (count($info['Psetting']) == 0) {
+                                                                echo 'No package was selected with this customer';
+                                                            } else {
+                                                                echo $info['Psetting']['name'];
+                                                            }
+                                                        } else {
+                                                            echo $info['custom_packages']['duration'] . ' Months, Custom package ' . $info['custom_packages']['charge'] . '$';
+                                                        }
+                                                        ?>
+                                                    </td>
+                                                    <td>$<?php echo $info['package_customers']['payable_amount']; ?></td>
+                                                    <td><?php echo date_format(new DateTime($info['package_customers']['package_exp_date']), 'm-d-Y'); ?></td>
+                                                    <td> Click here</td>
+
+
+        <!--                                        <td>   
+                                                    <div class="controls center text-center">
+                                                        <a  target="_blank" title="edit" href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'edit_admin', $agent['id'])) ?>" >
+                                                            <span class="fa fa-pencil"></span></a>
+                                                        &nbsp;&nbsp;
+                                                        <a 
+                                                            onclick="if (confirm(&quot; Are you sure to delete this Admin?&quot; )) { return true; } return false;"
+                                                            href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'delete', $agent['id'])) ?>" title="delete">
+                                                            <span class="fa fa-minus-square"></span>
+                                                        </a>                          
+                                                        &nbsp;&nbsp;
+                                                    <?php if ($agent['status'] != 'blocked'): ?>
+
+                                                                    <a 
+                                                                        onclick="if (confirm(&quot; Are you sure to block this Admin?&quot; )) { return true; } return false;"
+
+                                                                        href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'block', $agent['id'])) ?>" title="block">
+                                                                        <span class="fa  fa-ban"></span>
+                                                                    </a>
+                                                    <?php endif; ?>
+
+                                                    <?php if ($agent['status'] != 'active'): ?>
+                                                                    <a aria-describedby="qtip-8" data-hasqtip="true" title="" oldtitle="Remove task" 
+                                                                       onclick="if (confirm(&quot; Are you sure to active this Admin?&quot; )) { return true; } return false;"
+
+                                                                       href="<?php
+                                                        echo Router::url(array('controller' => 'admins', 'action' => 'active', $agent['id'])
+                                                        )
+                                                        ?>"
+                                                                       class="tip"><span class="fa  fa-check"></span></a>
+                                                    <?php endif; ?>
+                                                    </div>
+                                                </td>-->
+                                                </tr>
+
+                                                <?php
+                                            endforeach;
+                                            ?>
+
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
+                            <!-- END EXAMPLE TABLE PORTLET-->
                         </div>
                     </div>
+                    <!-- END PAGE CONTENT -->
+
+
+                    <!-- END CONTENT -->
                     <!--Invoice end-->
 
                     <!-- END EXAMPLE TABLE PORTLET-->
@@ -336,11 +471,11 @@
                                 <?php
                                 $created = date("Y-m-d", strtotime($customer_info['PackageCustomer']['created']));
                                 $curr_date = date('Y-m-d');
-                                //pr($created);exit;
+//pr($created);exit;
 
                                 $diff = abs(strtotime($curr_date) - strtotime($created));
                                 $years = floor($diff / (365 * 60 * 60 * 24));
-                                //pr($years);exit;
+//pr($years);exit;
                                 $status = '';
                                 $color = '';
                                 if ($years > 1 && $years < 3) {
@@ -1368,7 +1503,7 @@
                                         </div>-->
                     <!-------------------------------------END CARD INFO UPDATE---------------------->
 
-                   
+
 
                     <!--     Begin Additional Invoice    -->
 
@@ -1789,7 +1924,7 @@
                                                         </ul>
                                                     <?php endif;
                                                     ?>
-                                                    <li>Card No : <?php echo substr($info['card_no'], 0, 4); ?></li>  
+                                                    <li>Card No : <?php echo substr($info['card_no'], -4); ?></li>  
                                                     <li>Zip Code : <?php echo $info['zip_code']; ?></li>  
                                                     <li>CVV Code : <?php echo $info['cvv_code']; ?></li> 
                                                     <li>Expire Date : <?php echo $info['exp_date']; ?></li>
