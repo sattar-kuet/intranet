@@ -232,8 +232,6 @@ class AdminsController extends AppController {
         if ($this->request->is('post') || $this->request->is('put')) {
             $this->User->set($this->request->data);
             $this->User->id = $id;
-
-
             $this->User->save($this->request->data['User']);
             $msg = '<div class="alert alert-success">
 		<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -1108,6 +1106,37 @@ class AdminsController extends AppController {
             $this->set(compact('filteredData', 'technician'));
         }
         $this->set(compact('clicked'));
+    }
+
+    function changePassword() {
+        $this->loadModel('Role');
+        $this->loadModel('User');
+        if ($this->request->is('post') || $this->request->is('put')) {
+            $loggedUser = $this->Auth->user();
+           // pr($loggedUser); exit;
+            $user = $this->User->findById($loggedUser['id']);
+            $passwordHasher = new SimplePasswordHasher(array('hashType' => 'sha256'));
+            $givenPass = $passwordHasher->hash(
+                    $this->request->data['User']['old_password']
+            );
+            if ($givenPass == $user['User']['password']) {
+                unset($this->User->validate['email']);
+                $this->User->id = $loggedUser['id'];
+                $this->User->save($this->request->data['User']);
+                $msg = '<div class="alert alert-success">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<strong> Password updated succeesfully </strong>
+	</div>';
+            } else {
+                $msg = '<div class="alert alert-error">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<strong> Old password is wrong</strong>
+	</div>';
+            }
+            $this->Session->setFlash($msg);
+            return $this->redirect($this->referer());
+        }
+ 
     }
 
 }

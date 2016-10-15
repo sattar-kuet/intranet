@@ -43,78 +43,24 @@
                                 You have some form errors. Please check below.
                             </div>
                             <?php echo $this->Session->flash(); ?>
-                            <?php
-                            echo $this->Form->input(
-                                    'id', array(
-                                'type' => 'hidden',
-                                'value' => $this->params['pass'][0],
-                            ));
-                            ?>
+
+
                             <div class="form-group">
-                                <label class="control-label col-md-3">Name<span class="required">
+                                <label class="control-label col-md-3">Old Password<span class="required">
                                         * </span>
                                 </label>
                                 <div class="col-md-4">
                                     <?php
                                     echo $this->Form->input(
-                                            'name', array(
+                                            'old_password', array(
                                         'class' => 'form-control required',
-                                        'type' => 'text'
+                                                'type' =>'password'
                                             )
                                     );
                                     ?>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Picture
-                                </label>
-                                <div class="col-md-4">
-                                    <?php
-                                    echo $this->Form->input(
-                                            'picture', array(
-                                        'type' => 'file',
-                                        'class' => 'span9 text'
-                                            )
-                                    );
-                                    ?>
-
-                                    <img src="<?php echo $this->webroot . 'pictures' . '/' . $data['User']['picture']; ?>"  width="50px" height="50px" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Email<span class="required">
-                                        * </span>
-                                </label>
-                                <div class="col-md-4">
-                                    <?php
-                                    echo $this->Form->input(
-                                            'email', array(
-                                        'class' => 'form-control required',
-                                        'type' => 'text'
-                                            )
-                                    );
-                                    ?>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Role<span class="required">
-                                        * </span>
-                                </label>
-                                <div class="col-md-4">
-
-                                    <?php
-                                    echo $this->Form->input('role_id', array(
-                                        'type' => 'select',
-                                        'options' => $roles,
-                                        'empty' => 'Select Category',
-                                        'class' => 'form-control select2me required pclass',
-                                            )
-                                    );
-                                    ?>
-                                </div>
-                            </div>                          
-
+                            
                             <div class="form-group">
                                 <label class="control-label col-md-3">New Password<span class="required">
                                         * </span>
@@ -129,7 +75,7 @@
                                     ?>
                                 </div>
                             </div>
-                           
+
                         </div>
                         <div class="form-actions">
                             <div class="row">
