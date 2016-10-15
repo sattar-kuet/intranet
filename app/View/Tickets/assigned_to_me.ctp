@@ -308,6 +308,14 @@
                                                                 )
                                                         );
                                                         ?>
+                                                        
+                                                          <?php
+                                                        echo $this->Form->input('package_customer_id', array(
+                                                            'type' => 'hidden',
+                                                            'value' => $lasthistory['package_customer_id'],
+                                                                )
+                                                        );
+                                                        ?>
 
                                                         <div class="form-body">
                                                             <div class="alert alert-danger display-hide">
@@ -402,6 +410,13 @@
                                                         echo $this->Form->input('issue_id', array(
                                                             'type' => 'hidden',
                                                             'value' => $lasthistory['issue_id'],
+                                                                )
+                                                        );
+                                                        ?>
+                                                          <?php
+                                                        echo $this->Form->input('package_customer_id', array(
+                                                            'type' => 'hidden',
+                                                            'value' => $lasthistory['package_customer_id'],
                                                                 )
                                                         );
                                                         ?>

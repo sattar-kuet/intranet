@@ -3202,7 +3202,7 @@
                     )
             );
             ?>
-            <button class="btn red-sunglo" onclick="if (confirm( & quot; Are you sure to Delete this Customer? & quot; )) {
+            <button class="btn red-sunglo" onclick="if (confirm('Are you sure to Delete this Customer?')) {
                         return true;
                     }
                     return false;" type="submit" style="background-color: red;">Delete customer</button>     

@@ -65,7 +65,23 @@ class PaymentsController extends AppController {
     }
 
     public function individual_transaction_by_card() {
-        //   pr($this->request->data); exit;
+        $this->loadModel('Transaction');
+        $loggedUser = $this->Auth->user();
+        $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
+        
+        if (array_key_exists('updateCard', $this->request->data)) {
+            $this->request->data['Transaction']['status'] = 'update';
+            $this->request->data['Transaction']['paid_amount'] = 0;
+            $dateObj = $this->request->data['Transaction']['exp_date'];
+            $this->request->data['Transaction']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
+            $this->Transaction->save($this->request->data);
+            $transactionMsg = '<div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Card info updated Successfully! </strong>
+    </div>';
+            $this->Session->setFlash($transactionMsg);
+            return $this->redirect($this->referer());
+        }
         //Get ID and Input amount from edit_customer page
         $cid = $this->request->data['Transaction']['cid'];
         $this->request->data['Transaction']['package_customer_id'] = $cid;
@@ -94,8 +110,7 @@ class PaymentsController extends AppController {
         $this->loadModel('Transaction');
         $this->loadModel('Ticket');
         $this->loadModel('Track');
-        $loggedUser = $this->Auth->user();
-        $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
+
         $pcustomers = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $cid)));
         $msg = '<ul>';
         //foreach ($pcustomers as $pcustomer):
@@ -663,56 +678,6 @@ class PaymentsController extends AppController {
 
         $pay_to = $this->User->find('list', array('conditions' => array('OR' => array(array('User.role_id' => 9), array('User.role_id' => 11)))));
         $this->set(compact('pay_to'));
-    }
-
-    function add_settings() {
-        $this->loadModel('PaymentSetting');
-        $this->loadModel('Issue');
-        if ($this->request->is('post')) {
-            $this->PaymentSetting->set($this->request->data);
-            if ($this->PaymentSetting->validates()) {
-                $loggedUser = $this->Auth->user();
-                $this->request->data['PaymentSetting']['user_id'] = $loggedUser['id'];
-                $this->PaymentSetting->save($this->request->data['PaymentSetting']);
-                $msg = '<div class="alert alert-success">
-				<button type="button" class="close" data-dismiss="alert">&times;</button>
-				<strong> Payment settings succeesfully </strong>
-			</div>';
-                $this->Session->setFlash($msg);
-                return $this->redirect('add_settings');
-            } else {
-                $msg = $this->generateError($this->PaymentSetting->validationErrors);
-                $this->Session->setFlash($msg);
-            }
-        }
-        $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
-        $this->set(compact('issues'));
-    }
-
-    function manage_settings() {
-        $this->loadModel('PaymentSetting');
-        $paymentsettings = $this->PaymentSetting->find('all');
-        $this->set(compact('paymentsettings'));
-    }
-
-    function edit_settings($id = null) {
-        $this->loadModel('PaymentSetting');
-        if ($this->request->is('post') || $this->request->is('put')) {
-            $this->PaymentSetting->set($this->request->data);
-            $this->PaymentSetting->id = $id;
-            $this->PaymentSetting->save($this->request->data['PaymentSetting']);
-            $msg = '<div class="alert alert-success">
-		<button type="button" class="close" data-dismiss="alert">&times;</button>
-		<strong>  Payment settings updated succeesfully </strong>
-	</div>';
-            $this->Session->setFlash($msg);
-            return $this->redirect($this->referer());
-        }
-        if (!$this->request->data) {
-            $data = $this->PaymentSetting->findById($id);
-            $this->request->data = $data;
-            $this->set(compact('data'));
-        }
     }
 
 }

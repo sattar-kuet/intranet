@@ -148,7 +148,6 @@ class ReportsController extends AppController {
             $datrange = json_decode($this->request->data['Package_customer']['daterange'], true);
             $datrange['start'] = $datrange['start'] . ' 00:00:00';
             $datrange['end'] = $datrange['end'] . ' 23:59:59';
-
             $packagecustomers = $this->Transaction->query("SELECT tr.id, tr.package_customer_id, 
             CONCAT( first_name,' ', middle_name,' ', last_name ) AS name, pc.psetting_id, pc.mac,
             ps.name, p.name, tr.paid_amount, ps.amount, ps.duration FROM transactions tr
@@ -241,8 +240,9 @@ class ReportsController extends AppController {
             LEFT JOIN packages p ON p.id = ps.package_id 
             WHERE package_exp_date>='" . date('Y-m-d') . "' AND package_exp_date<='" . $expiredate . "' "
                 . "AND package_exp_date != 0000-00-00. "
-                . " AND pc.printed!= 1."
-                . "GROUP BY pc.id");
+                . " AND pc.printed = 0"
+                . " GROUP BY pc.id");
+
         $this->set(compact('packagecustomers'));
     }
 
@@ -256,7 +256,6 @@ class ReportsController extends AppController {
             WHERE pc.printed = 1");
         $this->set(compact('packagecustomers'));
     }
-
     function createTicket($customer_id = null, $data = array()) {
         $loggedUser = $this->Auth->user();
         $this->loadModel('Ticket');
@@ -348,21 +347,23 @@ class ReportsController extends AppController {
     }
 
     function expcustomers() {
-        $this->loadModel('Transaction');
+        $this->loadModel('PackageCustomer');
         $clicked = false;
         if ($this->request->is('post') || $this->request->is('put')) {
             $datrange = json_decode($this->request->data['Transaction']['daterange'], true);
-            $ds = new DateTime($datrange['start']);
-            $timestamp = $ds->getTimestamp(); // Unix timestamp
-            $startd = $ds->format('m/y'); // 2003-10-16
-            $de = new DateTime($datrange['end']);
-            $timestamp = $de->getTimestamp(); // Unix timestamp
-            $endd = $de->format('m/y'); // 2003-10-16
-            $conditions = array('Transaction.exp_date >=' => $startd, 'Transaction.exp_date <=' => $endd);
+//            pr($this->request->data); exit;
+//            $ds = new DateTime($datrange['start']);
+//            $timestamp = $ds->getTimestamp(); // Unix timestamp
+//            $startd = $ds->format('m/y'); // 2003-10-16
+//            $de = new DateTime($datrange['end']);
+//            $timestamp = $de->getTimestamp(); // Unix timestamp
+//            $endd = $de->format('m/y'); // 2003-10-16
+            $conditions = array('PackageCustomer.package_exp_date >=' => $datrange['start'], 'PackageCustomer.package_exp_date <=' => $datrange['end']);
 //            pr($conditions); exit;
-            $transactions = $this->Transaction->find('all', array('conditions' => $conditions));
+            $customers = $this->PackageCustomer->find('all', array('conditions' => $conditions));
             $clicked = true;
-            $this->set(compact('transactions'));
+          
+            $this->set(compact('customers'));
         }
         $this->set(compact('clicked'));
     }

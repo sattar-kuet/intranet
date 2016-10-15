@@ -578,24 +578,11 @@ class CustomersController extends AppController {
         $this->Session->setFlash($msg);
         return $this->redirect($this->referer());
     }
+   
 
     function update_payment($id = null) {
         $this->loadModel('PackageCustomer');
-        
-         function random_string($length) {
-            $key = '';
-            $keys = array_merge(range(0, 9));
-
-            for ($i = 0; $i < $length; $i++) {
-                $key .= $keys[array_rand($keys)];
-            }
-
-            return $key;
-        }
-
-        $invoice = random_string(9);
-        
-        
+        $invoice = $this->random_string(9);
         $this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
         $this->request->data['PackageCustomer']['package_exp_date'] = $this->getFormatedDate($this->request->data['PackageCustomer']['package_exp_date']);
         $this->request->data['PackageCustomer']['ticket_generated'] = 0;

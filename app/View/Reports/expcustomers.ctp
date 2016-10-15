@@ -100,6 +100,7 @@
                                 </a>
                             </div>
                         </div>
+<<<<<<< HEAD
                         <div class="portlet-body">
                             <?php echo $this->Session->flash(); ?> 
                             <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
@@ -173,6 +174,77 @@
                                     <?php endforeach; ?>  
                                 </tbody>
                             </table>
+=======
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr> 
+                                            <th class="hidden-480">
+                                                Account no.
+                                            </th>
+                                            <th class="hidden-480">
+                                                Name
+                                            </th>
+                                            <th class="hidden-480">
+                                                Address
+                                            </th>
+                                            <th class="hidden-480">
+                                                Mac
+                                            </th>
+                                            <th class="hidden-480">
+                                                Cell
+                                            </th>
+                                            <th>
+                                                Package
+                                            </th>
+                                            <th class="hidden-480">
+                                                Due
+                                            </th>
+                                            <th class="hidden-480">
+                                                Exp Date
+                                            </th>
+                                          
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>                                    
+                                        <?php
+                                        foreach ($customers as $info):
+                                             $customer_address = $info['PackageCustomer']['house_no'] . ' ' . $info['PackageCustomer']['street'] . ' ' .
+                                                        $info['PackageCustomer']['apartment'] . ' ' . $info['PackageCustomer']['city'] . ' ' . $info['PackageCustomer']['state'] . ' '
+                                                        . $info['PackageCustomer']['zip'];
+                                           // pr($info); exit;
+                                            ?>
+                                            <tr>
+                                                <td><?php echo $info['PackageCustomer']['c_acc_no']; ?></td>
+                                                <td> <a href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit_customer_data', $info['PackageCustomer']['id'])) ?>" target="_blank"><?php echo $info['PackageCustomer']['middle_name'] . " " . $info['PackageCustomer']['last_name']; ?></a> </td>
+                                                <td><?php echo $customer_address; ?></td>
+                                                <td><?php echo $info['PackageCustomer']['mac']; ?></td>
+                                                <td><?php echo $info['PackageCustomer']['cell']; ?></td>
+                                                <td>
+                                                    <?php
+                                                    if ($info['PackageCustomer']['custom_package_id'] == null ) {
+                                                        if(count($info['Psetting']) ==0){
+                                                            echo 'No package was selected with this customer';
+                                                        }
+                                                        else{
+                                                            echo $info['Psetting']['name'];
+                                                        }
+                                                        
+                                                    } else {
+                                                        echo $info['CustomPackage']['duration'] . ' Months, Custom package ' . $info['CustomPackage']['charge'] . '$';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td>$<?php echo $info['PackageCustomer']['payable_amount']; ?></td>
+                                                <td><?php echo date_format( new DateTime($info['PackageCustomer']['package_exp_date']) , 'm-d-Y' );  ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>                           
+                                    </tbody>
+                                </table>
+                            </div>
+>>>>>>> 49eddc3a9ec622b48402b5577f83c5d39236e29a
                         </div>
                     </div>
                     <!-- END EXAMPLE TABLE PORTLET-->
