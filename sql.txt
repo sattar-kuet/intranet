@@ -1,0 +1,20 @@
+ALTER TABLE  `package_customers` DROP  `payment_type` ,
+DROP  `money_order` ,
+DROP  `ch_signature` ,
+DROP  `id_card` ,
+DROP  `card_type` ,
+DROP  `bank_name` ,
+DROP  `card_username` ,
+DROP  `card_check_no` ,
+DROP  `exp_date` ,
+DROP  `cvv_code` ,
+DROP  `charge_amount` ,
+DROP  `address_on_card` ,
+DROP  `same_address` ,
+DROP  `cfirst_name` ,
+DROP  `clast_name` ,
+DROP  `czip` ,
+DROP  `c_signature` ,
+DROP  `invoice_no` ;
+##########################################
+

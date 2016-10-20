@@ -64,79 +64,78 @@ class PaymentsController extends AppController {
         return $return;
     }
 
-    public function individual_transaction_by_card() {
+    public function getLastCardInfo($customer_id = null) {
         $this->loadModel('Transaction');
-        $loggedUser = $this->Auth->user();
-        $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
-        
-        if (array_key_exists('updateCard', $this->request->data)) {
-            $this->request->data['Transaction']['status'] = 'update';
-            $this->request->data['Transaction']['paid_amount'] = 0;
-            $dateObj = $this->request->data['Transaction']['exp_date'];
-            $this->request->data['Transaction']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
-            $this->Transaction->save($this->request->data);
-            $transactionMsg = '<div class="alert alert-success">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong>Card info updated Successfully! </strong>
-    </div>';
-            $this->Session->setFlash($transactionMsg);
-            return $this->redirect($this->referer());
+        $sql = "SELECT * FROM transactions WHERE (transactions.status ='success' OR transactions.status ='update' OR transactions.status ='auto_recurring') AND transactions.pay_mode='card' AND transactions.package_customer_id = $customer_id ORDER BY transactions.id DESC LIMIT 1";
+        $temp = $this->Transaction->query($sql);
+        $yyyy = 0;
+        $mm = -1;
+        $latestcardInfo = array('card_no' => '', 'exp_date' => array('year' => 0, 'month' => 0), 'fname' => '', 'lname' => '', 'cvv_code' => '', 'zip_code' => '', 'trx_id' => '');
+        if (count($temp)) {
+            $date = explode('/', $temp[0]['transactions']['exp_date']);
+            $yyyy = date('Y');
+            $yy = substr($yyyy, 0, 2);
+            $yyyy = $yy . '' . $date[1];
+            $mm = $date[0];
+            $temp[0]['transactions']['exp_date'] = array('year' => $yyyy, 'month' => $mm);
+            $latestcardInfo = $temp[0]['transactions'];
         }
-        //Get ID and Input amount from edit_customer page
-        $cid = $this->request->data['Transaction']['cid'];
-        $this->request->data['Transaction']['package_customer_id'] = $cid;
-        // pr($this->request->data); exit;
+        return $latestcardInfo;
+    }
+
+    public function process($trans_id = null, $customer_id = null) {
+        $this->request->data['Transaction'] = $this->getLastCardInfo($trans_id, $customer_id);
+        $ym = $this->getYm();
+        $this->set(compact('ym'));
         $this->loadModel('PackageCustomer');
-        $cinfo = $this->PackageCustomer->findById($cid);
-        if (isset($cinfo['Psetting']['id'])) {
-            $packagePrice = $cinfo['Psetting']['amount'];
-        } else {
-            $packagePrice = $cinfo['CustomPackage']['charge'];
-        }
-        $dateObj = $this->request->data['Transaction']['exp_date'];
-        $this->request->data['Transaction']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
-        //pr($this->request->data['Transaction']);
-        $this->layout = 'ajax';
+        $customer_info = $this->PackageCustomer->findById($customer_id);
+        $this->request->data = $customer_info;
+        $latestcardInfo = $this->getLastCardInfo($customer_id);
+        unset($customer_info['PackageCustomer']['email']);
+        unset($customer_info['PackageCustomer']['id']);
+
+        $this->request->data['Transaction'] = $customer_info['PackageCustomer'] + $latestcardInfo;
+        $this->request->data['Transaction']['id'] = $trans_id;
+        // pr($this->request->data['Transaction']); exit;
+        //$this->request->data = $customer_info;
+        $this->set('customer_info');
+    }
+
+    public function individual_transaction_by_card() {
+        // PROCESS PAYMENT
         // Common setup for API credentials  
         $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
-        //   $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
-        $merchantAuthentication->setName("7zKH4b45"); //42UHbr9Qa9B live mode
-        // $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
-        $merchantAuthentication->setTransactionKey("738QpWvHH4vS59vY"); // live mode 7UBSq68ncs65p8QX
+        $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
+        //  $merchantAuthentication->setName("7zKH4b45"); //42UHbr9Qa9B live mode
+        $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
+        //   $merchantAuthentication->setTransactionKey("738QpWvHH4vS59vY"); // live mode 7UBSq68ncs65p8QX
         $refId = 'ref' . time();
 // Create the payment data for a credit card
         $creditCard = new AnetAPI\CreditCardType();
-        $this->loadModel('PackageCustomer');
-        $this->loadModel('Transaction');
-        $this->loadModel('Ticket');
-        $this->loadModel('Track');
-
-        $pcustomers = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $cid)));
         $msg = '<ul>';
-        //foreach ($pcustomers as $pcustomer):
-        $pc = $this->request->data['Transaction'];
-//        pr($pc);
-//        exit;
-        $creditCard->setCardNumber($pc['card_no']);
-        $creditCard->setExpirationDate($pc['exp_date']);
+        $card = $this->request->data['Transaction'];
+        $creditCard->setCardNumber($card['card_no']);
+        $exp_date = $card['exp_date']['month'] . '-' . $card['exp_date']['year'];
+       // echo $exp_date; exit;
+        $creditCard->setExpirationDate($exp_date);
         //    $creditCard->setCardNumber("4117733943147221"); // live
         // $creditCard->setExpirationDate("07-2019"); //live
-        $creditCard->setcardCode($pc['cvv_code']); //live
+        $creditCard->setcardCode($card['cvv_code']); //live
         $paymentOne = new AnetAPI\PaymentType();
         $paymentOne->setCreditCard($creditCard);
         //    Bill To
         $billto = new AnetAPI\CustomerAddressType();
-        $billto->setFirstName($pc['fname']);
-        $billto->setLastName($pc['lname']);
-        $billto->setCompany($pc['company']);
+        $billto->setFirstName($card['fname']);
+        $billto->setLastName($card['lname']);
+        $billto->setCompany($card['company']);
         //$billto->setAddress("14 Main Street");
-        $billto->setAddress($pc['address']);
-        $billto->setCity($pc['city']);
-        $billto->setState($pc['state']);
-        $billto->setZip($pc['zip_code']);
-        $billto->setCountry($pc['country']);
-        $billto->setphoneNumber($pc['phone']);
-        $billto->setfaxNumber($pc['fax']);
+        $billto->setAddress($card['address']);
+        $billto->setCity($card['city']);
+        $billto->setState($card['state']);
+        $billto->setZip($card['zip_code']);
+        $billto->setCountry($card['country']);
+        $billto->setphoneNumber($card['phone']);
+        $billto->setfaxNumber($card['fax']);
 
         ////////// ########################## //////////////
         // Create a Customer Profile Request
@@ -163,27 +162,36 @@ class PaymentsController extends AppController {
         // Create a transaction
         $transactionRequestType = new AnetAPI\TransactionRequestType();
         $transactionRequestType->setTransactionType("authCaptureTransaction");
-        $transactionRequestType->setAmount($pc['paid_amount']); // to do set amount from form
+        $transactionRequestType->setAmount($card['payable_amount']); // to do set amount from form
         $transactionRequestType->setPayment($paymentOne);
         $request = new AnetAPI\CreateTransactionRequest();
         $request->setMerchantAuthentication($merchantAuthentication);
         $request->setRefId($refId);
         $request->setTransactionRequest($transactionRequestType);
         $controller = new AnetController\CreateTransactionController($request);
-        //  $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX); 
-        $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
+        $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
+        // $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
+        $this->loadModel('Transaction');
         $this->request->data['Transaction']['error_msg'] = '';
         $this->request->data['Transaction']['status'] = '';
         $this->request->data['Transaction']['trx_id'] = '';
         $this->request->data['Transaction']['auth_code'] = '';
+         pr($response ); exit;
         if ($response != null) {
             $tresponse = $response->getTransactionResponse();
-            // pr($tresponse ); exit;
+             pr($tresponse ); exit;
             if (($tresponse != null) && ($tresponse->getResponseCode() == "1")) {
                 $this->request->data['Transaction']['status'] = 'success';
                 $this->request->data['Transaction']['trx_id'] = $tresponse->getTransId();
                 $this->request->data['Transaction']['auth_code'] = $tresponse->getAuthCode();
-                $msg .='<li> Transaction for ' . $pc['fname'] . ' ' . $pc['lname'] . ' successfull</li>';
+                // update payable amount and paidamount in transaction table
+                $sql ='UPDATE transactions SET payable_amount = payable_amount-'.$card['payable_amount'].
+                        ', paid_amount+'.$card['payable_amount'].
+                        ' WHERE transactions.id = '.$card['id'];
+               $result =  $this->Transaction->query($sql);
+               pr($result); exit;
+                
+                $msg .='<li> Transaction for  successfull</li>';
                 $tdata['Ticket'] = array('content' => 'Transaction for ' . $pc['fname'] . ' ' . $pc['lname'] . ' successfull');
                 $tickect = $this->Ticket->save($tdata); // Data save in Ticket
                 $trackData['Track'] = array(
@@ -234,7 +242,7 @@ class PaymentsController extends AppController {
             );
             $this->Track->save($trackData);
         }
-       // $this->Transaction->create();
+        $this->Transaction->create();
         $this->Transaction->save($this->request->data['Transaction']);
         // endforeach;
         //$msg .='</ul>';

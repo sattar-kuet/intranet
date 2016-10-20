@@ -4,6 +4,7 @@
  * 
  */
 require_once(APP . 'Vendor' . DS . 'class.upload.php');
+App::import('Controller', 'Payments');
 
 class CustomersController extends AppController {
 
@@ -97,7 +98,6 @@ class CustomersController extends AppController {
                 . " LEFT JOIN custom_packages ON package_customers.custom_package_id = custom_packages.id" .
                 " WHERE " . $condition;
 
-
         //     echo $sql;
         $temp = $this->PackageCustomer->query($sql);
         // pr($temp);
@@ -112,15 +112,204 @@ class CustomersController extends AppController {
                 $data['packages']['charge'] = $psetting['amount'];
                 $package[] = $data['packages'];
             }
-//            else {
-//                $data['custom_packages']['name'] = 'Custom';
-//                $package[] = $data['custom_packages'];
-//            }
         }
         $data = array();
         $data['customer'] = $customer;
         $data['package'] = $package;
         return $data;
+    }
+
+    function updatePackageCustomerTable($data = array()) {
+   
+        if (isset($data['mac'])) {
+            $data['mac'] = json_encode($data['mac']);
+            $data['system'] = json_encode($data['system']);
+        }
+        $this->loadModel('PackageCustomer');
+
+        $this->loadModel('CustomPackage');
+        $this->loadModel('Ticket');
+        $this->loadModel('Track');
+        $tmsg = 'Information of  ' . $data['first_name'] . '  ' .
+                $data['middle_name'] . '  ' .
+                $data['last_name'] . ' has been updated';
+
+        //For Custom Package data insert
+
+        $data4CustomPackage['CustomPackage']['duration'] = $data['duration'];
+        $data4CustomPackage['CustomPackage']['charge'] = $data['charge'];
+        if (!empty($data['charge'])) {
+            //save data into custom_package table
+            $cp = $this->CustomPackage->save($data4CustomPackage);
+            unset($cp['CustomPackage']['PackageCustomer']);
+            //from custom_package table, save custom package id to package_customer table
+            $data['custom_package_id'] = $cp['CustomPackage']['id'];
+        }
+        // if custom package is changed then custom_package_id will be reset to 0
+        if(!isset($data['CustomPackage'])){
+            $data['custom_package_id'] = 0;
+        }
+        //Ends Custom_package data entry  
+        $this->PackageCustomer->id = $data['id'];
+        $this->PackageCustomer->save($data);
+    }
+
+    function update_status() {
+        $data4statusHistory = array();
+        $this->loadModel('StatusHistory');
+        $this->loadModel('PackageCustomer');
+        $this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
+        $this->PackageCustomer->saveField("status", $this->request->data['PackageCustomer']['status']);
+        $data4statusHistory['StatusHistory'] = array(
+            'package_customer_id' => $this->request->data['PackageCustomer']['id'],
+            'date' => $this->request->data['PackageCustomer']['date'],
+            'status' => $this->request->data['PackageCustomer']['status'],
+        );
+        $this->StatusHistory->save($data4statusHistory);
+        $Msg = '<div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Status updated Successfully! </strong>
+    </div>';
+        $this->Session->setFlash($Msg);
+        return $this->redirect($this->referer());
+    }
+
+    function update_auto_recurring() {
+        // update package_customers table
+        $this->loadModel('Transaction');
+        $this->loadModel('PackageCustomer');
+        $dateObj = $this->request->data['Transaction']['exp_date'];
+        $this->request->data['Transaction']['r_form'] = date('Y-m-d', strtotime($this->request->data['Transaction']['r_form']));
+        $this->request->data['Transaction']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
+        $timestamp = strtotime($this->request->data['Transaction']['r_form']) + $this->request->data['Transaction']['r_duration'] * 24 * 60 * 60; // +strtotime($this->request->data['Transaction']['r_duration'].' days');
+        $next_payment_date = date('Y-m-d', $timestamp);
+        $this->request->data['Transaction']['next_payment'] = $next_payment_date;
+        $this->request->data['Transaction']['status'] = 'auto_recurring';
+        $this->request->data['Transaction']['pay_mode'] = 'card';
+//       pr($this->request->data);
+//        exit;
+        $this->Transaction->save($this->request->data);
+
+        $this->PackageCustomer->id = $this->request->data['Transaction']['package_customer_id'];
+
+        $this->PackageCustomer->save($this->request->data['Transaction']);
+
+//       pr($this->Transaction);
+//       exit;
+        $Msg = '<div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Auto recurring updated Successfully! </strong>
+    </div>';
+        $this->Session->setFlash($Msg);
+        return $this->redirect($this->referer());
+    }
+
+    function updatecardinfo() {
+        $this->loadModel('Transaction');
+        $user_info = $this->Auth->user();
+        $user_id = $user_info['id'];
+        $this->request->data['Transaction']['user_id'] = $user_id;
+        $this->request->data['Transaction']['status'] = 'update';
+        $this->request->data['Transaction']['exp_date'] = $this->request->data['Transaction']['exp_date']['month'] . '/' . substr($this->request->data['Transaction']['exp_date']['year'], -2);
+        $this->Transaction->save($this->request->data['Transaction']);
+        $msg = '<div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong> Card information updated successfully </strong>
+            </div>';
+        $this->Session->setFlash($msg);
+        return $this->redirect($this->referer());
+    }
+
+    function getOpenInvoice($pcid = null) {
+        $this->loadModel('Transaction');
+        return $this->Transaction->query("SELECT *  FROM transactions 
+left join package_customers on transactions.package_customer_id = package_customers.id
+left join psettings on package_customers.psetting_id = psettings.id
+left join packages on psettings.package_id = packages.id
+left join custom_packages on package_customers.custom_package_id = custom_packages.id
+WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open' order by transactions.id DESC;");
+    }
+
+    function edit($id = null) {
+        $this->loadModel('StatusHistory');
+        $pcid = $id;
+        $loggedUser = $this->Auth->user();
+        if ($this->request->is('post') || $this->request->is('put')) {
+            // update package_customers table
+            $this->request->data['PackageCustomer']['id'] = $id;
+            $this->updatePackageCustomerTable($this->request->data['PackageCustomer']);
+            $msg = '<div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong> Customer information updated successfully </strong>
+            </div>';
+            $this->Session->setFlash($msg);
+        }
+
+        $this->loadModel('PackageCustomer');
+        $customer_info = $this->PackageCustomer->findById($pcid);
+        $this->request->data = $customer_info;
+        $payment = new PaymentsController();
+        $latestcardInfo = $payment->getLastCardInfo($pcid);
+        unset($customer_info['PackageCustomer']['email']);
+        $this->request->data['Transaction'] = $customer_info['PackageCustomer'] + $latestcardInfo;
+
+        $statusHistories = $this->StatusHistory->find('all', array('conditions' => array('StatusHistory.package_customer_id' => $pcid)));
+        $lastStatus = end($statusHistories);
+        //Show default value for custome package
+        $customer_info['PackageCustomer']['date'] = $lastStatus['StatusHistory']['date'];
+        $custom_package_charge = $customer_info['CustomPackage']['charge'];
+        $custom_package_duration = $customer_info['CustomPackage']['duration'];
+
+        //Custom package checkmark
+        $checkMark = FALSE;
+        if (isset($custom_package_charge)) {
+            $checkMark = TRUE;
+        } else {
+            $checkMark = FALSE;
+        }
+        //Show mac and stb information which is already in database
+        $macstb['mac'] = json_decode($customer_info['PackageCustomer']['mac']);
+        $macstb['system'] = json_decode($customer_info['PackageCustomer']['system']);
+
+        $c_acc_no = $customer_info['PackageCustomer']['c_acc_no'];
+
+        $this->loadModel('Transaction');
+        $transactions = $this->Transaction->find('all', array('conditions' => array('Transaction.package_customer_id' => $id)));
+
+        $this->set(compact('transactions', 'customer_info', 'c_acc_no', 'macstb', 'custom_package_duration', 'checkMark', 'statusHistories'));
+
+//        Ticket History
+        $response = $this->getAllTickectsByCustomer($id);
+        $data = $response['data'];
+        $users = $response['users'];
+        $roles = $response['roles'];
+        $this->set(compact('data', 'users', 'roles', 'customer_info'));
+//        End Ticket History
+        $this->loadModel('Package');
+        $this->loadModel('Psetting');
+        $packages = $this->Package->find('all');
+        $packageList = array();
+        foreach ($packages as $index => $package) {
+            $psettings = $this->Psetting->find('all', array('conditions' => array('package_id' => $package['Package']['id'])));
+            $psettingList = array();
+            foreach ($psettings as $psetting) {
+                $id = $psetting['Psetting']['id'];
+                $psettingList[$id] = $psetting['Psetting']['name'];
+            }
+            $pckagename = $package['Package']['name'];
+            $packageList[$pckagename] = $psettingList;
+        }
+ 
+        $ym = $this->getYm();
+        $this->loadModel('Transaction');
+        $transactions_all = $this->Transaction->query("SELECT * 
+            FROM  `transactions` tr
+            INNER JOIN package_customers pc ON pc.id = tr.`package_customer_id` 
+            WHERE package_customer_id = $pcid order by tr.id ASC;");
+
+        $invoices = $this->getOpenInvoice($pcid);
+
+        $this->set(compact('invoices', 'packageList', 'psettings', 'ym', 'custom_package_charge', 'transactions_all'));
     }
 
     function registration() {
@@ -578,7 +767,6 @@ class CustomersController extends AppController {
         $this->Session->setFlash($msg);
         return $this->redirect($this->referer());
     }
-   
 
     function update_payment($id = null) {
         $this->loadModel('PackageCustomer');
@@ -596,7 +784,7 @@ class CustomersController extends AppController {
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
 	<strong>  succeesfully done </strong></div>';
-        $this->Session->setFlash($msg);      
+        $this->Session->setFlash($msg);
 
 
         $data['Transaction'] = array(
@@ -1375,9 +1563,6 @@ class CustomersController extends AppController {
             if (isset($unique[$pd])) {
                 //  echo 'already exist'.$key.'<br/>';
                 if (!empty($data['c']['content'])) {
-                    //  $temp = $data['c'];// array('id' => $data['psettings']['id'], 'duration' => $data['psettings']['duration'], 'amount' => $data['psettings']['amount'], 'offer' => $data['psettings']['offer']);
-                    //pr($temp); exit;
-
                     $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
                 }

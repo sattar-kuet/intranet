@@ -405,44 +405,20 @@
                                                         }
                                                         ?>
                                                     </td>
-                                                    <td>$<?php echo $info['package_customers']['payable_amount']; ?></td>
-                                                    <td><?php echo date_format(new DateTime($info['package_customers']['package_exp_date']), 'm-d-Y'); ?></td>
-                                                    <td> Click here</td>
-
-
-        <!--                                        <td>   
-                                                    <div class="controls center text-center">
-                                                        <a  target="_blank" title="edit" href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'edit_admin', $agent['id'])) ?>" >
-                                                            <span class="fa fa-pencil"></span></a>
+                                                    <td>$<?php echo $info['transactions']['payable_amount']; ?></td>
+                                                    <td><?php echo date_format(new DateTime($info['transactions']['next_payment']), 'm-d-Y'); ?></td>
+                                                    <td>   
+                                                        <a  target="_blank" title="Edit" href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit', $info['transactions']['id'])) ?>" >
+                                                            <span class="fa fa-pencil"></span>
+                                                        </a>
                                                         &nbsp;&nbsp;
-                                                        <a 
-                                                            onclick="if (confirm(&quot; Are you sure to delete this Admin?&quot; )) { return true; } return false;"
-                                                            href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'delete', $agent['id'])) ?>" title="delete">
-                                                            <span class="fa fa-minus-square"></span>
-                                                        </a>                          
-                                                        &nbsp;&nbsp;
-                                                    <?php if ($agent['status'] != 'blocked'): ?>
 
-                                                                    <a 
-                                                                        onclick="if (confirm(&quot; Are you sure to block this Admin?&quot; )) { return true; } return false;"
+                                                        <a  target="_blank" title="Take Payment" href="<?php echo Router::url(array('controller' => 'payments', 'action' => 'process', $info['transactions']['id'], $info['transactions']['id'])) ?>" >
+                                                            <span class="fa fa-dollar"></span>
+                                                        </a>
 
-                                                                        href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'block', $agent['id'])) ?>" title="block">
-                                                                        <span class="fa  fa-ban"></span>
-                                                                    </a>
-                                                    <?php endif; ?>
+                                                    </td>
 
-                                                    <?php if ($agent['status'] != 'active'): ?>
-                                                                    <a aria-describedby="qtip-8" data-hasqtip="true" title="" oldtitle="Remove task" 
-                                                                       onclick="if (confirm(&quot; Are you sure to active this Admin?&quot; )) { return true; } return false;"
-
-                                                                       href="<?php
-                                                        echo Router::url(array('controller' => 'admins', 'action' => 'active', $agent['id'])
-                                                        )
-                                                        ?>"
-                                                                       class="tip"><span class="fa  fa-check"></span></a>
-                                                    <?php endif; ?>
-                                                    </div>
-                                                </td>-->
                                                 </tr>
 
                                                 <?php
@@ -1347,164 +1323,6 @@
                         </div>
                     </div>
 
-
-
-
-                    <!-- -------------Begin card info update--------------------------->
-
-                    <!--                    <div class="portlet box lightseagreen" style="background-color:  lightseagreen; border: lightseagreen solid 2px;">
-                                            <div class="portlet-title">
-                                                <div class="caption">
-                                                    <i class="fa fa-list-ul"></i>Card Info Update 
-                                                </div>
-                    
-                                                <div class="tools">
-                                                    <a  class="reload toggle"data-id="updateinfo">
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="portlet-body">
-                                                <div class="row display-hide" id="updateinfo"> 
-                                                    <div class="col-md-12">
-                    <?php
-                    echo $this->Form->create('PackageCustomer', array(
-                        'inputDefaults' => array(
-                            'label' => false,
-                            'div' => false
-                        ),
-                        'class' => 'form-horizontal',
-                        'novalidate' => 'novalidate',
-                        'url' => array('controller' => 'transactions', 'action' => 'updatecardinfo')
-                            )
-                    );
-                    ?>
-                    
-                    <?php
-                    echo $this->Form->input(
-                            'id', array(
-                        'type' => 'hidden',
-                        'value' => $this->params['pass'][0],
-                    ));
-                    ?>
-                    
-                                                        
-                                                        <div class="row">
-                                                            <div class="col-md-3 signupfont" style="padding-right: 0px;">
-                                                                Card no: 
-                                                            </div>
-                                                            <div class="col-md-9">
-                    <?php
-                    echo $this->Form->input(
-                            'card_check_no', array(
-                        'type' => 'text',
-                        'class' => 'form-control input-sm ',
-                        'id' => 'cardnumber'
-                    ));
-                    ?>
-                                                            </div>
-                                                        </div>
-                    
-                                                        &nbsp;                                                        
-                    
-                                                        <div class="row">
-                                                            <div class="col-md-3 signupfont">
-                                                                Exp. Date:
-                                                            </div>
-                                                            <div class="col-md-4">
-                    <?php
-                    echo $this->Form->input('exp_date.year', array(
-                        'type' => 'select',
-                        'options' => $ym['year'],
-                        'empty' => 'Select Year',
-                        'class' => 'span12 uniform nostyle select1 ',
-                        'div' => array('class' => 'span12 '),
-                        'id' => 'year'
-                            )
-                    );
-                    ?>
-                                                            </div>
-                                                            <div class="col-md-5">
-                    <?php
-                    echo $this->Form->input('exp_date.month', array(
-                        'type' => 'select',
-                        'options' => $ym['month'],
-                        'empty' => 'Select Month',
-                        'class' => 'span12 uniform nostyle select1 ',
-                        'div' => array('class' => 'span12 '),
-                        'id' => 'month'
-                            )
-                    );
-                    ?>
-                                                            </div>
-                                                        </div>
-                    
-                                                        &nbsp;
-                                                        <div class="row">
-                                                            <div class="col-md-3 signupfont">
-                                                                CVV Code: 
-                                                            </div>
-                                                            <div class="col-md-4">
-                    <?php
-                    echo $this->Form->input(
-                            'cvv_code', array(
-                        'type' => 'text',
-                        'class' => 'form-control input-sm ',
-                        'id' => 'cvvcode'
-                    ));
-                    ?>
-                                                            </div>
-                                                        </div>
-                                                        &nbsp;
-                                                        <div class="row">
-                                                            <div class="col-md-3 signupfont">
-                                                                Address on Card: 
-                                                            </div>
-                                                            <div class="col-md-5">
-                    <?php
-                    echo $this->Form->input(
-                            'address_on_card', array(
-                        'type' => 'text',
-                        'class' => 'form-control input-sm',
-                        'placeholder' => 'detail(optional)',
-                    ));
-                    ?>
-                                                            </div>
-                                                            <div class="col-md-4">
-                    <?php
-                    echo $this->Form->input(
-                            'zip', array(
-                        'type' => 'text',
-                        'class' => 'form-control input-sm ',
-                        'placeholder' => 'zip code',
-                    ));
-                    ?>
-                                                            </div>
-                                                        </div>
-                                                        &nbsp;
-                                                        <div class="row">
-                                                            <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20"> 
-                    <?php
-                    echo $this->Form->button(
-                            'Update Card Information', array(
-                        'class' => 'btn btn-primary submitbtn',
-                        'style' => "background-color: lightseagreen;",
-                        'type' => 'submit',
-                        'id' => ''
-                    ));
-                    ?>
-                    
-                                                            </div>
-                                                        </div>
-                    <?php echo $this->Form->end(); ?>
-                    
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>-->
-                    <!-------------------------------------END CARD INFO UPDATE---------------------->
-
-
-
                     <!--     Begin Additional Invoice    -->
 
                     <div class="portlet box lightseagreen" style="background-color:#daae2b; border: #daae2b solid 2px;">
@@ -1700,19 +1518,7 @@
                                                     ));
                                                     ?>
                                                 </div>
-<!--                                                <label class="control-label col-md-1">Payment amount:<span class="">
-                                                    </span>
-                                                </label>
-                                                <div class="col-md-2">
-                                                <?php
-//                                                    echo $this->Form->input(
-//                                                            'payable_amount', array(
-//                                                        'type' => 'text',
-//                                                        'class' => 'form-control',
-//                                                    ));
-//                                                    
-                                                ?>
-                                                </div>-->
+
                                             </div>
                                         </div>
 
@@ -1735,8 +1541,7 @@
                         </div>
                     </div>
 
-                    <!--                    End update next payment date-->
-
+                    <!--End Additional Invoice -->
                 </div>
             </div>
         </div>
