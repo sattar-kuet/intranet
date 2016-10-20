@@ -400,7 +400,9 @@
                                                 ));
                                                 ?>
                                                 <br>
-
+                                                 <div class="col-md-2 signupfont">
+                                                        Card Number
+                                                    </div>
                                                 <div class="row">                                                    
                                                     <div class="col-md-3">
                                                         <?php
@@ -409,7 +411,7 @@
                                                             'type' => 'text',
                                                             'class' => 'form-control input-sm ',
                                                             'id' => 'card_number',
-                                                            'Placeholder' => ' Card Number',
+                                                            'Placeholder' => 'Card Number',
                                                         ));
                                                         ?>
                                                     </div>
@@ -445,27 +447,18 @@
                                                         ?>
                                                     </div>                                                   
 
-                                                    <div class="col-md-3">
-                                                        <?php
-                                                        echo $this->Form->input(
-                                                                'payable_amount', array(
-                                                            'type' => 'text',
-                                                            'class' => 'form-control input-sm ',
-                                                            'placeholder' => 'Amount'
-                                                        ));
-                                                        ?>
-                                                    </div>
+                                                   
 
                                                 </div>
                                                 <br>
                                                 <div class="row">
-                                                    <div class="col-md-1 signupfont">
-                                                        Invoice#
+                                                    <div class="col-md-2 signupfont">
+                                                       &nbsp;  &nbsp; Invoice#
                                                         <?php
                                                         echo $this->Form->input('id');
                                                         ?>
                                                     </div>
-                                                    <div class="col-md-5">
+                                                    <div class="col-md-3">
 
                                                         <?php
                                                         echo $this->Form->input(
@@ -477,11 +470,24 @@
                                                         ));
                                                         ?>
                                                     </div>
+                                                     <div class="col-md-1 signupfont">
+                                                       &nbsp; Amount
+                                                    </div>
+                                                     <div class="col-md-2">
+                                                        <?php
+                                                        echo $this->Form->input(
+                                                                'payable_amount', array(
+                                                            'type' => 'text',
+                                                            'class' => 'form-control input-sm ',
+                                                            'placeholder' => 'Amount'
+                                                        ));
+                                                        ?>
+                                                    </div>
 
                                                     <div class="col-md-1 signupfont">
                                                         Description
                                                     </div>
-                                                    <div class="col-md-5">
+                                                    <div class="col-md-3">
                                                         <?php
                                                         echo $this->Form->input(
                                                                 'description', array(
