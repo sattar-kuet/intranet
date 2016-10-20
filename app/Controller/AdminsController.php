@@ -403,9 +403,9 @@ class AdminsController extends AppController {
             //return $this->redirect('/transactions/expire_customer/' . $this->request->data['PaidCustomer']['id']);
             return $this->redirect('/customers/repair/' . $this->request->data['PackageCustomer']['id']);
         }
-        if ($this->request->data['PackageCustomer']['status'] == 'payment') {
+        if ($this->request->data['PackageCustomer']['status'] == 'info') {
             //return $this->redirect('/transactions/expire_customer/' . $this->request->data['PaidCustomer']['id']);
-            return $this->redirect('/transactions/edit_customer_data/' . $this->request->data['PackageCustomer']['id']);
+            return $this->redirect('/customers/edit/' . $this->request->data['PackageCustomer']['id']);
         }
         if ($this->request->data['PackageCustomer']['status'] == 'history') {
             return $this->redirect('/tickets/customertickethistory/' . $this->request->data['PackageCustomer']['id']);

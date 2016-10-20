@@ -7,9 +7,311 @@
         text-align: center;
     }
 
+    .signupfont{
+        font-size: 14px !important; 
+    }
+
 </style>
 <div class="page-content-wrapper">
     <div class="page-content">
+
+        <!--customer info to get billing address START-->
+        <div class="portlet box green ">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-list-ul"></i>Customer Information
+                    <strong style="color: #191818;;">ACCT NO. <?php echo $customer_info['PackageCustomer']['c_acc_no']; ?></strong>
+                    <?php
+                    $created = date("Y-m-d", strtotime($customer_info['PackageCustomer']['created']));
+                    $curr_date = date('Y-m-d');
+                    $diff = abs(strtotime($curr_date) - strtotime($created));
+                    $years = floor($diff / (365 * 60 * 60 * 24));
+                    $status = '';
+                    $color = '';
+                    if ($years > 1 && $years < 3) {
+                        $status = "Gold Customer";
+                        $color = 'gold;';
+                    } else if ($years >= 3) {
+                        $status = "Platinum Customer";
+                        $color = '#E5E4E2;';
+                    }
+                    ?>
+                    <strong style="color: <?php $color; ?>">
+                        <?php echo $status; ?>
+                    </strong>
+                </div>
+                <div class="tools">
+                    <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'servicemanage')) ?>" class="btnPrev"  style="color:  #E02222;">Back
+                    </a>
+                </div>
+                <div class="tools">
+                    <?php $created = date("Y-m-d", strtotime($customer_info['PackageCustomer']['created'])); ?>
+                    <strong style="color: #191818;">Since. <?php echo $created; ?></strong>
+                    <?php ?>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <?php echo $this->Session->flash() ?>
+                <?php
+                echo $this->Form->create('PackageCustomer', array(
+                    'inputDefaults' => array(
+                        'label' => false,
+                        'div' => false
+                    ),
+                    'id' => 'form-validate',
+                    'class' => 'form-horizontal',
+                    'novalidate' => 'novalidate',
+                    'enctype' => 'multipart/form-data'
+                        )
+                );
+                ?>
+                <br>
+                <div class="row">
+                    <div class="col-md-12 ">
+
+                        <div class="col-md-2 signupfont">
+                            Name: First:
+                        </div>
+                        <div class="col-md-2">
+                            <div class="input-list style-4 clearfix">
+                                <div>
+                                    <?php
+                                    echo $this->Form->input(
+                                            'first_name', array(
+                                        'class' => '',
+                                        'id' => 'first'
+                                            )
+                                    );
+                                    ?> 
+                                </div>                            
+                            </div>
+                        </div>
+                        <div class="col-md-1 signupfont">
+                            Middle:
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-list style-4 clearfix">
+                                <div>
+                                    <?php
+                                    echo $this->Form->input(
+                                            'middle_name', array(
+                                        'class' => ''
+                                            )
+                                    );
+                                    ?> 
+                                </div>                            
+                            </div>
+                        </div>
+                        <div class="col-md-1 signupfont">
+                            Last: 
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-list style-4 clearfix">
+                                <div>
+                                    <?php
+                                    echo $this->Form->input(
+                                            'last_name', array(
+                                        'class' => '',
+                                        'id' => 'last'
+                                            )
+                                    );
+                                    ?> 
+                                </div>                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                &nbsp;
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <div class="col-md-2 signupfont">
+                            House Number
+                        </div>
+                        <div class="col-md-2">
+                            <div class="input-list style-4 clearfix">
+                                <div>
+                                    <?php
+                                    echo $this->Form->input(
+                                            'house_no', array(
+                                        'class' => 'form-control ',
+                                        'type' => 'text'
+                                            )
+                                    );
+                                    ?>
+                                </div>                            
+                            </div>
+                        </div>
+                        <div class="col-md-1 signupfont">
+                            Street:
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-list style-4 clearfix">
+                                <div>
+                                    <?php
+                                    echo $this->Form->input(
+                                            'street', array(
+                                        'class' => '',
+                                        'id' => 'street'
+                                            )
+                                    );
+                                    ?> 
+                                </div>                            
+                            </div>
+                        </div>
+                        <div class="col-md-1 signupfont">
+                            Apartment: 
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-list style-4 clearfix">
+                                <div>
+                                    <?php
+                                    echo $this->Form->input(
+                                            'apartment', array(
+                                        'class' => '',
+                                        'id' => 'apartment'
+                                            )
+                                    );
+                                    ?> 
+                                </div>                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                &nbsp;
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <div class="col-md-2 signupfont">
+                            City:
+                        </div>
+                        <div class="col-md-2">
+                            <div class="input-list style-4 clearfix">
+                                <div>
+                                    <?php
+                                    echo $this->Form->input(
+                                            'city', array(
+                                        'class' => '',
+                                        'id' => 'city'
+                                            )
+                                    );
+                                    ?> 
+                                </div>                            
+                            </div>
+                        </div>
+                        <div class="col-md-1 signupfont">
+                            State:
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-list style-4 clearfix">
+                                <div>
+                                    <?php
+                                    echo $this->Form->input(
+                                            'state', array(
+                                        'class' => '',
+                                        'id' => 'state'
+                                            )
+                                    );
+                                    ?> 
+                                </div>                            
+                            </div>
+                        </div>
+                        <div class="col-md-1 signupfont">
+                            Zip: 
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-list style-4 clearfix">
+                                <div>
+                                    <?php
+                                    echo $this->Form->input(
+                                            'zip', array(
+                                        'class' => '',
+                                        'id' => 'zip'
+                                            )
+                                    );
+                                    ?>  
+                                </div>                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                &nbsp;
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <div class="col-md-2 signupfont">
+                            Phone (Home):  
+                        </div>
+                        <div class="col-md-2">
+                            <div class="input-list style-4 clearfix">
+                                <div>
+                                    <?php
+                                    echo $this->Form->input(
+                                            'home', array(
+                                        'class' => '',
+                                            )
+                                    );
+                                    ?> 
+                                </div>                            
+                            </div>
+                        </div>
+                        <div class="col-md-1 signupfont">
+                            Cell:
+
+                        </div>
+                        <div class="col-md-2">
+                            <div class="input-list style-4 clearfix">
+                                <div>
+                                    <?php
+                                    echo $this->Form->input(
+                                            'cell', array(
+                                        'class' => ''
+                                            )
+                                    );
+                                    ?>
+                                </div>                            
+                            </div>
+                        </div>   
+
+                        <div class="col-md-1 signupfont">
+                            E-Mail/Fax
+                        </div>
+                        <div class="col-md-2">
+                            <div class="input-list style-4 clearfix">
+                                <div>
+                                    <?php
+                                    echo $this->Form->input(
+                                            'email', array(
+                                        'class' => '',
+                                        'id' => 'email',
+                                        'placeholder' => 'Email'
+                                            )
+                                    );
+                                    ?>
+                                </div>                            
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="input-list style-4 clearfix">
+                                <div>
+                                    <?php
+                                    echo $this->Form->input(
+                                            'fax', array(
+                                        'class' => '',
+                                        'id' => 'fax',
+                                        'placeholder' => 'Fax'
+                                            )
+                                    );
+                                    ?> 
+                                </div>                            
+                            </div>
+                        </div>                                
+                    </div>
+                </div>                     
+                <?php echo $this->Form->end(); ?> 
+            </div>
+        </div>
+
+        <!--customer info to get billing address END-->
+
         <div class="portlet box  " style="background-color: green; border: green solid 2px;">
             <div class="portlet-title">
                 <div class="caption">
@@ -21,6 +323,9 @@
                     </a>
                 </div>
             </div>
+
+
+
             <div class="portlet-body">
                 <div class="row " id="paymentprocess">
                     <div class="col-md-12">
@@ -86,13 +391,7 @@
                                                         )
                                                 );
                                                 ?>
-                                                <?php
-                                                echo $this->Form->input(
-                                                        'cid', array(
-                                                    'type' => 'hidden',
-                                                    'value' => $this->params['pass'][0]
-                                                ));
-                                                ?>
+                                              
                                                 <?php
                                                 echo $this->Form->input(
                                                         'pay_mode', array(
@@ -102,31 +401,23 @@
                                                 ?>
                                                 <br>
 
-                                                <div class="row">
-                                                    <div class="col-md-3 signupfont" style="padding-right: 0px;">
-                                                        Card Number: 
-                                                    </div>
-                                                    <div class="col-md-9">
+                                                <div class="row">                                                    
+                                                    <div class="col-md-3">
                                                         <?php
                                                         echo $this->Form->input(
                                                                 'card_no', array(
                                                             'type' => 'text',
-                                                            'value' => '',
                                                             'class' => 'form-control input-sm ',
                                                             'id' => 'card_number',
-                                                            'value' => $latestcardInfo['card_no']
+                                                            'Placeholder' => ' Card Number',
                                                         ));
                                                         ?>
                                                     </div>
-                                                </div>
 
-                                                &nbsp;                                                        
-
-                                                <div class="row">
-                                                    <div class="col-md-3 signupfont">
+                                                    <div class="col-md-2 signupfont">
                                                         Expiration Date:
                                                     </div>
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-2">
                                                         <?php
                                                         echo $this->Form->input('exp_date.year', array(
                                                             'type' => 'select',
@@ -135,12 +426,12 @@
                                                             'class' => 'span12 uniform nostyle select1 ',
                                                             'div' => array('class' => 'span12 '),
                                                             'id' => 'showyear',
-                                                            'default' => $latestcardInfo['exp_date']['year']
                                                                 )
                                                         );
                                                         ?>
-                                                    </div>
-                                                    <div class="col-md-5">
+                                                    </div> 
+
+                                                    <div class="col-md-2">
                                                         <?php
                                                         echo $this->Form->input('exp_date.month', array(
                                                             'type' => 'select',
@@ -149,89 +440,60 @@
                                                             'class' => 'span12 uniform nostyle select1 ',
                                                             'div' => array('class' => 'span12 '),
                                                             'id' => 'showmonth',
-                                                            'default' => $latestcardInfo['exp_date']['month']
                                                                 )
                                                         );
                                                         ?>
-                                                    </div>
-                                                </div>
-                                                &nbsp;
-                                                <div class="row">
-                                                    <div class="col-md-3 signupfont">
-                                                        Amount: 
-                                                    </div>
-                                                    <div class="col-md-9">
+                                                    </div>                                                   
+
+                                                    <div class="col-md-3">
                                                         <?php
                                                         echo $this->Form->input(
-                                                                'paid_amount', array(
+                                                                'payable_amount', array(
                                                             'type' => 'text',
-                                                            'class' => 'form-control input-sm '
+                                                            'class' => 'form-control input-sm ',
+                                                            'placeholder' => 'Amount'
                                                         ));
                                                         ?>
                                                     </div>
+
                                                 </div>
-                                                <hr style="background-color:black;">
+                                                <br>
                                                 <div class="row">
-                                                    <div class="col-md-3 signupfont">
+                                                    <div class="col-md-1 signupfont">
                                                         Invoice#
+                                                        <?php
+                                                        echo $this->Form->input('id');
+                                                        ?>
                                                     </div>
                                                     <div class="col-md-5">
+
                                                         <?php
                                                         echo $this->Form->input(
                                                                 'invoice', array(
                                                             'type' => 'text',
-                                                            'value' => '',
                                                             'class' => 'form-control input-sm',
-                                                            'class' => 'form-control input-sm '
+                                                            'value' => $this->params['pass'][0],
+                                                            'readonly' => 'readonly'
                                                         ));
                                                         ?>
                                                     </div>
-                                                </div>
-                                                <br>
-                                                <div class="row">
-                                                    <div class="col-md-3 signupfont">
+
+                                                    <div class="col-md-1 signupfont">
                                                         Description
                                                     </div>
-                                                    <div class="col-md-9">
+                                                    <div class="col-md-5">
                                                         <?php
                                                         echo $this->Form->input(
                                                                 'description', array(
                                                             'type' => 'text',
                                                             'class' => 'form-control input-sm ',
-                                                            'value' => $latestcardInfo['description']
                                                         ));
                                                         ?>
-                                                    </div>
-                                                </div>
-
-
-                                                <hr style="color: #333;">
-
-
-
-                                                <div class="row">
-                                                    <div class="col-md-3 signupfont">
-                                                        Customer ID 
-                                                    </div>
-                                                    <div class="col-md-5">
-                                                        <?php
-                                                        echo $this->Form->input(
-                                                                'package_customer_id', array(
-                                                            'type' => 'text',
-                                                            'value' => $this->params['pass'][0],
-                                                            'class' => 'form-control input-sm '
-                                                        ));
-                                                        ?>
-                                                    </div>
+                                                    </div>      
                                                 </div>
                                                 <br>
-
                                                 <div class="row">
-
-                                                    <div class="col-md-3 signupfont">
-                                                        Name: 
-                                                    </div>
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-3">
                                                         <?php
                                                         echo $this->Form->input(
                                                                 'fname', array(
@@ -239,11 +501,11 @@
                                                             'class' => 'form-control input-sm ',
                                                             'placeholder' => 'first name',
                                                             'id' => 'firstname',
-                                                            'value' => $latestcardInfo['fname']
+                                                            'placeholder' => 'First name'
                                                         ));
                                                         ?>
                                                     </div>
-                                                    <div class="col-md-5">
+                                                    <div class="col-md-3">
                                                         <?php
                                                         echo $this->Form->input(
                                                                 'lname', array(
@@ -251,47 +513,36 @@
                                                             'class' => 'form-control input-sm ',
                                                             'placeholder' => 'last name',
                                                             'id' => 'lastname',
-                                                            'value' => $latestcardInfo['lname']
+                                                            'placeholder' => 'Last name'
                                                         ));
                                                         ?>
                                                     </div>
-                                                </div>
-
-                                                </br>
-                                                <div class="row">
-                                                    <div class="col-md-3 signupfont" style="padding-right: 0px;">
-                                                        Company 
-                                                    </div>
-                                                    <div class="col-md-9">
+                                                    <div class="col-md-3">
                                                         <?php
                                                         echo $this->Form->input(
                                                                 'company', array(
                                                             'type' => 'text',
                                                             'class' => 'form-control input-sm ',
                                                             'id' => 'card_number',
-                                                            'value' => $latestcardInfo['company']
+                                                            'placeholder' => 'Company name'
                                                         ));
                                                         ?>
-                                                    </div>
-                                                </div>
-                                                </br>
-                                                <div class="row">
-                                                    <div class="col-md-3 signupfont" style="padding-right: 0px;">
-                                                        Address
-                                                    </div>
-                                                    <div class="col-md-5">
+                                                    </div>                                                    
+
+                                                    <div class="col-md-3">
                                                         <?php
                                                         echo $this->Form->input(
                                                                 'address', array(
                                                             'type' => 'text',
                                                             'class' => 'form-control input-sm ',
-                                                            'value' => $latestcardInfo['address']
+                                                            'placeholder' => 'Address'
                                                         ));
                                                         ?>
                                                     </div>
-                                                    <div class="col-md-1 signupfont" style="padding-right: 0px;">
-                                                        City
-                                                    </div>
+
+                                                </div>
+                                                <br>                                                
+                                                <div class="row">
                                                     <div class="col-md-3">
                                                         <?php
                                                         echo $this->Form->input(
@@ -299,62 +550,50 @@
                                                             'type' => 'text',
                                                             'id' => 'cityname',
                                                             'class' => 'form-control input-sm ',
-                                                            'value' => $latestcardInfo['city']
+                                                            'placeholder' => 'City'
                                                         ));
                                                         ?>
                                                     </div>
-                                                </div>
-                                                </br>
-                                                <div class="row">
-                                                    <div class="col-md-3 signupfont" style="padding-right: 0px;">
-                                                        State/Province
-                                                    </div>
-                                                    <div class="col-md-5">
 
+                                                    <div class="col-md-3">
                                                         <?php
                                                         echo $this->Form->input(
                                                                 'state', array(
                                                             'type' => 'text',
                                                             'id' => 'statename',
                                                             'class' => 'form-control input-sm ',
-                                                            'value' => $latestcardInfo['state']
+                                                            'placeholder' => 'State/Province'
                                                         ));
                                                         ?>
                                                     </div>
-                                                    <div class="col-md-2 signupfont" style="padding-right: 0px;">
-                                                        Zipe Code
-                                                    </div>
-                                                    <div class="col-md-2">
+
+                                                    <div class="col-md-3">
                                                         <?php
                                                         echo $this->Form->input(
                                                                 'zip_code', array(
                                                             'type' => 'text',
                                                             'id' => 'zip_code',
                                                             'class' => 'form-control input-sm ',
-                                                            'value' => $latestcardInfo['zip_code']
+                                                            'placeholder' => 'Zipe Code'
+                                                        ));
+                                                        ?>
+                                                    </div>
+
+
+                                                    <div class="col-md-3">
+                                                        <?php
+                                                        echo $this->Form->input(
+                                                                'country', array(
+                                                            'type' => 'text',
+                                                            'class' => 'form-control input-sm ',
+                                                            'placeholder' => 'Country'
                                                         ));
                                                         ?>
                                                     </div>
                                                 </div>
 
                                                 </br>
-                                                <div class="row">
-                                                    <div class="col-md-3 signupfont" style="padding-right: 0px;">
-                                                        Country
-                                                    </div>
-                                                    <div class="col-md-5">
-                                                        <?php
-                                                        echo $this->Form->input(
-                                                                'country', array(
-                                                            'type' => 'text',
-                                                            'class' => 'form-control input-sm ',
-                                                            'value' => $latestcardInfo['country']
-                                                        ));
-                                                        ?>
-                                                    </div>
-                                                    <div class="col-md-1 signupfont" style="padding-right: 0px;">
-                                                        Phone
-                                                    </div>
+                                                <div class="row">                                                   
                                                     <div class="col-md-3">
                                                         <?php
                                                         echo $this->Form->input(
@@ -362,31 +601,23 @@
                                                             'type' => 'text',
                                                             'id' => 'phoneno',
                                                             'class' => 'form-control input-sm ',
-                                                            'value' => $latestcardInfo['phone']
+                                                            'placeholder' => 'Phone'
                                                         ));
                                                         ?>
                                                     </div>
-                                                </div>
 
-                                                </br>
-                                                <div class="row">
-                                                    <div class="col-md-3 signupfont" style="padding-right: 0px;">
-                                                        Email
-                                                    </div>
-                                                    <div class="col-md-5">
+                                                    <div class="col-md-3">
                                                         <?php
                                                         echo $this->Form->input(
                                                                 'email', array(
                                                             'type' => 'text',
                                                             'id' => 'emailadd',
                                                             'class' => 'form-control input-sm ',
-                                                            'value' => $latestcardInfo['email']
+                                                            'placeholder' => 'Email'
                                                         ));
                                                         ?>
                                                     </div>
-                                                    <div class="col-md-1 signupfont" style="padding-right: 0px;">
-                                                        Fax
-                                                    </div>
+
                                                     <div class="col-md-3">
                                                         <?php
                                                         echo $this->Form->input(
@@ -394,19 +625,13 @@
                                                             'type' => 'text',
                                                             'id' => 'faxno',
                                                             'class' => 'form-control input-sm ',
-                                                            'value' => $latestcardInfo['fax']
+                                                            'placeholder' => 'Fax'
                                                         ));
                                                         ?>
                                                     </div>
-                                                </div>
 
 
-                                                &nbsp;
-                                                <div class="row">
-                                                    <div class="col-md-3 signupfont">
-                                                        CVV Code: 
-                                                    </div>
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-3">
                                                         <?php
                                                         echo $this->Form->input(
                                                                 'cvv_code', array(
@@ -414,10 +639,10 @@
                                                             'value' => '',
                                                             'class' => 'form-control input-sm ',
                                                             'id' => 'cvv_code',
-                                                            'value' => $latestcardInfo['cvv_code'],
+                                                            'placeholder' => 'CVV Code'
                                                         ));
                                                         ?>
-                                                    </div>
+                                                    </div>                                                    
                                                 </div>
                                             </div>  
 
@@ -428,29 +653,7 @@
                                                 </div>
                                             </div>
 
-                                            <?php
-                                            echo $this->Form->input(
-                                                    'cid', array(
-                                                'type' => 'hidden',
-                                                'value' => $this->params['pass'][0]
-                                            ));
-                                            ?>
-                                            &nbsp;
-                                            <div class="row">
-                                                <div class="col-lg-6  padding-left-0 padding-top-20 pull-left"> 
-
-                                                    <?php
-                                                    echo $this->Form->button(
-                                                            'Update Card', array(
-                                                        'class' => 'btn btn-primary submitbtn blue',
-                                                        'type' => 'submit',
-                                                        'name' => 'updateCard',
-                                                        'confirm' => 'Are you sure to update the card info?'
-                                                    ));
-                                                    ?>
-
-                                                </div>
-
+                                            <div class="row">                                              
                                                 <div class="col-lg-6  padding-left-0 padding-top-20 pull-right"> 
 
                                                     <?php
@@ -463,11 +666,7 @@
                                                     ?>
 
                                                 </div>
-
                                             </div>
-
-
-
                                             <?php echo $this->Form->end(); ?>
                                             </div>
                                             &nbsp;
@@ -486,13 +685,7 @@
                                                         )
                                                 );
                                                 ?>
-                                                <?php
-                                                echo $this->Form->input(
-                                                        'cid', array(
-                                                    'type' => 'hidden',
-                                                    'value' => $this->params['pass'][0]
-                                                ));
-                                                ?>
+                                             
 
                                                 <?php
                                                 echo $this->Form->input(
@@ -525,10 +718,9 @@
                                                     <div class="col-md-9">
                                                         <?php
                                                         echo $this->Form->input(
-                                                                'paid_amount', array(
+                                                                'payable_amount', array(
                                                             'type' => 'text',
                                                             'class' => 'form-control input-sm ',
-                                                            'value' => '',
                                                         ));
                                                         ?>
                                                     </div>
@@ -585,13 +777,7 @@
                                                         )
                                                 );
                                                 ?>
-                                                <?php
-                                                echo $this->Form->input(
-                                                        'cid', array(
-                                                    'type' => 'hidden',
-                                                    'value' => $this->params['pass'][0]
-                                                ));
-                                                ?>
+                                             
 
                                                 <?php
                                                 echo $this->Form->input(
@@ -625,10 +811,9 @@
                                                     <div class="col-md-9">
                                                         <?php
                                                         echo $this->Form->input(
-                                                                'paid_amount', array(
+                                                                'payable_amount', array(
                                                             'type' => 'text',
-                                                            'class' => 'form-control input-sm ',
-                                                            'value' => '',
+                                                            'class' => 'form-control input-sm '
                                                         ));
                                                         ?>
                                                     </div>
@@ -686,13 +871,6 @@
                                                 );
                                                 ?>
 
-                                                <?php
-                                                echo $this->Form->input(
-                                                        'cid', array(
-                                                    'type' => 'hidden',
-                                                    'value' => $this->params['pass'][0]
-                                                ));
-                                                ?>
 
                                                 <?php
                                                 echo $this->Form->input(
@@ -725,10 +903,9 @@
                                                     <div class="col-md-9">
                                                         <?php
                                                         echo $this->Form->input(
-                                                                'paid_amount', array(
+                                                                'payable_amount', array(
                                                             'type' => 'text',
                                                             'class' => 'form-control input-sm ',
-                                                            'value' => '',
                                                         ));
                                                         ?>
                                                     </div>
@@ -784,13 +961,7 @@
                                                         )
                                                 );
                                                 ?>
-                                                <?php
-                                                echo $this->Form->input(
-                                                        'cid', array(
-                                                    'type' => 'hidden',
-                                                    'value' => $this->params['pass'][0]
-                                                ));
-                                                ?>
+                                               
                                                 <?php
                                                 echo $this->Form->input(
                                                         'pay_mode', array(
@@ -806,10 +977,9 @@
                                                     <div class="col-md-9">
                                                         <?php
                                                         echo $this->Form->input(
-                                                                'paid_amount', array(
+                                                                'payable_amount', array(
                                                             'type' => 'text',
-                                                            'class' => 'form-control input-sm ',
-                                                            'value' => ''
+                                                            'class' => 'form-control input-sm '
                                                         ));
                                                         ?>
                                                     </div>
