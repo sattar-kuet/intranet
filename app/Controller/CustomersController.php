@@ -248,10 +248,13 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $this->loadModel('PackageCustomer');
         $customer_info = $this->PackageCustomer->findById($pcid);
         $this->request->data = $customer_info;
+       // pr($this->request->data); exit;
         $payment = new PaymentsController();
         $latestcardInfo = $payment->getLastCardInfo($pcid);
         unset($customer_info['PackageCustomer']['email']);
+        unset($customer_info['PackageCustomer']['exp_date']);
         $this->request->data['Transaction'] = $customer_info['PackageCustomer'] + $latestcardInfo;
+       
 
         $statusHistories = $this->StatusHistory->find('all', array('conditions' => array('StatusHistory.package_customer_id' => $pcid)));
         $lastStatus = end($statusHistories);
