@@ -453,10 +453,7 @@
                                                                 )
                                                         );
                                                         ?>
-                                                    </div>                                                   
-
-
-
+                                                    </div>  
                                                 </div>
                                                 <br>
                                                 <div class="row">
@@ -716,6 +713,25 @@
                                                 ));
                                                 ?>
                                                 <br>
+
+                                                 <div class="row">
+                                                    <div class="col-md-3 signupfont">
+                                                       Invoice#
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <?php
+                                                    echo $this->Form->input(
+                                                            'invoice', array(
+                                                        'type' => 'text',
+                                                        'class' => 'form-control input-sm',
+                                                        'value' => $this->params['pass'][0],
+                                                        'readonly' => 'readonly'
+                                                    ));
+                                                    ?>
+                                                    </div>
+                                                </div>
+                                                <br>
+
                                                 <div class="row">
                                                     <div class="col-md-3 signupfont">
                                                         Attachment: 
@@ -807,6 +823,25 @@
                                                     'value' => 'money order'
                                                 ));
                                                 ?>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-md-3 signupfont">
+                                                       Invoice#
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <?php
+                                                    echo $this->Form->input(
+                                                            'invoice', array(
+                                                        'type' => 'text',
+                                                        'class' => 'form-control input-sm',
+                                                        'value' => $this->params['pass'][0],
+                                                        'readonly' => 'readonly'
+                                                    ));
+                                                    ?>
+                                                    </div>
+                                                </div>
+                                                
+                                                
                                                 <br>
                                                 <div class="row">
                                                     <div class="col-md-3 signupfont">
@@ -903,6 +938,23 @@
                                                 <br>
                                                 <div class="row">
                                                     <div class="col-md-3 signupfont">
+                                                       Invoice#
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <?php
+                                                    echo $this->Form->input(
+                                                            'invoice', array(
+                                                        'type' => 'text',
+                                                        'class' => 'form-control input-sm',
+                                                        'value' => $this->params['pass'][0],
+                                                        'readonly' => 'readonly'
+                                                    ));
+                                                    ?>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-md-3 signupfont">
                                                         Attachment: 
                                                     </div>
                                                     <div class="col-md-9">
@@ -990,6 +1042,23 @@
                                                     'value' => 'cash'
                                                 ));
                                                 ?>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-md-3 signupfont">
+                                                       Invoice#
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <?php
+                                                    echo $this->Form->input(
+                                                            'invoice', array(
+                                                        'type' => 'text',
+                                                        'class' => 'form-control input-sm',
+                                                        'value' => $this->params['pass'][0],
+                                                        'readonly' => 'readonly'
+                                                    ));
+                                                    ?>
+                                                    </div>
+                                                </div> 
                                                 <br>
                                                 <div class="row">
                                                     <div class="col-md-3 signupfont">

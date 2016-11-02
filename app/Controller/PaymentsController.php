@@ -95,6 +95,7 @@ class PaymentsController extends AppController {
         $latestcardInfo = $this->getLastCardInfo($customer_id);
         unset($customer_info['PackageCustomer']['email']);
         unset($customer_info['PackageCustomer']['id']);
+        unset($customer_info['PackageCustomer']['exp_date']);
 
         $this->request->data['Transaction'] = $customer_info['PackageCustomer'] + $latestcardInfo;
         $this->request->data['Transaction']['id'] = $trans_id;
