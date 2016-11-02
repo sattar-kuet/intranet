@@ -312,7 +312,7 @@ header-navigation > ul > li.dropdown:hover > a:after {
 /* Custom by Sakib */
 /* User Signup Custom*/
 #signuplogo {
-   // border-bottom: 2px solid black;
+    // border-bottom: 2px solid black;
 }
 #headingborder {
     border: 1px solid rgba(75,172,198,1); margin: 1px; font-weight: 700; font-size: 26px; padding: 5px;
@@ -342,74 +342,74 @@ header-navigation > ul > li.dropdown:hover > a:after {
     width: 100% !important; 
 }
 input[type="text"] {
-  display: block;
-  margin: 0;
-  width: 100%;
-  font-family: sans-serif;
-  font-size: 18px;
-  appearance: none;
-  box-shadow: none;
-  border-radius: none;
+    display: block;
+    margin: 0;
+    width: 100%;
+    font-family: sans-serif;
+    font-size: 18px;
+    appearance: none;
+    box-shadow: none;
+    border-radius: none;
 }
 input[type='number'] {
     display: block;
-  margin: 0;
-  width: 100%;
-  font-family: sans-serif;
-  font-size: 18px;
-  appearance: none;
-  box-shadow: none;
-  border-radius: none;
+    margin: 0;
+    width: 100%;
+    font-family: sans-serif;
+    font-size: 18px;
+    appearance: none;
+    box-shadow: none;
+    border-radius: none;
 }
 input[type='email'] {
     display: block;
-  margin: 0;
-  width: 100%;
-  font-family: sans-serif;
-  font-size: 18px;
-  appearance: none;
-  box-shadow: none;
-  border-radius: none;
+    margin: 0;
+    width: 100%;
+    font-family: sans-serif;
+    font-size: 18px;
+    appearance: none;
+    box-shadow: none;
+    border-radius: none;
 }
 input[type="text"]:focus {
-  outline: none;
+    outline: none;
 }
 input[type="number"]:focus {
-  outline: none;
+    outline: none;
 }
 input[type="email"]:focus {
-  outline: none;
-  
+    outline: none;
+
 }
 .style-4 input[type="text"] {
-  padding: 0px;
-  border: none;
-  border-bottom: solid 2px #c9c9c9;
-  transition: border 0.3s;
+    padding: 0px;
+    border: none;
+    border-bottom: solid 2px #c9c9c9;
+    transition: border 0.3s;
 }
 .style-4 input[type="number"] {
-  padding: 0px;
-  border: none;
-  border-bottom: solid 2px #c9c9c9;
-  transition: border 0.3s;
+    padding: 0px;
+    border: none;
+    border-bottom: solid 2px #c9c9c9;
+    transition: border 0.3s;
 }
 .style-4 input[type="email"] {
-  padding: 0px;
-  border: none;
-  border-bottom: solid 2px #c9c9c9;
-  transition: border 0.3s;
+    padding: 0px;
+    border: none;
+    border-bottom: solid 2px #c9c9c9;
+    transition: border 0.3s;
 }
 .style-4 input[type="text"]:focus,
 .style-4 input[type="text"].focus {
-  border-bottom: solid 2px #969696;
+    border-bottom: solid 2px #969696;
 }
 .style-4 input[type="number"]:focus,
 .style-4 input[type="number"].focus {
-  border-bottom: solid 2px #969696;
+    border-bottom: solid 2px #969696;
 }
 .style-4 input[type="email"]:focus,
 .style-4 input[type="email"].focus {
-  border-bottom: solid 2px #969696;
+    border-bottom: solid 2px #969696;
 }
 
 
@@ -428,7 +428,7 @@ input[type="email"]:focus {
 .time{
     //width: 400px;
     height: 46px;
-   // background: #000 !important;
+    // background: #000 !important;
     margin: 0 auto !important;
     color: #FFF;
     //background: #0e8dbc;
@@ -437,19 +437,25 @@ input[type="email"]:focus {
     margin-bottom: 10px;
     font-size: 33px;  
     text-align: center;
-  
+
 }
 
 li.dropdown.dropdown-user {
     margin-top: -48px !important;
 }
 
-  /*by abdullah*/
-  
-  /**/
-  .table-responsive {
-   
-     overflow-x:  hidden; 
+/*by abdullah*/
+
+/**/
+.table-responsive {
+
+    overflow-x:  hidden; 
 }
-  
-  /**/
+
+/**/
+/* this code for report model */
+
+.page-content-wrapper .page-content_invo {
+    margin-left: 0px !important; 
+}
+/**/

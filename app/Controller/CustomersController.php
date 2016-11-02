@@ -5,6 +5,7 @@
  */
 require_once(APP . 'Vendor' . DS . 'class.upload.php');
 App::import('Controller', 'Payments');
+App::import('Controller', 'Reports');
 
 class CustomersController extends AppController {
 
@@ -175,7 +176,6 @@ class CustomersController extends AppController {
     }
 
     function update_auto_recurring() {
-        // update package_customers table
         $this->loadModel('Transaction');
         $this->loadModel('PackageCustomer');
         $dateObj = $this->request->data['Transaction']['exp_date'];
@@ -194,8 +194,6 @@ class CustomersController extends AppController {
 
         $this->PackageCustomer->save($this->request->data['Transaction']);
 
-//       pr($this->Transaction);
-//       exit;
         $Msg = '<div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <strong>Auto recurring updated Successfully! </strong>
@@ -302,14 +300,17 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
  
         $ym = $this->getYm();
         $this->loadModel('Transaction');
-        $transactions_all = $this->Transaction->query("SELECT * 
-            FROM  `transactions` tr
-            INNER JOIN package_customers pc ON pc.id = tr.`package_customer_id` 
-            WHERE package_customer_id = $pcid order by tr.id ASC;");
+        $invoices = $this->getOpenInvoice($pcid);       
+        $statements = $this->Transaction->query("SELECT *
+            FROM transactions tr			
+            left join  package_customers pc  on pc.id = tr.package_customer_id
+            left join psettings ps on ps.id = pc.psetting_id
+            LEFT JOIN packages p ON p.id = ps.package_id where tr.status = 'success' "
+          );
+        
+//        pr($statements); exit;
 
-        $invoices = $this->getOpenInvoice($pcid);
-
-        $this->set(compact('invoices', 'packageList', 'psettings', 'ym', 'custom_package_charge', 'transactions_all'));
+        $this->set(compact('invoices','statements', 'packageList', 'psettings', 'ym', 'custom_package_charge'));
     }
 
     function registration() {
@@ -375,9 +376,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             $this->Session->setFlash($msg);
             return $this->redirect($this->referer());
         }
-        //$data = $this->PackageCustomer->findById($id);
-        // $this->request->data = $data;
-        //Show Package List 
+       
         //******************************
         $this->loadModel('Package');
         $this->loadModel('Psetting');
@@ -531,10 +530,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             if (isset($unique[$pd])) {
                 //  echo 'already exist'.$key.'<br/>';
                 if (!empty($data['c']['content'])) {
-                    //  $temp = $data['c'];// array('id' => $data['psettings']['id'], 'duration' => $data['psettings']['duration'], 'amount' => $data['psettings']['amount'], 'offer' => $data['psettings']['offer']);
-                    //pr($temp); exit;
-
-                    $temp = array('content' => $data['c'], 'user' => $data['u']);
+                   $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
                 }
             } else {
@@ -602,9 +598,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             if (isset($unique[$pd])) {
                 //  echo 'already exist'.$key.'<br/>';
                 if (!empty($data['c']['content'])) {
-                    //  $temp = $data['c'];// array('id' => $data['psettings']['id'], 'duration' => $data['psettings']['duration'], 'amount' => $data['psettings']['amount'], 'offer' => $data['psettings']['offer']);
-                    //pr($temp); exit;
-
+                
                     $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
                 }
@@ -690,9 +684,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             if (isset($unique[$pd])) {
                 //  echo 'already exist'.$key.'<br/>';
                 if (!empty($data['c']['content'])) {
-                    //  $temp = $data['c'];// array('id' => $data['psettings']['id'], 'duration' => $data['psettings']['duration'], 'amount' => $data['psettings']['amount'], 'offer' => $data['psettings']['offer']);
-                    //pr($temp); exit;
-
+                  
                     $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
                 }
@@ -866,9 +858,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             if (isset($unique[$pd])) {
                 //  echo 'already exist'.$key.'<br/>';
                 if (!empty($data['c']['content'])) {
-                    //  $temp = $data['c'];// array('id' => $data['psettings']['id'], 'duration' => $data['psettings']['duration'], 'amount' => $data['psettings']['amount'], 'offer' => $data['psettings']['offer']);
-                    //pr($temp); exit;
-
+                    
                     $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
                 }
@@ -927,20 +917,16 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                      left join issues i on pc.issue_id = i.id
                     WHERE pc.shipment = 2");
-        // echo $sql; exit;
         $filteredData = array();
         $unique = array();
         $index = 0;
-//        pr($allData); exit;
         foreach ($allData as $key => $data) {
             //pr($data); exit;
             $pd = $data['pc']['id'];
             if (isset($unique[$pd])) {
                 //  echo 'already exist'.$key.'<br/>';
                 if (!empty($data['c']['content'])) {
-                    //  $temp = $data['c'];// array('id' => $data['psettings']['id'], 'duration' => $data['psettings']['duration'], 'amount' => $data['psettings']['amount'], 'offer' => $data['psettings']['offer']);
-                    //pr($temp); exit;
-
+                  
                     $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
                 }
@@ -1077,15 +1063,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $this->loadModel('PackageCustomer');
         $clicked = false;
         if ($this->request->is('post') || $this->request->is('put')) {
-//            $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
-//                    left join comments c on pc.id = c.package_customer_id
-//                    left join users u on c.user_id = u.id
-//                    left join psettings ps on ps.id = pc.psetting_id
-//                    left join custom_packages cp on cp.id = pc.custom_package_id 
-//                     left join issues i on pc.issue_id = i.id
-//                    WHERE LOWER(pc.status) like '%request to hold%'");
-            // echo $sql; exit;
-//                pr($allData); exit;
+
             $datrange = json_decode($this->request->data['PackageCustomer']['daterange'], true);
             $start = explode('-', $datrange['start']);
             $start = $start[1] . '/' . $start[2] . '/' . $start[0];
@@ -1168,14 +1146,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $this->loadModel('PackageCustomer');
         $clicked = false;
         if ($this->request->is('post') || $this->request->is('put')) {
-//            $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
-//                    left join comments c on pc.id = c.package_customer_id
-//                    left join users u on c.user_id = u.id
-//                    left join psettings ps on ps.id = pc.psetting_id
-//                    left join custom_packages cp on cp.id = pc.custom_package_id 
-//                     left join issues i on pc.issue_id = i.id
-//                    WHERE LOWER(pc.status) like '%request to unhold%'");
-            // echo $sql; exit;
+
             $datrange = json_decode($this->request->data['PackageCustomer']['daterange'], true);
             $start = explode('-', $datrange['start']);
             $start = $start[1] . '/' . $start[2] . '/' . $start[0];
@@ -1259,14 +1230,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $this->loadModel('PackageCustomer');
         $clicked = false;
         if ($this->request->is('post') || $this->request->is('put')) {
-//            $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
-//                    left join comments c on pc.id = c.package_customer_id
-//                    left join users u on c.user_id = u.id
-//                    left join psettings ps on ps.id = pc.psetting_id
-//                    left join custom_packages cp on cp.id = pc.custom_package_id 
-//                     left join issues i on pc.issue_id = i.id
-//                    WHERE LOWER(pc.status) like '%Request to reconnection%'");
-            // echo $sql; exit;
+
             $datrange = json_decode($this->request->data['PackageCustomer']['daterange'], true);
             $start = explode('-', $datrange['start']);
             $start = $start[1] . '/' . $start[2] . '/' . $start[0];

@@ -65,6 +65,14 @@
                         )
                 );
                 ?>
+                <?php
+                echo $this->Form->input(
+                        'package_customer_id', array(
+                    'type' => 'hidden',
+                    'value' => $this->params['pass'][1]
+                        )
+                );
+                ?> 
                 <br>
                 <div class="row">
                     <div class="col-md-12 ">
@@ -391,7 +399,7 @@
                                                         )
                                                 );
                                                 ?>
-                                              
+
                                                 <?php
                                                 echo $this->Form->input(
                                                         'pay_mode', array(
@@ -400,9 +408,9 @@
                                                 ));
                                                 ?>
                                                 <br>
-                                                 <div class="col-md-2 signupfont">
-                                                        Card Number
-                                                    </div>
+                                                <div class="col-md-2 signupfont">
+                                                    Card Number
+                                                </div>
                                                 <div class="row">                                                    
                                                     <div class="col-md-3">
                                                         <?php
@@ -447,13 +455,13 @@
                                                         ?>
                                                     </div>                                                   
 
-                                                   
+
 
                                                 </div>
                                                 <br>
                                                 <div class="row">
                                                     <div class="col-md-2 signupfont">
-                                                       &nbsp;  &nbsp; Invoice#
+                                                        &nbsp;  &nbsp; Invoice#
                                                         <?php
                                                         echo $this->Form->input('id');
                                                         ?>
@@ -470,10 +478,10 @@
                                                         ));
                                                         ?>
                                                     </div>
-                                                     <div class="col-md-1 signupfont">
-                                                       &nbsp; Amount
+                                                    <div class="col-md-1 signupfont">
+                                                        &nbsp; Amount
                                                     </div>
-                                                     <div class="col-md-2">
+                                                    <div class="col-md-2">
                                                         <?php
                                                         echo $this->Form->input(
                                                                 'payable_amount', array(
@@ -650,30 +658,30 @@
                                                         ?>
                                                     </div>                                                    
                                                 </div>
-                                            </div>  
 
-                                            &nbsp;
-                                            <div class="row">
-                                                <div class="col-md-10 col-md-offset-3">
-                                                    <input type="checkbox" id="autofillAddrCheck"  /> <span class="signupfont">SAME AS BILLING ADDRESS </span>
+
+                                                &nbsp;
+                                                <div class="row">
+                                                    <div class="col-md-10 col-md-offset-3">
+                                                        <input type="checkbox" id="autofillAddrCheck"  /> <span class="signupfont">SAME AS BILLING ADDRESS </span>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="row">                                              
-                                                <div class="col-lg-6  padding-left-0 padding-top-20 pull-right"> 
+                                                <div class="row">                                              
+                                                    <div class="col-lg-6  padding-left-0 padding-top-20 pull-right"> 
 
-                                                    <?php
-                                                    echo $this->Form->button(
-                                                            'Submit Payment', array(
-                                                        'class' => 'btn btn-primary submitbtn blue-dark',
-                                                        'type' => 'submit',
-                                                        'id' => ''
-                                                    ));
-                                                    ?>
+                                                        <?php
+                                                        echo $this->Form->button(
+                                                                'Submit Payment', array(
+                                                            'class' => 'btn btn-primary submitbtn blue-dark',
+                                                            'type' => 'submit',
+                                                            'id' => ''
+                                                        ));
+                                                        ?>
 
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <?php echo $this->Form->end(); ?>
+                                                <?php echo $this->Form->end(); ?>
                                             </div>
                                             &nbsp;
                                             <div id="option_check" class="display-none">
@@ -691,7 +699,14 @@
                                                         )
                                                 );
                                                 ?>
-                                             
+                                                <?php
+                                                echo $this->Form->input(
+                                                        'package_customer_id', array(
+                                                    'type' => 'hidden',
+                                                    'value' => $this->params['pass'][1]
+                                                        )
+                                                );
+                                                ?> 
 
                                                 <?php
                                                 echo $this->Form->input(
@@ -783,7 +798,7 @@
                                                         )
                                                 );
                                                 ?>
-                                             
+
 
                                                 <?php
                                                 echo $this->Form->input(
@@ -967,7 +982,7 @@
                                                         )
                                                 );
                                                 ?>
-                                               
+
                                                 <?php
                                                 echo $this->Form->input(
                                                         'pay_mode', array(
