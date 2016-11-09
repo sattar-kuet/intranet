@@ -374,3 +374,12 @@ function sendEmail($from, $name, $to, $subject, $body) {
 
     $Email->send($body);
 }
+
+ function getPaid($id = null) {
+        $ptr = ClassRegistry::init('PaidTransaction');
+        $sql = 'SELECT SUM(amount) as paid FROM paid_transactions WHERE transaction_id =' . $id;
+        $data = $ptr->query($sql);
+        $paid = $data[0][0]['paid'];
+        return  $paid;
+    }
+
