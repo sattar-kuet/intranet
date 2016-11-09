@@ -311,7 +311,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             LEFT JOIN packages p ON p.id = ps.package_id where tr.status = 'success' "
           );
         
-//        pr($statements); exit;
+//        pr($invoices[0]['paid_transactions']['amount']); exit;
 
         $this->set(compact('invoices','statements', 'packageList', 'psettings', 'ym', 'custom_package_charge'));
     }
