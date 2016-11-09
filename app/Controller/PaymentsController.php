@@ -75,7 +75,7 @@ class PaymentsController extends AppController {
             $date = explode('/', $temp[0]['transactions']['exp_date']);
             $yyyy = date('Y');
             $yy = substr($yyyy, 0, 2);
-            if(isset($date[1])){
+            if (isset($date[1])) {
                 $yyyy = $yy . '' . $date[1];
             }
             $mm = $date[0];
@@ -119,7 +119,7 @@ class PaymentsController extends AppController {
         $card = $this->request->data['Transaction'];
         $creditCard->setCardNumber($card['card_no']);
         $exp_date = $card['exp_date']['month'] . '-' . $card['exp_date']['year'];
-       // echo $exp_date; exit;
+        // echo $exp_date; exit;
         $creditCard->setExpirationDate($exp_date);
         //    $creditCard->setCardNumber("4117733943147221"); // live
         // $creditCard->setExpirationDate("07-2019"); //live
@@ -179,21 +179,24 @@ class PaymentsController extends AppController {
         $this->request->data['Transaction']['status'] = '';
         $this->request->data['Transaction']['trx_id'] = '';
         $this->request->data['Transaction']['auth_code'] = '';
-         pr($response ); exit;
+        pr($response);
+        exit;
         if ($response != null) {
             $tresponse = $response->getTransactionResponse();
-             pr($tresponse ); exit;
+            pr($tresponse);
+            exit;
             if (($tresponse != null) && ($tresponse->getResponseCode() == "1")) {
                 $this->request->data['Transaction']['status'] = 'success';
                 $this->request->data['Transaction']['trx_id'] = $tresponse->getTransId();
                 $this->request->data['Transaction']['auth_code'] = $tresponse->getAuthCode();
                 // update payable amount and paidamount in transaction table
-                $sql ='UPDATE transactions SET payable_amount = payable_amount-'.$card['payable_amount'].
-                        ', paid_amount+'.$card['payable_amount'].
-                        ' WHERE transactions.id = '.$card['id'];
-               $result =  $this->Transaction->query($sql);
-               pr($result); exit;
-                
+                $sql = 'UPDATE transactions SET payable_amount = payable_amount-' . $card['payable_amount'] .
+                        ', paid_amount+' . $card['payable_amount'] .
+                        ' WHERE transactions.id = ' . $card['id'];
+                $result = $this->Transaction->query($sql);
+                pr($result);
+                exit;
+
                 $msg .='<li> Transaction for  successfull</li>';
                 $tdata['Ticket'] = array('content' => 'Transaction for ' . $pc['fname'] . ' ' . $pc['lname'] . ' successfull');
                 $tickect = $this->Ticket->save($tdata); // Data save in Ticket
