@@ -1535,7 +1535,7 @@
                                                                     <th class="hidden-480" style=" padding-bottom: 39px; text-align: center; color: #000 !important; color: white; width: 51px;font-size: 19px; font-weight: bold;">
                                                                         #
                                                                     </th>                                    
-                                                                    <th class="hidden-480" style=" color: #333 !important; padding: 0px 0px 39px 19px;">
+                                                                    <th class="hidden-480 " style=" color: #333 !important; padding: 0px 0px 39px 19px;">
                                                                         DESCRIPTION
                                                                     </th>
                                                                     <th class="hidden-480"  style=" color: #333 !important; text-align: center; padding-bottom: 39px;">

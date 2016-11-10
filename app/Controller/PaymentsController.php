@@ -90,16 +90,22 @@ class PaymentsController extends AppController {
         $ym = $this->getYm();
         $this->set(compact('ym'));
         $this->loadModel('PackageCustomer');
+        $this->loadModel('Transaction');
         $customer_info = $this->PackageCustomer->findById($customer_id);
         $this->request->data = $customer_info;
         $latestcardInfo = $this->getLastCardInfo($customer_id);
         unset($customer_info['PackageCustomer']['email']);
         unset($customer_info['PackageCustomer']['id']);
         unset($customer_info['PackageCustomer']['exp_date']);
-
-        $this->request->data['Transaction'] = $customer_info['PackageCustomer'] + $latestcardInfo;
+        $data = $this->Transaction->findById($trans_id);
+        $this->request->data['Transaction'] =  $latestcardInfo;
         $this->request->data['Transaction']['id'] = $trans_id;
-        // pr($this->request->data['Transaction']); exit;
+        $paid = getPaid($trans_id);
+        $data = $this->Transaction->findById($trans_id);
+        //pr($latestcardInfo); exit;
+        $this->request->data['Transaction'] = $data['Transaction'] + $latestcardInfo;
+        $this->request->data['Transaction']['payable_amount'] = $data['Transaction']['payable_amount'] - $paid;
+        
         //$this->request->data = $customer_info;
         $this->set('customer_info');
     }
@@ -635,7 +641,8 @@ class PaymentsController extends AppController {
         } else {
             $this->request->data['Transaction']['check_image'] = '';
         }
-        $this->request->data['Transaction']['status'] = 'success';
+//        $this->request->data['Transaction']['status'] = 'success';
+         $this->request->data['Transaction']['status'] = 'close';
 
         //creatre transaction History 
         $data4trnshistory = array(
@@ -651,7 +658,7 @@ class PaymentsController extends AppController {
         }
         unset($this->request->data['Transaction']['payable_amount']);
         $this->Transaction->id = $this->request->data['Transaction']['id'];
-
+        
         $this->Transaction->save($this->request->data['Transaction']);
         $transactionMsg = '<div class = "alert alert-success">
                         <button type = "button" class = "close" data-dismiss = "alert">&times;
@@ -673,7 +680,7 @@ class PaymentsController extends AppController {
         } else {
             $this->request->data['Transaction']['check_image'] = '';
         }
-        $this->request->data['Transaction']['status'] = 'success';
+        $this->request->data['Transaction']['status'] = 'close';
 
         //creatre transaction History 
         $data4trnshistory = array(
@@ -703,9 +710,9 @@ class PaymentsController extends AppController {
         $this->loadModel('Transaction');
         $loggedUser = $this->Auth->user();
         $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
-        $cid = $this->request->data['Transaction']['cid'];
-        $this->request->data['Transaction']['package_customer_id'] = $cid;
-        $this->request->data['Transaction']['status'] = 'success';
+       
+//        $this->request->data['Transaction']['status'] = 'success';
+         $this->request->data['Transaction']['status'] = 'close';
         //creatre transaction History 
         $data4trnshistory = array(
             'user_id' => $loggedUser['id'],

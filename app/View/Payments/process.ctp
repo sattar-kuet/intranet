@@ -400,9 +400,7 @@
                                                 );
                                                 ?>
 
-                                                <?php
-                                                echo $this->Form->input('id');
-                                                ?>
+                                             
 
                                                 <?php
                                                 echo $this->Form->input(
@@ -469,7 +467,7 @@
 
                                                         <?php
                                                         echo $this->Form->input(
-                                                                'invoice', array(
+                                                                'id', array(
                                                             'type' => 'text',
                                                             'class' => 'form-control input-sm',
                                                             'value' => $this->params['pass'][0],
