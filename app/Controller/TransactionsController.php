@@ -112,6 +112,26 @@ class TransactionsController extends AppController {
         }
         $this->set(compact('filteredPackage'));
     }
+    
+     function edit($id = null) {
+        $this->loadModel('PackageCustomer');
+        $this->loadModel('Transaction');
+        if ($this->request->is('post') || $this->request->is('put')) {
+            $this->request->data['Transaction']['next_payment'] = $this->getFormatedDate($this->request->data['Transaction']['next_payment']);
+            $this->Transaction->set($this->request->data);
+            $this->Transaction->id = $id;
+            $this->Transaction->save($this->request->data['Transaction']);
+            $msg = '<div class="alert alert-success">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<strong> Transaction data updated succeesfully </strong>
+	</div>';
+            $this->Session->setFlash($msg);
+            return $this->redirect($this->referer());
+        }
+        $data = $this->Transaction->findById($id);
+        $this->request->data['Transaction'] = $data['Transaction'];
+    }
+
 
     function edit_customer_data($id = null) {
         $this->loadModel('StatusHistory');
