@@ -33,7 +33,7 @@
                     <div class="portlet-body form">
                         <!-- BEGIN FORM-->
                         <?php
-                        echo $this->Form->create('Transaction', array(
+                        echo $this->Form->create('PackageCustomer', array(
                             'inputDefaults' => array(
                                 'label' => false,
                                 'div' => false

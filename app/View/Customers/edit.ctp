@@ -1535,17 +1535,18 @@
                                                                     <th class="hidden-480" style=" padding-bottom: 39px; text-align: center; color: #000 !important; color: white; width: 51px;font-size: 19px; font-weight: bold;">
                                                                         #
                                                                     </th>                                    
-                                                                    <th class="hidden-480" style=" color: #333 !important; padding: 0px 0px 39px 19px;">
+                                                                    <th class="hidden-480 " style=" color: #333 !important; padding: 0px 0px 39px 19px;">
                                                                         DESCRIPTION
                                                                     </th>
                                                                     <th class="hidden-480"  style=" color: #333 !important; text-align: center; padding-bottom: 39px;">
                                                                         STB QUANTITY
                                                                     </th>
-                                                                    <th class="hidden-480" style=" color: #333 !important; padding-bottom: 39px; text-align: center;">
-                                                                        PRICE
-                                                                    </th>
+                                                                    
                                                                     <th class="hidden-480" style=" color: #333 !important; text-align: center; padding-bottom: 39px;">
                                                                         SUBSCRIPION
+                                                                    </th>
+                                                                    <th class="hidden-480" style=" color: #333 !important; padding-bottom: 39px; text-align: center;">
+                                                                       PAYABLE AMOUNT
                                                                     </th>
                                                                     <th class="hidden-480"  style=" padding-bottom: 39px; text-align: center; font-size: 15px;  color: #000 !important; width: 101px;">
                                                                         TOTAL
@@ -1564,18 +1565,20 @@
                                                                     <td style=" color: #333 !important; text-align: center;  padding: 43px 0px 0px 9px ;">
                                                                         <?php echo $single['package_customers']['mac']; ?>
                                                                     </td>
-                                                                    <td style=" color: #333 !important; padding: 43px 0px 0px 9px; text-align: center;">
-                                                                        <?php if (!empty($single[0]['paid_transactions']['amount'])): ?>
-                                                                            $ <?php echo $single[0]['paid_transactions']['amount']; ?>.00
-                                                                        <?php endif ?>
-                                                                    </td>
+                                                                    
 
                                                                     <td style=" color: #333 !important; text-align: center; padding: 43px 0px 0px 9px ;">
                                                                         <?php echo $single['psettings']['duration']; ?>
                                                                     </td>
+                                                                    <td style=" color: #333 !important; padding: 43px 0px 0px 9px; text-align: center;">
+                                                                        <?php if (!empty($info['transactions']['payable_amount'])): ?>
+                                                                            $ <?php echo $info['transactions']['payable_amount']; ?>.00
+                                                                        <?php endif ?>
+                                                                    </td>
+                                                                     
                                                                     <td  style=" padding: 43px 0px 0px 9px ; text-align: center; font-size: 19px; font-weight: bold; color: #000 !important; width: 151px;">
-                                                                        <?php if (!empty($single[0]['paid_transactions']['amount'])): ?>
-                                                                            $<?php echo $single[0]['paid_transactions']['amount']; ?>.00 USD
+                                                                        <?php if (!empty(getPaid($info['transactions']['id']))): ?>
+                                                                            $<?php  echo getPaid($info['transactions']['id']); ?>.00 USD
                                                                         <?php endif ?>
                                                                     </td>                                          
                                                                 </tr>
@@ -1589,10 +1592,10 @@
                                                             </div>
                                                             <div class="col-xs-6 invoice-payment">
                                                                 <div class="col-xs-6">  
-                                                                    <b style=" color: #000;">Total Of New Charges</b>
+                                                                    <b style=" color: #000;">Paid Amount</b>
                                                                 </div>
                                                                 <div class="col-xs-6" style="text-align: right;">
-                                                                    $<?php echo $amount; ?>.00 USD      
+                                                                    $<?php echo getPaid($info['transactions']['id']); ?>.00 USD      
                                                                 </div>
                                                                 <hr style="border-color: #990000 !important; ">
                                                             </div>
@@ -1604,10 +1607,10 @@
                                                             </div>
                                                             <div class="col-xs-6 invoice-payment">
                                                                 <div class="col-xs-6">  
-                                                                    <b style=" color: #000;">TOTAL Amount Due</b>
+                                                                    <b style=" color: #000;">Total Amount Due</b>
                                                                 </div>
                                                                 <div class="col-xs-6" style="text-align: right;">
-                                                                    $<?php // echo $single['ps']['amount'];                ?>.00 USD      
+                                                                    $<?php echo $info['transactions']['payable_amount'] - getPaid($info['transactions']['id']);?>.00 USD      
                                                                 </div>
                                                                 <hr style="border-color: #990000 !important; ">
                                                             </div>

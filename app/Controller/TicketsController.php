@@ -129,6 +129,8 @@ class TicketsController extends AppController {
                 }
 
                 if (trim($this->request->data['Ticket']['issue_id']) == 20 || trim($this->request->data['Ticket']['issue_id']) == 28) {
+                 $this->request->data['Ticket']['cancelled_date'] = $this->getFormatedDate($this->request->data['Ticket']['cancelled_date']);
+                 $this->request->data['Ticket']['pickup_date'] = $this->getFormatedDate($this->request->data['Ticket']['pickup_date']);
                     $this->updateCustomer('Request to cancel', $customer_id);
                     $trackData['Track']['status'] = 'others';
                     if (!array_key_exists('mac', $this->request->data)) {
@@ -141,10 +143,11 @@ class TicketsController extends AppController {
                     }
                     $mac = json_encode($this->request->data['mac']);
                     $data = array(
-                        'cancel_mac' => $mac,
+                        'cancel_mac' => $mac,                       
                         'cancelled_date' => $this->request->data['Ticket']['cancelled_date'],
                         'pickup_date' => $this->request->data['Ticket']['pickup_date'],
                     );
+                // pr($data); exit;
                     $cusinfo = $this->PackageCustomer->save($data);
                 }
 
