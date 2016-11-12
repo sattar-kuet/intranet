@@ -121,7 +121,7 @@ class CustomersController extends AppController {
     }
 
     function updatePackageCustomerTable($data = array()) {
-   
+
         if (isset($data['mac'])) {
             $data['mac'] = json_encode($data['mac']);
             $data['system'] = json_encode($data['system']);
@@ -147,7 +147,7 @@ class CustomersController extends AppController {
             $data['custom_package_id'] = $cp['CustomPackage']['id'];
         }
         // if custom package is changed then custom_package_id will be reset to 0
-        if(!isset($data['CustomPackage'])){
+        if (!isset($data['CustomPackage'])) {
             $data['custom_package_id'] = 0;
         }
         //Ends Custom_package data entry  
@@ -246,13 +246,13 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $this->loadModel('PackageCustomer');
         $customer_info = $this->PackageCustomer->findById($pcid);
         $this->request->data = $customer_info;
-       // pr($this->request->data); exit;
+        // pr($this->request->data); exit;
         $payment = new PaymentsController();
         $latestcardInfo = $payment->getLastCardInfo($pcid);
         unset($customer_info['PackageCustomer']['email']);
         unset($customer_info['PackageCustomer']['exp_date']);
         $this->request->data['Transaction'] = $customer_info['PackageCustomer'] + $latestcardInfo;
-       
+
 
         $statusHistories = $this->StatusHistory->find('all', array('conditions' => array('StatusHistory.package_customer_id' => $pcid)));
         $lastStatus = end($statusHistories);
@@ -300,20 +300,20 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             $pckagename = $package['Package']['name'];
             $packageList[$pckagename] = $psettingList;
         }
- 
+
         $ym = $this->getYm();
         $this->loadModel('Transaction');
-        $invoices = $this->getOpenInvoice($pcid);       
+        $invoices = $this->getOpenInvoice($pcid);
         $statements = $this->Transaction->query("SELECT *
             FROM transactions tr			
             left join  package_customers pc  on pc.id = tr.package_customer_id
             left join psettings ps on ps.id = pc.psetting_id
             LEFT JOIN packages p ON p.id = ps.package_id where tr.status = 'success' "
-          );
-        
+        );
+
 //        pr($invoices[0]['paid_transactions']['amount']); exit;
 
-        $this->set(compact('invoices','statements', 'packageList', 'psettings', 'ym', 'custom_package_charge'));
+        $this->set(compact('invoices', 'statements', 'packageList', 'psettings', 'ym', 'custom_package_charge'));
     }
 
     function registration() {
@@ -379,7 +379,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             $this->Session->setFlash($msg);
             return $this->redirect($this->referer());
         }
-       
+
         //******************************
         $this->loadModel('Package');
         $this->loadModel('Psetting');
@@ -460,11 +460,16 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             return $this->redirect($this->referer());
         }
         $data = $this->PackageCustomer->findById($id);
+        //pr($data); exit;
         $date = explode('/', $data['PackageCustomer']['exp_date']);
         $yyyy = date('Y');
         $yy = substr($yyyy, 0, 2);
-        $yyyy = $yy . '' . $date[1];
-        $mm = $date[0];
+        $yyyy = 0;
+        $mm = -1;
+        if (count($date) == 2) {
+            $yyyy = $yy . '' . $date[1];
+            $mm = $date[0];
+        }
         $data['PackageCustomer']['exp_date'] = array('year' => $yyyy, 'month' => $mm);
         $this->request->data = $data;
         //Show Package List 
@@ -533,7 +538,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             if (isset($unique[$pd])) {
                 //  echo 'already exist'.$key.'<br/>';
                 if (!empty($data['c']['content'])) {
-                   $temp = array('content' => $data['c'], 'user' => $data['u']);
+                    $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
                 }
             } else {
@@ -601,7 +606,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             if (isset($unique[$pd])) {
                 //  echo 'already exist'.$key.'<br/>';
                 if (!empty($data['c']['content'])) {
-                
+
                     $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
                 }
@@ -687,7 +692,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             if (isset($unique[$pd])) {
                 //  echo 'already exist'.$key.'<br/>';
                 if (!empty($data['c']['content'])) {
-                  
+
                     $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
                 }
@@ -861,7 +866,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             if (isset($unique[$pd])) {
                 //  echo 'already exist'.$key.'<br/>';
                 if (!empty($data['c']['content'])) {
-                    
+
                     $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
                 }
@@ -929,7 +934,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             if (isset($unique[$pd])) {
                 //  echo 'already exist'.$key.'<br/>';
                 if (!empty($data['c']['content'])) {
-                  
+
                     $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
                 }
@@ -997,6 +1002,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                      left join issues i on pc.issue_id = i.id
                     WHERE LOWER(pc.status) like '%request to cancel%' and $conditions";
+//            echo $sql; exit;
             $allData = $this->PackageCustomer->query($sql);
             $filteredData = array();
             $unique = array();
