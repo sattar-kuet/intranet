@@ -20,8 +20,6 @@ class ReportsController extends AppController {
         $this->set(compact('active_customers'));
     }
 
- 
-
     function paidcustomers() {
         $this->loadModel('Transaction');
         $paid_customers = $this->Transaction->find('all', array('conditions' => array('Transaction.due' => '0')));
@@ -53,32 +51,32 @@ class ReportsController extends AppController {
     }
 
     function cancel() {
-         $this->loadModel('PackageCustomer');
+        $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
         $clicked = false;
         if ($this->request->is('post') || $this->request->is('put')) {
 //             pr($this->request->data);
             $datrange = json_decode($this->request->data['PackageCustomer']['daterange'], true);
-            $start =$datrange['start'];           
-            $end = $datrange['end'];           
-            
+            $start = $datrange['start'];
+            $end = $datrange['end'];
+
             $conditions = 'package_customers.cancelled_date >="' . $start . '" AND package_customers.cancelled_date <="' . $end . '"';
-            
+
             $sql = "SELECT * FROM package_customers     
             left join transactions  on package_customers.id = transactions.package_customer_id    
             left join psettings  on psettings.id = package_customers.psetting_id
             LEFT JOIN packages  ON packages.id = psettings.package_id 
             LEFT JOIN custom_packages  ON custom_packages.id = package_customers.custom_package_id 
            where  $conditions";
-             
+
             $block_customers = $this->PackageCustomer->query($sql);
-            $clicked = true;       
-          //  pr($block_customers);
+            $clicked = true;
+            //  pr($block_customers);
             $this->set(compact('block_customers'));
         }
         $this->set(compact('clicked'));
     }
- 
+
     function payment_history() {
         $this->loadModel('Transaction');
         $clicked = false;
@@ -381,7 +379,7 @@ class ReportsController extends AppController {
         $this->request->data = $this->Transaction->findById($id);
     }
 
-    function expcustomers() {
+    function expcustomers($page = 0, $start = null, $end = null) {
         $this->loadModel('PackageCustomer');
         $clicked = false;
         if ($this->request->is('post') || $this->request->is('put')) {
@@ -389,7 +387,10 @@ class ReportsController extends AppController {
             $conditions = array('PackageCustomer.package_exp_date >=' => $datrange['start'], 'PackageCustomer.package_exp_date <=' => $datrange['end']);
             $customers = $this->PackageCustomer->find('all', array('conditions' => $conditions));
             $clicked = true;
-            $this->set(compact('customers'));
+            $total_page = 2;
+            $start = $datrange['start'];
+            $end = $datrange['end'];
+            $this->set(compact('customers', 'total_page', 'start', 'end'));
         }
         $this->set(compact('clicked'));
     }

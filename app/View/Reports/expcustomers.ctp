@@ -13,6 +13,11 @@
         border-radius: 4px;
         text-align: center;
     }
+    ul.pagination {
+        display: flex;
+        justify-content: center;
+    }
+
 </style>
 
 <div class="page-content-wrapper">
@@ -103,87 +108,99 @@
 
                         <div class="portlet-body">
                             <?php echo $this->Session->flash(); ?> 
-                            
 
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <table class="table table-striped table-hover">
-                                    <thead>
-                                        <tr> 
-                                            <th class="hidden-480">
-                                                Account no.
-                                            </th>
-                                            <th class="hidden-480">
-                                                Name
-                                            </th>
-                                            <th class="hidden-480">
-                                                Address
-                                            </th>
-                                            <th class="hidden-480">
-                                                Mac
-                                            </th>
-                                            <th class="hidden-480">
-                                                Cell
-                                            </th>
-                                            <th>
-                                                Package
-                                            </th>
-                                            <th class="hidden-480">
-                                                Due
-                                            </th>
-                                            <th class="hidden-480">
-                                                Exp Date
-                                            </th>
-                                          
 
-                                        </tr>
-                                    </thead>
-                                    <tbody>                                    
-                                        <?php
-                                        foreach ($customers as $info):
-                                             $customer_address = $info['PackageCustomer']['house_no'] . ' ' . $info['PackageCustomer']['street'] . ' ' .
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                            <tr> 
+                                                <th class="hidden-480">
+                                                    Account no.
+                                                </th>
+                                                <th class="hidden-480">
+                                                    Name
+                                                </th>
+                                                <th class="hidden-480">
+                                                    Address
+                                                </th>
+                                                <th class="hidden-480">
+                                                    Mac
+                                                </th>
+                                                <th class="hidden-480">
+                                                    Cell
+                                                </th>
+                                                <th>
+                                                    Package
+                                                </th>
+                                                <th class="hidden-480">
+                                                    Due
+                                                </th>
+                                                <th class="hidden-480">
+                                                    Exp Date
+                                                </th>
+
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>                                    
+                                            <?php
+                                            foreach ($customers as $info):
+                                                $customer_address = $info['PackageCustomer']['house_no'] . ' ' . $info['PackageCustomer']['street'] . ' ' .
                                                         $info['PackageCustomer']['apartment'] . ' ' . $info['PackageCustomer']['city'] . ' ' . $info['PackageCustomer']['state'] . ' '
                                                         . $info['PackageCustomer']['zip'];
-                                           // pr($info); exit;
-                                            ?>
-                                            <tr>
-                                                <td><?php echo $info['PackageCustomer']['c_acc_no']; ?></td>
-                                                <td> <a href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit_customer_data', $info['PackageCustomer']['id'])) ?>" target="_blank"><?php echo $info['PackageCustomer']['middle_name'] . " " . $info['PackageCustomer']['last_name']; ?></a> </td>
-                                                <td><?php echo $customer_address; ?></td>
-                                                <td><?php echo $info['PackageCustomer']['mac']; ?></td>
-                                                <td><?php echo $info['PackageCustomer']['cell']; ?></td>
-                                                <td>
-                                                    <?php
-                                                    if ($info['PackageCustomer']['custom_package_id'] == null ) {
-                                                        if(count($info['Psetting']) ==0){
-                                                            echo 'No package was selected with this customer';
+                                                // pr($info); exit;
+                                                ?>
+                                                <tr>
+                                                    <td><?php echo $info['PackageCustomer']['c_acc_no']; ?></td>
+                                                    <td> <a href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit_customer_data', $info['PackageCustomer']['id'])) ?>" target="_blank"><?php echo $info['PackageCustomer']['middle_name'] . " " . $info['PackageCustomer']['last_name']; ?></a> </td>
+                                                    <td><?php echo $customer_address; ?></td>
+                                                    <td><?php echo $info['PackageCustomer']['mac']; ?></td>
+                                                    <td><?php echo $info['PackageCustomer']['cell']; ?></td>
+                                                    <td>
+                                                        <?php
+                                                        if ($info['PackageCustomer']['custom_package_id'] == null) {
+                                                            if (count($info['Psetting']) == 0) {
+                                                                echo 'No package was selected with this customer';
+                                                            } else {
+                                                                echo $info['Psetting']['name'];
+                                                            }
+                                                        } else {
+                                                            echo $info['CustomPackage']['duration'] . ' Months, Custom package ' . $info['CustomPackage']['charge'] . '$';
                                                         }
-                                                        else{
-                                                            echo $info['Psetting']['name'];
-                                                        }
-                                                        
-                                                    } else {
-                                                        echo $info['CustomPackage']['duration'] . ' Months, Custom package ' . $info['CustomPackage']['charge'] . '$';
-                                                    }
-                                                    ?>
-                                                </td>
-                                                <td>$<?php echo $info['PackageCustomer']['payable_amount']; ?></td>
-                                                <td><?php echo date_format( new DateTime($info['PackageCustomer']['package_exp_date']) , 'm-d-Y' );  ?></td>
-                                            </tr>
-                                        <?php endforeach; ?>                           
-                                    </tbody>
-                                </table>
-                            </div>
+                                                        ?>
+                                                    </td>
+                                                    <td>$<?php echo $info['PackageCustomer']['payable_amount']; ?></td>
+                                                    <td><?php echo date_format(new DateTime($info['PackageCustomer']['package_exp_date']), 'm-d-Y'); ?></td>
+                                                </tr>
+                                            <?php endforeach; ?>                           
+                                        </tbody>
+                                    </table>
+                                </div>
 
+                            </div>
                         </div>
+                        <!-- END EXAMPLE TABLE PORTLET-->
                     </div>
-                    <!-- END EXAMPLE TABLE PORTLET-->
+
+                    <ul class="pagination" >
+                        <?php
+                        for ($i = 1; $i <= $total_page; $i++):
+                            $active = '';
+                            if (isset($this->params['pass'][0]) && $this->params['pass'][0] == $i) {
+                                $active = 'active';
+                            }
+                            ?>
+                            <li class="paginate_button <?php echo $active; ?>" aria-controls="sample_editable_1" tabindex="<?php echo $i; ?>">
+                                <a href="<?php echo Router::url(array('controller' => 'otherspayments', 'action' => 'manage', $i,$start,$end)) ?>"><?php echo $i; ?></a>
+                            </li>
+                        <?php endfor; ?>
+                    </ul>
                 </div>
-            </div>
-        <?php endif; ?>
+            <?php endif; ?>
+        </div>
     </div>
-</div>
-<!-- END CONTENT -->
+    <!-- END CONTENT -->
 
 
 
