@@ -7,7 +7,10 @@
         border-radius: 4px;
         text-align: center;
     }
-
+    ul.pagination {
+        display: flex;
+        justify-content: center;
+    }
 </style>
 
 <div class="page-content-wrapper">
@@ -28,10 +31,6 @@
                             <i class="fa fa-user"></i>List of all others payments
                         </div>
 
-                        <!--                        <div class="tools">
-                                                    <a href="javascript:;" class="reload">
-                                                    </a>
-                                                </div>-->
                     </div>
                     <div class="portlet-body">
                         <?php echo $this->Session->flash(); ?> 
@@ -60,22 +59,22 @@
                                             <div class="controls center text-center">
                                                 <?php if ($single['others_payments']['status'] == 'open'): ?>
                                                     <a aria-describedby="qtip-8" data-hasqtip="true" title="Cancel" oldtitle="Remove task" 
-                                                        onclick="if (confirm(&quot; Are you sure to cancel this Admin?&quot; )) { return true; } return false;"
-                                                        href="<?php echo Router::url(array('controller' => 'otherspayments', 'action' => 'cancel', $single['others_payments']['id'])) ?>" title="block">
+                                                       onclick="if (confirm( & quot; Are you sure to cancel this Admin? & quot; )) { return true; } return false;"
+                                                       href="<?php echo Router::url(array('controller' => 'otherspayments', 'action' => 'cancel', $single['others_payments']['id'])) ?>" title="block">
                                                         <span class="fa  fa-close"></span>
                                                     </a>
                                                 <?php endif; ?>
-                                                
+
                                                 &nbsp;&nbsp;
                                                 <?php if ($single['others_payments']['status'] == 'canceled'): ?>
                                                     <a aria-describedby="qtip-8" data-hasqtip="true" title="Done" oldtitle="Remove task" 
-                                                        onclick="if (confirm(&quot; Are you sure to done this Admin?&quot; )) { return true; } return false;"
-                                                        href="<?php echo Router::url(array('controller' => 'otherspayments', 'action' => 'done', $single['others_payments']['id'])) ?>" title="block">
+                                                       onclick="if (confirm( & quot; Are you sure to done this Admin? & quot; )) { return true; } return false;"
+                                                       href="<?php echo Router::url(array('controller' => 'otherspayments', 'action' => 'done', $single['others_payments']['id'])) ?>" title="block">
                                                         <span class="fa  fa-check"></span>
                                                     </a>
                                                 <?php endif; ?>
-                                                
-                                                 &nbsp;&nbsp;                                              
+
+                                                &nbsp;&nbsp;                                              
                                                 <a  target="_blank" title="edit" href="<?php echo Router::url(array('controller' => 'otherspayments', 'action' => 'edit', $single['others_payments']['id'])) ?>" >
                                                     <span class="fa fa-pencil"></span></a>
                                             </div>
@@ -90,6 +89,21 @@
                     </div>
                 </div>
                 <!-- END EXAMPLE TABLE PORTLET-->
+
+                <ul class="pagination" >
+                    <?php
+                    for ($i = 1; $i <= $total_page; $i++):
+                        $active = '';
+                        if(isset($this->params['pass'][0]) && $this->params['pass'][0] == $i){
+                           $active = 'active'; 
+                        }
+                        ?>
+                        <li class="paginate_button <?php echo $active; ?>" aria-controls="sample_editable_1" tabindex="<?php echo $i; ?>">
+                            <a href="<?php echo Router::url(array('controller' => 'otherspayments', 'action' => 'manage', $i)) ?>"><?php echo $i; ?></a>
+                        </li>
+                    <?php endfor; ?>
+                </ul>
+
             </div>
         </div>
         <!-- END PAGE CONTENT -->

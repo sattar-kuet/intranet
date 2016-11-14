@@ -85,13 +85,18 @@ class OtherspaymentsController extends AppController {
         $this->set(compact('technician'));
     }
 
-    function manage() {
+    function manage($page=1) {
         $this->loadModel('User');
         $this->loadModel('OthersPayment');
 //        $otherpayments = $this->OthersPayment->find('all');
-        $otherpayments = $this->OthersPayment->query("SELECT * FROM `others_payments`inner join users on users.id = others_payments.technician_id");
-//        pr($otherpayments); exit;
-        $this->set(compact('otherpayments'));
+        $offset = --$page*$this->per_page;
+        $otherpayments = $this->OthersPayment->query("SELECT * FROM `others_payments`inner join users on"
+                . " users.id = others_payments.technician_id "
+                ." LIMIT ".$offset.",".$this->per_page);
+        $total = $this->OthersPayment->query("SELECT COUNT(others_payments.id) as total FROM `others_payments`inner join users on"
+                . " users.id = others_payments.technician_id ");
+        $total_page = ceil($total[0][0]['total']/$this->per_page);
+        $this->set(compact('otherpayments','total_page'));
     }
 
     function edit($id = null) {

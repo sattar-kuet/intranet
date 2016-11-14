@@ -185,7 +185,6 @@ class PaymentsController extends AppController {
         $this->request->data['Transaction']['status'] = '';
         $this->request->data['Transaction']['trx_id'] = '';
         $this->request->data['Transaction']['auth_code'] = '';
-
         if ($response != null) {
             $tresponse = $response->getTransactionResponse();
 
@@ -198,6 +197,7 @@ class PaymentsController extends AppController {
                         ', paid_amount+' . $card['payable_amount'] .
                         ' WHERE transactions.id = ' . $card['id'];
                 $result = $this->Transaction->query($sql);
+
                 $data4due = $this->Transaction->findById($card['id']);
                 if ($data4due['Transaction']['payable_amount']) {
                     $this->request->data['Transaction']['status'] = 'open';

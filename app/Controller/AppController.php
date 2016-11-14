@@ -53,6 +53,8 @@ class AppController extends Controller {
         )
     );
 
+    public $per_page = 2;
+    
     public function beforeFilter() {
         // save last visited url
         $url = Router::url(NULL, true); //complete url
