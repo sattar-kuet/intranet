@@ -64,7 +64,6 @@
                                 <td><?php echo $info['zip_code']; ?></td>
                                 <td><?php echo $info['due']; ?></td>
                                 <td><?php echo $info['exp_date']; ?></td>
-                                <td><?php echo $info['package_exp_date']; ?></td>
                                 <td>   
                                             <div class="controls center text-center">                                               
                                         <a onclick="if (confirm(&quot;Are you sure to complete this transaction?&quot)) { return true; } return false;" href="<?php echo Router::url(array('controller'=>'payments','action'=>'individual_transaction', $info['id'])

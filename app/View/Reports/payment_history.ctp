@@ -100,12 +100,8 @@
         </div>
         <!-- END PAGE CONTENT -->
         <?php if ($clicked): ?>    
-
             <div class="page-content-wrapper" style="margin: 0px; padding: 0px;">
                 <div class="">
-                    <!-- BEGIN PAGE HEADER-->
-
-                    <!-- END PAGE HEADER-->
                     <!-- BEGIN PAGE CONTENT-->
                     <div class="invoice"  id="printableArea">
 
@@ -122,7 +118,6 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-12">
-
                                 <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                                     <thead>
                                         <tr>
@@ -130,16 +125,15 @@
                                             <th>Payment Detail</th>
                                             <th>Payment Amount</th>
                                             <th>Payment Time</th>
-
-
                                         </tr>
                                     </thead>
                                     <tbody>                                     
                                         <?php
                                         $total = 0;
                                         foreach ($transactions as $single):
-                                            $tr = $single['tr'];
-                                            $total += $tr['paid_amount'];
+//                                            pr($single['tr']['pay_mode']); exit; 
+                                            $tr = $single['tr'];                                           
+//                                            $total += $tr['paid_amount'];
                                             $pc = $single['pc'];
                                             $customer_address = $pc['house_no'] . ' ' . $pc['street'] . ' ' .
                                                     $pc['apartment'] . ' ' . $pc['city'] . ' ' . $pc['state'] . ' '
@@ -160,7 +154,6 @@
                                                             </a><br>
                                                         </li> 
                                                         <li><strong> Cell: </strong>  <?php echo $pc['cell']; ?> </li> 
-                                                        <!--<li> Address: <?php echo $customer_address; ?> </li>--> 
                                                     </ul>
                                                 </td>
                                                 <td>
@@ -168,14 +161,11 @@
                                                         <li><strong>Mode :</strong> <?php echo $tr['pay_mode']; ?></li>
                                                         <?php if ($tr['pay_mode'] == 'card'): ?>
                                                             <li><strong>Transaction ID :</strong> <?php echo $tr['trx_id']; ?></li>
-                                                            <!--<li><strong>Card Number :</strong> <?php echo substr($tr['card_no'], 0, 5); ?></li>-->
-                                                            <!--<li><strong>Card Exp. Date :</strong> <?php echo $tr['exp_date']; ?></li>-->
                                                         <?php endif;
                                                         ?>
-
                                                     </ul>
                                                 </td>
-                                                <td><h4> $<?php echo $tr['paid_amount']; ?> </h4></td>
+                                                <td><h4> $<?php echo $single['pt']['amount']; ?> </h4></td>
                                                 <td>
                                                     <?php echo $tr['created']; ?>
                                                 </td>
@@ -183,7 +173,6 @@
                                             <?php
                                         endforeach;
                                         ?>         
-
                                     </tbody>
                                 </table>
                                 <!--<h2 style="text-align: center;" > Grant Total: $<?php echo $total; ?></h2>-->

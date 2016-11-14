@@ -185,28 +185,28 @@ class TicketsController extends AppController {
                 }
                 $customer = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $customer_id)));
 
-                if (!empty($customer['PackageCustomer']['email'])) {
-                    // send mail :
-                    $from = 'info@totalcableusa.com';
-                    $subject = "Ticket create";
-                    $to = array($customer['PackageCustomer']['email']);
-                    $cus_name = $customer['PackageCustomer']['first_name'] . ' ' . $customer['PackageCustomer']['middle_name'] . ' ' . $customer['PackageCustomer']['last_name'];
-                    $address = $customer['PackageCustomer']['house_no'];
-
-                    $mail_content = __('Name:                      ', 'beopen') . $cus_name . PHP_EOL .
-                            __('Address:                   ', 'beopen') . $address . PHP_EOL;
-
-                    if (!empty($refer_name)):
-                        $mail_content .= __('Reference Name:            ', 'beopen') . $refer_name . PHP_EOL .
-                                __('Reference Phone:           ', 'beopen') . $refer_no . PHP_EOL;
-                    endif;
-
-                    $mail_content .= __('Sale status:               ', 'beopen') . $cus_name . PHP_EOL .
-                            __('Note:                      ', 'beopen') . $address . PHP_EOL;
-
-                    sendEmail($from, $cus_name, $to, $subject, $mail_content);
-                    // End send mail 
-                }
+//                if (!empty($customer['PackageCustomer']['email'])) {
+//                    // send mail :
+//                    $from = 'info@totalcableusa.com';
+//                    $subject = "Ticket create";
+//                    $to = array($customer['PackageCustomer']['email']);
+//                    $cus_name = $customer['PackageCustomer']['first_name'] . ' ' . $customer['PackageCustomer']['middle_name'] . ' ' . $customer['PackageCustomer']['last_name'];
+//                    $address = $customer['PackageCustomer']['house_no'];
+//
+//                    $mail_content = __('Name:                      ', 'beopen') . $cus_name . PHP_EOL .
+//                            __('Address:                   ', 'beopen') . $address . PHP_EOL;
+//
+//                    if (!empty($refer_name)):
+//                        $mail_content .= __('Reference Name:            ', 'beopen') . $refer_name . PHP_EOL .
+//                                __('Reference Phone:           ', 'beopen') . $refer_no . PHP_EOL;
+//                    endif;
+//
+//                    $mail_content .= __('Sale status:               ', 'beopen') . $cus_name . PHP_EOL .
+//                            __('Note:                      ', 'beopen') . $address . PHP_EOL;
+//
+//                    sendEmail($from, $cus_name, $to, $subject, $mail_content);
+//                    // End send mail 
+//                }
 
 
                 $this->Track->save($trackData); // Data save in Track

@@ -151,7 +151,7 @@
                                             <?php echo $single['0']['name']; ?>
                                         </td>
                                         <td style="background-color:whitesmoke">
-                                            <?php echo $single['pc']['package_exp_date']; ?>
+                                            <?php echo $single['pc']['exp_date']; ?>
                                         </td>
                                         <td style="background-color:whitesmoke">
                                             <b><?php echo $single['ps']['name']; ?></b><br>

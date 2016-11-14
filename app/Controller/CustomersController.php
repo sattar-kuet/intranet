@@ -249,10 +249,13 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         // pr($this->request->data); exit;
         $payment = new PaymentsController();
         $latestcardInfo = $payment->getLastCardInfo($pcid);
+        //  pr($customer_info['PackageCustomer']); exit;
         unset($customer_info['PackageCustomer']['email']);
         unset($customer_info['PackageCustomer']['exp_date']);
+        unset($customer_info['PackageCustomer']['payable_amount']);
+        // pr($customer_info['PackageCustomer']); exit;
         $this->request->data['Transaction'] = $customer_info['PackageCustomer'] + $latestcardInfo;
-
+        //  pr($this->request->data['Transaction']);exit;
 
         $statusHistories = $this->StatusHistory->find('all', array('conditions' => array('StatusHistory.package_customer_id' => $pcid)));
         $lastStatus = end($statusHistories);
@@ -308,7 +311,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             FROM transactions tr			
             left join  package_customers pc  on pc.id = tr.package_customer_id
             left join psettings ps on ps.id = pc.psetting_id
-            LEFT JOIN packages p ON p.id = ps.package_id where tr.status = 'success' "
+            LEFT JOIN packages p ON p.id = ps.package_id where tr.status = 'close' "
         );
 
 //        pr($invoices[0]['paid_transactions']['amount']); exit;
@@ -771,28 +774,30 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
     function update_payment($id = null) {
         $this->loadModel('PackageCustomer');
         $invoice = $this->random_string(9);
-        $this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
-        $this->request->data['PackageCustomer']['package_exp_date'] = $this->getFormatedDate($this->request->data['PackageCustomer']['package_exp_date']);
-        $this->request->data['PackageCustomer']['ticket_generated'] = 0;
+        $this->PackageCustomer->id = $this->request->data['Transaction']['package_customer_id'];
+        $data = array();
+        $data['PackageCustomer'] = array(
+            'exp_date' => $this->getFormatedDate($this->request->data['Transaction']['exp_date']),
+            // when change package exp date then these fields will be update
+            'ticket_generated' => 0,
+            'invoice_no' => $invoice,
+            'invoice_created' => 0,
+            'printed' => 0
+        );
 
-        // when change package exp date then these fields will be update
-        $this->request->data['PackageCustomer']['invoice_no'] = $invoice;
-        $this->request->data['PackageCustomer']['invoice_created'] = 0;
-        $this->request->data['PackageCustomer']['printed'] = 0;
-        $pc_data = $this->PackageCustomer->save($this->request->data);
-
+        $pc_data = $this->PackageCustomer->save($data);
+//pr($pc_data); exit;
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
 	<strong>  succeesfully done </strong></div>';
         $this->Session->setFlash($msg);
 
-
         $data['Transaction'] = array(
             'package_customer_id' => $id,
             'status' => 'open',
             'invoice' => $pc_data['PackageCustomer']['invoice_no'],
-            'next_payment' => $pc_data['PackageCustomer']['package_exp_date'],
-            'payable_amount' => $pc_data['PackageCustomer']['payable_amount']
+            'next_payment' => $pc_data['PackageCustomer']['exp_date'],
+            'payable_amount' => $this->request->data['Transaction']['payable_amount']
         );
 
         $this->generateInvoice($data);

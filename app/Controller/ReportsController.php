@@ -57,19 +57,18 @@ class ReportsController extends AppController {
         $this->loadModel('Transaction');
         $clicked = false;
         if ($this->request->is('post') || $this->request->is('put')) {
-//             pr($this->request->data);
             $datrange = json_decode($this->request->data['PackageCustomer']['daterange'], true);
             $start =$datrange['start'];           
-            $end = $datrange['end'];           
-            
+            $end = $datrange['end'];          
+         
             $conditions = 'package_customers.cancelled_date >="' . $start . '" AND package_customers.cancelled_date <="' . $end . '"';
-            
+           
             $sql = "SELECT * FROM package_customers     
             left join transactions  on package_customers.id = transactions.package_customer_id    
             left join psettings  on psettings.id = package_customers.psetting_id
             LEFT JOIN packages  ON packages.id = psettings.package_id 
             LEFT JOIN custom_packages  ON custom_packages.id = package_customers.custom_package_id 
-           where  $conditions";
+           where  $conditions order by package_customers.id desc limit 0,199";
              
             $block_customers = $this->PackageCustomer->query($sql);
             $clicked = true;       
@@ -83,9 +82,8 @@ class ReportsController extends AppController {
         $this->loadModel('Transaction');
         $clicked = false;
         if ($this->request->is('post') || $this->request->is('put')) {
-            // pr($this->request->data);
             $datrange = json_decode($this->request->data['Transaction']['daterange'], true);
-            $conditions = " tr.status = 'success' AND ";
+            $conditions = " tr.status = 'close' AND ";
             if (!empty($this->request->data['Transaction']['pay_mode'])) {
                 $conditions .=" tr.pay_mode = '" . $this->request->data['Transaction']['pay_mode'] . "' AND ";
             }
@@ -103,11 +101,10 @@ class ReportsController extends AppController {
                 left join package_customers pc on pc.id = tr.package_customer_id
                 left join psettings ps on ps.id = pc.psetting_id
                 LEFT JOIN packages p ON p.id = ps.package_id 
-                 WHERE $conditions";
-            // echo $sql; exit;
+                LEFT JOIN paid_transactions pt ON tr.id = pt.transaction_id 
+                WHERE $conditions order by tr.id desc limit 0,199";
             $transactions = $this->Transaction->query($sql);
             $clicked = true;
-            //  pr($transactions); exit;
             $this->set(compact('transactions'));
         }
         $this->set(compact('clicked'));
@@ -117,7 +114,7 @@ class ReportsController extends AppController {
         $this->loadModel('PackageCustomer');
         $this->PackageCustomer->id = $id;
         $packagecustomers = $this->PackageCustomer->query("SELECT pc.id, CONCAT( first_name,' ', middle_name,' ', last_name ) AS name, pc.psetting_id, pc.mac,pc.house_no,
-            pc.street,pc.apartment,pc.city,pc.state,pc.zip,pc.package_exp_date,tr.invoice,ps.name, ps.amount, ps.duration,p.name
+            pc.street,pc.apartment,pc.city,pc.state,pc.zip,pc.exp_date,tr.invoice,ps.name, ps.amount, ps.duration,p.name
             FROM package_customers pc
             left join psettings ps on ps.id = pc.psetting_id
             left join transactions tr on pc.id = tr.package_customer_id
@@ -137,12 +134,12 @@ class ReportsController extends AppController {
         $this->loadModel('PackageCustomer');
         $expiredate = trim(date('Y-m-d', strtotime("+25 days")));
         $packagecustomers = $this->PackageCustomer->query("SELECT pc.id, CONCAT( first_name,' ', middle_name,' ', last_name ) AS name, pc.psetting_id, pc.mac,pc.house_no,
-            pc.street,pc.apartment,pc.city,pc.state,pc.zip,pc.package_exp_date,tr.invoice,ps.name, ps.amount, ps.duration,p.name
+            pc.street,pc.apartment,pc.city,pc.state,pc.zip,pc.exp_date,tr.invoice,ps.name, ps.amount, ps.duration,p.name
             FROM package_customers pc
             left join psettings ps on ps.id = pc.psetting_id
             left join transactions tr on pc.id = tr.package_customer_id
             LEFT JOIN packages p ON p.id = ps.package_id 
-            WHERE package_exp_date>='" . date('Y-m-d') . "' AND package_exp_date<='" . $expiredate . "' AND package_exp_date != 0000-00-00 "
+            WHERE exp_date>='" . date('Y-m-d') . "' AND exp_date<='" . $expiredate . "' AND exp_date != 0000-00-00 "
                 . "GROUP BY pc.id");
         foreach ($packagecustomers as $data) {
             $pcid = $data['pc']['id'];
@@ -157,7 +154,7 @@ class ReportsController extends AppController {
     function passedInvoice() {
         $this->loadModel('PackageCustomer');
         $packagecustomers = $this->PackageCustomer->query("SELECT pc.id,pc.printed, tr.invoice,CONCAT( first_name,' ', middle_name,' ', last_name ) AS name,pc.psetting_id, pc.mac,pc.house_no,
-            pc.street,pc.apartment,pc.city,pc.state,pc.zip,pc.package_exp_date,
+            pc.street,pc.apartment,pc.city,pc.state,pc.zip,pc.exp_date,
             ps.name, p.name,ps.amount, ps.duration FROM package_customers pc           
             left join psettings ps on ps.id = pc.psetting_id
             left join transactions tr on pc.id = tr.package_customer_id
@@ -192,8 +189,8 @@ class ReportsController extends AppController {
         $this->loadModel('Package_customer');
         $this->loadModel('Transaction');
         if ($this->request->is('post') || $this->request->is('put')) {
-            pr($this->request->data);
-            exit;
+//            pr($this->request->data);
+//            exit;
             $datrange = json_decode($this->request->data['Package_customer']['daterange'], true);
             $datrange['start'] = $datrange['start'] . ' 00:00:00';
             $datrange['end'] = $datrange['end'] . ' 23:59:59';
@@ -239,7 +236,7 @@ class ReportsController extends AppController {
         $invoice = $this->params['pass'][0];
         $this->loadModel('PackageCustomer');
         $packagecustomers = $this->PackageCustomer->query("SELECT pc.id, CONCAT( first_name,' ', middle_name,' ', last_name ) AS name, pc.psetting_id, pc.mac,pc.house_no,
-            pc.street,pc.apartment,pc.city,pc.state,pc.zip,pc.package_exp_date,tr.invoice,ps.name, ps.amount, ps.duration,p.name
+            pc.street,pc.apartment,pc.city,pc.state,pc.zip,pc.exp_date,tr.invoice,ps.name, ps.amount, ps.duration,p.name
             FROM package_customers pc
             left join psettings ps on ps.id = pc.psetting_id
             left join transactions tr on pc.id = tr.package_customer_id
@@ -253,9 +250,9 @@ class ReportsController extends AppController {
         $expiredate = trim(date('Y-m-d', strtotime("+25 days")));
         $data = $this->PackageCustomer->query("SELECT  *
             FROM package_customers 
-            WHERE package_exp_date>='" . date('Y-m-d') .
-                "' AND package_exp_date<='" . $expiredate .
-                "' AND package_exp_date != 0000-00-00 " .
+            WHERE exp_date>='" . date('Y-m-d') .
+                "' AND exp_date<='" . $expiredate .
+                "' AND exp_date != 0000-00-00 " .
                 " AND invoice_created != 1"
         );
         foreach ($data as $single) {
@@ -266,13 +263,13 @@ class ReportsController extends AppController {
             $this->PackageCustomer->saveField('invoice_created', 1); // set it as 0 when next payment date will be updated  
         }
         $packagecustomers = $this->PackageCustomer->query("SELECT pc.id, CONCAT( first_name,' ', middle_name,' ', last_name ) AS name, pc.psetting_id, pc.mac,pc.house_no,
-            pc.street,pc.apartment,pc.city,pc.state,pc.zip,pc.package_exp_date,tr.invoice,ps.name, ps.amount, ps.duration,p.name
+            pc.street,pc.apartment,pc.city,pc.state,pc.zip,pc.exp_date,tr.invoice,ps.name, ps.amount, ps.duration,p.name
             FROM package_customers pc
             left join psettings ps on ps.id = pc.psetting_id
             left join transactions tr on pc.id = tr.package_customer_id
             LEFT JOIN packages p ON p.id = ps.package_id 
-            WHERE package_exp_date>='" . date('Y-m-d') . "' AND package_exp_date<='" . $expiredate . "' "
-                . "AND package_exp_date != 0000-00-00. "
+            WHERE exp_date>='" . date('Y-m-d') . "' AND exp_date<='" . $expiredate . "' "
+                . "AND exp_date != 0000-00-00. "
                 . " AND pc.printed = 0"
                 . " GROUP BY pc.id");
 
@@ -282,7 +279,7 @@ class ReportsController extends AppController {
     function printed() {
         $this->loadModel('PackageCustomer');
         $packagecustomers = $this->PackageCustomer->query("SELECT pc.id,pc.printed, CONCAT( first_name,' ', middle_name,' ', last_name ) AS name, pc.psetting_id, pc.mac,pc.house_no,
-            pc.street,pc.apartment,pc.city,pc.state,pc.zip,pc.package_exp_date,tr.invoice,ps.name, ps.amount, ps.duration,p.name
+            pc.street,pc.apartment,pc.city,pc.state,pc.zip,pc.exp_date,tr.invoice,ps.name, ps.amount, ps.duration,p.name
             FROM package_customers pc
             left join transactions tr on pc.id = tr.package_customer_id
             left join psettings ps on ps.id = pc.psetting_id
@@ -317,8 +314,8 @@ class ReportsController extends AppController {
         $expiredate = trim(date('Y-m-d', strtotime("+5 days")));
         $packagecustomers = $this->Transaction->query("SELECT * 
             FROM package_customers pc
-            WHERE package_exp_date>='" . date('Y-m-d') . "' AND package_exp_date<='" . $expiredate .
-                "' AND package_exp_date != 0000-00-00 AND auto_r ='no' AND ticket_generated = 0 "
+            WHERE exp_date>='" . date('Y-m-d') . "' AND exp_date<='" . $expiredate .
+                "' AND exp_date != 0000-00-00 AND auto_r ='no' AND ticket_generated = 0 "
                 . "GROUP BY pc.id");
 
         foreach ($packagecustomers as $packagecustomer) {
@@ -386,7 +383,7 @@ class ReportsController extends AppController {
         $clicked = false;
         if ($this->request->is('post') || $this->request->is('put')) {
             $datrange = json_decode($this->request->data['PackageCustomer']['daterange'], true);
-            $conditions = array('PackageCustomer.package_exp_date >=' => $datrange['start'], 'PackageCustomer.package_exp_date <=' => $datrange['end']);
+            $conditions = array('PackageCustomer.exp_date >=' => $datrange['start'], 'PackageCustomer.exp_date <=' => $datrange['end']);
             $customers = $this->PackageCustomer->find('all', array('conditions' => $conditions));
             $clicked = true;
             $this->set(compact('customers'));
@@ -399,8 +396,16 @@ class ReportsController extends AppController {
         $clicked = false;
         if ($this->request->is('post') || $this->request->is('put')) {
             $datrange = json_decode($this->request->data['Transaction']['daterange'], true);
-            $conditions = array('PackageCustomer.created >=' => $datrange['start'], 'PackageCustomer.created <=' => $datrange['end']);
-            $transactions = $this->PackageCustomer->find('all', array('conditions' => $conditions));
+            $datrange['start'] = $datrange['start'] . ' 00:00:00';
+            $datrange['end'] = $datrange['end'] . ' 23:59:59';
+
+            $transactions = $this->PackageCustomer->query("SELECT *            
+            FROM package_customers pc             
+            left join transactions tr on tr.package_customer_id = pc.id
+            left join psettings ps on ps.id = pc.psetting_id
+            LEFT JOIN packages p ON p.id = ps.package_id 
+            LEFT JOIN custom_packages cp ON cp.id = pc.custom_package_id             
+            WHERE  pc.installation_date >='" . $datrange['start'] . "' AND pc.installation_date <='" . $datrange['end'] . "'  order by pc.id desc limit 0,200" );
             $clicked = true;
             $this->set(compact('transactions'));
         }
@@ -432,31 +437,20 @@ class ReportsController extends AppController {
                 $conditions .=" tr.forwarded_by = $agent AND";
             }
             if (count($datrange)) {
-
-                if ($datrange['start'] == $datrange['end']) {
-                    // SELECT * FROM tracks tr left JOIN tickets t ON tr.ticket_id = t.id 
-                    // where t.created >=' 2016-04-13' and t.created < '2016-04-15'
-                    // WHERE  t.created >='2016-06-06' AND  t.created <'2016-06-07' 
-
+                if ($datrange['start'] == $datrange['end']) {                  
                     $nextday = date('Y-m-d', strtotime($datrange['end'] . "+1 days"));
                     $conditions .=" t.created >=' " . $datrange['start'] . "' AND  t.created < '" . $nextday . "' AND ";
                 } else {
-
                     $conditions .=" t.created >='" . $datrange['start'] . "' AND  t.created <='" . $datrange['end'] . "' AND ";
                 }
             }
             if (!empty($status)) {
                 $conditions .=" tr.status = '$status'";
             }
-
             $conditions.="###";
             $conditions = str_replace("AND###", "", $conditions);
             $conditions = str_replace("AND ###", "", $conditions);
             $conditions = str_replace("###", "", $conditions);
-
-
-
-
             $sql = "SELECT * FROM tracks tr
                         left JOIN tickets t ON tr.ticket_id = t.id
                         left JOIN users fb ON tr.forwarded_by = fb.id
@@ -464,7 +458,7 @@ class ReportsController extends AppController {
                         left JOIN users fi ON tr.user_id = fi.id
                         left JOIN issues i ON tr.issue_id = i.id
                         left join package_customers pc on tr.package_customer_id = pc.id
-                         WHERE $conditions";
+                         WHERE $conditions order by pc.id desc limit 0,200";
 //            pr($sql);
 //            exit;
             $tickets = $this->Track->query($sql);
@@ -487,7 +481,6 @@ class ReportsController extends AppController {
                 }
                 $filteredTicket;
             }
-
             $clicked = true;
             $this->set(compact('filteredTicket'));
         }
@@ -501,7 +494,6 @@ class ReportsController extends AppController {
     function getTotalCall() {
         $this->loadModel('Ticket');
         $call = $this->Ticket->query("SELECT count(id) as total_call FROM tickets WHERE modified >= CURRENT_DATE()");
-
         return $call[0][0]['total_call'];
     }
 

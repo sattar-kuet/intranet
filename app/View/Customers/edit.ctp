@@ -611,7 +611,7 @@
                     <div class="portlet-body" id="next_payment">  
                         <?php echo $this->Session->flash() ?>
                         <?php
-                        echo $this->Form->create('PackageCustomer', array(
+                        echo $this->Form->create('Transaction', array(
                             'inputDefaults' => array(
                                 'label' => false,
                                 'div' => false
@@ -628,7 +628,7 @@
                         <div class="row">                                     
                             <?php
                             echo $this->Form->input(
-                                    'id', array(
+                                    'package_customer_id', array(
                                 'type' => 'hidden',
                                 'value' => $this->params['pass'][0],
                             ));
@@ -642,7 +642,7 @@
                                 <div class="input-list style-4 clearfix">
                                     <?php
                                     echo $this->Form->input(
-                                            'package_exp_date', array(
+                                            'exp_date', array(
                                         'class' => 'datepicker form-control ',
                                         'type' => 'text',
                                             )
@@ -1360,13 +1360,13 @@
                                                 Package
                                             </th>
                                             <th class="hidden-480">
-                                               Payable Amount
+                                                Payable Amount
                                             </th>
                                             <th class="hidden-480">
-                                               Paid Amount
+                                                Paid Amount
                                             </th>
                                             <th class="hidden-480">
-                                               Due
+                                                Due
                                             </th>
                                             <th class="hidden-480">
                                                 Payment Date
@@ -1541,12 +1541,12 @@
                                                                     <th class="hidden-480"  style=" color: #333 !important; text-align: center; padding-bottom: 39px;">
                                                                         STB QUANTITY
                                                                     </th>
-                                                                    
+
                                                                     <th class="hidden-480" style=" color: #333 !important; text-align: center; padding-bottom: 39px;">
                                                                         SUBSCRIPION
                                                                     </th>
                                                                     <th class="hidden-480" style=" color: #333 !important; padding-bottom: 39px; text-align: center;">
-                                                                       PAYABLE AMOUNT
+                                                                        PAYABLE AMOUNT
                                                                     </th>
                                                                     <th class="hidden-480"  style=" padding-bottom: 39px; text-align: center; font-size: 15px;  color: #000 !important; width: 101px;">
                                                                         TOTAL
@@ -1565,7 +1565,7 @@
                                                                     <td style=" color: #333 !important; text-align: center;  padding: 43px 0px 0px 9px ;">
                                                                         <?php echo $single['package_customers']['mac']; ?>
                                                                     </td>
-                                                                    
+
 
                                                                     <td style=" color: #333 !important; text-align: center; padding: 43px 0px 0px 9px ;">
                                                                         <?php echo $single['psettings']['duration']; ?>
@@ -1575,10 +1575,10 @@
                                                                             $ <?php echo $info['transactions']['payable_amount']; ?>.00
                                                                         <?php endif ?>
                                                                     </td>
-                                                                     
+
                                                                     <td  style=" padding: 43px 0px 0px 9px ; text-align: center; font-size: 19px; font-weight: bold; color: #000 !important; width: 151px;">
                                                                         <?php if (!empty(getPaid($info['transactions']['id']))): ?>
-                                                                            $<?php  echo getPaid($info['transactions']['id']); ?>.00 USD
+                                                                            $<?php echo getPaid($info['transactions']['id']); ?>.00 USD
                                                                         <?php endif ?>
                                                                     </td>                                          
                                                                 </tr>
@@ -1610,7 +1610,7 @@
                                                                     <b style=" color: #000;">Total Amount Due</b>
                                                                 </div>
                                                                 <div class="col-xs-6" style="text-align: right;">
-                                                                    $<?php echo $info['transactions']['payable_amount'] - getPaid($info['transactions']['id']);?>.00 USD      
+                                                                    $<?php echo $info['transactions']['payable_amount'] - getPaid($info['transactions']['id']); ?>.00 USD      
                                                                 </div>
                                                                 <hr style="border-color: #990000 !important; ">
                                                             </div>
@@ -2194,7 +2194,7 @@
                                                     <td> 
                                                         <a href="#invoice-pop-up<?php echo $single['tr']['id']; ?>" class="btn btn-default fancybox-fast-view"> <?php echo empty($single['tr']['invoice']) ? $single['tr']['id'] : $single['tr']['invoice']; ?></a><br>
 
-                                                                                                                <!--<a  target="_blank" title="Add to pdf" href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'invoice_wise_report', $single['tr']['invoice'])) ?>" class="btn btn-default fancybox-fast-view"> <?php echo $single['tr']['invoice']; ?></a><br>-->
+                                                                                                                                        <!--<a  target="_blank" title="Add to pdf" href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'invoice_wise_report', $single['tr']['invoice'])) ?>" class="btn btn-default fancybox-fast-view"> <?php echo $single['tr']['invoice']; ?></a><br>-->
 
                                                         STB Quantity:  <?php echo $single['pc']['stbs']; ?><br>
                                                         Price:  <?php echo $single['tr']['price']; ?>  
@@ -2437,7 +2437,7 @@
                                                                         <b style=" color: #000;">TOTAL Amount Due</b>
                                                                     </div>
                                                                     <div class="col-xs-6" style="text-align: right;">
-                                                                        $<?php // echo $single['ps']['amount'];                ?>.00 USD      
+                                                                        $<?php // echo $single['ps']['amount'];                   ?>.00 USD      
                                                                     </div>
                                                                     <hr style="border-color: #990000 !important; ">
                                                                 </div>
@@ -3020,6 +3020,6 @@
                             return true;
                         }
                         return false;" type="submit" style="background-color: red;">Delete customer</button>     
-                        <?php echo $this->Form->end(); ?>
+                <?php echo $this->Form->end(); ?>
             </div>
         </div>

@@ -63,7 +63,7 @@
                                     <div class="input-list style-4 clearfix">
                                         <?php
                                         echo $this->Form->input(
-                                                'package_exp_date', array(
+                                                'exp_date', array(
                                             'class' => 'datepicker form-control ',
                                             'type' => 'text',
                                                 )

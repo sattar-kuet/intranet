@@ -168,7 +168,7 @@
                                                     ?>
                                                 </td>
                                                 <td>$<?php echo $info['PackageCustomer']['payable_amount']; ?></td>
-                                                <td><?php echo date_format( new DateTime($info['PackageCustomer']['package_exp_date']) , 'm-d-Y' );  ?></td>
+                                                <td><?php echo date_format( new DateTime($info['PackageCustomer']['exp_date']) , 'm-d-Y' );  ?></td>
                                             </tr>
                                         <?php endforeach; ?>                           
                                     </tbody>

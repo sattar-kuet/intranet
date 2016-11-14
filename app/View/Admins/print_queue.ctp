@@ -57,7 +57,7 @@
                                     <tr >
                                         <td><?php echo $agent['first_name']; ?></td>
                                         <td><?php echo $agent['email']; ?></td>
-                                        <td><?php echo $agent['package_exp_date']; ?></td>
+                                        <td><?php echo $agent['exp_date']; ?></td>
                                         <td><?php echo $agent['home']; ?></td>
 
                                         <td>   

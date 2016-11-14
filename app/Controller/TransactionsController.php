@@ -65,7 +65,7 @@ class TransactionsController extends AppController {
         $this->loadModel('PaidCustomer');
         $clicked = false;
         //$datrange = json_decode($this->request->data['paidcustomer']['daterange'], true);
-        //$conditions = array('PaidCustomer.package_exp_date >=' => $datrange['start'], 'PaidCustomer.package_exp_date <=' => $datrange['end']);
+        //$conditions = array('PaidCustomer.exp_date >=' => $datrange['start'], 'PaidCustomer.exp_date <=' => $datrange['end']);
         $paidcustomers = $this->PaidCustomer->find('first', array('conditions' => array('PaidCustomer.id' => $id)));
         //pr($paidcustomers); exit;
         $clicked = true;

@@ -456,7 +456,7 @@ class AdminsController extends AppController {
         $this->loadModel('PackageCustomer');
         $current_date = date('Y-m-d');
         $future_date = date('Y-m-d', strtotime("+25 days"));
-        $expire_customer = $this->PackageCustomer->find('all', array('conditions' => array('package_exp_date >' => $future_date)));
+        $expire_customer = $this->PackageCustomer->find('all', array('conditions' => array('exp_date >' => $future_date)));
         $this->set(compact('expire_customer'));
         //pr($expire_customer);exit;
     }

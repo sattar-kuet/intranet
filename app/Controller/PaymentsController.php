@@ -617,6 +617,7 @@ class PaymentsController extends AppController {
         $due = $this->getDue($this->request->data['Transaction']);
         if ($due > 0) {
             $this->request->data['Transaction']['status'] = 'open';
+           
         }
         unset($this->request->data['Transaction']['payable_amount']);
         $this->Transaction->id = $this->request->data['Transaction']['id'];
