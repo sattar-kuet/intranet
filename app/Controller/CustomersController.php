@@ -804,10 +804,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         return $this->redirect($this->referer());
     }
 
-    function generateInvoice($data = array()) {
-        $this->loadModel('Transaction');
-        $this->Transaction->save($data);
-    }
+   
 
     function ready($id = null) {
         $this->loadModel('PackageCustomer');

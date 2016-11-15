@@ -52,9 +52,8 @@ class AppController extends Controller {
             )
         )
     );
-
     public $per_page = 2;
-    
+
     public function beforeFilter() {
         // save last visited url
         $url = Router::url(NULL, true); //complete url
@@ -70,17 +69,17 @@ class AppController extends Controller {
             $sidebar = $admin['Role']['name'];
             $this->set(compact('sidebar'));
         }
-      
-        $loggedUser = $this->Auth->user();      
+
+        $loggedUser = $this->Auth->user();
         $this->set('loggedUser', $loggedUser['name']);
-        
-     //   $loggedUserpic = $this->Auth->user();       
-      //  $this->set('loggedUserpic', $loggedUser['picture']);
+
+        //   $loggedUserpic = $this->Auth->user();       
+        //  $this->set('loggedUserpic', $loggedUser['picture']);
     }
 
     function getFormatedDate($date = null) {
         $temp = explode('/', $date);
-        if (count($temp)>1) {
+        if (count($temp) > 1) {
             return $temp[2] . '-' . $temp[0] . '-' . $temp[1];
         }
         return $date;
@@ -345,16 +344,21 @@ class AppController extends Controller {
         $return['roles'] = $roles;
         return $return;
     }
-    
-      function random_string($length) {
-            $key = '';
-            $keys = array_merge(range(0, 9));
 
-            for ($i = 0; $i < $length; $i++) {
-                $key .= $keys[array_rand($keys)];
-            }
+    function random_string($length) {
+        $key = '';
+        $keys = array_merge(range(0, 9));
 
-            return $key;
+        for ($i = 0; $i < $length; $i++) {
+            $key .= $keys[array_rand($keys)];
         }
+
+        return $key;
+    }
+
+    function generateInvoice($data = array()) {
+        $this->loadModel('Transaction');
+        $this->Transaction->save($data);
+    }
 
 }
