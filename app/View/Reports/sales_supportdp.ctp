@@ -82,11 +82,20 @@
                                 <th class="hidden-480" style="text-align: center;">
                                     New installation
                                 </th>
-                                <th class="hidden-480" style="text-align: center;">
+<!--                                <th class="hidden-480" style="text-align: center;">
                                     Additional installation
                                 </th>
                                 <th class="hidden-480" style="text-align: center;">
                                     Total box installed
+                                </th>-->
+                                 <th class="hidden-480" style="text-align: center;">
+                                    Hold
+                                </th>
+                                <th class="hidden-480" style="text-align: center;">
+                                    Unhold
+                                </th>
+                                  <th class="hidden-480" style="text-align: center;">
+                                    Reconnect
                                 </th>
                                 <th class="hidden-480" style="text-align: center;">
                                     Full service cancel
@@ -94,15 +103,8 @@
                                 <th class="hidden-480" style="text-align: center;">
                                     Cancel from due bill
                                 </th>
-                                <th class="hidden-480" style="text-align: center;">
-                                    Hold
-                                </th>
-                                <th class="hidden-480" style="text-align: center;">
-                                    Unhold
-                                </th>
-                                <th class="hidden-480" style="text-align: center;">
-                                    Reconnect
-                                </th>
+                               
+                              
                             </tr>
                         </thead>
                         <tbody>                           
@@ -128,10 +130,20 @@
                                     <?php endif; ?>
                                 </td>  -->
                                 <td style="text-align: center;"> 
-                                    <?php if (!empty($total['cancel'])): ?>
-                                        <?php echo $total['cancel']; ?> 
+                                    <?php if (!empty($total['installation'])): ?>
+                                        <?php echo $total['installation']; ?> 
                                     <?php endif; ?>
                                 </td>  
+<!--                                <td style="text-align: center;"> 
+                                    <?php if (!empty($total['hold'])) : ?>
+                                        <?php echo $total['hold']; ?> 
+                                    <?php endif; ?>
+                                </td> 
+                                <td style="text-align: center;">                
+                                    <?php if (!empty($total['unhold'])): ?>
+                                        <?php echo $total['unhold']; ?> 
+                                    <?php endif; ?>
+                                </td>  -->
                                 <td style="text-align: center;"> 
                                     <?php if (!empty($total['hold'])) : ?>
                                         <?php echo $total['hold']; ?> 
@@ -141,33 +153,24 @@
                                     <?php if (!empty($total['unhold'])): ?>
                                         <?php echo $total['unhold']; ?> 
                                     <?php endif; ?>
-                                </td>  
-                                <td style="text-align: center;">                                        
-                                   <?php if (!empty($total['servicecancel'])): ?>
-                                        <?php echo $total['servicecancel']; ?> 
-                                    <?php endif; ?>
-                                </td> 
-                                
+                                </td>                                 
+                                                              
                                  <td style="text-align: center;"> 
-                                    <?php if (!empty($total['hold'])) : ?>
-                                        <?php echo $total['hold']; ?> 
-                                    <?php endif; ?>
-                                </td> 
-                                <td style="text-align: center;">                
-                                    <?php if (!empty($total['hold'])) : ?>
-                                        <?php echo $total['hold']; ?> 
-                                    <?php endif; ?>
-                                </td> 
-                                <td style="text-align: center;">                                        
-                                  <?php if (!empty($total['unhold'])): ?>
-                                        <?php echo $total['unhold']; ?> 
-                                    <?php endif; ?>
-                                </td> 
-                                <td style="text-align: center;">                                        
-                                   <?php if (!empty($total['reconnection'])): ?>
+                                    <?php if (!empty($total['reconnection'])) : ?>
                                         <?php echo $total['reconnection']; ?> 
                                     <?php endif; ?>
                                 </td> 
+                                <td style="text-align: center;">                
+                                    <?php if (!empty($total['servicecancel'])) : ?>
+                                        <?php echo $total['servicecancel']; ?> 
+                                    <?php endif; ?>
+                                </td> 
+                                <td style="text-align: center;">                                        
+                                  <?php if (!empty($total['cancelduebill'])): ?>
+                                        <?php echo $total['cancelduebill']; ?> 
+                                    <?php endif; ?>
+                                </td> 
+                                 
                             </tr>                                                 
                         </tbody>
                     </table>

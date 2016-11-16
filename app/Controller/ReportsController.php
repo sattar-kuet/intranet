@@ -586,10 +586,12 @@ class ReportsController extends AppController {
 //        $total['cancel'] = $this->getTotalCancel(); 
 //         $total['sales_query'] = $this->getTotalSalesQuery();
         // $total[0] = $total['done'] + $total['ready'];
+       
+        $total['installation'] = $this->getTotalInstallation();
         $total['hold'] = $this->getTotalHold();
         $total['unhold'] = $this->getTotalUnhold();
         $total['reconnection'] = $this->getTotalReconnection();
-        $total['installation'] = $this->getTotalInstallation();
+        
         $total['done'] = $this->getTotalDone();
         $total['ready'] = $this->getTotalNewordertaken();
         $total['servicecancel'] = $this->getTotalFullServiceCancel();
