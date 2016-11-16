@@ -1012,6 +1012,7 @@
                                         echo $this->Form->input('status', array(
                                             'type' => 'select',
                                             'options' => array(
+                                                'installation' => 'Installation done',
                                                 'active' => 'Active',
                                                 'canceled' => 'Canceled',
                                                 'requested' => 'Requested',
@@ -1024,7 +1025,10 @@
                                                 'Request to unhold' => 'Request to unhold',
                                                 'hold' => 'Hold',
                                                 'unhold' => 'Unhold',
-                                                'Request to reconnection' => 'Request to reconnection',
+                                                'request to reconnection' => 'Request to reconnection',
+                                                'full service cancel' => 'Full Service Cancel',
+                                                'cancel from due bill' => 'Cancel From Due Bill',
+                                                'request to reconnection' => 'Request to reconnection',
                                                 'post pone' => 'Post pone',
                                                 'done' => 'Done',
                                                 'rescheduled' => 'Reschedu'
@@ -1384,7 +1388,7 @@
                                                     . $info['package_customers']['zip'];
                                             ?>
                                             <tr>
-                                                <td> <a href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit_customer_data', $info['package_customers']['id'])) ?>" target="_blank"><?php echo $info['package_customers']['middle_name'] . " " . $info['package_customers']['last_name']; ?></a> </td>
+                                                <td> <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'edit', $info['package_customers']['id'])) ?>" target="_blank"><?php echo $info['package_customers']['middle_name'] . " " . $info['package_customers']['last_name']; ?></a> </td>
                                                 <td><?php echo $customer_address; ?></td>
                                                 <td><?php echo $info['package_customers']['mac']; ?></td>
                                                 <td><?php echo $info['package_customers']['cell']; ?></td>

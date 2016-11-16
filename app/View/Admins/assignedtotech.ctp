@@ -14,7 +14,7 @@
     <div class="page-content">
         <!-- BEGIN PAGE HEADER-->
         <h3 class="page-title">
-            Follow up customers List<small></small>
+           Assign to tech customers list<small></small>
         </h3>
 
         <!-- END PAGE HEADER-->

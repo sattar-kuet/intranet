@@ -14,7 +14,7 @@
     <div class="page-content">
         <!-- BEGIN PAGE HEADER-->
         <h3 class="page-title">
-            Manage the tickets <small>You can resolve, unresolve or froward</small>
+            Solved tickets <small>You can resolve, unresolve or froward</small>
         </h3>
 
         <!-- END PAGE HEADER-->

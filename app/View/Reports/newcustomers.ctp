@@ -22,7 +22,7 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-plus"></i>Expired Customers
+                            <i class="fa fa-plus"></i>New Customers
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="reload">
@@ -137,7 +137,7 @@
                                             ?>
                                             <tr>
                                                 <td><?php echo $info['pc']['c_acc_no']; ?></td>
-                                                <td> <a href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit_customer_data', $info['pc']['id'])) ?>" target="_blank"><?php echo $info['pc']['middle_name']. " " . $info['pc']['last_name']; ?></a> </td>
+                                                <td> <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'edit', $info['pc']['id'])) ?>" target="_blank"><?php echo $info['pc']['middle_name']. " " . $info['pc']['last_name']; ?></a> </td>
                                                 <td><?php echo $customer_address; ?></td>
                                                 <td><?php echo $info['pc']['mac']; ?></td>
                                                 <td><?php echo $info['pc']['cell']; ?></td>

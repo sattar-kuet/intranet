@@ -16,7 +16,7 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-plus"></i>Edit user information
+                            <i class="fa fa-plus"></i>Update Password
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="reload">

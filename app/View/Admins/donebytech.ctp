@@ -14,7 +14,7 @@
     <div class="page-content">
         <!-- BEGIN PAGE HEADER-->
         <h3 class="page-title">
-            Follow up customers List<small></small>
+           Installation complete customers List<small></small>
         </h3>
 
         <!-- END PAGE HEADER-->
@@ -91,8 +91,8 @@
                                         </td>
                                         <td>
                                             <a href="<?php
-                                            echo Router::url(array('controller' => 'Transactions',
-                                                'action' => 'edit_customer_data', $results['customers']['id']))
+                                            echo Router::url(array('controller' => 'customers',
+                                                'action' => 'edit', $results['customers']['id']))
                                             ?>" 
                                                target="_blank">
                                                    <?php

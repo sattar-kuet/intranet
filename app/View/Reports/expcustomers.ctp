@@ -153,7 +153,7 @@
                                                 ?>
                                                 <tr>
                                                     <td><?php echo $info['PackageCustomer']['c_acc_no']; ?></td>
-                                                    <td> <a href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit_customer_data', $info['PackageCustomer']['id'])) ?>" target="_blank"><?php echo $info['PackageCustomer']['middle_name'] . " " . $info['PackageCustomer']['last_name']; ?></a> </td>
+                                                    <td> <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'edit', $info['PackageCustomer']['id'])) ?>" target="_blank"><?php echo $info['PackageCustomer']['middle_name'] . " " . $info['PackageCustomer']['last_name']; ?></a> </td>
                                                     <td><?php echo $customer_address; ?></td>
                                                     <td><?php echo $info['PackageCustomer']['mac']; ?></td>
                                                     <td><?php echo $info['PackageCustomer']['cell']; ?></td>
@@ -183,7 +183,7 @@
                         <!-- END EXAMPLE TABLE PORTLET-->
                     </div>
 
-                    <ul class="pagination" >
+<!--                    <ul class="pagination" >
                         <?php
                         for ($i = 1; $i <= $total_page; $i++):
                             $active = '';
@@ -195,7 +195,7 @@
                                 <a href="<?php echo Router::url(array('controller' => 'otherspayments', 'action' => 'manage', $i,$start,$end)) ?>"><?php echo $i; ?></a>
                             </li>
                         <?php endfor; ?>
-                    </ul>
+                    </ul>-->
                 </div>
             <?php endif; ?>
         </div>

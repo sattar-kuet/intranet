@@ -159,7 +159,7 @@
                                                         <?php echo $info['PackageCustomer']['c_acc_no']; ?>
                                                     <?php endif; ?>
                                                 </td>
-                                                <td> <a href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit_customer_data', $info['package_customers']['id'])) ?>" target="_blank"><?php echo $info['package_customers']['middle_name'] . " " . $info['package_customers']['last_name']; ?></a> </td>
+                                                <td> <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'edit', $info['package_customers']['id'])) ?>" target="_blank"><?php echo $info['package_customers']['middle_name'] . " " . $info['package_customers']['last_name']; ?></a> </td>
                                                 <td>
                                                     <?php if (!empty($info['package_customers']['address'])): ?>
                                                         <?php echo $info['package_customers']['address']; ?>

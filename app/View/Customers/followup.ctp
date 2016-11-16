@@ -12,7 +12,7 @@
     <div class="page-content">
         <!-- BEGIN PAGE HEADER-->
         <h3 class="page-title">
-            Sales Technicians <small></small>
+            Follow up<small></small>
         </h3>
 
         <!-- END PAGE HEADER-->

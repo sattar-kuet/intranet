@@ -69,7 +69,7 @@ class ReportsController extends AppController {
             LEFT JOIN custom_packages  ON custom_packages.id = package_customers.custom_package_id 
 
            where  $conditions order by package_customers.id desc limit 0,199";
-             
+
 
             $block_customers = $this->PackageCustomer->query($sql);
             $clicked = true;
@@ -140,7 +140,7 @@ class ReportsController extends AppController {
             left join psettings ps on ps.id = pc.psetting_id
             left join transactions tr on pc.id = tr.package_customer_id
             LEFT JOIN packages p ON p.id = ps.package_id 
-            WHERE exp_date>='" . date('Y-m-d') . "' AND exp_date<='" . $expiredate . "' AND exp_date != 0000-00-00 "
+            WHERE pc.exp_date>='" . date('Y-m-d') . "' AND pc.exp_date<='" . $expiredate . "' AND pc.exp_date != 0000-00-00 "
                 . "GROUP BY pc.id");
         foreach ($packagecustomers as $data) {
             $pcid = $data['pc']['id'];
@@ -161,6 +161,7 @@ class ReportsController extends AppController {
             left join transactions tr on pc.id = tr.package_customer_id
             LEFT JOIN packages p ON p.id = ps.package_id 
             WHERE  pc.printed = 1");
+        //  pr($packagecustomers); exit;
         $this->set(compact('packagecustomers'));
     }
 
@@ -269,8 +270,8 @@ class ReportsController extends AppController {
             left join psettings ps on ps.id = pc.psetting_id
             left join transactions tr on pc.id = tr.package_customer_id
             LEFT JOIN packages p ON p.id = ps.package_id 
-            WHERE exp_date>='" . date('Y-m-d') . "' AND exp_date<='" . $expiredate . "' "
-                . "AND exp_date != 0000-00-00. "
+            WHERE pc.exp_date>='" . date('Y-m-d') . "' AND pc.exp_date<='" . $expiredate . "' "
+                . "AND pc.exp_date != 0000-00-00. "
                 . " AND pc.printed = 0"
                 . " GROUP BY pc.id");
 
@@ -409,7 +410,7 @@ class ReportsController extends AppController {
             left join psettings ps on ps.id = pc.psetting_id
             LEFT JOIN packages p ON p.id = ps.package_id 
             LEFT JOIN custom_packages cp ON cp.id = pc.custom_package_id             
-            WHERE  pc.installation_date >='" . $datrange['start'] . "' AND pc.installation_date <='" . $datrange['end'] . "'  order by pc.id desc limit 0,200" );
+            WHERE  pc.installation_date >='" . $datrange['start'] . "' AND pc.installation_date <='" . $datrange['end'] . "'  order by pc.id desc limit 0,200");
             $clicked = true;
             $this->set(compact('transactions'));
         }
@@ -441,7 +442,7 @@ class ReportsController extends AppController {
                 $conditions .=" tr.forwarded_by = $agent AND";
             }
             if (count($datrange)) {
-                if ($datrange['start'] == $datrange['end']) {                  
+                if ($datrange['start'] == $datrange['end']) {
                     $nextday = date('Y-m-d', strtotime($datrange['end'] . "+1 days"));
                     $conditions .=" t.created >=' " . $datrange['start'] . "' AND  t.created < '" . $nextday . "' AND ";
                 } else {
@@ -510,15 +511,16 @@ class ReportsController extends AppController {
 
     function getTotalHold() {
         $this->loadModel('PackageCustomer');
-
-        $hold = $this->PackageCustomer->query("SELECT count(status) as hold FROM package_customers WHERE modified >= CURRENT_DATE() and status = 'Request to hold'");
+        $today = date('Y-m-d');
+        $hold = $this->PackageCustomer->query("SELECT count(status) as hold FROM package_customers WHERE date = '$today' and status = 'hold'");
 
         return $hold[0][0]['hold'];
     }
 
     function getTotalUnhold() {
         $this->loadModel('PackageCustomer');
-        $unhold = $this->PackageCustomer->query("SELECT count(status) as unhold FROM package_customers WHERE modified >= CURRENT_DATE() and status = 'Request to unhold'");
+        $today = date('Y-m-d');
+        $unhold = $this->PackageCustomer->query("SELECT count(status) as unhold FROM package_customers WHERE date = '$today' and status = 'unhold'");
         return $unhold[0][0]['unhold'];
     }
 
@@ -537,9 +539,23 @@ class ReportsController extends AppController {
 
     function getTotalReconnection() {
         $this->loadModel('PackageCustomer');
-        $date = date("Y-m-d");
-        $reconnection = $this->PackageCustomer->query("SELECT count(status) as reconnection FROM package_customers WHERE modified >= $date and status = 'reconnection'");
+        $today = date("Y-m-d");
+        $reconnection = $this->PackageCustomer->query("SELECT count(status) as reconnection FROM package_customers WHERE date = '$today' and status = 'request to reconnection'");
         return $reconnection[0][0]['reconnection'];
+    }
+   
+    function getTotalFullServiceCancel() {
+        $this->loadModel('PackageCustomer');
+        $today = date("Y-m-d");
+        $servicecancel = $this->PackageCustomer->query("SELECT count(status) as servicecancel FROM package_customers WHERE date = '$today' and status = 'full service cancel'");
+        return $servicecancel[0][0]['servicecancel'];
+    }
+   
+    function getTotalCancelDueBill() {
+        $this->loadModel('PackageCustomer');
+        $today = date("Y-m-d");
+        $cancelduebill = $this->PackageCustomer->query("SELECT count(status) as cancelduebill FROM package_customers WHERE date = '$today' and status = 'cancel from due bill'");
+        return $cancelduebill[0][0]['cancelduebill'];
     }
 
     function getTotalNewordertaken() {
@@ -557,19 +573,28 @@ class ReportsController extends AppController {
         return $totalorder;
     }
 
+    function getTotalInstallation() {
+        $this->loadModel('PackageCustomer');
+        $today = date('Y-m-d');
+        $data = $this->PackageCustomer->query("SELECT count(status) as installation FROM package_customers WHERE date = '$today'  and status = 'installation'");
+        return $data[0][0]['installation'];
+    }
+
     function salesSupportdp() {
         $total = array();
 //        $total['call'] = $this->getTotalCall();
-//        $total['cancel'] = $this->getTotalCancel();        
-//        $total['hold'] = $this->getTotalHold();
-//        $total['unhold'] = $this->getTotalUnhold();
-//        $total['reconnection'] = $this->getTotalReconnection();
+//        $total['cancel'] = $this->getTotalCancel(); 
+//         $total['sales_query'] = $this->getTotalSalesQuery();
+        // $total[0] = $total['done'] + $total['ready'];
+        $total['hold'] = $this->getTotalHold();
+        $total['unhold'] = $this->getTotalUnhold();
+        $total['reconnection'] = $this->getTotalReconnection();
+        $total['installation'] = $this->getTotalInstallation();
         $total['done'] = $this->getTotalDone();
         $total['ready'] = $this->getTotalNewordertaken();
-        $total['sales_query'] = $this->getTotalSalesQuery();
-        $total[0] = $total['done'] + $total['ready'];
-
-//        pr($total['0']); exit;
+        $total['servicecancel'] = $this->getTotalFullServiceCancel();
+        $total['cancelduebill'] = $this->getTotalCancelDueBill();
+       
         $this->set(compact('total'));
     }
 

@@ -133,7 +133,7 @@
 
             <li 
             <?php
-            $tickets = array('Ticketscreate', 'Ticketsmanage', 'TicketsAssigned_to_me', 'TicketsForwarded_by', 'Ticketssolved_ticket', 'Ticketsin_progress');
+            $tickets = array('Ticketscreate', 'Ticketsmanage', 'Ticketsassigned_to_me', 'TicketsForwarded_by', 'Ticketssolved_ticket', 'Ticketsin_progress');
             if (in_array($this->name . '' . $this->action, $tickets)):
                 ?>
                     class="active"
@@ -181,19 +181,19 @@
                         endif;
                         ?>
                         >
-                        <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'Assigned_to_me')) ?>">
+                        <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'assigned_to_me')) ?>">
                             <i class="fa icon-loop"></i>
                             Inform to Me</a>
                     </li>
                     <li
-                    <?php if ($this->name . '' . $this->action == 'Forwarded_by'):
+                    <?php if ($this->name . '' . $this->action == 'forwarded_by'):
                         ?>
                             class="active"
                             <?php
                         endif;
                         ?>
                         >
-                        <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'Forwarded_by')) ?>">
+                        <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'forwarded_by')) ?>">
                             <i class="fa icon-control-rewind"></i>
                             Forwarded by</a>
                     </li>
@@ -606,7 +606,7 @@
             </li> 
             <li 
             <?php
-            $services = array('AdminsscheduleDone', 'Adminsassignedtotech', 'Adminsdonebytech', 'Adminspostponebytech', 'Adminsrecheduledbytech', 'Adminscancelledbytech', 'Adminsdonebyadmin');
+            $services = array('AdminsscheduleDone', 'Adminsassignedtotech', 'Adminsdonebytech', 'Adminspostponebytech', 'Adminsrescheduledbytech', 'Adminscancelledbytech', 'Adminsdonebyadmin');
             if (in_array($this->name . '' . $this->action, $services)):
                 ?>
                     class="active"
@@ -675,7 +675,7 @@
 
                     <li
 
-                        <?php if ($this->name . '' . $this->action == 'Adminsrecheduledbytech'):
+                        <?php if ($this->name . '' . $this->action == 'Adminsrescheduledbytech'):
                             ?>
                             class="active"
                             <?php
@@ -683,7 +683,7 @@
                         ?>
                         >
 
-                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'recheduledbytech')) ?>">
+                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'rescheduledbytech')) ?>">
 
                             <i class="fa icon-like"></i>
                             Rescheduled by Tech</a>

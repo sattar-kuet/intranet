@@ -14,9 +14,8 @@
     <div class="page-content">
         <!-- BEGIN PAGE HEADER-->
         <h3 class="page-title">
-            Manage the tickets <small>You can resolve, unresolve or froward</small>
+            All tickets <small>You can resolve, unresolve or froward</small>
         </h3>
-
         <!-- END PAGE HEADER-->
         <!-- BEGIN PAGE CONTENT-->
         <div class="row">
@@ -27,16 +26,13 @@
                         <div class="caption">
                             <i class="fa fa-ticket"></i>List of All Tickets
                         </div>
-
                         <div class="tools">
                             <a href="javascript:;" class="reload">
                             </a>
                         </div>
                     </div>
                     <div class="portlet-body">
-
                         <?php echo $this->Session->flash(); ?>
-
                         <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                             <thead>
                                 <tr>
@@ -54,19 +50,14 @@
                             <tbody>
                                 <?php
                                 foreach ($data as $single):
-// pr($single); exit;
-
                                     $issue = end($single['history']);
                                     $customer = end($single['history']);
                                     $agent_name = $customer['fb']['name'];
                                     $customer = $customer['pc'];
                                     $ticket = $single['ticket'];
-
-
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
                                             . $customer['zip'];
-//                                    pr($issue['i']['name']);   exit();
                                     ?>
                                     <tr >
                                         <td >
@@ -76,7 +67,6 @@
                                             <?php echo $agent_name; ?>
                                         </td>
                                         <td>
-
                                             <?php
                                             echo $customer['first_name'] . " " .
                                             $customer['middle_name'] . " " .
@@ -90,18 +80,14 @@
                                             <?php if (!empty($customer['home'])): ?>
                                                 <b>  Home :</b>  <a href="tel:<?php echo $customer['home'] ?>"><?php echo $customer['home']; ?></a>
                                             <?php endif; ?>
-
                                         </td>
-
                                         <td><?php echo $issue['i']['name']; ?></td>
                                         <td><?php echo $ticket['content']; ?></td>
                                         <td>
                                             <ol>
                                                 <?php
                                                 $lasthistory = $single['history'][0]['tr'];
-
                                                 foreach ($single['history'] as $history):
-//                                                     pr($history['pc']['id']); exit;
                                                     ?>
                                                     <li>
                                                         <?php if ($history['tr']['status'] != 'open') { ?>
@@ -115,7 +101,6 @@
                                                         <?php echo $history['fb']['name']; ?>
                                                         <p><strong>Forwarded To:</strong><ul><li><?php echo $history['fi']['name']; ?> </li><li><?php echo $history['fd']['name']; ?> </li></ul>
                                                         <strong>Time:</strong> <?php echo date_format(new DateTime($history['tr']['created']), 'm-d-Y h:i:sa'); ?>
-
                                                         &nbsp;&nbsp;<strong>Status:</strong> <?php echo $history['tr']['status']; ?><br>
                                                         <?php
                                                         if (!empty($history['tr']['comment'])):
@@ -130,15 +115,9 @@
                                                 <?php endforeach; ?>
                                             </ol>
                                         </td>
-
-
                                         <td>   
                                             <div class="controls center text-center">
-
-
                                                 <?php if ($lasthistory['status'] == 'open') { ?>
-
-
                                                     <a 
                                                         href="#" title="Solved">
                                                         <span id="<?php echo $ticket['id']; ?>" class="fa fa-check fa-lg solve_ticket"></span>
@@ -147,22 +126,13 @@
                                                     <a 
                                                         href="#" title="Unresolved">
                                                         <span id="<?php echo $ticket['id']; ?>" class="fa fa-times fa-lg unsolve_ticket"></span>
-
-
                                                     </a>
                                                     &nbsp;
-
                                                     <a 
                                                         href="#" title="Forward">
-
                                                         <span id="<?php echo $ticket['id']; ?>" class="fa fa-mail-forward fa-lg forward_ticket"></span>
                                                     </a>
-
-
-
                                                     <div id="forward_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
-
-
                                                         <!-- BEGIN FORM-->
                                                         <?php
                                                         echo $this->Form->create('Track', array(
@@ -207,11 +177,8 @@
                                                                 You have some form errors. Please check below.
                                                             </div>
                                                             <?php echo $this->Session->flash(); ?>
-
                                                             <div class="form-group">
-
                                                                 <div class="form-group">
-
                                                                     <div class="col-md-12">
                                                                         <?php
                                                                         echo $this->Form->input('user_id', array(
@@ -226,9 +193,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-
                                                                 <div class="form-group">
-
                                                                     <div class="col-md-12">
                                                                         <?php
                                                                         echo $this->Form->input('role_id', array(
@@ -243,9 +208,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-
                                                                 <div class="form-group">
-
                                                                     <div class="col-md-12">
                                                                         <?php
                                                                         echo $this->Form->input('priority', array(
@@ -260,9 +223,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-
                                                                 <div class="form-group">
-
                                                                     <div class="col-md-12">
                                                                         <?php
                                                                         echo $this->Form->input('comment', array(
@@ -275,9 +236,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-
                                                         </div>
-
                                                         <div class="form-actions">
                                                             <div class="row">
                                                                 <div class="col-md-offset-7 col-md-4">
@@ -292,9 +251,7 @@
                                                         <?php echo $this->Form->end(); ?>
                                                         <!-- END FORM-->
                                                     </div>
-
                                                     <div id="solve_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
-
                                                         <!-- BEGIN FORM-->
                                                         <?php
                                                         echo $this->Form->create('Track', array(
@@ -317,7 +274,6 @@
                                                                 )
                                                         );
                                                         ?>
-
                                                         <?php
                                                         echo $this->Form->input('package_customer_id', array(
                                                             'type' => 'hidden',
@@ -362,12 +318,8 @@
                                                                 You have some form errors. Please check below.
                                                             </div>
                                                             <?php echo $this->Session->flash(); ?>
-
-
                                                             <div class="form-group">
-
                                                                 <div class="form-group">
-
                                                                     <div class="col-md-12">
                                                                         <?php
                                                                         echo $this->Form->input('comment', array(
@@ -380,9 +332,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-
                                                         </div>
-
                                                         <div class="form-actions">
                                                             <div class="row">
                                                                 <div class="col-md-offset-7 col-md-4">
@@ -397,7 +347,6 @@
                                                         <?php echo $this->Form->end(); ?>
                                                         <!-- END FORM-->
                                                     </div> 
-
                                                     <div id="unsolve_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
 
                                                         <!-- BEGIN FORM-->
@@ -414,7 +363,6 @@
                                                                 )
                                                         );
                                                         ?>
-
                                                         <?php
                                                         echo $this->Form->input('ticket_id', array(
                                                             'type' => 'hidden',
@@ -467,12 +415,8 @@
                                                                 You have some form errors. Please check below.
                                                             </div>
                                                             <?php echo $this->Session->flash(); ?>
-
-
                                                             <div class="form-group">
-
                                                                 <div class="form-group">
-
                                                                     <div class="col-md-12">
                                                                         <?php
                                                                         echo $this->Form->input('comment', array(

@@ -161,6 +161,7 @@ class CustomersController extends AppController {
         $this->loadModel('PackageCustomer');
         $this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
         $this->PackageCustomer->saveField("status", $this->request->data['PackageCustomer']['status']);
+        $this->PackageCustomer->saveField("date", $this->getFormatedDate($this->request->data['PackageCustomer']['date']));
         $data4statusHistory['StatusHistory'] = array(
             'package_customer_id' => $this->request->data['PackageCustomer']['id'],
             'date' => $this->request->data['PackageCustomer']['date'],

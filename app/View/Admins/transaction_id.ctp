@@ -99,7 +99,7 @@
                             <tr class="odd gradeX">
                                 <td>
                                     <ul>
-                                        <li>Name: <a href="<?php  echo Router::url(array('controller' => 'transactions','action' => 'edit_customer_data', $result['pc']['id'])) ?>" 
+                                        <li>Name: <a href="<?php  echo Router::url(array('controller' => 'customers','action' => 'edit', $result['pc']['id'])) ?>" 
                                          target="_blank"><?php echo $result['pc']['first_name'] . ' ' . $result['pc']['middle_name'] . ' ' . $result['pc']['last_name']; ?></a></li>
                                         <li>Address: <?php echo $customer_address; ?></li>
                                         <li>Cell: <?php echo $result['pc']['cell']; ?></li>                                    

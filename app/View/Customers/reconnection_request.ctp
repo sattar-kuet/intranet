@@ -14,7 +14,7 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-plus"></i>Reconnect Reques
+                            <i class="fa fa-plus"></i>Reconnect Request
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="reload">
@@ -151,8 +151,8 @@
                                         <td>
                                             <ul>
                                                 <b>  Name :</b>  <a href="<?php
-                                                echo Router::url(array('controller' => 'Transactions',
-                                                    'action' => 'edit_customer_data', $results['customers']['id']))
+                                                echo Router::url(array('controller' => 'customers',
+                                                    'action' => 'edit', $results['customers']['id']))
                                                 ?>" 
                                                                     target="_blank">
                                                                         <?php

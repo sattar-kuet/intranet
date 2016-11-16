@@ -791,7 +791,7 @@ class AdminsController extends AppController {
         $this->set(compact('filteredData', 'technician'));
     }
 
-    function recheduledbytech() {
+    function rescheduledbytech() {
 
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');

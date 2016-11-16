@@ -23,7 +23,7 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-plus"></i>Call Logs
+                            <i class="fa fa-plus"></i>Payment History
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="reload">
@@ -131,7 +131,6 @@
                                         <?php
                                         $total = 0;
                                         foreach ($transactions as $single):
-//                                            pr($single['tr']['pay_mode']); exit; 
                                             $tr = $single['tr'];                                           
 //                                            $total += $tr['paid_amount'];
                                             $pc = $single['pc'];
@@ -142,10 +141,10 @@
                                             <tr >
                                                 <td>
                                                     <ul>
-                                                        <li> <strong> Name: </strong>  
+                                                        <li><strong>Name:</strong>  
                                                             <a href="<?php
-                                                            echo Router::url(array('controller' => 'Transactions',
-                                                                'action' => 'edit_customer_data', $pc['id']))
+                                                            echo Router::url(array('controller' => 'customers',
+                                                                'action' => 'edit', $pc['id']))
                                                             ?>" 
                                                                target="_blank">
                                                                    <?php

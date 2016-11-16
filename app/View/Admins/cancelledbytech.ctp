@@ -14,7 +14,7 @@
     <div class="page-content">
         <!-- BEGIN PAGE HEADER-->
         <h3 class="page-title">
-            Follow up customers List<small></small>
+            Canceled by tech customers List<small></small>
         </h3>
 
         <!-- END PAGE HEADER-->
