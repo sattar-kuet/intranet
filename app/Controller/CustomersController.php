@@ -797,7 +797,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             'package_customer_id' => $id,
             'status' => 'open',
             'invoice' => $pc_data['PackageCustomer']['invoice_no'],
-            'next_payment' => $pc_data['PackageCustomer']['exp_date'],
+            'next_payment' => $pc_data['Transaction']['exp_date'],
             'payable_amount' => $this->request->data['Transaction']['payable_amount']
         );
 
@@ -805,10 +805,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         return $this->redirect($this->referer());
     }
 
-    function generateInvoice($data = array()) {
-        $this->loadModel('Transaction');
-        $this->Transaction->save($data);
-    }
+   
 
     function ready($id = null) {
         $this->loadModel('PackageCustomer');
