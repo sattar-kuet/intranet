@@ -1015,6 +1015,15 @@ class AdminsController extends AppController {
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
 	<strong>Succeesfully approved </strong></div>';
         $this->Session->setFlash($msg);
+        $temp = $this->PackageCustomer->findById($id);
+        $payable_amount = $temp['PackageCustomer']['deposit'] + $temp['PackageCustomer']['monthly_bill'] +  $temp['PackageCustomer']['others'];
+        $data['Transaction'] = array(
+            'package_customer_id' => $id,
+            'status' => 'open',
+            'payable_amount' => $payable_amount
+        );
+
+        $this->generateInvoice($data);
         return $this->redirect($this->referer());
     }
 
@@ -1113,7 +1122,7 @@ class AdminsController extends AppController {
         $this->loadModel('User');
         if ($this->request->is('post') || $this->request->is('put')) {
             $loggedUser = $this->Auth->user();
-           // pr($loggedUser); exit;
+            // pr($loggedUser); exit;
             $user = $this->User->findById($loggedUser['id']);
             $passwordHasher = new SimplePasswordHasher(array('hashType' => 'sha256'));
             $givenPass = $passwordHasher->hash(
@@ -1136,7 +1145,6 @@ class AdminsController extends AppController {
             $this->Session->setFlash($msg);
             return $this->redirect($this->referer());
         }
- 
     }
 
 }

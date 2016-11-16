@@ -1379,6 +1379,7 @@
                                     <tbody>
                                         <?php
                                         foreach ($invoices as $info):
+                                           // pr($info);
                                             $customer_address = $info['package_customers']['house_no'] . ' ' . $info['package_customers']['street'] . ' ' .
                                                     $info['package_customers']['apartment'] . ' ' . $info['package_customers']['city'] . ' ' . $info['package_customers']['state'] . ' '
                                                     . $info['package_customers']['zip'];
@@ -1390,11 +1391,11 @@
                                                 <td><?php echo $info['package_customers']['cell']; ?></td>
                                                 <td>
                                                     <?php
-                                                    if ($info['package_customers']['custom_package_id'] == null) {
-                                                        if (count($info['Psetting']) == 0) {
+                                                    if ($info['package_customers']['custom_package_id'] == null || empty($info['package_customers']['custom_package_id'])) {
+                                                        if (count($info['psettings']) == 0) {
                                                             echo 'No package was selected with this customer';
                                                         } else {
-                                                            echo $info['Psetting']['name'];
+                                                            echo $info['psettings']['name'];
                                                         }
                                                     } else {
                                                         echo $info['custom_packages']['duration'] . ' Months, Custom package ' . $info['custom_packages']['charge'] . '$';
