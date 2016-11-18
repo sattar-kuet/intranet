@@ -400,7 +400,7 @@
                                                 );
                                                 ?>
 
-                                             
+
 
                                                 <?php
                                                 echo $this->Form->input(
@@ -463,17 +463,8 @@
                                                         Invoice#
 
                                                     </div>
-                                                    <div class="col-md-3">
-
-                                                        <?php
-                                                        echo $this->Form->input(
-                                                                'id', array(
-                                                            'type' => 'text',
-                                                            'class' => 'form-control input-sm',
-                                                            'value' => $this->params['pass'][0],
-                                                            'readonly' => 'readonly'
-                                                        ));
-                                                        ?>
+                                                    <div class="col-md-3" style="border: 1px solid; padding: 4px;">
+                                                        <?php echo $this->params['pass'][0]; ?>
                                                     </div>
                                                     <div class="col-md-1 signupfont">
                                                         &nbsp; Amount
@@ -819,10 +810,10 @@
                                                 );
                                                 ?>
 
-                                                 <?php
+                                                <?php
                                                 echo $this->Form->input('id');
                                                 ?>
-                                                
+
                                                 <?php
                                                 echo $this->Form->input(
                                                         'pay_mode', array(
@@ -934,7 +925,7 @@
                                                 );
                                                 ?>
 
-                                                 <?php
+                                                <?php
                                                 echo $this->Form->input('id');
                                                 ?>
 
@@ -1044,8 +1035,8 @@
                                                         )
                                                 );
                                                 ?>
-                                                
-                                                 <?php
+
+                                                <?php
                                                 echo $this->Form->input('id');
                                                 ?>
 

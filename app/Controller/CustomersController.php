@@ -229,6 +229,25 @@ left join custom_packages on package_customers.custom_package_id = custom_packag
 WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open' order by transactions.id DESC;");
     }
 
+    function getStatements() {
+        $statements = $this->Transaction->query("SELECT *
+            FROM transactions tr			
+            WHERE tr.status = 'open' OR tr.status ='close'"
+        );
+        $return = array();
+        foreach ($statements as $index => $statement) {
+            $paid = $this->Transaction->query("SELECT *
+            FROM transactions tr			
+            WHERE transaction_id = " . $statement['tr']['id']
+            );
+            $return[] = array(
+                'bill' => $statement['tr'],
+                'payment' => $paid,
+            );
+        }
+        return $return;
+    }
+
     function edit($id = null) {
         $this->loadModel('StatusHistory');
         $pcid = $id;
@@ -304,19 +323,10 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             $pckagename = $package['Package']['name'];
             $packageList[$pckagename] = $psettingList;
         }
-
         $ym = $this->getYm();
         $this->loadModel('Transaction');
         $invoices = $this->getOpenInvoice($pcid);
-        $statements = $this->Transaction->query("SELECT *
-            FROM transactions tr			
-            left join  package_customers pc  on pc.id = tr.package_customer_id
-            left join psettings ps on ps.id = pc.psetting_id
-            LEFT JOIN packages p ON p.id = ps.package_id where tr.status = 'close' "
-        );
-
-//        pr($invoices[0]['paid_transactions']['amount']); exit;
-
+        $statements = $this->getStatements();
         $this->set(compact('invoices', 'statements', 'packageList', 'psettings', 'ym', 'custom_package_charge'));
     }
 
@@ -774,14 +784,13 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
 
     function update_payment($id = null) {
         $this->loadModel('PackageCustomer');
-        $invoice = $this->random_string(9);
         $this->PackageCustomer->id = $this->request->data['Transaction']['package_customer_id'];
         $data = array();
         $data['PackageCustomer'] = array(
             'exp_date' => $this->getFormatedDate($this->request->data['Transaction']['exp_date']),
             // when change package exp date then these fields will be update
             'ticket_generated' => 0,
-            'invoice_no' => $invoice,
+            'invoice_no' => 0,
             'invoice_created' => 0,
             'printed' => 0
         );
@@ -797,15 +806,13 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             'package_customer_id' => $id,
             'status' => 'open',
             'invoice' => $pc_data['PackageCustomer']['invoice_no'],
-            'next_payment' => $pc_data['Transaction']['exp_date'],
+            'next_payment' => $pc_data['PackageCustomer']['exp_date'],
             'payable_amount' => $this->request->data['Transaction']['payable_amount']
         );
 
         $this->generateInvoice($data);
         return $this->redirect($this->referer());
     }
-
-   
 
     function ready($id = null) {
         $this->loadModel('PackageCustomer');

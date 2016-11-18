@@ -1383,7 +1383,7 @@
                                     <tbody>
                                         <?php
                                         foreach ($invoices as $info):
-                                           // pr($info);
+                                            // pr($info);
                                             $customer_address = $info['package_customers']['house_no'] . ' ' . $info['package_customers']['street'] . ' ' .
                                                     $info['package_customers']['apartment'] . ' ' . $info['package_customers']['city'] . ' ' . $info['package_customers']['state'] . ' '
                                                     . $info['package_customers']['zip'];
@@ -2174,7 +2174,7 @@
                                     <table cellpadding="0" cellspacing="0" border="0" class="responsive dynamicTable display table table-bordered" width="100%" >
                                         <thead>
                                             <tr >  
-                                                <th>Invoice Information</th>
+                                                <th>Invoice</th>
                                                 <th>Payment info</th>
                                                 <th>Amount</th>
                                                 <th>Balance</th>
@@ -2184,78 +2184,109 @@
                                             <?php
                                             $balance = array();
                                             foreach ($statements as $i => $single):
-                                                if ($single['tr']['payable_amount']) {
-                                                    $amount = -1 * $single['tr']['payable_amount'];
-                                                } else {
-                                                    $amount = $single['tr']['paid_amount'];
-                                                }
+                                                $bill = $single['bill'];
+                                                $payments = $single['payment'];
+
+                                                $amount = -1 * $bill['payable_amount'];
+
                                                 if ($i > 0) {
-                                                    $balance[$i] = $balance[$i - 1] + $amount;
+                                                    $prevIndex = count($balance) - 2;
+                                                    $balance[] = $balance[$prevIndex] + $amount;
                                                 } else {
-                                                    $balance[$i] = $amount;
+                                                    $balance[] = $amount;
                                                 }
                                                 ?>
                                                 <tr class="odd gradeX">
                                                     <td> 
-                                                        <a href="#invoice-pop-up<?php echo $single['tr']['id']; ?>" class="btn btn-default fancybox-fast-view"> <?php echo empty($single['tr']['invoice']) ? $single['tr']['id'] : $single['tr']['invoice']; ?></a><br>
-
-                                                                                                                                        <!--<a  target="_blank" title="Add to pdf" href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'invoice_wise_report', $single['tr']['invoice'])) ?>" class="btn btn-default fancybox-fast-view"> <?php echo $single['tr']['invoice']; ?></a><br>-->
-
-                                                        STB Quantity:  <?php echo $single['pc']['stbs']; ?><br>
-                                                        Price:  <?php echo $single['tr']['price']; ?>  
+                                                        <a href="#invoice-pop-up<?php echo $bill['id']; ?>" class="btn btn-default fancybox-fast-view"> <?php echo empty($bill['invoice']) ? $bill['id'] : $bill['invoice']; ?></a><br>
                                                     </td>
 
                                                     <td>
-                                                        <?php
-                                                        if ($single['tr']['payable_amount']) {
-                                                            echo $single['tr']['description_tran'];
-                                                        } else {
-                                                            ?>
-                                                            <?php if ($single['tr']['pay_mode'] == 'card'): ?>
+                                            <li>
+                                                Payable Amount : <?php echo $amount; ?> 
+                                            </li>
+                                            <li>
+                                                Payment Date :  <?php echo $bill['next_payment']; ?> 
+                                            </li>
+
+                                            </td>
+
+                                            <td>
+                                                <?php
+                                                echo $amount;
+                                                ?>
+                                            </td>
+                                            <td><?php
+                                            
+                                            //pr($balance);
+                                            echo end($balance); ?></td>
+                                            </tr>
+
+                                            <?php foreach ($payments as $payment):
+                                                $amount = $payment['tr']['payable_amount'];
+                                                  $prevIndex = count($balance) - 1;
+                                                 // echo 
+                                                    $balance[] = $balance[$prevIndex] + $amount;
+                                                pr($payment['tr']);
+                                                ?>
+                                                <tr class="odd gradeX">
+                                                    <td> 
+                                                        <a href="#invoice-pop-up<?php echo $payment['tr']['id']; ?>" class="btn btn-default fancybox-fast-view"> <?php echo empty($payment['tr']['invoice']) ? $payment['tr']['id'] : $payment['tr']['invoice']; ?></a><br>
+                                                    </td>
+
+                                                    <td>
+                                                        
+                                                            <?php if ($payment['tr']['pay_mode'] == 'card'): ?>
                                                                 <ul>
                                                                     <li>Pay Mode : <?php echo $single['tr']['pay_mode']; ?></li> 
                                                                     <li>Status : <?php echo $single['tr']['status']; ?></li>
-                                                                    <?php if ($single['tr']['status'] == 'error'): ?>
+                                                                    <?php if ($payment['tr']['status'] == 'error'): ?>
                                                                         <ul>
-                                                                            <li>Error Message : <?php echo $single['tr']['error_msg']; ?></li> 
+                                                                            <li>Error Message : <?php echo $payment['tr']['error_msg']; ?></li> 
                                                                         </ul>
                                                                     <?php endif;
                                                                     ?>
-                                                                    <li>Transaction No : <?php echo $single['tr']['trx_id']; ?></li> 
-                                                                    <li>Card No : <?php echo substr($single['tr']['card_no'], 0, 4); ?></li>  
-                                                                    <li>Zip Code : <?php echo $single['tr']['zip_code']; ?></li>  
-                                                                    <li>CVV Code : <?php echo $single['tr']['cvv_code']; ?></li> 
-                                                                    <li>Expire Date : <?php echo $single['tr']['exp_date']; ?></li>
+                                                                    <li>Transaction No : <?php echo $payment['tr']['trx_id']; ?></li> 
+                                                                    <li>Card No : <?php echo substr($payment['tr']['card_no'], 0, 4); ?></li>  
+                                                                    <li>Zip Code : <?php echo $payment['tr']['zip_code']; ?></li>  
+                                                                    <li>CVV Code : <?php echo $payment['tr']['cvv_code']; ?></li> 
+                                                                    <li>Expire Date : <?php echo $payment['tr']['exp_date']; ?></li>
 
                                                                 </ul>
-                                                            <?php elseif ($single['tr']['pay_mode'] == 'cash'): ?>
-                                                    <li>Pay Mode : <?php echo $single['tr']['pay_mode']; ?></li> 
-                                                    Cash By : <?php echo $single['tr']['cash_by']; ?>
+                                                            <?php elseif ($payment['tr']['pay_mode'] == 'cash'): ?>
+                                                    <li>Pay Mode : <?php echo $payment['tr']['pay_mode']; ?></li> 
+                                                    Cash By : <?php echo $payment['tr']['cash_by']; ?>
 
-                                                <?php elseif ($single['tr']['pay_mode'] == 'refund'): ?>
-                                                    <ul><li>Pay Mode : <?php echo $single['tr']['pay_mode']; ?></li>
-                                                        <ul> <li>Amount : <?php echo $single['tr']['paid_amount']; ?></li>
-                                                            <li>Refund Date : <?php echo $single['tr']['created']; ?></li>
+                                                <?php elseif ($payment['tr']['pay_mode'] == 'refund'): ?>
+                                                    <ul><li>Pay Mode : <?php echo $payment['tr']['pay_mode']; ?></li>
+                                                        <ul> <li>Amount : <?php echo $payment['tr']['paid_amount']; ?></li>
+                                                            <li>Refund Date : <?php echo $payment['tr']['created']; ?></li>
                                                         </ul>
                                                     </ul>
 
                                                 <?php else: ?>
-                                                    <li>Pay Mode : <?php echo $single['tr']['pay_mode']; ?></li> 
-                                                    <?php if (!empty($single['tr']['check_image'])): ?>
-                                                        <img src="<?php echo $this->webroot . 'check_images' . '/' . $single['tr']['check_image']; ?>"  width="50px" height="50px" />
+                                                    <li>Pay Mode : <?php echo $payment['tr']['pay_mode']; ?></li> 
+                                                    <?php if (!empty($payment['tr']['check_image'])): ?>
+                                                        <img src="<?php echo $this->webroot . 'check_images' . '/' . $payment['tr']['check_image']; ?>"  width="50px" height="50px" />
                                                     <?php endif; ?>
                                                 <?php endif; ?> 
-                                            <?php } ?>
-                                            Payment Date: <?php echo $single['tr']['created']; ?>
+                                           
+                                            Payment Date: <?php echo $payment['tr']['created']; ?>
                                             </td>
-                                            <td><?php echo $amount; ?></td>
-                                            <td><?php echo $balance[$i]; ?></td>
-                                            </tr>
+                                                  
 
+                                                <td>
+                                                    <?php
+                                                    echo $amount;
+                                                    ?>
+                                                </td>
+                                                <td><?php echo end($balance); ?></td>
+                                                </tr>
 
-
+                                            <?php endforeach; ?>
                                             <?php
                                         endforeach;
+                                       // pr($balance);
                                         $due = end($balance);
                                         echo '<span class="due-amount-2 hide">' . $due . '</span>';
                                         ?>
@@ -2263,8 +2294,7 @@
                                     </table>
                                 </div>
                                 <?php
-                            }
-                            else {
+                            } else {
                                 ?>
                                 <h2> No transaction found for this customer!</h2>
                             <?php }
@@ -2328,7 +2358,7 @@
                                                                     </th>
                                                                     <tr>
                                                                         <td style="padding-left: 5px; min-height: 115px; line-height: 15px;">
-                                                                            <?php // if (!empty($single['0']['name'])):   ?>
+                                                                            <?php // if (!empty($single['0']['name'])):       ?>
                                                                             <?php echo $single['pc']['first_name'] . ' ' . $single['pc']['middle_name'] . ' ' . $single['pc']['last_name']; ?>
 
 
@@ -2442,7 +2472,7 @@
                                                                         <b style=" color: #000;">TOTAL Amount Due</b>
                                                                     </div>
                                                                     <div class="col-xs-6" style="text-align: right;">
-                                                                        $<?php // echo $single['ps']['amount'];                   ?>.00 USD      
+                                                                        $<?php // echo $single['ps']['amount'];                                      ?>.00 USD      
                                                                     </div>
                                                                     <hr style="border-color: #990000 !important; ">
                                                                 </div>
