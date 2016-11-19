@@ -327,6 +327,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $this->loadModel('Transaction');
         $invoices = $this->getOpenInvoice($pcid);
         $statements = $this->getStatements();
+      //  pr($statements); exit;
         $this->set(compact('invoices', 'statements', 'packageList', 'psettings', 'ym', 'custom_package_charge'));
     }
 

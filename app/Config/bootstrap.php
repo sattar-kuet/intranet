@@ -379,7 +379,18 @@ function sendEmail($from, $name, $to, $subject, $body) {
         $ptr = ClassRegistry::init('Transaction');
         $sql = 'SELECT SUM(payable_amount) as paid FROM transactions WHERE transaction_id =' . $id;
         $data = $ptr->query($sql);
+      //  return $data;
         $paid = $data[0][0]['paid'];
+        return  $paid;
+    }
+ function getFullPayment($id = null) {
+        $ptr = ClassRegistry::init('Transaction');
+        $sql = 'SELECT payable_amount as paid FROM transactions WHERE id =' . $id;
+       // echo $sql; exit;
+        $data = $ptr->query($sql);
+        //return $data;
+       // pr($data); exit;
+        $paid = $data[0]['transactions']['paid'];
         return  $paid;
     }
 

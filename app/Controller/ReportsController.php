@@ -540,7 +540,7 @@ class ReportsController extends AppController {
     function getTotalReconnection() {
         $this->loadModel('PackageCustomer');
         $today = date("Y-m-d");
-        $reconnection = $this->PackageCustomer->query("SELECT count(status) as reconnection FROM package_customers WHERE date = '$today' and status = 'request to reconnection'");
+        $reconnection = $this->PackageCustomer->query("SELECT count(status) as reconnection FROM package_customers WHERE date = '$today' and status = 'reconnection'");
         return $reconnection[0][0]['reconnection'];
     }
    
