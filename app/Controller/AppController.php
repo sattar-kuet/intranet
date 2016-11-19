@@ -202,7 +202,6 @@ class AppController extends Controller {
     }
 
     function sendEmail($emailInfo = array()) {
-        // pr($emailInfo); exit;
         $from = $emailInfo['from']; //'info@jegeachi.com';
         $subject = $emailInfo['subject']; // "Reseller Registration";
         $title = $emailInfo['title'];

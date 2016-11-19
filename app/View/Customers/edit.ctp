@@ -1383,7 +1383,7 @@
                                     <tbody>
                                         <?php
                                         foreach ($invoices as $info):
-                                           // pr($info);
+                                            // pr($info);
                                             $customer_address = $info['package_customers']['house_no'] . ' ' . $info['package_customers']['street'] . ' ' .
                                                     $info['package_customers']['apartment'] . ' ' . $info['package_customers']['city'] . ' ' . $info['package_customers']['state'] . ' '
                                                     . $info['package_customers']['zip'];
@@ -1440,24 +1440,30 @@
 
                 <!-------------------------->
                 <section class="modal4invoice">
-                    <?php foreach ($invoices as $single): ?>
+
+                    <?php foreach ($invoices as $single):
+                        ?>
 
                         <div id="invoice-pop-up<?php echo $info['transactions']['id']; ?>" style="display: none; width: 800px;">
 
                             <div class="product-page product-pop-up" style="margin-left: 0px !important;">
                                 <div class="page-content-wrapper">
                                     <div class="page-content_invo">     
-                                        <div>
+                                        <div>  <a href="<?php
+                                                       echo Router::url(array('controller' => 'customers', 'action' => 'send', $single['transactions']['id'])
+                                                       )
+                                                       ?>">Send mail</a>
                                             <div class="page-bar">
+
+
                                                 <ul class="page-breadcrumb">
                                                     <li>   </li>
                                                     <li>   </li>
                                                     <li>   </li>
                                                 </ul>
                                                 <script></script>
-
+                                                
                                             </div>
-
                                             <div  class="printableArea">   
                                                 <?php
                                                 $pcaddress = $single['package_customers'];
@@ -1484,6 +1490,7 @@
                                                     </div>
                                                 </div>                  
                                                 <hr style="display: block; border-style: inset; border-color:  darkmagenta;">
+
                                                 <div class="row invoice-logo">
                                                     <div class="row" style="margin-top: 0;">                          
                                                         <div class="col-xs-7">                              
@@ -1506,10 +1513,11 @@
                                                                 </tr>
                                                             </table>                               
                                                         </div>                            
-                                                        <div class="col-xs-5 invoice-payment">                             
+                                                        <div class="col-xs-5 invoice-payment">       
+
                                                             <ul class="list-unstyled" style=" text-align: right; color: #000; margin-right: 17px;">
                                                                 <li>
-                                                                    <h1 style=" color: #000 !important;">Invoice #<?php echo getInvoiceNumbe($single['transactions']['invoice']); ?></h1>
+                                                                    <h1 style=" color: #000 !important;">Invoice #<?php echo getInvoiceNumbe($single['transactions']['id']); ?></h1>
                                                                 </li>
                                                                 <li style="color: #555;">
                                                                     <b style=" color: #000;">Date of Invoice: </b><?php echo date('Y-m-d'); ?>
@@ -1561,7 +1569,7 @@
                                                             <tbody>                                   
                                                                 <tr style="height: 101px;">
                                                                     <td  style=" padding: 39px; text-align: center; font-size: 19px; font-weight: bold; color: #000 !important; width: 101px;">
-                                                                        <?php echo getInvoiceNumbe($single['transactions']['invoice']); ?>
+                                                                        <?php echo getInvoiceNumbe($single['transactions']['id']); ?>
                                                                     </td>
                                                                     <td style=" color: #333 !important; padding: 43px 0px 0px 19px ;">
                                                                         <b style="color: #333 !important;"><?php echo $single['psettings']['name']; ?></b><br>    
@@ -2199,7 +2207,7 @@
                                                     <td> 
                                                         <a href="#invoice-pop-up<?php echo $single['tr']['id']; ?>" class="btn btn-default fancybox-fast-view"> <?php echo empty($single['tr']['invoice']) ? $single['tr']['id'] : $single['tr']['invoice']; ?></a><br>
 
-                                                                                                                                        <!--<a  target="_blank" title="Add to pdf" href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'invoice_wise_report', $single['tr']['invoice'])) ?>" class="btn btn-default fancybox-fast-view"> <?php echo $single['tr']['invoice']; ?></a><br>-->
+                                                                                                                                                <!--<a  target="_blank" title="Add to pdf" href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'invoice_wise_report', $single['tr']['invoice'])) ?>" class="btn btn-default fancybox-fast-view"> <?php echo $single['tr']['invoice']; ?></a><br>-->
 
                                                         STB Quantity:  <?php echo $single['pc']['stbs']; ?><br>
                                                         Price:  <?php echo $single['tr']['price']; ?>  
@@ -2343,7 +2351,7 @@
                                                             <div class="col-xs-5 invoice-payment">                             
                                                                 <ul class="list-unstyled" style=" text-align: right; color: #000; margin-right: 17px;">
                                                                     <li>
-                                                                        <h1 style=" color: #000 !important;">Invoice #<?php echo getInvoiceNumbe($single['tr']['invoice']); ?></h1>
+                                                                        <h1 style=" color: #000 !important;">Invoice #<?php echo getInvoiceNumbe($single['tr']['id']); ?></h1>
                                                                     </li>
                                                                     <li style="color: #555;">
                                                                         <b style=" color: #000;">Date of Invoice: </b><?php echo date('Y-m-d'); ?>
@@ -2442,7 +2450,7 @@
                                                                         <b style=" color: #000;">TOTAL Amount Due</b>
                                                                     </div>
                                                                     <div class="col-xs-6" style="text-align: right;">
-                                                                        $<?php // echo $single['ps']['amount'];                   ?>.00 USD      
+                                                                        $<?php // echo $single['ps']['amount'];                    ?>.00 USD      
                                                                     </div>
                                                                     <hr style="border-color: #990000 !important; ">
                                                                 </div>

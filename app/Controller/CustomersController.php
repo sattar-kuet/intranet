@@ -3,6 +3,10 @@
 /**
  * 
  */
+
+App::uses('CakeEmail', 'Network/Email');
+App::uses('HttpSocket', 'Network/Http');
+
 require_once(APP . 'Vendor' . DS . 'class.upload.php');
 App::import('Controller', 'Payments');
 App::import('Controller', 'Reports');
@@ -318,6 +322,45 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
 //        pr($invoices[0]['paid_transactions']['amount']); exit;
 
         $this->set(compact('invoices', 'statements', 'packageList', 'psettings', 'ym', 'custom_package_charge'));
+    }
+
+    function send($param = null) {
+        $this->loadModel('PackageCustomer');
+        $this->loadModel('Transaction');
+//        $this->loadModel('Setting');
+        
+        $sql = "SELECT * FROM transactions 
+                left join package_customers on transactions.package_customer_id = package_customers.id
+                left join psettings on package_customers.psetting_id = psettings.id
+                left join packages on psettings.package_id = packages.id
+                left join custom_packages on package_customers.custom_package_id = custom_packages.id
+                WHERE  transactions.id = $param";
+                $invoices = $this->Transaction->query($sql);
+                pr($invoices); exit;
+        
+//        
+//        $emails = $this->Setting->find('first', array(
+//            'conditions' => array('field' => 'email')
+//        ));
+
+        $from = 'si.totaltvs@gmail.com';
+        $subject = "Invoice of Transaction";
+        $cus_name = $invoices[0]['package_customers']['middle_name'];
+        $email_custom = $invoices[0]['package_customers']['email'];
+        $to = array('farukmscse@gmail.com','sattar.kuet@gmail.com');
+        
+        $phone_num = $invoices[0]['transactions']['phone'];
+        $description = $invoices[0]['package_customers']['comments'];
+        $mail_content = __('Name:', 'beopen') . $cus_name . PHP_EOL .
+                __('Email:', 'beopen') . $email_custom . PHP_EOL .
+                __('Phone Number:', 'beopen') . $phone_num . PHP_EOL .
+                __('Message:', 'beopen') . $description . PHP_EOL;
+        //sendEmail($from,$name,$to,$subject,$body)
+        sendInvoice($from, $cus_name, $to, $subject, $mail_content);
+        // End send mail
+//        $this->set(compact('invoices'));
+          return $this->redirect(array('controller' => 'customers', 'action' => 'edit', $invoices[0]['package_customers']['id']));
+        
     }
 
     function registration() {
@@ -797,15 +840,13 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             'package_customer_id' => $id,
             'status' => 'open',
             'invoice' => $pc_data['PackageCustomer']['invoice_no'],
-            'next_payment' => $pc_data['Transaction']['exp_date'],
+            'next_payment' => $pc_data['PackageCustomer']['exp_date'],
             'payable_amount' => $this->request->data['Transaction']['payable_amount']
         );
 
         $this->generateInvoice($data);
         return $this->redirect($this->referer());
     }
-
-   
 
     function ready($id = null) {
         $this->loadModel('PackageCustomer');

@@ -264,7 +264,7 @@ class ReportsController extends AppController {
             $this->PackageCustomer->saveField('invoice_no', $six_digit_random_number);
             $this->PackageCustomer->saveField('invoice_created', 1); // set it as 0 when next payment date will be updated  
         }
-        $packagecustomers = $this->PackageCustomer->query("SELECT pc.id, CONCAT( first_name,' ', middle_name,' ', last_name ) AS name, pc.psetting_id, pc.mac,pc.house_no,
+        $packagecustomers = $this->PackageCustomer->query("SELECT tr.id,pc.id, CONCAT( first_name,' ', middle_name,' ', last_name ) AS name, pc.psetting_id, pc.mac,pc.house_no,
             pc.street,pc.apartment,pc.city,pc.state,pc.zip,pc.exp_date,tr.invoice,ps.name, ps.amount, ps.duration,p.name
             FROM package_customers pc
             left join psettings ps on ps.id = pc.psetting_id
