@@ -543,14 +543,14 @@ class ReportsController extends AppController {
         $reconnection = $this->PackageCustomer->query("SELECT count(status) as reconnection FROM package_customers WHERE date = '$today' and status = 'reconnection'");
         return $reconnection[0][0]['reconnection'];
     }
-   
+
     function getTotalFullServiceCancel() {
         $this->loadModel('PackageCustomer');
         $today = date("Y-m-d");
         $servicecancel = $this->PackageCustomer->query("SELECT count(status) as servicecancel FROM package_customers WHERE date = '$today' and status = 'full service cancel'");
         return $servicecancel[0][0]['servicecancel'];
     }
-   
+
     function getTotalCancelDueBill() {
         $this->loadModel('PackageCustomer');
         $today = date("Y-m-d");
@@ -579,31 +579,65 @@ class ReportsController extends AppController {
         $data = $this->PackageCustomer->query("SELECT count(status) as installation FROM package_customers WHERE date = '$today'  and status = 'installation'");
         return $data[0][0]['installation'];
     }
-    
-//    total inbound call accounts
-    
-    function totalICA(){ 
-        $this->loadModel('Tracks');
-//        $data = 
-        
+
+    function getTotalCallBySatatus($status = null) {
+        $this->loadModel('Track');
+        $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as total FROM tracks " .
+                "LEFT JOIN issues ON tracks.issue_id = issues.id " .
+                " WHERE LOWER(issues.name) = '$status' ";
+        $data = $this->Track->query($sql);
+        return $data[0][0]['total'];
     }
-                function salesSupportdp() {
+
+    function accountCall() {
+         $this->loadModel('Issue');
+        $this->loadModel('Track');
+        $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as total FROM tracks 
+                LEFT JOIN issues ON tracks.issue_id = issues.id 
+                WHERE issues.name = 'Billing Problem' or issues.name = 'Calling Card' 
+                or issues.name = 'Card Info Taken' or issues.name = 'Declined Card Outbound'
+                or issues.name = 'Due Bill Out Bound' 
+                or issues.name = 'Wants to pay' or issues.name = 'Referral Issue'
+                or issues.name = 'Security Deposit Issue' or issues.name = 'Security Deposit Issue'
+                or issues.name = 'Security Deposit Issue' or issues.name = 'Promotional package'  
+                or issues.name = 'Box Expired'";        
+//         echo $sql;
+//        exit;        
+        $data = $this->Track->query($sql);      
+        return $data[0][0]['total'];     
+       }
+       
+       
+       function supportCall(){
+        $this->loadModel('Issue');
+        $this->loadModel('Track');
+        $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as total FROM tracks ";       
+        $data = $this->Track->query($sql);        
+        $totalIBCS = ($data[0][0]['total']-$this->accountCall('total'));
+        return $totalIBCS; 
+       }
+
+    function salesSupportdp() {
         $total = array();
 //        $total['call'] = $this->getTotalCall();
 //        $total['cancel'] = $this->getTotalCancel(); 
 //         $total['sales_query'] = $this->getTotalSalesQuery();
         // $total[0] = $total['done'] + $total['ready'];
-       
+
         $total['installation'] = $this->getTotalInstallation();
         $total['hold'] = $this->getTotalHold();
         $total['unhold'] = $this->getTotalUnhold();
         $total['reconnection'] = $this->getTotalReconnection();
-        
+
         $total['done'] = $this->getTotalDone();
         $total['ready'] = $this->getTotalNewordertaken();
         $total['servicecancel'] = $this->getTotalFullServiceCancel();
         $total['cancelduebill'] = $this->getTotalCancelDueBill();
-       
+        $this->getTotalCallBySatatus('check send');
+        
+        
+        $this->accountCall('total');  
+        $this->supportCall('total');        
         $this->set(compact('total'));
     }
 

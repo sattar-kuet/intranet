@@ -288,7 +288,15 @@ class AdminsController extends AppController {
     }
 
     function getCustomerByParam($param, $field) {
-        $param = str_replace(' ', '', $param);
+        $param = trim($param);
+      //  echo $field.'<br>';
+            $param = str_replace(' ', '', $param);
+        if ($field == "cell") {
+            $param = str_replace('-', '', $param);
+            $param = str_replace('(', '', $param);
+            $param = str_replace(')', '', $param);
+        }
+
         $condition = "LOWER(package_customers." . $field . ") LIKE '%" . strtolower($param) . "%'";
         $name = array('first_name', 'last_name', 'middle_name');
 
@@ -297,9 +305,16 @@ class AdminsController extends AppController {
                     "%' OR LOWER(package_customers.middle_name) LIKE '%" . strtolower($param) .
                     "%' OR LOWER(package_customers.last_name) LIKE '%" . strtolower($param) . "%'";
         }
+        if ($field == "fm_name") {
+            $partialname = strtolower($param);
+            $condition = "LOWER(CONCAT(package_customers.first_name,package_customers.middle_name)) LIKE '%" . $partialname . "%'";
+        }
+        if ($field == "ml_name") {
+            $partialname = strtolower($param);
+            $condition = "LOWER(CONCAT(package_customers.middle_name,package_customers.last_name)) LIKE '%" . $partialname . "%'";
+        }
         if ($field == "full_name") {
             $fullname = strtolower($param);
-
             $condition = "LOWER(CONCAT(package_customers.first_name,package_customers.middle_name,package_customers.last_name)) LIKE '%" . $fullname . "%'";
         }
         $sql = "SELECT * FROM package_customers "
@@ -309,7 +324,7 @@ class AdminsController extends AppController {
                 " WHERE " . $condition;
 
 
-        //     echo $sql;
+           //  echo $sql.'<br><br><br><br>'; 
         $temp = $this->PackageCustomer->query($sql);
         // pr($temp);
         $data = array();
@@ -323,10 +338,6 @@ class AdminsController extends AppController {
                 $data['packages']['charge'] = $psetting['amount'];
                 $package[] = $data['packages'];
             }
-//            else {
-//                $data['custom_packages']['name'] = 'Custom';
-//                $package[] = $data['custom_packages'];
-//            }
         }
         $data = array();
         $data['customer'] = $customer;
@@ -362,12 +373,20 @@ class AdminsController extends AppController {
                 $data = $this->getCustomerByParam($param, 'mac');
             }
             if (count($data['customer']) == 0) {
+                $data = $this->getCustomerByParam($param, 'fm_name');
+            }
+            if (count($data['customer']) == 0) {
+                $data = $this->getCustomerByParam($param, 'ml_name');
+            }
+            if (count($data['customer']) == 0) {
                 $data = $this->getCustomerByParam($param, 'full_name');
             }
+            
+            
 
             $clicked = true;
             //FIND customer DETAILS
-
+           //  exit;
             $this->set(compact('data'));
         }
         $loggedUser = $this->Auth->user();
@@ -1016,7 +1035,7 @@ class AdminsController extends AppController {
 	<strong>Succeesfully approved </strong></div>';
         $this->Session->setFlash($msg);
         $temp = $this->PackageCustomer->findById($id);
-        $payable_amount = $temp['PackageCustomer']['deposit'] + $temp['PackageCustomer']['monthly_bill'] +  $temp['PackageCustomer']['others'];
+        $payable_amount = $temp['PackageCustomer']['deposit'] + $temp['PackageCustomer']['monthly_bill'] + $temp['PackageCustomer']['others'];
         $data['Transaction'] = array(
             'package_customer_id' => $id,
             'status' => 'open',
