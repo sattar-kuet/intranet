@@ -540,7 +540,7 @@ class ReportsController extends AppController {
     function getTotalReconnection() {
         $this->loadModel('PackageCustomer');
         $today = date("Y-m-d");
-        $reconnection = $this->PackageCustomer->query("SELECT count(status) as reconnection FROM package_customers WHERE date = '$today' and status = 'request to reconnection'");
+        $reconnection = $this->PackageCustomer->query("SELECT count(status) as reconnection FROM package_customers WHERE date = '$today' and status = 'reconnection'");
         return $reconnection[0][0]['reconnection'];
     }
    
@@ -579,8 +579,15 @@ class ReportsController extends AppController {
         $data = $this->PackageCustomer->query("SELECT count(status) as installation FROM package_customers WHERE date = '$today'  and status = 'installation'");
         return $data[0][0]['installation'];
     }
-
-    function salesSupportdp() {
+    
+//    total inbound call accounts
+    
+    function totalICA(){ 
+        $this->loadModel('Tracks');
+//        $data = 
+        
+    }
+                function salesSupportdp() {
         $total = array();
 //        $total['call'] = $this->getTotalCall();
 //        $total['cancel'] = $this->getTotalCancel(); 

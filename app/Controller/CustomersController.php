@@ -233,6 +233,25 @@ left join custom_packages on package_customers.custom_package_id = custom_packag
 WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open' order by transactions.id DESC;");
     }
 
+    function getStatements() {
+        $statements = $this->Transaction->query("SELECT *
+            FROM transactions tr			
+            WHERE tr.status = 'open' OR tr.status ='close'"
+        );
+        $return = array();
+        foreach ($statements as $index => $statement) {
+            $paid = $this->Transaction->query("SELECT *
+            FROM transactions tr			
+            WHERE transaction_id = " . $statement['tr']['id']
+            );
+            $return[] = array(
+                'bill' => $statement['tr'],
+                'payment' => $paid,
+            );
+        }
+        return $return;
+    }
+
     function edit($id = null) {
         $this->loadModel('StatusHistory');
         $pcid = $id;
@@ -308,19 +327,11 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             $pckagename = $package['Package']['name'];
             $packageList[$pckagename] = $psettingList;
         }
-
         $ym = $this->getYm();
         $this->loadModel('Transaction');
         $invoices = $this->getOpenInvoice($pcid);
-        $statements = $this->Transaction->query("SELECT *
-            FROM transactions tr			
-            left join  package_customers pc  on pc.id = tr.package_customer_id
-            left join psettings ps on ps.id = pc.psetting_id
-            LEFT JOIN packages p ON p.id = ps.package_id where tr.status = 'close' "
-        );
-
-//        pr($invoices[0]['paid_transactions']['amount']); exit;
-
+        $statements = $this->getStatements();
+      //  pr($statements); exit;
         $this->set(compact('invoices', 'statements', 'packageList', 'psettings', 'ym', 'custom_package_charge'));
     }
 
@@ -336,7 +347,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
                 left join custom_packages on package_customers.custom_package_id = custom_packages.id
                 WHERE  transactions.id = $param";
                 $invoices = $this->Transaction->query($sql);
-                pr($invoices); exit;
+//                
         
 //        
 //        $emails = $this->Setting->find('first', array(
@@ -351,10 +362,8 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         
         $phone_num = $invoices[0]['transactions']['phone'];
         $description = $invoices[0]['package_customers']['comments'];
-        $mail_content = __('Name:', 'beopen') . $cus_name . PHP_EOL .
-                __('Email:', 'beopen') . $email_custom . PHP_EOL .
-                __('Phone Number:', 'beopen') . $phone_num . PHP_EOL .
-                __('Message:', 'beopen') . $description . PHP_EOL;
+        $mail_content = array($invoices[0]);
+//        pr($mail_content); exit;
         //sendEmail($from,$name,$to,$subject,$body)
         sendInvoice($from, $cus_name, $to, $subject, $mail_content);
         // End send mail
@@ -817,14 +826,13 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
 
     function update_payment($id = null) {
         $this->loadModel('PackageCustomer');
-        $invoice = $this->random_string(9);
         $this->PackageCustomer->id = $this->request->data['Transaction']['package_customer_id'];
         $data = array();
         $data['PackageCustomer'] = array(
             'exp_date' => $this->getFormatedDate($this->request->data['Transaction']['exp_date']),
             // when change package exp date then these fields will be update
             'ticket_generated' => 0,
-            'invoice_no' => $invoice,
+            'invoice_no' => 0,
             'invoice_created' => 0,
             'printed' => 0
         );
