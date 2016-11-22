@@ -590,9 +590,9 @@ class ReportsController extends AppController {
     }
 
     function accountCall() {
-         $this->loadModel('Issue');
+        $this->loadModel('Issue');
         $this->loadModel('Track');
-        $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as total FROM tracks 
+        $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as totalAccount FROM tracks 
                 LEFT JOIN issues ON tracks.issue_id = issues.id 
                 WHERE issues.name = 'Billing Problem' or issues.name = 'Calling Card' 
                 or issues.name = 'Card Info Taken' or issues.name = 'Declined Card Outbound'
@@ -603,17 +603,16 @@ class ReportsController extends AppController {
                 or issues.name = 'Box Expired'";        
 //         echo $sql;
 //        exit;        
-        $data = $this->Track->query($sql);      
-        return $data[0][0]['total'];     
-       }
-       
+        $data = $this->Track->query($sql); 
+        return $data[0][0]['totalAccount'];     
+       }       
        
        function supportCall(){
         $this->loadModel('Issue');
         $this->loadModel('Track');
-        $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as total FROM tracks ";       
-        $data = $this->Track->query($sql);        
-        $totalIBCS = ($data[0][0]['total']-$this->accountCall('total'));
+        $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as totalSupport FROM tracks ";       
+        $data = $this->Track->query($sql);          
+        $totalIBCS = ($data[0][0]['totalSupport']-$this->accountCall('totalAccount'));
         return $totalIBCS; 
        }
 
@@ -633,11 +632,11 @@ class ReportsController extends AppController {
         $total['ready'] = $this->getTotalNewordertaken();
         $total['servicecancel'] = $this->getTotalFullServiceCancel();
         $total['cancelduebill'] = $this->getTotalCancelDueBill();
-        $this->getTotalCallBySatatus('check send');
+        $this->getTotalCallBySatatus('check send');        
         
-        
-        $this->accountCall('total');  
-        $this->supportCall('total');        
+        $total['totalAccount'] =$this->accountCall();  
+        $total['totalSupport'] =$this->supportCall();  
+        pr($total); exit;
         $this->set(compact('total'));
     }
 
