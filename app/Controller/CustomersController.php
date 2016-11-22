@@ -409,8 +409,8 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             } else {
                 $this->request->data['PackageCustomer']['attachment'] = '';
             }
-
-
+            $date = date('Y-m-d');
+            $this->request->data['PackageCustomer']['date'] = $date;
             $pc = $this->PackageCustomer->save($this->request->data['PackageCustomer']);
 
             $data4statusHistory = array();

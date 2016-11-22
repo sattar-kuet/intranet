@@ -612,8 +612,11 @@ class ReportsController extends AppController {
         $this->loadModel('Issue');
         $this->loadModel('Track');
         $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as totalSupport FROM tracks ";       
-        $data = $this->Track->query($sql);          
-        $totalIBCS = ($data[0][0]['totalSupport']-$this->accountCall('totalAccount'));
+        $data = $this->Track->query($sql); 
+        
+        $today = date('Y-m-d');
+        $requested = $this->PackageCustomer->query("SELECT count(status) as requested FROM package_customers WHERE date = '$today'  and status = 'requested'");
+        $totalIBCS = ($data[0][0]['totalSupport']-$this->accountCall('totalAccount')+$requested[0][0]['requested']);               
         return $totalIBCS; 
        }
 
