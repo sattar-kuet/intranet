@@ -1,7 +1,7 @@
 
 <style>
 
-    tr, td {
+   table, tr, td {
         border: 1px solid black !important;
     }
 </style>
@@ -70,31 +70,31 @@
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    <table class="table table-striped" style="color: #000; font-weight: bolder;">
+                    <table class="table table-striped" style="color: #000; font-weight: bolder; border: 1px solid black !important;">
 
 
-                        <tr border ="1">
-                            <td style="text-align: center; background:  darkgray; "> 
+                        <tr style="border: 1px solid black !important;">
+                            <td style="text-align: center; background:  darkgray !important; "> 
                                 TODAYS INBOUND REPORT
                             </td>  
 
-                            <td style="text-align: center; background: darkgray; font-size: 17px;" colspan="4">                                        
+                            <td style="text-align: center; background: darkgray !important; font-size: 17px;" colspan="4">                                        
                                 TOTAL IN BOUND CALL DCC
                             </td>  
-                            <td style="text-align: center; background: lightgrey;"> 
+                            <td style="text-align: center; background: lightgrey !important; "> 
                                 <?php echo $total['totalSupport'] + $total['totalAccount']; ?>
                             </td>  
 
-                            <td style="text-align: center; background: lightgrey; font-size: 17px;" colspan="4">                                        
+                            <td style="text-align: center; background: lightgrey !important; font-size: 17px;" colspan="4">                                        
                                 TOTAL CHECK AND ONLINE PAYMENT
                             </td>  
 
-                            <td style="text-align: center;  background: darkgray;"> 
+                            <td style="text-align: center;  background: darkgray !important;"> 
                                 <?php echo $total['check_send']; ?>
                             </td>  
                         </tr>
 
-                        <tr>
+                        <tr style="border: 1px solid black !important;">
                             <td style="text-align: center;" rowspan="2"> 
                                 TOTAL IN BOUND CALL SUPPORT 
                             </td>  
@@ -106,7 +106,7 @@
                                 SALES DONE
                             </td>  
 
-                            <td style="text-align: center; background: darkgray;">                                        
+                            <td style="text-align: center; background: darkgray !important;">                                        
                                 <?php echo $total['done'] ?>
                             </td>  
 
@@ -129,7 +129,7 @@
                                 INBOUND WHOLE SERVICE CANCEL
                             </td>  
 
-                            <td style="text-align: center; background: darkgrey;">                                        
+                            <td style="text-align: center; background: darkgrey !important;">                                        
                                 <?php echo $total['cancel'] ?>
                             </td>  
                             <td style="text-align: center;"> 
@@ -137,7 +137,7 @@
                             </td>  
 
                         </tr>   
-                        <tr>
+                        <tr style="border: 1px solid black !important;">
                             <td style="text-align: center;">                                        
                                 RECONNECT
                             </td>  
@@ -171,12 +171,12 @@
                                 <?php echo $total['cancel_from_hold'] ?>
                             </td> 
                         </tr>   
-                        <tr style=" background: silver;">
+                        <tr style=" background: silver !important;">
                             <td style="text-align: center;" colspan="11">                                        
-                                
+
                             </td> 
                         </tr>   
-                        <tr>
+                        <tr style="border: 1px solid black !important;">
                             <td style="text-align: center;">                                        
                                 TOTAL IN BOUND CALL ACCOUNTS
                             </td>  
@@ -215,8 +215,7 @@
                             <td style="text-align: center;"> 
 
                             </td> 
-                        </tr>   
-
+                        </tr> 
 
                     </table>
                 </div>
