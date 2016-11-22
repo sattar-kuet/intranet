@@ -1,4 +1,11 @@
 
+<style>
+
+    tr, td {
+        border: 1px solid black !important;
+    }
+</style>
+
 <div class="page-content-wrapper">
     <div class="page-content">
         <!-- BEGIN PAGE HEADER-->
@@ -63,116 +70,149 @@
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    <table class="table table-striped table-hover">
-                        <thead>
-                            <tr>
-<!--                                <th style="text-align: center;">
-                                    Total Call
-                                </th>
-                                <th class="hidden-480" style="text-align: center;">
-                                    New Order Taken
-                                </th>
-                                <th class="hidden-480" style="text-align: center;">
-                                    Sales Done
-                                </th>
-                                <th style="text-align: center;">
-                                    Sales Query
-                                </th>-->
-                                
-                                <th class="hidden-480" style="text-align: center;">
-                                    New installation
-                                </th>
-<!--                                <th class="hidden-480" style="text-align: center;">
-                                    Additional installation
-                                </th>
-                                <th class="hidden-480" style="text-align: center;">
-                                    Total box installed
-                                </th>-->
-                                 <th class="hidden-480" style="text-align: center;">
-                                    Hold
-                                </th>
-                                <th class="hidden-480" style="text-align: center;">
-                                    Unhold
-                                </th>
-                                  <th class="hidden-480" style="text-align: center;">
-                                    Reconnect
-                                </th>
-                                <th class="hidden-480" style="text-align: center;">
-                                    Full service cancel
-                                </th>
-                                <th class="hidden-480" style="text-align: center;">
-                                    Cancel from due bill
-                                </th>
-                               
-                              
+                    <table class="table table-striped">
+
+                        
+                            <tr border ="1">
+                                <td style="text-align: center;"> 
+                                    TODAYS INBOUND REPORT
+                                </td>  
+
+                                <td style="text-align: center;" colspan="4">                                        
+                                    TOTAL IN BOUND CALL DCC
+                                </td>  
+                                <td style="text-align: center;"> 
+                                    17
+                                </td>  
+
+                                <td style="text-align: center;" colspan="4">                                        
+                                    TOTAL CARD INFO TAKEN
+                                </td>  
+
+                                <td style="text-align: center;"> 
+                                    1
+                                </td>  
                             </tr>
-                        </thead>
-                        <tbody>                           
+
                             <tr>
-<!--                                <td style="text-align: center;">  
-                                    <?php if (!empty($total['0'])) : ?> 
-                                        <?php echo $total['0']; ?> 
-                                    <?php endif; ?>
+                                <td style="text-align: center;" rowspan="2"> 
+                                    TOTAL IN BOUND CALL SUPPORT 
                                 </td>  
-                                <td style="text-align: center;">   
-                                    <?php if (!empty($total['ready'])): ?>
-                                        <?php echo $total['ready']; ?> 
-                                    <?php endif; ?>
+
+                                <td style="text-align: center;" rowspan="2">                                        
+                                   <?php echo $total['totalSupport'];?>
                                 </td>  
-                                <td style="text-align: center;">   
-                                    <?php if (!empty($total['done'])): ?>
-                                        <?php echo $total['done']; ?> 
-                                    <?php endif; ?>
-                                </td>  
-                                <td style="text-align: center;">      
-                                    <?php if (!empty($total['sales_query'])) : ?>
-                                        <?php echo $total['sales_query']; ?> 
-                                    <?php endif; ?>
-                                </td>  -->
                                 <td style="text-align: center;"> 
-                                    <?php if (!empty($total['installation'])): ?>
-                                        <?php echo $total['installation']; ?> 
-                                    <?php endif; ?>
+                                    SALES DONE
                                 </td>  
-<!--                                <td style="text-align: center;"> 
-                                    <?php if (!empty($total['hold'])) : ?>
-                                        <?php echo $total['hold']; ?> 
-                                    <?php endif; ?>
-                                </td> 
-                                <td style="text-align: center;">                
-                                    <?php if (!empty($total['unhold'])): ?>
-                                        <?php echo $total['unhold']; ?> 
-                                    <?php endif; ?>
-                                </td>  -->
-                                <td style="text-align: center;"> 
-                                    <?php if (!empty($total['hold'])) : ?>
-                                        <?php echo $total['hold']; ?> 
-                                    <?php endif; ?>
-                                </td> 
-                                <td style="text-align: center;">                
-                                    <?php if (!empty($total['unhold'])): ?>
-                                        <?php echo $total['unhold']; ?> 
-                                    <?php endif; ?>
-                                </td>                                 
-                                                              
-                                 <td style="text-align: center;"> 
-                                    <?php if (!empty($total['reconnection'])) : ?>
-                                        <?php echo $total['reconnection']; ?> 
-                                    <?php endif; ?>
-                                </td> 
-                                <td style="text-align: center;">                
-                                    <?php if (!empty($total['servicecancel'])) : ?>
-                                        <?php echo $total['servicecancel']; ?> 
-                                    <?php endif; ?>
-                                </td> 
+
                                 <td style="text-align: center;">                                        
-                                  <?php if (!empty($total['cancelduebill'])): ?>
-                                        <?php echo $total['cancelduebill']; ?> 
-                                    <?php endif; ?>
+                                    0
+                                </td>  
+
+                                <td style="text-align: center;"> 
+                                    SALES QUERY
+                                </td>  
+
+                                <td style="text-align: center;">                                        
+                                    1
+                                </td>  
+                                <td style="text-align: center;"> 
+                                    OUT OF SERVICE/INTER UPTION IN OUR END
+                                </td>  
+
+                                <td style="text-align: center;">                                        
+                                    0
+                                </td>
+
+                                <td style="text-align: center;"> 
+                                    INBOUND WHOLE SERVICE CANCEL
+                                </td>  
+
+                                <td style="text-align: center;">                                        
+                                    0
+                                </td>  
+                                <td style="text-align: center;"> 
+                                    CANCEL FROM HOLD
+                                </td>  
+
+                            </tr>   
+                            <tr>
+                                <td style="text-align: center;">                                        
+                                    RECONNECT
+                                </td>  
+
+                                <td style="text-align: center;"> 
+                                    0
+                                </td>  
+
+                                <td style="text-align: center;">                                        
+                                    VOD
+                                </td>  
+                                <td style="text-align: center;"> 
+                                    0
+                                </td>  
+
+                                <td style="text-align: center;">                                        
+                                    ADDITIONAL SALES RECEIVE
+                                </td>
+
+                                <td style="text-align: center;"> 
+                                    0   
+                                </td>  
+
+                                <td style="text-align: center;">                                        
+                                    CANCEL FROM DEALER & AGENT
+                                </td>  
+                                <td style="text-align: center;"> 
+                                    0
+                                </td>  
+                                <td style="text-align: center;"> 
+                                    0
                                 </td> 
-                                 
-                            </tr>                                                 
-                        </tbody>
+                            </tr>   
+                            <tr>
+                                <td style="text-align: center;">                                        
+                                    TOTAL IN BOUND CALL ACCOUNTS
+                                </td>  
+
+                                <td style="text-align: center;"> 
+                                   <?php echo $total['totalAccount']?>
+                                </td>  
+
+                                <td style="text-align: center;">                                        
+                                    CARD INFO TAKEN
+                                </td>  
+                                <td style="text-align: center;">                                        
+                                    1
+                                </td>  
+                                <td style="text-align: center;"> 
+                                    CHECK SEND
+                                </td>  
+
+                                <td style="text-align: center;">                                        
+                                    0
+                                </td>
+
+                                <td style="text-align: center;"> 
+                                    MONEY ORDER ONLINE PAYMENT    
+                                </td>  
+
+                                <td style="text-align: center;">                                        
+                                    0
+                                </td>  
+                                <td style="text-align: center;"> 
+                                    SERVICE UNHOLD
+                                </td>  
+                                <td style="text-align: center;"> 
+                                    0
+                                </td> 
+                                <td style="text-align: center;"> 
+
+                                </td> 
+                            </tr>   
+
+                       
                     </table>
                 </div>
             </div>

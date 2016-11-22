@@ -649,7 +649,7 @@ class ReportsController extends AppController {
         
         $total['totalAccount'] =$this->accountCall();  
         $total['totalSupport'] =$this->supportCall();  
-
+//        pr($total); exit;
         $this->set(compact('total'));
     }
 
