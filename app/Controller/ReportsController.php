@@ -601,8 +601,8 @@ class ReportsController extends AppController {
                 or issues.name = 'Security Deposit Issue' or issues.name = 'Security Deposit Issue'
                 or issues.name = 'Security Deposit Issue' or issues.name = 'Promotional package'  
                 or issues.name = 'Box Expired'";        
-//         echo $sql;
-//        exit;        
+         echo $sql;
+        exit;        
         $data = $this->Track->query($sql); 
         return $data[0][0]['totalAccount'];     
        }       
