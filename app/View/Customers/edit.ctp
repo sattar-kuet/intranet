@@ -2086,25 +2086,20 @@
                                 <h2> No transaction found for this customer!</h2>
                             <?php }
                             ?>
-
                         </div>
                     </div>
-
-
                     <section class="modal4invoice">
                         <?php
                         foreach ($statements as $single):
                             $bill = $single['bill'];
                             $payments = $single['payment'];
-                            
-                            
-                        
-                            ?>
-
+                         ?>
                             <div id="invoice-pop-up<?php echo $bill['id']; ?>" style="display: none; width: 800px;">
-
                                 <div class="product-page product-pop-up" style="margin-left: 0px !important;">
-                                    <div class="page-content-wrapper">
+                                    <div class="page-content-wrapper"> <a href="<?php
+                                                       echo Router::url(array('controller' => 'customers', 'action' => 'send', $bill['id'])
+                                                       )
+                                                       ?>">Send mail</a>
                                         <div class="page-content_invo">     
                                             <div>
                                                 <div class="page-bar">
@@ -2114,9 +2109,7 @@
                                                         <li>   </li>
                                                     </ul>
                                                     <script></script>
-
                                                 </div>
-
                                                 <div  class="printableArea">   
                                                     <?php
                                                     $customer_address_one = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
@@ -2313,8 +2306,10 @@ $payment = $single['tr'];
 
                                 <div class="product-page product-pop-up" style="margin-left: 0px !important;">
                                     <div class="page-content-wrapper">
+                                        
                                         <div class="page-content_invo">     
-                                            <div>
+                                            <div>    
+                                               
                                                 <div class="page-bar">
                                                     <ul class="page-breadcrumb">
                                                         <li>   </li>

@@ -290,7 +290,7 @@ function getInvoiceNumbe($number) {
     $format = 6;
     $traling_zero = $format - $digits;
     for ($i = 0; $i < $traling_zero; $i++) {
-        $number = '0' . $number;
+        $number = '' . $number;
     }
     return $number;
 }
@@ -349,6 +349,41 @@ function sendEmail($from, $name, $to, $subject, $body) {
         'hash' => $subject);
     // $Email->config('custom')
     $Email->template('contactForm')
+            ->emailFormat('html')
+            ->from(array($from => $name))
+            ->attachments(array(
+                array(
+                    'file' => ROOT . '/app/webroot/media/logo-corp-red.png',
+                    'mimetype' => 'image/png',
+                    'contentId' => '12345'
+                ),
+                array(
+                    'file' => ROOT . '/app/webroot/media/facebook.png',
+                    'mimetype' => 'image/png',
+                    'contentId' => '123456'
+                ),
+                array(
+                    'file' => ROOT . '/app/webroot/media/twitter.png',
+                    'mimetype' => 'image/png',
+                    'contentId' => '1234567'
+                ),
+            ))
+            ->viewVars($email_data)
+            ->to($tests)
+            ->subject($subject);
+
+    $Email->send($body);
+}
+function sendInvoice($from, $name, $to, $subject, $body) {
+    $tests = array();
+    foreach ($to as $user) {
+        $tests[] = $user;
+    }
+    $Email = new CakeEmail();
+    $email_data = array(
+        'hash' => $subject);
+    // $Email->config('custom')
+    $Email->template('invoice')
             ->emailFormat('html')
             ->from(array($from => $name))
             ->attachments(array(

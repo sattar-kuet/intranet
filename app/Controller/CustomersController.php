@@ -3,6 +3,10 @@
 /**
  * 
  */
+
+App::uses('CakeEmail', 'Network/Email');
+App::uses('HttpSocket', 'Network/Http');
+
 require_once(APP . 'Vendor' . DS . 'class.upload.php');
 App::import('Controller', 'Payments');
 App::import('Controller', 'Reports');
@@ -329,6 +333,43 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $statements = $this->getStatements();
       //  pr($statements); exit;
         $this->set(compact('invoices', 'statements', 'packageList', 'psettings', 'ym', 'custom_package_charge'));
+    }
+
+    function send($param = null) {
+        $this->loadModel('PackageCustomer');
+        $this->loadModel('Transaction');
+//        $this->loadModel('Setting');
+        
+        $sql = "SELECT * FROM transactions 
+                left join package_customers on transactions.package_customer_id = package_customers.id
+                left join psettings on package_customers.psetting_id = psettings.id
+                left join packages on psettings.package_id = packages.id
+                left join custom_packages on package_customers.custom_package_id = custom_packages.id
+                WHERE  transactions.id = $param";
+                $invoices = $this->Transaction->query($sql);
+//                
+        
+//        
+//        $emails = $this->Setting->find('first', array(
+//            'conditions' => array('field' => 'email')
+//        ));
+
+        $from = 'si.totaltvs@gmail.com';
+        $subject = "Invoice of Transaction";
+        $cus_name = $invoices[0]['package_customers']['middle_name'];
+        $email_custom = $invoices[0]['package_customers']['email'];
+        $to = array('farukmscse@gmail.com','sattar.kuet@gmail.com');
+        
+        $phone_num = $invoices[0]['transactions']['phone'];
+        $description = $invoices[0]['package_customers']['comments'];
+        $mail_content = array($invoices[0]);
+//        pr($mail_content); exit;
+        //sendEmail($from,$name,$to,$subject,$body)
+        sendInvoice($from, $cus_name, $to, $subject, $mail_content);
+        // End send mail
+//        $this->set(compact('invoices'));
+          return $this->redirect(array('controller' => 'customers', 'action' => 'edit', $invoices[0]['package_customers']['id']));
+        
     }
 
     function registration() {

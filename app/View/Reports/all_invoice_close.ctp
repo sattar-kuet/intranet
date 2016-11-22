@@ -53,7 +53,7 @@
                             <ul class="list-unstyled" style="text-align: left; padding: 45px 0px 0px 13px;">                                    
                                 <li style="color: #555; border-left: #990000 7px  solid;">
                                     <?php
-                                    pr($transactions); exit;
+//                                    pr($transactions); exit;
                                     foreach ($transactions as $single):
                                         $pcaddress = $single['pc'];
 
@@ -127,7 +127,7 @@
                                     ?>
                                     <tr style="height: 101px;">
                                         <td  style=" padding: 39px; text-align: center; background-color:#990000 !important; font-size: 19px; font-weight: bold; color: white !important; width: 101px;">
-                                            <?php echo getInvoiceNumbe($single['tr']['id']); ?>
+                                            <?php echo $single['tr']['id']; ?>
                                         </td>
                                         <td style="background-color:whitesmoke !important; color: #333 !important; padding: 43px 0px 0px 19px ;">
                                             <b style="color: #333 !important;"><?php echo $single['ps']['name']; ?></b><br>    

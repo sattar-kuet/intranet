@@ -137,7 +137,7 @@
                                 <tbody>                                   
                                     <tr style="height: 101px;">
                                         <td  style=" padding: 39px; text-align: center; font-size: 19px; font-weight: bold; color: #000 !important; width: 101px;">
-                                            <?php echo getInvoiceNumbe($single['tr']['invoice']); ?>
+                                            <?php echo getInvoiceNumbe($single['tr']['id']); ?>
                                         </td>
                                         <td style=" color: #333 !important; padding: 43px 0px 0px 19px ;">
                                             <b style="color: #333 !important;"><?php echo $single['ps']['name']; ?></b><br>    

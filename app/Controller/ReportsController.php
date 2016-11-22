@@ -264,7 +264,7 @@ class ReportsController extends AppController {
             $this->PackageCustomer->saveField('invoice_no', $six_digit_random_number);
             $this->PackageCustomer->saveField('invoice_created', 1); // set it as 0 when next payment date will be updated  
         }
-        $packagecustomers = $this->PackageCustomer->query("SELECT pc.id, CONCAT( first_name,' ', middle_name,' ', last_name ) AS name, pc.psetting_id, pc.mac,pc.house_no,
+        $packagecustomers = $this->PackageCustomer->query("SELECT tr.id,pc.id, CONCAT( first_name,' ', middle_name,' ', last_name ) AS name, pc.psetting_id, pc.mac,pc.house_no,
             pc.street,pc.apartment,pc.city,pc.state,pc.zip,pc.exp_date,tr.invoice,ps.name, ps.amount, ps.duration,p.name
             FROM package_customers pc
             left join psettings ps on ps.id = pc.psetting_id
@@ -583,15 +583,41 @@ class ReportsController extends AppController {
 
     function getTotalCallBySatatus($status = null) {
         $this->loadModel('Track');
-        $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as total FROM tracks ".
-            "LEFT JOIN issues ON tracks.issue_id = issues.id ".
-            " WHERE LOWER(issues.name) = '$status' ";
+        $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as total FROM tracks " .
+                "LEFT JOIN issues ON tracks.issue_id = issues.id " .
+                " WHERE LOWER(issues.name) = '$status' ";
         $data = $this->Track->query($sql);
         return $data[0][0]['total'];
-        
     }
 
-   
+    function accountCall() {
+        $this->loadModel('Issue');
+        $this->loadModel('Track');
+        $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as totalAccount FROM tracks 
+                LEFT JOIN issues ON tracks.issue_id = issues.id 
+                WHERE issues.name = 'Billing Problem' or issues.name = 'Calling Card' 
+                or issues.name = 'Card Info Taken' or issues.name = 'Declined Card Outbound'
+                or issues.name = 'Due Bill Out Bound' 
+                or issues.name = 'Wants to pay' or issues.name = 'Referral Issue'
+                or issues.name = 'Security Deposit Issue' or issues.name = 'Security Deposit Issue'
+                or issues.name = 'Security Deposit Issue' or issues.name = 'Promotional package'  
+                or issues.name = 'Box Expired'";        
+//         echo $sql;
+//        exit;        
+        $data = $this->Track->query($sql); 
+        return $data[0][0]['totalAccount'];     
+       }       
+       
+       function supportCall(){
+        $this->loadModel('Issue');
+        $this->loadModel('Track');
+        $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as totalSupport FROM tracks ";       
+        $data = $this->Track->query($sql);          
+        $totalIBCS = ($data[0][0]['totalSupport']-$this->accountCall('totalAccount'));
+        return $totalIBCS; 
+       }
+
+
     function salesSupportdp() {
         $total = array();
 //        $total['call'] = $this->getTotalCall();
@@ -608,13 +634,20 @@ class ReportsController extends AppController {
         $total['ready'] = $this->getTotalNewordertaken();
         $total['servicecancel'] = $this->getTotalFullServiceCancel();
         $total['cancelduebill'] = $this->getTotalCancelDueBill();
+
         $total['check_send'] = $this->getTotalCallBySatatus('check send');
         $total['vod'] = $this->getTotalCallBySatatus('vod');
         $total['interruption'] = $this->getTotalCallBySatatus('service interruption');
         $total['cancel'] = $this->getTotalCallBySatatus('service cancel');
         $total['cancel_from_da'] = $this->getTotalCallBySatatus('cancel from dealer & agent');
         $total['card_info_taken'] = $this->getTotalCallBySatatus('card info taken');
+
+        $this->getTotalCallBySatatus('check send');        
         
+        $total['totalAccount'] =$this->accountCall();  
+        $total['totalSupport'] =$this->supportCall();  
+        pr($total); exit;
+
         $this->set(compact('total'));
         pr($total);  exit;
     }
