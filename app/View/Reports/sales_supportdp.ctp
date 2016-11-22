@@ -70,149 +70,154 @@
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    <table class="table table-striped">
+                    <table class="table table-striped" style="color: #000; font-weight: bolder;">
 
-                        
-                            <tr border ="1">
-                                <td style="text-align: center;"> 
-                                    TODAYS INBOUND REPORT
-                                </td>  
 
-                                <td style="text-align: center;" colspan="4">                                        
-                                    TOTAL IN BOUND CALL DCC
-                                </td>  
-                                <td style="text-align: center;"> 
-                                    17
-                                </td>  
+                        <tr border ="1">
+                            <td style="text-align: center; background:  darkgray; "> 
+                                TODAYS INBOUND REPORT
+                            </td>  
 
-                                <td style="text-align: center;" colspan="4">                                        
-                                    TOTAL CARD INFO TAKEN
-                                </td>  
+                            <td style="text-align: center; background: darkgray; font-size: 17px;" colspan="4">                                        
+                                TOTAL IN BOUND CALL DCC
+                            </td>  
+                            <td style="text-align: center; background: lightgrey;"> 
+                                <?php echo $total['totalSupport'] + $total['totalAccount']; ?>
+                            </td>  
 
-                                <td style="text-align: center;"> 
-                                    1
-                                </td>  
-                            </tr>
+                            <td style="text-align: center; background: lightgrey; font-size: 17px;" colspan="4">                                        
+                                TOTAL CHECK AND ONLINE PAYMENT
+                            </td>  
 
-                            <tr>
-                                <td style="text-align: center;" rowspan="2"> 
-                                    TOTAL IN BOUND CALL SUPPORT 
-                                </td>  
+                            <td style="text-align: center;  background: darkgray;"> 
+                                <?php echo $total['check_send']; ?>
+                            </td>  
+                        </tr>
 
-                                <td style="text-align: center;" rowspan="2">                                        
-                                   <?php echo $total['totalSupport'];?>
-                                </td>  
-                                <td style="text-align: center;"> 
-                                    SALES DONE
-                                </td>  
+                        <tr>
+                            <td style="text-align: center;" rowspan="2"> 
+                                TOTAL IN BOUND CALL SUPPORT 
+                            </td>  
 
-                                <td style="text-align: center;">                                        
-                                    0
-                                </td>  
+                            <td style="text-align: center;" rowspan="2">                                        
+                                <?php echo $total['totalSupport']; ?>
+                            </td>  
+                            <td style="text-align: center;"> 
+                                SALES DONE
+                            </td>  
 
-                                <td style="text-align: center;"> 
-                                    SALES QUERY
-                                </td>  
+                            <td style="text-align: center; background: darkgray;">                                        
+                                <?php echo $total['done'] ?>
+                            </td>  
 
-                                <td style="text-align: center;">                                        
-                                    1
-                                </td>  
-                                <td style="text-align: center;"> 
-                                    OUT OF SERVICE/INTER UPTION IN OUR END
-                                </td>  
+                            <td style="text-align: center;"> 
+                                SALES QUERY
+                            </td>  
 
-                                <td style="text-align: center;">                                        
-                                    0
-                                </td>
+                            <td style="text-align: center;">                                        
+                                <?php echo $total['sales_query'] ?>
+                            </td>  
+                            <td style="text-align: center;"> 
+                                OUT OF SERVICE/INTER UPTION IN OUR END
+                            </td>  
 
-                                <td style="text-align: center;"> 
-                                    INBOUND WHOLE SERVICE CANCEL
-                                </td>  
+                            <td style="text-align: center;">                                        
+                                <?php echo $total['interruption'] ?>
+                            </td>
 
-                                <td style="text-align: center;">                                        
-                                    0
-                                </td>  
-                                <td style="text-align: center;"> 
-                                    CANCEL FROM HOLD
-                                </td>  
+                            <td style="text-align: center;"> 
+                                INBOUND WHOLE SERVICE CANCEL
+                            </td>  
 
-                            </tr>   
-                            <tr>
-                                <td style="text-align: center;">                                        
-                                    RECONNECT
-                                </td>  
+                            <td style="text-align: center; background: darkgrey;">                                        
+                                <?php echo $total['cancel'] ?>
+                            </td>  
+                            <td style="text-align: center;"> 
+                                CANCEL FROM HOLD
+                            </td>  
 
-                                <td style="text-align: center;"> 
-                                    0
-                                </td>  
+                        </tr>   
+                        <tr>
+                            <td style="text-align: center;">                                        
+                                RECONNECT
+                            </td>  
 
-                                <td style="text-align: center;">                                        
-                                    VOD
-                                </td>  
-                                <td style="text-align: center;"> 
-                                    0
-                                </td>  
+                            <td style="text-align: center;"> 
+                                <?php echo $total['reconnection'] ?>
+                            </td>  
 
-                                <td style="text-align: center;">                                        
-                                    ADDITIONAL SALES RECEIVE
-                                </td>
+                            <td style="text-align: center;">                                        
+                                VOD
+                            </td>  
+                            <td style="text-align: center;"> 
+                                <?php echo $total['vod'] ?>
+                            </td>  
 
-                                <td style="text-align: center;"> 
-                                    0   
-                                </td>  
+                            <td style="text-align: center;">                                        
+                                ADDITIONAL SALES RECEIVE
+                            </td>
 
-                                <td style="text-align: center;">                                        
-                                    CANCEL FROM DEALER & AGENT
-                                </td>  
-                                <td style="text-align: center;"> 
-                                    0
-                                </td>  
-                                <td style="text-align: center;"> 
-                                    0
-                                </td> 
-                            </tr>   
-                            <tr>
-                                <td style="text-align: center;">                                        
-                                    TOTAL IN BOUND CALL ACCOUNTS
-                                </td>  
+                            <td style="text-align: center;"> 
+                                0   
+                            </td>  
 
-                                <td style="text-align: center;"> 
-                                   <?php echo $total['totalAccount']?>
-                                </td>  
+                            <td style="text-align: center;">                                        
+                                CANCEL FROM DEALER & AGENT
+                            </td>  
+                            <td style="text-align: center;"> 
+                                <?php echo $total['cancel_from_da'] ?>
+                            </td>  
+                            <td style="text-align: center;"> 
+                                <?php echo $total['cancel_from_hold'] ?>
+                            </td> 
+                        </tr>   
+                        <tr style=" background: silver;">
+                            <td style="text-align: center;" colspan="11">                                        
+                                
+                            </td> 
+                        </tr>   
+                        <tr>
+                            <td style="text-align: center;">                                        
+                                TOTAL IN BOUND CALL ACCOUNTS
+                            </td>  
 
-                                <td style="text-align: center;">                                        
-                                    CARD INFO TAKEN
-                                </td>  
-                                <td style="text-align: center;">                                        
-                                    1
-                                </td>  
-                                <td style="text-align: center;"> 
-                                    CHECK SEND
-                                </td>  
+                            <td style="text-align: center;"> 
+                                <?php echo $total['totalAccount'] ?>
+                            </td>  
 
-                                <td style="text-align: center;">                                        
-                                    0
-                                </td>
+                            <td style="text-align: center;">                                        
+                                CARD INFO TAKEN
+                            </td>  
+                            <td style="text-align: center;">                                        
+                                <?php echo $total['card_info_taken'] ?>
+                            </td>  
+                            <td style="text-align: center;"> 
+                                CHECK SEND
+                            </td>  
 
-                                <td style="text-align: center;"> 
-                                    MONEY ORDER ONLINE PAYMENT    
-                                </td>  
+                            <td style="text-align: center;">                                        
+                                <?php echo $total['check_send'] ?>
+                            </td>
 
-                                <td style="text-align: center;">                                        
-                                    0
-                                </td>  
-                                <td style="text-align: center;"> 
-                                    SERVICE UNHOLD
-                                </td>  
-                                <td style="text-align: center;"> 
-                                    0
-                                </td> 
-                                <td style="text-align: center;"> 
+                            <td style="text-align: center;"> 
+                                MONEY ORDER ONLINE PAYMENT    
+                            </td>  
 
-                                </td> 
-                            </tr>   
+                            <td style="text-align: center;">                                        
+                                0
+                            </td>  
+                            <td style="text-align: center;"> 
+                                SERVICE UNHOLD
+                            </td>  
+                            <td style="text-align: center;"> 
+                                <?php echo $total['unhold'] ?>
+                            </td> 
+                            <td style="text-align: center;"> 
 
-                       
+                            </td> 
+                        </tr>   
+
+
                     </table>
                 </div>
             </div>

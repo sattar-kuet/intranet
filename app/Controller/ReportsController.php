@@ -596,6 +596,7 @@ class ReportsController extends AppController {
          $today = date('Y-m-d');
         $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as totalAccount FROM tracks 
                 LEFT JOIN issues ON tracks.issue_id = issues.id 
+                LEFT JOIN tickets ON tracks.ticket_id = tickets.id 
                 WHERE issues.name = 'Billing Problem'
                 or issues.name = 'Calling Card' 
                 or issues.name = 'Card Info Taken' 
@@ -608,7 +609,7 @@ class ReportsController extends AppController {
                 or issues.name = 'Security Deposit Issue'
                 or issues.name = 'Promotional package'  
                 or issues.name = 'Box Expired' 
-                AND date = '$today'";        
+                AND tickets.created = '$today'";        
 //         echo $sql;
 //        exit;        
         $data = $this->Track->query($sql); 
@@ -619,7 +620,10 @@ class ReportsController extends AppController {
         $this->loadModel('Issue');
         $this->loadModel('Track');
         $today = date('Y-m-d');
-        $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as totalSupport FROM tracks WHERE date = '$today'";       
+        $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as totalSupport FROM tracks        
+        LEFT JOIN tickets ON tracks.ticket_id = tickets.id 
+        WHERE tickets.created = '$today'";
+        
         $data = $this->Track->query($sql); 
         $requested = $this->PackageCustomer->query("SELECT count(status) as requested FROM package_customers WHERE date = '$today'  and status = 'requested'");
         $totalIBCS = ($data[0][0]['totalSupport']-$this->accountCall('totalAccount')+$requested[0][0]['requested']);               
