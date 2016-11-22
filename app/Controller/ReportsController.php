@@ -504,7 +504,8 @@ class ReportsController extends AppController {
 
     function getTotalSalesQuery() {
         $this->loadModel('PackageCustomer');
-        $request = $this->PackageCustomer->query("SELECT count(status) as request FROM package_customers WHERE modified >= CURRENT_DATE() and status = 'requested'");
+        $today = date('Y-m-d');
+        $request = $this->PackageCustomer->query("SELECT count(id) as request FROM package_customers WHERE created = '$today' AND status = 'requested' AND follow_up = 1 ");
 
         return $request[0][0]['request'];
     }
@@ -616,11 +617,12 @@ class ReportsController extends AppController {
         return $totalIBCS; 
        }
 
+
     function salesSupportdp() {
         $total = array();
 //        $total['call'] = $this->getTotalCall();
 //        $total['cancel'] = $this->getTotalCancel(); 
-//         $total['sales_query'] = $this->getTotalSalesQuery();
+          $total['sales_query'] = $this->getTotalSalesQuery();
         // $total[0] = $total['done'] + $total['ready'];
 
         $total['installation'] = $this->getTotalInstallation();
@@ -632,11 +634,19 @@ class ReportsController extends AppController {
         $total['ready'] = $this->getTotalNewordertaken();
         $total['servicecancel'] = $this->getTotalFullServiceCancel();
         $total['cancelduebill'] = $this->getTotalCancelDueBill();
+
+        $total['check_send'] = $this->getTotalCallBySatatus('check send');
+        $total['vod'] = $this->getTotalCallBySatatus('vod');
+        $total['interruption'] = $this->getTotalCallBySatatus('service interruption');
+        $total['cancel'] = $this->getTotalCallBySatatus('service cancel');
+        $total['cancel_from_da'] = $this->getTotalCallBySatatus('cancel from dealer & agent');
+        $total['card_info_taken'] = $this->getTotalCallBySatatus('card info taken');
+
         $this->getTotalCallBySatatus('check send');        
         
         $total['totalAccount'] =$this->accountCall();  
         $total['totalSupport'] =$this->supportCall();  
-//        pr($total); exit;
+
         $this->set(compact('total'));
     }
 
