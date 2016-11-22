@@ -593,15 +593,22 @@ class ReportsController extends AppController {
     function accountCall() {
         $this->loadModel('Issue');
         $this->loadModel('Track');
+         $today = date('Y-m-d');
         $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as totalAccount FROM tracks 
                 LEFT JOIN issues ON tracks.issue_id = issues.id 
-                WHERE issues.name = 'Billing Problem' or issues.name = 'Calling Card' 
-                or issues.name = 'Card Info Taken' or issues.name = 'Declined Card Outbound'
+                WHERE issues.name = 'Billing Problem'
+                or issues.name = 'Calling Card' 
+                or issues.name = 'Card Info Taken' 
+                or issues.name = 'Declined Card Outbound'
                 or issues.name = 'Due Bill Out Bound' 
-                or issues.name = 'Wants to pay' or issues.name = 'Referral Issue'
-                or issues.name = 'Security Deposit Issue' or issues.name = 'Security Deposit Issue'
-                or issues.name = 'Security Deposit Issue' or issues.name = 'Promotional package'  
-                or issues.name = 'Box Expired'";        
+                or issues.name = 'Wants to pay' 
+                or issues.name = 'Referral Issue'
+                or issues.name = 'Security Deposit Issue'
+                or issues.name = 'Security Deposit Issue'
+                or issues.name = 'Security Deposit Issue'
+                or issues.name = 'Promotional package'  
+                or issues.name = 'Box Expired' 
+                AND date = '$today'";        
 //         echo $sql;
 //        exit;        
         $data = $this->Track->query($sql); 
@@ -611,10 +618,9 @@ class ReportsController extends AppController {
        function supportCall(){
         $this->loadModel('Issue');
         $this->loadModel('Track');
-        $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as totalSupport FROM tracks ";       
-        $data = $this->Track->query($sql); 
-        
         $today = date('Y-m-d');
+        $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as totalSupport FROM tracks WHERE date = '$today'";       
+        $data = $this->Track->query($sql); 
         $requested = $this->PackageCustomer->query("SELECT count(status) as requested FROM package_customers WHERE date = '$today'  and status = 'requested'");
         $totalIBCS = ($data[0][0]['totalSupport']-$this->accountCall('totalAccount')+$requested[0][0]['requested']);               
         return $totalIBCS; 
@@ -643,10 +649,10 @@ class ReportsController extends AppController {
         $total['interruption'] = $this->getTotalCallBySatatus('service interruption');
         $total['cancel'] = $this->getTotalCallBySatatus('service cancel');
         $total['cancel_from_da'] = $this->getTotalCallBySatatus('cancel from dealer & agent');
+        $total['cancel_from_hold'] = $this->getTotalCallBySatatus('cancel from hold');
         $total['card_info_taken'] = $this->getTotalCallBySatatus('card info taken');
-
+        $total['additional_box'] = $this->getTotalCallBySatatus('additional box installation');
         $this->getTotalCallBySatatus('check send');        
-        
         $total['totalAccount'] =$this->accountCall();  
         $total['totalSupport'] =$this->supportCall();  
 //        pr($total); exit;
