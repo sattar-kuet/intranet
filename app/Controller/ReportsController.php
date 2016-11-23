@@ -534,7 +534,7 @@ class ReportsController extends AppController {
     function getTotalDone() {
         $this->loadModel('PackageCustomer');
         $date = date("Y-m-d");
-        $done = $this->PackageCustomer->query("SELECT count(status) as done FROM package_customers WHERE modified >= $date and status = 'done'");
+        $done = $this->PackageCustomer->query("SELECT count(status) as done FROM package_customers WHERE CAST(modified as DATE) = '$date' and (status = 'done' OR (status = 'requested' AND follow_up = 0))");
         return $done[0][0]['done'];
     }
 
