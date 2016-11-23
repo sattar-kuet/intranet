@@ -622,8 +622,10 @@ class ReportsController extends AppController {
         $today = date('Y-m-d');
         $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as totalSupport FROM tracks        
         LEFT JOIN tickets ON tracks.ticket_id = tickets.id 
-        WHERE tickets.created = '$today'";
+         WHERE CAST( tickets.created AS DATE ) = '$today'";
+       
         
+//        echo $sql; exit;
         $data = $this->Track->query($sql); 
         $requested = $this->PackageCustomer->query("SELECT count(status) as requested FROM package_customers WHERE date = '$today'  and status = 'requested'");
         $totalIBCS = ($data[0][0]['totalSupport']-$this->accountCall('totalAccount')+$requested[0][0]['requested']);               

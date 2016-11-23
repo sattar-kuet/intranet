@@ -1,7 +1,7 @@
 
 <style>
 
-   table, tr, td {
+    table, tr, td {
         border: 1px solid black !important;
     }
 </style>
@@ -32,25 +32,27 @@
                 <div class="col-xs-12 invoice-logo-space">
                     <!--<img src="../../assets/admin/pages/media/invoice/walmart.png" class="img-responsive" alt="">-->
                     <div class="row">
-                        <div class="col-xs-6">
-                            <h3 class="page-title">
-                                Sales and Support Department Report<small></small>
-                            </h3>
+                        <div class="col-xs-12" style="text-align: center;">
+                             <h3 class="page-title">
+                                 Daily Report </h3>
+                                <!--<small><?php echo date("Y/m/d h:i:sa"); ?></small>-->
+                                <small><?php echo date("d-m-y "); ?></small>
+                            
                         </div>
                         <div class="col-xs-4">
                         </div>
-                        <div class="col-xs-2 invoice-payment">
-                            <div style="text-align: left;">
-                                <div>   Total Cable USA</div>
-                                <div>P.O. BOX 770068,</div>
-                                <div>WOODSIDE,</div>
-                                <div>NY 11377</div>
-                                <div>
-                                    <div style="left: 103.238px; top: 144.543px; font-size: 25px; font-family: sans-serif;">☎<small style="font-size: 12px;">&nbsp 1-212-444-8138</small></div>
-
-                                </div>
-                            </div>
-                        </div>
+                        <!--                        <div class="col-xs-2 invoice-payment">
+                                                    <div style="text-align: left;">
+                                                        <div>   Total Cable USA</div>
+                                                        <div>P.O. BOX 770068,</div>
+                                                        <div>WOODSIDE,</div>
+                                                        <div>NY 11377</div>
+                                                        <div>
+                                                            <div style="left: 103.238px; top: 144.543px; font-size: 25px; font-family: sans-serif;">☎<small style="font-size: 12px;">&nbsp 1-212-444-8138</small></div>
+                        
+                                                        </div>
+                                                    </div>
+                                                </div>-->
                     </div>
                 </div>
                 <div class="col-xs-6">
@@ -70,6 +72,7 @@
             </div>
             <div class="row">
                 <div class="col-xs-12">
+
                     <table class="table table-striped" style="color: #000; font-weight: bolder; border: 1px solid black !important;">
 
 
