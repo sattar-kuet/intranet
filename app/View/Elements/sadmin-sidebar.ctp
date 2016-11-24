@@ -111,6 +111,22 @@
                     <span class="arrow "></span>
                 </a>
             </li>
+            <li 
+            <?php
+            $transactionId = array('searchbyinvoice');
+            if (in_array($this->name . '' . $this->action, $transactionId)):
+                ?>
+                    class="active"
+                    <?php
+                endif;
+                ?>
+                >                 
+                <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'searchbyinvoice')) ?>">
+                    <i class="fa fa-support"></i>
+                    <span class="title">Search By Invoice</span>
+                    <span class="arrow "></span>
+                </a>
+            </li>
 
 
             <!--            <li 
