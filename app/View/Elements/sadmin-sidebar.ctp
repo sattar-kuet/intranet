@@ -133,7 +133,7 @@
 
             <li 
             <?php
-            $tickets = array('Ticketscreate', 'Ticketsmanage', 'Ticketsassigned_to_me', 'TicketsForwarded_by', 'Ticketssolved_ticket', 'Ticketsin_progress');
+            $tickets = array('Ticketsfilter_ticket', 'Ticketscreate', 'Ticketsmanage', 'Ticketsassigned_to_me', 'TicketsForwarded_by', 'Ticketssolved_ticket', 'Ticketsin_progress');
             if (in_array($this->name . '' . $this->action, $tickets)):
                 ?>
                     class="active"
@@ -220,6 +220,18 @@
                         <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'solved_ticket')) ?>">
                             <i class="fa glyphicon glyphicon-check"></i>
                             Solved Ticket</a>
+                    </li>
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Ticketsfilter_ticket'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'filter_ticket')) ?>">
+                            <i class="fa glyphicon glyphicon-check"></i>
+                            Filter Tickets</a>
                     </li>
                 </ul>
             <li 

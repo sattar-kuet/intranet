@@ -971,7 +971,7 @@
                 <div class="portlet box red-soft">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-user"></i>Status Update 
+                            <i class="fa fa-user"></i>Customer Status Update 
                         </div> 
                         <div class="tools">
                             <a  class="reload toggle" data-id="status_update"></a>

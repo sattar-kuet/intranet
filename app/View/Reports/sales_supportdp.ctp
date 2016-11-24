@@ -93,7 +93,7 @@
                             </td>  
 
                             <td style="text-align: center;  background: darkgray !important;"> 
-                                <?php echo $total['check_send']; ?>
+                           <?php echo $total['check_send']+$total['online_payment'] ?> 
                             </td>  
                         </tr>
 
@@ -102,8 +102,10 @@
                                 TOTAL IN BOUND CALL SUPPORT 
                             </td>  
 
-                            <td style="text-align: center;" rowspan="2">                                        
+                            <td style="text-align: center;" rowspan="2">  
+                               
                                 <?php echo $total['totalSupport']; ?>
+                                                               
                             </td>  
                             <td style="text-align: center;"> 
                                 SALES DONE
@@ -121,7 +123,7 @@
                                 <?php echo $total['sales_query'] ?>
                             </td>  
                             <td style="text-align: center;"> 
-                                OUT OF SERVICE/INTER UPTION IN OUR END
+                                SERVICE / INTERRUPTION RELATED CALL
                             </td>  
 
                             <td style="text-align: center;">                                        
@@ -161,7 +163,7 @@
                             </td>
 
                             <td style="text-align: center;"> 
-                                0   
+                               <?php echo $total['additional_box'] ?> 
                             </td>  
 
                             <td style="text-align: center;">                                        
@@ -207,7 +209,7 @@
                             </td>  
 
                             <td style="text-align: center;">                                        
-                                0
+                               <?php echo $total['online_payment']?>
                             </td>  
                             <td style="text-align: center;"> 
                                 SERVICE UNHOLD

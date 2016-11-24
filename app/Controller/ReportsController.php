@@ -486,6 +486,7 @@ class ReportsController extends AppController {
                 }
                 $filteredTicket;
             }
+//            pr($filteredTicket); exit;
             $clicked = true;
             $this->set(compact('filteredTicket'));
         }
@@ -498,14 +499,15 @@ class ReportsController extends AppController {
 
     function getTotalCall() {
         $this->loadModel('Ticket');
-        $call = $this->Ticket->query("SELECT count(id) as total_call FROM tickets WHERE modified >= CURRENT_DATE()");
+        $date = date("Y-m-d");
+        $call = $this->Ticket->query("SELECT count(id) as total_call FROM tickets WHERE CAST(modified as DATE) = '$date'");
         return $call[0][0]['total_call'];
     }
 
     function getTotalSalesQuery() {
         $this->loadModel('PackageCustomer');
         $today = date('Y-m-d');
-        $request = $this->PackageCustomer->query("SELECT count(id) as request FROM package_customers WHERE created = '$today' AND status = 'requested' AND follow_up = 1 ");
+        $request = $this->PackageCustomer->query("SELECT count(id) as request FROM package_customers WHERE CAST(created as DATE) = '$today' AND status = 'requested' AND follow_up = 1 ");
 
         return $request[0][0]['request'];
     }
@@ -527,7 +529,8 @@ class ReportsController extends AppController {
 
     function getTotalCancel() {
         $this->loadModel('PackageCustomer');
-        $cancel = $this->PackageCustomer->query("SELECT count(status) as cancel FROM package_customers WHERE modified >= CURRENT_DATE() and status = 'canceled'");
+        $date = date("Y-m-d");
+        $cancel = $this->PackageCustomer->query("SELECT count(status) as cancel FROM package_customers WHERE CAST(modified as DATE) = '$date' and status = 'canceled'");
         return $cancel[0][0]['cancel'];
     }
 
@@ -593,51 +596,52 @@ class ReportsController extends AppController {
     function accountCall() {
         $this->loadModel('Issue');
         $this->loadModel('Track');
-         $today = date('Y-m-d');
-        $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as totalAccount FROM tracks 
-                LEFT JOIN issues ON tracks.issue_id = issues.id 
-                LEFT JOIN tickets ON tracks.ticket_id = tickets.id 
-                WHERE issues.name = 'Billing Problem'
-                or issues.name = 'Calling Card' 
-                or issues.name = 'Card Info Taken' 
-                or issues.name = 'Declined Card Outbound'
-                or issues.name = 'Due Bill Out Bound' 
-                or issues.name = 'Wants to pay' 
-                or issues.name = 'Referral Issue'
-                or issues.name = 'Security Deposit Issue'
-                or issues.name = 'Security Deposit Issue'
-                or issues.name = 'Security Deposit Issue'
-                or issues.name = 'Promotional package'  
-                or issues.name = 'Box Expired' 
-                AND tickets.created = '$today'";        
+        $today = date('Y-m-d');
+        $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as totalAccount FROM tracks "
+                . "LEFT JOIN issues ON tracks.issue_id = issues.id "
+                . "LEFT JOIN tickets ON tracks.ticket_id = tickets.id "
+                . "WHERE (issues.name = 'Billing Problem' "
+                . "or issues.name = 'Calling Card' "
+                . "or issues.name = 'Card Info Taken' "
+                . "or issues.name = 'Declined Card Outbound' "
+                . "or issues.name = 'Due Bill Out Bound' "
+                . "or issues.name = 'Wants to pay' "
+                . "or issues.name = 'Referral Issue' "
+                . "or issues.name = 'Security Deposit Issue' "
+                . "or issues.name = 'Promotional package' "
+                . "or issues.name = 'Box Expired' "
+                . "or issues.name = 'MONEY ORDER ONLINE PAYMENT') "
+                . "AND CAST(tickets.created as date) = '$today'";
 //         echo $sql;
 //        exit;        
-        $data = $this->Track->query($sql); 
-        return $data[0][0]['totalAccount'];     
-       }       
-       
-       function supportCall(){
+        $data = $this->Track->query($sql);
+//        pr($data); exit;
+        return $data[0][0]['totalAccount'];
+    }
+
+    function supportCall() {
         $this->loadModel('Issue');
         $this->loadModel('Track');
         $today = date('Y-m-d');
+        
         $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as totalSupport FROM tracks        
         LEFT JOIN tickets ON tracks.ticket_id = tickets.id 
-         WHERE CAST( tickets.created AS DATE ) = '$today'";
-       
-        
-//        echo $sql; exit;
-        $data = $this->Track->query($sql); 
-        $requested = $this->PackageCustomer->query("SELECT count(status) as requested FROM package_customers WHERE date = '$today'  and status = 'requested'");
-        $totalIBCS = ($data[0][0]['totalSupport']-$this->accountCall('totalAccount')+$requested[0][0]['requested']);               
-        return $totalIBCS; 
-       }
+         WHERE CAST(tickets.created AS DATE ) = '$today'";
 
+        $data = $this->Track->query($sql);
+       
+        $requested = $this->PackageCustomer->query("SELECT count(status) as requested FROM package_customers WHERE date = '$today'  and status = 'requested'");
+         
+        $totalIBCS = (($data[0][0]['totalSupport'] - $this->accountCall('totalAccount')) + ($requested[0][0]['requested']));//total in bound call DCC
+       
+        return $totalIBCS;
+    }
 
     function salesSupportdp() {
         $total = array();
 //        $total['call'] = $this->getTotalCall();
 //        $total['cancel'] = $this->getTotalCancel(); 
-          $total['sales_query'] = $this->getTotalSalesQuery();
+        $total['sales_query'] = $this->getTotalSalesQuery();
         // $total[0] = $total['done'] + $total['ready'];
 
         $total['installation'] = $this->getTotalInstallation();
@@ -658,9 +662,10 @@ class ReportsController extends AppController {
         $total['cancel_from_hold'] = $this->getTotalCallBySatatus('cancel from hold');
         $total['card_info_taken'] = $this->getTotalCallBySatatus('card info taken');
         $total['additional_box'] = $this->getTotalCallBySatatus('additional box installation');
-        $this->getTotalCallBySatatus('check send');        
-        $total['totalAccount'] =$this->accountCall();  
-        $total['totalSupport'] =$this->supportCall();  
+        $total['online_payment'] = $this->getTotalCallBySatatus('MONEY ORDER ONLINE PAYMENT');
+        $this->getTotalCallBySatatus('check send');
+        $total['totalAccount'] = $this->accountCall();
+        $total['totalSupport'] = $this->supportCall();
 //        pr($total); exit;
         $this->set(compact('total'));
     }
@@ -747,7 +752,6 @@ class ReportsController extends AppController {
     function confiramTechPayment($id = null) {
         $this->loadModel('PackageCustomer');
         $this->PackageCustomer->id = $id;
-//        pr($this->request->data); exit;
         $this->PackageCustomer->saveField("tech_payment", "1");
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
