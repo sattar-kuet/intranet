@@ -613,7 +613,7 @@
                     <div class="portlet-body" id="next_payment">  
                         <?php echo $this->Session->flash() ?>
                         <?php
-                        echo $this->Form->create('Transaction', array(
+                        echo $this->Form->create('NextTransaction', array(
                             'inputDefaults' => array(
                                 'label' => false,
                                 'div' => false

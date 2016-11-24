@@ -1,5 +1,4 @@
 <?php
-
 require_once(APP . 'Vendor' . DS . 'authorize' . DS . 'autoload.php');
 require_once(APP . 'Vendor' . DS . 'class.upload.php');
 
@@ -87,6 +86,7 @@ class PaymentsController extends AppController {
 
     public function process($trans_id = null, $customer_id = null) {
         $this->request->data['Transaction'] = $this->getLastCardInfo($trans_id, $customer_id);
+
         $ym = $this->getYm();
         $this->set(compact('ym'));
         $this->loadModel('PackageCustomer');
@@ -108,16 +108,18 @@ class PaymentsController extends AppController {
 
         //$this->request->data = $customer_info;
         $this->set('customer_info');
-    }
-
-    public function individual_transaction_by_card() {
+        }
+        
+        public function individual_transaction_by_card($cid = null) {
+        //  pr($this->request->data); exit;
         // PROCESS PAYMENT
         // Common setup for API credentials  
+        $loggedUser = $this->Auth->user();
         $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
-        $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
-        //  $merchantAuthentication->setName("7zKH4b45"); //42UHbr9Qa9B live mode
-        $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
-        //   $merchantAuthentication->setTransactionKey("738QpWvHH4vS59vY"); // live mode 7UBSq68ncs65p8QX
+        //$merchantAuthentication->setName("95x9PuD6b2"); // testing mode
+        $merchantAuthentication->setName("7zKH4b45"); //42UHbr9Qa9B live mode
+        // $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
+        $merchantAuthentication->setTransactionKey("738QpWvHH4vS59vY"); // live mode 7UBSq68ncs65p8QX
         $refId = 'ref' . time();
 // Create the payment data for a credit card
         $creditCard = new AnetAPI\CreditCardType();
@@ -125,6 +127,8 @@ class PaymentsController extends AppController {
         $card = $this->request->data['Transaction'];
         $creditCard->setCardNumber($card['card_no']);
         $exp_date = $card['exp_date']['month'] . '-' . $card['exp_date']['year'];
+        $this->request->data['Transaction']['exp_date'] = $exp_date;
+        // pr($this->request->data); exit;
         // echo $exp_date; exit;
         $creditCard->setExpirationDate($exp_date);
         //    $creditCard->setCardNumber("4117733943147221"); // live
@@ -146,13 +150,6 @@ class PaymentsController extends AppController {
         $billto->setphoneNumber($card['phone']);
         $billto->setfaxNumber($card['fax']);
 
-        ////////// ########################## //////////////
-        // Create a Customer Profile Request
-        //  1. create a Payment Profile
-        //  2. create a Customer Profile   
-        //  3. Submit a CreateCustomerProfile Request
-        //  4. Validate Profiiel ID returned
-
         $paymentprofile = new AnetAPI\CustomerPaymentProfileType();
 
         $paymentprofile->setCustomerType('individual');
@@ -160,15 +157,6 @@ class PaymentsController extends AppController {
         $customerProfile = new AnetAPI\CreateCustomerPaymentProfileRequest();
         $customerProfile->setPaymentProfile($paymentprofile);
 
-        ////////// ########################## //////////////
-//        $customerProfile = new AnetAPI\CreateCustomerPaymentProfileRequest();
-//        pr($customerProfile); exit;
-//    
-        //$customerProfile->cardNumber($pc['card_no']);
-//        $customerProfile->billToFirstName($pc['fname']);
-//        $customerProfile->billToLastName($pc['lname']);
-//        $customerProfile->zip($pc['zip_code']);
-        // Create a transaction
         $transactionRequestType = new AnetAPI\TransactionRequestType();
         $transactionRequestType->setTransactionType("authCaptureTransaction");
         $transactionRequestType->setAmount($card['payable_amount']); // to do set amount from form
@@ -178,64 +166,62 @@ class PaymentsController extends AppController {
         $request->setRefId($refId);
         $request->setTransactionRequest($transactionRequestType);
         $controller = new AnetController\CreateTransactionController($request);
-        $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
-        // $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
+        // $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
+        $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
+
         $this->loadModel('Transaction');
+        $this->loadModel('Track');
         $this->request->data['Transaction']['error_msg'] = '';
         $this->request->data['Transaction']['status'] = '';
         $this->request->data['Transaction']['trx_id'] = '';
         $this->request->data['Transaction']['auth_code'] = '';
+        $alert = '<div class="alert alert-success"> ';
         if ($response != null) {
-            $tresponse = $response->getTransactionResponse();
+        $tresponse = $response->getTransactionResponse();
 
-            if (($tresponse != null) && ($tresponse->getResponseCode() == "1")) {
-                $this->request->data['Transaction']['status'] = 'close';
-                $this->request->data['Transaction']['trx_id'] = $tresponse->getTransId();
-                $this->request->data['Transaction']['auth_code'] = $tresponse->getAuthCode();
-                // update payable amount and paidamount in transaction table
-                $sql = 'UPDATE transactions SET payable_amount = payable_amount-' . $card['payable_amount'] .
-                        ', paid_amount+' . $card['payable_amount'] .
-                        ' WHERE transactions.id = ' . $card['id'];
-                $result = $this->Transaction->query($sql);
+        if (($tresponse != null) && ($tresponse->getResponseCode() == "1")) {
+        $this->request->data['Transaction']['status'] = 'close';
+        $this->request->data['Transaction']['trx_id'] = $tresponse->getTransId();
+        $this->request->data['Transaction']['auth_code'] = $tresponse->getAuthCode();
+        // update payable amount and paidamount in transaction table
+        $data4due = $this->Transaction->findById($card['id']);
+        if ($data4due['Transaction']['payable_amount']) {
+        $this->request->data['Transaction']['status'] = 'open';
+        }
+        $msg .='<li> Transaction   successfull</li>';
+        $tdata['Ticket'] = array('content' => 'Transaction successfull');
+        $tickect = $this->Ticket->save($tdata); // Data save in Ticket
+        $trackData['Track'] = array(
+            'package_customer_id' => $cid,
+            'ticket_id' => $tickect['Ticket']['id'],
+            'status' => 'closed',
+            'forwarded_by' => $loggedUser['id']
+        );
 
-                $data4due = $this->Transaction->findById($card['id']);
-                if ($data4due['Transaction']['payable_amount']) {
-                    $this->request->data['Transaction']['status'] = 'open';
-                }
-                $msg .='<li> Transaction   successfull</li>';
-                $tdata['Ticket'] = array('content' => 'Transaction for ' . $pc['fname'] . ' ' . $pc['lname'] . ' successfull');
-                $tickect = $this->Ticket->save($tdata); // Data save in Ticket
-                $trackData['Track'] = array(
-                    'package_customer_id' => $cid,
-                    'ticket_id' => $tickect['Ticket']['id'],
-                    'status' => 'closed',
-                    'forwarded_by' => $loggedUser['id']
-                );
-
-                $this->Track->save($trackData);
-            } else {
-                $this->request->data['Transaction']['paid_amount'] = 0;
-                $this->request->data['Transaction']['status'] = 'error';
-                $this->request->data['Transaction']['error_msg'] = "Charge Credit Card ERROR :  Invalid response";
-                $msg .='<li> Transaction for ' . $pc['fname'] . ' ' . $pc['lname'] . ' failed for Charge Credit Card ERROR</li>';
-
-                $tdata['Ticket'] = array('content' => 'Transaction for ' . $pc['fname'] . ' ' . $pc['lname'] . ' failed for Charge Credit Card ERROR');
-                $tickect = $this->Ticket->save($tdata); // Data save in Ticket
-                $trackData['Track'] = array(
-                    'package_customer_id' => $cid,
-                    'ticket_id' => $tickect['Ticket']['id'],
-                    'status' => 'open',
-                    'forwarded_by' => $loggedUser['id']
-                );
-                $this->Track->save($trackData);
-            }
+        $this->Track->save($trackData);
         } else {
+            $alert = '<div class="alert alert-error"> ';
+            $tresponse = $response->getTransactionResponse();
+            $message = $response->getMessages();
+            $message = $message->getMessage();
+            $message = $message[0];
+            $errorCode = $message->getCode();
+            if ($errorCode == 'E00003') {
+                $errorMsg = 'Invalid Card number. Check Card Number, remove space or any special carachter inserted by mistkae';
+            } else {
+                $errors = $tresponse->getErrors();
+                $errors = $errors[0];
+                $errorMsg = $errors->getErrorText();
+            }
+
+
             $this->request->data['Transaction']['paid_amount'] = 0;
             $this->request->data['Transaction']['status'] = 'error';
-            $this->request->data['Transaction']['error_msg'] = "Charge Credit card Null response returned";
-            $msg .='<li> Transaction for ' . $pc['fname'] . ' ' . $pc['lname'] . ' failed for Charge Credit card Null response</li>';
+            $this->request->data['Transaction']['error_msg'] = $errorMsg;
+            $msg .='<li>'. $errorMsg .' </li>';
 
-            $tdata['Ticket'] = array('content' => 'Transaction for ' . $pc['fname'] . ' ' . $pc['lname'] . ' failed for Charge Credit card Null response');
+            $tdata['Ticket'] = array('content' =>  $errorMsg);
+            $this->loadModel('Ticket');
             $tickect = $this->Ticket->save($tdata); // Data save in Ticket
             $trackData['Track'] = array(
                 'package_customer_id' => $cid,
@@ -245,12 +231,29 @@ class PaymentsController extends AppController {
             );
             $this->Track->save($trackData);
         }
-        $this->Transaction->create();
-        $this->Transaction->id = $this->request->data['Transaction']['id'];
+        } else {
+            $alert = '<div class="alert alert-error"> ';
+            $this->request->data['Transaction']['paid_amount'] = 0;
+            $this->request->data['Transaction']['status'] = 'error';
+            $this->request->data['Transaction']['error_msg'] = "Transaction for failed due to Marchant Account credential changed. Please contact with administrator";
+            $msg .='<li> Transaction for failed due to Marchant Account credential changed. Please contact with administrator</li>';
+
+            $tdata['Ticket'] = array('content' => 'Transaction failed due to Marchant Account credential changed. Please contact with administrator ');
+            $tickect = $this->Ticket->save($tdata); // Data save in Ticket
+            $trackData['Track'] = array(
+                'package_customer_id' => $cid,
+                'ticket_id' => $tickect['Ticket']['id'],
+                'status' => 'open',
+                'forwarded_by' => $loggedUser['id']
+            );
+            $this->Track->save($trackData);
+        }
+
         $this->Transaction->save($this->request->data['Transaction']);
         // endforeach;
         //$msg .='</ul>';
-        $transactionMsg = '<div class="alert alert-success">
+
+        $transactionMsg = $alert . '
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <strong>' . $msg . '</strong>
     </div>';
@@ -549,7 +552,7 @@ class PaymentsController extends AppController {
             <p> <strong>Refund failed for Null response  </strong> </p> </div>';
 
 
-            $tdata['Ticket'] = array('content' => 'Transaction for ' . ' Refund failed for Null response');
+            $tdata['Ticket'] = array('content' => 'Transaction ' . ' Refund failed for Null response');
             $tickect = $this->Ticket->save($tdata); // Data save in Ticket
             $trackData['Track'] = array(
                 'package_customer_id' => $data4transaction['Transaction']['package_customer_id'],
