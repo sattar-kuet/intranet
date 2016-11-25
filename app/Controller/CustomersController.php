@@ -159,19 +159,19 @@ class CustomersController extends AppController {
     }
 
     function searchbyinvoice($id = null) {
-       
+
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
         $clicked = false;
         if ($this->request->is('post') || $this->request->is('put')) {
-          //  echo 'hello';  
+            //  echo 'hello';  
             $id = $this->request->data['Transaction']['id'];
             $trinfo = $this->Transaction->query("SELECT * FROM `transactions` tr
             left join package_customers  pc on tr.package_customer_id =pc.id 
             where tr.id = $id");
             $clicked = true;
             $this->set(compact('trinfo'));
-          //  pr($trinfo); exit;
+            //  pr($trinfo); exit;
         }
         $this->set(compact('clicked'));
     }
@@ -250,13 +250,25 @@ left join custom_packages on package_customers.custom_package_id = custom_packag
 WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open' order by transactions.id DESC;");
     }
 
-    function getStatements() {
+    function getStatements($id = null) {
         $statements = $this->Transaction->query("SELECT *
             FROM transactions tr			
-            WHERE tr.status = 'open' OR tr.status ='close'"
+            LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id			
+            LEFT JOIN psettings ps ON ps.id = pc.psetting_id			
+            LEFT JOIN packages p ON p.id = ps.package_id			
+            LEFT JOIN custom_packages cp ON cp.id = pc.custom_package_id			
+            WHERE pc.id = $id AND (tr.status = 'open' OR tr.status ='close')"
         );
         $return = array();
         foreach ($statements as $index => $statement) {
+            $package = 'No package Selected';
+            if(!empty($statement['ps']['id'])){
+                 $package = $statement['name'];
+            }
+            else if(!empty($statement['cp']['id'])){
+                 $package = $statement['cp']['duration'].' Months Custom Package '.$statement['cp']['charge'].'$';
+            }
+          
             $paid = $this->Transaction->query("SELECT *
             FROM transactions tr			
             WHERE transaction_id = " . $statement['tr']['id']
@@ -264,8 +276,10 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             $return[] = array(
                 'bill' => $statement['tr'],
                 'payment' => $paid,
+                'package' => $package
             );
         }
+        //pr($return); exit;
         return $return;
     }
 
@@ -352,7 +366,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $ym = $this->getYm();
         $this->loadModel('Transaction');
         $invoices = $this->getOpenInvoice($pcid);
-        $statements = $this->getStatements();
+        $statements = $this->getStatements($pcid);
         //  pr($statements); exit;
         $this->set(compact('invoices', 'statements', 'packageList', 'psettings', 'ym', 'custom_package_charge'));
     }

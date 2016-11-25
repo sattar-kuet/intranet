@@ -2093,6 +2093,7 @@
                         foreach ($statements as $single):
                             $bill = $single['bill'];
                             $payments = $single['payment'];
+                            $package = $single['package'];
                          ?>
                             <div id="invoice-pop-up<?php echo $bill['id']; ?>" style="display: none; width: 800px;">
                                 <div class="product-page product-pop-up" style="margin-left: 0px !important;">
@@ -2187,18 +2188,15 @@
                                                             <table class="table table-striped table-hover margin-top-20" style=" margin-top: 60px; border:  #555 solid 1px;">
                                                                 <thead  style="border-bottom: #555 solid 3px;">
                                                                     <tr style="height: 101px; border:  #555 solid 1px;">
-                                                                        <th class="hidden-480" style=" padding-bottom: 39px; text-align: center; color: #000 !important; color: white; width: 51px;font-size: 19px; font-weight: bold;">
-                                                                            #
-                                                                        </th>                                    
                                                                         <th class="hidden-480" style=" color: #333 !important; padding: 0px 0px 39px 19px;">
-                                                                            Additional Note
+                                                                           Activity
                                                                         </th>
                                                                         <th class="hidden-480"  style=" color: #333 !important; text-align: center; padding-bottom: 39px;">
                                                                             STB QUANTITY
                                                                         </th>
                                                                        
                                                                         <th class="hidden-480" style=" color: #333 !important; text-align: center; padding-bottom: 39px;">
-                                                                            Paid Amount
+                                                                            Amount
                                                                         </th>
                                                                          
                                                                         <th class="hidden-480"  style=" padding-bottom: 39px; text-align: center; font-size: 15px;  color: #000 !important; width: 101px;">
@@ -2209,11 +2207,9 @@
                                                                 </thead>
                                                                 <tbody>                                   
                                                                     <tr style="height: 101px;">
-                                                                        <td  style=" padding: 39px; text-align: center; font-size: 19px; font-weight: bold; color: #000 !important; width: 101px;">
-                                                                            <?php echo $bill['id']; ?>
-                                                                        </td>
+                                                                       
                                                                         <td style=" color: #333 !important; padding: 43px 0px 0px 19px ;">
-                                                                            <?php echo $bill['note']; ?>
+                                                                            <?php echo $package; ?>
                                                                         </td> 
                                                                         <td style=" color: #333 !important; text-align: center;  padding: 43px 0px 0px 9px ;">
                                                                             <?php $stbs = json_decode($customer['mac']);
