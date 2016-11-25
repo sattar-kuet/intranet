@@ -47,7 +47,7 @@
                             <strong style="color: <?php $color; ?>">
                                 <?php echo $status; ?>
                             </strong>
-                             Balance : $<strong class="due-amount">
+                            Balance : $<strong class="due-amount">
                             </strong>
                         </div>
 
@@ -1965,17 +1965,17 @@
                                         <tbody>
                                             <?php
                                             $balance = array();
-                                            foreach ($statements as  $single):
+                                            foreach ($statements as $single):
                                                 $bill = $single['bill'];
                                                 $payments = $single['payment'];
 
                                                 $amount = $bill['payable_amount'];
                                                 $balance[] = $amount;
-                                               // $prevIndex = -1;
-                                                if (count($balance)> 1) {
+                                                // $prevIndex = -1;
+                                                if (count($balance) > 1) {
                                                     $prevIndex = count($balance) - 2;
-                                                    $balance[] = $balance[$prevIndex] + $balance[$prevIndex+1];
-                                                } 
+                                                    $balance[] = $balance[$prevIndex] + $balance[$prevIndex + 1];
+                                                }
                                                 ?>
                                                 <tr class="odd gradeX">
                                                     <td>
@@ -2003,18 +2003,17 @@
                                             </tr>
 
                                             <?php
-                                            
                                             foreach ($payments as $payment):
-                                                $amount = -1*$payment['tr']['payable_amount'];
+                                                $amount = -1 * $payment['tr']['payable_amount'];
                                                 $balance[] = $amount;
                                                 $prevIndex = count($balance) - 2;
                                                 // echo 
-                                                $balance[] = $balance[$prevIndex] + $balance[$prevIndex+1];
+                                                $balance[] = $balance[$prevIndex] + $balance[$prevIndex + 1];
                                                 // pr($payment['tr']);
                                                 ?>
                                                 <tr class="odd gradeX">
                                                     <td> 
-                                                        
+
                                                         <a href="#invoice-pop-up<?php echo $payment['tr']['id']; ?>" class="btn btn-default fancybox-fast-view"> <?php echo empty($payment['tr']['invoice']) ? $payment['tr']['id'] : $payment['tr']['invoice']; ?></a><br>
                                                     </td>
 
@@ -2080,7 +2079,7 @@
                                     </table>
                                 </div>
                                 <?php
-                               // pr($balance);
+                                // pr($balance);
                             } else {
                                 ?>
                                 <h2> No transaction found for this customer!</h2>
@@ -2094,13 +2093,13 @@
                             $bill = $single['bill'];
                             $payments = $single['payment'];
                             $package = $single['package'];
-                         ?>
+                            ?>
                             <div id="invoice-pop-up<?php echo $bill['id']; ?>" style="display: none; width: 800px;">
                                 <div class="product-page product-pop-up" style="margin-left: 0px !important;">
                                     <div class="page-content-wrapper"> <a href="<?php
-                                                       echo Router::url(array('controller' => 'customers', 'action' => 'send', $bill['id'])
-                                                       )
-                                                       ?>">Send mail</a>
+                                        echo Router::url(array('controller' => 'customers', 'action' => 'send', $bill['id'])
+                                        )
+                                        ?>">Send mail</a>
                                         <div class="page-content_invo">     
                                             <div>
                                                 <div class="page-bar">
@@ -2145,7 +2144,7 @@
                                                                     </th>
                                                                     <tr>
                                                                         <td style="padding-left: 5px; min-height: 115px; line-height: 15px;">
-                                                                            <?php // if (!empty($single['0']['name'])):        ?>
+                                                                            <?php // if (!empty($single['0']['name'])):         ?>
                                                                             <?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?>
 
 
@@ -2189,16 +2188,16 @@
                                                                 <thead  style="border-bottom: #555 solid 3px;">
                                                                     <tr style="height: 101px; border:  #555 solid 1px;">
                                                                         <th class="hidden-480" style=" color: #333 !important; padding: 0px 0px 39px 19px;">
-                                                                           Activity
+                                                                            Activity
                                                                         </th>
                                                                         <th class="hidden-480"  style=" color: #333 !important; text-align: center; padding-bottom: 39px;">
                                                                             STB QUANTITY
                                                                         </th>
-                                                                       
+
                                                                         <th class="hidden-480" style=" color: #333 !important; text-align: center; padding-bottom: 39px;">
                                                                             Amount
                                                                         </th>
-                                                                         
+
                                                                         <th class="hidden-480"  style=" padding-bottom: 39px; text-align: center; font-size: 15px;  color: #000 !important; width: 101px;">
                                                                             Status
                                                                         </th>   
@@ -2207,21 +2206,22 @@
                                                                 </thead>
                                                                 <tbody>                                   
                                                                     <tr style="height: 101px;">
-                                                                       
+
                                                                         <td style=" color: #333 !important; padding: 43px 0px 0px 19px ;">
                                                                             <?php echo $package; ?>
                                                                         </td> 
                                                                         <td style=" color: #333 !important; text-align: center;  padding: 43px 0px 0px 9px ;">
-                                                                            <?php $stbs = json_decode($customer['mac']);
-                                                                             echo count($stbs);
+                                                                            <?php
+                                                                            $stbs = json_decode($customer['mac']);
+                                                                            echo count($stbs);
                                                                             ?>
                                                                         </td>
-                                                                      
+
 
                                                                         <td style=" color: #333 !important; text-align: center; padding: 43px 0px 0px 9px ;">
-                                                                            <?php echo getPaid($bill['id']); ?>
+                                                                            <?php echo $bill['payable_amount']; ?>
                                                                         </td>
-                                                                                                                
+
                                                                         <td  style=" padding: 43px 0px 0px 9px ; text-align: center; font-size: 19px; font-weight: bold; color: #000 !important; width: 151px;">
                                                                             <?php echo $bill['status']; ?> 
                                                                         </td>                                          
@@ -2254,7 +2254,7 @@
                                                                         <b style=" color: #000;">TOTAL Amount Due</b>
                                                                     </div>
                                                                     <div class="col-xs-6" style="text-align: right;">
-                                                                        $<?php echo  $bill['payable_amount'] - getPaid($bill['id']);?>     
+                                                                        $<?php echo $bill['payable_amount'] - getPaid($bill['id']); ?>     
                                                                     </div>
                                                                     <hr style="border-color: #990000 !important; ">
                                                                 </div>
@@ -2294,218 +2294,216 @@
                                     </div>
                                 </div>
                             </div>
-                        
-                            <?php foreach($payments as $single): 
-$payment = $single['tr'];
-?>
-                        <div id="invoice-pop-up<?php echo $payment['id']; ?>" style="display: none; width: 800px;">
 
-                                <div class="product-page product-pop-up" style="margin-left: 0px !important;">
-                                    <div class="page-content-wrapper">
-                                        
-                                        <div class="page-content_invo">     
-                                            <div>    
-                                               
-                                                <div class="page-bar">
-                                                    <ul class="page-breadcrumb">
-                                                        <li>   </li>
-                                                        <li>   </li>
-                                                        <li>   </li>
-                                                    </ul>
-                                                    <script></script>
+                            <?php
+                            foreach ($payments as $single):
+                                $payment = $single['tr'];
+                                ?>
+                                <div id="invoice-pop-up<?php echo $payment['id']; ?>" style="display: none; width: 800px;">
 
-                                                </div>
+                                    <div class="product-page product-pop-up" style="margin-left: 0px !important;">
+                                        <div class="page-content-wrapper">
 
-                                                <div  class="printableArea">   
-                                                    <?php
-                                                    $customer_address_one = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
-                                                            $customer['apartment'];
-                                                    $customer_address_two = $customer['city'] . ' ' . $customer['state'] . ' '
-                                                            . $customer['zip'];
-                                                    ?>                
-                                                    <div style="page-break-before:always" >&nbsp;</div> 
-                                                    <div class="row">
-                                                        <div class="col-xs-4">                              
-                                                            <ul class="list-unstyled" style=" text-align: left; color: #555; margin-left: 1px;">
-                                                                <img style="margin-top: 31px;"src="<?php echo $this->webroot; ?>assets/frontend/layout/img/totalcable.jpg">                                                  
-                                                                <div style="margin-left: 17px;">P.O BOX 170,E.MEADOM, NY 11554</div>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="col-xs-3">                               
-                                                            <ul class="list-unstyled">                                   
-                                                            </ul>
-                                                        </div>
-                                                        <div class="col-xs-5 invoice-payment">                             
+                                            <div class="page-content_invo">     
+                                                <div>    
 
-                                                        </div>
-                                                    </div>                  
-                                                    <hr style="display: block; border-style: inset; border-color:  darkmagenta;">
-                                                    <div class="row invoice-logo">
-                                                        <div class="row" style="margin-top: 0;">                          
-                                                            <div class="col-xs-7">                              
+                                                    <div class="page-bar">
+                                                        <ul class="page-breadcrumb">
+                                                            <li>   </li>
+                                                            <li>   </li>
+                                                            <li>   </li>
+                                                        </ul>
+                                                        <script></script>
 
-                                                                <table style=" margin-left: 105px; border: #555 solid 1px; min-width: 275px;">
-                                                                    <th style=" border: #555 solid 1px; padding-left: 2px;">
-                                                                        <b style=" color: #000;">Bill To</b>
-                                                                    </th>
-                                                                    <tr>
-                                                                        <td style="padding-left: 5px; min-height: 115px; line-height: 15px;">
-                                                                            <?php // if (!empty($single['0']['name'])):        ?>
-                                                                            <?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?>
+                                                    </div>
 
-
-                                                                            <br>
-                                                                            <?php echo $customer_address_one; ?><br>
-                                                                            <?php echo $customer_address_two; ?>
-
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>                               
-                                                            </div>                            
-                                                            <div class="col-xs-5 invoice-payment">                             
-                                                                <ul class="list-unstyled" style=" text-align: right; color: #000; margin-right: 17px;">
-                                                                    <li>
-                                                                        <h1 style=" color: #000 !important;">Invoice #<?php echo $payment['id']; ?></h1>
-                                                                    </li>
-                                                                    <li style="color: #555;">
-                                                                        <b style=" color: #000;">Date of Invoice: </b><?php echo date('Y-m-d'); ?>
-                                                                    </li>
-                                                                    <li style="color: #555;">
-                                                                        <b style=" color: #000;">Terms:</b> Next 7 Days
-                                                                    </li>
+                                                    <div  class="printableArea">   
+                                                        <?php
+                                                        $customer_address_one = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
+                                                                $customer['apartment'];
+                                                        $customer_address_two = $customer['city'] . ' ' . $customer['state'] . ' '
+                                                                . $customer['zip'];
+                                                        ?>                
+                                                        <div style="page-break-before:always" >&nbsp;</div> 
+                                                        <div class="row">
+                                                            <div class="col-xs-4">                              
+                                                                <ul class="list-unstyled" style=" text-align: left; color: #555; margin-left: 1px;">
+                                                                    <img style="margin-top: 31px;"src="<?php echo $this->webroot; ?>assets/frontend/layout/img/totalcable.jpg">                                                  
+                                                                    <div style="margin-left: 17px;">P.O BOX 170,E.MEADOM, NY 11554</div>
                                                                 </ul>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                    <hr  style="border-color: white;">
-                                                    <div class="row">
-                                                        <div class="col-xs-6">                    
-                                                        </div>
-                                                        <div class="col-xs-4">
-                                                        </div>
-                                                        <div class="col-xs-2 invoice-payment">
-                                                            <div style="text-align: left;">
+                                                            <div class="col-xs-3">                               
+                                                                <ul class="list-unstyled">                                   
+                                                                </ul>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row"style=" margin-top: 9px;">
-                                                        <div class="col-xs-12 ">
-                                                            <table class="table table-striped table-hover margin-top-20" style=" margin-top: 60px; border:  #555 solid 1px;">
-                                                                <thead  style="border-bottom: #555 solid 3px;">
-                                                                    <tr style="height: 101px; border:  #555 solid 1px;">
-                                                                        <th class="hidden-480" style=" padding-bottom: 39px; text-align: center; color: #000 !important; color: white; width: 51px;font-size: 19px; font-weight: bold;">
-                                                                            #
-                                                                        </th>                                    
-                                                                        <th class="hidden-480" style=" color: #333 !important; padding: 0px 0px 39px 19px;">
-                                                                            Additional Note
-                                                                        </th>
-                                                                        <th class="hidden-480"  style=" color: #333 !important; text-align: center; padding-bottom: 39px;">
-                                                                            STB QUANTITY
-                                                                        </th>
-                                                                       
-                                                                        <th class="hidden-480" style=" color: #333 !important; text-align: center; padding-bottom: 39px;">
-                                                                            Paid Amount
-                                                                        </th>
-                                                                         
-                                                                        <th class="hidden-480"  style=" padding-bottom: 39px; text-align: center; font-size: 15px;  color: #000 !important; width: 101px;">
-                                                                            Status
-                                                                        </th>   
+                                                            <div class="col-xs-5 invoice-payment">                             
 
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>                                   
-                                                                    <tr style="height: 101px;">
-                                                                        <td  style=" padding: 39px; text-align: center; font-size: 19px; font-weight: bold; color: #000 !important; width: 101px;">
-                                                                            <?php echo $payment['id']; ?>
-                                                                        </td>
-                                                                        <td style=" color: #333 !important; padding: 43px 0px 0px 19px ;">
-                                                                            <?php echo $payment['note']; ?>
-                                                                        </td> 
-                                                                        <td style=" color: #333 !important; text-align: center;  padding: 43px 0px 0px 9px ;">
-                                                                            <?php $stbs = json_decode($customer['mac']);
-                                                                             echo count($stbs);
-                                                                            ?>
-                                                                        </td>
-                                                                      
-
-                                                                        <td style=" color: #333 !important; text-align: center; padding: 43px 0px 0px 9px ;">
-                                                                            <?php echo $payment['payable_amount']; ?>
-                                                                        </td>
-                                                                                                                
-                                                                        <td  style=" padding: 43px 0px 0px 9px ; text-align: center; font-size: 19px; font-weight: bold; color: #000 !important; width: 151px;">
-                                                                            <?php echo $payment['status']; ?> 
-                                                                        </td>                                          
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                            <br>
-                                                            <div class="row " style=" margin-top: 44px;">
-                                                                <div class="col-xs-3">                    
-                                                                </div>
-                                                                <div class="col-xs-3">
-                                                                </div>
-                                                                <div class="col-xs-6 invoice-payment">
-                                                                    <div class="col-xs-6">  
-                                                                        <b style=" color: #000;">Total Of New Charges</b>
-                                                                    </div>
-                                                                    <div class="col-xs-6" style="text-align: right;">
-                                                                        $<?php echo getFullPayment($payment['transaction_id']); ?>     
-                                                                    </div>
-                                                                    <hr style="border-color: #990000 !important; ">
-                                                                </div>
                                                             </div>
-                                                            <div class="row">
-                                                                <div class="col-xs-3">                    
-                                                                </div>
-                                                                <div class="col-xs-3">
-                                                                </div>
-                                                                <div class="col-xs-6 invoice-payment">
-                                                                    <div class="col-xs-6">  
-                                                                        <b style=" color: #000;">TOTAL Amount Due</b>
-                                                                    </div>
-                                                                    <div class="col-xs-6" style="text-align: right;">
-                                                                        $<?php echo  getFullPayment($payment['transaction_id']) - getPaid($payment['transaction_id']);?>     
-                                                                    </div>
-                                                                    <hr style="border-color: #990000 !important; ">
+                                                        </div>                  
+                                                        <hr style="display: block; border-style: inset; border-color:  darkmagenta;">
+                                                        <div class="row invoice-logo">
+                                                            <div class="row" style="margin-top: 0;">                          
+                                                                <div class="col-xs-7">                              
+
+                                                                    <table style=" margin-left: 105px; border: #555 solid 1px; min-width: 275px;">
+                                                                        <th style=" border: #555 solid 1px; padding-left: 2px;">
+                                                                            <b style=" color: #000;">Bill To</b>
+                                                                        </th>
+                                                                        <tr>
+                                                                            <td style="padding-left: 5px; min-height: 115px; line-height: 15px;">
+                                                                                <?php // if (!empty($single['0']['name'])):        ?>
+                                                                                <?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?>
+
+
+                                                                                <br>
+                                                                                <?php echo $customer_address_one; ?><br>
+                                                                                <?php echo $customer_address_two; ?>
+
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>                               
+                                                                </div>                            
+                                                                <div class="col-xs-5 invoice-payment">                             
+                                                                    <ul class="list-unstyled" style=" text-align: right; color: #000; margin-right: 17px;">
+                                                                        <li>
+                                                                            <h1 style=" color: #000 !important;">Invoice #<?php echo $payment['id']; ?></h1>
+                                                                        </li>
+                                                                        <li style="color: #555;">
+                                                                            <b style=" color: #000;">Date of Invoice: </b><?php echo date('Y-m-d'); ?>
+                                                                        </li>
+                                                                        <li style="color: #555;">
+                                                                            <b style=" color: #000;">Terms:</b> Next 7 Days
+                                                                        </li>
+                                                                    </ul>
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <hr  style="border-color: white;">
+                                                        <div class="row">
+                                                            <div class="col-xs-6">                    
+                                                            </div>
+                                                            <div class="col-xs-4">
+                                                            </div>
+                                                            <div class="col-xs-2 invoice-payment">
+                                                                <div style="text-align: left;">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row"style=" margin-top: 9px;">
+                                                            <div class="col-xs-12 ">
+                                                                <table class="table table-striped table-hover margin-top-20" style=" margin-top: 60px; border:  #555 solid 1px;">
+                                                                    <thead  style="border-bottom: #555 solid 3px;">
+                                                                        <tr style="height: 101px; border:  #555 solid 1px;">
+
+                                                                            <th class="hidden-480" style=" color: #333 !important; padding: 0px 0px 39px 19px;">
+                                                                                Activity
+                                                                            </th>
+                                                                            <th class="hidden-480"  style=" color: #333 !important; text-align: center; padding-bottom: 39px;">
+                                                                                STB QUANTITY
+                                                                            </th>
+
+                                                                            <th class="hidden-480" style=" color: #333 !important; text-align: center; padding-bottom: 39px;">
+                                                                                Amount
+                                                                            </th>
+
+                                                                            <th class="hidden-480"  style=" padding-bottom: 39px; text-align: center; font-size: 15px;  color: #000 !important; width: 101px;">
+                                                                                Status
+                                                                            </th>   
+
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>                                   
+                                                                        <tr style="height: 101px;">
+
+                                                                            <td style=" color: #333 !important; padding: 43px 0px 0px 19px ;">
+                                                                                <?php echo $single['package']; ?>
+                                                                            </td> 
+                                                                            <td style=" color: #333 !important; text-align: center;  padding: 43px 0px 0px 9px ;">
+                                                                                <?php
+                                                                                $stbs = json_decode($customer['mac']);
+                                                                                echo count($stbs);
+                                                                                ?>
+                                                                            </td>
+
+
+                                                                            <td style=" color: #333 !important; text-align: center; padding: 43px 0px 0px 9px ;">
+                                                                                <?php echo $payment['payable_amount']; ?>
+                                                                            </td>
+
+                                                                            <td  style=" padding: 43px 0px 0px 9px ; text-align: center; font-size: 19px; font-weight: bold; color: #000 !important; width: 151px;">
+                                                                                <?php echo $payment['status']; ?> 
+                                                                            </td>                                          
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                                <br>
+                                                                <div class="row " style=" margin-top: 44px;">
+                                                                    <div class="col-xs-3">                    
+                                                                    </div>
+                                                                    <div class="col-xs-3">
+                                                                    </div>
+                                                                    <div class="col-xs-6 invoice-payment">
+                                                                        <div class="col-xs-6">  
+                                                                            <b style=" color: #000;">Total Of New Charges</b>
+                                                                        </div>
+                                                                        <div class="col-xs-6" style="text-align: right;">
+                                                                            $<?php echo getFullPayment($payment['transaction_id']); ?>     
+                                                                        </div>
+                                                                        <hr style="border-color: #990000 !important; ">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-xs-3">                    
+                                                                    </div>
+                                                                    <div class="col-xs-3">
+                                                                    </div>
+                                                                    <div class="col-xs-6 invoice-payment">
+                                                                        <div class="col-xs-6">  
+                                                                            <b style=" color: #000;">TOTAL Amount Due</b>
+                                                                        </div>
+                                                                        <div class="col-xs-6" style="text-align: right;">
+                                                                            $<?php echo getFullPayment($payment['transaction_id']) - getPaid($payment['transaction_id']); ?>     
+                                                                        </div>
+                                                                        <hr style="border-color: #990000 !important; ">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row" style="margin-top: 141px;">
+                                                            <div class="col-xs-4">                              
+                                                                <h6>Please write <b style="font-weight: normal !important; color:red !important;">INVOICE NUMBER</b> on check</h6>
+                                                            </div>
+                                                            <div class="col-xs-4">                               
+
+                                                            </div>
+
+                                                            <div class="col-xs-4">                             
+                                                                <h6>Make check payable to <b style="font-weight: normal !important; color:red !important;">TOTAL CABLE BD</b></h6>
+                                                            </div>
+                                                        </div> 
+
+
+                                                        <div class="row" style="background-color:  yellowgreen !important; border-top:  red solid 1px;">
+                                                            <div class="col-xs-4" style="text-align: center;">                              
+                                                                <h5 style=" color: white !important;"> e-mail: info@totalcablebd.com</h5>
+                                                            </div>
+                                                            <div class="col-xs-4">                               
+
+                                                            </div>
+                                                            <div class="col-xs-4" style="text-align: center;">                             
+                                                                <h5 style=" color: white !important;">Web: totalcablebd.com</h5>
+                                                            </div>
+                                                        </div>                
+
                                                     </div>
-
-                                                    <div class="row" style="margin-top: 141px;">
-                                                        <div class="col-xs-4">                              
-                                                            <h6>Please write <b style="font-weight: normal !important; color:red !important;">INVOICE NUMBER</b> on check</h6>
-                                                        </div>
-                                                        <div class="col-xs-4">                               
-
-                                                        </div>
-
-                                                        <div class="col-xs-4">                             
-                                                            <h6>Make check payable to <b style="font-weight: normal !important; color:red !important;">TOTAL CABLE BD</b></h6>
-                                                        </div>
-                                                    </div> 
-
-
-                                                    <div class="row" style="background-color:  yellowgreen !important; border-top:  red solid 1px;">
-                                                        <div class="col-xs-4" style="text-align: center;">                              
-                                                            <h5 style=" color: white !important;"> e-mail: info@totalcablebd.com</h5>
-                                                        </div>
-                                                        <div class="col-xs-4">                               
-
-                                                        </div>
-                                                        <div class="col-xs-4" style="text-align: center;">                             
-                                                            <h5 style=" color: white !important;">Web: totalcablebd.com</h5>
-                                                        </div>
-                                                    </div>                
-
-                                                </div>
-                                            </div>          
-                                        </div> 
+                                                </div>          
+                                            </div> 
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                                
-                           <?php endforeach; ?>
+
+                            <?php endforeach; ?>
 
                         <?php endforeach;
                         ?>
@@ -3049,6 +3047,6 @@ $payment = $single['tr'];
                             return true;
                         }
                         return false;" type="submit" style="background-color: red;">Delete customer</button>     
-                        <?php echo $this->Form->end(); ?>
+                <?php echo $this->Form->end(); ?>
             </div>
         </div>
