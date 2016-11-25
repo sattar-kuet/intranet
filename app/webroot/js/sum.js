@@ -7,17 +7,45 @@
 //});
 
 $(document).on("change", ".partial", function () {
-    var sum = 0;
-    $(".partial").each(function () {
-        sum += +$(this).val();
-    });
-    $(".total").val(sum);
+    var sum = $(".total").val();
+    alert(sum);
+    alert($(this).val());
+        var temp = parseFloat($(this).val());
+        sum = parseFloat(sum) + temp;
+        alert(sum);
+        
+        $(".total").text(sum);
 });
+
+//combo data select and last value add in text
+function setPackagePrice() {
+    var price = 0;
+    $(".dollar").on("change", function () {
+      
+        var txtdata = $(".dollar option:selected").text();
+        
+        var temp = txtdata.split("$");
+        price = temp[1];
+        console.log(temp[1]);
+        $(".total").val(price);
+    });
+    
+    $("#inputAmount").on('change', function () {
+        price = $(this).val();
+        $(".total").val(price);
+    });
+    
+    $(".total").val(price);
+}
+
+
+
 
 // Signature needed if selected other than Card(debit/credit)
 $(document).ready(function () {
     //$("div.sss").hide();
     // $("#cardsig").remove(".required");
+    setPackagePrice();
     $("input[id*='sig2']").click(function () {
         $("div.sss").show(200);
         $("#moneyorder").addClass("required");
@@ -26,7 +54,7 @@ $(document).ready(function () {
         $("div.sss").hide(200);
         $("#moneyorder").removeClass("required");
     });
-    
+
     // mac no is need when box1, box2 or box3 are selected. box1 => 1 input field is show while box2 shows 2 input
 
     //$("div.sss").hide();
@@ -55,8 +83,8 @@ $(document).ready(function () {
         $("#mac_no_2").addClass("required");
         $("#mac_no_3").addClass("required");
     });
-    
-    
+
+
     $('.hover-effect').click(function () {
         $('.hover-effect').css({"border": "3px solid #eee", "font-size": "100%"});
         $(this).css({"border": "3px solid gray", "font-size": "100%"});
@@ -90,7 +118,7 @@ $(document).ready(function () {
             $('#inputAmount').val('');
         }
     });
-    
+
     //Remove all links if print button is clicked.....
     $('#btnclick').click(function () {
         jQuery("#printableArea a").click(function () {
@@ -109,43 +137,43 @@ $(document).ready(function () {
         $("#technician_id").removeClass("required");
         $('#technician_id').val('');
     });
-    
-    
+
+
     //  start show & hide shipment in customer rezistration 
-   $('#shipment').click(function (){
-       if($(this).is(":checked")){
-           $('#shipmentshow_hide').show();
-       }
-        else{
-           $('#shipmentshow_hide').hide();  
+    $('#shipment').click(function () {
+        if ($(this).is(":checked")) {
+            $('#shipmentshow_hide').show();
         }
-   });
+        else {
+            $('#shipmentshow_hide').hide();
+        }
+    });
 
 //  end show & hide shipment in customer rezistration
 
 // start Additional info 
-    $('#additioninfo').click(function (){
-       if($(this).is(":checked")){
-           $('#Additional_info').show();
-       }
-        else{
-           $('#Additional_info').hide();  
-        } 
+    $('#additioninfo').click(function () {
+        if ($(this).is(":checked")) {
+            $('#Additional_info').show();
+        }
+        else {
+            $('#Additional_info').hide();
+        }
     });
-    
+
 // end Additional info 
 
 // start Additional info 
 
-    $('#dealer').click(function (){
-       if($(this).is(":checked")){
-           $('#dshow').show();
-       }
-        else{
-           $('#dshow').hide();  
-        } 
+    $('#dealer').click(function () {
+        if ($(this).is(":checked")) {
+            $('#dshow').show();
+        }
+        else {
+            $('#dshow').hide();
+        }
     });
-    
+
 
 
 
