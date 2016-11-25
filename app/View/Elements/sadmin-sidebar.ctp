@@ -237,6 +237,7 @@
                             <i class="fa glyphicon glyphicon-check"></i>
                             Solved Ticket</a>
                     </li>
+                    
                 </ul>
             <li 
             <?php
@@ -1082,7 +1083,7 @@
                 </ul>
             </li>
 
-            <li 
+<!--            <li 
             <?php
             $deleted = array('delete');
             if (in_array($this->name . '' . $this->action, $deleted)):
@@ -1097,7 +1098,7 @@
                     <span class="title">Delete Data</span>
                     <span class="arrow "></span>
                 </a>
-            </li>
+            </li>-->
 
         </ul>
         <!-- END SIDEBAR MENU -->

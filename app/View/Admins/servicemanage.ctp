@@ -17,10 +17,7 @@
                         <div class="caption">
                             <i class="fa fa-search"></i>Search Customer Information
                         </div>
-                        <!--                        <div class="tools">
-                                                    <a href="javascript:;" class="reload">
-                                                    </a>
-                                                </div>-->
+                     
                     </div>
                     <div class="portlet-body form">
                         <!-- BEGIN FORM-->
@@ -223,7 +220,7 @@
                                 <?php
                                 echo $this->Form->input('status', array(
                                     'type' => 'select',
-                                    'options' => Array('ticket' => 'Generate Ticket', 'repair' => 'Repair', 'info' => 'Customer  Information', 'history' => 'Ticket History'),
+                                    'options' => Array('ticket' => 'Generate Ticket','info' => 'Customer  Information', 'history' => 'Ticket History'),
                                     'empty' => 'Select Action',
                                     'class' => 'form-control form-filter input-sm ',
                                         )

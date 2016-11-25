@@ -75,6 +75,7 @@ class TicketsController extends AppController {
                 if (trim($this->request->data['Ticket']['action_type']) == 'solved') {
                     $this->request->data['Ticket']['priority'] = 'low';
                 }
+//                pr($this->request->data); exit;
                 $tickect = $this->Ticket->save($this->request->data['Ticket']); // Data save in Ticket
                 $trackData['Track'] = array(
                     'issue_id' => $this->request->data['Ticket']['issue_id'],
@@ -120,11 +121,13 @@ class TicketsController extends AppController {
                 if (trim($this->request->data['Ticket']['issue_id']) == 24 || trim($this->request->data['Ticket']['issue_id']) == 31) {
                     $this->updateCustomer('Request to unhold', $customer_id);
                     $trackData['Track']['status'] = 'others';
-                    $mac = json_encode($this->request->data['mac']);
-                    $data = array(
-                        'cancel_mac' => $mac,
+                     $data = array(
                         'unhold_date' => $this->request->data['Ticket']['unhold_date']
                     );
+                    if(isset($this->request->data['mac'])){
+                        $mac = json_encode($this->request->data['mac']);
+                        $data['cancel_mac'] = $mac;
+                    }
                     $cusinfo = $this->PackageCustomer->save($data);
                 }
 
