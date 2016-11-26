@@ -1173,13 +1173,11 @@
 
                                     </div>
                                 </div><br>
-
                                 <div class="row">    
                                     <div class="col-md-2 signupfont">
                                         Charge Amount
                                     </div>
                                     <div class="col-md-4">
-
                                         <div>
                                             <?php
                                             echo $this->Form->input(
@@ -1189,10 +1187,8 @@
                                                     )
                                             );
                                             ?>
-                                        </div>                            
-
+                                        </div>                           
                                     </div>
-
                                     <div class="col-md-2 signupfont">
                                         Recurring Start From
                                     </div>
@@ -1339,7 +1335,6 @@
 
                 <!--Invoice start-->
 
-
                 <div class="portlet box grey-cascade">
                     <div class="portlet-title">
                         <div class="caption">
@@ -1428,13 +1423,9 @@
                                                         <span class="fa fa-dollar"></span>
                                                     </a>
                                                     &nbsp;&nbsp;
-
-
                                                     <a href="#invoice-pop-up<?php echo $info['transactions']['id']; ?>" class="btn btn-default fancybox-fast-view"> <span class="fa fa-file"></span>
                                                     </a>
-
                                                 </td>
-
                                             </tr>
                                             <?php
                                         endforeach;

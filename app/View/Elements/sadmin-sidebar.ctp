@@ -1025,7 +1025,7 @@
                             <i class="fa fa-wrench"></i>
                             Close Invoice</a>
                     </li>
-                    <li
+<!--                    <li
                     <?php if ($this->name . '' . $this->action == 'ReportsextraPayment'):
                         ?>
                             class="active"
@@ -1036,7 +1036,7 @@
                         <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'extraPayment')) ?>">
                             <i class="fa fa-wrench"></i>
                             Extra Payment</a>
-                    </li>
+                    </li>-->
 
                 </ul>
             </li>
