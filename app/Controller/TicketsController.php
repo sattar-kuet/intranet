@@ -97,7 +97,7 @@ class TicketsController extends AppController {
                 }
                 if (trim($this->request->data['Ticket']['issue_id']) == 21 || trim($this->request->data['Ticket']['issue_id']) == 30) {
                     $this->updateCustomer('Request to hold', $customer_id);
-                    $trackData['Track']['status'] = 'others';
+                   // $trackData['Track']['status'] = 'others';
                     $mac = json_encode($this->request->data['mac']);
                     $data = array(
                         'cancel_mac' => $mac,
@@ -120,7 +120,7 @@ class TicketsController extends AppController {
 
                 if (trim($this->request->data['Ticket']['issue_id']) == 24 || trim($this->request->data['Ticket']['issue_id']) == 31) {
                     $this->updateCustomer('Request to unhold', $customer_id);
-                    $trackData['Track']['status'] = 'others';
+                   // $trackData['Track']['status'] = 'others';
                      $data = array(
                         'unhold_date' => $this->request->data['Ticket']['unhold_date']
                     );
@@ -135,7 +135,7 @@ class TicketsController extends AppController {
                  $this->request->data['Ticket']['cancelled_date'] = $this->getFormatedDate($this->request->data['Ticket']['cancelled_date']);
                  $this->request->data['Ticket']['pickup_date'] = $this->getFormatedDate($this->request->data['Ticket']['pickup_date']);
                     $this->updateCustomer('Request to cancel', $customer_id);
-                    $trackData['Track']['status'] = 'others';
+                   // $trackData['Track']['status'] = 'others';
                     if (!array_key_exists('mac', $this->request->data)) {
                         $msg = '<div class="alert alert-danger">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>

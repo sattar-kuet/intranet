@@ -645,7 +645,7 @@
                             <div class="col-md-2 signupfont">
                                 Next Payment Date:
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-2">
                                 <div class="input-list style-4 clearfix">
                                     <?php
                                     echo $this->Form->input(
@@ -660,7 +660,7 @@
                             <div class="col-md-2 signupfont">
                                 Payment amount:
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-2">
                                 <div class="input-list style-4 clearfix">
                                     <?php
                                     echo $this->Form->input(
@@ -671,12 +671,46 @@
                                     ?>
                                 </div>
                             </div>
+                            <div class="col-md-2 signupfont">
+                                Discount:
+                            </div>
+                            <div class="col-md-2">
+                                <div class="input-list style-4 clearfix">
+                                    <?php
+                                    echo $this->Form->input(
+                                            'discount', array(
+                                        'type' => 'number',
+                                        'class' => 'form-control',
+                                    ));
+                                    ?>
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+                              <div class="col-md-2 signupfont">
+                                Comment
+                            </div>
+                            
+                               
+                                <div class="col-md-10">
+                                    <?php
+                                    echo $this->Form->input(
+                                            'note', array(
+                                        'class' => 'form-control ckeditor',
+                                        'data-error-container' => '#editor2_error',
+                                        'rows' => 6,
+                                        'type' => 'textarea',
+                                        'id' => 'note'
+                                            )
+                                    );
+                                    ?>
+                                </div>
 
                             &nbsp;
                             &nbsp;
                             <div class="row margin-top-20">
                                 <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20"> 
-                                    <button class="btn btn-primary submitbtn grey-cascade" type="submit" id="">Update Customer Information</button>                                    </div>
+                                    <button class="btn btn-primary submitbtn grey-cascade" type="submit" id="">Generate Invoice</button>                                    </div>
                             </div>
                         </div>
                     </div>
@@ -1384,6 +1418,9 @@
                                                 Payment Date
                                             </th>
                                             <th class="hidden-480">
+                                                Additional Note
+                                            </th>
+                                            <th class="hidden-480">
                                                 Action
                                             </th>
                                         </tr>
@@ -1418,6 +1455,7 @@
                                                 <td>$<?php echo getPaid($info['transactions']['id']); ?></td>
                                                 <td>$<?php echo $info['transactions']['payable_amount'] - getPaid($info['transactions']['id']); ?></td>
                                                 <td><?php echo date_format(new DateTime($info['transactions']['next_payment']), 'm-d-Y'); ?></td>
+                                                <td><?php echo $info['transactions']['note']; ?></td>
                                                 <td>   
                                                     <a  target="_blank" title="Edit" href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit', $info['transactions']['id'])) ?>" >
                                                         <span class="fa fa-pencil"></span>

@@ -76,6 +76,36 @@
                                     ?>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Discount
+                                </label>
+                                <div class="col-md-4">
+                                     <?php
+                                    echo $this->Form->input(
+                                            'discount', array(
+                                        'type' => 'number',
+                                        'class' => 'form-control',
+                                    ));
+                                    ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Comment
+                                </label>
+                                <div class="col-md-9">
+                                    <?php
+                                    echo $this->Form->input(
+                                            'note', array(
+                                        'class' => 'form-control ckeditor',
+                                        'data-error-container' => '#editor2_error',
+                                        'rows' => 6,
+                                        'type' => 'textarea',
+                                        'id' => 'note'
+                                            )
+                                    );
+                                    ?>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-actions">
                             <div class="row">

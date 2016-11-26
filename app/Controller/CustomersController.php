@@ -880,6 +880,8 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
 
         $data['Transaction'] = array(
             'package_customer_id' => $this->request->data['NextTransaction']['package_customer_id'],
+            'note' => $this->request->data['NextTransaction']['note'],
+            'discount' => $this->request->data['NextTransaction']['discount'],
             'status' => 'open',
             'invoice' => $pc_data['PackageCustomer']['invoice_no'],
             'next_payment' => $pc_data['PackageCustomer']['exp_date'],
