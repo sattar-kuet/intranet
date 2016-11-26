@@ -259,11 +259,12 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             LEFT JOIN custom_packages cp ON cp.id = pc.custom_package_id			
             WHERE pc.id = $id AND (tr.status = 'open' OR tr.status ='close')"
         );
+        
         $return = array();
         foreach ($statements as $index => $statement) {
             $package = 'No package Selected';
             if(!empty($statement['ps']['id'])){
-                 $package = $statement['name'];
+                 $package = $statement['ps']['name'];
             }
             else if(!empty($statement['cp']['id'])){
                  $package = $statement['cp']['duration'].' Months Custom Package '.$statement['cp']['charge'].'$';
@@ -287,6 +288,8 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $this->loadModel('StatusHistory');
         $pcid = $id;
         $loggedUser = $this->Auth->user();
+        $user =$loggedUser['Role']['name'];
+//        pr($user); exit;
         if ($this->request->is('post') || $this->request->is('put')) {
             // update package_customers table
             $this->request->data['PackageCustomer']['id'] = $id;
@@ -367,8 +370,9 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $this->loadModel('Transaction');
         $invoices = $this->getOpenInvoice($pcid);
         $statements = $this->getStatements($pcid);
+//         pr($loggedUser['Role']['name']); exit;
         //  pr($statements); exit;
-        $this->set(compact('invoices', 'statements', 'packageList', 'psettings', 'ym', 'custom_package_charge'));
+        $this->set(compact('invoices', 'statements', 'packageList', 'psettings', 'ym', 'custom_package_charge','user'));
     }
 
     function send($param = null) {
