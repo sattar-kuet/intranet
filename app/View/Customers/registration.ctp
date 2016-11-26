@@ -392,10 +392,10 @@
 
                             <hr/>
                             <div class="form-group">
-                                <label class="control-label col-md-1">Security Deposit:<span class="required">
+                                <label class="control-label col-md-2">Security Deposit:<span class="required">
                                     </span>
                                 </label>
-                                <div class="col-md-2">
+                                <div class="col-md-1">
                                     <?php
                                     echo $this->Form->input(
                                             'deposit', array(

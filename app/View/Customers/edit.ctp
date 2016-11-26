@@ -10,7 +10,12 @@
     .signupfont{
         font-size: 14px !important; 
     }
-
+    .fancybox-inner{
+        width:844px !important;
+    }
+    .fancybox-wrap {
+        width: 860px !important;
+    }
 </style>
 
 <div class="page-content-wrapper">
@@ -1789,73 +1794,7 @@
             <!-------------------------------------END REFUND---------------------->
             <!-------------payment history start----------------->
             <div  class="col-md-12 col-sm-12">
-                <div class="portlet box " style="background-color: mediumpurple; border: mediumpurple solid 2px;">
-                    <div class="portlet-title">
-                        <div class="caption">
-                            <i class="fa fa-list-ul"></i>Payment History
-                        </div>
-                        <div class="tools">
-                            <a  class="reload toggle" data-id="paymenthistory">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="portlet-body">
-                        <div class="row" id="paymenthistory">
-                            <table cellpadding="0" cellspacing="0" border="0" class="responsive dynamicTable display table table-bordered" width="100%" >
-                                <thead>
-                                    <tr >  
-                                        <th>Payment Detail</th>
-                                        <th>Paid Amount</th>
-                                        <th>Transaction Date</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    foreach ($transactions as $single):
-                                        $info = $single['Transaction'];
-                                        ?>
-                                        <tr class="odd gradeX">
-                                            <td>
-                                                <?php if ($info['pay_mode'] == 'card'): ?>
-                                                    <ul>
-                                                        <li>Pay Mode : <?php echo $info['pay_mode']; ?></li> 
-                                                        <li>Status : <?php echo $info['status']; ?></li>
-                                                        <?php if ($info['status'] == 'error'): ?>
-                                                            <ul>
-                                                                <li>Error Message : <?php echo $info['error_msg']; ?></li> 
-                                                            </ul>
-                                                        <?php endif;
-                                                        ?>
-                                                        <li>Card No : <?php echo substr($info['card_no'], -4); ?></li>  
-                                                        <li>Zip Code : <?php echo $info['zip_code']; ?></li>  
-                                                        <li>CVV Code : <?php echo $info['cvv_code']; ?></li> 
-                                                        <li>Expire Date : <?php echo $info['exp_date']; ?></li>
-                                                        <li> Transaction ID : <?php echo $info['trx_id']; ?></li> 
-                                                    </ul>
-                                                <?php elseif ($info['pay_mode'] == 'cash'): ?>
-                                        <li>Pay Mode : <?php echo $info['pay_mode']; ?></li> 
-                                        Cash By : <?php echo $info['cash_by']; ?>
-                                    <?php elseif ($info['pay_mode'] == 'refund'): ?>
-                                        <ul><li>Pay Mode : <?php echo $info['pay_mode']; ?></li>
-                                            <ul> <li>Amount : <?php echo $info['paid_amount']; ?></li>
-                                                <li>Refund Date : <?php echo $info['created']; ?></li>
-                                            </ul>
-                                        </ul>
-                                    <?php else: ?>
-                                        <li>Pay Mode : <?php echo $info['pay_mode']; ?></li> 
-                                        <img src="<?php echo $this->webroot . 'check_images' . '/' . $info['check_image']; ?>"  width="50px" height="50px" />
-                                    <?php endif; ?> 
-                                    <td><?php echo $info['paid_amount']; ?></td>
-                                    <td><?php echo $info['created']; ?></td>
-                                    </tr>
-                                    <?php
-                                endforeach;
-                                ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+                
                 <div>
                     <div class="portlet box " style="background-color: tomato; border: tomato solid 2px;">
                         <div class="portlet-title">
@@ -2098,9 +2037,10 @@
                             <div id="invoice-pop-up<?php echo $bill['id']; ?>" style="display: none; width: 800px;">
                                 <div class="product-page product-pop-up" style="margin-left: 0px !important;">
                                     <div class="page-content-wrapper"> <a href="<?php
-                        echo Router::url(array('controller' => 'customers', 'action' => 'send', $bill['id'])
-                        )
-                            ?>">Send mail</a>
+                                        echo Router::url(array('controller' => 'customers', 'action' => 'send', $bill['id'])
+                                        )
+                                        ?>">Send mail</a>
+
                                         <div class="page-content_invo">     
                                             <div>
                                                 <div class="page-bar">
@@ -2122,8 +2062,8 @@
                                                     <div class="row">
                                                         <div class="col-xs-4">                              
                                                             <ul class="list-unstyled" style=" text-align: left; color: #555; margin-left: 1px;">
-                                                                <img style="margin-top: 31px;"src="<?php echo $this->webroot; ?>assets/frontend/layout/img/totalcable.jpg">                                                  
-                                                                <div style="margin-left: 17px;">P.O BOX 170,E.MEADOM, NY 11554</div>
+                                                                <img  style=" height: 70px; margin-top: 31px;"src="<?php echo $this->webroot; ?>assets/frontend/layout/img/totalcable.jpg">                                                  
+                                                                <div style="margin-left: 17px;">P.O BOX 170,E.MEADOW <br>NY 11554</div>
                                                             </ul>
                                                         </div>
                                                         <div class="col-xs-3">                               
@@ -2145,7 +2085,7 @@
                                                                     </th>
                                                                     <tr>
                                                                         <td style="padding-left: 5px; min-height: 115px; line-height: 15px;">
-                                                                            <?php // if (!empty($single['0']['name'])):         ?>
+                                                                            <?php // if (!empty($single['0']['name'])):          ?>
                                                                             <?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?>
 
 
@@ -2158,34 +2098,30 @@
                                                                 </table>                               
                                                             </div>                            
                                                             <div class="col-xs-5 invoice-payment">  
-                                                                <style>
-                                                                    table, tr,th, td {
-                                                                        border: 1px solid black !important;
-                                                                    }
-                                                                </style>
-                                                               
+
+
                                                                 <ul class="list-unstyled" style=" text-align: right; color: #000; margin-right: 17px;">
-                                                                  
- <table style=" text-align: right; ">
-                                                                    <b>Invoice</b>
-                                                                    <tr>
-                                                                        <th>Date</th>
-                                                                        <th>Invoice #</th>
-                                                                       
-                                                                    </tr>
-                                                                    <tr>
-                                                                       <td><?php echo date('Y-m-d'); ?></td>
-                                                                        <td><?php echo $bill['id']; ?></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th>Terms</th>
-                                                                        <th>Due Date</th>
-                                                                    </tr>
-                                                                    <tr>
-                                                                       <td> Next 7 Days</td>
-                                                                        <td><?php echo $single['bill']['next_payment']; ?></td>
-                                                                    </tr>
-                                                                </table>
+
+                                                                    <table  cellpadding="0" cellspacing="0" border="0" class="responsive dynamicTable display table table-bordered" width="100%">
+                                                                        <b>Invoice</b>
+                                                                        <tr>
+                                                                            <th style="text-align: center !important;">Date</th>
+                                                                            <th style="text-align: center !important;">Invoice #</th>
+
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td style="text-align: center !important;"><?php echo date('Y-m-d'); ?></td>
+                                                                            <td style="text-align: center !important;"><?php echo $bill['id']; ?></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th style="text-align: center !important;">Terms</th>
+                                                                            <th style="text-align: center !important;">Due Date</th>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td style="text-align: center !important;"> Next 7 Days</td>
+                                                                            <td style="text-align: center !important;"><?php echo $single['bill']['next_payment']; ?></td>
+                                                                        </tr>
+                                                                    </table>
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -2238,7 +2174,7 @@
 
 
                                                                         <td style=" color: #333 !important; text-align: center; padding: 43px 0px 0px 9px ;">
-                                                                            <?php echo getPaid($bill['id']); ?>
+                                                                            <?php echo $bill['payable_amount']; ?>
                                                                         </td>
 
                                                                         <td  style=" padding: 43px 0px 0px 9px ; text-align: center; font-size: 19px; font-weight: bold; color: #000 !important; width: 151px;">
@@ -2281,7 +2217,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="row" style="margin-top: 141px;">
+                                                    <div class="row" style="margin-top: 10px;">
                                                         <div class="col-xs-4">                              
                                                             <h6>Please write <b style="font-weight: normal !important; color:red !important;">INVOICE NUMBER</b> on check</h6>
                                                         </div>
@@ -2316,6 +2252,7 @@
 
                             <?php
                             foreach ($payments as $single):
+                                //pr($single);
                                 $payment = $single['tr'];
                                 ?>
                                 <div id="invoice-pop-up<?php echo $payment['id']; ?>" style="display: none; width: 800px;">
@@ -2347,8 +2284,8 @@
                                                         <div class="row">
                                                             <div class="col-xs-4">                              
                                                                 <ul class="list-unstyled" style=" text-align: left; color: #555; margin-left: 1px;">
-                                                                    <img style="margin-top: 31px;"src="<?php echo $this->webroot; ?>assets/frontend/layout/img/totalcable.jpg">                                                  
-                                                                    <div style="margin-left: 17px;">P.O BOX 170,E.MEADOM, NY 11554</div>
+                                                                    <img style=" height: 70px; margin-top: 31px;"src="<?php echo $this->webroot; ?>assets/frontend/layout/img/totalcable.jpg">                                                  
+                                                                    <div style="margin-left: 17px;">P.O BOX 170,E.MEADOW<br> NY 11554</div>
                                                                 </ul>
                                                             </div>
                                                             <div class="col-xs-3">                               
@@ -2370,30 +2307,40 @@
                                                                         </th>
                                                                         <tr>
                                                                             <td style="padding-left: 5px; min-height: 115px; line-height: 15px;">
-                                                                                <?php // if (!empty($single['0']['name'])):        ?>
-        <?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?>
+                                                                                <?php // if (!empty($single['0']['name'])):         ?>
+
+                                                                                <?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?>
+
 
 
                                                                                 <br>
                                                                                 <?php echo $customer_address_one; ?><br>
-        <?php echo $customer_address_two; ?>
+
+                                                                                <?php echo $customer_address_two; ?>
+
 
                                                                             </td>
                                                                         </tr>
                                                                     </table>                               
                                                                 </div>                            
                                                                 <div class="col-xs-5 invoice-payment">                             
-                                                                    <ul class="list-unstyled" style=" text-align: right; color: #000; margin-right: 17px;">
-                                                                        <li>
-                                                                            <h1 style=" color: #000 !important;">Invoice #<?php echo $payment['id']; ?></h1>
-                                                                        </li>
-                                                                        <li style="color: #555;">
-                                                                            <b style=" color: #000;">Date of Invoice: </b><?php echo date('Y-m-d'); ?>
-                                                                        </li>
-                                                                        <li style="color: #555;">
-                                                                            <b style=" color: #000;">Terms:</b> Next 7 Days
-                                                                        </li>
-                                                                    </ul>
+                                                                        <ul class="list-unstyled" style=" text-align: right; color: #000; margin-right: 17px;">
+
+                                                                            <table  cellpadding="0" cellspacing="0" border="0" class="responsive dynamicTable display table table-bordered" width="100%">
+                                                                                <b>Invoice</b>
+                                                                                <tr>
+                                                                                    <th style="text-align: center !important;">Payment Date</th>
+                                                                                    <th style="text-align: center !important;">Invoice #</th>
+
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td style="text-align: center !important;"><?php echo $payment['created']; ?></td>
+                                                                                    <td style="text-align: center !important;"><?php echo $payment['id']; ?></td>
+                                                                                </tr>
+                                                                              
+                                                                               
+                                                                            </table>
+                                                                        </ul>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -2413,18 +2360,20 @@
                                                                 <table class="table table-striped table-hover margin-top-20" style=" margin-top: 60px; border:  #555 solid 1px;">
                                                                     <thead  style="border-bottom: #555 solid 3px;">
                                                                         <tr style="height: 101px; border:  #555 solid 1px;">
-                                                                            <th class="hidden-480" style=" padding-bottom: 39px; text-align: center; color: #000 !important; color: white; width: 51px;font-size: 19px; font-weight: bold;">
-                                                                                #
-                                                                            </th>                                    
+
+
                                                                             <th class="hidden-480" style=" color: #333 !important; padding: 0px 0px 39px 19px;">
-                                                                                Additional Note
+                                                                                Activity
+
                                                                             </th>
                                                                             <th class="hidden-480"  style=" color: #333 !important; text-align: center; padding-bottom: 39px;">
                                                                                 STB QUANTITY
                                                                             </th>
 
                                                                             <th class="hidden-480" style=" color: #333 !important; text-align: center; padding-bottom: 39px;">
-                                                                                Paid Amount
+
+                                                                                Amount
+
                                                                             </th>
 
                                                                             <th class="hidden-480"  style=" padding-bottom: 39px; text-align: center; font-size: 15px;  color: #000 !important; width: 101px;">
@@ -2435,12 +2384,12 @@
                                                                     </thead>
                                                                     <tbody>                                   
                                                                         <tr style="height: 101px;">
-                                                                            <td  style=" padding: 39px; text-align: center; font-size: 19px; font-weight: bold; color: #000 !important; width: 101px;">
-        <?php echo $payment['id']; ?>
-                                                                            </td>
+
+
                                                                             <td style=" color: #333 !important; padding: 43px 0px 0px 19px ;">
-        <?php echo $payment['note']; ?>
-                                                                            </td> 
+                                                                                <?php echo $package; ?>
+
+
                                                                             <td style=" color: #333 !important; text-align: center;  padding: 43px 0px 0px 9px ;">
                                                                                 <?php
                                                                                 $stbs = json_decode($customer['mac']);
@@ -2450,12 +2399,16 @@
 
 
                                                                             <td style=" color: #333 !important; text-align: center; padding: 43px 0px 0px 9px ;">
-        <?php echo $payment['payable_amount']; ?>
+
+                                                                                <?php echo $payment['payable_amount']; ?>
                                                                             </td>
 
                                                                             <td  style=" padding: 43px 0px 0px 9px ; text-align: center; font-size: 19px; font-weight: bold; color: #000 !important; width: 151px;">
-        <?php echo $payment['status']; ?> 
-                                                                            </td>                                          
+                                                                                <?php echo $payment['status']; ?> 
+
+                                                                            </td>
+
+
                                                                         </tr>
                                                                     </tbody>
                                                                 </table>
@@ -2493,7 +2446,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="row" style="margin-top: 141px;">
+                                                        <div class="row" style="margin-top: 10px;">
                                                             <div class="col-xs-4">                              
                                                                 <h6>Please write <b style="font-weight: normal !important; color:red !important;">INVOICE NUMBER</b> on check</h6>
                                                             </div>
@@ -2526,10 +2479,13 @@
                                     </div>
                                 </div>
 
+
                             <?php endforeach; ?>
 
-<?php endforeach;
-?>
+
+                        <?php endforeach; ?>
+
+
 
                     </section>
 
@@ -2601,7 +2557,7 @@
                                                                             <?php
                                                                         }
                                                                         ?>
-        <?php echo $history['fb']['name']; ?>
+                                                                        <?php echo $history['fb']['name']; ?>
                                                                         <p><strong>Forwarded To:</strong><ul><li><?php echo $history['fi']['name']; ?> </li><li><?php echo $history['fd']['name']; ?> </li></ul>
                                                                         <strong>Time:</strong> <?php echo $history['tr']['created']; ?>
                                                                         &nbsp;&nbsp;<strong>Status:</strong> <?php echo $history['tr']['status']; ?><br>
@@ -2615,12 +2571,12 @@
                                                                         ?> 
                                                                     </li>
                                                                     <br>
-    <?php endforeach; ?>
+                                                                <?php endforeach; ?>
                                                             </ol>
                                                         </td>
                                                         <td>   
                                                             <div class="controls center text-center">
-    <?php if ($lasthistory['status'] == 'open') { ?>
+                                                                <?php if ($lasthistory['status'] == 'open') { ?>
                                                                     <a 
                                                                         href="#" title="Solved">
                                                                         <span id="<?php echo $ticket['id']; ?>" class="fa fa-check fa-lg solve_ticket"></span>
@@ -2675,7 +2631,7 @@
                                                                                 <button class="close" data-close="alert"></button>
                                                                                 You have some form errors. Please check below.
                                                                             </div>
-        <?php echo $this->Session->flash(); ?>
+                                                                            <?php echo $this->Session->flash(); ?>
                                                                             <div class="form-group">
                                                                                 <div class="form-group">
                                                                                     <div class="col-md-12">
@@ -2749,7 +2705,7 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-        <?php echo $this->Form->end(); ?>
+                                                                        <?php echo $this->Form->end(); ?>
                                                                         <!-- END FORM-->
                                                                     </div>
 
@@ -2820,7 +2776,7 @@
                                                                                 <button class="close" data-close="alert"></button>
                                                                                 You have some form errors. Please check below.
                                                                             </div>
-        <?php echo $this->Session->flash(); ?>
+                                                                            <?php echo $this->Session->flash(); ?>
                                                                             <div class="form-group">
                                                                                 <div class="form-group">
                                                                                     <div class="col-md-12">
@@ -2847,7 +2803,7 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-        <?php echo $this->Form->end(); ?>
+                                                                        <?php echo $this->Form->end(); ?>
                                                                         <!-- END FORM-->
                                                                     </div> 
                                                                     <div id="unsolve_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
@@ -2907,7 +2863,7 @@
                                                                                 <button class="close" data-close="alert"></button>
                                                                                 You have some form errors. Please check below.
                                                                             </div>
-        <?php echo $this->Session->flash(); ?>
+                                                                            <?php echo $this->Session->flash(); ?>
                                                                             <div class="form-group">
                                                                                 <div class="form-group">
                                                                                     <div class="col-md-12">
@@ -2934,7 +2890,7 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-        <?php echo $this->Form->end(); ?>
+                                                                        <?php echo $this->Form->end(); ?>
                                                                         <!-- END FORM-->
                                                                     </div> 
 
@@ -2997,7 +2953,7 @@
                                                                                 <button class="close" data-close="alert"></button>
                                                                                 You have some form errors. Please check below.
                                                                             </div>
-        <?php echo $this->Session->flash(); ?>
+                                                                            <?php echo $this->Session->flash(); ?>
                                                                             <div class="form-group">
                                                                                 <div class="form-group">
                                                                                     <div class="col-md-12">
@@ -3024,7 +2980,7 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-        <?php echo $this->Form->end(); ?>
+                                                                        <?php echo $this->Form->end(); ?>
                                                                         <!-- END FORM-->
                                                                     </div> 
 
@@ -3070,6 +3026,9 @@
                             return true;
                         }
                         return false;" type="submit" style="background-color: red;">Delete customer</button>     
-<?php echo $this->Form->end(); ?>
+              
+                <?php echo $this->Form->end(); ?>
+               
+               
             </div>
         </div>

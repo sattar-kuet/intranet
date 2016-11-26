@@ -586,9 +586,10 @@ class ReportsController extends AppController {
 
     function getTotalCallBySatatus($status = null) {
         $this->loadModel('Track');
+        $today = date('Y-m-d');
         $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as total FROM tracks " .
                 "LEFT JOIN issues ON tracks.issue_id = issues.id " .
-                " WHERE LOWER(issues.name) = '$status' ";
+                " WHERE LOWER(issues.name) = '$status' and date = '$today' ";
         $data = $this->Track->query($sql);
         return $data[0][0]['total'];
     }
