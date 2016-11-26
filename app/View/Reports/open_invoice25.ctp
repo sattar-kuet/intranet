@@ -141,13 +141,14 @@
                             </thead>
                             <tbody>                                    
                                 <?php foreach ($packagecustomers as $single):
+//     pr($single); exit;
                                     ?>
                                     <tr>
                                         <td  style=" text-align: center; background-color:#990000; font-size: 19px; font-weight: bold; color: white; width: 101px;">
                                             <?php echo getInvoiceNumbe($single['tr']['id']); ?>
                                         </td>
                                         <td style="background-color:whitesmoke">
-                                            <?php echo $single['0']['name']; ?>
+                                            <?php echo $single['pc']['first_name']. ''.$single['pc']['middle_name'].''.$single['pc']['last_name']; ?>
                                         </td>
                                         <td style="background-color:whitesmoke">
                                             <?php echo $single['pc']['exp_date']; ?>
@@ -171,7 +172,7 @@
                                         </td>
                                         <td>
                                             <div class="controls center text-center">
-                                                <a   target="_blank" title="Add to pdf" href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'invoice', $single['tr']['invoice'])) ?>" class="btn default btn-xs green-stripe">
+                                                <a   target="_blank" title="Add to pdf" href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'invoice', $single['tr']['id'])) ?>" class="btn default btn-xs green-stripe">
                                                     Invoice </a>
                                             </div>
                                         </td>

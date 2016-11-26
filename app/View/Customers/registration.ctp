@@ -8,6 +8,8 @@
     }
 
 </style>
+
+
 <div class="page-content-wrapper">
     <div class="page-content">
         <!-- BEGIN PAGE CONTENT-->
@@ -248,10 +250,9 @@
                                     <?php
                                     echo $this->Form->input('psetting_id', array(
                                         'type' => 'select',
-                                        'class' => 'form-control',
+                                        'class' => 'form-control dollar',
                                         'options' => $packageList,
-                                        'empty' => '--Select Package Type--',
-                                        'id' => 'psettingId',
+                                        'empty' => '--Select Package Type--'
                                             )
                                     );
                                     ?>
@@ -391,33 +392,32 @@
 
                             <hr/>
                             <div class="form-group">
-                                <label class="control-label col-md-1">SD:<span class="required">
+                                <label class="control-label col-md-2">Security Deposit:<span class="required">
                                     </span>
                                 </label>
-                                <div class="col-md-2">
+                                <div class="col-md-1">
                                     <?php
                                     echo $this->Form->input(
                                             'deposit', array(
-                                        'class' => 'form-control  partial',
+                                        'class' => 'form-control',
                                         'type' => 'number'
                                             )
                                     );
                                     ?>
                                 </div>
-                                <label class="control-label col-md-1">MB:<span class="required">
+                                <label class="control-label col-md-1">Discount:<span class="required">
                                     </span>
                                 </label>
-                                <div class="col-md-2">
+                                <div class="col-md-1">
                                     <?php
                                     echo $this->Form->input(
                                             'monthly_bill', array(
-                                        'class' => 'form-control  partial ',
+                                        'class' => 'form-control',
                                         'type' => 'number'
                                             )
                                     );
                                     ?>
                                 </div>
-
 
                                 <label class="control-label col-md-1">Equipment:<span class="required">
                                     </span>
@@ -426,22 +426,22 @@
                                     <?php
                                     echo $this->Form->input(
                                             'others', array(
-                                        'class' => 'form-control  partial',
+                                        'class' => 'form-control',
                                         'type' => 'number'
                                             )
                                     );
                                     ?>
                                 </div>
-                                <label class="control-label col-md-1">Total:<span class="required">
+                                <label class="control-label col-md-2">Total Amount:<span class="required">
                                     </span>
                                 </label>
                                 <div class="col-md-2">
                                     <?php
                                     echo $this->Form->input(
                                             'total', array(
-                                        'class' => 'form-control input-sm total',
-                                        'type' => 'number',
-                                        'readonly' => 'readonly'
+                                        'class' => 'form-control input-sm',
+                                        'type' => 'number'
+//                                        'readonly' => 'readonly'
                                             )
                                     );
                                     ?>

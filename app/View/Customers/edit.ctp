@@ -1207,13 +1207,11 @@
 
                                     </div>
                                 </div><br>
-
                                 <div class="row">    
                                     <div class="col-md-2 signupfont">
                                         Charge Amount
                                     </div>
                                     <div class="col-md-4">
-
                                         <div>
                                             <?php
                                             echo $this->Form->input(
@@ -1223,10 +1221,8 @@
                                                     )
                                             );
                                             ?>
-                                        </div>                            
-
+                                        </div>                           
                                     </div>
-
                                     <div class="col-md-2 signupfont">
                                         Recurring Start From
                                     </div>
@@ -1373,7 +1369,6 @@
 
                 <!--Invoice start-->
 
-
                 <div class="portlet box grey-cascade">
                     <div class="portlet-title">
                         <div class="caption">
@@ -1466,13 +1461,9 @@
                                                         <span class="fa fa-dollar"></span>
                                                     </a>
                                                     &nbsp;&nbsp;
-
-
                                                     <a href="#invoice-pop-up<?php echo $info['transactions']['id']; ?>" class="btn btn-default fancybox-fast-view"> <span class="fa fa-file"></span>
                                                     </a>
-
                                                 </td>
-
                                             </tr>
                                             <?php
                                         endforeach;
@@ -1697,142 +1688,145 @@
 
             </div>
             <!-------------------------------------START REFUND---------------------->
-            <div  class="col-md-12 col-sm-12">
-                <div class="portlet box red-sunglo">
-                    <div class="portlet-title">
-                        <div class="caption">
-                            <i class="fa fa-list-ul"></i>Refund
+            <?php if (($user == 'sadmin') || ($user == 'supervisor')): ?>
+                <div  class="col-md-12 col-sm-12">
+                    <div class="portlet box red-sunglo">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-list-ul"></i>Refund
+                            </div>
+                            <div class="tools">
+                                <a  class="reload toggle" data-id="refund">
+                                </a>
+                            </div>
                         </div>
-                        <div class="tools">
-                            <a  class="reload toggle" data-id="refund">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="portlet-body">
-                        <div class="row" id="refund"> 
-                            <?php
-                            echo $this->Form->create('Transaction', array(
-                                'inputDefaults' => array(
-                                    'label' => false,
-                                    'div' => false
-                                ),
-                                'id' => 'form_sample_3',
-                                'class' => 'form-horizontal',
-                                'novalidate' => 'novalidate',
-                                'url' => array('controller' => 'payments', 'action' => 'refundTransaction')
-                                    )
-                            );
-                            ?>
-                            <?php
-                            echo $this->Form->input(
-                                    'pay_mode', array(
-                                'type' => 'hidden',
-                                'value' => 'refund'
-                            ));
-                            ?>
-                            <div class="form-body">
+                        <div class="portlet-body">
+                            <div class="row" id="refund"> 
+                                <?php
+                                echo $this->Form->create('Transaction', array(
+                                    'inputDefaults' => array(
+                                        'label' => false,
+                                        'div' => false
+                                    ),
+                                    'id' => 'form_sample_3',
+                                    'class' => 'form-horizontal',
+                                    'novalidate' => 'novalidate',
+                                    'url' => array('controller' => 'payments', 'action' => 'refundTransaction')
+                                        )
+                                );
+                                ?>
                                 <?php
                                 echo $this->Form->input(
-                                        'cid', array(
+                                        'pay_mode', array(
                                     'type' => 'hidden',
-                                    'value' => $this->params['pass'][0]
+                                    'value' => 'refund'
                                 ));
                                 ?>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">Transaction Number<span class="">
-                                            </span>
-                                        </label>
-                                        <div class="col-md-4">
-                                            <?php
-                                            echo $this->Form->input(
-                                                    'trx_no', array(
-                                                'class' => 'form-control ',
-                                                'type' => 'text'
-                                                    )
-                                            );
-                                            ?>
+                                <div class="form-body">
+                                    <?php
+                                    echo $this->Form->input(
+                                            'cid', array(
+                                        'type' => 'hidden',
+                                        'value' => $this->params['pass'][0]
+                                    ));
+                                    ?>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">Transaction Number<span class="">
+                                                </span>
+                                            </label>
+                                            <div class="col-md-4">
+                                                <?php
+                                                echo $this->Form->input(
+                                                        'trx_no', array(
+                                                    'class' => 'form-control ',
+                                                    'type' => 'text'
+                                                        )
+                                                );
+                                                ?>
+                                            </div>
+                                            <label class="control-label col-md-3">Card Number(Last 4 digit)<span class="">
+                                                </span>
+                                            </label>
+                                            <div class="col-md-3">
+                                                <?php
+                                                echo $this->Form->input(
+                                                        'card_no', array(
+                                                    'class' => 'form-control ',
+                                                    'type' => 'text'
+                                                        )
+                                                );
+                                                ?>
+                                            </div>
                                         </div>
-                                        <label class="control-label col-md-3">Card Number(Last 4 digit)<span class="">
-                                            </span>
-                                        </label>
-                                        <div class="col-md-3">
-                                            <?php
-                                            echo $this->Form->input(
-                                                    'card_no', array(
-                                                'class' => 'form-control ',
-                                                'type' => 'text'
-                                                    )
-                                            );
-                                            ?>
+                                        <div class="form-group">
+
+                                            <label class="control-label col-md-2">Card Exp Date</label>
+
+                                            <div class="col-md-2">
+                                                <?php
+                                                echo $this->Form->input('exp_date.year', array(
+                                                    'type' => 'select',
+                                                    'options' => $ym['year'],
+                                                    'empty' => 'Select Year',
+                                                    'class' => 'span12 form-control uniform nostyle select1 ',
+                                                    'id' => 'year'
+                                                        )
+                                                );
+                                                ?>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <?php
+                                                echo $this->Form->input('exp_date.month', array(
+                                                    'type' => 'select',
+                                                    'options' => $ym['month'],
+                                                    'empty' => 'Select Month',
+                                                    'class' => 'span12 form-control uniform nostyle select1 ',
+                                                    'id' => 'month'
+                                                        )
+                                                );
+                                                ?>
+                                            </div>
+
+                                            <label class="control-label col-md-3">Refund Amount<span class="">
+                                                </span>
+                                            </label>
+                                            <div class="col-md-3">
+                                                <?php
+                                                echo $this->Form->input(
+                                                        'refund_amount', array(
+                                                    'class' => 'form-control ',
+                                                    'type' => 'text'
+                                                        )
+                                                );
+                                                ?>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-
-                                        <label class="control-label col-md-2">Card Exp Date</label>
-
-                                        <div class="col-md-2">
-                                            <?php
-                                            echo $this->Form->input('exp_date.year', array(
-                                                'type' => 'select',
-                                                'options' => $ym['year'],
-                                                'empty' => 'Select Year',
-                                                'class' => 'span12 form-control uniform nostyle select1 ',
-                                                'id' => 'year'
-                                                    )
-                                            );
-                                            ?>
+                                    <div class="form-actions">
+                                        <div class="row">
+                                            <div class="col-md-offset-6 col-md-4">
+                                                <?php
+                                                echo $this->Form->button(
+                                                        'Confirm', array('class' => 'btn red-sunglo', 'type' => 'submit')
+                                                );
+                                                ?>
+                                            </div>
                                         </div>
-                                        <div class="col-md-2">
-                                            <?php
-                                            echo $this->Form->input('exp_date.month', array(
-                                                'type' => 'select',
-                                                'options' => $ym['month'],
-                                                'empty' => 'Select Month',
-                                                'class' => 'span12 form-control uniform nostyle select1 ',
-                                                'id' => 'month'
-                                                    )
-                                            );
-                                            ?>
-                                        </div>
-
-                                        <label class="control-label col-md-3">Refund Amount<span class="">
-                                            </span>
-                                        </label>
-                                        <div class="col-md-3">
-                                            <?php
-                                            echo $this->Form->input(
-                                                    'refund_amount', array(
-                                                'class' => 'form-control ',
-                                                'type' => 'text'
-                                                    )
-                                            );
-                                            ?>
-                                        </div>
-
                                     </div>
+                                    <?php echo $this->Form->end(); ?>
                                 </div>
-                                <div class="form-actions">
-                                    <div class="row">
-                                        <div class="col-md-offset-6 col-md-4">
-                                            <?php
-                                            echo $this->Form->button(
-                                                    'Confirm', array('class' => 'btn red-sunglo', 'type' => 'submit')
-                                            );
-                                            ?>
-                                        </div>
-                                    </div>
-                                </div>
-                                <?php echo $this->Form->end(); ?>
-                            </div>
-                        </div> 
-                    </div>
-                </div>    
-            </div>
+                            </div> 
+                        </div>
+                    </div>    
+                </div>
+
+            <?php endif; ?>
+
             <!-------------------------------------END REFUND---------------------->
             <!-------------payment history start----------------->
             <div  class="col-md-12 col-sm-12">
-                
+
                 <div>
                     <div class="portlet box " style="background-color: tomato; border: tomato solid 2px;">
                         <div class="portlet-title">
@@ -2362,23 +2356,23 @@
                                                                     </table>                               
                                                                 </div>                            
                                                                 <div class="col-xs-5 invoice-payment">                             
-                                                                        <ul class="list-unstyled" style=" text-align: right; color: #000; margin-right: 17px;">
+                                                                    <ul class="list-unstyled" style=" text-align: right; color: #000; margin-right: 17px;">
 
-                                                                            <table  cellpadding="0" cellspacing="0" border="0" class="responsive dynamicTable display table table-bordered" width="100%">
-                                                                                <b>Invoice</b>
-                                                                                <tr>
-                                                                                    <th style="text-align: center !important;">Payment Date</th>
-                                                                                    <th style="text-align: center !important;">Invoice #</th>
+                                                                        <table  cellpadding="0" cellspacing="0" border="0" class="responsive dynamicTable display table table-bordered" width="100%">
+                                                                            <b>Invoice</b>
+                                                                            <tr>
+                                                                                <th style="text-align: center !important;">Payment Date</th>
+                                                                                <th style="text-align: center !important;">Invoice #</th>
 
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td style="text-align: center !important;"><?php echo $payment['created']; ?></td>
-                                                                                    <td style="text-align: center !important;"><?php echo $payment['id']; ?></td>
-                                                                                </tr>
-                                                                              
-                                                                               
-                                                                            </table>
-                                                                        </ul>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="text-align: center !important;"><?php echo $payment['created']; ?></td>
+                                                                                <td style="text-align: center !important;"><?php echo $payment['id']; ?></td>
+                                                                            </tr>
+
+
+                                                                        </table>
+                                                                    </ul>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -3064,9 +3058,9 @@
                             return true;
                         }
                         return false;" type="submit" style="background-color: red;">Delete customer</button>     
-              
+
                 <?php echo $this->Form->end(); ?>
-               
-               
+
+
             </div>
         </div>

@@ -21,7 +21,8 @@
             <!-- BEGIN PAGE CONTENT-->
             <div  id="printableArea">   
                 <?php
-                foreach ($packagecustomers as $single):
+                foreach ($data as $single):
+//                                        pr($single); exit;
                     $pcaddress = $single['pc'];
 
                     $customer_address_one = $pcaddress['house_no'] . ' ' . $pcaddress['street'] . ' ' .
@@ -75,7 +76,7 @@
                                         </th>
                                         <tr>
                                             <td style="padding-left: 5px; min-height: 115px; line-height: 15px;">
-                                                <?php echo $single['0']['name']; ?><br>
+                                                <?php echo $single['pc']['first_name'].''.$single['pc']['middle_name'].''.$single['pc']['last_name']; ?><br>
                                                 <?php echo $customer_address_one; ?><br>
                                                 <?php echo $customer_address_two; ?>
 

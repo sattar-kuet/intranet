@@ -112,23 +112,15 @@ class ReportsController extends AppController {
     }
 
     function invoice($id = null) {
-        $this->loadModel('PackageCustomer');
-        $this->PackageCustomer->id = $id;
-        $packagecustomers = $this->PackageCustomer->query("SELECT pc.id, CONCAT( first_name,' ', middle_name,' ', last_name ) AS name, pc.psetting_id, pc.mac,pc.house_no,
-            pc.street,pc.apartment,pc.city,pc.state,pc.zip,pc.exp_date,tr.invoice,ps.name, ps.amount, ps.duration,p.name
-            FROM package_customers pc
-            left join psettings ps on ps.id = pc.psetting_id
-            left join transactions tr on pc.id = tr.package_customer_id
-            LEFT JOIN packages p ON p.id = ps.package_id 
-            WHERE pc.id = $id ");
-        foreach ($packagecustomers as $data) {
-            $pcid = $data['pc']['id'];
-            $this->PackageCustomer->id = $pcid;
-            $this->PackageCustomer->saveField("printed", 1);
-        }
-        $mac = count(json_decode($packagecustomers['0']['pc']['mac']));
-        $packagecustomers[0]['pc']['mac'] = $mac;
-        $this->set(compact('packagecustomers'));
+        $this->loadModel('Transaction');
+      
+       $data = $this->Transaction->query("SELECT *  FROM transactions  tr
+        left join package_customers pc on tr.package_customer_id = pc.id
+        left join psettings ps on pc.psetting_id = ps.id
+        left join packages p on ps.package_id = p.id
+        left join custom_packages cp on pc.custom_package_id = cp.id
+        WHERE  tr.id =$id ");           
+        $this->set(compact('data'));
     }
 
     function allInvoice() {
@@ -154,9 +146,7 @@ class ReportsController extends AppController {
 
     function passedInvoice() {
         $this->loadModel('PackageCustomer');
-        $packagecustomers = $this->PackageCustomer->query("SELECT pc.id,pc.printed, tr.invoice,CONCAT( first_name,' ', middle_name,' ', last_name ) AS name,pc.psetting_id, pc.mac,pc.house_no,
-            pc.street,pc.apartment,pc.city,pc.state,pc.zip,pc.exp_date,
-            ps.name, p.name,ps.amount, ps.duration FROM package_customers pc           
+        $packagecustomers = $this->PackageCustomer->query("SELECT * FROM package_customers pc           
             left join psettings ps on ps.id = pc.psetting_id
             left join transactions tr on pc.id = tr.package_customer_id
             LEFT JOIN packages p ON p.id = ps.package_id 
@@ -247,7 +237,7 @@ class ReportsController extends AppController {
         $this->set(compact('packagecustomers'));
     }
 
-    function openInvoice25() {
+    function openInvoice2511111() {
         $this->loadModel('PackageCustomer');
         $expiredate = trim(date('Y-m-d', strtotime("+25 days")));
         $data = $this->PackageCustomer->query("SELECT  *
@@ -275,6 +265,18 @@ class ReportsController extends AppController {
                 . " AND pc.printed = 0"
                 . " GROUP BY pc.id");
 
+        $this->set(compact('packagecustomers'));
+    }
+    function openInvoice25() {
+        $this->loadModel('Transaction');
+       
+        $packagecustomers = $this->Transaction->query("SELECT * 
+        FROM transactions tr
+        LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id
+        LEFT JOIN psettings ps ON ps.id = pc.psetting_id
+        LEFT JOIN packages p ON p.id = ps.package_id
+        WHERE tr.status =  'open'");
+       
         $this->set(compact('packagecustomers'));
     }
 
@@ -587,9 +589,12 @@ class ReportsController extends AppController {
     function getTotalCallBySatatus($status = null) {
         $today = date('Y-m-d');
         $this->loadModel('Track');
+        $today = date('Y-m-d');
         $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as total FROM tracks " .
                 "LEFT JOIN issues ON tracks.issue_id = issues.id " .
+
                 " WHERE LOWER(issues.name) = '$status' AND CAST(tracks.created as DATE)= '$today'";
+
         $data = $this->Track->query($sql);
         return $data[0][0]['total'];
     }
