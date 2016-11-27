@@ -1531,7 +1531,7 @@
                                             <label class="control-label col-md-1">Description:<span class="">
                                                 </span>
                                             </label>
-                                            <div class="col-md-2">
+                                            <div class="col-md-3">
                                                 <?php
                                                 echo $this->Form->input(
                                                         'description', array(
@@ -1544,19 +1544,19 @@
                                             <label class="control-label col-md-1">Quantity:<span class="">
                                                 </span>
                                             </label>
-                                            <div class="col-md-2">
+                                            <div class="col-md-3">
                                                 <?php
                                                 echo $this->Form->input(
                                                         'quantity', array(
                                                     'type' => 'text',
-                                                    'class' => 'form-control partial',
+                                                    'class' => 'form-control quantity',
                                                 ));
                                                 ?>
                                             </div>
                                             <label class="control-label col-md-1">Rate:<span class="">
                                                 </span>
                                             </label>
-                                            <div class="col-md-2">
+                                            <div class="col-md-3">
                                                 <?php
                                                 echo $this->Form->input(
                                                         'rate', array(
@@ -1566,10 +1566,15 @@
                                                 ?>
                                             </div>
                                             
-                                              <label class="control-label col-md-1">Discount:<span class="">
+                                              
+                                            
+                                          
+                                        </div>
+                                        <div class="form-group">
+                                           <label class="control-label col-md-1">Discount:<span class="">
                                                 </span>
                                             </label>
-                                            <div class="col-md-2">
+                                            <div class="col-md-3">
                                                 <?php
                                                 echo $this->Form->input(
                                                         'discount', array(
@@ -1579,19 +1584,15 @@
                                                 ?>
                                             </div>
                                             
-                                          
-                                        </div>
-                                        <div class="form-group">
-                                            
                                            <label class="control-label col-md-1">Price:<span class="">
                                                 </span>
                                             </label>
-                                            <div class="col-md-2">
+                                            <div class="col-md-3">
                                                 <?php
                                                 echo $this->Form->input(
                                                         'price', array(
                                                     'type' => 'text',
-                                                    'class' => 'form-control total',
+                                                    'class' => 'form-control price',
                                                 ));
                                                 ?>
                                             </div> 
@@ -1599,7 +1600,7 @@
                                         <label class="control-label col-md-1">Payment date:<span class="">
                                                 </span>
                                             </label>
-                                            <div class="col-md-2">
+                                            <div class="col-md-3">
                                                 <?php
                                                 echo $this->Form->input(
                                                         'next_payment', array(
