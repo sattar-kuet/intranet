@@ -1511,13 +1511,7 @@
                                         )
                                 );
                                 ?>
-                                <?php
-                                echo $this->Form->input('status', array(
-                                    'type' => 'hidden',
-                                    'value' => 'unpaid',
-                                        )
-                                );
-                                ?>
+                              
                                 <?php
                                 echo $this->Form->input('type', array(
                                     'type' => 'hidden',
@@ -1540,7 +1534,7 @@
                                                 ));
                                                 ?>
                                             </div>
-                                           
+
                                             <label class="control-label col-md-1">Quantity:<span class="">
                                                 </span>
                                             </label>
@@ -1591,10 +1585,10 @@
                                                 ));
                                                 ?>
                                             </div>
-                                           
+
                                         </div>
                                         <div class="form-group">
-                                          
+
                                             <label class="control-label col-md-1">Note:<span class="">
                                                 </span>
                                             </label>
@@ -1683,7 +1677,8 @@
                                             'cid', array(
                                         'type' => 'hidden',
                                         'value' => $this->params['pass'][0]
-                                    ));
+                                            )
+                                    );
                                     ?>
                                     <div class="col-md-12">
                                         <div class="form-group">
@@ -2382,7 +2377,7 @@
                                                                                     <?php if (!empty($payment['note'])) { ?>
                                                                                         <li><?php echo $payment['note']; ?></li> 
                                                                                     <?php } ?>
-                                                                                    
+
                                                                                 </ul>
                                                                             </td> 
 
