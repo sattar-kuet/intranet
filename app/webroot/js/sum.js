@@ -38,7 +38,41 @@ function setPackagePrice() {
     $(".total").val(price);
 }
 
+//Additional Invoice calculation start
 
+$(document).on("change", ".quantity", function () {
+    var sum = $(".total").val();
+    alert(sum);
+    alert($(this).val());
+        var temp = parseFloat($(this).val());
+        sum = parseFloat(sum) + temp;
+        alert(sum);
+        
+        $(".total").text(sum);
+});
+
+//combo data select and last value add in text
+function setPackagePrice() {
+    var price = 0;
+    $(".dollar").on("change", function () {
+      
+        var txtdata = $(".dollar option:selected").text();
+        
+        var temp = txtdata.split("$");
+        price = temp[1];
+        console.log(temp[1]);
+        $(".total").val(price);
+    });
+    
+    $("#inputAmount").on('change', function () {
+        price = $(this).val();
+        $(".total").val(price);
+    });
+    
+    $(".total").val(price);
+}
+
+//Additional Invoice calculation end
 
 
 // Signature needed if selected other than Card(debit/credit)
