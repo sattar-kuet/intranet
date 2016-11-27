@@ -687,24 +687,24 @@
                             </div>
                             <br>
                             <br>
-                              <div class="col-md-2 signupfont">
+                            <div class="col-md-2 signupfont">
                                 Comment
                             </div>
-                            
-                               
-                                <div class="col-md-10">
-                                    <?php
-                                    echo $this->Form->input(
-                                            'note', array(
-                                        'class' => 'form-control ckeditor',
-                                        'data-error-container' => '#editor2_error',
-                                        'rows' => 6,
-                                        'type' => 'textarea',
-                                        'id' => 'note'
-                                            )
-                                    );
-                                    ?>
-                                </div>
+
+
+                            <div class="col-md-10">
+                                <?php
+                                echo $this->Form->input(
+                                        'note', array(
+                                    'class' => 'form-control ckeditor',
+                                    'data-error-container' => '#editor2_error',
+                                    'rows' => 6,
+                                    'type' => 'textarea',
+                                    'id' => 'note'
+                                        )
+                                );
+                                ?>
+                            </div>
 
                             &nbsp;
                             &nbsp;
@@ -1534,24 +1534,13 @@
                                             <div class="col-md-2">
                                                 <?php
                                                 echo $this->Form->input(
-                                                        'description_tran1', array(
+                                                        'description', array(
                                                     'type' => 'text',
                                                     'class' => 'form-control ',
                                                 ));
                                                 ?>
                                             </div>
-                                            <label class="control-label col-md-1">Product: <span class="">
-                                                </span>
-                                            </label>
-                                            <div class="col-md-2">
-                                                <?php
-                                                echo $this->Form->input(
-                                                        'product_type', array(
-                                                    'type' => 'text',
-                                                    'class' => 'form-control',
-                                                ));
-                                                ?>
-                                            </div>
+                                           
                                             <label class="control-label col-md-1">Quantity:<span class="">
                                                 </span>
                                             </label>
@@ -1602,44 +1591,10 @@
                                                 ));
                                                 ?>
                                             </div>
-                                            <label class="control-label col-md-1">Promotion:<span class="">
-                                                </span>
-                                            </label>
-                                            <div class="col-md-2">
-                                                <?php
-                                                echo $this->Form->input(
-                                                        'promotion', array(
-                                                    'type' => 'text',
-                                                    'class' => 'form-control',
-                                                ));
-                                                ?>
-                                            </div>
-                                            <label class="control-label col-md-1">Credit:<span class="">
-                                                </span>
-                                            </label>
-                                            <div class="col-md-2">
-                                                <?php
-                                                echo $this->Form->input(
-                                                        'credit', array(
-                                                    'type' => 'text',
-                                                    'class' => 'form-control',
-                                                ));
-                                                ?>
-                                            </div>
+                                           
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label col-md-1">Adjustment: <span class="">
-                                                </span>
-                                            </label>
-                                            <div class="col-md-2">
-                                                <?php
-                                                echo $this->Form->input(
-                                                        'adjustment', array(
-                                                    'type' => 'text',
-                                                    'class' => 'form-control ',
-                                                ));
-                                                ?>
-                                            </div>
+                                          
                                             <label class="control-label col-md-1">Note:<span class="">
                                                 </span>
                                             </label>
@@ -1672,7 +1627,7 @@
                                             <div class="col-md-offset-6 col-md-4">
                                                 <?php
                                                 echo $this->Form->button(
-                                                        'Submit', array('class' => 'btn red-sunglo', 'type' => 'submit', 'style' => "background-color: #daae2b;",)
+                                                        'Generate', array('class' => 'btn red-sunglo', 'type' => 'submit', 'style' => "background-color: #daae2b;",)
                                                 );
                                                 ?>
                                             </div>
@@ -2195,7 +2150,12 @@
                                                                     <tr style="height: 101px;">
 
                                                                         <td style=" color: #333 !important; padding: 43px 0px 0px 19px ;">
-                                                                            <?php echo $package; ?>
+                                                                            <ul>
+                                                                                <li><?php echo $package; ?> </li>
+                                                                                <?php if (!empty($bill['note'])) { ?>
+                                                                                    <li><?php echo $bill['note']; ?></li> 
+                                                                                <?php } ?>
+                                                                            </ul>                                                                          
                                                                         </td> 
                                                                         <td style=" color: #333 !important; text-align: center;  padding: 43px 0px 0px 9px ;">
                                                                             <?php
@@ -2416,11 +2376,15 @@
                                                                     </thead>
                                                                     <tbody>                                   
                                                                         <tr style="height: 101px;">
-
-
                                                                             <td style=" color: #333 !important; padding: 43px 0px 0px 19px ;">
-                                                                                <?php echo $package; ?>
-
+                                                                                <ul>
+                                                                                    <li><?php echo $package; ?> </li>
+                                                                                    <?php if (!empty($payment['note'])) { ?>
+                                                                                        <li><?php echo $payment['note']; ?></li> 
+                                                                                    <?php } ?>
+                                                                                    
+                                                                                </ul>
+                                                                            </td> 
 
                                                                             <td style=" color: #333 !important; text-align: center;  padding: 43px 0px 0px 9px ;">
                                                                                 <?php
