@@ -41,14 +41,15 @@ function setPackagePrice() {
 //Additional Invoice calculation start
 
 $(document).on("change", ".quantity", function () {
-    var sum = $(".total").val();
-    alert(sum);
     alert($(this).val());
+    var sum = $(".total").val();
+    alert(quantity);
+    
         var temp = parseFloat($(this).val());
         sum = parseFloat(sum) + temp;
         alert(sum);
         
-        $(".total").text(sum);
+        $(".price").text(sum);
 });
 
 //combo data select and last value add in text
