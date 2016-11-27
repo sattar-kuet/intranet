@@ -1549,7 +1549,7 @@
                                                 echo $this->Form->input(
                                                         'quantity', array(
                                                     'type' => 'text',
-                                                    'class' => 'form-control',
+                                                    'class' => 'form-control partial',
                                                 ));
                                                 ?>
                                             </div>
@@ -1561,25 +1561,12 @@
                                                 echo $this->Form->input(
                                                         'rate', array(
                                                     'type' => 'text',
-                                                    'class' => 'form-control',
+                                                    'class' => 'form-control mul',
                                                 ));
                                                 ?>
                                             </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-md-1">Price:<span class="">
-                                                </span>
-                                            </label>
-                                            <div class="col-md-2">
-                                                <?php
-                                                echo $this->Form->input(
-                                                        'price', array(
-                                                    'type' => 'text',
-                                                    'class' => 'form-control ',
-                                                ));
-                                                ?>
-                                            </div>
-                                            <label class="control-label col-md-1">Discount:<span class="">
+                                            
+                                              <label class="control-label col-md-1">Discount:<span class="">
                                                 </span>
                                             </label>
                                             <div class="col-md-2">
@@ -1587,27 +1574,29 @@
                                                 echo $this->Form->input(
                                                         'discount', array(
                                                     'type' => 'text',
-                                                    'class' => 'form-control',
+                                                    'class' => 'form-control dis',
                                                 ));
                                                 ?>
                                             </div>
-                                           
+                                            
+                                          
                                         </div>
                                         <div class="form-group">
-                                          
-                                            <label class="control-label col-md-1">Note:<span class="">
+                                            
+                                           <label class="control-label col-md-1">Price:<span class="">
                                                 </span>
                                             </label>
                                             <div class="col-md-2">
                                                 <?php
                                                 echo $this->Form->input(
-                                                        'note', array(
+                                                        'price', array(
                                                     'type' => 'text',
-                                                    'class' => 'form-control',
+                                                    'class' => 'form-control total',
                                                 ));
                                                 ?>
-                                            </div>
-                                            <label class="control-label col-md-1">Payment date: <span class="">
+                                            </div> 
+                                           
+                                        <label class="control-label col-md-1">Payment date:<span class="">
                                                 </span>
                                             </label>
                                             <div class="col-md-2">
@@ -1618,8 +1607,8 @@
                                                     'class' => 'datepicker form-control ',
                                                 ));
                                                 ?>
-                                            </div>
-
+                                            </div>                                         
+                                           
                                         </div>
                                     </div>
                                     <div class="form-actions">
