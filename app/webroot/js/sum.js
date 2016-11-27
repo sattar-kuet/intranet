@@ -52,6 +52,15 @@ $(document).on("change", ".quantity", function () {
         $(".price").text(sum);
 });
 
+$(document).on("change",".quantity",function () {
+    var sum = 0;
+    $('.quantity').each(function() {
+        sum += Number($(this).val());
+    });
+
+    // here, you have your sum
+});
+
 //combo data select and last value add in text
 function setPackagePrice() {
     var price = 0;
