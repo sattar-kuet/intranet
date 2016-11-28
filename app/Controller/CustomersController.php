@@ -259,17 +259,16 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             LEFT JOIN custom_packages cp ON cp.id = pc.custom_package_id			
             WHERE pc.id = $id AND (tr.status = 'open' OR tr.status ='close')"
         );
-        
+
         $return = array();
         foreach ($statements as $index => $statement) {
             $package = 'No package Selected';
-            if(!empty($statement['ps']['id'])){
-                 $package = $statement['ps']['name'];
+            if (!empty($statement['ps']['id'])) {
+                $package = $statement['ps']['name'];
+            } else if (!empty($statement['cp']['id'])) {
+                $package = $statement['cp']['duration'] . ' Months Custom Package ' . $statement['cp']['charge'] . '$';
             }
-            else if(!empty($statement['cp']['id'])){
-                 $package = $statement['cp']['duration'].' Months Custom Package '.$statement['cp']['charge'].'$';
-            }
-          
+
             $paid = $this->Transaction->query("SELECT *
             FROM transactions tr			
             WHERE transaction_id = " . $statement['tr']['id']
@@ -280,7 +279,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
                 'package' => $package
             );
         }
-       // pr($return); exit;
+        // pr($return); exit;
         return $return;
     }
 
@@ -288,7 +287,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $this->loadModel('StatusHistory');
         $pcid = $id;
         $loggedUser = $this->Auth->user();
-        $user =$loggedUser['Role']['name'];
+        $user = $loggedUser['Role']['name'];
 //        pr($user); exit;
         if ($this->request->is('post') || $this->request->is('put')) {
             // update package_customers table
@@ -372,7 +371,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $statements = $this->getStatements($pcid);
 //         pr($loggedUser['Role']['name']); exit;
         //  pr($statements); exit;
-        $this->set(compact('invoices', 'statements', 'packageList', 'psettings', 'ym', 'custom_package_charge','user'));
+        $this->set(compact('invoices', 'statements', 'packageList', 'psettings', 'ym', 'custom_package_charge', 'user'));
     }
 
     function send($param = null) {
@@ -875,8 +874,10 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             'printed' => 0
         );
 
+        if ($this->request->data['NextTransaction']['discount'] == '') {
+            $this->request->data['NextTransaction']['discount'] = 0;
+        }
         $pc_data = $this->PackageCustomer->save($data);
-//pr($pc_data); exit;
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
 	<strong>  succeesfully done </strong></div>';
