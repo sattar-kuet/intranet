@@ -1550,6 +1550,7 @@
                                                         'quantity', array(
                                                     'type' => 'text',
                                                     'class' => 'form-control ',
+                                                            'id' => 'quantity'
                                                 ));
                                                 ?>
                                             </div>
@@ -1562,6 +1563,7 @@
                                                         'rate', array(
                                                     'type' => 'text',
                                                     'class' => 'form-control ',
+                                                            'id'=> 'rate'
                                                 ));
                                                 ?>
                                             </div>
@@ -1580,6 +1582,7 @@
                                                         'discount', array(
                                                     'type' => 'text',
                                                     'class' => 'form-control ',
+                                                            'id'=>'discount'
                                                 ));
                                                 ?>
                                             </div>
@@ -1593,6 +1596,7 @@
                                                         'payable_amount', array(
                                                     'type' => 'text',
                                                     'class' => 'form-control ',
+                                                            'id' => 'price'
                                                 ));
                                                 ?>
                                             </div> 
