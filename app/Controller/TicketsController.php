@@ -690,7 +690,7 @@ class TicketsController extends AppController {
                         left JOIN users fi ON tr.user_id = fi.id
                         left JOIN issues i ON tr.issue_id = i.id
                         left join package_customers pc on tr.package_customer_id = pc.id
-                         WHERE tr.status = 'solved' ORDER BY tr.created DESC");
+                         WHERE tr.status = 'solved' ORDER BY tr.created DESC LIMIT 0 , 100");
 
         $filteredTicket = array();
         $unique = array();
