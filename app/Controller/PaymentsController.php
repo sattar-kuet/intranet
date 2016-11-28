@@ -86,8 +86,6 @@ class PaymentsController extends AppController {
     }
 
     public function process($trans_id = null, $customer_id = null) {
-        $this->request->data['Transaction'] = $this->getLastCardInfo($trans_id, $customer_id);
-
         $ym = $this->getYm();
         $this->set(compact('ym'));
         $this->loadModel('PackageCustomer');
@@ -102,12 +100,9 @@ class PaymentsController extends AppController {
         $this->request->data['Transaction'] = $latestcardInfo;
         $this->request->data['Transaction']['id'] = $trans_id;
         $paid = getPaid($trans_id);
-        $data = $this->Transaction->findById($trans_id);
-        //pr($latestcardInfo); exit;
-        $this->request->data['Transaction'] = $data['Transaction'] + $latestcardInfo;
+        $data = $this->Transaction->findById($trans_id);        
+        $this->request->data['Transaction'] = $latestcardInfo;
         $this->request->data['Transaction']['payable_amount'] = $data['Transaction']['payable_amount'] - $paid;
-
-        //$this->request->data = $customer_info;
         $this->set('customer_info');
     }
 

@@ -6,7 +6,6 @@
         border-radius: 4px;
         text-align: center;
     }
-
     .signupfont{
         font-size: 14px !important; 
     }
@@ -76,7 +75,6 @@
                 <br>
                 <div class="row">
                     <div class="col-md-12 ">
-
                         <div class="col-md-2 signupfont">
                             Name: First:
                         </div>
