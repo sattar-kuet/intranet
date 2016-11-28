@@ -1549,7 +1549,7 @@
                                                 echo $this->Form->input(
                                                         'quantity', array(
                                                     'type' => 'text',
-                                                    'class' => 'form-control quantity',
+                                                    'class' => 'form-control ',
                                                 ));
                                                 ?>
                                             </div>
@@ -1561,7 +1561,7 @@
                                                 echo $this->Form->input(
                                                         'rate', array(
                                                     'type' => 'text',
-                                                    'class' => 'form-control mul',
+                                                    'class' => 'form-control ',
                                                 ));
                                                 ?>
                                             </div>
@@ -1579,7 +1579,7 @@
                                                 echo $this->Form->input(
                                                         'discount', array(
                                                     'type' => 'text',
-                                                    'class' => 'form-control dis',
+                                                    'class' => 'form-control ',
                                                 ));
                                                 ?>
                                             </div>
@@ -1592,7 +1592,7 @@
                                                 echo $this->Form->input(
                                                         'payable_amount', array(
                                                     'type' => 'text',
-                                                    'class' => 'form-control price',
+                                                    'class' => 'form-control ',
                                                 ));
                                                 ?>
                                             </div> 
