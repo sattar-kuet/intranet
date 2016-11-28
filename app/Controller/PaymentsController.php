@@ -127,7 +127,7 @@ class PaymentsController extends AppController {
         $msg = '<ul>';
         $this->request->data['Transaction']['id'] = $cid;
         $card = $this->request->data['Transaction'];
-//        pr($card);
+        //      pr($card);
 //        exit;
         $creditCard->setCardNumber($card['card_no']);
         $exp_date = $card['exp_date']['month'] . '-' . $card['exp_date']['year'];
@@ -185,7 +185,7 @@ class PaymentsController extends AppController {
             $tresponse = $response->getTransactionResponse();
 
             if (($tresponse != null) && ($tresponse->getResponseCode() == "1")) {
-             
+
                 $this->request->data['Transaction']['trx_id'] = $tresponse->getTransId();
                 $this->request->data['Transaction']['auth_code'] = $tresponse->getAuthCode();
 
@@ -251,10 +251,7 @@ class PaymentsController extends AppController {
             }
         } else {
             $alert = '<div class="alert alert-error"> ';
-            $this->request->data['Transaction']['paid_amount'] = 0;
-            $this->request->data['Transaction']['status'] = 'error';
-            $this->request->data['Transaction']['error_msg'] = "Transaction for failed due to Marchant Account credential changed. Please contact with administrator";
-            $msg .='<li> Transaction for failed due to Marchant Account credential changed. Please contact with administrator</li>';
+                 $msg .='<li> Transaction for failed due to Marchant Account credential changed. Please contact with administrator</li>';
 
             $tdata['Ticket'] = array('content' => 'Transaction failed due to Marchant Account credential changed. Please contact with administrator ');
             $tickect = $this->Ticket->save($tdata); // Data save in Ticket
@@ -266,10 +263,6 @@ class PaymentsController extends AppController {
             );
             $this->Track->save($trackData);
         }
-
-        $this->Transaction->save($this->request->data['Transaction']);
-        // endforeach;
-        //$msg .='</ul>';
 
         $transactionMsg = $alert . '
         <button type="button" class="close" data-dismiss="alert">&times;</button>
