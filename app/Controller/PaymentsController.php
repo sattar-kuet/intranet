@@ -1,4 +1,5 @@
 <?php
+
 require_once(APP . 'Vendor' . DS . 'authorize' . DS . 'autoload.php');
 require_once(APP . 'Vendor' . DS . 'class.upload.php');
 
@@ -108,9 +109,9 @@ class PaymentsController extends AppController {
 
         //$this->request->data = $customer_info;
         $this->set('customer_info');
-        }
-        
-        public function individual_transaction_by_card($cid = null) {
+    }
+
+    public function individual_transaction_by_card($cid = null) {
         //  pr($this->request->data); exit;
         // PROCESS PAYMENT
         // Common setup for API credentials  
@@ -124,7 +125,10 @@ class PaymentsController extends AppController {
 // Create the payment data for a credit card
         $creditCard = new AnetAPI\CreditCardType();
         $msg = '<ul>';
+        $this->request->data['Transaction']['id'] = $cid;
         $card = $this->request->data['Transaction'];
+//        pr($card);
+//        exit;
         $creditCard->setCardNumber($card['card_no']);
         $exp_date = $card['exp_date']['month'] . '-' . $card['exp_date']['year'];
         $this->request->data['Transaction']['exp_date'] = $exp_date;
@@ -171,66 +175,80 @@ class PaymentsController extends AppController {
 
         $this->loadModel('Transaction');
         $this->loadModel('Track');
+        $this->loadModel('Ticket');
         $this->request->data['Transaction']['error_msg'] = '';
         $this->request->data['Transaction']['status'] = '';
         $this->request->data['Transaction']['trx_id'] = '';
         $this->request->data['Transaction']['auth_code'] = '';
         $alert = '<div class="alert alert-success"> ';
         if ($response != null) {
-        $tresponse = $response->getTransactionResponse();
-
-        if (($tresponse != null) && ($tresponse->getResponseCode() == "1")) {
-        $this->request->data['Transaction']['status'] = 'close';
-        $this->request->data['Transaction']['trx_id'] = $tresponse->getTransId();
-        $this->request->data['Transaction']['auth_code'] = $tresponse->getAuthCode();
-        // update payable amount and paidamount in transaction table
-        $data4due = $this->Transaction->findById($card['id']);
-        if ($data4due['Transaction']['payable_amount']) {
-        $this->request->data['Transaction']['status'] = 'open';
-        }
-        $msg .='<li> Transaction   successfull</li>';
-        $tdata['Ticket'] = array('content' => 'Transaction successfull');
-        $tickect = $this->Ticket->save($tdata); // Data save in Ticket
-        $trackData['Track'] = array(
-            'package_customer_id' => $cid,
-            'ticket_id' => $tickect['Ticket']['id'],
-            'status' => 'closed',
-            'forwarded_by' => $loggedUser['id']
-        );
-
-        $this->Track->save($trackData);
-        } else {
-            $alert = '<div class="alert alert-error"> ';
             $tresponse = $response->getTransactionResponse();
-            $message = $response->getMessages();
-            $message = $message->getMessage();
-            $message = $message[0];
-            $errorCode = $message->getCode();
-            if ($errorCode == 'E00003') {
-                $errorMsg = 'Invalid Card number. Check Card Number, remove space or any special carachter inserted by mistkae';
+
+            if (($tresponse != null) && ($tresponse->getResponseCode() == "1")) {
+             
+                $this->request->data['Transaction']['trx_id'] = $tresponse->getTransId();
+                $this->request->data['Transaction']['auth_code'] = $tresponse->getAuthCode();
+
+                $this->request->data['Transaction']['status'] = 'success';
+                $id = $this->request->data['Transaction']['id'];
+                $this->request->data['Transaction']['transaction_id'] = $id;
+                unset($this->request->data['Transaction']['id']);
+                //creatre transaction History 
+                $this->Transaction->save($this->request->data['Transaction']);
+                unset($this->request->data['Transaction']['transaction_id']);
+                $this->request->data['Transaction']['status'] = 'close';
+                // check due amount 
+                $due = $this->getDue($id);
+                if ($due > 0) {
+                    $this->request->data['Transaction']['status'] = 'open';
+                }
+                unset($this->request->data['Transaction']['payable_amount']);
+                $this->Transaction->id = $id;
+                $this->Transaction->save($this->request->data['Transaction']);
+
+                $msg .='<li> Transaction   successfull</li>';
+                $tdata['Ticket'] = array('content' => 'Transaction successfull');
+                $tickect = $this->Ticket->save($tdata); // Data save in Ticket
+                $trackData['Track'] = array(
+                    'package_customer_id' => $cid,
+                    'ticket_id' => $tickect['Ticket']['id'],
+                    'status' => 'closed',
+                    'forwarded_by' => $loggedUser['id']
+                );
+
+                $this->Track->save($trackData);
             } else {
-                $errors = $tresponse->getErrors();
-                $errors = $errors[0];
-                $errorMsg = $errors->getErrorText();
+                $alert = '<div class="alert alert-error"> ';
+                $tresponse = $response->getTransactionResponse();
+                $message = $response->getMessages();
+                $message = $message->getMessage();
+                $message = $message[0];
+                $errorCode = $message->getCode();
+                if ($errorCode == 'E00003') {
+                    $errorMsg = 'Invalid Card number. Check Card Number, remove space or any special carachter inserted by mistkae';
+                } else {
+                    $errors = $tresponse->getErrors();
+                    $errors = $errors[0];
+                    $errorMsg = $errors->getErrorText();
+                }
+
+
+                $this->request->data['Transaction']['paid_amount'] = 0;
+                $this->request->data['Transaction']['status'] = 'error';
+                $this->request->data['Transaction']['error_msg'] = $errorMsg;
+                $msg .='<li>' . $errorMsg . ' </li>';
+
+                $tdata['Ticket'] = array('content' => $errorMsg);
+                $this->loadModel('Ticket');
+                $tickect = $this->Ticket->save($tdata); // Data save in Ticket
+                $trackData['Track'] = array(
+                    'package_customer_id' => $cid,
+                    'ticket_id' => $tickect['Ticket']['id'],
+                    'status' => 'open',
+                    'forwarded_by' => $loggedUser['id']
+                );
+                $this->Track->save($trackData);
             }
-
-
-            $this->request->data['Transaction']['paid_amount'] = 0;
-            $this->request->data['Transaction']['status'] = 'error';
-            $this->request->data['Transaction']['error_msg'] = $errorMsg;
-            $msg .='<li>'. $errorMsg .' </li>';
-
-            $tdata['Ticket'] = array('content' =>  $errorMsg);
-            $this->loadModel('Ticket');
-            $tickect = $this->Ticket->save($tdata); // Data save in Ticket
-            $trackData['Track'] = array(
-                'package_customer_id' => $cid,
-                'ticket_id' => $tickect['Ticket']['id'],
-                'status' => 'open',
-                'forwarded_by' => $loggedUser['id']
-            );
-            $this->Track->save($trackData);
-        }
         } else {
             $alert = '<div class="alert alert-error"> ';
             $this->request->data['Transaction']['paid_amount'] = 0;

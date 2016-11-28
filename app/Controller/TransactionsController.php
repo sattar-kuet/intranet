@@ -150,7 +150,8 @@ class TransactionsController extends AppController {
     }
 
     function extrainvoice() {
-        // pr($this->request->data); exit;
+       //  pr($this->request->data); exit;
+         $this->request->data['Transaction']['next_payment'] = $this->getFormatedDate($this->request->data['Transaction']['next_payment']);
         $this->loadModel('Transaction');
         $user_info = $this->Auth->user();
         $user_id = $user_info['id'];
@@ -160,8 +161,8 @@ class TransactionsController extends AppController {
             <strong> Card information updated successfully </strong>
             </div>';
         $this->Session->setFlash($msg);
-        return $this->redirect(array('controller' => 'reports', 'action' => 'extraPayment'));
-        //return $this->redirect($this->referer());
+       // return $this->redirect(array('controller' => 'reports', 'action' => 'extraPayment'));
+        return $this->redirect($this->referer());
     }
     
     

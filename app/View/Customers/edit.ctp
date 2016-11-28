@@ -1514,7 +1514,7 @@
                                 <?php
                                 echo $this->Form->input('status', array(
                                     'type' => 'hidden',
-                                    'value' => 'unpaid',
+                                    'value' => 'open',
                                         )
                                 );
                                 ?>
@@ -1534,7 +1534,7 @@
                                             <div class="col-md-3">
                                                 <?php
                                                 echo $this->Form->input(
-                                                        'description', array(
+                                                        'note', array(
                                                     'type' => 'text',
                                                     'class' => 'form-control ',
                                                 ));
@@ -1590,7 +1590,7 @@
                                             <div class="col-md-3">
                                                 <?php
                                                 echo $this->Form->input(
-                                                        'price', array(
+                                                        'payable_amount', array(
                                                     'type' => 'text',
                                                     'class' => 'form-control ',
                                                 ));
@@ -1937,8 +1937,8 @@
                                                         <ul>
                                                             <?php if ($payment['tr']['pay_mode'] == 'card'): ?>
 
-                                                                <li>Pay Mode : <?php echo $single['tr']['pay_mode']; ?></li> 
-                                                                <li>Status : <?php echo $single['tr']['status']; ?></li>
+                                                                <li>Pay Mode : <?php echo $payment['tr']['pay_mode']; ?></li> 
+                                                                <li>Status : <?php echo $payment['tr']['status']; ?></li>
                                                                 <?php if ($payment['tr']['status'] == 'error'): ?>
                                                                     <ul>
                                                                         <li>Error Message : <?php echo $payment['tr']['error_msg']; ?></li> 
@@ -2188,10 +2188,25 @@
                                                                 </div>
                                                                 <div class="col-xs-6 invoice-payment">
                                                                     <div class="col-xs-6">  
-                                                                        <b style=" color: #000;">TOTAL Amount Due</b>
+                                                                        <b style=" color: #000;">TOTAL Amount Due for this Invoice</b>
                                                                     </div>
                                                                     <div class="col-xs-6" style="text-align: right;">
                                                                         $<?php echo $bill['payable_amount'] - getPaid($bill['id']); ?>     
+                                                                    </div>
+                                                                    <hr style="border-color: #990000 !important; ">
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-xs-3">                    
+                                                                </div>
+                                                                <div class="col-xs-3">
+                                                                </div>
+                                                                <div class="col-xs-6 invoice-payment">
+                                                                    <div class="col-xs-6">  
+                                                                        <b style=" color: #000;">Your Current Balance</b>
+                                                                    </div>
+                                                                    <div class="col-xs-6" style="text-align: right;">
+                                                                        $<strong class="due-amount"></strong>     
                                                                     </div>
                                                                     <hr style="border-color: #990000 !important; ">
                                                                 </div>
