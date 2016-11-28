@@ -2096,7 +2096,8 @@
                                                                         </tr>
                                                                         <tr>
                                                                             <td style="text-align: center !important;"> Next 7 Days</td>
-                                                                            <td style="text-align: center !important;"><?php echo $single['bill']['next_payment']; ?></td>
+                                                                            <td style="text-align: center !important;"><?php
+                                                                            echo date('Y-m-d', strtotime('+7 days')); ?></td>
                                                                         </tr>
                                                                     </table>
                                                                 </ul>
