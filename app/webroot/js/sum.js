@@ -10,75 +10,81 @@ $(document).on("change", ".partial", function () {
     var sum = $(".total").val();
     alert(sum);
     alert($(this).val());
-        var temp = parseFloat($(this).val());
-        sum = parseFloat(sum) + temp;
-        alert(sum);
-        
-        $(".total").text(sum);
+    var temp = parseFloat($(this).val());
+    sum = parseFloat(sum) + temp;
+    alert(sum);
+
+    $(".total").text(sum);
 });
 
 //combo data select and last value add in text
 function setPackagePrice() {
     var price = 0;
     $(".dollar").on("change", function () {
-      
+
         var txtdata = $(".dollar option:selected").text();
-        
+
         var temp = txtdata.split("$");
         price = temp[1];
         console.log(temp[1]);
         $(".total").val(price);
     });
-    
+
     $("#inputAmount").on('change', function () {
         price = $(this).val();
         $(".total").val(price);
     });
-    
+
     $(".total").val(price);
 }
 
 //Additional Invoice calculation start
 
-$(document).on("change", ".quantity", function () {
-    alert($(this).val());
-    var sum = $(".total").val();
-    alert(quantity);
-    
-        var temp = parseFloat($(this).val());
-        sum = parseFloat(sum) + temp;
-        alert(sum);
-        
-        $(".price").text(sum);
-});
-
-$(document).on("change",".quantity",function () {
-    var sum = 0;
-    $('.quantity').each(function() {
-        sum += Number($(this).val());
+$(document).ready(function () {
+    //this calculates values automatically 
+    sum();
+    $("#quantity, #rate, #discount").on("keydown keyup", function () {
+        sum();
     });
-
-    // here, you have your sum
 });
+
+function sum() {
+    var price = 0;
+    var quantity = $('#quantity').val();
+    var rate = $('#rate').val();
+    var discount = $('#discount').val();
+    var result1 = parseInt(quantity) * parseInt(rate);
+    if (isNaN(result1)) {
+        result1 = 0
+    }
+    $('#price').val(result1);
+
+    if (discount !== "") {
+        var result2 = parseInt(result1) - parseInt(discount);
+        $('#price').val(result2);
+    }
+
+
+}
 
 //combo data select and last value add in text
 function setPackagePrice() {
     var price = 0;
     $(".dollar").on("change", function () {
-      
+
         var txtdata = $(".dollar option:selected").text();
-        
+
         var temp = txtdata.split("$");
         price = temp[1];
         console.log(temp[1]);
         $(".total").val(price);
     });
-    
+
     $("#inputAmount").on('change', function () {
         price = $(this).val();
         $(".total").val(price);
     });
-    
+
     $(".total").val(price);
 }
 
