@@ -66,7 +66,8 @@ class PaymentsController extends AppController {
 
     public function getLastCardInfo($customer_id = null) {
         $this->loadModel('Transaction');
-        $sql = "SELECT * FROM transactions WHERE (transactions.status ='success' OR transactions.status ='update' OR transactions.status ='auto_recurring') AND transactions.pay_mode='card' AND transactions.package_customer_id = $customer_id ORDER BY transactions.id DESC LIMIT 1";
+        $sql = "SELECT * FROM transactions WHERE (transactions.status ='success' OR transactions.status ='close'  OR transactions.status ='update' OR transactions.status ='auto_recurring') AND transactions.pay_mode='card' AND transactions.package_customer_id = $customer_id ORDER BY transactions.id DESC LIMIT 1";
+        //echo $sql;
         $temp = $this->Transaction->query($sql);
         $yyyy = 0;
         $mm = -1;
@@ -102,6 +103,7 @@ class PaymentsController extends AppController {
         $paid = getPaid($trans_id);
         $data = $this->Transaction->findById($trans_id);        
         $this->request->data['Transaction'] = $latestcardInfo;
+      //  pr($latestcardInfo); exit;
         $this->request->data['Transaction']['payable_amount'] = $data['Transaction']['payable_amount'] - $paid;
         $this->set('customer_info');
     }
@@ -602,6 +604,7 @@ class PaymentsController extends AppController {
     }
 
     public function individual_transaction_by_check() {
+        pr($this->request->data['Transaction']); 
         $this->loadModel('Transaction');
         $loggedUser = $this->Auth->user();
         $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
@@ -616,6 +619,7 @@ class PaymentsController extends AppController {
         $id = $this->request->data['Transaction']['id'];
         $this->request->data['Transaction']['transaction_id'] = $id;
         unset($this->request->data['Transaction']['id']);
+       // pr($this->request->data['Transaction']); exit;
         //creatre transaction History 
         $this->Transaction->save($this->request->data['Transaction']);
         unset($this->request->data['Transaction']['transaction_id']);
@@ -689,7 +693,6 @@ class PaymentsController extends AppController {
             $this->request->data['Transaction']['check_image'] = '';
         }
         $this->request->data['Transaction']['status'] = 'close';
-
         //creatre transaction History 
         $data4trnshistory = array(
             'user_id' => $loggedUser['id'],

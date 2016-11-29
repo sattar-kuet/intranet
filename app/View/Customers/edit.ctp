@@ -1540,7 +1540,7 @@
                                                 ));
                                                 ?>
                                             </div>
-                                           
+
                                             <label class="control-label col-md-1">Quantity:<span class="">
                                                 </span>
                                             </label>
@@ -1550,7 +1550,7 @@
                                                         'quantity', array(
                                                     'type' => 'text',
                                                     'class' => 'form-control ',
-                                                            'id' => 'quantity'
+                                                    'id' => 'quantity'
                                                 ));
                                                 ?>
                                             </div>
@@ -1563,17 +1563,17 @@
                                                         'rate', array(
                                                     'type' => 'text',
                                                     'class' => 'form-control ',
-                                                            'id'=> 'rate'
+                                                    'id' => 'rate'
                                                 ));
                                                 ?>
                                             </div>
-                                            
-                                              
-                                            
-                                          
+
+
+
+
                                         </div>
                                         <div class="form-group">
-                                           <label class="control-label col-md-1">Discount:<span class="">
+                                            <label class="control-label col-md-1">Discount:<span class="">
                                                 </span>
                                             </label>
                                             <div class="col-md-3">
@@ -1582,12 +1582,12 @@
                                                         'discount', array(
                                                     'type' => 'text',
                                                     'class' => 'form-control ',
-                                                            'id'=>'discount'
+                                                    'id' => 'discount'
                                                 ));
                                                 ?>
                                             </div>
-                                            
-                                           <label class="control-label col-md-1">Price:<span class="">
+
+                                            <label class="control-label col-md-1">Price:<span class="">
                                                 </span>
                                             </label>
                                             <div class="col-md-3">
@@ -1596,12 +1596,12 @@
                                                         'payable_amount', array(
                                                     'type' => 'text',
                                                     'class' => 'form-control ',
-                                                            'id' => 'price'
+                                                    'id' => 'price'
                                                 ));
                                                 ?>
                                             </div> 
-                                           
-                                        <label class="control-label col-md-1">Payment date:<span class="">
+
+                                            <label class="control-label col-md-1">Payment date:<span class="">
                                                 </span>
                                             </label>
                                             <div class="col-md-3">
@@ -1613,7 +1613,7 @@
                                                 ));
                                                 ?>
                                             </div>                                         
-                                           
+
                                         </div>
                                     </div>
                                     <div class="form-actions">
@@ -1892,10 +1892,22 @@
                                                 $amount = $bill['payable_amount'];
                                                 $balance[] = $amount;
                                                 // $prevIndex = -1;
-                                                if (count($balance) > 1) {
+                                                $payment_date = $bill['next_payment'];
+                                                
+                                                $payment_time = strtotime($payment_date);
+                                                $currenttime = strtotime(date('Y-m-d'));
+                                                $next7days = strtotime("+7 day");
+                                                $time_remaining = $next7days - $payment_time;
+                                                $diff = 7 * 24 * 60 * 60;
+//                                                echo $next7days;
+//                                                echo ':'.$payment_time.'<br>'.$diff;
+//                                                echo '<hr>';
+                                               
+                                                if (count($balance) > 1 ) {
                                                     $prevIndex = count($balance) - 2;
                                                     $balance[] = $balance[$prevIndex] + $balance[$prevIndex + 1];
                                                 }
+                                               // pr($balance);
                                                 ?>
                                                 <tr class="odd gradeX">
                                                     <td>
@@ -2100,8 +2112,7 @@
                                                                         </tr>
                                                                         <tr>
                                                                             <td style="text-align: center !important;"> Next 7 Days</td>
-                                                                            <td style="text-align: center !important;"><?php
-                                                                            echo date('Y-m-d', strtotime('+7 days')); ?></td>
+                                                                            <td style="text-align: center !important;"><?php echo date('Y-m-d', strtotime('+7 days')); ?></td>
                                                                         </tr>
                                                                     </table>
                                                                 </ul>
@@ -2309,7 +2320,7 @@
                                                                         </th>
                                                                         <tr>
                                                                             <td style="padding-left: 5px; min-height: 115px; line-height: 15px;">
-                                                                                <?php // if (!empty($single['0']['name'])):         ?>
+                                                                                <?php // if (!empty($single['0']['name'])):          ?>
 
                                                                                 <?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?>
 
@@ -2392,7 +2403,7 @@
                                                                                     <?php if (!empty($payment['note'])) { ?>
                                                                                         <li><?php echo $payment['note']; ?></li> 
                                                                                     <?php } ?>
-                                                                                    
+
                                                                                 </ul>
                                                                             </td> 
 

@@ -923,17 +923,14 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $this->request->data['Installation']['schedule_date'] = $date;
         $this->request->data['Installation']['user_id'] = $this->request->data['PackageCustomer']['technician_id'];
         $this->request->data['Installation']['status'] = 'Scheduled';
-
         $this->request->data['PackageCustomer']['schedule_date'] = $date;
         $this->request->data['PackageCustomer']['status'] = 'Scheduled';
         //  pr($this->request->data); exit;
         $this->PackageCustomer->save($this->request->data);
-
         $this->Installation->save($this->request->data);
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
 	<strong> succeesfully done </strong></div>';
-
         $this->Session->setFlash($msg);
         return $this->redirect($this->referer());
     }
