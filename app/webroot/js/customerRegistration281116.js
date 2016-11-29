@@ -12,6 +12,14 @@ function initialization() {
         $('#shipmentshow_hide').hide();
     }
 
+    if (selected.trim() == "moving") {
+
+        $('#shipmentshow_hide').show();
+    }
+    else {
+        $('#shipmentshow_hide').hide();
+    }
+
     if ($('#additioninfo').is(":checked")) {
         $('#Additional_info').show();
     }
@@ -50,7 +58,9 @@ $(document).ready(function () {
         $('.status-date').text(selected);
     });
 
-  //  Reward add strat
+
+
+    //  Reward add strat
     
  
 
@@ -71,6 +81,8 @@ $(document).ready(function () {
     });
     
     //   Reward add end
+
+
 
     initialization();
 });
