@@ -83,6 +83,12 @@
                                     </div>
                                 </div>
                             </div>
+                            
+                            
+                            
+                            
+                            
+                            
                             <div class="form-group display-hide" id="equepment">
                                 <label class="control-label col-md-1">SD:<span class="">
                                     </span>

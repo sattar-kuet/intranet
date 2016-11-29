@@ -143,6 +143,6 @@ $(document).ready(function () {
 
     //    Net price calculation end
 
-
+  
 
 });
