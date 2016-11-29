@@ -397,7 +397,22 @@
                                                         )
                                                 );
                                                 ?>
-
+                                                <?php
+                                                echo $this->Form->input(
+                                                        'id', array(
+                                                    'type' => 'hidden',
+                                                    'value' => $this->params['pass'][0]
+                                                        )
+                                                );
+                                                ?> 
+                                                <?php
+                                                echo $this->Form->input(
+                                                        'package_customer_id', array(
+                                                    'type' => 'hidden',
+                                                    'value' => $this->params['pass'][1]
+                                                        )
+                                                );
+                                                ?> 
 
 
                                                 <?php
@@ -637,7 +652,7 @@
                                                                 'cvv_code', array(
                                                             'type' => 'text',
                                                             'value' => '',
-                                                            'class' => 'form-control input-sm ',
+                                                            'class' => 'form-control input-sm required',
                                                             'id' => 'cvv_code',
                                                             'placeholder' => 'CVV Code'
                                                         ));
@@ -687,8 +702,13 @@
                                                 ?>
 
                                                 <?php
-                                                echo $this->Form->input('id');
-                                                ?>
+                                                echo $this->Form->input(
+                                                        'id', array(
+                                                    'type' => 'hidden',
+                                                    'value' => $this->params['pass'][0]
+                                                        )
+                                                );
+                                                ?> 
                                                 <?php
                                                 echo $this->Form->input(
                                                         'package_customer_id', array(
@@ -711,7 +731,7 @@
                                                     <div class="col-md-3 signupfont">
                                                         Invoice#
                                                     </div>
-                                                   <div class="col-md-3" style="border: 1px solid; padding: 4px;">
+                                                    <div class="col-md-3" style="border: 1px solid; padding: 4px;">
                                                         <?php echo $this->params['pass'][0]; ?>
                                                     </div>
                                                 </div>
@@ -799,10 +819,22 @@
                                                         )
                                                 );
                                                 ?>
-
                                                 <?php
-                                                echo $this->Form->input('id');
-                                                ?>
+                                                echo $this->Form->input(
+                                                        'id', array(
+                                                    'type' => 'hidden',
+                                                    'value' => $this->params['pass'][0]
+                                                        )
+                                                );
+                                                ?> 
+                                                <?php
+                                                echo $this->Form->input(
+                                                        'package_customer_id', array(
+                                                    'type' => 'hidden',
+                                                    'value' => $this->params['pass'][1]
+                                                        )
+                                                );
+                                                ?> 
 
                                                 <?php
                                                 echo $this->Form->input(
@@ -908,8 +940,21 @@
                                                 ?>
 
                                                 <?php
-                                                echo $this->Form->input('id');
-                                                ?>
+                                                echo $this->Form->input(
+                                                        'id', array(
+                                                    'type' => 'hidden',
+                                                    'value' => $this->params['pass'][0]
+                                                        )
+                                                );
+                                                ?> 
+                                                <?php
+                                                echo $this->Form->input(
+                                                        'package_customer_id', array(
+                                                    'type' => 'hidden',
+                                                    'value' => $this->params['pass'][1]
+                                                        )
+                                                );
+                                                ?> 
 
                                                 <?php
                                                 echo $this->Form->input(
@@ -1011,8 +1056,21 @@
                                                 ?>
 
                                                 <?php
-                                                echo $this->Form->input('id');
-                                                ?>
+                                                echo $this->Form->input(
+                                                        'id', array(
+                                                    'type' => 'hidden',
+                                                    'value' => $this->params['pass'][0]
+                                                        )
+                                                );
+                                                ?> 
+                                                <?php
+                                                echo $this->Form->input(
+                                                        'package_customer_id', array(
+                                                    'type' => 'hidden',
+                                                    'value' => $this->params['pass'][1]
+                                                        )
+                                                );
+                                                ?> 
 
                                                 <?php
                                                 echo $this->Form->input(

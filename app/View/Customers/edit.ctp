@@ -1949,10 +1949,22 @@
                                                 $amount = $bill['payable_amount'];
                                                 $balance[] = $amount;
                                                 // $prevIndex = -1;
-                                                if (count($balance) > 1) {
+                                                $payment_date = $bill['next_payment'];
+                                                
+                                                $payment_time = strtotime($payment_date);
+                                                $currenttime = strtotime(date('Y-m-d'));
+                                                $next7days = strtotime("+7 day");
+                                                $time_remaining = $next7days - $payment_time;
+                                                $diff = 7 * 24 * 60 * 60;
+//                                                echo $next7days;
+//                                                echo ':'.$payment_time.'<br>'.$diff;
+//                                                echo '<hr>';
+                                               
+                                                if (count($balance) > 1 ) {
                                                     $prevIndex = count($balance) - 2;
                                                     $balance[] = $balance[$prevIndex] + $balance[$prevIndex + 1];
                                                 }
+                                               // pr($balance);
                                                 ?>
                                                 <tr class="odd gradeX">
                                                     <td>
