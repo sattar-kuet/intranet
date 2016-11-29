@@ -288,8 +288,16 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $pcid = $id;
         $loggedUser = $this->Auth->user();
         $user = $loggedUser['Role']['name'];
-//        pr($user); exit;
         if ($this->request->is('post') || $this->request->is('put')) {
+
+            if ($this->request->data['reward'] !== '') {
+                $this->request->data['PackageCustomer']['reward'] = $this->request->data['reward'];
+            }
+
+            if ($this->request->data['reward1'] !== '') {
+                $this->request->data['PackageCustomer']['reward'] = $this->request->data['reward1'];
+            }
+//            pr($this->request->data); exit;
             // update package_customers table
             $this->request->data['PackageCustomer']['id'] = $id;
             $this->updatePackageCustomerTable($this->request->data['PackageCustomer']);
@@ -421,16 +429,16 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $this->loadModel('Issue');
         $loggedUser = $this->Auth->user();
         if ($this->request->is('post') || $this->request->is('put')) {
-            $this->request->data['PackageCustomer']['status'] = 'requested';          
-      
-             if ($this->request->data['reward'] !== '') {              
+            $this->request->data['PackageCustomer']['status'] = 'requested';
+
+            if ($this->request->data['reward'] !== '') {
                 $this->request->data['PackageCustomer']['reward'] = $this->request->data['reward'];
             }
-            
-            if ($this->request->data['reward1'] !== '') {              
+
+            if ($this->request->data['reward1'] !== '') {
                 $this->request->data['PackageCustomer']['reward'] = $this->request->data['reward1'];
             }
-                 
+
             if ($this->request->data['PackageCustomer']['shipment_equipment'] == 'OTHER') {
                 $this->request->data['PackageCustomer']['shipment_equipment'] = $this->request->data['PackageCustomer']['shipment_equipment_other'];
             }
@@ -456,7 +464,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             }
             $date = date('Y-m-d');
             $this->request->data['PackageCustomer']['date'] = $date;
-             
+
             $pc = $this->PackageCustomer->save($this->request->data['PackageCustomer']);
 
             $data4statusHistory = array();
@@ -465,7 +473,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
                 'date' => date('m/d/Y'),
                 'status' => $this->request->data['PackageCustomer']['status'],
             );
-            
+
             $this->StatusHistory->save($data4statusHistory);
 //            data for comment
             $comment['Comment']['package_customer_id'] = $pc['PackageCustomer']['id'];
