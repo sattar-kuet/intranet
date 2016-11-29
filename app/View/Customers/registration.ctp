@@ -341,9 +341,6 @@
                                 </div>
                             </div> 
 
-
-
-
                             <div class="form-group">
                                 <label class="control-label col-md-2">Referred by:<span class="required">
                                     </span>

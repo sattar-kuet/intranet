@@ -393,13 +393,15 @@
                                             //'default' => $selected['package'],
                                             'empty' => 'Select Package Type',
                                             'id' => 'psettingId',
-                                            'class' => 'span12 uniform nostyle select1' . $class,
+                                            'class' => 'span12 uniform nostyle select1 packageChange' . $class,
                                             'div' => array('class' => 'span12')
                                                 )
                                         );
                                         ?>
                                     </div>  
                                 </div>
+
+
 
                                 <div class="col-md-2">
                                     <label>
@@ -434,6 +436,60 @@
                                 </div>
                             </div>
                         </div>
+                        &nbsp; 
+                        <div class="row">
+                            <div class="col-md-12 ">
+                                <div class="form-group display-hide" id="reward6">  
+                                    <div class="col-md-2 signupfont">
+                                        6 Months:
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="input-list style-4 clearfix">
+                                            <div>
+                                                <?php
+                                                echo $this->Form->input('reward', array(
+                                                    'type' => 'select',
+                                                    'options' => array(
+                                                        '1 month free' => '1 Month Free',
+                                                        '140 call card' => '140 Call Card',
+                                                        '120 cash reward' => '120 Cash Reward'),
+                                                    'empty' => 'Select Additional Offer',
+                                                    'class' => 'form-control',
+                                                    'name' => 'reward',
+                                                    'id' => 'reward6'
+                                                ));
+                                                ?>
+                                            </div>                            
+                                        </div>
+                                    </div> 
+                                </div> 
+                                <div class="form-group display-hide" id="reward12">  
+                                    <div class="col-md-2 signupfont">
+                                        12 Months:
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="input-list style-4 clearfix">
+                                            <div>
+                                                <?php
+                                                echo $this->Form->input('reward', array(
+                                                    'type' => 'select',
+                                                    'options' => array(
+                                                        '3 month free' => '3 Month Free',
+                                                        '100 call card' => '100 Call Card',
+                                                        '40 cash reward' => '40 Cash Reward'),
+                                                    'empty' => 'Select Additional Offer',
+                                                    'class' => 'form-control',
+                                                    'name' => 'reward1',
+                                                    'id' => 'reward12'
+                                                ));
+                                                ?>
+                                            </div>
+                                        </div> 
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>     
+
                         &nbsp; 
                         <div class="row">
                             <?php
@@ -505,6 +561,7 @@
                                         </div>                            
                                     </div>
                                 </div>
+
                                 <div class="col-md-1 signupfont">
                                     Bonus:
                                 </div>
