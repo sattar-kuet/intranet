@@ -193,15 +193,15 @@ class PaymentsController extends AppController {
                 //creatre transaction History 
                 $this->Transaction->save($this->request->data['Transaction']);
                 unset($this->request->data['Transaction']['transaction_id']);
-                $this->request->data['Transaction']['status'] = 'close';
+                $status = 'close';
                 // check due amount 
                 $due = $this->getDue($id);
                 if ($due > 0) {
-                    $this->request->data['Transaction']['status'] = 'open';
+                    $status = 'open';
                 }
                 unset($this->request->data['Transaction']['payable_amount']);
                 $this->Transaction->id = $id;
-                $this->Transaction->save($this->request->data['Transaction']);
+                $this->Transaction->saveField("status", $status);
 
                 $msg .='<li> Transaction   successfull</li>';
                 $tdata['Ticket'] = array('content' => 'Transaction successfull');
