@@ -192,5 +192,21 @@ $(document).ready(function () {
         }
 
     });
+    
+  
+    
+//       $('.packageChange').change(function () {
+//        var selected = $('.packageChange option:selected').text().toLowerCase();
+//        alert(selected);
+//        if (selected.trim() == "6 month package $180") {
+//            $('#action').hide();
+//            $('#reward6').show();
+//        }
+//        
+//        else {
+//            $('#action').show();
+//            $('#reward6').hide();
+//        }
+//    });
 
 })

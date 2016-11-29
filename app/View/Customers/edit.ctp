@@ -393,23 +393,35 @@
                                             //'default' => $selected['package'],
                                             'empty' => 'Select Package Type',
                                             'id' => 'psettingId',
-                                            'class' => 'span12 uniform nostyle select1' . $class,
+                                            'class' => 'span12 uniform nostyle select1 packageChange' . $class,
                                             'div' => array('class' => 'span12')
                                                 )
                                         );
                                         ?>
                                     </div>  
                                 </div>
-
-                                <div class="col-md-2">
-                                    <label>
-                                        <div class="" style="display: inline-block;"><span class=""><input id="customcheckbox" name="data[PackageCustomer][CustomPackage]"  type="checkbox" <?php
-                                                if ($checkMark == TRUE) {
-                                                    echo 'checked';
-                                                } else {
-                                                    echo '';
-                                                }
-                                                ?>></span></div> Custom Package </label>
+                                <div class="form-group display-hide" id="reward6">
+                                    <div class="col-md-1 signupfont">
+                                        6 Months:
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="input-list style-2 clearfix">
+                                            <div>
+                                                <?php
+                                                echo $this->Form->input('reward', array(
+                                                    'type' => 'select',
+                                                    'options' => array(
+                                                        '1 month free' => '1 Month Free',
+                                                        '140 call card' => '140 Call Card',
+                                                        '120 cash reward' => '120 Cash Reward'),
+                                                    'empty' => 'Select Additional Offer',
+                                                    'class' => 'span12 uniform nostyle packageChange',
+                                                    'name' => 'reward'
+                                                ));
+                                                ?>
+                                            </div>
+                                        </div>                            
+                                    </div>
                                 </div>
                                 <div class="col-md-2 signupfont">
                                     Add New STBs:
@@ -1540,7 +1552,7 @@
                                                 ));
                                                 ?>
                                             </div>
-                                           
+
                                             <label class="control-label col-md-1">Quantity:<span class="">
                                                 </span>
                                             </label>
@@ -1550,7 +1562,7 @@
                                                         'quantity', array(
                                                     'type' => 'text',
                                                     'class' => 'form-control ',
-                                                            'id' => 'quantity'
+                                                    'id' => 'quantity'
                                                 ));
                                                 ?>
                                             </div>
@@ -1563,17 +1575,17 @@
                                                         'rate', array(
                                                     'type' => 'text',
                                                     'class' => 'form-control ',
-                                                            'id'=> 'rate'
+                                                    'id' => 'rate'
                                                 ));
                                                 ?>
                                             </div>
-                                            
-                                              
-                                            
-                                          
+
+
+
+
                                         </div>
                                         <div class="form-group">
-                                           <label class="control-label col-md-1">Discount:<span class="">
+                                            <label class="control-label col-md-1">Discount:<span class="">
                                                 </span>
                                             </label>
                                             <div class="col-md-3">
@@ -1582,12 +1594,12 @@
                                                         'discount', array(
                                                     'type' => 'text',
                                                     'class' => 'form-control ',
-                                                            'id'=>'discount'
+                                                    'id' => 'discount'
                                                 ));
                                                 ?>
                                             </div>
-                                            
-                                           <label class="control-label col-md-1">Price:<span class="">
+
+                                            <label class="control-label col-md-1">Price:<span class="">
                                                 </span>
                                             </label>
                                             <div class="col-md-3">
@@ -1596,12 +1608,12 @@
                                                         'payable_amount', array(
                                                     'type' => 'text',
                                                     'class' => 'form-control ',
-                                                            'id' => 'price'
+                                                    'id' => 'price'
                                                 ));
                                                 ?>
                                             </div> 
-                                           
-                                        <label class="control-label col-md-1">Payment date:<span class="">
+
+                                            <label class="control-label col-md-1">Payment date:<span class="">
                                                 </span>
                                             </label>
                                             <div class="col-md-3">
@@ -1613,7 +1625,7 @@
                                                 ));
                                                 ?>
                                             </div>                                         
-                                           
+
                                         </div>
                                     </div>
                                     <div class="form-actions">
@@ -2100,8 +2112,7 @@
                                                                         </tr>
                                                                         <tr>
                                                                             <td style="text-align: center !important;"> Next 7 Days</td>
-                                                                            <td style="text-align: center !important;"><?php
-                                                                            echo date('Y-m-d', strtotime('+7 days')); ?></td>
+                                                                            <td style="text-align: center !important;"><?php echo date('Y-m-d', strtotime('+7 days')); ?></td>
                                                                         </tr>
                                                                     </table>
                                                                 </ul>
@@ -2309,7 +2320,7 @@
                                                                         </th>
                                                                         <tr>
                                                                             <td style="padding-left: 5px; min-height: 115px; line-height: 15px;">
-                                                                                <?php // if (!empty($single['0']['name'])):         ?>
+                                                                                <?php // if (!empty($single['0']['name'])):           ?>
 
                                                                                 <?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?>
 
@@ -2392,7 +2403,7 @@
                                                                                     <?php if (!empty($payment['note'])) { ?>
                                                                                         <li><?php echo $payment['note']; ?></li> 
                                                                                     <?php } ?>
-                                                                                    
+
                                                                                 </ul>
                                                                             </td> 
 

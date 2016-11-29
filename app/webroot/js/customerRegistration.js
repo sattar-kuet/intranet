@@ -12,6 +12,14 @@ function initialization() {
         $('#shipmentshow_hide').hide();
     }
 
+    if (selected.trim() == "moving") {
+
+        $('#shipmentshow_hide').show();
+    }
+    else {
+        $('#shipmentshow_hide').hide();
+    }
+
     if ($('#additioninfo').is(":checked")) {
         $('#Additional_info').show();
     }
@@ -50,7 +58,34 @@ $(document).ready(function () {
         $('.status-date').text(selected);
     });
 
-  
+
+
+    //  Reward add strat
+    
+    var selected = $('.packageChange option:selected').text().toLowerCase();
+    if (selected.trim() == "6 month package $180") {
+        $('#reward6').show();
+    }
+
+    $('.packageChange').change(function () {
+        var selected = $('.packageChange option:selected').text().toLowerCase();
+        if (selected.trim() == "6 month package $180") {
+            $('#reward6').show();
+            $('#reward12').hide();
+        }
+        else if (selected.trim() == "1 year package $360") {
+            $('#reward6').hide();
+            $('#reward12').show();
+        }
+        else {
+            $('#reward6').hide();
+            $('#reward12').hide();
+        }
+    });
+    
+    //   Reward add end
+
+
 
     initialization();
 });
