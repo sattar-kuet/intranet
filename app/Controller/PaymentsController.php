@@ -108,22 +108,23 @@ class PaymentsController extends AppController {
         $this->set('customer_info');
     }
 
-    public function individual_transaction_by_card($cid = null) {
+    public function individual_transaction_by_card() {
         //  pr($this->request->data); exit;
         // PROCESS PAYMENT
         // Common setup for API credentials  
         $loggedUser = $this->Auth->user();
         $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
-        //$merchantAuthentication->setName("95x9PuD6b2"); // testing mode
+       // $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
         $merchantAuthentication->setName("7zKH4b45"); //42UHbr9Qa9B live mode
-        // $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
+      //   $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
         $merchantAuthentication->setTransactionKey("738QpWvHH4vS59vY"); // live mode 7UBSq68ncs65p8QX
         $refId = 'ref' . time();
 // Create the payment data for a credit card
         $creditCard = new AnetAPI\CreditCardType();
         $msg = '<ul>';
-        $this->request->data['Transaction']['id'] = $cid;
+        //$this->request->data['Transaction']['id'] = $cid;
         $card = $this->request->data['Transaction'];
+        $cid = $this->request->data['Transaction']['id'];
         //      pr($card);
 //        exit;
         $creditCard->setCardNumber($card['card_no']);
@@ -167,7 +168,7 @@ class PaymentsController extends AppController {
         $request->setRefId($refId);
         $request->setTransactionRequest($transactionRequestType);
         $controller = new AnetController\CreateTransactionController($request);
-        // $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
+       // $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
         $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
 
         $this->loadModel('Transaction');
@@ -180,17 +181,16 @@ class PaymentsController extends AppController {
         $alert = '<div class="alert alert-success"> ';
         if ($response != null) {
             $tresponse = $response->getTransactionResponse();
-
             if (($tresponse != null) && ($tresponse->getResponseCode() == "1")) {
-
                 $this->request->data['Transaction']['trx_id'] = $tresponse->getTransId();
                 $this->request->data['Transaction']['auth_code'] = $tresponse->getAuthCode();
-
                 $this->request->data['Transaction']['status'] = 'success';
                 $id = $this->request->data['Transaction']['id'];
                 $this->request->data['Transaction']['transaction_id'] = $id;
+               //  pr($this->request->data['Transaction']); exit;
                 unset($this->request->data['Transaction']['id']);
                 //creatre transaction History 
+               
                 $this->Transaction->save($this->request->data['Transaction']);
                 unset($this->request->data['Transaction']['transaction_id']);
                 $status = 'close';
@@ -604,7 +604,6 @@ class PaymentsController extends AppController {
     }
 
     public function individual_transaction_by_check() {
-        pr($this->request->data['Transaction']); 
         $this->loadModel('Transaction');
         $loggedUser = $this->Auth->user();
         $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
