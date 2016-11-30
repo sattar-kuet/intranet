@@ -441,7 +441,7 @@
                             <div class="col-md-12 ">
                                 <div class="form-group display-hide" id="reward6">  
                                     <div class="col-md-2 signupfont">
-                                        6 Months:
+                                       Promotional offer:
                                     </div>
                                     <div class="col-md-3">
                                         <div class="input-list style-4 clearfix">
@@ -465,7 +465,7 @@
                                 </div> 
                                 <div class="form-group display-hide" id="reward12">  
                                     <div class="col-md-2 signupfont">
-                                        12 Months:
+                                        Promotional offer:
                                     </div>
                                     <div class="col-md-3">
                                         <div class="input-list style-4 clearfix">

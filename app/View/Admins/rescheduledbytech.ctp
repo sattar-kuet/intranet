@@ -74,8 +74,9 @@
                             <tbody>
                                 <?php
                                 foreach ($filteredData as $results):
+//                                      pr($results); exit;
                                     $customer = $results['customers'];
-//                                    pr($customer); exit;
+//                                  
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
                                             . $customer['zip'];
@@ -168,7 +169,15 @@
                                                     href="rechedueledDiv<?php echo $results['customers']['id']; ?>" title="Schedule" class="toggleDiv">
                                                     <span  class="fa fa-share "></span>
                                                 </a>
-
+                                               &nbsp;
+                                                 <a onclick="if (confirm('Are you sure to approve this data?')) {
+                                                                return true;
+                                                            }
+                                                            return false;"
+                                                    href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'approved', $results['customers']['id'], $results['tech']['id'])) ?>" title="Approve">
+                                                    <span class="fa fa-check"></span>
+                                                </a>
+                                                
                                                 <div id="commentDiv<?php echo $results['customers']['id']; ?>" class=" hideRest portlet-body form" style="display: none;">
                                                     <!-- BEGIN FORM-->
                                                     <?php
