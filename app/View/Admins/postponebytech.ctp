@@ -36,7 +36,7 @@
                         <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                             <thead>
                                 <tr>
-                                    <th>
+                                    <th class="sorting_desc">
                                         SL.
                                     </th>
                                     <th>
