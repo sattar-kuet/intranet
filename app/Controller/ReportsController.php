@@ -113,13 +113,13 @@ class ReportsController extends AppController {
 
     function invoice($id = null) {
         $this->loadModel('Transaction');
-      
-       $data = $this->Transaction->query("SELECT *  FROM transactions  tr
+
+        $data = $this->Transaction->query("SELECT *  FROM transactions  tr
         left join package_customers pc on tr.package_customer_id = pc.id
         left join psettings ps on pc.psetting_id = ps.id
         left join packages p on ps.package_id = p.id
         left join custom_packages cp on pc.custom_package_id = cp.id
-        WHERE  tr.id =$id ");           
+        WHERE  tr.id =$id ");
         $this->set(compact('data'));
     }
 
@@ -267,16 +267,17 @@ class ReportsController extends AppController {
 
         $this->set(compact('packagecustomers'));
     }
+
     function openInvoice25() {
         $this->loadModel('Transaction');
-       
+
         $packagecustomers = $this->Transaction->query("SELECT * 
         FROM transactions tr
         LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id
         LEFT JOIN psettings ps ON ps.id = pc.psetting_id
         LEFT JOIN packages p ON p.id = ps.package_id
         WHERE tr.status =  'open'");
-       
+
         $this->set(compact('packagecustomers'));
     }
 
@@ -508,24 +509,30 @@ class ReportsController extends AppController {
 
     function getTotalSalesQuery() {
         $this->loadModel('PackageCustomer');
-        $today = date('Y-m-d');
-        $request = $this->PackageCustomer->query("SELECT count(id) as request FROM package_customers WHERE CAST(created as DATE) = '$today' AND status = 'requested' AND follow_up = 1 ");
+        $datrange = json_decode($this->request->data['Track']['daterange'], true);
+        $start = $datrange['start'];
+        $end = $datrange['end'];
+        $request = $this->PackageCustomer->query("SELECT count(id) as request FROM package_customers WHERE CAST(created as DATE) = '" . $start . "' AND package_customers.date <='" . $end . "' AND status = 'requested' AND follow_up = 1 ");
 
         return $request[0][0]['request'];
     }
 
     function getTotalHold() {
         $this->loadModel('PackageCustomer');
-        $today = date('Y-m-d');
-        $hold = $this->PackageCustomer->query("SELECT count(status) as hold FROM package_customers WHERE date = '$today' and status = 'hold'");
+        $datrange = json_decode($this->request->data['Track']['daterange'], true);
+        $start = $datrange['start'];
+        $end = $datrange['end'];
+        $hold = $this->PackageCustomer->query("SELECT count(status) as hold FROM package_customers WHERE date = '" . $start . "' AND package_customers.date <='" . $end . "' and status = 'hold'");
 
         return $hold[0][0]['hold'];
     }
 
     function getTotalUnhold() {
         $this->loadModel('PackageCustomer');
-        $today = date('Y-m-d');
-        $unhold = $this->PackageCustomer->query("SELECT count(status) as unhold FROM package_customers WHERE date = '$today' and status = 'unhold'");
+        $datrange = json_decode($this->request->data['Track']['daterange'], true);
+        $start = $datrange['start'];
+        $end = $datrange['end'];
+        $unhold = $this->PackageCustomer->query("SELECT count(status) as unhold FROM package_customers WHERE date = '" . $start . "' AND package_customers.date <='" . $end . "' and status = 'unhold'");
         return $unhold[0][0]['unhold'];
     }
 
@@ -538,15 +545,19 @@ class ReportsController extends AppController {
 
     function getTotalDone() {
         $this->loadModel('PackageCustomer');
-        $date = date("Y-m-d");
-        $done = $this->PackageCustomer->query("SELECT count(status) as done FROM package_customers WHERE CAST(modified as DATE) = '$date' and (status = 'done' OR (status = 'requested' AND follow_up = 0))");
+        $datrange = json_decode($this->request->data['Track']['daterange'], true);
+        $start = $datrange['start'];
+        $end = $datrange['end'];
+        $done = $this->PackageCustomer->query("SELECT count(status) as done FROM package_customers WHERE CAST(modified as DATE) = '" . $start . "' AND package_customers.date <='" . $end . "' and (status = 'done' OR (status = 'requested' AND follow_up = 0))");
         return $done[0][0]['done'];
     }
 
     function getTotalReconnection() {
         $this->loadModel('PackageCustomer');
-        $today = date("Y-m-d");
-        $reconnection = $this->PackageCustomer->query("SELECT count(status) as reconnection FROM package_customers WHERE date = '$today' and status = 'reconnection'");
+        $datrange = json_decode($this->request->data['Track']['daterange'], true);
+        $start = $datrange['start'];
+        $end = $datrange['end'];
+        $reconnection = $this->PackageCustomer->query("SELECT count(status) as reconnection FROM package_customers WHERE date = '" . $start . "' AND package_customers.date <='" . $end . "' and status = 'reconnection'");
         return $reconnection[0][0]['reconnection'];
     }
 
@@ -587,14 +598,13 @@ class ReportsController extends AppController {
     }
 
     function getTotalCallBySatatus($status = null) {
-        $today = date('Y-m-d');
         $this->loadModel('Track');
-        $today = date('Y-m-d');
+        $datrange = json_decode($this->request->data['Track']['daterange'], true);
+        $datrange['start'] = $datrange['start'] . ' 00:00:00';
+        $datrange['end'] = $datrange['end'] . ' 23:59:59';
         $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as total FROM tracks " .
                 "LEFT JOIN issues ON tracks.issue_id = issues.id " .
-
-                " WHERE LOWER(issues.name) = '$status' AND CAST(tracks.created as DATE)= '$today'";
-
+                " WHERE LOWER(issues.name) = '$status' AND tracks.created >='" . $datrange['start'] . "' AND tracks.created <='" . $datrange['end'] . "'";
         $data = $this->Track->query($sql);
         return $data[0][0]['total'];
     }
@@ -602,48 +612,84 @@ class ReportsController extends AppController {
     function accountCall() {
         $this->loadModel('Issue');
         $this->loadModel('Track');
-        $today = date('Y-m-d');
-        $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as totalAccount FROM tracks "
-                . "LEFT JOIN issues ON tracks.issue_id = issues.id "
-                . "LEFT JOIN tickets ON tracks.ticket_id = tickets.id "
-                . "WHERE (issues.name = 'Billing Problem' "
-                . "or issues.name = 'Calling Card' "
-                . "or issues.name = 'Card Info Taken' "
-                . "or issues.name = 'Declined Card Outbound' "
-                . "or issues.name = 'Due Bill Out Bound' "
-                . "or issues.name = 'Wants to pay' "
-                . "or issues.name = 'Referral Issue' "
-                . "or issues.name = 'Security Deposit Issue' "
-                . "or issues.name = 'Promotional package' "
-                . "or issues.name = 'Box Expired' "
-                . "or issues.name = 'MONEY ORDER ONLINE PAYMENT') "
-                . "AND CAST(tickets.created as date) = '$today'";
-//         echo $sql;
-//        exit;        
+        $datrange = json_decode($this->request->data['Track']['daterange'], true);
+        $datrange['start'] = $datrange['start'] . ' 00:00:00';
+        $datrange['end'] = $datrange['end'] . ' 23:59:59';
+
+        $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as totalAccount FROM tracks 
+                 LEFT JOIN issues ON tracks.issue_id = issues.id 
+                 LEFT JOIN tickets ON tracks.ticket_id = tickets.id 
+                 WHERE (issues.name = 'Billing Problem' 
+                 or issues.name = 'Calling Card' 
+                 or issues.name = 'Card Info Taken' 
+                 or issues.name = 'Declined Card Outbound' 
+                 or issues.name = 'Due Bill Out Bound' 
+                 or issues.name = 'Wants to pay' 
+                 or issues.name = 'Referral Issue' 
+                 or issues.name = 'Security Deposit Issue' 
+                 or issues.name = 'Promotional package' 
+                 or issues.name = 'Box Expired'  
+                 or issues.name = 'MONEY ORDER ONLINE PAYMENT')  
+                 AND tickets.created >='" . $datrange['start'] . "' AND tickets.created <='" . $datrange['end'] . "'";
         $data = $this->Track->query($sql);
-//        pr($data); exit;
         return $data[0][0]['totalAccount'];
     }
 
     function supportCall() {
         $this->loadModel('Issue');
         $this->loadModel('Track');
-        $today = date('Y-m-d');
-        
+        $datrange = json_decode($this->request->data['Track']['daterange'], true);
+        $start = $datrange['start'];
+        $end = $datrange['end'];
+//         pr($datrange1); exit;
         $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as totalSupport FROM tracks        
         LEFT JOIN tickets ON tracks.ticket_id = tickets.id 
-         WHERE CAST(tickets.created AS DATE ) = '$today'";
-
+         WHERE CAST(tickets.created as DATE) >='" . $start . "' AND tickets.created <='" . $end . "'";
         $data = $this->Track->query($sql);
-       
-        $requested = $this->PackageCustomer->query("SELECT count(status) as requested FROM package_customers WHERE date = '$today'  and status = 'requested'");
-         
-        $totalIBCS = (($data[0][0]['totalSupport'] - $this->accountCall('totalAccount')) + ($requested[0][0]['requested']));//total in bound call DCC
-       
+        $requested = $this->PackageCustomer->query("SELECT count(status) as requested FROM package_customers WHERE package_customers.date = '" . $start . "' AND package_customers.date <='" . $end . "'  and status = 'requested'");
+        $totalIBCS = (($data[0][0]['totalSupport'] - $this->accountCall('totalAccount')) + ($requested[0][0]['requested'])); //total in bound call DCC
         return $totalIBCS;
     }
 
     function salesSupportdp() {
+        $clicked = false;
+        if ($this->request->is('post') || $this->request->is('put')) {
+
+            $total = array();
+//        $total['call'] = $this->getTotalCall();
+//        $total['cancel'] = $this->getTotalCancel(); 
+            $total['sales_query'] = $this->getTotalSalesQuery();
+            // $total[0] = $total['done'] + $total['ready'];
+
+            $total['installation'] = $this->getTotalInstallation();
+            $total['hold'] = $this->getTotalHold();
+            $total['unhold'] = $this->getTotalUnhold();
+            $total['reconnection'] = $this->getTotalReconnection();
+
+            $total['done'] = $this->getTotalDone();
+            $total['ready'] = $this->getTotalNewordertaken();
+            $total['servicecancel'] = $this->getTotalFullServiceCancel();
+            $total['cancelduebill'] = $this->getTotalCancelDueBill();
+
+            $total['check_send'] = $this->getTotalCallBySatatus('check send');
+            $total['vod'] = $this->getTotalCallBySatatus('vod');
+            $total['interruption'] = $this->getTotalCallBySatatus('service interruption');
+            $total['cancel'] = $this->getTotalCallBySatatus('service cancel');
+            $total['cancel_from_da'] = $this->getTotalCallBySatatus('cancel from dealer & agent');
+            $total['cancel_from_hold'] = $this->getTotalCallBySatatus('cancel from hold');
+            $total['card_info_taken'] = $this->getTotalCallBySatatus('card info taken');
+            $total['additional_box'] = $this->getTotalCallBySatatus('additional box installation');
+            $total['online_payment'] = $this->getTotalCallBySatatus('MONEY ORDER ONLINE PAYMENT');
+            $this->getTotalCallBySatatus('check send');
+            $total['totalAccount'] = $this->accountCall();
+            $total['totalSupport'] = $this->supportCall();
+            $clicked = true;
+            $this->set(compact('total'));
+        }
+        $this->set(compact('clicked'));
+    }
+
+    function salesSupportdpbackup() {
         $total = array();
 //        $total['call'] = $this->getTotalCall();
 //        $total['cancel'] = $this->getTotalCancel(); 

@@ -699,7 +699,7 @@
 
                 </ul>
             </li>
-            <li 
+<!--            <li 
             <?php
             $Otherspayments = array('OtherspaymentsCreate', 'OtherspaymentsManage');
             if (in_array($this->name . '' . $this->action, $Otherspayments)):
@@ -740,7 +740,7 @@
                             Manage</a>
                     </li>
                 </ul>
-            </li>
+            </li>-->
 
 <!--            <li 
             <?php
