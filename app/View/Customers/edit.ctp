@@ -1130,7 +1130,7 @@
                                                 'request to reconnection' => 'Request to reconnection',
                                                 'post pone' => 'Post pone',
                                                 'done' => 'Done',
-                                                'rescheduled' => 'Reschedu'
+                                                'rescheduled' => 'Reschedule'
                                             ),
                                             //'default' => $selected['package'],
                                             'empty' => 'Select Status',
