@@ -701,6 +701,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
                     left join comments c on pc.id = c.package_customer_id
                     left join users u on c.user_id = u.id
+                    left join users ut on pc.technician_id = ut.id
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id
@@ -727,6 +728,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
 
                 $filteredData[$index]['customers'] = $data['pc'];
                 $filteredData[$index]['users'] = $data['u'];
+                $filteredData[$index]['tech'] = $data['ut'];
 
                 $filteredData[$index]['package'] = array(
                     'name' => 'No package dealings',
@@ -957,7 +959,8 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $this->loadModel('PackageCustomer');
         $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
                     left join comments c on pc.id = c.package_customer_id
-                    left join users u on c.user_id = u.id
+                    left join users u on c.user_id = u.id                    
+                    left join users ut on pc.technician_id = ut.id
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id
@@ -984,6 +987,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
 
                 $filteredData[$index]['customers'] = $data['pc'];
                 $filteredData[$index]['users'] = $data['u'];
+                $filteredData[$index]['tech'] = $data['ut'];
 
                 $filteredData[$index]['package'] = array(
                     'name' => 'No package dealings',
@@ -1028,6 +1032,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
                     left join comments c on pc.id = c.package_customer_id
                     left join users u on pc.user_id = u.id
+                    left join users ut on pc.technician_id = ut.id
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                      left join issues i on pc.issue_id = i.id
@@ -1055,7 +1060,8 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
 
                 $filteredData[$index]['customers'] = $data['pc'];
                 $filteredData[$index]['users'] = $data['u'];
-
+                 $filteredData[$index]['tech'] = $data['ut'];
+                
                 $filteredData[$index]['package'] = array(
                     'name' => 'No package dealings',
                     'duration' => 'Not Applicable',
@@ -1495,6 +1501,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
                     left join comments c on pc.id = c.package_customer_id
                     left join users u on pc.user_id = u.id
+                    left join users ut on pc.technician_id = ut.id
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id
@@ -1524,6 +1531,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
 
                 $filteredData[$index]['customers'] = $data['pc'];
                 $filteredData[$index]['users'] = $data['u'];
+                $filteredData[$index]['tech'] = $data['ut'];
 
                 $filteredData[$index]['package'] = array(
                     'name' => 'No package dealings',
@@ -1566,6 +1574,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
                     left join comments c on pc.id = c.package_customer_id
                     left join users u on pc.user_id = u.id
+                    left join users ut on pc.technician_id = ut.id
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id
@@ -1592,6 +1601,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
 
                 $filteredData[$index]['customers'] = $data['pc'];
                 $filteredData[$index]['users'] = $data['u'];
+                $filteredData[$index]['tech'] = $data['ut'];
 
                 if (!empty($data['i']['id'])) {
                     $filteredData[$index]['issue'] = $data['i'];

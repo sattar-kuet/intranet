@@ -143,7 +143,13 @@
                                         </td>
                                         <td>
                                             <div class="controls center text-center">
-
+                                                <a onclick="if (confirm('Are you sure to approve this data?')) {
+                                                                return true;
+                                                            }
+                                                            return false;"
+                                                   href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'approved', $results['customers']['id'], $results['tech']['id'])) ?>" title="Approve">
+                                                    <span class="fa fa-check"></span>
+                                                </a>
                                                 <div class="portlet-body form">
                                                     <!--BEGIN FORM-->
                                                     <?php
