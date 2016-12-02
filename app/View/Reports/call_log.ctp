@@ -180,7 +180,8 @@
                                                                 <li> Cell: <?php echo $customer['cell']; ?> </li> 
                                                             </ul>
                                                         </td>
-                                                        <td><?php echo $ticket['created']; ?></td>
+                                                        <td><?php echo date('m-d-Y', strtotime($ticket['created'])); ?></td>
+                                                        
                                                         <td><?php echo $ticket['content']; ?></td>
                                                         <td>
                                                             <ol>

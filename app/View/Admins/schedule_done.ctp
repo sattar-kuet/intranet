@@ -226,8 +226,7 @@
                                                     </ul>
                                                 </td>
                                                 <td>
-                                                    <?php echo $results['customers']['schedule_date']; ?> 
-
+                                                     <td><?php echo date_format(new DateTime($results['customers']['schedule_date']), 'm-d-Y'); ?></td>
                                                 </td>
                                                 <td> 
                                                     <div class="controls center text-center">

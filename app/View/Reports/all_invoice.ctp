@@ -75,7 +75,7 @@
                                         </th>
                                         <tr>
                                             <td style="padding-left: 5px; min-height: 115px; line-height: 15px;">
-                                                <?php echo $single['0']['name']; ?><br>
+                                                 <?php echo $single['pc']['first_name'].''.$single['pc']['middle_name'].''.$single['pc']['last_name']; ?><br>
                                                 <?php echo $customer_address_one; ?><br>
                                                 <?php echo $customer_address_two; ?>
 
@@ -89,7 +89,8 @@
                                         <h1 style=" color: #000 !important;">Invoice #<?php echo getInvoiceNumbe($single['tr']['invoice']); ?></h1>
                                     </li>
                                     <li style="color: #555;">
-                                        <b style=" color: #000;">Date of Invoice: </b><?php echo date('Y-m-d'); ?>
+                                        <b style=" color: #000;">Date of Invoice: </b><?php echo date('m-d-Y'); ?>
+                                      
                                     </li>
                                     <li style="color: #555;">
                                        <b style=" color: #000;">Terms:</b> Net 7 Days
@@ -137,6 +138,7 @@
                                 <tbody>                                   
                                     <tr style="height: 101px;">
                                         <td  style=" padding: 39px; text-align: center; font-size: 19px; font-weight: bold; color: #000 !important; width: 101px;">
+                                            
                                             <?php echo getInvoiceNumbe($single['tr']['id']); ?>
                                         </td>
                                         <td style=" color: #333 !important; padding: 43px 0px 0px 19px ;">

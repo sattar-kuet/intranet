@@ -84,7 +84,7 @@
                                     <h1 style=" color: #990000 !important;">Invoice-2</h1>
                                 </li>
                                 <li style="color: #555;">
-                                    Date of Invoice: <?php echo date('Y-m-d'); ?>
+                                    Date of Invoice: <?php echo date('m-d-Y'); ?>
                                 </li>
 
                             </ul>
@@ -151,7 +151,8 @@
                                             <?php echo $single['pc']['first_name']. ''.$single['pc']['middle_name'].''.$single['pc']['last_name']; ?>
                                         </td>
                                         <td style="background-color:whitesmoke">
-                                            <?php echo $single['pc']['exp_date']; ?>
+                                           
+                                            <?php echo date('m-d-Y', strtotime($single['pc']['exp_date'])); ?>
                                         </td>
                                         <td style="background-color:whitesmoke">
                                             <b><?php echo $single['ps']['name']; ?></b><br>

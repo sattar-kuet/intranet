@@ -126,11 +126,11 @@ class ReportsController extends AppController {
     function allInvoice() {
         $this->loadModel('PackageCustomer');
         $expiredate = trim(date('Y-m-d', strtotime("+25 days")));
-        $packagecustomers = $this->PackageCustomer->query("SELECT pc.id, CONCAT( first_name,' ', middle_name,' ', last_name ) AS name, pc.psetting_id, pc.mac,pc.house_no,
-            pc.street,pc.apartment,pc.city,pc.state,pc.zip,pc.exp_date,tr.invoice,ps.name, ps.amount, ps.duration,p.name
-            FROM package_customers pc
+        $packagecustomers = $this->PackageCustomer->query("SELECT * FROM transactions  tr
+            
+            left join package_customers pc on pc.id = tr.package_customer_id
             left join psettings ps on ps.id = pc.psetting_id
-            left join transactions tr on pc.id = tr.package_customer_id
+
             LEFT JOIN packages p ON p.id = ps.package_id 
             WHERE pc.exp_date>='" . date('Y-m-d') . "' AND pc.exp_date<='" . $expiredate . "' AND pc.exp_date != 0000-00-00 "
                 . "GROUP BY pc.id");
