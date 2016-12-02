@@ -315,7 +315,7 @@ class AppController extends Controller {
                         left JOIN users fi ON tr.user_id = fi.id
                         left JOIN issues i ON tr.issue_id = i.id
                         left join package_customers pc on tr.package_customer_id = pc.id
-                        WHERE tr.package_customer_id =" . $pcid . " ORDER BY tr.created DESC");
+                        WHERE tr.package_customer_id =" . $pcid . " ORDER BY tr.id DESC");
 
         $filteredTicket = array();
         $unique = array();
@@ -341,6 +341,7 @@ class AppController extends Controller {
         $return['data'] = $data;
         $return['users'] = $users;
         $return['roles'] = $roles;
+//        pr($return); exit;
         return $return;
     }
 

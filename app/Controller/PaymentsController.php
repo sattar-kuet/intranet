@@ -101,9 +101,9 @@ class PaymentsController extends AppController {
         $this->request->data['Transaction'] = $latestcardInfo;
         $this->request->data['Transaction']['id'] = $trans_id;
         $paid = getPaid($trans_id);
-        $data = $this->Transaction->findById($trans_id);        
+        $data = $this->Transaction->findById($trans_id);
         $this->request->data['Transaction'] = $latestcardInfo;
-      //  pr($latestcardInfo); exit;
+        //  pr($latestcardInfo); exit;
         $this->request->data['Transaction']['payable_amount'] = $data['Transaction']['payable_amount'] - $paid;
         $this->set('customer_info');
     }
@@ -114,9 +114,9 @@ class PaymentsController extends AppController {
         // Common setup for API credentials  
         $loggedUser = $this->Auth->user();
         $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
-       // $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
+        // $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
         $merchantAuthentication->setName("7zKH4b45"); //42UHbr9Qa9B live mode
-      //   $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
+        //   $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
         $merchantAuthentication->setTransactionKey("738QpWvHH4vS59vY"); // live mode 7UBSq68ncs65p8QX
         $refId = 'ref' . time();
 // Create the payment data for a credit card
@@ -168,7 +168,7 @@ class PaymentsController extends AppController {
         $request->setRefId($refId);
         $request->setTransactionRequest($transactionRequestType);
         $controller = new AnetController\CreateTransactionController($request);
-       // $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
+        // $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
         $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
 
         $this->loadModel('Transaction');
@@ -187,10 +187,10 @@ class PaymentsController extends AppController {
                 $this->request->data['Transaction']['status'] = 'success';
                 $id = $this->request->data['Transaction']['id'];
                 $this->request->data['Transaction']['transaction_id'] = $id;
-               //  pr($this->request->data['Transaction']); exit;
+                //  pr($this->request->data['Transaction']); exit;
                 unset($this->request->data['Transaction']['id']);
                 //creatre transaction History 
-               
+
                 $this->Transaction->save($this->request->data['Transaction']);
                 unset($this->request->data['Transaction']['transaction_id']);
                 $status = 'close';
@@ -229,15 +229,13 @@ class PaymentsController extends AppController {
                     $errorMsg = $errors->getErrorText();
                 }
 
-
-                $this->request->data['Transaction']['paid_amount'] = 0;
-                $this->request->data['Transaction']['status'] = 'error';
-                $this->request->data['Transaction']['error_msg'] = $errorMsg;
                 $msg .='<li>' . $errorMsg . ' </li>';
 
                 $tdata['Ticket'] = array('content' => $errorMsg);
-                $this->loadModel('Ticket');
-                $tickect = $this->Ticket->save($tdata); // Data save in Ticket
+
+                $tickect = $this->Ticket->save($tdata);
+                
+                // Data save in Ticket
                 $trackData['Track'] = array(
                     'package_customer_id' => $cid,
                     'ticket_id' => $tickect['Ticket']['id'],
@@ -248,10 +246,12 @@ class PaymentsController extends AppController {
             }
         } else {
             $alert = '<div class="alert alert-error"> ';
-                 $msg .='<li> Transaction for failed due to Marchant Account credential changed. Please contact with administrator</li>';
+            $msg .='<li> Transaction for failed due to Marchant Account credential changed. Please contact with administrator</li>';
 
             $tdata['Ticket'] = array('content' => 'Transaction failed due to Marchant Account credential changed. Please contact with administrator ');
             $tickect = $this->Ticket->save($tdata); // Data save in Ticket
+            
+            
             $trackData['Track'] = array(
                 'package_customer_id' => $cid,
                 'ticket_id' => $tickect['Ticket']['id'],
@@ -266,6 +266,7 @@ class PaymentsController extends AppController {
         <strong>' . $msg . '</strong>
     </div>';
         $this->Session->setFlash($transactionMsg);
+     
         return $this->redirect($this->referer());
         //$this->set(compact('msg'));
     }
@@ -618,7 +619,7 @@ class PaymentsController extends AppController {
         $id = $this->request->data['Transaction']['id'];
         $this->request->data['Transaction']['transaction_id'] = $id;
         unset($this->request->data['Transaction']['id']);
-       // pr($this->request->data['Transaction']); exit;
+        // pr($this->request->data['Transaction']); exit;
         //creatre transaction History 
         $this->Transaction->save($this->request->data['Transaction']);
         unset($this->request->data['Transaction']['transaction_id']);
