@@ -90,7 +90,8 @@
                                         <h1 style=" color: #000 !important;">Invoice #<?php echo $single['tr']['id']; ?></h1>
                                     </li>
                                     <li style="color: #555;">
-                                        <b style=" color: #000;">Date of Invoice: </b><?php echo date('Y-m-d'); ?>
+                                        <b style=" color: #000;">Date of Invoice: </b><?php echo date('m-d-Y'); ?>
+                                        
                                     </li>
                                     <li style="color: #555;">
                                        <b style=" color: #000;">Terms:</b> Net 7 Days

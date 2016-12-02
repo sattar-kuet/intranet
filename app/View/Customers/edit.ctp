@@ -1480,6 +1480,7 @@
                                     <tbody>
                                         <?php
                                         foreach ($invoices as $info):
+                                            $date = $info['transactions']['next_payment'];
                                             // pr($info);
                                             $customer_address = $info['package_customers']['house_no'] . ' ' . $info['package_customers']['street'] . ' ' .
                                                     $info['package_customers']['apartment'] . ' ' . $info['package_customers']['city'] . ' ' . $info['package_customers']['state'] . ' '
@@ -1506,7 +1507,8 @@
                                                 <td>$<?php echo $info['transactions']['payable_amount']; ?></td>
                                                 <td>$<?php echo getPaid($info['transactions']['id']); ?></td>
                                                 <td>$<?php echo $info['transactions']['payable_amount'] - getPaid($info['transactions']['id']); ?></td>
-                                                <td><?php echo date_format(new DateTime($info['transactions']['next_payment']), 'm-d-Y'); ?></td>
+                                                <td><?php echo date_format(new DateTime($date), 'm-d-Y'); ?></td>
+                                                    
                                                 <td><?php echo $info['transactions']['note']; ?></td>
                                                 <td>   
                                                     <a  target="_blank" title="Edit" href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit', $info['transactions']['id'])) ?>" >
@@ -2078,11 +2080,13 @@
                     </div>
                     <section class="modal4invoice">
                         <?php
-                        foreach ($statements as $single):
-//                            pr($single); exit;
+                        foreach ($statements as $single):                            
+//                           pr($bill['next_payment']); exit;
                             $bill = $single['bill'];
+                            $date = $bill['next_payment'];
+                            
                             $payments = $single['payment'];
-                            $package = $single['package'];
+                            $package = $single['package']; 
                             ?>
                             <div id="invoice-pop-up<?php echo $bill['id']; ?>" style="display: none; width: 800px;">
                                 <div class="product-page product-pop-up" style="margin-left: 0px !important;">
@@ -2160,7 +2164,7 @@
 
                                                                         </tr>
                                                                         <tr>
-                                                                            <td style="text-align: center !important;"><?php echo date('Y-m-d'); ?></td>
+                                                                            <td style="text-align: center !important;"><?php echo date('m-d-Y', strtotime($date)); ?> </td>
                                                                             <td style="text-align: center !important;"><?php echo $bill['id']; ?></td>
                                                                         </tr>
                                                                         <tr>
@@ -2169,7 +2173,10 @@
                                                                         </tr>
                                                                         <tr>
                                                                             <td style="text-align: center !important;"> Next 7 Days</td>
-                                                                            <td style="text-align: center !important;"><?php echo date('Y-m-d', strtotime('+7 days')); ?></td>
+                                                                            <td style="text-align: center !important;"><?php $timestamp = strtotime("+7 days", strtotime($date));
+                                                                            echo date('m-d-Y',$timestamp);
+                                                                            ?></td>
+                                                                           
                                                                         </tr>
                                                                     </table>
                                                                 </ul>

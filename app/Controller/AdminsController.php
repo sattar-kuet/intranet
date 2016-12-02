@@ -971,7 +971,8 @@ class AdminsController extends AppController {
         $this->loadModel('PackageCustomer');
         $this->PackageCustomer->id = $id;
         $loggedUser = $this->Auth->user();
-       
+      //  echo $id.'<br>';
+      //  echo $tid;
         $this->PackageCustomer->saveField("approved", "1");
         $this->PackageCustomer->saveField("status", "done");
         $this->PackageCustomer->saveField("ins_by", $tid);
@@ -980,7 +981,7 @@ class AdminsController extends AppController {
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
 	<strong>Succeesfully approved </strong></div>';
         $this->Session->setFlash($msg);
-//         pr($this->request->data); exit;
+       //  pr($this->request->data); exit;
         $temp = $this->PackageCustomer->findById($id);
         $payable_amount = $temp['PackageCustomer']['deposit'] + $temp['PackageCustomer']['monthly_bill'] + $temp['PackageCustomer']['others'];
         $data['Transaction'] = array(

@@ -149,7 +149,8 @@
                                         <h1 style=" color: #990000 !important;">INVOICE Inv-2</h1>
                                     </li>
                                     <li style="color: #555;">
-                                        Date of Invoice: <?php echo date('Y-m-d'); ?>
+                                        Date of Invoice: <?php echo date('m-d-Y'); ?>
+                                         
                                     </li>
 
                                 </ul>

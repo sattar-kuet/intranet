@@ -166,7 +166,8 @@
                                                 </td>
                                                 <td><h4> $<?php echo $single['pt']['amount']; ?> </h4></td>
                                                 <td>
-                                                    <?php echo $tr['created']; ?>
+                                                    
+                                                    <?php echo date('m-d-Y', strtotime($tr['created'])); ?>
                                                 </td>
                                             </tr>
                                             <?php

@@ -57,11 +57,11 @@
                                     <th>
                                         Equipment
                                     </th>
-                                    
+
                                     <th>
                                         Payment
                                     </th>
-                                    
+
                                     <th>
                                         Comment
                                     </th>
@@ -95,21 +95,21 @@
                                         </td>
                                         <td>
                                             <a href="<?php
-                                        echo Router::url(array('controller' => 'customers',
-                                            'action' => 'edit_registration', $results['customers']['id']))
+                                            echo Router::url(array('controller' => 'customers',
+                                                'action' => 'edit_registration', $results['customers']['id']))
                                             ?>" 
                                                target="_blank">
                                                 <b>Name:</b> <?php
-                                                   echo $results['customers']['first_name'] . " " .
-                                                   $results['customers']['middle_name'] . " " .
-                                                   $results['customers']['last_name'];
-                                                   ?>
+                                                echo $results['customers']['first_name'] . " " .
+                                                $results['customers']['middle_name'] . " " .
+                                                $results['customers']['last_name'];
+                                                ?>
                                             </a><br>
                                             <?php if (!empty($customer['cell'])): ?>
-                                            <b>Cell:</b>  <a href="tel:<?php echo $customer['cell'] ?>"><?php echo $customer['cell']; ?></a> &nbsp;&nbsp;
+                                                <b>Cell:</b>  <a href="tel:<?php echo $customer['cell'] ?>"><?php echo $customer['cell']; ?></a> &nbsp;&nbsp;
                                             <?php endif; ?><br>
                                             <?php if (!empty($customer['home'])): ?>
-                                            <b> Phone: </b> <a href="tel:<?php echo $customer['home'] ?>"><?php echo $customer['home']; ?></a>
+                                                <b> Phone: </b> <a href="tel:<?php echo $customer['home'] ?>"><?php echo $customer['home']; ?></a>
                                             <?php endif; ?> <br>
 
                                             <b> Address: </b> <?php echo $customer_address; ?> 
@@ -170,7 +170,13 @@
                                         </td>
                                         <td>
                                             <div class="controls center text-center">
-
+                                                <a onclick="if (confirm('Are you sure to approve this data?')) {
+                                                                return true;
+                                                            }
+                                                            return false;"
+                                                   href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'approved', $results['customers']['id'], $results['tech']['id'])) ?>" title="Approve">
+                                                    <span class="fa fa-check"></span>
+                                                </a>
                                                 <div class="portlet-body form">
                                                     <!--BEGIN FORM-->
                                                     <?php
