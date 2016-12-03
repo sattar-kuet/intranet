@@ -168,34 +168,33 @@
                                                         } else {
                                                             echo $info['CustomPackage']['duration'] . ' Months, Custom package ' . $info['CustomPackage']['charge'] . '$';
                                                         }
-
-                                                    ?>
-                                                </td>
-                                                <td>$<?php echo $info['PackageCustomer']['payable_amount']; ?></td>
-                                                <td><?php echo date_format( new DateTime($info['PackageCustomer']['exp_date']) , 'm-d-Y' );  ?></td>
-                                            </tr>
-                                        <?php endforeach; ?>                           
-                                    </tbody>
-                                </table>
-                            </div>
+                                                        ?>
+                                                    </td>
+                                                    <td>$<?php echo $info['PackageCustomer']['payable_amount']; ?></td>                                               
+                                                    <td><?php echo date('m-d-Y', strtotime($info['PackageCustomer']['exp_date'])); ?></td>
+                                                </tr>
+                                            <?php endforeach; ?>                           
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                         <!-- END EXAMPLE TABLE PORTLET-->
                     </div>
 
-<!--                    <ul class="pagination" >
-                        <?php
-                        for ($i = 1; $i <= $total_page; $i++):
-                            $active = '';
-                            if (isset($this->params['pass'][0]) && $this->params['pass'][0] == $i) {
-                                $active = 'active';
-                            }
-                            ?>
-                            <li class="paginate_button <?php echo $active; ?>" aria-controls="sample_editable_1" tabindex="<?php echo $i; ?>">
-                                <a href="<?php echo Router::url(array('controller' => 'otherspayments', 'action' => 'manage', $i,$start,$end)) ?>"><?php echo $i; ?></a>
-                            </li>
-                        <?php endfor; ?>
-                    </ul>-->
+                    <!--                    <ul class="pagination" >
+                    <?php
+                    for ($i = 1; $i <= $total_page; $i++):
+                        $active = '';
+                        if (isset($this->params['pass'][0]) && $this->params['pass'][0] == $i) {
+                            $active = 'active';
+                        }
+                        ?>
+                                                    <li class="paginate_button <?php echo $active; ?>" aria-controls="sample_editable_1" tabindex="<?php echo $i; ?>">
+                                                        <a href="<?php echo Router::url(array('controller' => 'otherspayments', 'action' => 'manage', $i, $start, $end)) ?>"><?php echo $i; ?></a>
+                                                    </li>
+                    <?php endfor; ?>
+                                        </ul>-->
                 </div>
             <?php endif; ?>
         </div>

@@ -162,8 +162,10 @@
                                                  
                                                  echo $info['tr']['payable_amount'] - $paid;?> USD
                                                 </td>
-                                                <td><?php echo date_format( new DateTime($info['tr']['exp_date']) , 'm-d-Y' ); ?></td>
-                                                <td><?php  echo date_format( new DateTime($info['pc']['created']) , 'm-d-Y' );?></td>                                                
+                                                <td><?php echo date('m-d-Y', strtotime($info['tr']['exp_date']));?></td>
+                                                <td><?php echo date('m-d-Y', strtotime($info['pc']['created']));?></td>  
+                                                 
+                                                 
                                             </tr>
                                         <?php endforeach; ?>                           
                                     </tbody>
