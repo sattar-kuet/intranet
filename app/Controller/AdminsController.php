@@ -532,6 +532,7 @@ class AdminsController extends AppController {
     }
 
     function assignedtotech() {
+       
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
         $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
