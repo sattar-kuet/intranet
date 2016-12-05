@@ -84,7 +84,7 @@ class ReportsController extends AppController {
         $clicked = false;
         if ($this->request->is('post') || $this->request->is('put')) {
             $datrange = json_decode($this->request->data['Transaction']['daterange'], true);
-            $conditions = " tr.status = 'close' AND ";
+            $conditions = " tr.status = 'success' AND ";
             if (!empty($this->request->data['Transaction']['pay_mode'])) {
                 $conditions .=" tr.pay_mode = '" . $this->request->data['Transaction']['pay_mode'] . "' AND ";
             }
@@ -102,7 +102,6 @@ class ReportsController extends AppController {
                 left join package_customers pc on pc.id = tr.package_customer_id
                 left join psettings ps on ps.id = pc.psetting_id
                 LEFT JOIN packages p ON p.id = ps.package_id 
-                LEFT JOIN paid_transactions pt ON tr.id = pt.transaction_id 
                 WHERE $conditions order by tr.id desc limit 0,199";
             $transactions = $this->Transaction->query($sql);
             $clicked = true;
@@ -683,6 +682,7 @@ class ReportsController extends AppController {
             $this->getTotalCallBySatatus('check send');
             $total['totalAccount'] = $this->accountCall();
             $total['totalSupport'] = $this->supportCall();
+            
             $clicked = true;
             $this->set(compact('total'));
         }

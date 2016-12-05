@@ -207,11 +207,13 @@ class CustomersController extends AppController {
         $next_payment_date = date('Y-m-d', $timestamp);
         $this->request->data['Transaction']['next_payment'] = $next_payment_date;
         $this->request->data['Transaction']['pay_mode'] = 'card';
+
 //       pr($this->request->data);
 //        exit;
         $this->Transaction->save($this->request->data);
         $this->PackageCustomer->id = $this->request->data['Transaction']['package_customer_id'];
         pr($this->request->data['Transaction']); exit;
+
         $this->PackageCustomer->save($this->request->data['Transaction']);
 
         $Msg = '<div class="alert alert-success">
@@ -292,13 +294,6 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $user = $loggedUser['Role']['name'];
         if ($this->request->is('post') || $this->request->is('put')) {
 
-            if ($this->request->data['reward'] !== '') {
-                $this->request->data['PackageCustomer']['reward'] = $this->request->data['reward'];
-            }
-
-            if ($this->request->data['reward1'] !== '') {
-                $this->request->data['PackageCustomer']['reward'] = $this->request->data['reward1'];
-            }
 //            pr($this->request->data); exit;
             // update package_customers table
             $this->request->data['PackageCustomer']['id'] = $id;
@@ -313,7 +308,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $this->loadModel('Transaction');
         $customer_info = $this->PackageCustomer->findById($pcid);
         $this->request->data = $customer_info;
-        // pr($this->request->data); exit;
+//         pr($this->request->data['PackageCustomer']['reward']); exit;
         $payment = new PaymentsController();
         $latestcardInfo = $payment->getLastCardInfo($pcid);
         //  pr($customer_info['PackageCustomer']); exit;
@@ -895,12 +890,17 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             'ticket_generated' => 0,
             'invoice_no' => 0,
             'invoice_created' => 0,
-            'printed' => 0
+            'printed' => 0,
+            'auto_r' => 'no'
+            
         );
 
+      
+        
         if ($this->request->data['NextTransaction']['discount'] == '') {
             $this->request->data['NextTransaction']['discount'] = 0;
         }
+        
         $pc_data = $this->PackageCustomer->save($data);
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
