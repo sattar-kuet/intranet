@@ -208,12 +208,9 @@ class CustomersController extends AppController {
         $this->request->data['Transaction']['next_payment'] = $next_payment_date;
         $this->request->data['Transaction']['status'] = 'auto_recurring';
         $this->request->data['Transaction']['pay_mode'] = 'card';
-//       pr($this->request->data);
-//        exit;
+
         $this->Transaction->save($this->request->data);
-
-        $this->PackageCustomer->id = $this->request->data['Transaction']['package_customer_id'];
-
+        $this->PackageCustomer->id = $this->request->data['Transaction']['package_customer_id'];        
         $this->PackageCustomer->save($this->request->data['Transaction']);
 
         $Msg = '<div class="alert alert-success">
@@ -890,12 +887,17 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             'ticket_generated' => 0,
             'invoice_no' => 0,
             'invoice_created' => 0,
-            'printed' => 0
+            'printed' => 0,
+            'auto_r' => 'no'
+            
         );
 
+      
+        
         if ($this->request->data['NextTransaction']['discount'] == '') {
             $this->request->data['NextTransaction']['discount'] = 0;
         }
+        
         $pc_data = $this->PackageCustomer->save($data);
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>

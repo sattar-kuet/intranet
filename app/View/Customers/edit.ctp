@@ -1481,7 +1481,7 @@
                                         <?php
                                         foreach ($invoices as $info):
                                             $date = $info['transactions']['next_payment'];
-                                            // pr($info);
+//                                             pr($info);
                                             $customer_address = $info['package_customers']['house_no'] . ' ' . $info['package_customers']['street'] . ' ' .
                                                     $info['package_customers']['apartment'] . ' ' . $info['package_customers']['city'] . ' ' . $info['package_customers']['state'] . ' '
                                                     . $info['package_customers']['zip'];
@@ -1514,11 +1514,12 @@
                                                     <a  target="_blank" title="Edit" href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit', $info['transactions']['id'])) ?>" >
                                                         <span class="fa fa-pencil"></span>
                                                     </a>
+                                                    <?php if($info['package_customers']['auto_r']!='yes'):?>
                                                     &nbsp;&nbsp;
-
                                                     <a  target="_blank" title="Take Payment" href="<?php echo Router::url(array('controller' => 'payments', 'action' => 'process', $info['transactions']['id'], $info['package_customers']['id'])) ?>" >
                                                         <span class="fa fa-dollar"></span>
                                                     </a>
+                                                    <?php endif; ?>
                                                     &nbsp;&nbsp;
                                                     <a href="#invoice-pop-up<?php echo $info['transactions']['id']; ?>" class="btn btn-default fancybox-fast-view"> <span class="fa fa-file"></span>
                                                     </a>
