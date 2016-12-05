@@ -650,11 +650,11 @@
                                                         <?php
                                                         echo $this->Form->input(
                                                                 'cvv_code', array(
-                                                            'type' => 'text',
-                                                            'value' => '',
+                                                            'type' => 'password',
                                                             'class' => 'form-control input-sm required',
                                                             'id' => 'cvv_code',
-                                                            'placeholder' => 'CVV Code'
+                                                            'placeholder' => 'CVV Code',
+                                                            'autocomplete' => 'off'
                                                         ));
                                                         ?>
                                                     </div>                                                    

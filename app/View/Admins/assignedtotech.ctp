@@ -1,5 +1,3 @@
-
-
 <style type="text/css">
     .alert {
         padding: 6px;
@@ -90,7 +88,7 @@
                                             <?php echo $results['customers']['id']; ?>                            
                                         </td>
                                         <td class="hidden-480">
-                                            <?php echo date_format(new DateTime($results['customers']['created']), 'm-d-Y'); ?>  <br>
+                                            <?php echo date('m-d-Y', strtotime($results['customers']['created'])); ?>  <br>
                                             <?php echo $results['users']['name']; ?>                            
                                         </td>
                                         <td>
@@ -168,9 +166,7 @@
 
                                         </td>
                                       
-                                        <td><?php echo date_format(new DateTime($results['customers']['schedule_date']), 'm-d-Y'); ?></td>
-                                            
-
+                                        <td><?php echo date('m-d-Y', strtotime($results['customers']['schedule_date']) ); ?></td>
 
                                         <td> 
                                             <div class="controls center text-center">
