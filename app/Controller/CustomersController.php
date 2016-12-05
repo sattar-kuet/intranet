@@ -287,13 +287,6 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $user = $loggedUser['Role']['name'];
         if ($this->request->is('post') || $this->request->is('put')) {
 
-            if ($this->request->data['reward'] !== '') {
-                $this->request->data['PackageCustomer']['reward'] = $this->request->data['reward'];
-            }
-
-            if ($this->request->data['reward1'] !== '') {
-                $this->request->data['PackageCustomer']['reward'] = $this->request->data['reward1'];
-            }
 //            pr($this->request->data); exit;
             // update package_customers table
             $this->request->data['PackageCustomer']['id'] = $id;
@@ -309,7 +302,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $this->loadModel('Transaction');
         $customer_info = $this->PackageCustomer->findById($pcid);
         $this->request->data = $customer_info;
-        // pr($this->request->data); exit;
+//         pr($this->request->data['PackageCustomer']['reward']); exit;
         $payment = new PaymentsController();
         $latestcardInfo = $payment->getLastCardInfo($pcid);
         //  pr($customer_info['PackageCustomer']); exit;

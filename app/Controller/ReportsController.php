@@ -682,6 +682,7 @@ class ReportsController extends AppController {
             $this->getTotalCallBySatatus('check send');
             $total['totalAccount'] = $this->accountCall();
             $total['totalSupport'] = $this->supportCall();
+            
             $clicked = true;
             $this->set(compact('total'));
         }

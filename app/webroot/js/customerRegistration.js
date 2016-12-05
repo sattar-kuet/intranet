@@ -50,9 +50,20 @@ $(document).ready(function () {
         $('.status-date').text(selected);
     });
 
-  //  Reward add strat
-    
- 
+    //  Reward add strat    
+    var selected = $('.packageChange option:selected').text().toLowerCase();
+    if (selected.trim() == "6 month package $180") {
+        $('#reward6').show();
+        $('#reward12').hide();
+    }
+    else if (selected.trim() == "1 year package $360") {
+        $('#reward6').hide();
+        $('#reward12').show();
+    }
+    else {
+        $('#reward6').hide();
+        $('#reward12').hide();
+    }
 
     $('.packageChange').change(function () {
         var selected = $('.packageChange option:selected').text().toLowerCase();
@@ -69,7 +80,7 @@ $(document).ready(function () {
             $('#reward12').hide();
         }
     });
-    
+
     //   Reward add end
 
     initialization();
