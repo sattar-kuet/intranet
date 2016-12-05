@@ -154,7 +154,9 @@
                                                     <?php echo $results['customers']['id']; ?>                            
                                                 </td>
                                                 <td class="hidden-480">
-                                                    <?php echo date_format(new DateTime($results['customers']['created']), 'm-d-Y'); ?>  <br>
+                                                    <?php echo date('m-d-Y', strtotime($results['customers']['created'])); ?> <br>
+
+
                                                     <?php echo $results['users']['name']; ?>                            
                                                 </td>
                                                 <td>
@@ -226,7 +228,9 @@
                                                     </ul>
                                                 </td>
                                                 <td>
-                                                     <td><?php echo date_format(new DateTime($results['customers']['schedule_date']), 'm-d-Y'); ?></td>
+                                                <td>
+                                                <?php echo date('m-d-Y', strtotime($results['customers']['schedule_date'])); ?>
+                                                </td>
                                                 </td>
                                                 <td> 
                                                     <div class="controls center text-center">
@@ -234,14 +238,14 @@
                                                             href="commentDiv<?php echo $results['customers']['id']; ?>" title="Comment" class="toggleDiv">
                                                             <span  class="fa fa-comment fa-lg "></span>
                                                         </a>
-                                                         &nbsp;
+                                                        &nbsp;
                                                         <a onclick="if (confirm('Are you sure to approve this data?')) {
-                                                                       return true;
-                                                                   }
-                                                                   return false;"
+                                                                            return true;
+                                                                        }
+                                                                        return false;"
                                                            href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'approved', $results['customers']['id'], $results['tech']['id'])) ?>" title="Approve">
-                                                           <span class="fa fa-check"></span>
-                                                       </a>
+                                                            <span class="fa fa-check"></span>
+                                                        </a>
                                                         <div id="commentDiv<?php echo $results['customers']['id']; ?>" class=" hideRest portlet-body form" style="display: none;">
                                                             <!-- BEGIN FORM-->
                                                             <?php

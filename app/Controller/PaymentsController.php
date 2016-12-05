@@ -202,7 +202,6 @@ class PaymentsController extends AppController {
                 if ($due > 0) {
                     $status = 'open';
                 }
-
                 unset($this->request->data['Transaction']['payable_amount']);
                 $this->Transaction->id = $id;
                 $this->Transaction->saveField("status", $status);
@@ -601,9 +600,12 @@ class PaymentsController extends AppController {
     }
 
     function getDue($id = null) {
+       // pr($id); exit;
         $this->loadModel('Transaction');
         $data1 = $this->Transaction->findById($id);
+        
         $sql = 'SELECT SUM(payable_amount) as paid FROM transactions WHERE transaction_id =' . $id;
+//        echo $sql exit;
         $data2 = $this->Transaction->query($sql);
         $payable = $data1['Transaction']['payable_amount'];
         $paid = $data2[0][0]['paid'];
@@ -627,7 +629,7 @@ class PaymentsController extends AppController {
         $id = $this->request->data['Transaction']['id'];
         $this->request->data['Transaction']['transaction_id'] = $id;
         unset($this->request->data['Transaction']['id']);
-        // pr($this->request->data['Transaction']); exit;
+
         //creatre transaction History 
         $this->Transaction->save($this->request->data['Transaction']);
         unset($this->request->data['Transaction']['transaction_id']);
@@ -641,6 +643,7 @@ class PaymentsController extends AppController {
         $amount = $this->request->data['Transaction']['payable_amount'];
         unset($this->request->data['Transaction']['payable_amount']);
         $this->Transaction->id = $id;
+//         pr('here'); exit;
         $this->Transaction->save($this->request->data['Transaction']);
         // generate Ticket
         $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment mode :</b> Check");
@@ -845,7 +848,6 @@ class PaymentsController extends AppController {
                 $this->Session->setFlash($msg);
             }
         }
-
         $pay_to = $this->User->find('list', array('conditions' => array('OR' => array(array('User.role_id' => 9), array('User.role_id' => 11)))));
         $this->set(compact('pay_to'));
     }

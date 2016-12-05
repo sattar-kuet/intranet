@@ -164,7 +164,7 @@
                                                         ?>
                                                     </ul>
                                                 </td>
-                                                <td><h4> $<?php echo $single['pt']['amount']; ?> </h4></td>
+                                                <td><h4> $<?php echo $tr['payable_amount']; ?> </h4></td>
                                                 <td>
                                                     
                                                     <?php echo date('m-d-Y', strtotime($tr['created'])); ?>

@@ -206,12 +206,10 @@ class CustomersController extends AppController {
         $timestamp = strtotime($this->request->data['Transaction']['r_form']) + $this->request->data['Transaction']['r_duration'] * 24 * 60 * 60; // +strtotime($this->request->data['Transaction']['r_duration'].' days');
         $next_payment_date = date('Y-m-d', $timestamp);
         $this->request->data['Transaction']['next_payment'] = $next_payment_date;
-        $this->request->data['Transaction']['status'] = 'auto_recurring';
         $this->request->data['Transaction']['pay_mode'] = 'card';
 //       pr($this->request->data);
 //        exit;
         $this->Transaction->save($this->request->data);
-
         $this->PackageCustomer->id = $this->request->data['Transaction']['package_customer_id'];
         pr($this->request->data['Transaction']); exit;
         $this->PackageCustomer->save($this->request->data['Transaction']);

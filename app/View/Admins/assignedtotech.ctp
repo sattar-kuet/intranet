@@ -88,7 +88,12 @@
                                             <?php echo $results['customers']['id']; ?>                            
                                         </td>
                                         <td class="hidden-480">
+<<<<<<< HEAD
                                             <?php echo date('m-d-Y', strtotime($results['customers']['created'])); ?>  <br>
+=======
+                                            
+                                            <?php echo date('m-d-Y', strtotime($results['customers']['created'])); ?><br>
+>>>>>>> 24e0b217d03a5799195358034c35aabd39d417d5
                                             <?php echo $results['users']['name']; ?>                            
                                         </td>
                                         <td>

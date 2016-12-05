@@ -110,7 +110,7 @@
                                             <?php endif; ?>
                                         </td>
                                         <td>
-                                            <?php echo date_format(new DateTime($results['customers']['follow_date']), 'm-d-Y'); ?>
+                                            <?php echo date('m-d-Y h:i:sa', strtotime($results['customers']['follow_date'])); ?>
                                         </td>
                                         <td>
                                             <ul>

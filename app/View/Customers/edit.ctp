@@ -1479,8 +1479,11 @@
                                     </thead>
                                     <tbody>
                                         <?php
+                                        //pr($invoices);
                                         foreach ($invoices as $info):
                                             $date = $info['transactions']['next_payment'];
+                                        echo getPaid($info['transactions']['id']);
+                                        
                                             // pr($info);
                                             $customer_address = $info['package_customers']['house_no'] . ' ' . $info['package_customers']['street'] . ' ' .
                                                     $info['package_customers']['apartment'] . ' ' . $info['package_customers']['city'] . ' ' . $info['package_customers']['state'] . ' '
@@ -1507,8 +1510,7 @@
                                                 <td>$<?php echo $info['transactions']['payable_amount']; ?></td>
                                                 <td>$<?php echo getPaid($info['transactions']['id']); ?></td>
                                                 <td>$<?php echo $info['transactions']['payable_amount'] - getPaid($info['transactions']['id']); ?></td>
-                                                <td><?php echo date_format(new DateTime($date), 'm-d-Y'); ?></td>
-
+                                                <td><?php echo date('m-d-Y', strtotime($date)); ?></td>
                                                 <td><?php echo $info['transactions']['note']; ?></td>
                                                 <td>   
                                                     <a  target="_blank" title="Edit" href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit', $info['transactions']['id'])) ?>" >
@@ -1526,6 +1528,7 @@
                                             </tr>
                                             <?php
                                         endforeach;
+                                       // exit;
                                         ?>
                                     </tbody>
                                 </table>
@@ -1863,7 +1866,7 @@
                                                 <tbody>
                                                     <tr class="odd gradeX">
                                                         <td> <?php
-                                                            echo date('Y-m-d');
+                                                            echo date('m-d-Y');
                                                             $customer = $customer_info['PackageCustomer'];
                                                             ?></td>  
                                                         <td>#<?php echo $customer['id']; ?></td>
@@ -1978,7 +1981,8 @@
                                                 Payable Amount : <?php echo $bill['payable_amount']; ?> 
                                             </li>
                                             <li>
-                                                Payment Date :  <?php echo $bill['next_payment']; ?> 
+                                                Payment Date :  <?php echo date('m-d-Y', strtotime($bill['next_payment'])); ?>
+                                               
                                             </li>
 
                                             </td>
@@ -2023,8 +2027,13 @@
                                                                 <li>Transaction No : <?php echo $payment['tr']['trx_id']; ?></li> 
                                                                 <li>Card No : <?php echo substr($payment['tr']['card_no'], 0, 4); ?></li>  
                                                                 <li>Zip Code : <?php echo $payment['tr']['zip_code']; ?></li>  
+<<<<<<< HEAD
                                                                 <li>CVV Code : ***<?php //echo $payment['tr']['cvv_code'];   ?></li> 
                                                                 <li>Expire Date : <?php echo $payment['tr']['exp_date']; ?></li>
+=======
+                                                                <li>CVV Code : <?php echo $payment['tr']['cvv_code']; ?></li> 
+                                                                <li>Expire Date : <?php echo date('m-d-Y', strtotime($payment['tr']['exp_date'])); ?></li>
+>>>>>>> 24e0b217d03a5799195358034c35aabd39d417d5
 
 
                                                             <?php elseif ($payment['tr']['pay_mode'] == 'cash'): ?>
@@ -2034,7 +2043,7 @@
                                                             <?php elseif ($payment['tr']['pay_mode'] == 'refund'): ?>
                                                                 <li>Pay Mode : <?php echo $payment['tr']['pay_mode']; ?></li>
                                                                 <ul> <li>Amount : <?php echo $payment['tr']['paid_amount']; ?></li>
-                                                                    <li>Refund Date : <?php echo $payment['tr']['created']; ?></li>
+                                                                    <li>Refund Date : <?php echo date('m-d-Y', strtotime($payment['tr']['created'])); ?></li>
                                                                 </ul>
 
 
@@ -2045,7 +2054,9 @@
                                                                 <?php endif; ?>
                                                             <?php endif; ?> 
 
-                                                            <li> Payment Date: <?php echo $payment['tr']['created']; ?> </li>
+                                                            <li> Payment Date: <?php echo date('m-d-Y', strtotime($payment['tr']['created'])); ?> </li>
+                                                                  
+
                                                             <li> Payment of : #<?php echo $payment['tr']['transaction_id']; ?> </li>
                                                         </ul>
                                                     </td>
@@ -2621,7 +2632,7 @@
                                                                 <li> Cell: <?php echo $customer['cell']; ?> </li> 
                                                             </ul>
                                                         </td>
-                                                        <td><?php echo $ticket['created']; ?></td>
+                                                        <td><?php echo date('m-d-Y h:m:s', strtotime($ticket['created'])); ?></td>
                                                         <td><?php echo $ticket['content']; ?></td>
                                                         <td>
                                                             <ol>
@@ -2641,7 +2652,8 @@
                                                                         ?>
                                                                         <?php echo $history['fb']['name']; ?>
                                                                         <p><strong>Forwarded To:</strong><ul><li><?php echo $history['fi']['name']; ?> </li><li><?php echo $history['fd']['name']; ?> </li></ul>
-                                                                        <strong>Time:</strong> <?php echo $history['tr']['created']; ?>
+                                                                        <strong>Time:</strong>
+                                                                        <?php echo date('m-d-Y h:m:s', strtotime($history['tr']['created'])); ?>
                                                                         &nbsp;&nbsp;<strong>Status:</strong> <?php echo $history['tr']['status']; ?><br>
                                                                         <?php
                                                                         if (!empty($history['tr']['comment'])):
