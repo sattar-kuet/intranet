@@ -48,7 +48,9 @@
                                 foreach ($data as $result):
                                     ?>
                                     <tr >
-                                        <td><?php echo date_format( new DateTime($result['m']['created']) , 'm-d-Y h:i:sa' ); ?></td>
+                                        <td>
+                                        <?php echo date('m-d-Y h:i:sa', strtotime($result['m']['created'])); ?>
+                                        </td>
                                         <td><?php echo $result['m']['message']; ?></td>
                                         <td><?php echo $result['u']['individual']; ?></td>
                                         <td><?php echo $result['r']['department']; ?></td>

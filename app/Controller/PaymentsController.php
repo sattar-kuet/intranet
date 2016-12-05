@@ -594,9 +594,12 @@ class PaymentsController extends AppController {
     }
 
     function getDue($id = null) {
+        pr($id); exit;
         $this->loadModel('Transaction');
         $data1 = $this->Transaction->findById($id);
+        
         $sql = 'SELECT SUM(payable_amount) as paid FROM transactions WHERE transaction_id =' . $id;
+//        echo $sql exit;
         $data2 = $this->Transaction->query($sql);
         $payable = $data1['Transaction']['payable_amount'];
         $paid = $data2[0][0]['paid'];
@@ -604,7 +607,7 @@ class PaymentsController extends AppController {
     }
 
     public function individual_transaction_by_check() {
-        pr($this->request->data['Transaction']); 
+//        pr($this->request->data['Transaction']); 
         $this->loadModel('Transaction');
         $loggedUser = $this->Auth->user();
         $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
@@ -619,7 +622,7 @@ class PaymentsController extends AppController {
         $id = $this->request->data['Transaction']['id'];
         $this->request->data['Transaction']['transaction_id'] = $id;
         unset($this->request->data['Transaction']['id']);
-       // pr($this->request->data['Transaction']); exit;
+//        pr($this->request->data['Transaction']); exit;
         //creatre transaction History 
         $this->Transaction->save($this->request->data['Transaction']);
         unset($this->request->data['Transaction']['transaction_id']);
@@ -632,6 +635,7 @@ class PaymentsController extends AppController {
         }
         unset($this->request->data['Transaction']['payable_amount']);
         $this->Transaction->id = $id;
+//         pr('here'); exit;
         $this->Transaction->save($this->request->data['Transaction']);
         $transactionMsg = '<div class = "alert alert-success">
                         <button type = "button" class = "close" data-dismiss = "alert">&times;

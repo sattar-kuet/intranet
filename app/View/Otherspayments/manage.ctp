@@ -53,7 +53,9 @@
                                         <td><?php echo $single['others_payments']['note']; ?></td>
                                         <td><?php echo $single['users']['name']; ?></td>
                                         <td><?php echo $single['others_payments']['payamount']; ?></td>
-                                        <td><?php echo date('m-d-Y', strtotime($single['others_payments']['payment_date'])); ?></td>
+                                        <td>
+                                        <?php echo date('m-d-Y', strtotime($single['others_payments']['payment_date'])); ?>
+                                        </td>
                                         
                                         <td><?php echo $single['others_payments']['status']; ?></td>
                                         <td>   

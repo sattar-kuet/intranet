@@ -68,7 +68,8 @@
                                                 <li> Cell: <?php echo $customer['cell']; ?> </li> 
                                             </ul>
                                         </td>
-                                        <td><?php  echo date_format( new DateTime($ticket['created']) , 'm-d-Y h:i:sa' );?></td>
+                                        <td><?php echo date('m-d-Y h:i:sa', strtotime($ticket['created'])); ?></td>
+                                        
                                         <td><?php echo $ticket['content']; ?></td>
                                         <td>
                                             <ol>
@@ -87,8 +88,8 @@
                                                         ?>
                                                         <?php echo $history['fb']['name']; ?>
                                                         <p><strong>Forwarded To:</strong><ul><li><?php echo $history['fi']['name']; ?> </li><li><?php echo $history['fd']['name']; ?> </li></ul>
-                                                        <strong>Time:</strong> <?php  echo date_format( new DateTime($history['tr']['created']) , 'm-d-Y h:i:sa' ); ?>
-
+                                                        <strong>Time:</strong> <?php echo date('m-d-Y h:i:sa', strtotime($history['tr']['created'])); ?>
+                                                        
                                                         &nbsp;&nbsp;<strong>Status:</strong> <?php echo $history['tr']['status']; ?><br>
                                                         <?php
                                                         if (!empty($history['tr']['comment'])):
