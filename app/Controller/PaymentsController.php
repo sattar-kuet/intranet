@@ -105,7 +105,7 @@ class PaymentsController extends AppController {
         $this->request->data['Transaction'] = $latestcardInfo;
 
         $this->request->data['Transaction']['id'] = $data['Transaction']['id'];
-      //  pr($this->request->data['Transaction']); exit;
+        //  pr($this->request->data['Transaction']); exit;
 
         $this->request->data['Transaction']['payable_amount'] = $data['Transaction']['payable_amount'] - $paid;
         $this->set('customer_info');
@@ -227,13 +227,13 @@ class PaymentsController extends AppController {
                 $message = $message[0];
                 $errorCode = $message->getCode();
                 if ($errorCode == 'E00003') {
-                    $errorMsg = 'Invalid Card number. Check Card Number, remove space or any special carachter inserted by mistkae <br> <b> Error Code: '.$errorCode.'</b>';
+                    $errorMsg = 'Invalid Card number. Check Card Number, remove space or any special carachter inserted by mistkae <br> <b> Error Code: ' . $errorCode . '</b>';
                 } else if ($errorCode == 'E00007') {
-                    $errorMsg = 'Transaction failed due to Marchant Account credential changed. Please contact with administrator <br> <b> Error Code: '.$errorCode.'</b>';
+                    $errorMsg = 'Transaction failed due to Marchant Account credential changed. Please contact with administrator <br> <b> Error Code: ' . $errorCode . '</b>';
                 } else {
                     $errors = $tresponse->getErrors();
                     $errors = $errors[0];
-                    $errorMsg = $errors->getErrorText().'<br> <b> Error Code: '.$errorCode.'</b>';
+                    $errorMsg = $errors->getErrorText() . '<br> <b> Error Code: ' . $errorCode . '</b>';
                 }
 
                 $msg .='<li>' . $errorMsg . ' </li>';
@@ -612,6 +612,7 @@ class PaymentsController extends AppController {
         $data2 = $this->Transaction->query($sql);
         $payable = $data1['Transaction']['payable_amount'];
         $paid = $data2[0][0]['paid'];
+        $paid = round($paid,2);
         return $payable - $paid;
     }
 
@@ -688,7 +689,6 @@ class PaymentsController extends AppController {
         unset($this->request->data['Transaction']['id']);
 
         // pr($this->request->data['Transaction']); exit;
-
         //creatre transaction History 
         $this->Transaction->save($this->request->data['Transaction']);
         unset($this->request->data['Transaction']['transaction_id']);
@@ -743,7 +743,6 @@ class PaymentsController extends AppController {
         $this->request->data['Transaction']['status'] = 'close';
 
         // pr($this->request->data['Transaction']); exit;
-
         //creatre transaction History 
         $this->Transaction->save($this->request->data['Transaction']);
         unset($this->request->data['Transaction']['transaction_id']);
@@ -789,7 +788,7 @@ class PaymentsController extends AppController {
         $this->loadModel('Ticket');
         $this->loadModel('Track');
         $loggedUser = $this->Auth->user();
-        $this->request->data['Transaction']['user_id'] = $loggedUser['id'];        
+        $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
         $this->request->data['Transaction']['status'] = 'success';
         $id = $this->request->data['Transaction']['id'];
         $this->request->data['Transaction']['transaction_id'] = $id;
@@ -833,7 +832,7 @@ class PaymentsController extends AppController {
         );
         $this->Track->save($trackData);
         // End generate Ticket
-     
+
         $transactionMsg = '<div class = "alert alert-success">
                         <button type = "button" class = "close" data-dismiss = "alert">&times;
                         </button>
@@ -871,30 +870,56 @@ class PaymentsController extends AppController {
     }
 
     public function paidInvoice($trans_id = null, $customer_id = null) {
+        $this->request->data['Transaction']['created'] = $this->getFormatedDate($this->request->data['Transaction']['created']) . ' 00:00:00';
         $this->loadModel('Transaction');
-        pr($this->request->data); exit;
-        $latestcardInfo = $this->getLastCardInfo($customer_id);
-        
-         if ($this->request->is('post')) {
-           
-            
-                $this->Transaction->id = $this->request->data['Transaction']['id'];
-                
-                $this->Transaction->save($this->request->data['Transaction']);
-                $msg = '<div class="alert alert-success">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <strong>Information update succeesfully </strong>
-                </div>';
-                $this->Session->setFlash($msg);
-                return $this->redirect($this->referer());
-           
+        $this->loadModel('Ticket');
+        $this->loadModel('Track');
+        $loggedUser = $this->Auth->user();
+        $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
+        $result = array();
+      
+        $this->request->data['Transaction']['status'] = 'success';
+        $id = $this->request->data['Transaction']['id'];
+        $this->request->data['Transaction']['transaction_id'] = $id;
+        unset($this->request->data['Transaction']['id']);
+
+        //creatre transaction History 
+      // pr($this->request->data['Transaction']); exit;
+        $this->Transaction->save($this->request->data['Transaction']);
+        unset($this->request->data['Transaction']['transaction_id']);
+        unset($this->request->data['Transaction']['created']);
+
+        $this->request->data['Transaction']['status'] = 'close';
+        // check due amount 
+        $due = $this->getDue($id);
+       // echo 'Due : '.$due; exit;
+        if ($due > 0) {
+            $this->request->data['Transaction']['status'] = 'open';
         }
-      
-      
-        $data = $this->Transaction->findById($trans_id);
-        $this->request->data['Transaction'] = $latestcardInfo;
-       
-        $this->set('customer_info');
+        $amount = $this->request->data['Transaction']['payable_amount'];
+        unset($this->request->data['Transaction']['payable_amount']);
+        $this->Transaction->id = $id;
+//         pr('here'); exit;
+        $this->Transaction->save($this->request->data['Transaction']);
+        // generate Ticket
+        $tdata['Ticket'] = array('content' => "This is paid invoice.Paid invoice record saved successfully<br> <b> Amount : </b> $amount <br> <b> Payment mode :</b> Card");
+        $tickect = $this->Ticket->save($tdata); // Data save in Ticket
+
+        $trackData['Track'] = array(
+            'package_customer_id' => $this->request->data['Transaction']['package_customer_id'],
+            'ticket_id' => $tickect['Ticket']['id'],
+            'status' => 'closed',
+            'forwarded_by' => $loggedUser['id']
+        );
+        $this->Track->save($trackData);
+        // End generate Ticket
+        $transactionMsg = '<div class = "alert alert-success">
+                        <button type = "button" class = "close" data-dismiss = "alert">&times;
+                        </button>
+                        <strong> Paid invoice record saved successfully</strong>
+                        </div>';
+        $this->Session->setFlash($transactionMsg);
+        return $this->redirect($this->referer());
     }
 
 }
