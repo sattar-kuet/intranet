@@ -1033,7 +1033,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                      left join issues i on pc.issue_id = i.id
-                    WHERE pc.shipment = 2");
+                    WHERE pc.shipment = 2 and approved = 0");
         $filteredData = array();
         $unique = array();
         $index = 0;
@@ -1437,7 +1437,8 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id
-                    where pc.issue_id = 34");
+                    where pc.issue_id = 34 and approved = 0");
+//        pr($allData); exit;
         $filteredData = array();
         $unique = array();
         $index = 0;
@@ -1575,7 +1576,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id
-                    where pc.issue_id = 17");
+                    where pc.issue_id = 17 and approved = 0");
         $filteredData = array();
         $unique = array();
         $index = 0;
@@ -1640,7 +1641,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id
-                    where pc.issue_id = 5");
+                    where pc.issue_id = 5 and approved = 0");
         $filteredData = array();
         $unique = array();
         $index = 0;

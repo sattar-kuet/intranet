@@ -1006,6 +1006,7 @@ class AdminsController extends AppController {
         "status" => "done",
         "comments" => $comments,
         "user_id" => $loggedUser['id']);
+//    pr($data); exit;
         $this->PackageCustomer->save($data);
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
