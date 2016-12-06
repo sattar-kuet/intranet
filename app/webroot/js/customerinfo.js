@@ -66,6 +66,7 @@ $(document).ready(function () {
             $("#option_check").hide();
             $("#option_moneyorder").hide();
             $("#option_onlinebill").hide();
+            $("#option_paidinvoice").hide();
         }
         if (pmode == 'cash') {
             $("#option_card").hide();
@@ -73,6 +74,7 @@ $(document).ready(function () {
             $("#option_check").hide();
             $("#option_onlinebill").hide();
             $("#option_moneyorder").hide();
+            $("#option_paidinvoice").hide();
         }
         if (pmode == 'check') {
             $("#option_card").hide();
@@ -80,6 +82,7 @@ $(document).ready(function () {
             $("#option_check").show();
             $("#option_onlinebill").hide();
             $("#option_moneyorder").hide();
+            $("#option_paidinvoice").hide();
         }
 
         if (pmode == 'money order') {
@@ -88,6 +91,7 @@ $(document).ready(function () {
             $("#option_check").hide();
             $("#option_moneyorder").show();
             $("#option_onlinebill").hide();
+            $("#option_paidinvoice").hide();
         }
         if (pmode == 'online bill') {
             $("#option_card").hide();
@@ -95,6 +99,15 @@ $(document).ready(function () {
             $("#option_check").hide();
             $("#option_moneyorder").hide();
             $("#option_onlinebill").show();
+            $("#option_paidinvoice").hide();
+        }
+        if (pmode == 'paid invoice') {
+            $("#option_card").hide();
+            $("#option_cash").hide();
+            $("#option_check").hide();
+            $("#option_moneyorder").hide();
+            $("#option_onlinebill").hide();
+            $("#option_paidinvoice").show();
         }
 
         console.log(pmode);

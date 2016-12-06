@@ -103,8 +103,35 @@ class PaymentsController extends AppController {
         $paid = getPaid($trans_id);
         $data = $this->Transaction->findById($trans_id);
         $this->request->data['Transaction'] = $latestcardInfo;
-        //  pr($latestcardInfo); exit;
+       
         $this->request->data['Transaction']['payable_amount'] = $data['Transaction']['payable_amount'] - $paid;
+        $this->set('customer_info');
+    }
+    
+    public function paidInvoice($trans_id = null, $customer_id = null) {
+        $this->loadModel('Transaction');
+        pr($this->request->data); exit;
+        $latestcardInfo = $this->getLastCardInfo($customer_id);
+        
+         if ($this->request->is('post')) {
+           
+            
+                $this->Transaction->id = $this->request->data['Transaction']['id'];
+                
+                $this->Transaction->save($this->request->data['Transaction']);
+                $msg = '<div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Information update succeesfully </strong>
+                </div>';
+                $this->Session->setFlash($msg);
+                return $this->redirect($this->referer());
+           
+        }
+      
+      
+        $data = $this->Transaction->findById($trans_id);
+        $this->request->data['Transaction'] = $latestcardInfo;
+       
         $this->set('customer_info');
     }
 
