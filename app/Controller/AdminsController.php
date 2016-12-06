@@ -392,8 +392,18 @@ class AdminsController extends AppController {
         $loggedUser = $this->Auth->user();
         $uid = $loggedUser['id'];
         $rid = $loggedUser['Role']['id'];
-        $admin_messages = $this->Message->query("SELECT * FROM messages m
-        LEFT JOIN users u ON u.id = m.user_id  WHERE m.assign_id = $uid OR m.role_id = $rid");
+        
+        
+        $this->loadModel('Role');
+        $sql ='SELECT * FROM roles WHERE LOWER(roles.name)="general"';
+        $temp = $this->Role->query($sql);
+        $rid2 = $temp[0]['roles']['id'];
+        $sql = "SELECT * FROM messages m
+        LEFT JOIN users u ON u.id = m.user_id  WHERE (m.assign_id = $uid OR m.role_id = $rid OR m.role_id = $rid2) AND m.status ='open' ORDER BY m.id DESC";
+       // echo $sql;
+        $admin_messages = $this->Message->query($sql);
+        
+       // pr($admin_messages); exit;
         $cells = $this->PackageCustomer->find('list', array('fields' => array('cell', 'cell')));
         $this->set(compact('cells', 'clicked', 'admin_messages'));
     }
@@ -522,6 +532,7 @@ class AdminsController extends AppController {
     }
 
     function assignedtotech() {
+       
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
         $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 

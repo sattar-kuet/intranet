@@ -103,54 +103,31 @@ class PaymentsController extends AppController {
         $paid = getPaid($trans_id);
         $data = $this->Transaction->findById($trans_id);
         $this->request->data['Transaction'] = $latestcardInfo;
-       
+
+        $this->request->data['Transaction']['id'] = $data['Transaction']['id'];
+      //  pr($this->request->data['Transaction']); exit;
+
         $this->request->data['Transaction']['payable_amount'] = $data['Transaction']['payable_amount'] - $paid;
         $this->set('customer_info');
     }
-    
-    public function paidInvoice($trans_id = null, $customer_id = null) {
-        $this->loadModel('Transaction');
-        pr($this->request->data); exit;
-        $latestcardInfo = $this->getLastCardInfo($customer_id);
-        
-         if ($this->request->is('post')) {
-           
-            
-                $this->Transaction->id = $this->request->data['Transaction']['id'];
-                
-                $this->Transaction->save($this->request->data['Transaction']);
-                $msg = '<div class="alert alert-success">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <strong>Information update succeesfully </strong>
-                </div>';
-                $this->Session->setFlash($msg);
-                return $this->redirect($this->referer());
-           
-        }
-      
-      
-        $data = $this->Transaction->findById($trans_id);
-        $this->request->data['Transaction'] = $latestcardInfo;
-       
-        $this->set('customer_info');
-    }
 
-    public function individual_transaction_by_card($cid = null) {
-        //  pr($this->request->data); exit;
+    public function individual_transaction_by_card() {
+        // pr($this->request->data); exit;
         // PROCESS PAYMENT
         // Common setup for API credentials  
         $loggedUser = $this->Auth->user();
         $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
-        //$merchantAuthentication->setName("95x9PuD6b2"); // testing mode
+        // $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
         $merchantAuthentication->setName("7zKH4b45"); //42UHbr9Qa9B live mode
-        // $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
+        //   $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
         $merchantAuthentication->setTransactionKey("738QpWvHH4vS59vY"); // live mode 7UBSq68ncs65p8QX
         $refId = 'ref' . time();
 // Create the payment data for a credit card
         $creditCard = new AnetAPI\CreditCardType();
         $msg = '<ul>';
-        $this->request->data['Transaction']['id'] = $cid;
+        //$this->request->data['Transaction']['id'] = $cid;
         $card = $this->request->data['Transaction'];
+        $cid = $this->request->data['Transaction']['package_customer_id'];
         //      pr($card);
 //        exit;
         $creditCard->setCardNumber($card['card_no']);
@@ -204,34 +181,35 @@ class PaymentsController extends AppController {
         $this->request->data['Transaction']['status'] = '';
         $this->request->data['Transaction']['trx_id'] = '';
         $this->request->data['Transaction']['auth_code'] = '';
+        $amount = $this->request->data['Transaction']['payable_amount'];
         $alert = '<div class="alert alert-success"> ';
+
         if ($response != null) {
             $tresponse = $response->getTransactionResponse();
-
             if (($tresponse != null) && ($tresponse->getResponseCode() == "1")) {
-
                 $this->request->data['Transaction']['trx_id'] = $tresponse->getTransId();
                 $this->request->data['Transaction']['auth_code'] = $tresponse->getAuthCode();
-
                 $this->request->data['Transaction']['status'] = 'success';
                 $id = $this->request->data['Transaction']['id'];
                 $this->request->data['Transaction']['transaction_id'] = $id;
+                //  pr($this->request->data['Transaction']); exit;
                 unset($this->request->data['Transaction']['id']);
                 //creatre transaction History 
+
                 $this->Transaction->save($this->request->data['Transaction']);
                 unset($this->request->data['Transaction']['transaction_id']);
-                $this->request->data['Transaction']['status'] = 'close';
+                $status = 'close';
                 // check due amount 
                 $due = $this->getDue($id);
                 if ($due > 0) {
-                    $this->request->data['Transaction']['status'] = 'open';
+                    $status = 'open';
                 }
                 unset($this->request->data['Transaction']['payable_amount']);
                 $this->Transaction->id = $id;
-                $this->Transaction->save($this->request->data['Transaction']);
+                $this->Transaction->saveField("status", $status);
 
                 $msg .='<li> Transaction   successfull</li>';
-                $tdata['Ticket'] = array('content' => 'Transaction successfull');
+                $tdata['Ticket'] = array('content' => "Transaction successfull <br> <b>Amount : </b>$amount <br> <b> payment Mode: </b> Card");
                 $tickect = $this->Ticket->save($tdata); // Data save in Ticket
                 $trackData['Track'] = array(
                     'package_customer_id' => $cid,
@@ -249,40 +227,44 @@ class PaymentsController extends AppController {
                 $message = $message[0];
                 $errorCode = $message->getCode();
                 if ($errorCode == 'E00003') {
-                    $errorMsg = 'Invalid Card number. Check Card Number, remove space or any special carachter inserted by mistkae';
+                    $errorMsg = 'Invalid Card number. Check Card Number, remove space or any special carachter inserted by mistkae <br> <b> Error Code: '.$errorCode.'</b>';
+                } else if ($errorCode == 'E00007') {
+                    $errorMsg = 'Transaction failed due to Marchant Account credential changed. Please contact with administrator <br> <b> Error Code: '.$errorCode.'</b>';
                 } else {
                     $errors = $tresponse->getErrors();
                     $errors = $errors[0];
-                    $errorMsg = $errors->getErrorText();
+                    $errorMsg = $errors->getErrorText().'<br> <b> Error Code: '.$errorCode.'</b>';
                 }
 
-
-                $this->request->data['Transaction']['paid_amount'] = 0;
-                $this->request->data['Transaction']['status'] = 'error';
-                $this->request->data['Transaction']['error_msg'] = $errorMsg;
                 $msg .='<li>' . $errorMsg . ' </li>';
 
-                $tdata['Ticket'] = array('content' => $errorMsg);
-                $this->loadModel('Ticket');
-                $tickect = $this->Ticket->save($tdata); // Data save in Ticket
+                $tdata['Ticket'] = array('content' => $errorMsg . "<br> <b>Amount</b> : $amount <br> <b> payment Mode: </b> Card");
+
+                $tickect = $this->Ticket->save($tdata);
+
+                // Data save in Ticket
                 $trackData['Track'] = array(
                     'package_customer_id' => $cid,
                     'ticket_id' => $tickect['Ticket']['id'],
-                    'status' => 'open',
+                    'status' => 'closed',
                     'forwarded_by' => $loggedUser['id']
                 );
                 $this->Track->save($trackData);
             }
         } else {
             $alert = '<div class="alert alert-error"> ';
-            $msg .='<li> Transaction for failed due to Marchant Account credential changed. Please contact with administrator</li>';
 
-            $tdata['Ticket'] = array('content' => 'Transaction failed due to Marchant Account credential changed. Please contact with administrator ');
+            $msg .='<li> Transaction failed due to Marchant Account credential changed. Please contact with administrator</li>';
+
+
+            $tdata['Ticket'] = array('content' => "Transaction failed due to Marchant Account credential changed. Please contact with administrator <br> <b> Amount : </b> $amount <br> <b> payment Mode: </b> Card");
             $tickect = $this->Ticket->save($tdata); // Data save in Ticket
+
+
             $trackData['Track'] = array(
                 'package_customer_id' => $cid,
                 'ticket_id' => $tickect['Ticket']['id'],
-                'status' => 'open',
+                'status' => 'closed',
                 'forwarded_by' => $loggedUser['id']
             );
             $this->Track->save($trackData);
@@ -293,6 +275,7 @@ class PaymentsController extends AppController {
         <strong>' . $msg . '</strong>
     </div>';
         $this->Session->setFlash($transactionMsg);
+
         return $this->redirect($this->referer());
         //$this->set(compact('msg'));
     }
@@ -399,7 +382,7 @@ class PaymentsController extends AppController {
                 $trackData['Track'] = array(
                     'package_customer_id' => $cid,
                     'ticket_id' => $tickect['Ticket']['id'],
-                    'status' => 'open',
+                    'status' => 'closed',
                     'forwarded_by' => $loggedUser['id']
                 );
                 $this->Track->save($trackData);
@@ -415,7 +398,7 @@ class PaymentsController extends AppController {
             $trackData['Track'] = array(
                 'package_customer_id' => $cid,
                 'ticket_id' => $tickect['Ticket']['id'],
-                'status' => 'open',
+                'status' => 'closed',
                 'forwarded_by' => $loggedUser['id']
             );
             $this->Track->save($trackData);
@@ -550,7 +533,7 @@ class PaymentsController extends AppController {
                 $trackData['Track'] = array(
                     'package_customer_id' => $data4transaction['Transaction']['package_customer_id'],
                     'ticket_id' => $tickect['Ticket']['id'],
-                    'status' => 'open',
+                    'status' => 'closed',
                     'forwarded_by' => $loggedUser['id']
                 );
                 $this->Track->save($trackData);
@@ -571,7 +554,7 @@ class PaymentsController extends AppController {
                 $trackData['Track'] = array(
                     'package_customer_id' => $data4transaction['Transaction']['package_customer_id'],
                     'ticket_id' => $tickect['Ticket']['id'],
-                    'status' => 'open',
+                    'status' => 'closed',
                     'forwarded_by' => $loggedUser['id']
                 );
                 $this->Track->save($trackData);
@@ -621,6 +604,7 @@ class PaymentsController extends AppController {
     }
 
     function getDue($id = null) {
+
         $this->loadModel('Transaction');
         $data1 = $this->Transaction->findById($id);
         $sql = "SELECT SUM(payable_amount) as paid FROM transactions WHERE transaction_id =" . $id;
@@ -632,8 +616,9 @@ class PaymentsController extends AppController {
     }
 
     public function individual_transaction_by_check() {
-//        pr($this->request->data['Transaction']); 
         $this->loadModel('Transaction');
+        $this->loadModel('Ticket');
+        $this->loadModel('Track');
         $loggedUser = $this->Auth->user();
         $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
         $result = array();
@@ -647,7 +632,7 @@ class PaymentsController extends AppController {
         $id = $this->request->data['Transaction']['id'];
         $this->request->data['Transaction']['transaction_id'] = $id;
         unset($this->request->data['Transaction']['id']);
-//        pr($this->request->data['Transaction']); exit;
+
         //creatre transaction History 
         $this->Transaction->save($this->request->data['Transaction']);
         unset($this->request->data['Transaction']['transaction_id']);
@@ -658,10 +643,23 @@ class PaymentsController extends AppController {
         if ($due > 0) {
             $this->request->data['Transaction']['status'] = 'open';
         }
+        $amount = $this->request->data['Transaction']['payable_amount'];
         unset($this->request->data['Transaction']['payable_amount']);
         $this->Transaction->id = $id;
 //         pr('here'); exit;
         $this->Transaction->save($this->request->data['Transaction']);
+        // generate Ticket
+        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment mode :</b> Check");
+        $tickect = $this->Ticket->save($tdata); // Data save in Ticket
+
+        $trackData['Track'] = array(
+            'package_customer_id' => $this->request->data['Transaction']['package_customer_id'],
+            'ticket_id' => $tickect['Ticket']['id'],
+            'status' => 'closed',
+            'forwarded_by' => $loggedUser['id']
+        );
+        $this->Track->save($trackData);
+        // End generate Ticket
         $transactionMsg = '<div class = "alert alert-success">
                         <button type = "button" class = "close" data-dismiss = "alert">&times;
                         </button>
@@ -673,6 +671,8 @@ class PaymentsController extends AppController {
 
     public function individual_transaction_by_morder() {
         $this->loadModel('Transaction');
+        $this->loadModel('Ticket');
+        $this->loadModel('Track');
         $loggedUser = $this->Auth->user();
         $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
         $result = array();
@@ -686,7 +686,9 @@ class PaymentsController extends AppController {
         $id = $this->request->data['Transaction']['id'];
         $this->request->data['Transaction']['transaction_id'] = $id;
         unset($this->request->data['Transaction']['id']);
-//        pr($this->request->data['Transaction']); exit;
+
+        // pr($this->request->data['Transaction']); exit;
+
         //creatre transaction History 
         $this->Transaction->save($this->request->data['Transaction']);
         unset($this->request->data['Transaction']['transaction_id']);
@@ -697,8 +699,22 @@ class PaymentsController extends AppController {
         if ($due > 0) {
             $this->request->data['Transaction']['status'] = 'open';
         }
+        $amount = $this->request->data['Transaction']['payable_amount'];
         unset($this->request->data['Transaction']['payable_amount']);
         $this->Transaction->id = $id;
+        $this->Transaction->save($this->request->data['Transaction']);
+        // generate Ticket
+        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment mode: </b> Money Order");
+        $tickect = $this->Ticket->save($tdata); // Data save in Ticket
+
+        $trackData['Track'] = array(
+            'package_customer_id' => $this->request->data['Transaction']['package_customer_id'],
+            'ticket_id' => $tickect['Ticket']['id'],
+            'status' => 'closed',
+            'forwarded_by' => $loggedUser['id']
+        );
+        $this->Track->save($trackData);
+        // End generate Ticket
 
         $this->Transaction->save($this->request->data['Transaction']);
         $transactionMsg = '<div class = "alert alert-success">
@@ -712,6 +728,8 @@ class PaymentsController extends AppController {
 
     public function individual_transaction_by_online_bil() {
         $this->loadModel('Transaction');
+        $this->loadModel('Ticket');
+        $this->loadModel('Track');
         $loggedUser = $this->Auth->user();
         $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
         $result = array();
@@ -721,11 +739,11 @@ class PaymentsController extends AppController {
         } else {
             $this->request->data['Transaction']['check_image'] = '';
         }
-        $this->request->data['Transaction']['status'] = 'success';
-        $id = $this->request->data['Transaction']['id'];
-        $this->request->data['Transaction']['transaction_id'] = $id;
-        unset($this->request->data['Transaction']['id']);
-//        pr($this->request->data['Transaction']); exit;
+
+        $this->request->data['Transaction']['status'] = 'close';
+
+        // pr($this->request->data['Transaction']); exit;
+
         //creatre transaction History 
         $this->Transaction->save($this->request->data['Transaction']);
         unset($this->request->data['Transaction']['transaction_id']);
@@ -736,10 +754,26 @@ class PaymentsController extends AppController {
         if ($due > 0) {
             $this->request->data['Transaction']['status'] = 'open';
         }
+        $amount = $this->request->data['Transaction']['payable_amount'];
         unset($this->request->data['Transaction']['payable_amount']);
         $this->Transaction->id = $id;
-//                pr($this->request->data['Transaction']);
-//        exit;
+
+        $this->Transaction->save($this->request->data['Transaction']);
+        // generate Ticket
+        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment Mode : </b> Online Bill");
+        $tickect = $this->Ticket->save($tdata); // Data save in Ticket
+
+        $trackData['Track'] = array(
+            'package_customer_id' => $this->request->data['Transaction']['package_customer_id'],
+            'ticket_id' => $tickect['Ticket']['id'],
+            'status' => 'closed',
+            'forwarded_by' => $loggedUser['id']
+        );
+        $this->Track->save($trackData);
+        // End generate Ticket
+
+        $this->Transaction->id = $this->request->data['Transaction']['id'];
+
         $this->Transaction->save($this->request->data['Transaction']);
         $transactionMsg = '<div class = "alert alert-success">
                         <button type = "button" class = "close" data-dismiss = "alert">&times;
@@ -752,6 +786,8 @@ class PaymentsController extends AppController {
 
     public function individual_transaction_by_cash() {
         $this->loadModel('Transaction');
+        $this->loadModel('Ticket');
+        $this->loadModel('Track');
         $loggedUser = $this->Auth->user();
         $this->request->data['Transaction']['user_id'] = $loggedUser['id'];        
         $this->request->data['Transaction']['status'] = 'success';
@@ -763,16 +799,41 @@ class PaymentsController extends AppController {
         $this->Transaction->save($this->request->data['Transaction']);
         unset($this->request->data['Transaction']['transaction_id']);
 
+
+        $this->request->data['Transaction']['status'] = 'success';
+        $id = $this->request->data['Transaction']['id'];
+        $this->request->data['Transaction']['transaction_id'] = $id;
+        unset($this->request->data['Transaction']['id']);
+        // pr($this->request->data['Transaction']); exit;
+        //creatre transaction History 
+        $this->Transaction->save($this->request->data['Transaction']);
+        unset($this->request->data['Transaction']['transaction_id']);
+
         $this->request->data['Transaction']['status'] = 'close';
         // check due amount 
         $due = $this->getDue($id);
         if ($due > 0) {
             $this->request->data['Transaction']['status'] = 'open';
         }
+        $amount = $this->request->data['Transaction']['payable_amount'];
         unset($this->request->data['Transaction']['payable_amount']);
         $this->Transaction->id = $id;
+
 //        pr($this->request->data['Transaction']); exit;
         $this->Transaction->save($this->request->data['Transaction']);
+        // generate Ticket
+        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment Mode :</b> Cash");
+        $tickect = $this->Ticket->save($tdata); // Data save in Ticket
+
+        $trackData['Track'] = array(
+            'package_customer_id' => $this->request->data['Transaction']['package_customer_id'],
+            'ticket_id' => $tickect['Ticket']['id'],
+            'status' => 'closed',
+            'forwarded_by' => $loggedUser['id']
+        );
+        $this->Track->save($trackData);
+        // End generate Ticket
+     
         $transactionMsg = '<div class = "alert alert-success">
                         <button type = "button" class = "close" data-dismiss = "alert">&times;
                         </button>
@@ -805,9 +866,35 @@ class PaymentsController extends AppController {
                 $this->Session->setFlash($msg);
             }
         }
-
         $pay_to = $this->User->find('list', array('conditions' => array('OR' => array(array('User.role_id' => 9), array('User.role_id' => 11)))));
         $this->set(compact('pay_to'));
+    }
+
+    public function paidInvoice($trans_id = null, $customer_id = null) {
+        $this->loadModel('Transaction');
+        pr($this->request->data); exit;
+        $latestcardInfo = $this->getLastCardInfo($customer_id);
+        
+         if ($this->request->is('post')) {
+           
+            
+                $this->Transaction->id = $this->request->data['Transaction']['id'];
+                
+                $this->Transaction->save($this->request->data['Transaction']);
+                $msg = '<div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Information update succeesfully </strong>
+                </div>';
+                $this->Session->setFlash($msg);
+                return $this->redirect($this->referer());
+           
+        }
+      
+      
+        $data = $this->Transaction->findById($trans_id);
+        $this->request->data['Transaction'] = $latestcardInfo;
+       
+        $this->set('customer_info');
     }
 
 }

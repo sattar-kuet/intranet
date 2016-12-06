@@ -699,7 +699,7 @@
 
                             <br>
                             <div class="col-md-2 signupfont">
-                                Next Payment Date:
+                                Invoice Date:
                             </div>
                             <div class="col-md-2">
                                 <div class="input-list style-4 clearfix">
@@ -861,7 +861,7 @@
                                     <?php
                                     echo $this->Form->input(
                                             'cvv_code', array(
-                                        'type' => 'text',
+                                        'type' => 'password',
                                         'class' => 'form-control input-sm ',
                                             //  'id' => 'cvv_code',
                                     ));
@@ -1245,10 +1245,18 @@
                                             </div>                            
                                         </div>
                                     </div>
+
+                                </div><br>
+
+                            </div>
+                            &nbsp;
+
+                            <div class="col-md-12 margin-bottom-25 display-hide" id="recurring" >
+                                <div class="row">   
                                     <div class="col-md-2 signupfont">
                                         &nbsp;  Repeat at Every
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-2">
 
                                         <div>
                                             <?php
@@ -1261,13 +1269,12 @@
                                             ?>
                                         </div>                            
 
-                                    </div>
-                                </div><br>
-                                <div class="row">    
+                                    </div>                                    
+
                                     <div class="col-md-2 signupfont">
                                         Charge Amount
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-2">
                                         <div>
                                             <?php
                                             echo $this->Form->input(
@@ -1282,7 +1289,7 @@
                                     <div class="col-md-2 signupfont">
                                         Recurring Start From
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-2">
                                         <div class="input-list style-4 clearfix">
                                             <?php
                                             echo $this->Form->input(
@@ -1294,11 +1301,8 @@
                                             ?>
                                         </div>
                                     </div>
-                                </div>     
-                            </div>
-                            &nbsp;
-
-                            <div class="col-md-12 margin-bottom-25 display-hide" id="recurring" >
+                                </div> 
+                                <br>
 
                                 <div class="row"> 
                                     <div class="col-md-2 signupfont" style="padding-right: 0px;">
@@ -1347,7 +1351,7 @@
 
                                 <div class="row">
                                     <div class="col-md-2">
-                                        First Name on Card: 
+                                        Name on Card: 
                                     </div>
                                     <div class="col-md-4">
                                         <?php
@@ -1379,8 +1383,7 @@
                                         <?php
                                         echo $this->Form->input(
                                                 'cvv_code', array(
-                                            'type' => 'text',
-                                            'value' => '',
+                                            'type' => 'password',
                                             'class' => 'form-control input-sm required'
                                         ));
                                         ?>
@@ -1396,28 +1399,30 @@
                                         echo $this->Form->input(
                                                 'zip_code', array(
                                             'type' => 'text',
-                                            'value' => '',
                                             'class' => 'form-control input-sm required'
                                         ));
                                         ?>
                                     </div>
                                 </div>
-
-                                <div class="row">
-                                    <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20"> 
-                                        <?php
-                                        echo $this->Form->button(
-                                                'Update', array(
-                                            'class' => 'btn btn-primary submitbtn green',
-                                            'type' => 'submit',
-                                            'id' => ''
-                                        ));
-                                        ?>
-                                    </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20"> 
+                                    <?php
+                                    echo $this->Form->button(
+                                            'Update', array(
+                                        'class' => 'btn btn-primary submitbtn green',
+                                        'type' => 'submit',
+                                        'id' => ''
+                                    ));
+                                    ?>
                                 </div>
                             </div>
+<<<<<<< HEAD
+                            <?php echo $this->Form->end(); ?>
+=======
 
 <?php echo $this->Form->end(); ?>
+>>>>>>> 94a18933714f07b4d8ca91562a237e4c61413d4e
                         </div>
                         <!--status update end-->    
                     </div>   
@@ -1478,9 +1483,14 @@
                                     </thead>
                                     <tbody>
                                         <?php
+                                        //pr($invoices);
                                         foreach ($invoices as $info):
                                             $date = $info['transactions']['next_payment'];
-//                                             pr($info);
+
+                                        echo getPaid($info['transactions']['id']);
+                                        
+                                            // pr($info);
+
                                             $customer_address = $info['package_customers']['house_no'] . ' ' . $info['package_customers']['street'] . ' ' .
                                                     $info['package_customers']['apartment'] . ' ' . $info['package_customers']['city'] . ' ' . $info['package_customers']['state'] . ' '
                                                     . $info['package_customers']['zip'];
@@ -1526,6 +1536,7 @@
                                             </tr>
                                             <?php
                                         endforeach;
+                                       // exit;
                                         ?>
                                     </tbody>
                                 </table>
@@ -2024,8 +2035,13 @@
                                                                 <li>Transaction No : <?php echo $payment['tr']['trx_id']; ?></li> 
                                                                 <li>Card No : <?php echo substr($payment['tr']['card_no'], 0, 4); ?></li>  
                                                                 <li>Zip Code : <?php echo $payment['tr']['zip_code']; ?></li>  
+<<<<<<< HEAD
+                                                                <li>CVV Code : ***<?php //echo $payment['tr']['cvv_code'];   ?></li> 
+                                                                <li>Expire Date : <?php echo $payment['tr']['exp_date']; ?></li>
+=======
                                                                 <li>CVV Code : <?php echo $payment['tr']['cvv_code']; ?></li> 
                                                                 <li>Expire Date : <?php echo date('m-d-Y', strtotime($payment['tr']['exp_date'])); ?></li>
+>>>>>>> 24e0b217d03a5799195358034c35aabd39d417d5
 
 
             <?php elseif ($payment['tr']['pay_mode'] == 'cash'): ?>
@@ -2388,7 +2404,7 @@
                                                                         </th>
                                                                         <tr>
                                                                             <td style="padding-left: 5px; min-height: 115px; line-height: 15px;">
-                                                                                <?php // if (!empty($single['0']['name'])):          ?>
+                                                                                <?php // if (!empty($single['0']['name'])):           ?>
 
         <?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?>
 

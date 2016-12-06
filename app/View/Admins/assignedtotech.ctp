@@ -1,5 +1,3 @@
-
-
 <style type="text/css">
     .alert {
         padding: 6px;
@@ -38,7 +36,7 @@
                         <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                             <thead>
                                 <tr>
-                                    <th>
+                                    <th class="sorting_desc">
                                         SL.
                                     </th>
                                     <th>
@@ -90,8 +88,12 @@
                                             <?php echo $results['customers']['id']; ?>                            
                                         </td>
                                         <td class="hidden-480">
+<<<<<<< HEAD
+                                            <?php echo date('m-d-Y', strtotime($results['customers']['created'])); ?>  <br>
+=======
                                             
                                             <?php echo date('m-d-Y', strtotime($results['customers']['created'])); ?><br>
+>>>>>>> 24e0b217d03a5799195358034c35aabd39d417d5
                                             <?php echo $results['users']['name']; ?>                            
                                         </td>
                                         <td>
@@ -169,9 +171,7 @@
 
                                         </td>
                                       
-                                        <td><?php echo date_format(new DateTime($results['customers']['schedule_date']), 'm-d-Y'); ?></td>
-                                            
-
+                                        <td><?php echo date('m-d-Y', strtotime($results['customers']['schedule_date']) ); ?></td>
 
                                         <td> 
                                             <div class="controls center text-center">

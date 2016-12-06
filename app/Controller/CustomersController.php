@@ -206,11 +206,14 @@ class CustomersController extends AppController {
         $timestamp = strtotime($this->request->data['Transaction']['r_form']) + $this->request->data['Transaction']['r_duration'] * 24 * 60 * 60; // +strtotime($this->request->data['Transaction']['r_duration'].' days');
         $next_payment_date = date('Y-m-d', $timestamp);
         $this->request->data['Transaction']['next_payment'] = $next_payment_date;
-        $this->request->data['Transaction']['status'] = 'auto_recurring';
         $this->request->data['Transaction']['pay_mode'] = 'card';
 
+//       pr($this->request->data);
+//        exit;
         $this->Transaction->save($this->request->data);
-        $this->PackageCustomer->id = $this->request->data['Transaction']['package_customer_id'];        
+        $this->PackageCustomer->id = $this->request->data['Transaction']['package_customer_id'];
+        pr($this->request->data['Transaction']); exit;
+
         $this->PackageCustomer->save($this->request->data['Transaction']);
 
         $Msg = '<div class="alert alert-success">
@@ -222,12 +225,16 @@ class CustomersController extends AppController {
     }
 
     function updatecardinfo() {
+       // pr($this->request->data['Transaction']); 
         $this->loadModel('Transaction');
         $user_info = $this->Auth->user();
         $user_id = $user_info['id'];
         $this->request->data['Transaction']['user_id'] = $user_id;
         $this->request->data['Transaction']['status'] = 'update';
         $this->request->data['Transaction']['exp_date'] = $this->request->data['Transaction']['exp_date']['month'] . '/' . substr($this->request->data['Transaction']['exp_date']['year'], -2);
+       
+       // pr($this->request->data['Transaction']); exit;
+        
         $this->Transaction->save($this->request->data['Transaction']);
         $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -297,7 +304,6 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             </div>';
             $this->Session->setFlash($msg);
         }
-
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
         $customer_info = $this->PackageCustomer->findById($pcid);
@@ -309,9 +315,13 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         unset($customer_info['PackageCustomer']['email']);
         unset($customer_info['PackageCustomer']['exp_date']);
         unset($customer_info['PackageCustomer']['payable_amount']);
+        unset($customer_info['PackageCustomer']['cvv_code']);
+        unset($customer_info['PackageCustomer']['zip_code']);
         // pr($customer_info['PackageCustomer']); exit;
         $this->request->data['Transaction'] = $customer_info['PackageCustomer'] + $latestcardInfo;
-
+       //   pr($customer_info['PackageCustomer']); 
+        //  pr($this->request->data['Transaction']); 
+        //  exit;
         $nextPay = $this->Transaction->find('first', array('conditions' => array('Transaction.package_customer_id' => $pcid, 'Transaction.status' => 'open'), 'order' => array('Transaction.id' => 'DESC')));
         if (count($nextPay)) {
             $this->request->data['NextTransaction'] = $nextPay['Transaction'];

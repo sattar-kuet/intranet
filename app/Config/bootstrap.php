@@ -413,10 +413,13 @@ function sendInvoice($from, $name, $to, $subject, $body) {
  function getPaid($id = null) {
         $ptr = ClassRegistry::init('Transaction');
         $sql = 'SELECT SUM(payable_amount) as paid FROM transactions WHERE transaction_id =' . $id;
+       // echo $sql;
         $data = $ptr->query($sql);
+      //  pr($data);
+      //  exit;
       //  return $data;
         $paid = $data[0][0]['paid'];
-        return  $paid;
+        return  round($paid,2); 
     }
  function getFullPayment($id = null) {
         $ptr = ClassRegistry::init('Transaction');
