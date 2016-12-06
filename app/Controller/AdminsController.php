@@ -289,8 +289,8 @@ class AdminsController extends AppController {
 
     function getCustomerByParam($param, $field) {
         $param = trim($param);
-      //  echo $field.'<br>';
-            $param = str_replace(' ', '', $param);
+        //  echo $field.'<br>';
+        $param = str_replace(' ', '', $param);
         if ($field == "cell") {
             $param = str_replace('-', '', $param);
             $param = str_replace('(', '', $param);
@@ -324,7 +324,7 @@ class AdminsController extends AppController {
                 " WHERE " . $condition;
 
 
-           //  echo $sql.'<br><br><br><br>'; 
+        //  echo $sql.'<br><br><br><br>'; 
         $temp = $this->PackageCustomer->query($sql);
         // pr($temp);
         $data = array();
@@ -381,29 +381,29 @@ class AdminsController extends AppController {
             if (count($data['customer']) == 0) {
                 $data = $this->getCustomerByParam($param, 'full_name');
             }
-            
-            
+
+
 
             $clicked = true;
             //FIND customer DETAILS
-           //  exit;
+            //  exit;
             $this->set(compact('data'));
         }
         $loggedUser = $this->Auth->user();
         $uid = $loggedUser['id'];
         $rid = $loggedUser['Role']['id'];
-        
-        
+
+
         $this->loadModel('Role');
-        $sql ='SELECT * FROM roles WHERE LOWER(roles.name)="general"';
+        $sql = 'SELECT * FROM roles WHERE LOWER(roles.name)="general"';
         $temp = $this->Role->query($sql);
         $rid2 = $temp[0]['roles']['id'];
         $sql = "SELECT * FROM messages m
         LEFT JOIN users u ON u.id = m.user_id  WHERE (m.assign_id = $uid OR m.role_id = $rid OR m.role_id = $rid2) AND m.status ='open' ORDER BY m.id DESC";
-       // echo $sql;
+        // echo $sql;
         $admin_messages = $this->Message->query($sql);
-        
-       // pr($admin_messages); exit;
+
+        // pr($admin_messages); exit;
         $cells = $this->PackageCustomer->find('list', array('fields' => array('cell', 'cell')));
         $this->set(compact('cells', 'clicked', 'admin_messages'));
     }
@@ -507,7 +507,6 @@ class AdminsController extends AppController {
         $content = $this->PackageCustomer->saveField("status", "done");
 //        pr($content);
 //        exit;
-
 //         $comment['Comment']['content'] = $this->request->data['PackageCustomer']['comments'];
 //            $this->Comment->save($comment);
 //      $comments['Comment']['content'] = $this->request->data['PackageCustomer']['co']
@@ -532,7 +531,7 @@ class AdminsController extends AppController {
     }
 
     function assignedtotech() {
-       
+
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
         $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
@@ -858,7 +857,7 @@ class AdminsController extends AppController {
                 $filteredData[$index]['customers'] = $data['pc'];
                 $filteredData[$index]['users'] = $data['u'];
                 $filteredData[$index]['tech'] = $data['ut'];
-                
+
                 $filteredData[$index]['package'] = array(
                     'name' => 'No package dealings',
                     'duration' => 'Not Applicable',
@@ -972,8 +971,8 @@ class AdminsController extends AppController {
         $this->loadModel('PackageCustomer');
         $this->PackageCustomer->id = $id;
         $loggedUser = $this->Auth->user();
-      //  echo $id.'<br>';
-      //  echo $tid;
+        //  echo $id.'<br>';
+        //  echo $tid;
         $this->PackageCustomer->saveField("approved", "1");
         $this->PackageCustomer->saveField("status", "done");
         $this->PackageCustomer->saveField("ins_by", $tid);
@@ -982,7 +981,7 @@ class AdminsController extends AppController {
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
 	<strong>Succeesfully approved </strong></div>';
         $this->Session->setFlash($msg);
-       //  pr($this->request->data); exit;
+        //  pr($this->request->data); exit;
         $temp = $this->PackageCustomer->findById($id);
         $payable_amount = $temp['PackageCustomer']['deposit'] + $temp['PackageCustomer']['monthly_bill'] + $temp['PackageCustomer']['others'];
         $data['Transaction'] = array(
@@ -991,29 +990,49 @@ class AdminsController extends AppController {
             'payable_amount' => $payable_amount
         );
 
-       // $this->generateInvoice($data);
+        // $this->generateInvoice($data);
         return $this->redirect($this->referer());
     }
-    
-    function shortapprove($id = null, $tid = null) {
+
+    function shortApprove($id = null) {
         $this->loadModel('PackageCustomer');
         $this->PackageCustomer->id = $id;
+        $pcid = $this->request->data['Comment']['package_customer_id'];
         $loggedUser = $this->Auth->user();
-       $data['PackageCustomer'] = array(
-                    "comments" => $this->request->data['Comment']['comments']                    
-                );
-     
-        $this->PackageCustomer->saveField("approved", "1");
-        $this->PackageCustomer->saveField("status", "done");       
-        $this->PackageCustomer->saveField("ins_by", $tid);
-        $this->PackageCustomer->saveField("user_id", $loggedUser['id']);
-//         pr($data); exit;
+        $comments = $this->request->data['Comment']['comments'];
+        $data['PackageCustomer'] = array(
+        "id" => $pcid,
+        "approved" => "1",
+        "status" => "done",
+        "comments" => $comments,
+        "user_id" => $loggedUser['id']);
         $this->PackageCustomer->save($data);
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
 	<strong>Succeesfully approved </strong></div>';
         $this->Session->setFlash($msg);
-            // $this->generateInvoice($data);
+        // $this->generateInvoice($data);
+        return $this->redirect($this->referer());
+    }
+    
+    function pcComment($id = null) {
+        $this->loadModel('PackageCustomer');
+        $this->PackageCustomer->id = $id;
+        $pcid = $this->request->data['Comment']['package_customer_id'];
+        $loggedUser = $this->Auth->user();
+        $comments = $this->request->data['Comment']['comments'];
+        
+        $data['PackageCustomer'] = array(
+        "id" => $pcid,
+        "comments" => $comments,
+        "user_id" => $loggedUser['id']);
+//    pr($data); exit;
+        $this->PackageCustomer->save($data);
+        $msg = '<div class="alert alert-success">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<strong>Succeesfully Commented </strong></div>';
+        $this->Session->setFlash($msg);
+        // $this->generateInvoice($data);
         return $this->redirect($this->referer());
     }
 

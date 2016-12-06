@@ -267,7 +267,6 @@
 
                                                             </div>
                                                         </div> 
-
                                                     </div>
 
                                                     <div class="form-actions" style="float: left; ">
@@ -356,7 +355,7 @@
                                                         'id' => 'form_sample_3',
                                                         'class' => 'form-horizontal',
                                                         'novalidate' => 'novalidate',
-                                                        'url' => array('controller' => 'technicians', 'action' => 'comment')
+                                                        'url' => array('controller' => 'admins', 'action' => 'pcComment')
                                                             )
                                                     );
                                                     ?>
@@ -378,10 +377,10 @@
                                                             <div class="form-group">
                                                                 <div class="col-md-12">
                                                                     <?php
-                                                                    echo $this->Form->input('content', array(
+                                                                    echo $this->Form->input('comments', array(
                                                                         'type' => 'textarea',
                                                                         'class' => 'form-control required txtArea',
-                                                                        'placeholder' => 'Write your comments for post pone'
+                                                                        'placeholder' => 'Write your comments here'
                                                                             )
                                                                     );
                                                                     ?>
