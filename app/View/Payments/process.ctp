@@ -1177,7 +1177,7 @@
                                                 echo $this->Form->input(
                                                         'pay_mode', array(
                                                     'type' => 'hidden',
-                                                    'value' => 'paid invoice'
+                                                    'value' => 'card'
                                                 ));
                                                 ?>
                                                 <br>
@@ -1198,6 +1198,21 @@
                                                         <?php
                                                         echo $this->Form->input(
                                                                 'card_no', array(
+                                                            'type' => 'text',
+                                                            'class' => 'form-control input-sm ',
+                                                        ));
+                                                        ?>
+                                                    </div>
+                                                </div>
+                                                &nbsp;
+                                                <div class="row">
+                                                    <div class="col-md-3 signupfont">
+                                                        Transaction ID: 
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <?php
+                                                        echo $this->Form->input(
+                                                                'trx_id', array(
                                                             'type' => 'text',
                                                             'class' => 'form-control input-sm ',
                                                         ));
@@ -1239,10 +1254,9 @@
                                                     <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20"> 
                                                         <?php
                                                         echo $this->Form->button(
-                                                                'Submit Payment', array(
+                                                                'Submit', array(
                                                             'class' => 'btn btn-primary submitbtn green',
                                                             'type' => 'submit',
-                                                            'id' => ''
                                                         ));
                                                         ?>
 

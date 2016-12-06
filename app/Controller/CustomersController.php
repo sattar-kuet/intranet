@@ -212,7 +212,7 @@ class CustomersController extends AppController {
 //        exit;
         $this->Transaction->save($this->request->data);
         $this->PackageCustomer->id = $this->request->data['Transaction']['package_customer_id'];
-        pr($this->request->data['Transaction']); exit;
+       // pr($this->request->data['Transaction']); exit;
 
         $this->PackageCustomer->save($this->request->data['Transaction']);
 
@@ -430,8 +430,6 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $loggedUser = $this->Auth->user();
         if ($this->request->is('post') || $this->request->is('put')) {
             $this->request->data['PackageCustomer']['status'] = 'requested';
-
-          
 
             if ($this->request->data['PackageCustomer']['shipment_equipment'] == 'OTHER') {
                 $this->request->data['PackageCustomer']['shipment_equipment'] = $this->request->data['PackageCustomer']['shipment_equipment_other'];
