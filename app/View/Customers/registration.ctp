@@ -317,7 +317,7 @@
                                                             '1 month free' => '1 Month Free',
                                                             '$40 calling card' => '$40 Calling Card',
                                                             '$20 cash reward' => '$20 Cash Reward'),
-                                                        'empty' => 'Select Additional Offer',
+                                                        'empty' => '--Select one--',
                                                         'class' => 'form-control',
                                                         'id' => 'reward6'
                                                     ));
@@ -341,7 +341,7 @@
                                                             '3 month free' => '3 Month Free',
                                                             '$100 calling card' => '$100 Calling Card',
                                                             '$40 cash reward' => '$40 Cash Reward'),
-                                                        'empty' => 'Select Additional Offer',
+                                                        'empty' => '--Select one--',
                                                         'class' => 'form-control',
                                                         'id' => 'reward12'
                                                     ));
