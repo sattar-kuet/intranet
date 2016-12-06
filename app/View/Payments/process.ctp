@@ -1227,7 +1227,7 @@
                                                     <div class="col-md-9">
                                                         <?php
                                                         echo $this->Form->input(
-                                                                'next_payment', array(
+                                                                'created', array(
                                                             'type' => 'text',
                                                             'class' => 'datepicker form-control ',
                                                         ));

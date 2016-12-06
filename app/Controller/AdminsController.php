@@ -994,6 +994,28 @@ class AdminsController extends AppController {
        // $this->generateInvoice($data);
         return $this->redirect($this->referer());
     }
+    
+    function shortapprove($id = null, $tid = null) {
+        $this->loadModel('PackageCustomer');
+        $this->PackageCustomer->id = $id;
+        $loggedUser = $this->Auth->user();
+       $data['PackageCustomer'] = array(
+                    "comments" => $this->request->data['Comment']['comments']                    
+                );
+     
+        $this->PackageCustomer->saveField("approved", "1");
+        $this->PackageCustomer->saveField("status", "done");       
+        $this->PackageCustomer->saveField("ins_by", $tid);
+        $this->PackageCustomer->saveField("user_id", $loggedUser['id']);
+//         pr($data); exit;
+        $this->PackageCustomer->save($data);
+        $msg = '<div class="alert alert-success">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<strong>Succeesfully approved </strong></div>';
+        $this->Session->setFlash($msg);
+            // $this->generateInvoice($data);
+        return $this->redirect($this->referer());
+    }
 
     function scheduleDone() {
         $this->loadModel('User');

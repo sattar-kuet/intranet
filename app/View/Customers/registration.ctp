@@ -298,48 +298,62 @@
 
                                     </div>
                                 </div>
-                            </div>                          
+                            </div>                    
+                          
+                            <div class="row">
+                                <div class="col-md-12 ">
+                                    <div class="form-group display-hide " id="reward6">  
+                                        <div class="col-md-2 signupfont">
+                                            Promotional offer:
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="input-list style-4 clearfix">
+                                                <div>
 
-                            <div class="form-group display-hide" id="reward6">
-                                <label class="control-label col-md-2"> 6 Months:<span class="required">
-                                    </span>
-                                </label>
-                                <div class="col-md-2">
-                                    <?php
-                                    echo $this->Form->input('reward', array(
-                                        'type' => 'select',
-                                        'options' => array(
-                                            '1 month free' => '1 Month Free',
-                                            '140 call card' => '140 Call Card',
-                                            '120 cash reward' => '120 Cash Reward'),
-                                        'empty' => 'Select Additional Offer',
-                                        'class' => 'form-control',
-                                        'name' => 'reward',
-                                        'id' => 'reward6'
-                                    ));
-                                    ?>
+                                                    <?php
+                                                    echo $this->Form->input('reward6', array(
+                                                        'type' => 'select',
+                                                        'options' => array(
+                                                            '1 month free' => '1 Month Free',
+                                                            '$40 calling card' => '$40 Calling Card',
+                                                            '$20 cash reward' => '$20 Cash Reward'),
+                                                        'empty' => 'Select Additional Offer',
+                                                        'class' => 'form-control',
+                                                        'id' => 'reward6'
+                                                    ));
+                                                    ?>
+
+                                                </div>                            
+                                            </div>
+                                        </div> 
+                                    </div> 
+                                    <div class="form-group display-hide " id="reward12">  
+                                        <div class="col-md-2 signupfont">
+                                            Promotional offer:
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="input-list style-4 clearfix">
+                                                <div>
+                                                    <?php
+                                                    echo $this->Form->input('reward12', array(
+                                                        'type' => 'select',
+                                                        'options' => array(
+                                                            '3 month free' => '3 Month Free',
+                                                            '$100 calling card' => '$100 Calling Card',
+                                                            '$40 cash reward' => '$40 Cash Reward'),
+                                                        'empty' => 'Select Additional Offer',
+                                                        'class' => 'form-control',
+                                                        'id' => 'reward12'
+                                                    ));
+                                                    ?>
+                                                </div>
+                                            </div> 
+                                        </div>
+                                    </div> 
                                 </div>
-                            </div> 
-                            <div class="form-group display-hide" id="reward12">
-                                <label class="control-label col-md-2">12 Months:<span class="required">
-                                    </span>
-                                </label>
-                                <div class="col-md-2">
-                                    <?php
-                                    echo $this->Form->input('reward', array(
-                                        'type' => 'select',
-                                        'options' => array(
-                                            '3 month free' => '3 Month Free',
-                                            '100 call card' => '100 Call Card',
-                                            '40 cash reward' => '40 Cash Reward'),
-                                        'empty' => 'Select Additional Offer',
-                                        'class' => 'form-control',
-                                        'name' => 'reward1',
-                                        'id' => 'reward12'
-                                    ));
-                                    ?>
-                                </div>
-                            </div> 
+                            </div>     
+
+                           
 
                             <div class="form-group">
                                 <label class="control-label col-md-2">Referred by:<span class="required">

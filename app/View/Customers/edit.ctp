@@ -451,8 +451,8 @@
                                                     'type' => 'select',
                                                     'options' => array(
                                                         '1 month free' => '1 Month Free',
-                                                        '140 call card' => '140 Call Card',
-                                                        '120 cash reward' => '120 Cash Reward'),
+                                                        '$40 calling card' => '$40 Calling Card',
+                                                        '$20 cash reward' => '$20 Cash Reward'),
                                                     'empty' => 'Select Additional Offer',
                                                     'class' => 'form-control',
                                                     'id' => 'reward6'
@@ -475,8 +475,8 @@
                                                     'type' => 'select',
                                                     'options' => array(
                                                         '3 month free' => '3 Month Free',
-                                                        '100 call card' => '100 Call Card',
-                                                        '40 cash reward' => '40 Cash Reward'),
+                                                        '$100 calling card' => '$100 Calling Card',
+                                                        '$40 cash reward' => '$40 Cash Reward'),
                                                     'empty' => 'Select Additional Offer',
                                                     'class' => 'form-control',
                                                     'id' => 'reward12'
@@ -1417,12 +1417,7 @@
                                     ?>
                                 </div>
                             </div>
-<<<<<<< HEAD
                             <?php echo $this->Form->end(); ?>
-=======
-
-<?php echo $this->Form->end(); ?>
->>>>>>> 94a18933714f07b4d8ca91562a237e4c61413d4e
                         </div>
                         <!--status update end-->    
                     </div>   
@@ -1957,6 +1952,7 @@
                                             $balance = array();
                                             foreach ($statements as $single):
                                                 $bill = $single['bill'];
+//                                                pr($bill['next_payment']); exit;
                                                 $payments = $single['payment'];
 
                                                 $amount = $bill['payable_amount'];
@@ -1989,7 +1985,9 @@
                                                 Payable Amount : <?php echo $bill['payable_amount']; ?> 
                                             </li>
                                             <li>
-                                                Payment Date :  <?php echo date('m-d-Y', strtotime($bill['next_payment'])); ?>
+                                                Payment Date : 
+                                                
+                                         <?php echo date('m-d-Y', strtotime($bill['next_payment'])); ?>
 
                                             </li>
 
