@@ -70,8 +70,9 @@ class TicketsController extends AppController {
                     "comments" => $this->request->data['Ticket']['content'],
                     "user_id" => $loggedUser['id']
                 );
-
+                
                 $cusinfo = $this->PackageCustomer->save($data);
+//                pr($data); exit;
                 if (trim($this->request->data['Ticket']['action_type']) == 'solved') {
                     $this->request->data['Ticket']['priority'] = 'low';
                 }
