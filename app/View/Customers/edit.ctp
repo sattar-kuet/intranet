@@ -1417,11 +1417,7 @@
                                     ?>
                                 </div>
                             </div>
-<<<<<<< HEAD
-                          
 
-=======
->>>>>>> bf38157e31d79399bdfb54508ae899206787b1ef
                             <?php echo $this->Form->end(); ?>
                         </div>
                         <!--status update end-->    
@@ -1957,8 +1953,8 @@
                                             <?php
                                             $balance = array();
                                             foreach ($statements as $single):
-                                                pr($single);
-                                                exit;
+                                             //   pr($single);
+                                            //    exit;
                                                 $bill = $single['bill'];
 
                                                 $payments = $single['payment'];
@@ -2041,20 +2037,13 @@
                                                                 <li>Transaction No : <?php echo $payment['tr']['trx_id']; ?></li> 
                                                                 <li>Card No : <?php echo substr($payment['tr']['card_no'], 0, 4); ?></li>  
                                                                 <li>Zip Code : <?php echo $payment['tr']['zip_code']; ?></li>  
-<<<<<<< HEAD
+
                                                                 <li>CVV Code : ***<?php //echo $payment['tr']['cvv_code'];    ?></li> 
                                                                 <li>Expire Date : <?php echo $payment['tr']['exp_date']; ?></li>
                                                               
-=======
-                                                                <<<<<<< HEAD
+
                                                                 <li>CVV Code : ***<?php //echo $payment['tr']['cvv_code'];    ?></li> 
                                                                 <li>Expire Date : <?php echo $payment['tr']['exp_date']; ?></li>
-                                                                =======
-                                                                <li>CVV Code : <?php echo $payment['tr']['cvv_code']; ?></li> 
-                                                                <li>Expire Date : <?php echo date('m-d-Y', strtotime($payment['tr']['exp_date'])); ?></li>
-                                                                >>>>>>> 24e0b217d03a5799195358034c35aabd39d417d5
->>>>>>> bf38157e31d79399bdfb54508ae899206787b1ef
-
 
                                                             <?php elseif ($payment['tr']['pay_mode'] == 'cash'): ?>
                                                                 <li>Pay Mode : <?php echo $payment['tr']['pay_mode']; ?></li> 
