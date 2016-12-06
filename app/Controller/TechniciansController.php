@@ -712,7 +712,7 @@ class TechniciansController extends AppController {
         $this->set(compact('filteredData', 'technician'));
     }
 
-    function recheduledCustomer() {
+    function rescheduledCustomer() {
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
         $loggedUser = $this->Auth->user();

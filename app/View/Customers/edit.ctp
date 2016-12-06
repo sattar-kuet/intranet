@@ -451,8 +451,8 @@
                                                     'type' => 'select',
                                                     'options' => array(
                                                         '1 month free' => '1 Month Free',
-                                                        '140 call card' => '140 Call Card',
-                                                        '120 cash reward' => '120 Cash Reward'),
+                                                        '$40 calling card' => '$40 Calling Card',
+                                                        '$20 cash reward' => '$20 Cash Reward'),
                                                     'empty' => 'Select Additional Offer',
                                                     'class' => 'form-control',
                                                     'id' => 'reward6'
@@ -475,8 +475,8 @@
                                                     'type' => 'select',
                                                     'options' => array(
                                                         '3 month free' => '3 Month Free',
-                                                        '100 call card' => '100 Call Card',
-                                                        '40 cash reward' => '40 Cash Reward'),
+                                                        '$100 calling card' => '$100 Calling Card',
+                                                        '$40 cash reward' => '$40 Cash Reward'),
                                                     'empty' => 'Select Additional Offer',
                                                     'class' => 'form-control',
                                                     'id' => 'reward12'
@@ -1417,8 +1417,11 @@
                                     ?>
                                 </div>
                             </div>
+<<<<<<< HEAD
                           
 
+=======
+>>>>>>> bf38157e31d79399bdfb54508ae899206787b1ef
                             <?php echo $this->Form->end(); ?>
                         </div>
                         <!--status update end-->    
@@ -1485,6 +1488,7 @@
                                             $date = $info['transactions']['next_payment'];
 
                                             //echo getPaid($info['transactions']['id']);
+
 
                                             // pr($info);
 
@@ -1953,7 +1957,10 @@
                                             <?php
                                             $balance = array();
                                             foreach ($statements as $single):
+                                                pr($single);
+                                                exit;
                                                 $bill = $single['bill'];
+
                                                 $payments = $single['payment'];
 
                                                 $amount = $bill['payable_amount'];
@@ -1986,7 +1993,9 @@
                                                 Payable Amount : <?php echo $bill['payable_amount']; ?> 
                                             </li>
                                             <li>
-                                                Payment Date :  <?php echo date('m-d-Y', strtotime($bill['next_payment'])); ?>
+                                                Payment Date : 
+
+        <?php echo date('m-d-Y', strtotime($bill['next_payment'])); ?>
 
                                             </li>
 
@@ -2032,9 +2041,19 @@
                                                                 <li>Transaction No : <?php echo $payment['tr']['trx_id']; ?></li> 
                                                                 <li>Card No : <?php echo substr($payment['tr']['card_no'], 0, 4); ?></li>  
                                                                 <li>Zip Code : <?php echo $payment['tr']['zip_code']; ?></li>  
+<<<<<<< HEAD
                                                                 <li>CVV Code : ***<?php //echo $payment['tr']['cvv_code'];    ?></li> 
                                                                 <li>Expire Date : <?php echo $payment['tr']['exp_date']; ?></li>
                                                               
+=======
+                                                                <<<<<<< HEAD
+                                                                <li>CVV Code : ***<?php //echo $payment['tr']['cvv_code'];    ?></li> 
+                                                                <li>Expire Date : <?php echo $payment['tr']['exp_date']; ?></li>
+                                                                =======
+                                                                <li>CVV Code : <?php echo $payment['tr']['cvv_code']; ?></li> 
+                                                                <li>Expire Date : <?php echo date('m-d-Y', strtotime($payment['tr']['exp_date'])); ?></li>
+                                                                >>>>>>> 24e0b217d03a5799195358034c35aabd39d417d5
+>>>>>>> bf38157e31d79399bdfb54508ae899206787b1ef
 
 
                                                             <?php elseif ($payment['tr']['pay_mode'] == 'cash'): ?>
@@ -2397,7 +2416,7 @@
                                                                         </th>
                                                                         <tr>
                                                                             <td style="padding-left: 5px; min-height: 115px; line-height: 15px;">
-                                                                                <?php // if (!empty($single['0']['name'])):           ?>
+                                                                                <?php // if (!empty($single['0']['name'])):            ?>
 
                                                                                 <?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?>
 
@@ -2574,7 +2593,7 @@
                                 </div>
 
 
-                            <?php endforeach; ?>
+    <?php endforeach; ?>
 
 
                         <?php endforeach; ?>
@@ -2651,7 +2670,7 @@
                                                                             <?php
                                                                         }
                                                                         ?>
-                                                                        <?php echo $history['fb']['name']; ?>
+        <?php echo $history['fb']['name']; ?>
                                                                         <p><strong>Forwarded To:</strong><ul><li><?php echo $history['fi']['name']; ?> </li><li><?php echo $history['fd']['name']; ?> </li></ul>
                                                                         <strong>Time:</strong>
                                                                         <?php echo date('m-d-Y h:m:s', strtotime($history['tr']['created'])); ?>

@@ -156,6 +156,15 @@ $(document).ready(function () {
 
     //    Net price calculation end
 
-  
+
+    
+    $('.openForm').click(function(e){
+        e.preventDefault();
+        $('.hideForm').hide();
+        var formId = '#'+$(this).data('form');              
+        $(formId).show();
+        //alert(formId);
+    });
+    
 
 });

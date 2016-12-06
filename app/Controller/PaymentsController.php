@@ -872,12 +872,12 @@ class PaymentsController extends AppController {
     public function paidInvoice($trans_id = null, $customer_id = null) {
         $this->request->data['Transaction']['created'] = $this->getFormatedDate($this->request->data['Transaction']['created']) . ' 00:00:00';
         $this->loadModel('Transaction');
+
         $this->loadModel('Ticket');
         $this->loadModel('Track');
         $loggedUser = $this->Auth->user();
         $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
         $result = array();
-      
         $this->request->data['Transaction']['status'] = 'success';
         $id = $this->request->data['Transaction']['id'];
         $this->request->data['Transaction']['transaction_id'] = $id;
