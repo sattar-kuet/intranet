@@ -14,7 +14,7 @@
 
             <li 
             <?php
-            $technicians = array('TechniciansnewCustomer', 'TechniciansdoneCustomer','TechnicianspostPone','TechniciansrecheduledCustomer','TechnicianscancelledCustomer','TechnicianspostponeView');
+            $technicians = array('TechniciansnewCustomer', 'TechniciansdoneCustomer','TechnicianspostPone','TechniciansrescheduledCustomer','TechnicianscancelledCustomer','TechnicianspostponeView');
             if (in_array($this->name . '' . $this->action, $technicians)):
                 ?>
                     class="active"
@@ -67,14 +67,14 @@
                     </li>
                     
                       <li
-                    <?php if ($this->name . '' . $this->action == 'TechniciansrecheduledCustomer'):
+                    <?php if ($this->name . '' . $this->action == 'TechniciansrescheduledCustomer'):
                         ?>
                             class="active"
                             <?php
                         endif;
                         ?>
                         >
-                        <a href="<?php echo Router::url(array('controller' => 'technicians', 'action' => 'recheduledCustomer')) ?>">
+                        <a href="<?php echo Router::url(array('controller' => 'technicians', 'action' => 'rescheduledCustomer')) ?>">
                             <i class="fa fa-pencil"></i>
                             Reschedule</a>
                     </li>

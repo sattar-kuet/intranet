@@ -651,7 +651,7 @@
                                 ?>
                             </div>
                         </div>
-<?php echo $this->Form->end(); ?> 
+                        <?php echo $this->Form->end(); ?> 
 
                     </div>
                 </div>            
@@ -770,7 +770,7 @@
                             </div>
                         </div>
                     </div>
-<?php echo $this->Form->end(); ?>
+                    <?php echo $this->Form->end(); ?>
                 </div>
             </div>
             <!--Next Payment end-->  
@@ -1055,7 +1055,7 @@
                                 ?>
                             </div>
                         </div>
-<?php echo $this->Form->end(); ?>
+                        <?php echo $this->Form->end(); ?>
                     </div>
                 </div>
             </div>
@@ -1165,7 +1165,7 @@
                                         ?>
                                         <span class="fa fa-hand-o-right pull-left"> <?php echo $history['StatusHistory']['status']; ?></span> &nbsp;
                                         <span class="fa fa-clock-o pull-right"> <?php echo $history['StatusHistory']['date']; ?> </span> <br>
-<?php endforeach; ?>
+                                    <?php endforeach; ?>
                                 </div>
                                 <span  id="#status-history" title="Status History of Customer" class="toggleDiv">
                                     <i class="fa fa-eye pull-right"> </i>
@@ -1180,7 +1180,7 @@
                             </div>
                         </div>
                     </div>
-<?php echo $this->Form->end(); ?>
+                    <?php echo $this->Form->end(); ?>
                 </div>
                 <!--status update end-->    
             </div>
@@ -1482,8 +1482,8 @@
                                         foreach ($invoices as $info):
                                             $date = $info['transactions']['next_payment'];
 
-                                        echo getPaid($info['transactions']['id']);
-                                        
+                                            echo getPaid($info['transactions']['id']);
+
                                             // pr($info);
 
                                             $customer_address = $info['package_customers']['house_no'] . ' ' . $info['package_customers']['street'] . ' ' .
@@ -1518,12 +1518,12 @@
                                                     <a  target="_blank" title="Edit" href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit', $info['transactions']['id'])) ?>" >
                                                         <span class="fa fa-pencil"></span>
                                                     </a>
-    <?php if ($info['package_customers']['auto_r'] != 'yes'): ?>
+                                                    <?php if ($info['package_customers']['auto_r'] != 'yes'): ?>
                                                         &nbsp;&nbsp;
                                                         <a  target="_blank" title="Take Payment" href="<?php echo Router::url(array('controller' => 'payments', 'action' => 'process', $info['transactions']['id'], $info['package_customers']['id'])) ?>" >
                                                             <span class="fa fa-dollar"></span>
                                                         </a>
-    <?php endif; ?>
+                                                    <?php endif; ?>
                                                     &nbsp;&nbsp;
                                                     <a href="#invoice-pop-up<?php echo $info['transactions']['id']; ?>" class="btn btn-default fancybox-fast-view"> <span class="fa fa-file"></span>
                                                     </a>
@@ -1531,7 +1531,7 @@
                                             </tr>
                                             <?php
                                         endforeach;
-                                       // exit;
+                                        // exit;
                                         ?>
                                     </tbody>
                                 </table>
@@ -1692,7 +1692,7 @@
                                             </div>
                                         </div>
                                     </div>
-<?php echo $this->Form->end(); ?>
+                                    <?php echo $this->Form->end(); ?>
                                 </div>
                             </div>
                         </div>
@@ -1702,7 +1702,7 @@
 
             </div>
             <!-------------------------------------START REFUND---------------------->
-<?php if (($user == 'sadmin') || ($user == 'supervisor')): ?>
+            <?php if (($user == 'sadmin') || ($user == 'supervisor')): ?>
                 <div  class="col-md-12 col-sm-12">
                     <div class="portlet box red-sunglo">
                         <div class="portlet-title">
@@ -1828,14 +1828,14 @@
                                             </div>
                                         </div>
                                     </div>
-    <?php echo $this->Form->end(); ?>
+                                    <?php echo $this->Form->end(); ?>
                                 </div>
                             </div> 
                         </div>
                     </div>    
                 </div>
 
-<?php endif; ?>
+            <?php endif; ?>
 
             <!-------------------------------------END REFUND---------------------->
             <!-------------payment history start----------------->
@@ -1852,7 +1852,7 @@
                             </div>
                         </div>
                         <div class="portlet-body">
-<?php if (count($statements)) { ?>
+                            <?php if (count($statements)) { ?>
                                 <div class="row" id="transaction">
                                     <div  class="col-md-12 col-sm-12">
                                         <div  class="col-md-9 col-sm-9">
@@ -1907,7 +1907,7 @@
                                                             <?php endif; ?><br>
                                                             <?php if (!empty($customer['home'])): ?>
                                                                 <b> Phone: </b> <a href="tel:<?php echo $customer['home'] ?>"><?php echo $customer['home']; ?></a>
-    <?php endif; ?> <br>
+                                                            <?php endif; ?> <br>
                                                             <b> Address: </b> <?php echo $customer_address; ?> 
                                                         </td>
                                                     </tr>                                           
@@ -1951,8 +1951,10 @@
                                             <?php
                                             $balance = array();
                                             foreach ($statements as $single):
+                                                pr($single);
+                                                exit;
                                                 $bill = $single['bill'];
-//                                                pr($bill['next_payment']); exit;
+
                                                 $payments = $single['payment'];
 
                                                 $amount = $bill['payable_amount'];
@@ -1986,8 +1988,8 @@
                                             </li>
                                             <li>
                                                 Payment Date : 
-                                                
-                                         <?php echo date('m-d-Y', strtotime($bill['next_payment'])); ?>
+
+        <?php echo date('m-d-Y', strtotime($bill['next_payment'])); ?>
 
                                             </li>
 
@@ -2033,13 +2035,13 @@
                                                                 <li>Transaction No : <?php echo $payment['tr']['trx_id']; ?></li> 
                                                                 <li>Card No : <?php echo substr($payment['tr']['card_no'], 0, 4); ?></li>  
                                                                 <li>Zip Code : <?php echo $payment['tr']['zip_code']; ?></li>  
-<<<<<<< HEAD
-                                                                <li>CVV Code : ***<?php //echo $payment['tr']['cvv_code'];   ?></li> 
+                                                                <<<<<<< HEAD
+                                                                <li>CVV Code : ***<?php //echo $payment['tr']['cvv_code'];    ?></li> 
                                                                 <li>Expire Date : <?php echo $payment['tr']['exp_date']; ?></li>
-=======
+                                                                =======
                                                                 <li>CVV Code : <?php echo $payment['tr']['cvv_code']; ?></li> 
                                                                 <li>Expire Date : <?php echo date('m-d-Y', strtotime($payment['tr']['exp_date'])); ?></li>
->>>>>>> 24e0b217d03a5799195358034c35aabd39d417d5
+                                                                >>>>>>> 24e0b217d03a5799195358034c35aabd39d417d5
 
 
             <?php elseif ($payment['tr']['pay_mode'] == 'cash'): ?>
@@ -2402,7 +2404,7 @@
                                                                         </th>
                                                                         <tr>
                                                                             <td style="padding-left: 5px; min-height: 115px; line-height: 15px;">
-                                                                                <?php // if (!empty($single['0']['name'])):           ?>
+                                                                                <?php // if (!empty($single['0']['name'])):            ?>
 
         <?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?>
 
@@ -2579,7 +2581,7 @@
                                 </div>
 
 
-                            <?php endforeach; ?>
+    <?php endforeach; ?>
 
 
 <?php endforeach; ?>
@@ -2656,7 +2658,7 @@
                                                                             <?php
                                                                         }
                                                                         ?>
-                                                                        <?php echo $history['fb']['name']; ?>
+        <?php echo $history['fb']['name']; ?>
                                                                         <p><strong>Forwarded To:</strong><ul><li><?php echo $history['fi']['name']; ?> </li><li><?php echo $history['fd']['name']; ?> </li></ul>
                                                                         <strong>Time:</strong>
                                                                         <?php echo date('m-d-Y h:m:s', strtotime($history['tr']['created'])); ?>
