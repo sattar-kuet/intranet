@@ -878,7 +878,7 @@ class PaymentsController extends AppController {
         $loggedUser = $this->Auth->user();
         $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
         $result = array();
-        $this->request->data['Transaction']['status'] = 'success';
+        $this->request->data['Transaction']['status'] = 'paid';
         $id = $this->request->data['Transaction']['id'];
         $this->request->data['Transaction']['transaction_id'] = $id;
         unset($this->request->data['Transaction']['id']);
@@ -889,18 +889,19 @@ class PaymentsController extends AppController {
         unset($this->request->data['Transaction']['transaction_id']);
         unset($this->request->data['Transaction']['created']);
 
-        $this->request->data['Transaction']['status'] = 'close';
+        $status= 'close';
         // check due amount 
         $due = $this->getDue($id);
        // echo 'Due : '.$due; exit;
         if ($due > 0) {
-            $this->request->data['Transaction']['status'] = 'open';
+            $status = 'open';
         }
         $amount = $this->request->data['Transaction']['payable_amount'];
         unset($this->request->data['Transaction']['payable_amount']);
         $this->Transaction->id = $id;
 //         pr('here'); exit;
-        $this->Transaction->save($this->request->data['Transaction']);
+        $this->Transaction->saveField('status',$status);
+        echo $this->Transaction->getLastQuery(); exit;
         // generate Ticket
         $tdata['Ticket'] = array('content' => "This is paid invoice.Paid invoice record saved successfully<br> <b> Amount : </b> $amount <br> <b> Payment mode :</b> Card");
         $tickect = $this->Ticket->save($tdata); // Data save in Ticket

@@ -671,7 +671,7 @@
                             <a  class="reload toggle" data-id="next_payment"></a>
                         </div>
                     </div>
-                    <div class="portlet-body" id="next_payment">  
+                    <div class="portlet-body" id="next_payment" style="display: none;">  
                         <?php echo $this->Session->flash() ?>
                         <?php
                         echo $this->Form->create('NextTransaction', array(
@@ -786,7 +786,7 @@
                             <a  class="reload toggle" data-id="update_card"></a>
                         </div>
                     </div>
-                    <div class="portlet-body" id="update_card">  
+                    <div class="portlet-body" id="update_card" style="display: none;">  
                         <div >
                             <?php
                             echo $this->Form->create('Transaction', array(
@@ -1069,10 +1069,10 @@
                             <i class="fa fa-user"></i>Customer Status Update 
                         </div> 
                         <div class="tools">
-                            <a  class="reload toggle" data-id="status_update"></a>
+                            <a  class="reload toggle" data-id="status_update" ></a>
                         </div>
                     </div>
-                    <div class="portlet-body" id="status_update">  
+                    <div class="portlet-body" id="status_update" style="display: none;">  
                         <?php echo $this->Session->flash() ?>
                         <?php
                         echo $this->Form->create('PackageCustomer', array(
@@ -1195,7 +1195,7 @@
                             <a  class="reload toggle" data-id="auto_recurring"></a>
                         </div>
                     </div>
-                    <div class="portlet-body"  id="auto_recurring">  
+                    <div class="portlet-body"  id="auto_recurring" style="display: none;">  
                         <?php echo $this->Session->flash() ?>
                         <?php
                         echo $this->Form->create('Transaction', array(
@@ -1437,7 +1437,7 @@
                         </div>
                     </div>
                     <div class="portlet-body">
-                        <div class="row" id="open_invoice">
+                        <div class="row" id="open_invoice" style="display: none;">
                             <div  class="col-md-12 col-sm-12">
                                 <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                                     <thead>
@@ -1556,7 +1556,7 @@
                         </div>
                     </div>
                     <div class="portlet-body">
-                        <div class="row" id="updatepayinfo"> 
+                        <div class="row" id="updatepayinfo" style="display: none;"> 
                             <div class="col-md-12">
                                 <?php
                                 echo $this->Form->create('Transaction', array(
@@ -1717,7 +1717,7 @@
                             </div>
                         </div>
                         <div class="portlet-body">
-                            <div class="row" id="refund"> 
+                            <div class="row" id="refund" style="display: none;"> 
                                 <?php
                                 echo $this->Form->create('Transaction', array(
                                     'inputDefaults' => array(
@@ -1850,12 +1850,12 @@
                                 <i class="fa fa-list-ul"></i>Statement
                             </div>
                             <div class="tools">
-                                <a  class="reload toggle" data-id="transaction"></a>
+                                <a  class="reload toggle" data-id="transaction" ></a>
                             </div>
                         </div>
                         <div class="portlet-body">
                             <?php if (count($statements)) { ?>
-                                <div class="row" id="transaction">
+                                <div class="row" id="transaction" style="display: none;">
                                     <div  class="col-md-12 col-sm-12">
                                         <div  class="col-md-9 col-sm-9">
                                         </div>  
@@ -2612,7 +2612,7 @@
                                 </div>
                             </div>
                             <div class="portlet-body">
-                                <div class="row" id="tickethistory">
+                                <div class="row" id="tickethistory" style="display: none; ">
                                     <div  class="col-md-12 col-sm-12">
                                         <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                                             <thead>
