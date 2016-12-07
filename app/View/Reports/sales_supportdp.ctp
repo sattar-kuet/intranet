@@ -90,10 +90,8 @@
                 table, tr, td {
                     border: 1px solid black !important;
                 }
-            </style>
-
-            <div class="page-content-wrapper">
-                <div class="page-content">
+            </style>            
+               
                     <!-- BEGIN PAGE HEADER-->
                     <div class="page-bar">
                         <ul class="page-breadcrumb">
@@ -293,9 +291,8 @@
                                 </table>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>                           
+                    </div>               
+                                     
         <?php endif; ?>
     </div>
 </div>
