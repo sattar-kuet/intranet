@@ -255,7 +255,7 @@
                                     <?php
                                     echo $this->Form->input('psetting_id', array(
                                         'type' => 'select',
-                                        'class' => 'form-control packageChange',
+                                        'class' => 'form-control ',
                                         'options' => $packageList,
                                         'empty' => '--Select Package Type--',
                                         'id' => 'psettingId',
@@ -453,27 +453,27 @@
                             </div>
                             <hr/>
                             <div class="form-group">
-                                <label class="control-label col-md-1">SD:<span class="required">
+                                <label class="control-label col-md-1">Security Deposit:<span class="required">
                                     </span>
                                 </label>
                                 <div class="col-md-2">
                                     <?php
                                     echo $this->Form->input(
                                             'deposit', array(
-                                        'class' => 'form-control  partial',
+                                        'class' => 'form-control',
                                         'type' => 'number'
                                             )
                                     );
                                     ?>
                                 </div>
-                                <label class="control-label col-md-1">MB:<span class="required">
+                                <label class="control-label col-md-1">Discount:<span class="required">
                                     </span>
                                 </label>
                                 <div class="col-md-2">
                                     <?php
                                     echo $this->Form->input(
                                             'monthly_bill', array(
-                                        'class' => 'form-control  partial ',
+                                        'class' => 'form-control',
                                         'type' => 'number'
                                             )
                                     );
@@ -488,7 +488,7 @@
                                     <?php
                                     echo $this->Form->input(
                                             'others', array(
-                                        'class' => 'form-control  partial',
+                                        'class' => 'form-control',
                                         'type' => 'number'
                                             )
                                     );
@@ -501,7 +501,7 @@
                                     <?php
                                     echo $this->Form->input(
                                             'total', array(
-                                        'class' => 'form-control input-sm total',
+                                        'class' => 'form-control',
                                         'type' => 'number',
                                         'readonly' => 'readonly'
                                             )
