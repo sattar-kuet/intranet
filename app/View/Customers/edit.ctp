@@ -2035,7 +2035,7 @@
                                                                 <?php endif;
                                                                 ?>
                                                                 <li>Transaction No : <?php echo $payment['tr']['trx_id']; ?></li> 
-                                                                <li>Card No : <?php echo substr($payment['tr']['card_no'], 0, 4); ?></li>  
+                                                                <li>Card No : <?php echo substr($payment['tr']['card_no'], -4); ?></li>  
                                                                 <li>Zip Code : <?php echo $payment['tr']['zip_code']; ?></li>  
 
                                                                 <li>CVV Code : ***<?php //echo $payment['tr']['cvv_code'];    ?></li> 
