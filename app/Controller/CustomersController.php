@@ -938,10 +938,10 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $this->request->data['Installation']['package_customer_id'] = $this->request->data['PackageCustomer']['id'];
         $this->request->data['Installation']['schedule_date'] = $date;
         $this->request->data['Installation']['user_id'] = $this->request->data['PackageCustomer']['technician_id'];
-        $this->request->data['Installation']['status'] = 'Scheduled';
+        $this->request->data['Installation']['status'] = 'scheduled';
         $this->request->data['PackageCustomer']['schedule_date'] = $date;
-        $this->request->data['PackageCustomer']['status'] = 'Scheduled';
-        //  pr($this->request->data); exit;
+        $this->request->data['PackageCustomer']['status'] = 'scheduled';
+//          pr($this->request->data); exit;
         $this->PackageCustomer->save($this->request->data);
         $this->Installation->save($this->request->data);
         $msg = '<div class="alert alert-success">
@@ -1641,7 +1641,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id
-                    where pc.issue_id = 5 and approved = 0");
+                    where pc.issue_id = 5 and approved = 0 and pc.status != 'scheduled'");
         $filteredData = array();
         $unique = array();
         $index = 0;
