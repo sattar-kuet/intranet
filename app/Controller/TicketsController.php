@@ -165,26 +165,20 @@ class TicketsController extends AppController {
                     $cusinfo = $this->PackageCustomer->save($data['PackageCustomer']);
                 }
                 if (trim($this->request->data['Ticket']['action_type']) == 'shipment') {
+                    
 
                     if ($this->request->data['Ticket']['shipment_equipment'] == 'OTHER') {
                         $this->request->data['Ticket']['shipment_equipment'] = $this->request->data['Ticket']['shipment_equipment_other'];
                     }
                     $data['PackageCustomer'] = array(
+                        'id' => $customer_id,
                         'shipment' => 2,
+                        'approved' => 0,
                         'shipment_equipment' => $this->request->data['Ticket']['shipment_equipment'],
                         'shipment_note' => $this->request->data['Ticket']['shipment_note']
                     );
-                    $this->PackageCustomer->id = $customer_id;
-                    if (empty($this->request->data['Ticket']['shipment_equipment'])) {
-                        $data['PackageCustomer'] = array(
-                            'shipment_equipment' => ''
-                        );
-                    }
-                    if (empty($this->request->data['Ticket']['shipment_note'])) {
-                        $data['PackageCustomer'] = array(
-                            'shipment_note' => ''
-                        );
-                    }
+                  
+//                    pr($data); exit;
                     $this->PackageCustomer->save($data['PackageCustomer']);
                 }
                 $customer = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $customer_id)));
