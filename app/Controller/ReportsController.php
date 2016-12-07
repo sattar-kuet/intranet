@@ -102,7 +102,7 @@ class ReportsController extends AppController {
                 left join package_customers pc on pc.id = tr.package_customer_id
                 left join psettings ps on ps.id = pc.psetting_id
                 LEFT JOIN packages p ON p.id = ps.package_id 
-                WHERE $conditions order by tr.id desc limit 0,199";
+                WHERE $conditions order by tr.id desc limit 0,99";
             $transactions = $this->Transaction->query($sql);
             $clicked = true;
             $this->set(compact('transactions'));
