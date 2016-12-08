@@ -40,7 +40,7 @@
                             <thead>
                                 <tr>
                                     <th>
-                                        Contact Date
+                                        Contact Info
                                     </th>
                                     <th>
                                         Customer detail
@@ -65,7 +65,7 @@
                             <tbody>
                                 <?php
                                 foreach ($filteredData as $results):
-
+//                                    pr($results); exit;
                                     $customer = $results['customers'];
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
@@ -73,14 +73,14 @@
                                     ?>
                                     <tr>
                                         <td class="hidden-480">
-                                            <?php if (!empty($results['installations'][0]['user_id']['created'])): ?>
-                                                <?php if ($results['installations'][0]['user_id']['created']): ?>
-                                                    <?php echo $results['installations'][0]['user_id']['created']; ?> 
+                                            <?php if (!empty($results['customers']['modified'])): ?>
+                                                <?php if ($results['customers']['modified']): ?>
+                                                    <b>  Contacted Date :  </b>  <?php echo $results['customers']['modified']; ?> 
                                                 <?php endif; ?>
                                             <?php endif; ?>
                                             <br>
-                                            <?php if (!empty($results['users']['name'])): ?>
-                                                <?php echo $results['users']['name']; ?>
+                                            <?php if (!empty($results['installations']['0']['user']['name'])): ?>
+                                                <b>  Assign By :  </b><?php echo $results['installations']['0']['user']['name']; ?>
                                             <?php endif; ?> 
                                         </td>
                                         <td>
@@ -110,6 +110,8 @@
                                                 <?php if (!empty($customer['home'])): ?>
                                                     <b>  Home :</b>  <a href="tel:<?php echo $customer['home'] ?>"><?php echo $customer['home']; ?></a>
                                                 <?php endif; ?> 
+
+
                                             </ul>
 
                                         </td>
@@ -130,19 +132,24 @@
                                                 <strong>Payment: </strong> <ul>
                                                     <li>SD: $<?php echo $results['customers']['deposit']; ?></li>
                                                     <li>MB: $<?php echo $results['customers']['monthly_bill']; ?></li>
-                                                    <li>Equipment: $<?php echo $results['customers']['others']; ?></li>
+
                                                     <li>Total: $<?php echo $results['customers']['total']; ?></li>
                                                 </ul>  <br>
+                                                <strong>Equipment:</strong> $<?php echo $results['customers']['shipment_equipment']; ?> <br>
+                                                <strong>Additional Note:</strong> $<?php echo $results['customers']['shipment_note']; ?>
                                             <?php } else { ?>
                                                 <strong>Customer Type: </strong> New <br>
                                                 <strong>Package: </strong> <?php $results['package']['name']; ?> <br>
                                                 <strong>Payment: </strong> <ul>
                                                     <li>SD: $<?php echo $results['customers']['deposit']; ?></li>
                                                     <li>MB: $<?php echo $results['customers']['monthly_bill']; ?></li>
-                                                    <li>Equipment: $<?php echo $results['customers']['others']; ?></li>
                                                     <li>Total: $<?php echo $results['customers']['total']; ?></li>
                                                 </ul>  <br>
-                                                <strong>Equipment: </strong> <?php
+
+                                                <strong>Equipment:</strong> $<?php echo $results['customers']['shipment_equipment']; ?> <br>
+                                                <strong>Additional Note:</strong> $<?php echo $results['customers']['shipment_note']; ?>
+
+                                                <?php
                                                 echo $results['customers']['shipment_equipment'] . ' ' .
                                                 $results['customers']['shipment_note'] . '(' . $results['customers']['remote_no'] . ')';
                                                 ?>

@@ -327,6 +327,7 @@ class TechniciansController extends AppController {
                     left join installations ins on ins.package_customer_id = pc.id 
                     WHERE ins.user_id = " . $loggedUser['id'] . " and pc.status = 'scheduled' "
                 . " ORDER BY ins.id");
+//        pr($allData); exit;
 //         echo $sql; exit;
         $filteredData = array();
         $unique = array();
@@ -389,6 +390,7 @@ class TechniciansController extends AppController {
                 }
             }
         }
+//         pr($filteredData); exit;
         $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
 //        pr($filteredData); exit;
         $this->set(compact('filteredData', 'technician'));
