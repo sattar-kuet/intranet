@@ -250,6 +250,7 @@
                                     <?php
                                     echo $this->Form->input('psetting_id', array(
                                         'type' => 'select',
+//                                        'class' => 'form-control packageChange',
                                         'class' => 'form-control packageChange',
                                         'options' => $packageList,
                                         'empty' => '--Select Package Type--'
@@ -495,7 +496,7 @@
                                     <?php
                                     echo $this->Form->input(
                                             'total', array(
-                                        'class' => 'form-control input-sm',
+                                        'class' => 'form-control',
                                         'type' => 'number'
 //                                        'readonly' => 'readonly'
                                             )
