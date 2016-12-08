@@ -1033,7 +1033,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                      left join issues i on pc.issue_id = i.id
-                    WHERE pc.shipment = 2 and approved = 0");
+                    WHERE pc.shipment = 2 and approved = 0 and pc.status ='requested' ");
         $filteredData = array();
         $unique = array();
         $index = 0;

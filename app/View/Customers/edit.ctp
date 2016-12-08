@@ -1484,8 +1484,6 @@
                                             $date = $info['transactions']['next_payment'];
 
                                             //echo getPaid($info['transactions']['id']);
-
-
                                             // pr($info);
 
                                             $customer_address = $info['package_customers']['house_no'] . ' ' . $info['package_customers']['street'] . ' ' .
@@ -1533,7 +1531,7 @@
                                             </tr>
                                             <?php
                                         endforeach;
-                                        // exit;
+// exit;
                                         ?>
                                     </tbody>
                                 </table>
@@ -1953,8 +1951,8 @@
                                             <?php
                                             $balance = array();
                                             foreach ($statements as $single):
-                                             //   pr($single);
-                                            //    exit;
+                                                //   pr($single);
+                                                //    exit;
                                                 $bill = $single['bill'];
 
                                                 $payments = $single['payment'];
@@ -1989,9 +1987,9 @@
                                                 Payable Amount : <?php echo $bill['payable_amount']; ?> 
                                             </li>
                                             <li>
-                                                Payment Date : 
+                                                Invoice Date : 
 
-        <?php echo date('m-d-Y', strtotime($bill['next_payment'])); ?>
+                                                <?php echo date('m-d-Y', strtotime($bill['next_payment'])); ?>
 
                                             </li>
 
@@ -2038,13 +2036,11 @@
                                                                 <li>Card No : <?php echo substr($payment['tr']['card_no'], -4); ?></li>  
                                                                 <li>Zip Code : <?php echo $payment['tr']['zip_code']; ?></li>  
 
-                                                                <li>CVV Code : ***<?php //echo $payment['tr']['cvv_code'];    ?></li> 
-                                                                <li>Expire Date : <?php echo $payment['tr']['exp_date']; ?></li>
-                                                              
-
-                                                                <li>CVV Code : ***<?php //echo $payment['tr']['cvv_code'];    ?></li> 
+                                                                <li>CVV Code : ***<?php //echo $payment['tr']['cvv_code'];      ?></li> 
                                                                 <li>Expire Date : <?php echo $payment['tr']['exp_date']; ?></li>
 
+
+                                                               
                                                             <?php elseif ($payment['tr']['pay_mode'] == 'cash'): ?>
                                                                 <li>Pay Mode : <?php echo $payment['tr']['pay_mode']; ?></li> 
                                                                 <li> Cash By : <?php echo $payment['tr']['cash_by']; ?> </li>
@@ -2159,7 +2155,7 @@
                                                                     </th>
                                                                     <tr>
                                                                         <td style="padding-left: 5px; min-height: 115px; line-height: 15px;">
-                                                                            <?php // if (!empty($single['0']['name'])):          ?>
+                                                                            <?php // if (!empty($single['0']['name'])):           ?>
                                                                             <?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?>
 
 
@@ -2405,7 +2401,7 @@
                                                                         </th>
                                                                         <tr>
                                                                             <td style="padding-left: 5px; min-height: 115px; line-height: 15px;">
-                                                                                <?php // if (!empty($single['0']['name'])):            ?>
+                                                                                <?php // if (!empty($single['0']['name'])):             ?>
 
                                                                                 <?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?>
 
@@ -2582,7 +2578,7 @@
                                 </div>
 
 
-    <?php endforeach; ?>
+                            <?php endforeach; ?>
 
 
                         <?php endforeach; ?>
@@ -2659,7 +2655,7 @@
                                                                             <?php
                                                                         }
                                                                         ?>
-        <?php echo $history['fb']['name']; ?>
+                                                                        <?php echo $history['fb']['name']; ?>
                                                                         <p><strong>Forwarded To:</strong><ul><li><?php echo $history['fi']['name']; ?> </li><li><?php echo $history['fd']['name']; ?> </li></ul>
                                                                         <strong>Time:</strong>
                                                                         <?php echo date('m-d-Y h:m:s', strtotime($history['tr']['created'])); ?>
