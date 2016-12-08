@@ -68,6 +68,7 @@ class TicketsController extends AppController {
                     "remote_no" => $this->request->data['Ticket']['remote_no'],
                     "issue_id" => $this->request->data['Ticket']['issue_id'],
                     "comments" => $this->request->data['Ticket']['content'],
+                    "status" => 'requested',
                     "user_id" => $loggedUser['id']
                 );
                 
