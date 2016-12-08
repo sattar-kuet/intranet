@@ -132,11 +132,11 @@
                                                 <strong>Payment: </strong> <ul>
                                                     <li>SD: $<?php echo $results['customers']['deposit']; ?></li>
                                                     <li>MB: $<?php echo $results['customers']['monthly_bill']; ?></li>
-
                                                     <li>Total: $<?php echo $results['customers']['total']; ?></li>
                                                 </ul>  <br>
-                                                <strong>Equipment:</strong> $<?php echo $results['customers']['shipment_equipment']; ?> <br>
-                                                <strong>Additional Note:</strong> $<?php echo $results['customers']['shipment_note']; ?>
+                                                <strong>Equipment:</strong> <?php echo $results['customers']['shipment_equipment']; ?>
+                                                <br>
+                                                <strong>Additional Note:</strong> <?php echo $results['customers']['shipment_note']; ?>
                                             <?php } else { ?>
                                                 <strong>Customer Type: </strong> New <br>
                                                 <strong>Package: </strong> <?php $results['package']['name']; ?> <br>
@@ -146,13 +146,11 @@
                                                     <li>Total: $<?php echo $results['customers']['total']; ?></li>
                                                 </ul>  <br>
 
-                                                <strong>Equipment:</strong> $<?php echo $results['customers']['shipment_equipment']; ?> <br>
-                                                <strong>Additional Note:</strong> $<?php echo $results['customers']['shipment_note']; ?>
+                                                <strong>Equipment:</strong> <?php echo $results['customers']['shipment_equipment']; ?> 
+                                               <br>
+                                                <strong>Additional Note:</strong> <?php echo $results['customers']['shipment_note']; ?>
 
-                                                <?php
-                                                echo $results['customers']['shipment_equipment'] . ' ' .
-                                                $results['customers']['shipment_note'] . '(' . $results['customers']['remote_no'] . ')';
-                                                ?>
+                                                
                                             <?php }
                                             ?>
 
