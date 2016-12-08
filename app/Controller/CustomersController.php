@@ -941,7 +941,6 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $this->request->data['Installation']['status'] = 'scheduled';
         $this->request->data['PackageCustomer']['schedule_date'] = $date;
         $this->request->data['PackageCustomer']['status'] = 'scheduled';
-//          pr($this->request->data); exit;
         $this->PackageCustomer->save($this->request->data);
         $this->Installation->save($this->request->data);
         $msg = '<div class="alert alert-success">

@@ -400,7 +400,7 @@
 
 
                             <div class="form-group">
-                                <label class="control-label col-md-2">Site Top Box<span class="required">
+                                <label class="control-label col-md-2">Set Top Box<span class="required">
                                     </span>
                                 </label>
                                 <div class="col-md-2">

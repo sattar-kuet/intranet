@@ -80,7 +80,7 @@
                                         </td>
                                         <td class="hidden-480">
 
-                                            <?php echo date('m-d-Y', strtotime($results['customers']['created'])); ?><br>
+                                            <?php echo date('m-d-Y', strtotime($results['customers']['modified'])); ?><br>
                                             <?php echo $results['users']['name']; ?> 
 
                                         </td>
