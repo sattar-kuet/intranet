@@ -22,15 +22,30 @@
             <div  id="printableArea">   
                 <?php
                 foreach ($data as $single):
-//                                        pr($single); exit;
-                    $pcaddress = $single['pc'];
 
-                    $customer_address_one = $pcaddress['house_no'] . ' ' . $pcaddress['street'] . ' ' .
-                            $pcaddress['apartment'];
-                    
-                   $customer_address_two = $pcaddress['city'] . ' ' . $pcaddress['state'] . ' '
-                            . $pcaddress['zip'];
-                    ?>                
+
+                    $bill = $single['bill'];
+                    $date = $bill['next_payment'];
+
+                    $payments = $single['payment'];
+                    $package = $single['package'];
+
+
+//                    $pcaddress = $single['pc'];
+//
+//                    $customer_address_one = $pcaddress['house_no'] . ' ' . $pcaddress['street'] . ' ' .
+//                            $pcaddress['apartment'];
+//
+//                    $customer_address_two = $pcaddress['city'] . ' ' . $pcaddress['state'] . ' '
+//                            . $pcaddress['zip'];
+                    ?> 
+
+                    <?php
+                    $customer_address_one = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
+                            $customer['apartment'];
+                    $customer_address_two = $customer['city'] . ' ' . $customer['state'] . ' '
+                            . $customer['zip'];
+                    ?> 
                     <div style="page-break-before:always" >&nbsp;</div> 
                     <div class="row">
                         <div class="col-xs-4">                              
@@ -44,46 +59,44 @@
                             </ul>
                         </div>
                         <div class="col-xs-5 invoice-payment">                             
-<!--                            <ul class="list-unstyled" style=" text-align: right; color: #555; margin-right: 10px;">
-                                <li style="font-size: 17px; color: #555;">
-                                    <h3>Total Cable USA</h3>
-                                </li>
-                                <li style="color: #555;">
-                                    37-19 57th Street, Woodside, NY 11377
-                                </li>
-                                <li style="color: #555;">
-                                    +1212-444-8138
-                                <li style="color: dodgerblue !important;">
-                                    info@totalcableusa.com
-                                </li>
-                            </ul>-->
+                            <!--                            <ul class="list-unstyled" style=" text-align: right; color: #555; margin-right: 10px;">
+                                                            <li style="font-size: 17px; color: #555;">
+                                                                <h3>Total Cable USA</h3>
+                                                            </li>
+                                                            <li style="color: #555;">
+                                                                37-19 57th Street, Woodside, NY 11377
+                                                            </li>
+                                                            <li style="color: #555;">
+                                                                +1212-444-8138
+                                                            <li style="color: dodgerblue !important;">
+                                                                info@totalcableusa.com
+                                                            </li>
+                                                        </ul>-->
                         </div>
                     </div>                  
                     <hr style="display: block; border-style: inset; border-color:  darkmagenta;">
                     <div class="row invoice-logo">
                         <div class="row" style="margin-top: 0;">                          
                             <div class="col-xs-7">                              
-                                                                   
-                                    <!--                                    <li style="color: #555; border-left: #990000 7px  solid;">
-                                    
-                                                                            &nbsp; INVOICE TO:   
-                                                                            &nbsp; Address : <i></b></i>
-                                    
-                                                                        </li>-->
-                                    <table style=" margin-left: 105px; border: #555 solid 1px; min-width: 275px;">
-                                        <th style=" border: #555 solid 1px; padding-left: 2px;">
-                                            <b style=" color: #000;">Bill To</b>
-                                        </th>
-                                        <tr>
-                                            <td style="padding-left: 5px; min-height: 115px; line-height: 15px;">
-                                                <?php echo $single['pc']['first_name'].''.$single['pc']['middle_name'].''.$single['pc']['last_name']; ?><br>
-                                                <?php echo $customer_address_one; ?><br>
-                                                <?php echo $customer_address_two; ?>
 
-                                            </td>
-                                        </tr>
-                                    </table>                               
-                            </div>                            
+                                <table style=" margin-left: 105px; border: #555 solid 1px; min-width: 275px;">
+                                    <th style=" border: #555 solid 1px; padding-left: 2px;">
+                                        <b style=" color: #000;">Bill To</b>
+                                    </th>
+                                    <tr>
+                                        <td style="padding-left: 5px; min-height: 115px; line-height: 15px;">
+                                            <?php // if (!empty($single['0']['name'])):           ?>
+                                            <?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?>
+
+
+                                            <br>
+                                            <?php echo $customer_address_one; ?><br>
+                                            <?php echo $customer_address_two; ?>
+
+                                        </td>
+                                    </tr>
+                                </table>                               
+                            </div>                           
                             <div class="col-xs-5 invoice-payment">                             
                                 <ul class="list-unstyled" style=" text-align: right; color: #000; margin-right: 17px;">
                                     <li>
@@ -91,10 +104,10 @@
                                     </li>
                                     <li style="color: #555;">
                                         <b style=" color: #000;">Date of Invoice: </b><?php echo date('m-d-Y'); ?>
-                                       
+
                                     </li>
                                     <li style="color: #555;">
-                                       <b style=" color: #000;">Terms:</b> Net 7 Days
+                                        <b style=" color: #000;">Terms:</b> Net 7 Days
                                     </li>
                                 </ul>
                             </div>
@@ -187,34 +200,34 @@
                                         <b style=" color: #000;">TOTAL Amount Due</b>
                                     </div>
                                     <div class="col-xs-6" style="text-align: right;">
-                                        $<?php // echo $single['ps']['amount']; ?>.00 USD      
+                                        $<?php // echo $single['ps']['amount'];   ?>.00 USD      
                                     </div>
                                     <hr style="border-color: #990000 !important; ">
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
-                     <div class="row" style="margin-top: 141px;">
+
+                    <div class="row" style="margin-top: 141px;">
                         <div class="col-xs-4">                              
                             <h6>Please write <b style="font-weight: normal !important; color:red !important;">INVOICE NUMBER</b> on check</h6>
                         </div>
                         <div class="col-xs-4">                               
-                           
+
                         </div>
-                       
-                         <div class="col-xs-4">                             
-                             <h6>Make check payable to <b style="font-weight: normal !important; color:red !important;">TOTAL CABLE BD</b></h6>
+
+                        <div class="col-xs-4">                             
+                            <h6>Make check payable to <b style="font-weight: normal !important; color:red !important;">TOTAL CABLE BD</b></h6>
                         </div>
                     </div> 
-                   
-                    
+
+
                     <div class="row" style="background-color:  yellowgreen !important; border-top:  red solid 1px;">
                         <div class="col-xs-4" style="text-align: center;">                              
                             <h5 style=" color: white !important;"> e-mail: info@totalcablebd.com</h5>
                         </div>
                         <div class="col-xs-4">                               
-                           
+
                         </div>
                         <div class="col-xs-4" style="text-align: center;">                             
                             <h5 style=" color: white !important;">Web: totalcablebd.com</h5>

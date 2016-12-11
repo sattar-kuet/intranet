@@ -103,9 +103,15 @@ class ReportsController extends AppController {
                 left join psettings ps on ps.id = pc.psetting_id
                 LEFT JOIN packages p ON p.id = ps.package_id 
                 WHERE $conditions order by tr.id desc limit 0,99";
+
+
             $transactions = $this->Transaction->query($sql);
+            $sql1 = "SELECT SUM(payable_amount)as totalamount FROM transactions tr WHERE $conditions ";
+            $totalamount = $this->Transaction->query($sql1);
+            $transactions = $this->Transaction->query($sql);
+//            pr($totalamount[0][0]['totalamount']); exit;
             $clicked = true;
-            $this->set(compact('transactions'));
+            $this->set(compact('transactions','totalamount'));
         }
         $this->set(compact('clicked'));
     }
@@ -682,7 +688,7 @@ class ReportsController extends AppController {
             $this->getTotalCallBySatatus('check send');
             $total['totalAccount'] = $this->accountCall();
             $total['totalSupport'] = $this->supportCall();
-            
+
             $clicked = true;
             $this->set(compact('total'));
         }
