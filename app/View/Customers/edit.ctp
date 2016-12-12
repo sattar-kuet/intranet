@@ -1311,7 +1311,7 @@
                                     <div class="col-md-4">
                                         <?php
                                         echo $this->Form->input(
-                                                'card_no', array(
+                                                'card_check_no', array(
                                             'type' => 'text',
                                             'class' => 'form-control input-sm required',
                                         ));
@@ -1356,7 +1356,7 @@
                                     <div class="col-md-4">
                                         <?php
                                         echo $this->Form->input(
-                                                'fname', array(
+                                                'cfirst_name', array(
                                             'type' => 'text',
                                             'class' => 'form-control input-sm required',
                                             'placeholder' => 'first name'
@@ -1366,7 +1366,7 @@
                                     <div class="col-md-5">
                                         <?php
                                         echo $this->Form->input(
-                                                'lname', array(
+                                                'clast_name', array(
                                             'type' => 'text',
                                             'class' => 'form-control input-sm required',
                                             'placeholder' => 'last name'
@@ -1397,7 +1397,7 @@
                                     <div class="col-md-4">
                                         <?php
                                         echo $this->Form->input(
-                                                'zip_code', array(
+                                                'czip', array(
                                             'type' => 'text',
                                             'class' => 'form-control input-sm required'
                                         ));

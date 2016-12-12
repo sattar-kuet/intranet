@@ -258,7 +258,7 @@
                             Moving</a>
                     </li>
 
-                    <li
+<!--                    <li
                     <?php if ($this->name . '' . $this->action == 'Customerswire_problem'):
                         ?>
                             class="active"
@@ -269,8 +269,8 @@
                         <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'wire_problem')) ?>">
                             <i class="fa icon-like"></i>
                             Wire problem</a>
-                    </li>
-                    <li
+                    </li>-->
+<!--                    <li
                     <?php if ($this->name . '' . $this->action == 'Customersremote_problem'):
                         ?>
                             class="active"
@@ -281,7 +281,7 @@
                         <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'remote_problem')) ?>">
                             <i class="fa icon-like"></i>
                             Remote Problem</a>
-                    </li>
+                    </li>-->
                 </ul>
             </li> 
             

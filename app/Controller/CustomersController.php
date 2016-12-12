@@ -201,17 +201,14 @@ class CustomersController extends AppController {
         $this->loadModel('Transaction');
         $this->loadModel('PackageCustomer');
         $dateObj = $this->request->data['Transaction']['exp_date'];
-        $this->request->data['Transaction']['r_form'] = date('Y-m-d', strtotime($this->request->data['Transaction']['r_form']));
         $this->request->data['Transaction']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
-        $timestamp = strtotime($this->request->data['Transaction']['r_form']) + $this->request->data['Transaction']['r_duration'] * 24 * 60 * 60; // +strtotime($this->request->data['Transaction']['r_duration'].' days');
-        $next_payment_date = date('Y-m-d', $timestamp);
-        $this->request->data['Transaction']['next_payment'] = $next_payment_date;
-        $this->request->data['Transaction']['pay_mode'] = 'card';
+    //  pr($this->request->data); exit;
 
 //       pr($this->request->data);
 //        exit;
-        $this->Transaction->save($this->request->data);
+      
         $this->PackageCustomer->id = $this->request->data['Transaction']['package_customer_id'];
+         $this->request->data['Transaction']['r_form'] = $this->getFormatedDate($this->request->data['Transaction']['r_form']); 
        // pr($this->request->data['Transaction']); exit;
 
         $this->PackageCustomer->save($this->request->data['Transaction']);
@@ -874,21 +871,20 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
 
     function update_payment($id = null) {
         $this->loadModel('PackageCustomer');
+        
         $this->PackageCustomer->id = $this->request->data['NextTransaction']['package_customer_id'];
         $data = array();
         $data['PackageCustomer'] = array(
             'exp_date' => $this->getFormatedDate($this->request->data['NextTransaction']['exp_date']),
             // when change package exp date then these fields will be update
-            'ticket_generated' => 0,
-            'invoice_no' => 0,
-            'invoice_created' => 0,
-            'printed' => 0,
-            'auto_r' => 'no'
+//            'ticket_generated' => 0,
+//            'invoice_no' => 0,
+//            'invoice_created' => 0,
+//            'printed' => 0,
+//            'auto_r' => 'no'
             
         );
 
-      
-        
         if ($this->request->data['NextTransaction']['discount'] == '') {
             $this->request->data['NextTransaction']['discount'] = 0;
         }
@@ -904,7 +900,6 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             'note' => $this->request->data['NextTransaction']['note'],
             'discount' => $this->request->data['NextTransaction']['discount'],
             'status' => 'open',
-            'invoice' => $pc_data['PackageCustomer']['invoice_no'],
             'next_payment' => $pc_data['PackageCustomer']['exp_date'],
             'payable_amount' => $this->request->data['NextTransaction']['payable_amount']
         );

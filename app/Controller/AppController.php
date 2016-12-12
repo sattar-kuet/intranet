@@ -358,6 +358,8 @@ class AppController extends Controller {
 
     function generateInvoice($data = array()) {
         $this->loadModel('Transaction');
+        
+        $this->Transaction->create();
         $this->Transaction->save($data);
     }
 
