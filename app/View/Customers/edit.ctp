@@ -1479,12 +1479,9 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        //pr($invoices);
                                         foreach ($invoices as $info):
                                             $date = $info['transactions']['next_payment'];
 
-                                            //echo getPaid($info['transactions']['id']);
-                                            // pr($info);
 
                                             $customer_address = $info['package_customers']['house_no'] . ' ' . $info['package_customers']['street'] . ' ' .
                                                     $info['package_customers']['apartment'] . ' ' . $info['package_customers']['city'] . ' ' . $info['package_customers']['state'] . ' '
@@ -1951,8 +1948,7 @@
                                             <?php
                                             $balance = array();
                                             foreach ($statements as $single):
-                                                //   pr($single);
-                                                //    exit;
+                                               
                                                 $bill = $single['bill'];
 
                                                 $payments = $single['payment'];
@@ -1975,7 +1971,6 @@
                                                     $prevIndex = count($balance) - 2;
                                                     $balance[] = $balance[$prevIndex] + $balance[$prevIndex + 1];
                                                 }
-                                                // pr($balance);
                                                 ?>
                                                 <tr class="odd gradeX">
                                                     <td>
@@ -2012,7 +2007,6 @@
                                                 $prevIndex = count($balance) - 2;
                                                 // echo 
                                                 $balance[] = $balance[$prevIndex] + $balance[$prevIndex + 1];
-                                                // pr($payment['tr']);
                                                 ?>
                                                 <tr class="odd gradeX">
                                                     <td> 
@@ -2078,7 +2072,6 @@
                                             <?php endforeach; ?>
                                             <?php
                                         endforeach;
-                                        // pr($balance);
                                         $due = end($balance);
                                         echo '<span class="due-amount-2 hide">' . $due . '</span>';
                                         ?>
@@ -2086,7 +2079,6 @@
                                     </table>
                                 </div>
                                 <?php
-                                // pr($balance);
                             } else {
                                 ?>
                                 <h2> No transaction found for this customer!</h2>
@@ -2097,7 +2089,6 @@
                     <section class="modal4invoice">
                         <?php
                         foreach ($statements as $single):
-//                           pr($bill['next_payment']); exit;
                             $bill = $single['bill'];
                             $date = $bill['next_payment'];
 
@@ -2157,21 +2148,15 @@
                                                                         <td style="padding-left: 5px; min-height: 115px; line-height: 15px;">
                                                                             <?php // if (!empty($single['0']['name'])):           ?>
                                                                             <?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?>
-
-
                                                                             <br>
                                                                             <?php echo $customer_address_one; ?><br>
                                                                             <?php echo $customer_address_two; ?>
-
                                                                         </td>
                                                                     </tr>
                                                                 </table>                               
                                                             </div>                            
-                                                            <div class="col-xs-5 invoice-payment">  
-
-
+                                                            <div class="col-xs-5 invoice-payment"> 
                                                                 <ul class="list-unstyled" style=" text-align: right; color: #000; margin-right: 17px;">
-
                                                                     <table  cellpadding="0" cellspacing="0" border="0" class="responsive dynamicTable display table table-bordered" width="100%">
                                                                         <b>Invoice</b>
                                                                         <tr>
@@ -2346,8 +2331,7 @@
 
                             <?php
                             foreach ($payments as $single):
-                                //pr($single);
-                                $payment = $single['tr'];
+                                $payment = $single['tr'];                            
                                 ?>
                                 <div id="invoice-pop-up<?php echo $payment['id']; ?>" style="display: none; width: 800px;">
 
@@ -2454,11 +2438,8 @@
                                                                 <table class="table table-striped table-hover margin-top-20" style=" margin-top: 60px; border:  #555 solid 1px;">
                                                                     <thead  style="border-bottom: #555 solid 3px;">
                                                                         <tr style="height: 101px; border:  #555 solid 1px;">
-
-
                                                                             <th class="hidden-480" style=" color: #333 !important; padding: 0px 0px 39px 19px;">
                                                                                 Activity
-
                                                                             </th>
                                                                             <th class="hidden-480"  style=" color: #333 !important; text-align: center; padding-bottom: 39px;">
                                                                                 STB QUANTITY
@@ -2467,13 +2448,11 @@
                                                                             <th class="hidden-480" style=" color: #333 !important; text-align: center; padding-bottom: 39px;">
 
                                                                                 Amount
-
                                                                             </th>
 
                                                                             <th class="hidden-480"  style=" padding-bottom: 39px; text-align: center; font-size: 15px;  color: #000 !important; width: 101px;">
                                                                                 Status
-                                                                            </th>   
-
+                                                                            </th>  
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>                                   
@@ -2495,9 +2474,7 @@
                                                                                 ?>
                                                                             </td>
 
-
                                                                             <td style=" color: #333 !important; text-align: center; padding: 43px 0px 0px 9px ;">
-
                                                                                 <?php echo $payment['payable_amount']; ?>
                                                                             </td>
 

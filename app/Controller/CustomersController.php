@@ -70,8 +70,6 @@ class CustomersController extends AppController {
         }
         $upload->process($this->img_config['target_path']['attachment']);
         if (!$upload->processed) {
-//            pr($upload->error);
-//            exit;
             $msg = $this->generateError($upload->error);
             $this->Session->setFlash($msg);
             return $this->redirect($this->referer());
@@ -104,7 +102,6 @@ class CustomersController extends AppController {
 
         //     echo $sql;
         $temp = $this->PackageCustomer->query($sql);
-        // pr($temp);
         $data = array();
         $customer = array();
         $package = array();
@@ -124,7 +121,6 @@ class CustomersController extends AppController {
     }
 
     function updatePackageCustomerTable($data = array()) {
-
         if (isset($data['mac'])) {
             $data['mac'] = json_encode($data['mac']);
             $data['system'] = json_encode($data['system']);
@@ -139,11 +135,11 @@ class CustomersController extends AppController {
                 $data['last_name'] . ' has been updated';
 
         //For Custom Package data insert
-
         $data4CustomPackage['CustomPackage']['duration'] = $data['duration'];
         $data4CustomPackage['CustomPackage']['charge'] = $data['charge'];
         if (!empty($data['charge'])) {
             //save data into custom_package table
+            
             $cp = $this->CustomPackage->save($data4CustomPackage);
             unset($cp['CustomPackage']['PackageCustomer']);
             //from custom_package table, save custom package id to package_customer table
@@ -155,6 +151,7 @@ class CustomersController extends AppController {
         }
         //Ends Custom_package data entry  
         $this->PackageCustomer->id = $data['id'];
+       
         $this->PackageCustomer->save($data);
     }
 
@@ -171,7 +168,6 @@ class CustomersController extends AppController {
             where tr.id = $id");
             $clicked = true;
             $this->set(compact('trinfo'));
-            //  pr($trinfo); exit;
         }
         $this->set(compact('clicked'));
     }
@@ -208,12 +204,8 @@ class CustomersController extends AppController {
         $this->request->data['Transaction']['next_payment'] = $next_payment_date;
         $this->request->data['Transaction']['pay_mode'] = 'card';
 
-//       pr($this->request->data);
-//        exit;
         $this->Transaction->save($this->request->data);
         $this->PackageCustomer->id = $this->request->data['Transaction']['package_customer_id'];
-       // pr($this->request->data['Transaction']); exit;
-
         $this->PackageCustomer->save($this->request->data['Transaction']);
 
         $Msg = '<div class="alert alert-success">
@@ -225,16 +217,13 @@ class CustomersController extends AppController {
     }
 
     function updatecardinfo() {
-       // pr($this->request->data['Transaction']); 
         $this->loadModel('Transaction');
         $user_info = $this->Auth->user();
         $user_id = $user_info['id'];
         $this->request->data['Transaction']['user_id'] = $user_id;
         $this->request->data['Transaction']['status'] = 'update';
         $this->request->data['Transaction']['exp_date'] = $this->request->data['Transaction']['exp_date']['month'] . '/' . substr($this->request->data['Transaction']['exp_date']['year'], -2);
-       
-       // pr($this->request->data['Transaction']); exit;
-        
+   
         $this->Transaction->save($this->request->data['Transaction']);
         $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -283,7 +272,6 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
                 'package' => $package
             );
         }
-        // pr($return); exit;
         return $return;
     }
 
@@ -291,12 +279,11 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $this->loadModel('StatusHistory');
         $pcid = $id;
         $loggedUser = $this->Auth->user();
-        $user = $loggedUser['Role']['name'];
+        $user = $loggedUser['Role']['name'];        
         if ($this->request->is('post') || $this->request->is('put')) {
-
-//            pr($this->request->data); exit;
             // update package_customers table
             $this->request->data['PackageCustomer']['id'] = $id;
+            
             $this->updatePackageCustomerTable($this->request->data['PackageCustomer']);
             $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -308,20 +295,14 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $this->loadModel('Transaction');
         $customer_info = $this->PackageCustomer->findById($pcid);
         $this->request->data = $customer_info;
-//         pr($this->request->data['PackageCustomer']['reward']); exit;
         $payment = new PaymentsController();
         $latestcardInfo = $payment->getLastCardInfo($pcid);
-        //  pr($customer_info['PackageCustomer']); exit;
         unset($customer_info['PackageCustomer']['email']);
         unset($customer_info['PackageCustomer']['exp_date']);
         unset($customer_info['PackageCustomer']['payable_amount']);
         unset($customer_info['PackageCustomer']['cvv_code']);
         unset($customer_info['PackageCustomer']['zip_code']);
-        // pr($customer_info['PackageCustomer']); exit;
         $this->request->data['Transaction'] = $customer_info['PackageCustomer'] + $latestcardInfo;
-       //   pr($customer_info['PackageCustomer']); 
-        //  pr($this->request->data['Transaction']); 
-        //  exit;
         $nextPay = $this->Transaction->find('first', array('conditions' => array('Transaction.package_customer_id' => $pcid, 'Transaction.status' => 'open'), 'order' => array('Transaction.id' => 'DESC')));
         if (count($nextPay)) {
             $this->request->data['NextTransaction'] = $nextPay['Transaction'];
@@ -377,8 +358,6 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $this->loadModel('Transaction');
         $invoices = $this->getOpenInvoice($pcid);
         $statements = $this->getStatements($pcid);
-//         pr($loggedUser['Role']['name']); exit;
-        //  pr($statements); exit;
         $this->set(compact('invoices', 'statements', 'packageList', 'psettings', 'ym', 'custom_package_charge', 'user'));
     }
 
@@ -409,7 +388,6 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $phone_num = $invoices[0]['transactions']['phone'];
         $description = $invoices[0]['package_customers']['comments'];
         $mail_content = array($invoices[0]);
-//        pr($mail_content); exit;
         //sendEmail($from,$name,$to,$subject,$body)
         sendInvoice($from, $cus_name, $to, $subject, $mail_content);
         // End send mail
@@ -447,7 +425,6 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
 
             $dateObj = $this->request->data['PackageCustomer']['exp_date'];
             $this->request->data['PackageCustomer']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
-            //    pr($this->request->data); exit;
             if (!empty($this->request->data['PackageCustomer']['attachment']['name'])) {
                 $result = $this->processAttachment($this->request->data['PackageCustomer']);
                 $this->request->data['PackageCustomer']['attachment'] = $result['file_dst_name'];
@@ -512,7 +489,6 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         //   $this->loadModel('User');
         //   $this->loadModel('Role');
         $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
-        //  pr($technician); exit;
     }
 
     function edit_registration($id = null) {
@@ -521,7 +497,6 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $this->loadModel('Comment');
         $this->loadModel('Issue');
         if ($this->request->is('post') || $this->request->is('put')) {
-            // pr($this->request->data); exit;
             $this->PackageCustomer->set($this->request->data);
             $this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
             //For Custom Package data insert
@@ -562,7 +537,6 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             return $this->redirect($this->referer());
         }
         $data = $this->PackageCustomer->findById($id);
-        //pr($data); exit;
         $date = explode('/', $data['PackageCustomer']['exp_date']);
         $yyyy = date('Y');
         $yy = substr($yyyy, 0, 2);
@@ -633,7 +607,6 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $filteredData = array();
         $unique = array();
         $index = 0;
-//        pr($allData); exit;
         foreach ($allData as $key => $data) {
 
             $pd = $data['pc']['id'];
@@ -682,8 +655,6 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
                 }
             }
         }
-        // pr($filteredData);exit;
-
         $this->set(compact('filteredData'));
     }
 
@@ -702,9 +673,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $filteredData = array();
         $unique = array();
         $index = 0;
-//         pr($allData); exit;
         foreach ($allData as $key => $data) {
-            //pr($data); exit;
             $pd = $data['pc']['id'];
             if (isset($unique[$pd])) {
                 //  echo 'already exist'.$key.'<br/>';
@@ -770,8 +739,6 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $this->loadModel('PackageCustomer');
         $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc  
         WHERE pc.technician_id = $id and pc.status = 'scheduled'");
-        //   pr($allData);
-        //  exit;
         $this->set(compact('allData'));
     }
 
@@ -789,9 +756,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $filteredData = array();
         $unique = array();
         $index = 0;
-//        pr($allData); exit;
         foreach ($allData as $key => $data) {
-            //pr($data); exit;
             $pd = $data['pc']['id'];
             if (isset($unique[$pd])) {
                 //  echo 'already exist'.$key.'<br/>';
@@ -836,7 +801,6 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             }
         }
         $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
-//        pr($technician); exit;
 
         $this->set(compact('filteredData', 'technician'));
     }
@@ -965,9 +929,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $filteredData = array();
         $unique = array();
         $index = 0;
-//        pr($allData); exit;
         foreach ($allData as $key => $data) {
-            //pr($data); exit;
             $pd = $data['pc']['id'];
             if (isset($unique[$pd])) {
                 //  echo 'already exist'.$key.'<br/>';
@@ -1018,7 +980,6 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             }
         }
         $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
-//        pr($technician); exit;
         $this->set(compact('filteredData', 'technician'));
     }
 
@@ -1037,7 +998,6 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $unique = array();
         $index = 0;
         foreach ($allData as $key => $data) {
-            //pr($data); exit;
             $pd = $data['pc']['id'];
             if (isset($unique[$pd])) {
                 //  echo 'already exist'.$key.'<br/>';
@@ -1089,7 +1049,6 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             }
         }
         $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
-//        pr($technician); exit;
         $this->set(compact('filteredData', 'technician'));
     }
 
@@ -1200,9 +1159,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             $filteredData = array();
             $unique = array();
             $index = 0;
-            /// pr($allData); exit;
             foreach ($allData as $key => $data) {
-                //pr($data); exit;
                 $pd = $data['pc']['id'];
                 if (isset($unique[$pd])) {
                     //  echo 'already exist'.$key.'<br/>';
@@ -1282,15 +1239,12 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             $filteredData = array();
             $unique = array();
             $index = 0;
-//        pr($allData); exit;
             foreach ($allData as $key => $data) {
-                //pr($data); exit;
                 $pd = $data['pc']['id'];
                 if (isset($unique[$pd])) {
                     //  echo 'already exist'.$key.'<br/>';
                     if (!empty($data['c']['content'])) {
                         //  $temp = $data['c'];// array('id' => $data['psettings']['id'], 'duration' => $data['psettings']['duration'], 'amount' => $data['psettings']['amount'], 'offer' => $data['psettings']['offer']);
-                        //pr($temp); exit;
 
                         $temp = array('content' => $data['c'], 'user' => $data['u']);
                         $filteredData[$index]['comments'][] = $temp;
@@ -1366,15 +1320,12 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             $filteredData = array();
             $unique = array();
             $index = 0;
-//        pr($allData); exit;
             foreach ($allData as $key => $data) {
-                //pr($data); exit;
                 $pd = $data['pc']['id'];
                 if (isset($unique[$pd])) {
                     //  echo 'already exist'.$key.'<br/>';
                     if (!empty($data['c']['content'])) {
                         //  $temp = $data['c'];// array('id' => $data['psettings']['id'], 'duration' => $data['psettings']['duration'], 'amount' => $data['psettings']['amount'], 'offer' => $data['psettings']['offer']);
-                        //pr($temp); exit;
 
                         $temp = array('content' => $data['c'], 'user' => $data['u']);
                         $filteredData[$index]['comments'][] = $temp;
@@ -1437,7 +1388,6 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id
                     where LOWER(i.name) = 'wire problem' and approved = 0");
-//        pr($allData); exit;
         $filteredData = array();
         $unique = array();
         $index = 0;
@@ -1448,7 +1398,6 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
                 //  echo 'already exist'.$key.'<br/>';
                 if (!empty($data['c']['content'])) {
                     //  $temp = $data['c'];// array('id' => $data['psettings']['id'], 'duration' => $data['psettings']['duration'], 'amount' => $data['psettings']['amount'], 'offer' => $data['psettings']['offer']);
-                    //pr($temp); exit;
 
                     $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
@@ -1488,7 +1437,6 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             }
         }
         $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
-//        pr($filteredData); exit;
         $this->set(compact('filteredData', 'technician'));
     }
 
@@ -1503,14 +1451,10 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id
                     WHERE pc.status = 'old_ready'");
-        // echo $sql; exit;
-//                pr($allData); exit;
         $filteredData = array();
         $unique = array();
         $index = 0;
-        /// pr($allData); exit;
         foreach ($allData as $key => $data) {
-            //pr($data); exit;
             $pd = $data['pc']['id'];
             if (isset($unique[$pd])) {
                 //  echo 'already exist'.$key.'<br/>';
@@ -1561,7 +1505,6 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             }
         }
         $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
-//        pr($technician); exit;
         $this->set(compact('filteredData', 'technician'));
     }
 
@@ -1580,14 +1523,11 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $unique = array();
         $index = 0;
         foreach ($allData as $key => $data) {
-            //pr($data); exit;
             $pd = $data['pc']['id'];
             if (isset($unique[$pd])) {
                 //  echo 'already exist'.$key.'<br/>';
                 if (!empty($data['c']['content'])) {
                     //  $temp = $data['c'];// array('id' => $data['psettings']['id'], 'duration' => $data['psettings']['duration'], 'amount' => $data['psettings']['amount'], 'offer' => $data['psettings']['offer']);
-                    //pr($temp); exit;
-
                     $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
                 }
@@ -1627,7 +1567,6 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             }
         }
         $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
-//        pr($filteredData); exit;
         $this->set(compact('filteredData', 'technician'));
     }
 

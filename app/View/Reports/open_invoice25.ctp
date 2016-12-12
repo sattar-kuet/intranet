@@ -140,8 +140,11 @@
                                 </tr>
                             </thead>
                             <tbody>                                    
-                                <?php foreach ($packagecustomers as $single):
-//     pr($single); exit;
+                                <?php
+                                
+//                                  pr($packagecustomers); exit;
+                                foreach ($packagecustomers as $single):
+   
                                     ?>
                                     <tr>
                                         <td  style=" text-align: center; background-color:#990000; font-size: 19px; font-weight: bold; color: white; width: 101px;">
