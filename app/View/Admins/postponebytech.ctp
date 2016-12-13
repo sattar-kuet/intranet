@@ -55,7 +55,7 @@
                                     </th>
 
                                     <th>
-                                        Equipment
+                                        Detail Information 
                                     </th>
                                     <th>
                                         Comment
@@ -127,7 +127,11 @@
                                         </td>
 
                                         <td>
-                                            <?php echo $customer['shipment_equipment'] . ' ' . $customer['shipment_note']; ?>
+                                             <strong>Equipment:</strong> <?php echo $results['customers']['shipment_equipment']; ?>
+                                                    <br>
+                                                    <strong>Quantity:</strong> <?php echo $results['customers']['remote_no']; ?>
+                                                    <br>
+                                                    <strong>Additional Note:</strong> <?php echo $results['customers']['shipment_note']; ?>
                                         </td>
                                          <td>
                                             <?php
