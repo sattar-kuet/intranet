@@ -442,7 +442,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
                 'date' => date('m/d/Y'),
                 'status' => $this->request->data['PackageCustomer']['status'],
             );
-
+//            pr($data4statusHistory); exit;
             $this->StatusHistory->save($data4statusHistory);
 //            data for comment
             $comment['Comment']['package_customer_id'] = $pc['PackageCustomer']['id'];

@@ -79,7 +79,7 @@
                                     ?>
                                     <tr>
                                         <td class="hidden-480">
-                                            <?php echo $results['customers']['created']; ?>                            
+                                            <?php echo date('m-d-Y', strtotime($results['customers']['modified'])); ?>
                                         </td>
                                         <td>
                                             <a href="<?php

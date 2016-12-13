@@ -67,8 +67,9 @@
                             </thead>
                             <tbody>
                                 <?php
+                               
                                 foreach ($filteredData as $results):
-//                                    pr($results); exit;
+//                                    pr($results['customers']['remote_no']); exit;
                                     $customer = $results['customers'];
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
@@ -152,6 +153,8 @@
                                                 <strong>Equipment:</strong> <?php echo $results['customers']['shipment_equipment']; ?> 
                                                 <br>
                                                 <strong>Additional Note:</strong> <?php echo $results['customers']['shipment_note']; ?>
+                                                <br>
+                                                <strong>Quantity:</strong> <?php echo $results['customers']['remote_no']; ?>
 
 
                                             <?php }
@@ -160,7 +163,7 @@
 
                                         </td>
                                        
-                                        <td>
+                                        <td>                                            
                                             <?php echo $results['issues'][0]['name']['name']; ?> <br> 
                                             <?php $issue = strtolower($results['issues'][0]['name']['name']);
                                             if (trim($issue) == 'moving'): ?>
