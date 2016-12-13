@@ -52,8 +52,11 @@
                                         Detail Information
                                     </th>
                                     <th>
-                                        New Address
+                                        Issue
                                     </th>
+<!--                                    <th>
+                                        New Address
+                                    </th>-->
                                     <th>
                                         Schedule date
                                     </th>
@@ -147,17 +150,27 @@
                                                 </ul>  <br>
 
                                                 <strong>Equipment:</strong> <?php echo $results['customers']['shipment_equipment']; ?> 
-                                               <br>
+                                                <br>
                                                 <strong>Additional Note:</strong> <?php echo $results['customers']['shipment_note']; ?>
 
-                                                
+
                                             <?php }
                                             ?>
 
 
                                         </td>
+
                                         <td>
-                                            <?php echo $customer['new_addr']; ?>
+                                            <?php if (count($results['issues'])): ?>
+                                                <?php echo $results['issues'][0]['name']['name']; ?> <br> 
+                                                <?php $issue = strtolower($results['issues'][0]['name']['name']);
+                                                if (trim($issue) == 'moving'):
+                                                    ?>
+                                                    <?php echo $customer['new_addr']; ?> 
+                                                <?php endif; ?>
+                                            <?php endif; ?>
+
+
                                         </td>
                                         <td>
                                             <?php if (!empty($results['installations'][0]['user_id']['schedule_date'])): ?>    

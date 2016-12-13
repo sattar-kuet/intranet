@@ -24,11 +24,14 @@
                     <div class="portlet-title">
                         <div class="caption">
                             <i class="fa fa-plus"></i>Payment History
+                             <?php if ($clicked): ?>
+                            Total Amount: <?php echo $totalamount[0][0]['totalamount'];?>                                              
+                        </div>                     
+                        
+                        <div class="tools">                            
+                             Total Customers: <?php echo count($transactions);?>    
                         </div>
-                        <div class="tools">
-                            <a href="javascript:;" class="reload">
-                            </a>
-                        </div>
+                        <?php endif; ?>
                     </div>
                     <div class="portlet-body form">
                         <!-- BEGIN FORM-->
@@ -104,7 +107,7 @@
                 <div class="">
                     <!-- BEGIN PAGE CONTENT-->
                     <div class="invoice"  id="printableArea">
-
+                         
                         <div class="row">
                             <div class="col-xs-6">                    
                             </div>
@@ -117,8 +120,9 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-xs-12">
+                            <div class="col-xs-12">                             
                                 <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+                                                                         
                                     <thead>
                                         <tr>
                                             <th>Customer Detail</th>
@@ -165,8 +169,7 @@
                                                     </ul>
                                                 </td>
                                                 <td><h4> $<?php echo $tr['payable_amount']; ?> </h4></td>
-                                                <td>
-                                                    
+                                                <td>                                                    
                                                     <?php echo date('m-d-Y', strtotime($tr['created'])); ?>
                                                 </td>
                                             </tr>

@@ -29,6 +29,7 @@ class TicketsController extends AppController {
     function addNewAddr($new_addr, $cid) {
         $this->loadModel('PackageCustomer');
         $this->PackageCustomer->id = $cid;
+//        pr($this->request->data); exit;
         $this->PackageCustomer->saveField("new_addr", $new_addr);
     }
 
@@ -94,7 +95,10 @@ class TicketsController extends AppController {
                 }
 
                 if (trim($this->request->data['Ticket']['issue_id']) == 17) {
+                    
+                    
                     $this->addNewAddr($this->request->data['Ticket']['new_addr'], $customer_id);
+                    
                     $trackData['Track']['status'] = 'others';
                 }
                 if (trim($this->request->data['Ticket']['issue_id']) == 21 || trim($this->request->data['Ticket']['issue_id']) == 30) {
@@ -203,7 +207,7 @@ class TicketsController extends AppController {
                     $mail_content .= __('Sale status:               ', 'beopen') . $cus_name . PHP_EOL .
                             __('Note:                      ', 'beopen') . $address . PHP_EOL;
 
-                    sendEmail($from, $cus_name, $to, $subject, $mail_content);
+                  //  sendEmail($from, $cus_name, $to, $subject, $mail_content);
                     // End send mail 
                 }
 
@@ -522,7 +526,7 @@ class TicketsController extends AppController {
             $this->Session->setFlash($msg);
             return $this->redirect($this->referer());
         }
-        //pr($this->request->data); exit;
+        pr($this->request->data); exit;
         $this->Track->save($this->request->data['Track']);
         $msg = '<div class="alert alert-success">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>

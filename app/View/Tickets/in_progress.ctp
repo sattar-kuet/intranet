@@ -25,18 +25,15 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-ticket"></i> Tickets is in Progress... 
+                            <i class="fa fa-ticket"></i> Tickets is in Progress... Total tickets: <?php echo count($data); ?>                                
                         </div>
-
                         <div class="tools">
                             <a href="javascript:;" class="reload">
                             </a>
                         </div>
                     </div>
                     <div class="portlet-body">
-
                         <?php echo $this->Session->flash(); ?>
-
                         <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                             <thead>
                                 <tr>

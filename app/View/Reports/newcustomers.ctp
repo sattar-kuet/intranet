@@ -22,14 +22,17 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-plus"></i>New Customers
+                            <i class="fa fa-plus"></i>New Customers 
+                            <?php if ($clicked): ?>                              
+                                Total Customers: <?php echo count($transactions); ?> 
+                            <?php endif; ?>
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="reload">
                             </a>
                         </div>
                     </div>
-                     <div class="portlet-body form">
+                    <div class="portlet-body form">
                         <!-- BEGIN FORM-->
                         <?php
                         echo $this->Form->create('Transaction', array(
@@ -87,12 +90,12 @@
         <?php if ($clicked): ?>    
             <div class="page-content-wrapper" style="margin: 0px; padding: 0px;">
                 <div class="">
-                   
+
                     <!-- BEGIN PAGE CONTENT-->
                     <div class="invoice" id="printableArea">
-                       
+
                         <hr>
-                       <div class="row">
+                        <div class="row">
                             <div class="col-xs-12">
                                 <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                                     <thead>
@@ -130,14 +133,14 @@
                                         <?php
                                         foreach ($transactions as $info):
 //                                            pr($info); exit; 
-                                              $pc = $info['pc'];
+                                            $pc = $info['pc'];
                                             $customer_address = $pc['house_no'] . ' ' . $pc['street'] . ' ' .
                                                     $pc['apartment'] . ' ' . $pc['city'] . ' ' . $pc['state'] . ' '
                                                     . $pc['zip'];
                                             ?>
                                             <tr>
                                                 <td><?php echo $info['pc']['c_acc_no']; ?></td>
-                                                <td> <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'edit', $info['pc']['id'])) ?>" target="_blank"><?php echo $info['pc']['middle_name']. " " . $info['pc']['last_name']; ?></a> </td>
+                                                <td> <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'edit', $info['pc']['id'])) ?>" target="_blank"><?php echo $info['pc']['middle_name'] . " " . $info['pc']['last_name']; ?></a> </td>
                                                 <td><?php echo $customer_address; ?></td>
                                                 <td><?php echo $info['pc']['mac']; ?></td>
                                                 <td><?php echo $info['pc']['cell']; ?></td>
@@ -147,27 +150,28 @@
                                                         echo $info['ps']['name'];
                                                     } else {
                                                         echo $info['cp']['duration'] . ' Months, Custom package ' . $info['cp']['charge'] . '$';
-                                                      }
+                                                    }
                                                     ?>
                                                 </td>
                                                 <td>
-                                                    
+
                                                     <?php // echo $info['Transaction']['due']; ?>
-                                                
-                                                    $<?php 
-                                                 $paid = 0;
-                                                 if(!empty($info['tr']['id'])){
-                                                   $paid =  getPaid($info['transactions']['id']);
-                                                 }
-                                                 
-                                                 echo $info['tr']['payable_amount'] - $paid;?> USD
+
+                                                    $<?php
+                                                    $paid = 0;
+                                                    if (!empty($info['tr']['id'])) {
+                                                        $paid = getPaid($info['transactions']['id']);
+                                                    }
+
+                                                    echo $info['tr']['payable_amount'] - $paid;
+                                                    ?> USD
                                                 </td>
-                                                <td><?php echo date('m-d-Y', strtotime($info['tr']['exp_date']));?></td>
-                                                <td><?php echo date('m-d-Y', strtotime($info['pc']['created']));?></td>  
-                                                 
-                                                 
+                                                <td><?php echo date('m-d-Y', strtotime($info['tr']['exp_date'])); ?></td>
+                                                <td><?php echo date('m-d-Y', strtotime($info['pc']['created'])); ?></td>  
+
+
                                             </tr>
-                                        <?php endforeach; ?>                           
+    <?php endforeach; ?>                           
                                     </tbody>
                                 </table>
                             </div>
@@ -175,7 +179,7 @@
                     </div>
                 </div>
             </div>                            
-        <?php endif; ?>
+<?php endif; ?>
     </div>
 </div>
 <!-- END CONTENT -->

@@ -103,33 +103,37 @@ class ReportsController extends AppController {
                 left join psettings ps on ps.id = pc.psetting_id
                 LEFT JOIN packages p ON p.id = ps.package_id 
                 WHERE $conditions order by tr.id desc limit 0,99";
+
+
             $transactions = $this->Transaction->query($sql);
+            $sql1 = "SELECT SUM(payable_amount)as totalamount FROM transactions tr WHERE $conditions ";
+            $totalamount = $this->Transaction->query($sql1);
+            $transactions = $this->Transaction->query($sql);
+//            pr($totalamount[0][0]['totalamount']); exit;
             $clicked = true;
-            $this->set(compact('transactions'));
+            $this->set(compact('transactions','totalamount'));
         }
         $this->set(compact('clicked'));
     }
 
     function invoice($id = null) {
         $this->loadModel('Transaction');
-
         $data = $this->Transaction->query("SELECT *  FROM transactions  tr
         left join package_customers pc on tr.package_customer_id = pc.id
         left join psettings ps on pc.psetting_id = ps.id
         left join packages p on ps.package_id = p.id
         left join custom_packages cp on pc.custom_package_id = cp.id
         WHERE  tr.id =$id ");
+//        pr($data[0]['tr']['transaction_id']); exit;
         $this->set(compact('data'));
     }
 
     function allInvoice() {
         $this->loadModel('PackageCustomer');
         $expiredate = trim(date('Y-m-d', strtotime("+25 days")));
-        $packagecustomers = $this->PackageCustomer->query("SELECT * FROM transactions  tr
-            
+        $packagecustomers = $this->PackageCustomer->query("SELECT * FROM transactions  tr            
             left join package_customers pc on pc.id = tr.package_customer_id
             left join psettings ps on ps.id = pc.psetting_id
-
             LEFT JOIN packages p ON p.id = ps.package_id 
             WHERE pc.exp_date>='" . date('Y-m-d') . "' AND pc.exp_date<='" . $expiredate . "' AND pc.exp_date != 0000-00-00 "
                 . "GROUP BY pc.id");
@@ -145,9 +149,9 @@ class ReportsController extends AppController {
 
     function passedInvoice() {
         $this->loadModel('PackageCustomer');
-        $packagecustomers = $this->PackageCustomer->query("SELECT * FROM package_customers pc           
+        $packagecustomers = $this->PackageCustomer->query("SELECT * FROM transactions  tr            
+            left join package_customers pc on pc.id = tr.package_customer_id
             left join psettings ps on ps.id = pc.psetting_id
-            left join transactions tr on pc.id = tr.package_customer_id
             LEFT JOIN packages p ON p.id = ps.package_id 
             WHERE  pc.printed = 1");
         //  pr($packagecustomers); exit;
@@ -269,14 +273,12 @@ class ReportsController extends AppController {
 
     function openInvoice25() {
         $this->loadModel('Transaction');
-
         $packagecustomers = $this->Transaction->query("SELECT * 
         FROM transactions tr
         LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id
         LEFT JOIN psettings ps ON ps.id = pc.psetting_id
         LEFT JOIN packages p ON p.id = ps.package_id
         WHERE tr.status =  'open'");
-
         $this->set(compact('packagecustomers'));
     }
 
@@ -682,7 +684,7 @@ class ReportsController extends AppController {
             $this->getTotalCallBySatatus('check send');
             $total['totalAccount'] = $this->accountCall();
             $total['totalSupport'] = $this->supportCall();
-            
+
             $clicked = true;
             $this->set(compact('total'));
         }
