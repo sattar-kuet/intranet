@@ -79,7 +79,9 @@
                                         <td class="hidden-480">
                                             <?php if (!empty($results['customers']['modified'])): ?>
                                                 <?php if ($results['customers']['modified']): ?>
-                                                    <b>  Contacted Date :  </b>  <?php echo $results['customers']['modified']; ?> 
+                                                    <b>  Contacted Date :  </b> 
+                                                                <?php echo date('m-d-Y', strtotime($results['customers']['modified'])); ?>
+ 
                                                 <?php endif; ?>
                                             <?php endif; ?>
                                             <br>
