@@ -25,13 +25,12 @@
                         <div class="caption">
                             <i class="fa fa-plus"></i>Payment History
                              <?php if ($clicked): ?>
-                            Total Amount: <?php echo $totalamount[0][0]['totalamount'];?>                                              
-                        </div>                     
-                        
-                        <div class="tools">                            
+                            Total Amount: <?php echo $totalamount[0][0]['totalamount'];?>                                       
+                            &nbsp;             
                              Total Customers: <?php echo count($transactions);?>    
-                        </div>
+                     
                         <?php endif; ?>
+                        </div>   
                     </div>
                     <div class="portlet-body form">
                         <!-- BEGIN FORM-->

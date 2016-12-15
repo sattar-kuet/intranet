@@ -97,7 +97,7 @@
                     <div class="portlet box green">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-user">Total tickets: <?php echo count($customers); ?></i>
+                                <i class="fa ">Total Customers: <?php echo count($customers); ?></i>
                             </div>
 
                             <div class="tools">
