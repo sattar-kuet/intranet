@@ -168,9 +168,11 @@
                                         <td style="text-align: center;" rowspan="2"> 
                                             TOTAL IN BOUND CALL SUPPORT 
                                         </td>  
+                                        
+                                        
+                                        <!--=================-->
 
-                                        <td style="text-align: center;" rowspan="2">  
-
+                                        <td style="text-align: center;" rowspan="2"> 
                                             <?php echo $total['totalSupport']; ?>
 
                                         </td>  

@@ -513,7 +513,7 @@ class ReportsController extends AppController {
         $datrange = json_decode($this->request->data['Track']['daterange'], true);
         $start = $datrange['start'];
         $end = $datrange['end'];
-        $request = $this->PackageCustomer->query("SELECT count(id) as request FROM package_customers WHERE CAST(created as DATE) = '" . $start . "' AND package_customers.date <='" . $end . "' AND status = 'requested' AND follow_up = 1 ");
+        $request = $this->PackageCustomer->query("SELECT count(id) as request FROM package_customers WHERE CAST(created as DATE) >= '" . $start . "' AND package_customers.date <='" . $end . "' AND status = 'requested' AND follow_up = 1 ");
 
         return $request[0][0]['request'];
     }
@@ -523,7 +523,7 @@ class ReportsController extends AppController {
         $datrange = json_decode($this->request->data['Track']['daterange'], true);
         $start = $datrange['start'];
         $end = $datrange['end'];
-        $hold = $this->PackageCustomer->query("SELECT count(status) as hold FROM package_customers WHERE date = '" . $start . "' AND package_customers.date <='" . $end . "' and status = 'hold'");
+        $hold = $this->PackageCustomer->query("SELECT count(status) as hold FROM package_customers WHERE (date) >= '" . $start . "' AND package_customers.date <='" . $end . "' and status = 'hold'");
 
         return $hold[0][0]['hold'];
     }
@@ -533,14 +533,14 @@ class ReportsController extends AppController {
         $datrange = json_decode($this->request->data['Track']['daterange'], true);
         $start = $datrange['start'];
         $end = $datrange['end'];
-        $unhold = $this->PackageCustomer->query("SELECT count(status) as unhold FROM package_customers WHERE date = '" . $start . "' AND package_customers.date <='" . $end . "' and status = 'unhold'");
+        $unhold = $this->PackageCustomer->query("SELECT count(status) as unhold FROM package_customers WHERE (date) >= '" . $start . "' AND package_customers.date <='" . $end . "' and status = 'unhold'");
         return $unhold[0][0]['unhold'];
     }
 
     function getTotalCancel() {
         $this->loadModel('PackageCustomer');
         $date = date("Y-m-d");
-        $cancel = $this->PackageCustomer->query("SELECT count(status) as cancel FROM package_customers WHERE CAST(modified as DATE) = '$date' and status = 'canceled'");
+        $cancel = $this->PackageCustomer->query("SELECT count(status) as cancel FROM package_customers WHERE CAST(modified as DATE) >= '$date' and status = 'canceled'");
         return $cancel[0][0]['cancel'];
     }
 
@@ -549,7 +549,7 @@ class ReportsController extends AppController {
         $datrange = json_decode($this->request->data['Track']['daterange'], true);
         $start = $datrange['start'];
         $end = $datrange['end'];
-        $done = $this->PackageCustomer->query("SELECT count(status) as done FROM package_customers WHERE CAST(modified as DATE) = '" . $start . "' AND package_customers.date <='" . $end . "' and (status = 'done' OR (status = 'requested' AND follow_up = 0))");
+        $done = $this->PackageCustomer->query("SELECT count(status) as done FROM package_customers WHERE CAST(modified as DATE) >= '" . $start . "' AND package_customers.date <='" . $end . "' and (status = 'done' OR (status = 'requested' AND follow_up = 0))");
         return $done[0][0]['done'];
     }
 
@@ -558,14 +558,16 @@ class ReportsController extends AppController {
         $datrange = json_decode($this->request->data['Track']['daterange'], true);
         $start = $datrange['start'];
         $end = $datrange['end'];
-        $reconnection = $this->PackageCustomer->query("SELECT count(status) as reconnection FROM package_customers WHERE date = '" . $start . "' AND package_customers.date <='" . $end . "' and status = 'reconnection'");
+        
+        $sql = "SELECT count(status) as reconnection FROM package_customers WHERE (date) >= '" . $start . "' AND package_customers.date <='" . $end . "' and status = 'reconnection'";
+        $reconnection = $this->PackageCustomer->query($sql);  
         return $reconnection[0][0]['reconnection'];
     }
 
     function getTotalFullServiceCancel() {
         $this->loadModel('PackageCustomer');
         $today = date("Y-m-d");
-        $servicecancel = $this->PackageCustomer->query("SELECT count(status) as servicecancel FROM package_customers WHERE date = '$today' and status = 'full service cancel'");
+        $servicecancel = $this->PackageCustomer->query("SELECT count(status) as servicecancel FROM package_customers WHERE (date) >= '$today' and status = 'full service cancel'");
         return $servicecancel[0][0]['servicecancel'];
     }
 
@@ -642,12 +644,12 @@ class ReportsController extends AppController {
         $datrange = json_decode($this->request->data['Track']['daterange'], true);
         $start = $datrange['start'];
         $end = $datrange['end'];
-//         pr($datrange1); exit;
         $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as totalSupport FROM tracks        
         LEFT JOIN tickets ON tracks.ticket_id = tickets.id 
          WHERE CAST(tickets.created as DATE) >='" . $start . "' AND tickets.created <='" . $end . "'";
+        
         $data = $this->Track->query($sql);
-        $requested = $this->PackageCustomer->query("SELECT count(status) as requested FROM package_customers WHERE package_customers.date = '" . $start . "' AND package_customers.date <='" . $end . "'  and status = 'requested'");
+        $requested = $this->PackageCustomer->query("SELECT count(status) as requested FROM package_customers WHERE (package_customers.date) >= '" . $start . "' AND package_customers.date <='" . $end . "'  and status = 'requested'");
         $totalIBCS = (($data[0][0]['totalSupport'] - $this->accountCall('totalAccount')) + ($requested[0][0]['requested'])); //total in bound call DCC
         return $totalIBCS;
     }

@@ -85,7 +85,7 @@
                                         </td>
                                         
                                         <td class="hidden-480">                                           
-                                            <?php echo date('m-d-Y', strtotime($results['customers']['created'])); ?>
+                                            <?php echo date('m-d-Y', strtotime($results['customers']['modified'])); ?>
                                             <br>
                                             <?php echo $results['users']['name']; ?>                            
                                         </td>

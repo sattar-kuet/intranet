@@ -1,4 +1,3 @@
-
 <style type="text/css">
     .alert {
         padding: 6px;
@@ -67,8 +66,9 @@
                             </thead>
                             <tbody>
                                 <?php
+                               
                                 foreach ($filteredData as $results):
-//                                    pr($results); exit;
+//                                    pr($results['customers']['remote_no']); exit;
                                     $customer = $results['customers'];
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
@@ -78,7 +78,9 @@
                                         <td class="hidden-480">
                                             <?php if (!empty($results['customers']['modified'])): ?>
                                                 <?php if ($results['customers']['modified']): ?>
-                                                    <b>  Contacted Date :  </b>  <?php echo $results['customers']['modified']; ?> 
+                                                    <b>  Contacted Date :  </b> 
+                                                                <?php echo date('m-d-Y', strtotime($results['customers']['modified'])); ?>
+ 
                                                 <?php endif; ?>
                                             <?php endif; ?>
                                             <br>
@@ -151,26 +153,27 @@
 
                                                 <strong>Equipment:</strong> <?php echo $results['customers']['shipment_equipment']; ?> 
                                                 <br>
+                                                <strong>Quantity:</strong> <?php echo $results['customers']['remote_no']; ?>
+                                                 <br>
                                                 <strong>Additional Note:</strong> <?php echo $results['customers']['shipment_note']; ?>
+                                               
+                                                
 
 
                                             <?php }
                                             ?>
-
-
                                         </td>
-
-                                        <td>
-                                            <?php if (count($results['issues'])): ?>
-                                                <?php echo $results['issues'][0]['name']['name']; ?> <br> 
-                                                <?php $issue = strtolower($results['issues'][0]['name']['name']);
-                                                if (trim($issue) == 'moving'):
-                                                    ?>
-                                                    <?php echo $customer['new_addr']; ?> 
-                                                <?php endif; ?>
-                                            <?php endif; ?>
-
-
+                                       
+                                        <td>                                            
+                                           <?php if (count($results['issues'])){ ?>
+                                            <?php echo $results['issues'][0]['name']['name']; ?> <br> 
+                                            <?php
+                                            $issue = strtolower($results['issues'][0]['name']['name']);
+                                            if (trim($issue) == 'moving'){
+                                                echo $customer['new_addr']; 
+                                            }
+                                            ?>
+                                           <?php } ?>
                                         </td>
                                         <td>
                                             <?php if (!empty($results['installations'][0]['user_id']['schedule_date'])): ?>    

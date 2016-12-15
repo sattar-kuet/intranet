@@ -22,12 +22,9 @@
             <div  id="printableArea">   
                 <?php
                 foreach ($data as $single):
-//                                        pr($single); exit;
                     $pcaddress = $single['pc'];
-
                     $customer_address_one = $pcaddress['house_no'] . ' ' . $pcaddress['street'] . ' ' .
                             $pcaddress['apartment'];
-
                     $customer_address_two = $pcaddress['city'] . ' ' . $pcaddress['state'] . ' '
                             . $pcaddress['zip'];
                     ?>                

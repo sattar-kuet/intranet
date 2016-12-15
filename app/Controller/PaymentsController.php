@@ -281,6 +281,9 @@ class PaymentsController extends AppController {
     }
 
     public function individual_auto_recurring($data) {
+        foreach($data as $key=>$value):
+            $data[$key] = trim($value);
+        endforeach;
          //  pr($data); exit;
         //Get ID and Input amount from edit_customer page
         $cid = $data['cid'];
@@ -374,8 +377,9 @@ class PaymentsController extends AppController {
                 // check due amount 
                 unset($transaction['payable_amount']);
                 $this->Transaction->id = $id;
-                $this->Transaction->create();
+                //$this->Transaction->create();
                 $this->Transaction->saveField("status", $status);
+                
                 $msg .='<li> Transaction   successfull by auto recurring</li>';
                 $tdata['Ticket'] = array('content' => "Transaction successfull by auto recurring <br> <b>Amount : </b>$amount <br> <b> payment Mode: </b> Card");
                 $tickect = $this->Ticket->create(); // Data save in Ticket
@@ -389,9 +393,10 @@ class PaymentsController extends AppController {
                 $this->Track->create();
                 $this->Track->save($trackData);
                 // reset setting for next cycle
+                $this->PackageCustomer->create();
                 $this->PackageCustomer->id = $data['cid'];
                 $r_from = date('Y-m-d', strtotime('+' . $data['duration'] . '  days'));
-                $this->PackageCustomer->saveField('r_from', $r_from);
+                $this->PackageCustomer->saveField('r_form', $r_from);
                 $this->PackageCustomer->saveField('invoice_created', 0);
             } else {
                 $alert = '<div class="alert alert-error"> ';
@@ -484,7 +489,7 @@ class PaymentsController extends AppController {
         $today = date('Y-m-d');
         $sql = "SELECT * FROM transactions"
                 . " LEFT JOIN package_customers ON transactions.package_customer_id = package_customers.id"
-                . " WHERE transactions.auto_recurring = 1 AND transactions.next_payment = '$today' AND transactions.status = 'open' ";
+                . " WHERE transactions.auto_recurring = 1 AND transactions.next_payment <= '$today' AND transactions.status = 'open' ";
         // $data = $this->Transaction->find('all', array('conditions' => array('auto_recurring' => 1, 'next_payment' => $today)));
         $data = $this->Transaction->query($sql);
         //  pr($data);
