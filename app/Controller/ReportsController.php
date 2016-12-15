@@ -111,7 +111,7 @@ class ReportsController extends AppController {
             $transactions = $this->Transaction->query($sql);
 //            pr($totalamount[0][0]['totalamount']); exit;
             $clicked = true;
-            $this->set(compact('transactions','totalamount'));
+            $this->set(compact('transactions', 'totalamount'));
         }
         $this->set(compact('clicked'));
     }
@@ -509,72 +509,70 @@ class ReportsController extends AppController {
     }
 
     function getTotalSalesQuery() {
-        $this->loadModel('PackageCustomer');
+        $this->loadModel('StatusHistory');
         $datrange = json_decode($this->request->data['Track']['daterange'], true);
         $start = $datrange['start'];
         $end = $datrange['end'];
-        $request = $this->PackageCustomer->query("SELECT count(id) as request FROM package_customers WHERE CAST(created as DATE) >= '" . $start . "' AND package_customers.date <='" . $end . "' AND status = 'requested' AND follow_up = 1 ");
+        $request = $this->StatusHistory->query("SELECT count(id) as request FROM status_histories WHERE (date) >= '" . $start . "' AND  (date) <='" . $end . "' AND status = 'sales query' ");
 
         return $request[0][0]['request'];
     }
 
     function getTotalHold() {
-        $this->loadModel('PackageCustomer');
+        $this->loadModel('StatusHistory');
         $datrange = json_decode($this->request->data['Track']['daterange'], true);
         $start = $datrange['start'];
         $end = $datrange['end'];
-        $hold = $this->PackageCustomer->query("SELECT count(status) as hold FROM package_customers WHERE (date) >= '" . $start . "' AND package_customers.date <='" . $end . "' and status = 'hold'");
+        $hold = $this->StatusHistory->query("SELECT count(status) as hold FROM status_histories WHERE (date) >= '" . $start . "' AND status_histories.date <='" . $end . "' and status = 'hold'");
 
         return $hold[0][0]['hold'];
     }
 
     function getTotalUnhold() {
-        $this->loadModel('PackageCustomer');
+        $this->loadModel('StatusHistory');
         $datrange = json_decode($this->request->data['Track']['daterange'], true);
         $start = $datrange['start'];
         $end = $datrange['end'];
-        $unhold = $this->PackageCustomer->query("SELECT count(status) as unhold FROM package_customers WHERE (date) >= '" . $start . "' AND package_customers.date <='" . $end . "' and status = 'unhold'");
+        $unhold = $this->StatusHistory->query("SELECT count(status) as unhold FROM status_histories WHERE (date) >= '" . $start . "' AND status_histories.date <='" . $end . "' and status = 'unhold'");
         return $unhold[0][0]['unhold'];
     }
 
     function getTotalCancel() {
-        $this->loadModel('PackageCustomer');
+        $this->loadModel('StatusHistory');
         $date = date("Y-m-d");
-        $cancel = $this->PackageCustomer->query("SELECT count(status) as cancel FROM package_customers WHERE CAST(modified as DATE) >= '$date' and status = 'canceled'");
+        $cancel = $this->StatusHistory->query("SELECT count(status) as cancel FROM status_histories WHERE date >= '$date' and status = 'canceled'");
         return $cancel[0][0]['cancel'];
     }
 
     function getTotalDone() {
-        $this->loadModel('PackageCustomer');
+        $this->loadModel('StatusHistory');
         $datrange = json_decode($this->request->data['Track']['daterange'], true);
         $start = $datrange['start'];
         $end = $datrange['end'];
-        $done = $this->PackageCustomer->query("SELECT count(status) as done FROM package_customers WHERE CAST(modified as DATE) >= '" . $start . "' AND package_customers.date <='" . $end . "' and (status = 'done' OR (status = 'requested' AND follow_up = 0))");
+        $done = $this->StatusHistory->query("SELECT count(status) as done FROM status_histories WHERE (date) >= '" . $start . "' AND (date) <='" . $end . "' and status = 'sales done'");
         return $done[0][0]['done'];
     }
 
     function getTotalReconnection() {
-        $this->loadModel('PackageCustomer');
+        $this->loadModel('StatusHistory');
         $datrange = json_decode($this->request->data['Track']['daterange'], true);
         $start = $datrange['start'];
         $end = $datrange['end'];
-        
-        $sql = "SELECT count(status) as reconnection FROM package_customers WHERE (date) >= '" . $start . "' AND package_customers.date <='" . $end . "' and status = 'reconnection'";
-        $reconnection = $this->PackageCustomer->query($sql);  
+        $reconnection = $this->StatusHistory->query("SELECT count(status) as reconnection FROM status_histories WHERE (date) >= '" . $start . "' AND status_histories.date <='" . $end . "' and status = 'reconnection'");
         return $reconnection[0][0]['reconnection'];
     }
 
     function getTotalFullServiceCancel() {
-        $this->loadModel('PackageCustomer');
+        $this->loadModel('StatusHistory');
         $today = date("Y-m-d");
-        $servicecancel = $this->PackageCustomer->query("SELECT count(status) as servicecancel FROM package_customers WHERE (date) >= '$today' and status = 'full service cancel'");
+        $servicecancel = $this->StatusHistory->query("SELECT count(status) as servicecancel FROM status_histories WHERE (date) >= '$today' and LOWER(status) = 'Request to cancel'");
         return $servicecancel[0][0]['servicecancel'];
     }
 
     function getTotalCancelDueBill() {
-        $this->loadModel('PackageCustomer');
+        $this->loadModel('StatusHistory');
         $today = date("Y-m-d");
-        $cancelduebill = $this->PackageCustomer->query("SELECT count(status) as cancelduebill FROM package_customers WHERE date = '$today' and status = 'cancel from due bill'");
+        $cancelduebill = $this->StatusHistory->query("SELECT count(status) as cancelduebill FROM status_histories WHERE date = '$today' and status = 'cancel from due bill'");
         return $cancelduebill[0][0]['cancelduebill'];
     }
 
@@ -612,6 +610,26 @@ class ReportsController extends AppController {
         return $data[0][0]['total'];
     }
 
+    function supportCall() {
+        $this->loadModel('Issue');
+        $this->loadModel('Track');
+        $this->loadModel('StatusHistory');
+        $datrange = json_decode($this->request->data['Track']['daterange'], true);
+        $start = $datrange['start'];
+        $end = $datrange['end'];
+
+        $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as totalSupport FROM tracks        
+        LEFT JOIN tickets ON tracks.ticket_id = tickets.id 
+         WHERE CAST(tickets.created as DATE) >='" . $start . "' AND CAST(tickets.created as DATE) <='" . $end . "'";
+        $data = $this->Track->query($sql);
+
+        $sql = "SELECT count(status) as requested FROM status_histories WHERE (status_histories.date) >= '" . $start . "' AND status_histories.date <='" . $end . "'  and status = 'requested'";
+        $requested = $this->StatusHistory->query($sql);
+        $totalIBCS = ((($data[0][0]['totalSupport']) - ($this->accountCall('totalAccount')) + ($requested[0][0]['requested']))); //total in bound call DCC
+
+        return $totalIBCS;
+    }
+
     function accountCall() {
         $this->loadModel('Issue');
         $this->loadModel('Track');
@@ -634,24 +652,9 @@ class ReportsController extends AppController {
                  or issues.name = 'Box Expired'  
                  or issues.name = 'MONEY ORDER ONLINE PAYMENT')  
                  AND tickets.created >='" . $datrange['start'] . "' AND tickets.created <='" . $datrange['end'] . "'";
+
         $data = $this->Track->query($sql);
         return $data[0][0]['totalAccount'];
-    }
-
-    function supportCall() {
-        $this->loadModel('Issue');
-        $this->loadModel('Track');
-        $datrange = json_decode($this->request->data['Track']['daterange'], true);
-        $start = $datrange['start'];
-        $end = $datrange['end'];
-        $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as totalSupport FROM tracks        
-        LEFT JOIN tickets ON tracks.ticket_id = tickets.id 
-         WHERE CAST(tickets.created as DATE) >='" . $start . "' AND tickets.created <='" . $end . "'";
-        
-        $data = $this->Track->query($sql);
-        $requested = $this->PackageCustomer->query("SELECT count(status) as requested FROM package_customers WHERE (package_customers.date) >= '" . $start . "' AND package_customers.date <='" . $end . "'  and status = 'requested'");
-        $totalIBCS = (($data[0][0]['totalSupport'] - $this->accountCall('totalAccount')) + ($requested[0][0]['requested'])); //total in bound call DCC
-        return $totalIBCS;
     }
 
     function salesSupportdp() {
@@ -659,8 +662,8 @@ class ReportsController extends AppController {
         if ($this->request->is('post') || $this->request->is('put')) {
 
             $total = array();
-//        $total['call'] = $this->getTotalCall();
-//        $total['cancel'] = $this->getTotalCancel(); 
+            //$total['call'] = $this->getTotalCall();
+            //$total['cancel'] = $this->getTotalCancel(); 
             $total['sales_query'] = $this->getTotalSalesQuery();
             // $total[0] = $total['done'] + $total['ready'];
 
@@ -684,46 +687,24 @@ class ReportsController extends AppController {
             $total['additional_box'] = $this->getTotalCallBySatatus('additional box installation');
             $total['online_payment'] = $this->getTotalCallBySatatus('MONEY ORDER ONLINE PAYMENT');
             $this->getTotalCallBySatatus('check send');
-            $total['totalAccount'] = $this->accountCall();
             $total['totalSupport'] = $this->supportCall();
+            $total['totalAccount'] = $this->accountCall();
+
 
             $clicked = true;
-            $this->set(compact('total'));
+
+            $datrange = json_decode($this->request->data['Track']['daterange'], true);
+
+            $start1 = $datrange['start'];
+            $start = date("m-d-Y", strtotime($start1));
+            $end1 = $datrange['end'];
+            $end = date("m-d-Y", strtotime($end1));
+
+            $date = ($start . ' ' . 'To' . ' ' . $end);
+//            pr($date); exit;
+            $this->set(compact('total', 'date'));
         }
         $this->set(compact('clicked'));
-    }
-
-    function salesSupportdpbackup() {
-        $total = array();
-//        $total['call'] = $this->getTotalCall();
-//        $total['cancel'] = $this->getTotalCancel(); 
-        $total['sales_query'] = $this->getTotalSalesQuery();
-        // $total[0] = $total['done'] + $total['ready'];
-
-        $total['installation'] = $this->getTotalInstallation();
-        $total['hold'] = $this->getTotalHold();
-        $total['unhold'] = $this->getTotalUnhold();
-        $total['reconnection'] = $this->getTotalReconnection();
-
-        $total['done'] = $this->getTotalDone();
-        $total['ready'] = $this->getTotalNewordertaken();
-        $total['servicecancel'] = $this->getTotalFullServiceCancel();
-        $total['cancelduebill'] = $this->getTotalCancelDueBill();
-
-        $total['check_send'] = $this->getTotalCallBySatatus('check send');
-        $total['vod'] = $this->getTotalCallBySatatus('vod');
-        $total['interruption'] = $this->getTotalCallBySatatus('service interruption');
-        $total['cancel'] = $this->getTotalCallBySatatus('service cancel');
-        $total['cancel_from_da'] = $this->getTotalCallBySatatus('cancel from dealer & agent');
-        $total['cancel_from_hold'] = $this->getTotalCallBySatatus('cancel from hold');
-        $total['card_info_taken'] = $this->getTotalCallBySatatus('card info taken');
-        $total['additional_box'] = $this->getTotalCallBySatatus('additional box installation');
-        $total['online_payment'] = $this->getTotalCallBySatatus('MONEY ORDER ONLINE PAYMENT');
-        $this->getTotalCallBySatatus('check send');
-        $total['totalAccount'] = $this->accountCall();
-        $total['totalSupport'] = $this->supportCall();
-//        pr($total); exit;
-        $this->set(compact('total'));
     }
 
     function techPendingPayment() {

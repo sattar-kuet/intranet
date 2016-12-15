@@ -181,9 +181,10 @@ class CustomersController extends AppController {
         $this->PackageCustomer->saveField("date", $this->getFormatedDate($this->request->data['PackageCustomer']['date']));
         $data4statusHistory['StatusHistory'] = array(
             'package_customer_id' => $this->request->data['PackageCustomer']['id'],
-            'date' => $this->request->data['PackageCustomer']['date'],
+            'date' => $this->getFormatedDate($this->request->data['PackageCustomer']['date']),
             'status' => $this->request->data['PackageCustomer']['status'],
         );
+//        pr($data4statusHistory); exit;
         $this->StatusHistory->save($data4statusHistory);
         $Msg = '<div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -433,14 +434,17 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             }
             $date = date('Y-m-d');
             $this->request->data['PackageCustomer']['date'] = $date;
-
+             $status = 'sales done';
+            if($this->request->data['PackageCustomer']['follow_up']){
+              $status = 'sales query';  
+            }
             $pc = $this->PackageCustomer->save($this->request->data['PackageCustomer']);
 
             $data4statusHistory = array();
             $data4statusHistory['StatusHistory'] = array(
                 'package_customer_id' => $pc['PackageCustomer']['id'],
-                'date' => date('m/d/Y'),
-                'status' => $this->request->data['PackageCustomer']['status'],
+                'date' => date('Y-m-d'),
+                'status' => $status
             );
 //            pr($data4statusHistory); exit;
             $this->StatusHistory->save($data4statusHistory);

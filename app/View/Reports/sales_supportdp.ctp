@@ -22,7 +22,7 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-plus"></i>Daily report
+                            <i class="fa fa-plus"></i>Report
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="reload">
@@ -118,8 +118,8 @@
                                 <div class="row">
                                     <div class="col-xs-12" style="text-align: center;">
                                         <h3 class="page-title">
-                                            Daily Report </h3>
-                                        <small><?php echo date("d-m-y "); ?></small>                            
+                                           Report </h3>
+                                        <small><?php echo $date; ?></small>                            
                                     </div>
                                     <div class="col-xs-4">
                                     </div>                    
@@ -169,15 +169,12 @@
                                             TOTAL IN BOUND CALL SUPPORT 
                                         </td>  
                                         
-                                        
-                                        <!--=================-->
-
                                         <td style="text-align: center;" rowspan="2"> 
                                             <?php echo $total['totalSupport']; ?>
 
                                         </td>  
                                         <td style="text-align: center;"> 
-                                            SALES DONE
+                                            SALES ORDER TAKEN
                                         </td>  
 
                                         <td style="text-align: center; background: darkgray !important;">                                        
