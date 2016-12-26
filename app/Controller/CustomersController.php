@@ -139,7 +139,7 @@ class CustomersController extends AppController {
         $data4CustomPackage['CustomPackage']['charge'] = $data['charge'];
         if (!empty($data['charge'])) {
             //save data into custom_package table
-            
+
             $cp = $this->CustomPackage->save($data4CustomPackage);
             unset($cp['CustomPackage']['PackageCustomer']);
             //from custom_package table, save custom package id to package_customer table
@@ -151,7 +151,7 @@ class CustomersController extends AppController {
         }
         //Ends Custom_package data entry  
         $this->PackageCustomer->id = $data['id'];
-       
+
         $this->PackageCustomer->save($data);
     }
 
@@ -224,7 +224,7 @@ class CustomersController extends AppController {
         $this->request->data['Transaction']['user_id'] = $user_id;
         $this->request->data['Transaction']['status'] = 'update';
         $this->request->data['Transaction']['exp_date'] = $this->request->data['Transaction']['exp_date']['month'] . '/' . substr($this->request->data['Transaction']['exp_date']['year'], -2);
-   
+
         $this->Transaction->save($this->request->data['Transaction']);
         $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -280,11 +280,11 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $this->loadModel('StatusHistory');
         $pcid = $id;
         $loggedUser = $this->Auth->user();
-        $user = $loggedUser['Role']['name'];        
+        $user = $loggedUser['Role']['name'];
         if ($this->request->is('post') || $this->request->is('put')) {
             // update package_customers table
             $this->request->data['PackageCustomer']['id'] = $id;
-            
+
             $this->updatePackageCustomerTable($this->request->data['PackageCustomer']);
             $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -304,6 +304,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         unset($customer_info['PackageCustomer']['cvv_code']);
         unset($customer_info['PackageCustomer']['zip_code']);
         $this->request->data['Transaction'] = $customer_info['PackageCustomer'] + $latestcardInfo;
+        $this->request->data['Transaction']['card_no'] = $this->formatCardNumber($this->request->data['Transaction']['card_no']);
         $nextPay = $this->Transaction->find('first', array('conditions' => array('Transaction.package_customer_id' => $pcid, 'Transaction.status' => 'open'), 'order' => array('Transaction.id' => 'DESC')));
         if (count($nextPay)) {
             $this->request->data['NextTransaction'] = $nextPay['Transaction'];
@@ -434,9 +435,9 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             }
             $date = date('Y-m-d');
             $this->request->data['PackageCustomer']['date'] = $date;
-             $status = 'sales done';
-            if($this->request->data['PackageCustomer']['follow_up']){
-              $status = 'sales query';  
+            $status = 'sales done';
+            if ($this->request->data['PackageCustomer']['follow_up']) {
+                $status = 'sales query';
             }
             $pc = $this->PackageCustomer->save($this->request->data['PackageCustomer']);
 
@@ -852,15 +853,14 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             'invoice_created' => 0,
             'printed' => 0,
             'auto_r' => 'no'
-            
         );
 
-      
-        
+
+
         if ($this->request->data['NextTransaction']['discount'] == '') {
             $this->request->data['NextTransaction']['discount'] = 0;
         }
-        
+
         $pc_data = $this->PackageCustomer->save($data);
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -1020,8 +1020,8 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
 
                 $filteredData[$index]['customers'] = $data['pc'];
                 $filteredData[$index]['users'] = $data['u'];
-                 $filteredData[$index]['tech'] = $data['ut'];
-                
+                $filteredData[$index]['tech'] = $data['ut'];
+
                 $filteredData[$index]['package'] = array(
                     'name' => 'No package dealings',
                     'duration' => 'Not Applicable',

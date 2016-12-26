@@ -29,7 +29,7 @@
                             . $pcaddress['zip'];
                     ?>                
                     <div style="page-break-before:always" >&nbsp;</div> 
-                    <div class="row"  style=" margin-top: 175px;">
+                    <div class="row"  style=" margin-top: 15px;">
                         <div class="col-xs-4">                              
                             <ul class="list-unstyled" style=" text-align: left; color: #555; margin-left: 1px;">
                                 <img  style=" height: 70px; margin-top: 31px;"src="<?php echo $this->webroot; ?>assets/frontend/layout/img/totalcable.jpg">                                                  

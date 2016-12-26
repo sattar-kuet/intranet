@@ -360,5 +360,15 @@ class AppController extends Controller {
         $this->loadModel('Transaction');
         $this->Transaction->save($data);
     }
-
+    
+    
+    function formatCardNumber($card){
+        $digits  = strlen($card);
+        $last4 = substr($card,-4);
+        $fill = '';
+        for($i=0;$i<$digits-4;$i++){
+            $fill .='X';
+        }
+        return $fill.$last4;
+    }
 }
