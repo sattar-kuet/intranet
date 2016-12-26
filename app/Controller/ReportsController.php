@@ -149,6 +149,7 @@ class ReportsController extends AppController {
             LEFT JOIN packages p ON p.id = ps.package_id 
             WHERE pc.exp_date>='" . date('Y-m-d') . "' AND pc.exp_date<='" . $expiredate . "' AND pc.exp_date != 0000-00-00 "
                 . "GROUP BY pc.id");
+        pr($packagecustomers); exit;
         foreach ($packagecustomers as $data) {
             $pcid = $data['pc']['id'];
             $this->PackageCustomer->id = $pcid;
@@ -285,12 +286,14 @@ class ReportsController extends AppController {
 
     function openInvoice25() {
         $this->loadModel('Transaction');
+        $expiredate = trim(date('Y-m-d', strtotime("+25 days")));
         $packagecustomers = $this->Transaction->query("SELECT * 
         FROM transactions tr
         LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id
         LEFT JOIN psettings ps ON ps.id = pc.psetting_id
         LEFT JOIN packages p ON p.id = ps.package_id
-        WHERE tr.status =  'open'");
+        WHERE pc.exp_date>='" . date('Y-m-d') . "' AND pc.exp_date<='" . $expiredate . "' AND pc.exp_date != 0000-00-00 "
+                . "GROUP BY pc.id");
         $this->set(compact('packagecustomers'));
     }
 

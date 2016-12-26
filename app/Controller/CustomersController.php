@@ -317,6 +317,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         unset($customer_info['PackageCustomer']['cvv_code']);
         unset($customer_info['PackageCustomer']['zip_code']);
         $this->request->data['Transaction'] = $customer_info['PackageCustomer'] + $latestcardInfo;
+        $this->request->data['Transaction']['card_no'] = $this->formatCardNumber($this->request->data['Transaction']['card_no']);
         $nextPay = $this->Transaction->find('first', array('conditions' => array('Transaction.package_customer_id' => $pcid, 'Transaction.status' => 'open'), 'order' => array('Transaction.id' => 'DESC')));
         if (count($nextPay)) {
             $this->request->data['NextTransaction'] = $nextPay['Transaction'];
@@ -869,6 +870,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
 //            'printed' => 0,
 //            'auto_r' => 'no'
         );
+
 
         if ($this->request->data['NextTransaction']['discount'] == '') {
             $this->request->data['NextTransaction']['discount'] = 0;

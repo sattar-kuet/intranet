@@ -50,12 +50,19 @@
                             <tbody>
                                 <?php
                                 foreach ($data as $single):
-//                                    pr($single); exit;
+//                                    pr($single['history'][0]['pc']); exit;
                                     $issue = end($single['history']);
                                     $customer = end($single['history']);
                                     $customer = $customer['pc'];
                                     $ticket = $single['ticket'];
-                                    //     pr($customer); exit;
+                                    
+                                    
+                                    $customer = $single['history'][0]['pc'];
+//                                         pr($customer['street']); exit;
+                                    $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
+                                            $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
+                                            . $customer['zip'];
+                                    
                                     ?>
                                     <tr >
                                         <td >
@@ -66,6 +73,7 @@
                                             <ul>
                                                 <li> Name: <?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?> </li> 
                                                 <li> Cell: <?php echo $customer['cell']; ?> </li> 
+                                                <li> Address: <?php echo $customer_address; ?> </li> 
                                             </ul>
                                         </td>
                                         <td>

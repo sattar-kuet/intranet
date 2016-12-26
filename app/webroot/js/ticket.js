@@ -55,7 +55,6 @@ $(document).ready(function () {
 
     $("#action_type").change(function () {
         var selected = $(this).val().trim();
-       // alert(selected);
         if (selected == '') {
             $('.assign_single').show();
             $('.assign_group').show();
@@ -84,7 +83,6 @@ $(document).ready(function () {
 
     $('.issueChange').change(function () {
         var selected = $('.issueChange option:selected').text().toLowerCase();
-        //alert(selected);
         if (selected.trim() == "moving") {
             $('#action').hide();
             $('#new_addr').show();
@@ -106,7 +104,6 @@ $(document).ready(function () {
 
     $('.issueChange').change(function () {
         var selected = $('.issueChange option:selected').text().toLowerCase();
-        //alert(selected);
         var box = "2nd box";
         var twbox = "3rd box";
         var twthbox = "2nd & 3rd box";
@@ -122,7 +119,6 @@ $(document).ready(function () {
             $('#new_addr').show();
         }
         else if (selected.trim() == "wiring problem") {
-            //alert(selected);
             $('#action').hide();
             $('#new_addr').hide();
         }

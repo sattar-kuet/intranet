@@ -8,11 +8,11 @@
 
 $(document).on("change", ".partial", function () {
     var sum = $(".total").val();
-    alert(sum);
-    alert($(this).val());
+//    alert(sum);
+//    alert($(this).val());
     var temp = parseFloat($(this).val());
     sum = parseFloat(sum) + temp;
-    alert(sum);
+//    alert(sum);
 
     $(".total").text(sum);
 });
