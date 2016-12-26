@@ -67,13 +67,11 @@ class ReportsController extends AppController {
             left join psettings  on psettings.id = package_customers.psetting_id
             LEFT JOIN packages  ON packages.id = psettings.package_id 
             LEFT JOIN custom_packages  ON custom_packages.id = package_customers.custom_package_id 
-
-           where  $conditions order by package_customers.id desc limit 0,199";
+            where $conditions order by package_customers.id desc limit 0,199";
 
 
             $block_customers = $this->PackageCustomer->query($sql);
             $clicked = true;
-            //  pr($block_customers);
             $this->set(compact('block_customers'));
         }
         $this->set(compact('clicked'));
@@ -137,7 +135,8 @@ class ReportsController extends AppController {
             LEFT JOIN packages p ON p.id = ps.package_id 
             WHERE pc.exp_date>='" . date('Y-m-d') . "' AND pc.exp_date<='" . $expiredate . "' AND pc.exp_date != 0000-00-00 "
                 . "GROUP BY pc.id");
-        pr($packagecustomers); exit;
+//        pr($packagecustomers);
+//        exit;
         foreach ($packagecustomers as $data) {
             $pcid = $data['pc']['id'];
             $this->PackageCustomer->id = $pcid;
@@ -238,37 +237,6 @@ class ReportsController extends AppController {
             left join transactions tr on pc.id = tr.package_customer_id
             LEFT JOIN packages p ON p.id = ps.package_id 
            where tr.invoice = '" . $invoice . "'");
-        $this->set(compact('packagecustomers'));
-    }
-
-    function openInvoice2511111() {
-        $this->loadModel('PackageCustomer');
-        $expiredate = trim(date('Y-m-d', strtotime("+25 days")));
-        $data = $this->PackageCustomer->query("SELECT  *
-            FROM package_customers 
-            WHERE exp_date>='" . date('Y-m-d') .
-                "' AND exp_date<='" . $expiredate .
-                "' AND exp_date != 0000-00-00 " .
-                " AND invoice_created != 1"
-        );
-        foreach ($data as $single) {
-            $cid = $single['package_customers']['id'];
-            $six_digit_random_number = mt_rand(100000000, 999999999);
-            $this->PackageCustomer->id = $cid;
-            $this->PackageCustomer->saveField('invoice_no', $six_digit_random_number);
-            $this->PackageCustomer->saveField('invoice_created', 1); // set it as 0 when next payment date will be updated  
-        }
-        $packagecustomers = $this->PackageCustomer->query("SELECT tr.id,pc.id, CONCAT( first_name,' ', middle_name,' ', last_name ) AS name, pc.psetting_id, pc.mac,pc.house_no,
-            pc.street,pc.apartment,pc.city,pc.state,pc.zip,pc.exp_date,tr.invoice,ps.name, ps.amount, ps.duration,p.name
-            FROM package_customers pc
-            left join psettings ps on ps.id = pc.psetting_id
-            left join transactions tr on pc.id = tr.package_customer_id
-            LEFT JOIN packages p ON p.id = ps.package_id 
-            WHERE pc.exp_date>='" . date('Y-m-d') . "' AND pc.exp_date<='" . $expiredate . "' "
-                . "AND pc.exp_date != 0000-00-00. "
-                . " AND pc.printed = 0"
-                . " GROUP BY pc.id");
-
         $this->set(compact('packagecustomers'));
     }
 
@@ -691,20 +659,16 @@ class ReportsController extends AppController {
             $total['online_payment'] = $this->getTotalCallBySatatus('MONEY ORDER ONLINE PAYMENT');
             $this->getTotalCallBySatatus('check send');
             $total['totalSupport'] = $this->supportCall();
+
             $total['totalAccount'] = $this->accountCall();
-
-
             $clicked = true;
-
             $datrange = json_decode($this->request->data['Track']['daterange'], true);
-
             $start1 = $datrange['start'];
             $start = date("m-d-Y", strtotime($start1));
             $end1 = $datrange['end'];
             $end = date("m-d-Y", strtotime($end1));
 
             $date = ($start . ' ' . 'To' . ' ' . $end);
-//            pr($date); exit;
             $this->set(compact('total', 'date'));
         }
         $this->set(compact('clicked'));
