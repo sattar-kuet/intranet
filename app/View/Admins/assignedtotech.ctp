@@ -12,7 +12,7 @@
     <div class="page-content">
         <!-- BEGIN PAGE HEADER-->
         <h3 class="page-title">
-           Assign to tech customers list<small></small>
+            Assign to tech customers list<small></small>
         </h3>
 
         <!-- END PAGE HEADER-->
@@ -127,7 +127,11 @@
                                             <?php endif; ?>
                                         </td>
                                         <td>
-                                            <?php echo $customer['shipment_equipment'] . ' ' . $customer['shipment_note']; ?>
+                                            <strong>Equipment:</strong> <?php echo $results['customers']['shipment_equipment']; ?>
+                                            <br>
+                                            <strong>Quantity:</strong> <?php echo $results['customers']['remote_no']; ?>
+                                            <br>
+                                            <strong>Additional Note:</strong> <?php echo $results['customers']['shipment_note']; ?>
                                         </td>
                                         <td>
                                             <?php
@@ -166,8 +170,8 @@
                                             </ul>
 
                                         </td>
-                                      
-                                        <td><?php echo date('m-d-Y', strtotime($results['customers']['schedule_date']) ); ?></td>
+
+                                        <td><?php echo date('m-d-Y', strtotime($results['customers']['schedule_date'])); ?></td>
 
                                         <td> 
                                             <div class="controls center text-center">
@@ -178,12 +182,12 @@
                                                     <span  class="fa fa-comment fa-lg "></span>
                                                 </a>
 
-                                               &nbsp;
-                                                 <a onclick="if (confirm('Are you sure to approve this data?')) {
-                                                                return true;
-                                                            }
-                                                            return false;"
-                                                    href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'approved', $results['customers']['id'], $results['tech']['id'])) ?>" title="Approve">
+                                                &nbsp;
+                                                <a onclick="if (confirm('Are you sure to approve this data?')) {
+                                                            return true;
+                                                        }
+                                                        return false;"
+                                                   href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'approved', $results['customers']['id'], $results['tech']['id'])) ?>" title="Approve">
                                                     <span class="fa fa-check"></span>
                                                 </a>
 

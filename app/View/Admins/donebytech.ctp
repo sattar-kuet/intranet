@@ -14,7 +14,7 @@
     <div class="page-content">
         <!-- BEGIN PAGE HEADER-->
         <h3 class="page-title">
-           Installation complete customers List<small></small>
+            Installation complete customers List<small></small>
         </h3>
 
         <!-- END PAGE HEADER-->
@@ -56,7 +56,7 @@
                                     </th>
 
                                     <th>
-                                        Equipment
+                                       	Detail Information 
                                     </th>
                                     <th>
                                         Comment
@@ -86,7 +86,7 @@
                                             <?php echo $results['customers']['id']; ?>                            
                                         </td>
                                         <td class="hidden-480">                                         
-                                                <?php echo date('m-d-Y', strtotime($results['customers']['modified'])); ?>
+                                            <?php echo date('m-d-Y', strtotime($results['customers']['modified'])); ?>
                                             <br>
                                             <?php echo $results['users']['name']; ?>                            
                                         </td>
@@ -125,7 +125,11 @@
                                             <?php endif; ?>
                                         </td>
                                         <td>
-                                            <?php echo $customer['shipment_equipment'] . ' ' . $customer['shipment_note']; ?>
+                                            <strong>Equipment:</strong> <?php echo $results['customers']['shipment_equipment']; ?>
+                                            <br>
+                                            <strong>Quantity:</strong> <?php echo $results['customers']['remote_no']; ?>
+                                            <br>
+                                            <strong>Additional Note:</strong> <?php echo $results['customers']['shipment_note']; ?>
                                         </td>
                                         <td>
                                             <?php

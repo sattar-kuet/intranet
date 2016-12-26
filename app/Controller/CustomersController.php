@@ -61,6 +61,18 @@ class CustomersController extends AppController {
         $return['file_dst_name'] = $upload->file_dst_name;
         return $return;
     }
+    function processInvoice($img) {
+        $upload = new Upload($img['extra_invoice']);
+        $upload->file_new_name_body = time();
+       
+        $upload->process($this->img_config['target_path']['picture']);
+        if (!$upload->processed) {
+            $msg = $this->generateError($upload->error);
+            return $this->redirect('create');
+        }
+        $return['file_dst_name'] = $upload->file_dst_name;
+        return $return;
+    }
 
     function processAttachment($img) {
         $upload = new Upload($img['attachment']);
@@ -77,6 +89,10 @@ class CustomersController extends AppController {
 
         $return['file_dst_name'] = $upload->file_dst_name;
         return $return;
+    }
+
+    function extrainvoice() {
+        pr($this->request->data); exit;
     }
 
     function getCustomerByParam($param, $field) {
@@ -139,7 +155,7 @@ class CustomersController extends AppController {
         $data4CustomPackage['CustomPackage']['charge'] = $data['charge'];
         if (!empty($data['charge'])) {
             //save data into custom_package table
-            
+
             $cp = $this->CustomPackage->save($data4CustomPackage);
             unset($cp['CustomPackage']['PackageCustomer']);
             //from custom_package table, save custom package id to package_customer table
@@ -151,7 +167,7 @@ class CustomersController extends AppController {
         }
         //Ends Custom_package data entry  
         $this->PackageCustomer->id = $data['id'];
-       
+
         $this->PackageCustomer->save($data);
     }
 
@@ -181,9 +197,10 @@ class CustomersController extends AppController {
         $this->PackageCustomer->saveField("date", $this->getFormatedDate($this->request->data['PackageCustomer']['date']));
         $data4statusHistory['StatusHistory'] = array(
             'package_customer_id' => $this->request->data['PackageCustomer']['id'],
-            'date' => $this->request->data['PackageCustomer']['date'],
+            'date' => $this->getFormatedDate($this->request->data['PackageCustomer']['date']),
             'status' => $this->request->data['PackageCustomer']['status'],
         );
+//        pr($data4statusHistory); exit;
         $this->StatusHistory->save($data4statusHistory);
         $Msg = '<div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -198,10 +215,10 @@ class CustomersController extends AppController {
         $this->loadModel('PackageCustomer');
         $dateObj = $this->request->data['Transaction']['exp_date'];
         $this->request->data['Transaction']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
-    //  pr($this->request->data); exit;
+        //  pr($this->request->data); exit;
         $this->PackageCustomer->id = $this->request->data['Transaction']['package_customer_id'];
-         $this->request->data['Transaction']['r_form'] = $this->getFormatedDate($this->request->data['Transaction']['r_form']); 
-       // pr($this->request->data['Transaction']); exit;
+        $this->request->data['Transaction']['r_form'] = $this->getFormatedDate($this->request->data['Transaction']['r_form']);
+        // pr($this->request->data['Transaction']); exit;
 
         $this->PackageCustomer->save($this->request->data['Transaction']);
 
@@ -220,7 +237,7 @@ class CustomersController extends AppController {
         $this->request->data['Transaction']['user_id'] = $user_id;
         $this->request->data['Transaction']['status'] = 'update';
         $this->request->data['Transaction']['exp_date'] = $this->request->data['Transaction']['exp_date']['month'] . '/' . substr($this->request->data['Transaction']['exp_date']['year'], -2);
-   
+
         $this->Transaction->save($this->request->data['Transaction']);
         $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -276,11 +293,11 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $this->loadModel('StatusHistory');
         $pcid = $id;
         $loggedUser = $this->Auth->user();
-        $user = $loggedUser['Role']['name'];        
+        $user = $loggedUser['Role']['name'];
         if ($this->request->is('post') || $this->request->is('put')) {
             // update package_customers table
             $this->request->data['PackageCustomer']['id'] = $id;
-            
+
             $this->updatePackageCustomerTable($this->request->data['PackageCustomer']);
             $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -430,14 +447,17 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             }
             $date = date('Y-m-d');
             $this->request->data['PackageCustomer']['date'] = $date;
-
+            $status = 'sales done';
+            if ($this->request->data['PackageCustomer']['follow_up']) {
+                $status = 'sales query';
+            }
             $pc = $this->PackageCustomer->save($this->request->data['PackageCustomer']);
 
             $data4statusHistory = array();
             $data4statusHistory['StatusHistory'] = array(
                 'package_customer_id' => $pc['PackageCustomer']['id'],
-                'date' => date('m/d/Y'),
-                'status' => $this->request->data['PackageCustomer']['status'],
+                'date' => date('Y-m-d'),
+                'status' => $status
             );
 //            pr($data4statusHistory); exit;
             $this->StatusHistory->save($data4statusHistory);
@@ -665,8 +685,10 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id
-                    WHERE pc.status = 'ready'  OR (pc.follow_up=0 AND pc.status ='requested' AND pc.status != 'old_ready' ) AND shipment =0");
+                    WHERE pc.status = 'ready'  OR (pc.follow_up=0 AND pc.status ='requested' AND 
+                    pc.status != 'old_ready' ) AND shipment =0  ORDER BY pc.created DESC LIMIT 100");
 
+        // pr($allData); 
         $filteredData = array();
         $unique = array();
         $index = 0;
@@ -835,24 +857,23 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
 
     function update_payment($id = null) {
         $this->loadModel('PackageCustomer');
-        
+
         $this->PackageCustomer->id = $this->request->data['NextTransaction']['package_customer_id'];
         $data = array();
         $data['PackageCustomer'] = array(
             'exp_date' => $this->getFormatedDate($this->request->data['NextTransaction']['exp_date']),
-            // when change package exp date then these fields will be update
+                // when change package exp date then these fields will be update
 //            'ticket_generated' => 0,
 //            'invoice_no' => 0,
 //            'invoice_created' => 0,
 //            'printed' => 0,
 //            'auto_r' => 'no'
-            
         );
 
         if ($this->request->data['NextTransaction']['discount'] == '') {
             $this->request->data['NextTransaction']['discount'] = 0;
         }
-        
+
         $pc_data = $this->PackageCustomer->save($data);
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -1011,8 +1032,8 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
 
                 $filteredData[$index]['customers'] = $data['pc'];
                 $filteredData[$index]['users'] = $data['u'];
-                 $filteredData[$index]['tech'] = $data['ut'];
-                
+                $filteredData[$index]['tech'] = $data['ut'];
+
                 $filteredData[$index]['package'] = array(
                     'name' => 'No package dealings',
                     'duration' => 'Not Applicable',

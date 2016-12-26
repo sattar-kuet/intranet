@@ -1835,6 +1835,83 @@
             <?php endif; ?>
 
             <!-------------------------------------END REFUND---------------------->
+
+            <!--     Begin previous invoice attachment    -->
+            <div  class="col-md-12 col-sm-12">
+                <div class="portlet box lightseagreen" style="background-color:#8BC34A; border: #8BC34A solid 2px;">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-list-ul"></i>Previous invoice attachment
+                        </div>
+
+                        <div class="tools">
+                            <a  class="reload toggle"data-id="attachment">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="row" id="attachment" style="display: none;"> 
+                            <div class="col-md-12">
+                                <?php
+                                echo $this->Form->create('PackageCustomer', array(
+                                    'inputDefaults' => array(
+                                        'label' => false,
+                                        'div' => false
+                                    ),
+                                    'class' => 'form-horizontal',
+                                    'novalidate' => 'novalidate',
+                                    'type' => 'file',
+                                    'url' => array('controller' => 'customers', 'action' => 'extrainvoice')
+                                        )
+                                );
+                                ?>
+
+                                <?php
+                                echo $this->Form->input('id', array(
+                                    'type' => 'hidden',
+                                    'value' => $this->params['pass'][0],
+                                        )
+                                );
+                                ?>
+
+
+                                <div class="form-body">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Choose PDF file
+                                        </label>
+                                        <div class="col-md-4">
+                                            <?php
+                                            echo $this->Form->input(
+                                                    'extra_invoice', array(
+                                                'type' => 'file',
+                                                'id' => 'required',
+                                                'class' => 'span9 text'
+                                                    )
+                                            );
+                                            ?>
+                                        </div>
+                                    </div>
+                                    <div class="form-actions">
+                                        <div class="row">
+                                            <div class="col-md-offset-6 col-md-4">
+                                                <?php
+                                                echo $this->Form->button(
+                                                        'Submit', array('class' => 'btn red-sunglo', 'type' => 'submit', 'style' => "background-color: #8BC34A;",)
+                                                );
+                                                ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php echo $this->Form->end(); ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End previous invoice attachment-->
+
+
             <!-------------payment history start----------------->
             <div  class="col-md-12 col-sm-12">
 
@@ -1948,7 +2025,7 @@
                                             <?php
                                             $balance = array();
                                             foreach ($statements as $single):
-                                               
+
                                                 $bill = $single['bill'];
 
                                                 $payments = $single['payment'];
@@ -2030,11 +2107,11 @@
                                                                 <li>Card No : <?php echo substr($payment['tr']['card_no'], -4); ?></li>  
                                                                 <li>Zip Code : <?php echo $payment['tr']['zip_code']; ?></li>  
 
-                                                                <li>CVV Code : ***<?php //echo $payment['tr']['cvv_code'];      ?></li> 
+                                                                <li>CVV Code : ***<?php //echo $payment['tr']['cvv_code'];        ?></li> 
                                                                 <li>Expire Date : <?php echo $payment['tr']['exp_date']; ?></li>
 
 
-                                                               
+
                                                             <?php elseif ($payment['tr']['pay_mode'] == 'cash'): ?>
                                                                 <li>Pay Mode : <?php echo $payment['tr']['pay_mode']; ?></li> 
                                                                 <li> Cash By : <?php echo $payment['tr']['cash_by']; ?> </li>
@@ -2331,7 +2408,7 @@
 
                             <?php
                             foreach ($payments as $single):
-                                $payment = $single['tr'];                            
+                                $payment = $single['tr'];
                                 ?>
                                 <div id="invoice-pop-up<?php echo $payment['id']; ?>" style="display: none; width: 800px;">
 

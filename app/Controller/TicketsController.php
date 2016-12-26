@@ -24,12 +24,20 @@ class TicketsController extends AppController {
         $this->loadModel('PackageCustomer');
         $this->PackageCustomer->id = $cid;
         $this->PackageCustomer->saveField("status", $status);
+        // create status history
+        $data4statusHistory = array();
+        $this->loadModel('StatusHistory');
+        $data4statusHistory['StatusHistory'] = array(
+            'package_customer_id' => $cid,
+            'date' => date('m-d-Y'),
+            'status' => $status
+        );
+        $this->StatusHistory->save($data4statusHistory);
     }
 
     function addNewAddr($new_addr, $cid) {
         $this->loadModel('PackageCustomer');
         $this->PackageCustomer->id = $cid;
-//        pr($this->request->data); exit;
         $this->PackageCustomer->saveField("new_addr", $new_addr);
     }
 
@@ -72,13 +80,16 @@ class TicketsController extends AppController {
                     "status" => 'requested',
                     "user_id" => $loggedUser['id']
                 );
-                
+               
+//                pr($data);
+//                exit;
+//                $this->StatusHistory->save($data4statusHistory);
+
                 $cusinfo = $this->PackageCustomer->save($data);
-//                pr($data); exit;
+
                 if (trim($this->request->data['Ticket']['action_type']) == 'solved') {
                     $this->request->data['Ticket']['priority'] = 'low';
                 }
-//                pr($this->request->data); exit;
                 $tickect = $this->Ticket->save($this->request->data['Ticket']); // Data save in Ticket
                 $trackData['Track'] = array(
                     'issue_id' => $this->request->data['Ticket']['issue_id'],
@@ -95,15 +106,12 @@ class TicketsController extends AppController {
                 }
 
                 if (trim($this->request->data['Ticket']['issue_id']) == 17) {
-                    
-                    
                     $this->addNewAddr($this->request->data['Ticket']['new_addr'], $customer_id);
-                    
                     $trackData['Track']['status'] = 'others';
                 }
                 if (trim($this->request->data['Ticket']['issue_id']) == 21 || trim($this->request->data['Ticket']['issue_id']) == 30) {
                     $this->updateCustomer('Request to hold', $customer_id);
-                   // $trackData['Track']['status'] = 'others';
+                    // $trackData['Track']['status'] = 'others';
                     $mac = json_encode($this->request->data['mac']);
                     $data = array(
                         'cancel_mac' => $mac,
@@ -126,11 +134,11 @@ class TicketsController extends AppController {
 
                 if (trim($this->request->data['Ticket']['issue_id']) == 24 || trim($this->request->data['Ticket']['issue_id']) == 31) {
                     $this->updateCustomer('Request to unhold', $customer_id);
-                   // $trackData['Track']['status'] = 'others';
-                     $data = array(
+                    // $trackData['Track']['status'] = 'others';
+                    $data = array(
                         'unhold_date' => $this->request->data['Ticket']['unhold_date']
                     );
-                    if(isset($this->request->data['mac'])){
+                    if (isset($this->request->data['mac'])) {
                         $mac = json_encode($this->request->data['mac']);
                         $data['cancel_mac'] = $mac;
                     }
@@ -138,10 +146,11 @@ class TicketsController extends AppController {
                 }
 
                 if (trim($this->request->data['Ticket']['issue_id']) == 20 || trim($this->request->data['Ticket']['issue_id']) == 28) {
-                 $this->request->data['Ticket']['cancelled_date'] = $this->getFormatedDate($this->request->data['Ticket']['cancelled_date']);
-                 $this->request->data['Ticket']['pickup_date'] = $this->getFormatedDate($this->request->data['Ticket']['pickup_date']);
-                    $this->updateCustomer('Request to cancel', $customer_id);
-                   // $trackData['Track']['status'] = 'others';
+
+                    $this->request->data['Ticket']['cancelled_date'] = $this->getFormatedDate($this->request->data['Ticket']['cancelled_date']);
+                    $this->request->data['Ticket']['pickup_date'] = $this->getFormatedDate($this->request->data['Ticket']['pickup_date']);
+
+                    $this->updateCustomer('request to cancel', $customer_id);
                     if (!array_key_exists('mac', $this->request->data)) {
                         $msg = '<div class="alert alert-danger">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -152,11 +161,11 @@ class TicketsController extends AppController {
                     }
                     $mac = json_encode($this->request->data['mac']);
                     $data = array(
-                        'cancel_mac' => $mac,                       
+                        'cancel_mac' => $mac,
                         'cancelled_date' => $this->request->data['Ticket']['cancelled_date'],
                         'pickup_date' => $this->request->data['Ticket']['pickup_date'],
                     );
-                // pr($data); exit;
+
                     $cusinfo = $this->PackageCustomer->save($data);
                 }
 
@@ -170,7 +179,7 @@ class TicketsController extends AppController {
                     $cusinfo = $this->PackageCustomer->save($data['PackageCustomer']);
                 }
                 if (trim($this->request->data['Ticket']['action_type']) == 'shipment') {
-                    
+
 
                     if ($this->request->data['Ticket']['shipment_equipment'] == 'OTHER') {
                         $this->request->data['Ticket']['shipment_equipment'] = $this->request->data['Ticket']['shipment_equipment_other'];
@@ -182,35 +191,35 @@ class TicketsController extends AppController {
                         'shipment_equipment' => $this->request->data['Ticket']['shipment_equipment'],
                         'shipment_note' => $this->request->data['Ticket']['shipment_note']
                     );
-                  
-//                    pr($data); exit;
-                    $this->PackageCustomer->save($data['PackageCustomer']);
+
+
+
                 }
                 $customer = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $customer_id)));
 
-                if (!empty($customer['PackageCustomer']['email'])) {
-                    // send mail :
-                    $from = 'info@totalcableusa.com';
-                    $subject = "Ticket create";
-                    $to = array($customer['PackageCustomer']['email']);
-                    $cus_name = $customer['PackageCustomer']['first_name'] . ' ' . $customer['PackageCustomer']['middle_name'] . ' ' . $customer['PackageCustomer']['last_name'];
-                    $address = $customer['PackageCustomer']['house_no'];
-
-                    $mail_content = __('Name:                      ', 'beopen') . $cus_name . PHP_EOL .
-                            __('Address:                   ', 'beopen') . $address . PHP_EOL;
-
-                    if (!empty($refer_name)):
-                        $mail_content .= __('Reference Name:            ', 'beopen') . $refer_name . PHP_EOL .
-                                __('Reference Phone:           ', 'beopen') . $refer_no . PHP_EOL;
-                    endif;
-
-                    $mail_content .= __('Sale status:               ', 'beopen') . $cus_name . PHP_EOL .
-                            __('Note:                      ', 'beopen') . $address . PHP_EOL;
-
-                  //  sendEmail($from, $cus_name, $to, $subject, $mail_content);
-                    // End send mail 
-                }
-
+//                if (!empty($customer['PackageCustomer']['email'])) {
+//                    // send mail :
+//                    $from = 'info@totalcableusa.com';
+//                    $subject = "Ticket create";
+//                    $to = array($customer['PackageCustomer']['email']);
+//                    $cus_name = $customer['PackageCustomer']['first_name'] . ' ' . $customer['PackageCustomer']['middle_name'] . ' ' . $customer['PackageCustomer']['last_name'];
+//                    $address = $customer['PackageCustomer']['house_no'];
+//
+//                    $mail_content = __('Name:                      ', 'beopen') . $cus_name . PHP_EOL .
+//                            __('Address:                   ', 'beopen') . $address . PHP_EOL;
+//
+//                    if (!empty($refer_name)):
+//                        $mail_content .= __('Reference Name:            ', 'beopen') . $refer_name . PHP_EOL .
+//                                __('Reference Phone:           ', 'beopen') . $refer_no . PHP_EOL;
+//                    endif;
+//
+//                    $mail_content .= __('Sale status:               ', 'beopen') . $cus_name . PHP_EOL .
+//                            __('Note:                      ', 'beopen') . $address . PHP_EOL;
+//
+//                    sendEmail($from, $cus_name, $to, $subject, $mail_content);
+//                    // End send mail 
+//                }
+//
 
                 $this->Track->save($trackData); // Data save in Track
                 $msg = '<div class="alert alert-success">
@@ -230,6 +239,7 @@ class TicketsController extends AppController {
 
         $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
         $customers = $this->PackageCustomer->findById($customer_id);
+
         $this->set(compact('users', 'roles', 'issues', 'customers'));
     }
 
@@ -526,7 +536,8 @@ class TicketsController extends AppController {
             $this->Session->setFlash($msg);
             return $this->redirect($this->referer());
         }
-        pr($this->request->data); exit;
+        pr($this->request->data);
+        exit;
         $this->Track->save($this->request->data['Track']);
         $msg = '<div class="alert alert-success">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>

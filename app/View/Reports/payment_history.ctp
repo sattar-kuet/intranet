@@ -13,6 +13,12 @@
         border-radius: 4px;
         text-align: center;
     }
+
+    ul.pagination {
+        display: flex;
+        justify-content: center;
+    }
+
 </style>
 
 <div class="page-content-wrapper">
@@ -24,14 +30,8 @@
                     <div class="portlet-title">
                         <div class="caption">
                             <i class="fa fa-plus"></i>Payment History
-                             <?php if ($clicked): ?>
-                            Total Amount: <?php echo $totalamount[0][0]['totalamount'];?>                                              
-                        </div>                     
-                        
-                        <div class="tools">                            
-                             Total Customers: <?php echo count($transactions);?>    
-                        </div>
-                        <?php endif; ?>
+
+                        </div>   
                     </div>
                     <div class="portlet-body form">
                         <!-- BEGIN FORM-->
@@ -107,7 +107,7 @@
                 <div class="">
                     <!-- BEGIN PAGE CONTENT-->
                     <div class="invoice"  id="printableArea">
-                         
+
                         <div class="row">
                             <div class="col-xs-6">                    
                             </div>
@@ -122,7 +122,29 @@
                         <div class="row">
                             <div class="col-xs-12">                             
                                 <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
-                                                                         
+
+                                    <div class="alert alert-info clearfix" style="color: #000; font-size: 18px;"> 
+                                        <p class="pull-left"> Total Amount: $<?php echo $totalamount; ?> </p> 
+                                        
+                                        <p class="pull-right"> Total Customers: <?php echo $total; ?>  </p>
+                                    </div>                                       
+
+
+
+
+                                    <ul class="pagination" >
+                                        <?php
+                                        for ($i = 1; $i <= $total_page; $i++):
+                                            $active = '';
+                                            if (isset($this->params['pass'][0]) && $this->params['pass'][0] == $i) {
+                                                $active = 'active';
+                                            }
+                                            ?>
+                                            <li class="paginate_button <?php echo $active; ?>" aria-controls="sample_editable_1" tabindex="<?php echo $i; ?>">
+                                                <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'payment_history', $i, $start, $end)) ?>"><?php echo $i; ?></a>
+                                            </li>
+                                        <?php endfor; ?>
+                                    </ul>
                                     <thead>
                                         <tr>
                                             <th>Customer Detail</th>
@@ -135,7 +157,7 @@
                                         <?php
                                         $total = 0;
                                         foreach ($transactions as $single):
-                                            $tr = $single['tr'];                                           
+                                            $tr = $single['tr'];
 //                                            $total += $tr['paid_amount'];
                                             $pc = $single['pc'];
                                             $customer_address = $pc['house_no'] . ' ' . $pc['street'] . ' ' .
@@ -180,6 +202,8 @@
                                 </table>
                                 <!--<h2 style="text-align: center;" > Grant Total: $<?php echo $total; ?></h2>-->
                             </div>
+
+
                         </div>
                     </div>
                 </div>

@@ -189,7 +189,7 @@
                                                 </td>
                                                 <td><?php echo date('m-d-Y', strtotime($info['transactions']['exp_date']));?></td>                                              
                                                
-                                                 <td><?php echo date('m-d-Y', strtotime($info['package_customers']['created']));?></td>                                                
+                                                 <td><?php echo date('m-d-Y', strtotime($info['package_customers']['modified']));?></td>                                                
                                             </tr>
                                         <?php endforeach; ?>                           
                                     </tbody>

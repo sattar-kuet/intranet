@@ -97,7 +97,7 @@
                     <div class="portlet box green">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-user">Total tickets: <?php echo count($customers); ?></i>
+                                <i class="fa ">Total Customers: <?php echo count($customers); ?></i>
                             </div>
 
                             <div class="tools">
@@ -182,19 +182,19 @@
                         <!-- END EXAMPLE TABLE PORTLET-->
                     </div>
 
-                    <!--                    <ul class="pagination" >
-                    <?php
-                    for ($i = 1; $i <= $total_page; $i++):
-                        $active = '';
-                        if (isset($this->params['pass'][0]) && $this->params['pass'][0] == $i) {
-                            $active = 'active';
-                        }
-                        ?>
-                                                    <li class="paginate_button <?php echo $active; ?>" aria-controls="sample_editable_1" tabindex="<?php echo $i; ?>">
-                                                        <a href="<?php echo Router::url(array('controller' => 'otherspayments', 'action' => 'manage', $i, $start, $end)) ?>"><?php echo $i; ?></a>
-                                                    </li>
-                    <?php endfor; ?>
-                                        </ul>-->
+                    <ul class="pagination" >
+                        <?php
+                        for ($i = 1; $i <= $total_page; $i++):
+                            $active = '';
+                            if (isset($this->params['pass'][0]) && $this->params['pass'][0] == $i) {
+                                $active = 'active';
+                            }
+                            ?>
+                            <li class="paginate_button <?php echo $active; ?>" aria-controls="sample_editable_1" tabindex="<?php echo $i; ?>">
+                                <a href="<?php echo Router::url(array('controller' => 'otherspayments', 'action' => 'manage', $i, $start, $end)) ?>"><?php echo $i; ?></a>
+                            </li>
+                        <?php endfor; ?>
+
                 </div>
             <?php endif; ?>
         </div>

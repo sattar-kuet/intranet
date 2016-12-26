@@ -74,7 +74,7 @@
                                     ?>
                                     <tr>
                                         <td class="hidden-480">
-                                            <?php echo $results['customers']['created']; ?>   <br>
+                                             <?php echo date('m-d-Y', strtotime($results['customers']['modified'])); ?>  <br>
                                             <?php echo $results['users']['name']; ?>  
                                         </td>
                                         <td>
@@ -134,11 +134,15 @@
                                                     <li>MB: <?php echo $results['customers']['monthly_bill']; ?>$</li>
                                                     <li>Equipment: <?php echo $results['customers']['others']; ?>$</li>
                                                     <li>Total: <?php echo $results['customers']['total']; ?>$</li>
-                                                </ul>  <br>
-                                                <strong>Equipment: </strong> <?php
-                                                echo $results['customers']['shipment_equipment'] . ' ' .
-                                                $results['customers']['shipment_note'] . '(' . $results['customers']['remote_no'] . ')';
-                                                ?>
+                                                </ul>  
+                                                <br>
+                                                <strong>Equipment:</strong> <?php echo $results['customers']['shipment_equipment']; ?>
+                                                <br>
+                                                <strong>Quantity:</strong> <?php echo $results['customers']['remote_no']; ?>
+                                                <br>
+                                                <strong>Additional Note:</strong> <?php echo $results['customers']['shipment_note']; ?>
+                                                
+
                                             <?php }
                                             ?>
 

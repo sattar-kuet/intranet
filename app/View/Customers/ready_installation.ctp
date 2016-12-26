@@ -55,7 +55,7 @@
                                     </th>
 
                                     <th>
-                                        Equipment
+                                        Detail Information 
                                     </th>
 
                                     <th>
@@ -81,7 +81,6 @@
 //                                    pr($results); exit;
 //                                      pr($results['issue'][0]['name']['name']); exit;
                                     $customer = $results['customers'];
-//                                  
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
                                             . $customer['zip'];
@@ -134,16 +133,14 @@
                                         <td>
                                             <?php echo $customer['shipment_equipment'] . ' ' . $customer['shipment_note']; ?>
                                         </td>
-                                        <td>
-                                            
-                                                <strong>Payment: </strong>
+                                        <td> 
+                                            <strong>Payment: </strong>
                                                 <ul>
                                                     <li>SD: $<?php echo $customer['deposit']; ?></li>
                                                     <li>MB: $<?php echo $customer['monthly_bill']; ?></li>
                                                     <li>Equipment: $<?php echo $customer['others']; ?></li>
                                                     <li>Total: $<?php echo $customer['total']; ?></li>
-                                                </ul>
-                                           
+                                                </ul>                                           
                                         </td>
                                         <td>
                                             <ul>
