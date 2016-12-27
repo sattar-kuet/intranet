@@ -117,10 +117,10 @@ class PaymentsController extends AppController {
         // Common setup for API credentials  
         $loggedUser = $this->Auth->user();
         $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
-        $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
-        //  $merchantAuthentication->setName("7zKH4b45"); //42UHbr9Qa9B live mode
-        $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
-        // $merchantAuthentication->setTransactionKey("738QpWvHH4vS59vY"); // live mode 7UBSq68ncs65p8QX
+        //$merchantAuthentication->setName("95x9PuD6b2"); // testing mode
+        $merchantAuthentication->setName("7zKH4b45"); //42UHbr9Qa9B live mode
+        //$merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
+         $merchantAuthentication->setTransactionKey("738QpWvHH4vS59vY"); // live mode 7UBSq68ncs65p8QX
         $refId = 'ref' . time();
 // Create the payment data for a credit card
         $creditCard = new AnetAPI\CreditCardType();
@@ -171,8 +171,8 @@ class PaymentsController extends AppController {
         $request->setRefId($refId);
         $request->setTransactionRequest($transactionRequestType);
         $controller = new AnetController\CreateTransactionController($request);
-        $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
-        // $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
+       // $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
+         $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
 
         $this->loadModel('Transaction');
         $this->loadModel('Track');
@@ -846,20 +846,10 @@ class PaymentsController extends AppController {
         $id = $this->request->data['Transaction']['id'];
         $this->request->data['Transaction']['transaction_id'] = $id;
         unset($this->request->data['Transaction']['id']);
-//        pr($this->request->data['Transaction']); exit;
         //creatre transaction History 
         $this->Transaction->save($this->request->data['Transaction']);
         unset($this->request->data['Transaction']['transaction_id']);
 
-
-        $this->request->data['Transaction']['status'] = 'success';
-        $id = $this->request->data['Transaction']['id'];
-        $this->request->data['Transaction']['transaction_id'] = $id;
-        unset($this->request->data['Transaction']['id']);
-        // pr($this->request->data['Transaction']); exit;
-        //creatre transaction History 
-        $this->Transaction->save($this->request->data['Transaction']);
-        unset($this->request->data['Transaction']['transaction_id']);
 
         $this->request->data['Transaction']['status'] = 'close';
         // check due amount 

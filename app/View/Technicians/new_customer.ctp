@@ -19,7 +19,6 @@
         <!-- BEGIN PAGE CONTENT-->
         <div class="row">
             <div class="col-md-12">
-
                 <!-- BEGIN EXAMPLE TABLE PORTLET-->
                 <div class="portlet box green">
                     <div class="portlet-title">
