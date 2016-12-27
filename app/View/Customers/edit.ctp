@@ -1311,7 +1311,7 @@
                                     <div class="col-md-4">
                                         <?php
                                         echo $this->Form->input(
-                                                'card_no', array(
+                                                'card_check_no', array(
                                             'type' => 'text',
                                             'class' => 'form-control input-sm required',
                                         ));
@@ -1356,7 +1356,7 @@
                                     <div class="col-md-4">
                                         <?php
                                         echo $this->Form->input(
-                                                'fname', array(
+                                                'cfirst_name', array(
                                             'type' => 'text',
                                             'class' => 'form-control input-sm required',
                                             'placeholder' => 'first name'
@@ -1366,7 +1366,7 @@
                                     <div class="col-md-5">
                                         <?php
                                         echo $this->Form->input(
-                                                'lname', array(
+                                                'clast_name', array(
                                             'type' => 'text',
                                             'class' => 'form-control input-sm required',
                                             'placeholder' => 'last name'
@@ -1397,7 +1397,7 @@
                                     <div class="col-md-4">
                                         <?php
                                         echo $this->Form->input(
-                                                'zip_code', array(
+                                                'czip', array(
                                             'type' => 'text',
                                             'class' => 'form-control input-sm required'
                                         ));
@@ -1835,6 +1835,83 @@
             <?php endif; ?>
 
             <!-------------------------------------END REFUND---------------------->
+
+            <!--     Begin previous invoice attachment    -->
+            <div  class="col-md-12 col-sm-12">
+                <div class="portlet box lightseagreen" style="background-color:#8BC34A; border: #8BC34A solid 2px;">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-list-ul"></i>Previous invoice attachment
+                        </div>
+
+                        <div class="tools">
+                            <a  class="reload toggle"data-id="attachment">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="row" id="attachment" style="display: none;"> 
+                            <div class="col-md-12">
+                                <?php
+                                echo $this->Form->create('PackageCustomer', array(
+                                    'inputDefaults' => array(
+                                        'label' => false,
+                                        'div' => false
+                                    ),
+                                    'class' => 'form-horizontal',
+                                    'novalidate' => 'novalidate',
+                                    'type' => 'file',
+                                    'url' => array('controller' => 'customers', 'action' => 'extrainvoice')
+                                        )
+                                );
+                                ?>
+
+                                <?php
+                                echo $this->Form->input('id', array(
+                                    'type' => 'hidden',
+                                    'value' => $this->params['pass'][0],
+                                        )
+                                );
+                                ?>
+
+
+                                <div class="form-body">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Choose PDF file
+                                        </label>
+                                        <div class="col-md-4">
+                                            <?php
+                                            echo $this->Form->input(
+                                                    'extra_invoice', array(
+                                                'type' => 'file',
+                                                'id' => 'required',
+                                                'class' => 'span9 text'
+                                                    )
+                                            );
+                                            ?>
+                                        </div>
+                                    </div>
+                                    <div class="form-actions">
+                                        <div class="row">
+                                            <div class="col-md-offset-6 col-md-4">
+                                                <?php
+                                                echo $this->Form->button(
+                                                        'Submit', array('class' => 'btn red-sunglo', 'type' => 'submit', 'style' => "background-color: #8BC34A;",)
+                                                );
+                                                ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php echo $this->Form->end(); ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End previous invoice attachment-->
+
+
             <!-------------payment history start----------------->
             <div  class="col-md-12 col-sm-12">
 
@@ -1948,7 +2025,7 @@
                                             <?php
                                             $balance = array();
                                             foreach ($statements as $single):
-                                               
+
                                                 $bill = $single['bill'];
 
                                                 $payments = $single['payment'];
@@ -2030,17 +2107,18 @@
                                                                 <li>Card No : <?php echo substr($payment['tr']['card_no'], -4); ?></li>  
                                                                 <li>Zip Code : <?php echo $payment['tr']['zip_code']; ?></li>  
 
-                                                                <li>CVV Code : ***<?php //echo $payment['tr']['cvv_code'];      ?></li> 
+                                                                <li>CVV Code : ***<?php //echo $payment['tr']['cvv_code'];           ?></li> 
                                                                 <li>Expire Date : <?php echo $payment['tr']['exp_date']; ?></li>
 
 
-                                                               
+
                                                             <?php elseif ($payment['tr']['pay_mode'] == 'cash'): ?>
                                                                 <li>Pay Mode : <?php echo $payment['tr']['pay_mode']; ?></li> 
                                                                 <li> Cash By : <?php echo $payment['tr']['cash_by']; ?> </li>
 
                                                             <?php elseif ($payment['tr']['pay_mode'] == 'refund'): ?>
                                                                 <li>Pay Mode : <?php echo $payment['tr']['pay_mode']; ?></li>
+                                                                <li>Check Info : <?php echo $payment['tr']['check_info']; ?></li>
                                                                 <ul> <li>Amount : <?php echo $payment['tr']['paid_amount']; ?></li>
                                                                     <li>Refund Date : <?php echo date('m-d-Y', strtotime($payment['tr']['created'])); ?></li>
                                                                 </ul>
@@ -2048,6 +2126,7 @@
 
                                                             <?php else: ?>
                                                                 <li>Pay Mode : <?php echo $payment['tr']['pay_mode']; ?></li> 
+                                                                <li>Check Info : <?php echo $payment['tr']['check_info']; ?></li>
                                                                 <?php if (!empty($payment['tr']['check_image'])): ?>
                                                                     <img src="<?php echo $this->webroot . 'check_images' . '/' . $payment['tr']['check_image']; ?>"  width="50px" height="50px" />
                                                                 <?php endif; ?>
@@ -2331,7 +2410,7 @@
 
                             <?php
                             foreach ($payments as $single):
-                                $payment = $single['tr'];                            
+                                $payment = $single['tr'];
                                 ?>
                                 <div id="invoice-pop-up<?php echo $payment['id']; ?>" style="display: none; width: 800px;">
 
@@ -2385,7 +2464,7 @@
                                                                         </th>
                                                                         <tr>
                                                                             <td style="padding-left: 5px; min-height: 115px; line-height: 15px;">
-                                                                                <?php // if (!empty($single['0']['name'])):             ?>
+                                                                                <?php // if (!empty($single['0']['name'])):              ?>
 
                                                                                 <?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?>
 

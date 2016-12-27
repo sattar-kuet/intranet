@@ -167,7 +167,6 @@ class TicketsController extends AppController {
                     );
 
                     $cusinfo = $this->PackageCustomer->save($data);
-                    ;
                 }
 
                 if (trim($this->request->data['Ticket']['action_type']) == "ready") {
@@ -194,7 +193,7 @@ class TicketsController extends AppController {
                     );
 
 
-                    $this->PackageCustomer->save($data['PackageCustomer']);
+
                 }
                 $customer = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $customer_id)));
 

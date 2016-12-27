@@ -77,39 +77,51 @@ class ReportsController extends AppController {
         $this->set(compact('clicked'));
     }
 
-    function payment_history() {
+    function payment_history($page = 1, $start = null, $end = null) {
         $this->loadModel('Transaction');
         $clicked = false;
-        if ($this->request->is('post') || $this->request->is('put')) {
-            $datrange = json_decode($this->request->data['Transaction']['daterange'], true);
+        if ($this->request->is('post') || $this->request->is('put') || $start != null) {
+         
+            if ($start == null) {
+                
+                $datrange = json_decode($this->request->data['Transaction']['daterange'], true);
+                $start = $datrange['start'];
+                $end = $datrange['end'];
+            }
+
             $conditions = " tr.status = 'success' AND ";
             if (!empty($this->request->data['Transaction']['pay_mode'])) {
                 $conditions .=" tr.pay_mode = '" . $this->request->data['Transaction']['pay_mode'] . "' AND ";
             }
-            if ($datrange['start'] == $datrange['end']) {
-                $nextday = date('Y-m-d', strtotime($datrange['end'] . "+1 days"));
-                $conditions .=" tr.created >=' " . $datrange['start'] . " 00:00:00' AND  tr.created < '" . $nextday . " 23:59:59' AND ";
+            if ($start == $end) {
+                $nextday = date('Y-m-d', strtotime($end . "+1 days"));
+                $conditions .=" tr.created >=' " . $start . " 00:00:00' AND  tr.created < '" . $end . " 23:59:59' AND ";
             } else {
-                $conditions .=" tr.created >='" . $datrange['start'] . " 00:00:00' AND  tr.created <='" . $datrange['end'] . " 23:59:59' AND ";
+                $conditions .=" tr.created >='" . $start . " 00:00:00' AND  tr.created <='" . $end . " 23:59:59' AND ";
             }
             $conditions.="###";
             $conditions = str_replace("AND###", "", $conditions);
             $conditions = str_replace("AND ###", "", $conditions);
             $conditions = str_replace("###", "", $conditions);
+            $offset = --$page * $this->per_page;
+            $total = $this->Transaction->query("SELECT COUNT(tr.id) as total FROM transactions tr 
+                WHERE $conditions");
+            $total = $total[0][0]['total'];
+            $total_page = ceil( $total / $this->per_page);
             $sql = "SELECT * FROM transactions tr 
                 left join package_customers pc on pc.id = tr.package_customer_id
                 left join psettings ps on ps.id = pc.psetting_id
                 LEFT JOIN packages p ON p.id = ps.package_id 
-                WHERE $conditions order by tr.id desc limit 0,99";
+                WHERE $conditions order by tr.id desc limit $offset,$this->per_page";
 
 
             $transactions = $this->Transaction->query($sql);
             $sql1 = "SELECT SUM(payable_amount)as totalamount FROM transactions tr WHERE $conditions ";
             $totalamount = $this->Transaction->query($sql1);
-            $transactions = $this->Transaction->query($sql);
-//            pr($totalamount[0][0]['totalamount']); exit;
+            $totalamount =  round($totalamount[0][0]['totalamount'],2);
+          // pr($transactions); exit;
             $clicked = true;
-            $this->set(compact('transactions', 'totalamount'));
+            $this->set(compact('transactions', 'totalamount', 'total_page','total','start','end'));
         }
         $this->set(compact('clicked'));
     }

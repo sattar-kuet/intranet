@@ -1,4 +1,3 @@
-
 <style type="text/css">
     .alert {
         padding: 6px;
@@ -154,23 +153,27 @@
 
                                                 <strong>Equipment:</strong> <?php echo $results['customers']['shipment_equipment']; ?> 
                                                 <br>
-                                                <strong>Additional Note:</strong> <?php echo $results['customers']['shipment_note']; ?>
-                                                <br>
                                                 <strong>Quantity:</strong> <?php echo $results['customers']['remote_no']; ?>
+                                                 <br>
+                                                <strong>Additional Note:</strong> <?php echo $results['customers']['shipment_note']; ?>
+                                               
+                                                
 
 
                                             <?php }
                                             ?>
-
-
                                         </td>
                                        
                                         <td>                                            
+                                           <?php if (count($results['issues'])){ ?>
                                             <?php echo $results['issues'][0]['name']['name']; ?> <br> 
-                                            <?php $issue = strtolower($results['issues'][0]['name']['name']);
-                                            if (trim($issue) == 'moving'): ?>
-                                            <?php echo $customer['new_addr']; ?> 
-                                            <?php endif; ?>
+                                            <?php
+                                            $issue = strtolower($results['issues'][0]['name']['name']);
+                                            if (trim($issue) == 'moving'){
+                                                echo $customer['new_addr']; 
+                                            }
+                                            ?>
+                                           <?php } ?>
                                         </td>
                                         <td>
                                             <?php if (!empty($results['installations'][0]['user_id']['schedule_date'])): ?>    

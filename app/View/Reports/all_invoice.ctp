@@ -32,7 +32,7 @@
                     $customer_address_two = $pcaddress['city'] . ' ' . $pcaddress['state'] . ' '
                             . $pcaddress['zip'];
                     ?>                
-                    <p style="page-break-after:auto;">&nbsp;</p>
+                    <div style="page-break-after:auto;">&nbsp;</div>
                     <div style="height: auto;">
                         <div class="row">
                             <div class="col-xs-4">                              

@@ -52,7 +52,7 @@ class AppController extends Controller {
             )
         )
     );
-    public $per_page = 2;
+    public $per_page = 200;
 
     public function beforeFilter() {
         // save last visited url
@@ -358,6 +358,8 @@ class AppController extends Controller {
 
     function generateInvoice($data = array()) {
         $this->loadModel('Transaction');
+        
+        $this->Transaction->create();
         $this->Transaction->save($data);
     }
     
