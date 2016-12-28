@@ -466,7 +466,7 @@
                                     );
                                     ?>
                                 </div>
-                                <label class="control-label col-md-1">Discount:<span class="required">
+                                <label class="control-label col-md-1">Monthly Bill:<span class="required">
                                     </span>
                                 </label>
                                 <div class="col-md-2">
@@ -502,8 +502,8 @@
                                     echo $this->Form->input(
                                             'total', array(
                                         'class' => 'form-control',
-                                        'type' => 'number',
-                                        'readonly' => 'readonly'
+                                        'type' => 'number'
+//                                        'readonly' => 'readonly'
                                             )
                                     );
                                     ?>

@@ -632,6 +632,17 @@ class ReportsController extends AppController {
         $data = $this->Track->query($sql);
         return $data[0][0]['total'];
     }
+    
+    
+    function getTotalCardinfotaken() {
+        $this->loadModel('Transaction');
+        $datrange = json_decode($this->request->data['Track']['daterange'], true);
+        $start = $datrange['start'];
+        $end = $datrange['end'];
+        $cardinfotaken = $this->Transaction->query("SELECT count(status) as cardinfotaken FROM transaction WHERE (date) >= '" . $start . "' AND status_histories.date <='" . $end . "' and status = 'reconnection'");
+       
+        return $reconnection[0][0]['reconnection'];
+    }
 
     function supportCall() {
         $this->loadModel('Issue');
