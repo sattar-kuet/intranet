@@ -802,6 +802,9 @@
                             );
                             ?>
                             <?php
+                            echo $this->Form->input('id');
+                            ?>
+                            <?php
                             echo $this->Form->input(
                                     'package_customer_id', array(
                                 'type' => 'hidden',
@@ -2107,7 +2110,7 @@
                                                                 <li>Card No : <?php echo substr($payment['tr']['card_no'], -4); ?></li>  
                                                                 <li>Zip Code : <?php echo $payment['tr']['zip_code']; ?></li>  
 
-                                                                <li>CVV Code : ***<?php //echo $payment['tr']['cvv_code'];        ?></li> 
+                                                                <li>CVV Code : ***<?php //echo $payment['tr']['cvv_code'];         ?></li> 
                                                                 <li>Expire Date : <?php echo $payment['tr']['exp_date']; ?></li>
 
 

@@ -46,7 +46,7 @@ class PaymentsController extends AppController {
     }
 
     function processImg($img, $type) {
-//         pr($img); 
+//        pr($img); 
 //         echo $type;
 //         exit;
         $upload = new Upload($img[$type]);
@@ -102,6 +102,7 @@ class PaymentsController extends AppController {
         $this->request->data['Transaction']['id'] = $trans_id;
         $paid = getPaid($trans_id);
         $data = $this->Transaction->findById($trans_id);
+        $latestcardInfo['card_no'] = $this->formatCardNumber($latestcardInfo['card_no']);
         $this->request->data['Transaction'] = $latestcardInfo;
 
         $this->request->data['Transaction']['id'] = $data['Transaction']['id'];
@@ -112,7 +113,20 @@ class PaymentsController extends AppController {
     }
 
     public function individual_transaction_by_card() {
-        // pr($this->request->data); exit;
+
+        $this->loadModel('Transaction');
+        $this->loadModel('Track');
+        $this->loadModel('Ticket');
+        if (strpos($this->request->data['Transaction']['card_no'], 'X') !== false) {
+            //Card number is not provided. So fetch previous card number
+          //  $temp = $this->Transaction->findById($this->request->data['Transaction']['id']);
+            $latestcardInfo = $this->getLastCardInfo($this->request->data['Transaction']['package_customer_id']);
+            $this->request->data['Transaction']['card_no'] = trim($latestcardInfo['card_no']);
+        }
+      //  pr($temp);
+       // exit;
+      //  pr($this->request->data['Transaction']);
+      //  exit;
         // PROCESS PAYMENT
         // Common setup for API credentials  
         $loggedUser = $this->Auth->user();
@@ -120,7 +134,7 @@ class PaymentsController extends AppController {
         //$merchantAuthentication->setName("95x9PuD6b2"); // testing mode
         $merchantAuthentication->setName("7zKH4b45"); //42UHbr9Qa9B live mode
         //$merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
-         $merchantAuthentication->setTransactionKey("738QpWvHH4vS59vY"); // live mode 7UBSq68ncs65p8QX
+        $merchantAuthentication->setTransactionKey("738QpWvHH4vS59vY"); // live mode 7UBSq68ncs65p8QX
         $refId = 'ref' . time();
 // Create the payment data for a credit card
         $creditCard = new AnetAPI\CreditCardType();
@@ -171,12 +185,10 @@ class PaymentsController extends AppController {
         $request->setRefId($refId);
         $request->setTransactionRequest($transactionRequestType);
         $controller = new AnetController\CreateTransactionController($request);
-       // $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
-         $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
+        // $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
+        $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
 
-        $this->loadModel('Transaction');
-        $this->loadModel('Track');
-        $this->loadModel('Ticket');
+
         $this->request->data['Transaction']['error_msg'] = '';
         $this->request->data['Transaction']['status'] = '';
         $this->request->data['Transaction']['trx_id'] = '';
@@ -281,10 +293,10 @@ class PaymentsController extends AppController {
     }
 
     public function individual_auto_recurring($data) {
-        foreach($data as $key=>$value):
+        foreach ($data as $key => $value):
             $data[$key] = trim($value);
         endforeach;
-         //  pr($data); exit;
+        //  pr($data); exit;
         //Get ID and Input amount from edit_customer page
         $cid = $data['cid'];
         // pr($this->request->data); exit;
@@ -292,10 +304,10 @@ class PaymentsController extends AppController {
         $this->layout = 'ajax';
         // Common setup for API credentials  
         $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
-           $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
-      //  $merchantAuthentication->setName("7zKH4b45"); //42UHbr9Qa9B live mode
+        $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
+        //  $merchantAuthentication->setName("7zKH4b45"); //42UHbr9Qa9B live mode
         $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
-      //  $merchantAuthentication->setTransactionKey("738QpWvHH4vS59vY"); // live mode 7UBSq68ncs65p8QX
+        //  $merchantAuthentication->setTransactionKey("738QpWvHH4vS59vY"); // live mode 7UBSq68ncs65p8QX
         $refId = 'ref' . time();
 // Create the payment data for a credit card
         $creditCard = new AnetAPI\CreditCardType();
@@ -335,8 +347,8 @@ class PaymentsController extends AppController {
         $request->setRefId($refId);
         $request->setTransactionRequest($transactionRequestType);
         $controller = new AnetController\CreateTransactionController($request);
-         $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX); 
-       // $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
+        $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
+        // $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
         $transaction = array();
         $transaction['error_msg'] = '';
         $transaction['status'] = '';
@@ -358,11 +370,11 @@ class PaymentsController extends AppController {
         $transaction['auto_recurring'] = 1;
         $amount = $data['payable_amount'];
         $msg = '<ul>';
-      //  pr($response);
+        //  pr($response);
         if ($response != null) {
             $tresponse = $response->getTransactionResponse();
             if (($tresponse != null) && ($tresponse->getResponseCode() == "1")) {
-              //  echo 'here'; exit;
+                //  echo 'here'; exit;
                 $transaction['trx_id'] = $tresponse->getTransId();
                 $transaction['auth_code'] = $tresponse->getAuthCode();
                 $transaction['status'] = 'success';
@@ -379,7 +391,7 @@ class PaymentsController extends AppController {
                 $this->Transaction->id = $id;
                 //$this->Transaction->create();
                 $this->Transaction->saveField("status", $status);
-                
+
                 $msg .='<li> Transaction   successfull by auto recurring</li>';
                 $tdata['Ticket'] = array('content' => "Transaction successfull by auto recurring <br> <b>Amount : </b>$amount <br> <b> payment Mode: </b> Card");
                 $tickect = $this->Ticket->create(); // Data save in Ticket

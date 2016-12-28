@@ -31,7 +31,7 @@ class CustomersController extends AppController {
             'parent_dir' => 'pictures',
             'target_path' => array(
                 'picture' => WWW_ROOT . 'pictures' . DS,
-                'attachment' => WWW_ROOT . 'attchment' . DS
+                'attachment' => WWW_ROOT . 'attachment' . DS
             )
         );
 
@@ -61,17 +61,16 @@ class CustomersController extends AppController {
         $return['file_dst_name'] = $upload->file_dst_name;
         return $return;
     }
+
     function processInvoice($img) {
         $upload = new Upload($img['extra_invoice']);
         $upload->file_new_name_body = time();
-       
-        $upload->process($this->img_config['target_path']['picture']);
+        $upload->process($this->img_config['target_path']['attachment']);
         if (!$upload->processed) {
             $msg = $this->generateError($upload->error);
-            return $this->redirect('create');
+            return $this->redirect($this->referer());
         }
-        $return['file_dst_name'] = $upload->file_dst_name;
-        return $return;
+        return $upload->file_dst_name;
     }
 
     function processAttachment($img) {
@@ -92,7 +91,16 @@ class CustomersController extends AppController {
     }
 
     function extrainvoice() {
-        pr($this->request->data); exit;
+       $extra_invoice = $this->processInvoice($this->request->data['PackageCustomer']);
+       $this->loadModel('PackageCustomer');
+       $this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
+       $this->PackageCustomer->saveField('extra_invoice', $extra_invoice);
+        $Msg = '<div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Extra Invoice added Successfully! </strong>
+    </div>';
+        $this->Session->setFlash($Msg);
+        return $this->redirect($this->referer());
     }
 
     function getCustomerByParam($param, $field) {
@@ -237,7 +245,13 @@ class CustomersController extends AppController {
         $this->request->data['Transaction']['user_id'] = $user_id;
         $this->request->data['Transaction']['status'] = 'update';
         $this->request->data['Transaction']['exp_date'] = $this->request->data['Transaction']['exp_date']['month'] . '/' . substr($this->request->data['Transaction']['exp_date']['year'], -2);
-
+       
+        if (strpos($this->request->data['Transaction']['card_no'], 'X') !== false) {
+            //Card number is not changed. So fetch previous card number
+            $card = $this->Transaction->findById($this->request->data['Transaction']['id']);
+            $this->request->data['Transaction']['card_no'] = $card['Transaction']['card_no'];
+           
+        }
         $this->Transaction->save($this->request->data['Transaction']);
         $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -297,7 +311,6 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         if ($this->request->is('post') || $this->request->is('put')) {
             // update package_customers table
             $this->request->data['PackageCustomer']['id'] = $id;
-
             $this->updatePackageCustomerTable($this->request->data['PackageCustomer']);
             $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -316,6 +329,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         unset($customer_info['PackageCustomer']['payable_amount']);
         unset($customer_info['PackageCustomer']['cvv_code']);
         unset($customer_info['PackageCustomer']['zip_code']);
+        unset($customer_info['PackageCustomer']['id']);
         $this->request->data['Transaction'] = $customer_info['PackageCustomer'] + $latestcardInfo;
         $this->request->data['Transaction']['card_no'] = $this->formatCardNumber($this->request->data['Transaction']['card_no']);
         $nextPay = $this->Transaction->find('first', array('conditions' => array('Transaction.package_customer_id' => $pcid, 'Transaction.status' => 'open'), 'order' => array('Transaction.id' => 'DESC')));

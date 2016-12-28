@@ -42,6 +42,7 @@ class TicketsController extends AppController {
     }
 
     function create($customer_id = null) {
+
         if ($customer_id == null) {
             $this->redirect('/admins/servicemanage');
         }
@@ -55,6 +56,8 @@ class TicketsController extends AppController {
         $this->loadModel('TicketDepartment');
         $this->loadModel('PackageCustomer');
         if ($this->request->is('post')) {
+          //  pr($this->request->data['Ticket']);
+           // exit;
             $this->Ticket->set($this->request->data);
             if ($this->Ticket->validates()) {
                 if (empty($this->request->data['Ticket']['user_id']) &&
@@ -80,7 +83,7 @@ class TicketsController extends AppController {
                     "status" => 'requested',
                     "user_id" => $loggedUser['id']
                 );
-               
+
 //                pr($data);
 //                exit;
 //                $this->StatusHistory->save($data4statusHistory);
@@ -89,6 +92,7 @@ class TicketsController extends AppController {
 
                 if (trim($this->request->data['Ticket']['action_type']) == 'solved') {
                     $this->request->data['Ticket']['priority'] = 'low';
+                    $this->request->data['Ticket']['status'] = 'solved';
                 }
                 $tickect = $this->Ticket->save($this->request->data['Ticket']); // Data save in Ticket
                 $trackData['Track'] = array(
@@ -177,10 +181,10 @@ class TicketsController extends AppController {
                     );
                     $this->PackageCustomer->id = $customer_id;
                     $cusinfo = $this->PackageCustomer->save($data['PackageCustomer']);
+                    $this->request->data['Ticket']['status'] = 'solved';
                 }
                 if (trim($this->request->data['Ticket']['action_type']) == 'shipment') {
-
-
+                    $this->request->data['Ticket']['status'] = 'solved';
                     if ($this->request->data['Ticket']['shipment_equipment'] == 'OTHER') {
                         $this->request->data['Ticket']['shipment_equipment'] = $this->request->data['Ticket']['shipment_equipment_other'];
                     }
@@ -191,9 +195,6 @@ class TicketsController extends AppController {
                         'shipment_equipment' => $this->request->data['Ticket']['shipment_equipment'],
                         'shipment_note' => $this->request->data['Ticket']['shipment_note']
                     );
-
-
-
                 }
                 $customer = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $customer_id)));
 
@@ -257,6 +258,7 @@ class TicketsController extends AppController {
 
     function unsolve() {
         $this->loadModel('Track');
+        unset($this->request->data['Track']['id']);
         $this->request->data['Track']['status'] = 'unresolved';
         $this->request->data['Track']['package_customer_id'] = $this->request->data['Track']['package_customer_id'];
         $loggedUser = $this->Auth->user();
@@ -286,9 +288,10 @@ class TicketsController extends AppController {
 
     function solve() {
         $this->loadModel('Track');
-
+        $this->loadModel('Ticket');
         //  $this->Track->set($this->request->data);
-        $this->Track->id = $this->request->data['Track']['id'];
+        //$this->Track->id = $this->request->data['Track']['id'];
+        unset($this->request->data['Track']['id']);
         $this->request->data['Track']['status'] = 'solved';
 
         $this->request->data['Track']['package_customer_id'] = $this->request->data['Track']['package_customer_id'];
@@ -297,6 +300,8 @@ class TicketsController extends AppController {
         $this->request->data['Track']['forwarded_by'] = $loggedUser['id'];
 //                pr($this->request->data); exit;
         $this->Track->save($this->request->data['Track']);
+        $this->Ticket->id = $this->request->data['Track']['ticket_id'];
+        $this->Ticket->saveField('status', 'solved');
         $msg = '<div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <strong> Ticket is Solved succeesfully </strong>
@@ -536,8 +541,8 @@ class TicketsController extends AppController {
             $this->Session->setFlash($msg);
             return $this->redirect($this->referer());
         }
-        pr($this->request->data);
-        exit;
+        //  pr($this->request->data);
+        // exit;
         $this->Track->save($this->request->data['Track']);
         $msg = '<div class="alert alert-success">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -663,7 +668,7 @@ class TicketsController extends AppController {
                         left JOIN users fi ON tr.user_id = fi.id
                         left JOIN issues i ON tr.issue_id = i.id
                         left join package_customers pc on tr.package_customer_id = pc.id
-                         WHERE tr.status = 'open' ORDER BY tr.created DESC");
+                         WHERE t.status = 'open' ORDER BY tr.created DESC");
 
         $filteredTicket = array();
         $unique = array();
@@ -701,7 +706,7 @@ class TicketsController extends AppController {
                         left JOIN users fi ON tr.user_id = fi.id
                         left JOIN issues i ON tr.issue_id = i.id
                         left join package_customers pc on tr.package_customer_id = pc.id
-                         WHERE tr.status = 'solved' ORDER BY tr.created DESC LIMIT 0 , 100");
+                         WHERE t.status = 'solved' ORDER BY tr.created DESC LIMIT 0 , 100");
 
         $filteredTicket = array();
         $unique = array();
