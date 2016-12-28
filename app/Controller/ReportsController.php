@@ -81,9 +81,9 @@ class ReportsController extends AppController {
         $this->loadModel('Transaction');
         $clicked = false;
         if ($this->request->is('post') || $this->request->is('put') || $start != null) {
-         
+
             if ($start == null) {
-                
+
                 $datrange = json_decode($this->request->data['Transaction']['daterange'], true);
                 $start = $datrange['start'];
                 $end = $datrange['end'];
@@ -107,21 +107,61 @@ class ReportsController extends AppController {
             $total = $this->Transaction->query("SELECT COUNT(tr.id) as total FROM transactions tr 
                 WHERE $conditions");
             $total = $total[0][0]['total'];
-            $total_page = ceil( $total / $this->per_page);
+            $total_page = ceil($total / $this->per_page);
             $sql = "SELECT * FROM transactions tr 
                 left join package_customers pc on pc.id = tr.package_customer_id
                 left join psettings ps on ps.id = pc.psetting_id
                 LEFT JOIN packages p ON p.id = ps.package_id 
                 WHERE $conditions order by tr.id desc limit $offset,$this->per_page";
 
-
             $transactions = $this->Transaction->query($sql);
+//            pr($transactions); exit;
+
             $sql1 = "SELECT SUM(payable_amount)as totalamount FROM transactions tr WHERE $conditions ";
             $totalamount = $this->Transaction->query($sql1);
-            $totalamount =  round($totalamount[0][0]['totalamount'],2);
-          // pr($transactions); exit;
+            $totalamount = round($totalamount[0][0]['totalamount'], 2);
+
+            //Total Manual
+            $sqlmanual = "SELECT SUM(payable_amount)as totalmanual FROM transactions tr WHERE $conditions and tr.auto_recurring != 1";
+            $totalmanual = $this->Transaction->query($sqlmanual);
+            $totalmanual = round($totalmanual[0][0]['totalmanual'], 2);
+
+            //Auto recurring
+            $sqlautore = "SELECT SUM(payable_amount)as totalautore FROM transactions tr WHERE $conditions and tr.auto_recurring = 1";
+            $totalautore = $this->Transaction->query($sqlautore);          
+            $totalautore = round($totalautore[0][0]['totalautore'], 2);        
+                       
+            //1 month total packages
+            $sql1monthp = "SELECT COUNT(ps.name) as total1monthp FROM transactions tr left join package_customers pc on pc.id = tr.package_customer_id 
+            left join psettings ps on ps.id = pc.psetting_id  LEFT JOIN packages p ON p.id = ps.package_id 
+            WHERE $conditions and ps.name = '1 month package $40'";
+            $sql1monthp = $this->Transaction->query($sql1monthp);
+//            pr($sql1monthp); exit;
+            $sql1monthp = $sql1monthp[0][0]['total1monthp'];
+            
+            //3 month total packages
+            $sql3monthp = "SELECT COUNT(ps.name) as total3monthp FROM transactions tr left join package_customers pc on pc.id = tr.package_customer_id 
+            left join psettings ps on ps.id = pc.psetting_id  LEFT JOIN packages p ON p.id = ps.package_id 
+            WHERE $conditions and ps.name = '3 month package $90'";
+            $total3monthp = $this->Transaction->query($sql3monthp);
+            $total3monthp = round($total3monthp[0][0]['total3monthp']);
+            
+            //6 month total packages
+            $total6monthp = "SELECT COUNT(ps.name) as total6monthp FROM transactions tr left join package_customers pc on pc.id = tr.package_customer_id 
+            left join psettings ps on ps.id = pc.psetting_id LEFT JOIN packages p ON p.id = ps.package_id 
+            WHERE $conditions and ps.name = '6 month package $180'";
+            $total6monthp = $this->Transaction->query($total6monthp);                        
+            $total6monthp = $total6monthp[0][0]['total6monthp'];
+            
+            //12 month total packages
+            $sql12monthp = "SELECT COUNT(ps.name) as total12monthp FROM transactions tr left join package_customers pc on pc.id = tr.package_customer_id 
+            left join psettings ps on ps.id = pc.psetting_id LEFT JOIN packages p ON p.id = ps.package_id 
+            WHERE $conditions  and ps.name = '1 year package $360'";
+            $sql12monthp = $this->Transaction->query($sql12monthp);
+            $sql12monthp = round($sql12monthp[0][0]['total12monthp']);
+
             $clicked = true;
-            $this->set(compact('transactions', 'totalamount', 'total_page','total','start','end'));
+            $this->set(compact('transactions', 'totalamount','total_page','total','start','end','totalmanual','totalautore','sql1monthp','total3monthp','total6monthp','sql12monthp'));
         }
         $this->set(compact('clicked'));
     }

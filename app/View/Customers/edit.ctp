@@ -2110,8 +2110,6 @@
                                                                 <li>CVV Code : ***<?php //echo $payment['tr']['cvv_code'];           ?></li> 
                                                                 <li>Expire Date : <?php echo $payment['tr']['exp_date']; ?></li>
 
-
-
                                                             <?php elseif ($payment['tr']['pay_mode'] == 'cash'): ?>
                                                                 <li>Pay Mode : <?php echo $payment['tr']['pay_mode']; ?></li> 
                                                                 <li> Cash By : <?php echo $payment['tr']['cash_by']; ?> </li>
@@ -2122,7 +2120,6 @@
                                                                 <ul> <li>Amount : <?php echo $payment['tr']['paid_amount']; ?></li>
                                                                     <li>Refund Date : <?php echo date('m-d-Y', strtotime($payment['tr']['created'])); ?></li>
                                                                 </ul>
-
 
                                                             <?php else: ?>
                                                                 <li>Pay Mode : <?php echo $payment['tr']['pay_mode']; ?></li> 

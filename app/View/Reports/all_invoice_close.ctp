@@ -56,7 +56,6 @@
 //                                    pr($transactions); exit;
                                     foreach ($transactions as $single):
                                         $pcaddress = $single['pc'];
-
                                         $customer_address = $pcaddress['house_no'] . ' ' . $pcaddress['street'] . ' ' .
                                                 $pcaddress['apartment'] . ' ' . $pcaddress['city'] . ' ' . $pcaddress['state'] . ' '
                                                 . $pcaddress['zip'];
