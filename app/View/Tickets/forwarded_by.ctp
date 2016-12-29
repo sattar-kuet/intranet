@@ -29,7 +29,7 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-ticket"></i>Forwarded By
+                            <i class="fa fa-ticket"></i>Forwarded By Total tickets: <?php echo $total; ?> 
                         </div>
 
                         <div class="tools">

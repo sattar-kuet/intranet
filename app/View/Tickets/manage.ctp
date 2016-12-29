@@ -27,7 +27,7 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-ticket"></i>List of All Tickets
+                            <i class="fa fa-ticket"></i>List of All Tickets Total tickets: <?php echo $total; ?> 
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="reload">
