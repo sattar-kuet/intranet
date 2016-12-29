@@ -123,18 +123,13 @@ $content = explode("\n", $content);
   <body paddingwidth="0" paddingheight="0"   style="padding-top: 0; padding-bottom: 0; padding-top: 0; padding-bottom: 0; background-repeat: repeat; width: 100% !important; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; -webkit-font-smoothing: antialiased;" offset="0" toppadding="0" leftpadding="0">
     <div style="background-color:#dfdfdf;padding:0;margin:0 auto;width:100%">
       <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableContent bgBody" align="center"  style="font-family:Helvetica,Arial,sans-serif;border-collapse:collapse;width:100%!important;font-family:Helvetica,Arial,sans-serif;margin:0;padding:0">
-
-
         <tr><td height='35'></td></tr>
-
         <tr>
           <td>
             <table width="600" border="0" cellspacing="0" cellpadding="0" align="center" class='bgItem'>
               <tr>
                 <td width='40'></td>
-                <td width='520'>
-                  
-
+                <td width='520'>             
                   <div class='movableContent'>
                     <table width="520" border="0" cellspacing="0" cellpadding="0" align="center">
                       <tr>
@@ -150,13 +145,9 @@ $content = explode("\n", $content);
                       </tr>
                     </table>
                   </div>
-
-
                   <table width="520" border="0" cellspacing="0" cellpadding="0" align="center">
 
                     <!-- =============================== Header ====================================== -->           
-
-
                     <tr>
                       <td height='75'>
                         <table border="0" cellspacing="0" cellpadding="0" style="font-family:Helvetica,Arial,sans-serif;min-width:290px" width="600">
@@ -262,19 +253,10 @@ $content = explode("\n", $content);
 
                     <tr>
                       <td class='movableContentContainer' valign='top'>
-
-                        
-
-                        
-
-                        <div class='movableContent bodycon' style="font-family: Helvetica,Arial,sans-serif;width: 600px;table-layout: fixed;text-align: left;background: #ffffff;border: 1px solid #ffffff;border-bottom: 2px solid #bcbcbc;border-left: 1px solid #cecece;border-right: 1px solid #cecece;">
+                       <div class='movableContent bodycon' style="font-family: Helvetica,Arial,sans-serif;width: 600px;table-layout: fixed;text-align: left;background: #ffffff;border: 1px solid #ffffff;border-bottom: 2px solid #bcbcbc;border-left: 1px solid #cecece;border-right: 1px solid #cecece;">
                           <table width="520" border="0" cellspacing="0" cellpadding="0" align="center">
                             <tr><td height='35'></td></tr>
-                            
-
-                            
-
-                            <tr>
+                             <tr>
                               <td align='left'>
                                 <div class="contentEditableContainer contentTextEditable">
                                   <div class="contentEditable" align='center'>
@@ -283,14 +265,11 @@ $content = explode("\n", $content);
 
                                       echo '<p> ' . $line . "</p>\n";
                                     endforeach;
-
                                     ?>
-
                                   </div>
                                 </div>
                               </td>
                             </tr>
-
                             <tr><td height='35'></td></tr>
 
                             <!-- <tr>
@@ -311,14 +290,10 @@ $content = explode("\n", $content);
                             <tr><td height='20'></td></tr>
                           </table>
                         </div>
-
                         <div lass='movableContent'>
                           <table width="520" border="0" cellspacing="0" cellpadding="0" align="center">
-                            
-                            <tr><td  style='border-bottom:1px solid #DDDDDD;'></td></tr>
-
+                           <tr><td  style='border-bottom:1px solid #DDDDDD;'></td></tr>
                             <tr><td height='25'></td></tr>
-
                             <tr>
                               <td>
                                 <table width="520" border="0" cellspacing="0" cellpadding="0" align="center">
@@ -350,9 +325,7 @@ $content = explode("\n", $content);
                                         </div>
                                       </div>
                                     </td>
-
                                     <td width='16'></td>
-
                                     <td valign='top' width='52'>
                                       <div class="contentEditableContainer contentTwitterEditable">
                                         <div class="contentEditable">
@@ -362,8 +335,7 @@ $content = explode("\n", $content);
                                     </td>
                                   </tr>
                                 </table>
-                                
-                              </td>
+                               </td>
                             </tr>
                           </table>
                         </div>
@@ -371,11 +343,7 @@ $content = explode("\n", $content);
                       </td>
                     </tr>
 
-
-
                     <!-- =============================== footer ====================================== -->
-
-
 
                   </table>
                 </td>
@@ -384,14 +352,9 @@ $content = explode("\n", $content);
             </table>
           </td>
         </tr>
-
         <tr><td height='88'></td></tr>
-
-
       </table>
     </div>
-
-
   </body>
 </html>
 

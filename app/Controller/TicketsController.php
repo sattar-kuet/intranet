@@ -56,8 +56,8 @@ class TicketsController extends AppController {
         $this->loadModel('TicketDepartment');
         $this->loadModel('PackageCustomer');
         if ($this->request->is('post')) {
-          //  pr($this->request->data['Ticket']);
-           // exit;
+            pr($this->request->data['Ticket']);
+            // exit;
             $this->Ticket->set($this->request->data);
             if ($this->Ticket->validates()) {
                 if (empty($this->request->data['Ticket']['user_id']) &&
@@ -89,11 +89,16 @@ class TicketsController extends AppController {
 //                $this->StatusHistory->save($data4statusHistory);
 
                 $cusinfo = $this->PackageCustomer->save($data);
-
-                if (trim($this->request->data['Ticket']['action_type']) == 'solved') {
+                $status = 'open';
+                if (trim($this->request->data['Ticket']['action_type']) == 'solved' ||
+                        trim($this->request->data['Ticket']['action_type']) == 'ready' ||
+                        trim($this->request->data['Ticket']['action_type']) == 'shipment') {
+                    //   echo 'here'; exit;
                     $this->request->data['Ticket']['priority'] = 'low';
                     $this->request->data['Ticket']['status'] = 'solved';
+                    $status = 'solved';
                 }
+                // pr($this->request->data['Ticket']); exit;
                 $tickect = $this->Ticket->save($this->request->data['Ticket']); // Data save in Ticket
                 $trackData['Track'] = array(
                     'issue_id' => $this->request->data['Ticket']['issue_id'],
@@ -102,6 +107,7 @@ class TicketsController extends AppController {
                     'role_id' => $this->request->data['Ticket']['role_id'],
                     'issue_id' => $this->request->data['Ticket']['issue_id'],
                     'ticket_id' => $tickect['Ticket']['id'],
+                    'status' => $status,
                     'forwarded_by' => $loggedUser['id']
                 );
 
@@ -181,10 +187,9 @@ class TicketsController extends AppController {
                     );
                     $this->PackageCustomer->id = $customer_id;
                     $cusinfo = $this->PackageCustomer->save($data['PackageCustomer']);
-                    $this->request->data['Ticket']['status'] = 'solved';
                 }
                 if (trim($this->request->data['Ticket']['action_type']) == 'shipment') {
-                    $this->request->data['Ticket']['status'] = 'solved';
+
                     if ($this->request->data['Ticket']['shipment_equipment'] == 'OTHER') {
                         $this->request->data['Ticket']['shipment_equipment'] = $this->request->data['Ticket']['shipment_equipment_other'];
                     }
@@ -657,10 +662,12 @@ class TicketsController extends AppController {
         }
     }
 
-    function in_progress() {
+    function in_progress($page = 1) {
         $this->loadModel('Track');
+        $this->loadModel('Ticket');
         $this->loadModel('User');
         $this->loadModel('Role');
+        $offset = --$page * $this->per_page;
         $tickets = $this->Track->query("SELECT * FROM tracks tr
                         left JOIN tickets t ON tr.ticket_id = t.id
                         left JOIN users fb ON tr.forwarded_by = fb.id
@@ -668,7 +675,9 @@ class TicketsController extends AppController {
                         left JOIN users fi ON tr.user_id = fi.id
                         left JOIN issues i ON tr.issue_id = i.id
                         left join package_customers pc on tr.package_customer_id = pc.id
-                         WHERE t.status = 'open' ORDER BY tr.created DESC");
+                         WHERE t.status = 'open' ORDER BY tr.created DESC " . " LIMIT " . $offset . "," . $this->per_page);
+        $total = $this->Ticket->query("SELECT COUNT(tickets.id) as total FROM `tickets` WHERE tickets.status = 'open'");
+        $total_page = ceil($total[0][0]['total'] / $this->per_page);
 
         $filteredTicket = array();
         $unique = array();
@@ -692,7 +701,7 @@ class TicketsController extends AppController {
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
         //  pr($roles); exit;
-        $this->set(compact('data', 'users', 'roles'));
+        $this->set(compact('data', 'users', 'roles','total_page','total'));
     }
 
     function solved_ticket() {

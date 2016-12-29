@@ -2110,10 +2110,12 @@
                                                                 <li>Card No : <?php echo substr($payment['tr']['card_no'], -4); ?></li>  
                                                                 <li>Zip Code : <?php echo $payment['tr']['zip_code']; ?></li>  
 
+<<<<<<< HEAD
                                                                 <li>CVV Code : ***<?php //echo $payment['tr']['cvv_code'];         ?></li> 
+=======
+                                                                <li>CVV Code : ***<?php //echo $payment['tr']['cvv_code'];           ?></li> 
+>>>>>>> b8265305b4ac09e3d8ae987cc5a75d2b1f21e2c6
                                                                 <li>Expire Date : <?php echo $payment['tr']['exp_date']; ?></li>
-
-
 
                                                             <?php elseif ($payment['tr']['pay_mode'] == 'cash'): ?>
                                                                 <li>Pay Mode : <?php echo $payment['tr']['pay_mode']; ?></li> 
@@ -2121,13 +2123,14 @@
 
                                                             <?php elseif ($payment['tr']['pay_mode'] == 'refund'): ?>
                                                                 <li>Pay Mode : <?php echo $payment['tr']['pay_mode']; ?></li>
+                                                                <li>Check Info : <?php echo $payment['tr']['check_info']; ?></li>
                                                                 <ul> <li>Amount : <?php echo $payment['tr']['paid_amount']; ?></li>
                                                                     <li>Refund Date : <?php echo date('m-d-Y', strtotime($payment['tr']['created'])); ?></li>
                                                                 </ul>
 
-
                                                             <?php else: ?>
                                                                 <li>Pay Mode : <?php echo $payment['tr']['pay_mode']; ?></li> 
+                                                                <li>Check Info : <?php echo $payment['tr']['check_info']; ?></li>
                                                                 <?php if (!empty($payment['tr']['check_image'])): ?>
                                                                     <img src="<?php echo $this->webroot . 'check_images' . '/' . $payment['tr']['check_image']; ?>"  width="50px" height="50px" />
                                                                 <?php endif; ?>
@@ -2465,7 +2468,7 @@
                                                                         </th>
                                                                         <tr>
                                                                             <td style="padding-left: 5px; min-height: 115px; line-height: 15px;">
-                                                                                <?php // if (!empty($single['0']['name'])):             ?>
+                                                                                <?php // if (!empty($single['0']['name'])):              ?>
 
                                                                                 <?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?>
 

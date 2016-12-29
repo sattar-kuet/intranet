@@ -13,12 +13,10 @@
         border-radius: 4px;
         text-align: center;
     }
-
     ul.pagination {
         display: flex;
         justify-content: center;
     }
-
 </style>
 
 <div class="page-content-wrapper">
@@ -30,7 +28,6 @@
                     <div class="portlet-title">
                         <div class="caption">
                             <i class="fa fa-plus"></i>Payment History
-
                         </div>   
                     </div>
                     <div class="portlet-body form">
@@ -123,10 +120,17 @@
                             <div class="col-xs-12">                             
                                 <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
 
-                                    <div class="alert alert-info clearfix" style="color: #000; font-size: 18px;"> 
-                                        <p class="pull-left"> Total Amount: $<?php echo $totalamount; ?> </p> 
-                                        
-                                        <p class="pull-right"> Total Customers: <?php echo $total; ?>  </p>
+                                    <div class="alert alert-info clearfix" style="color: #000; font-size: 12px;"> 
+                                        <p class="pull-left"> 
+                                         Total Amount<b>: $<?php echo $totalamount; ?></b>&nbsp;
+                                         Manual<b>: <?php echo $totalmanual; ?></b>&nbsp;
+                                         Auto Recurring<b>: <?php echo $totalautore; ?></b>&nbsp;
+                                         1Months Customers<b>: <?php echo $sql1monthp; ?></b>&nbsp;
+                                         3Months Customers<b>: <?php echo $total3monthp; ?></b>&nbsp;
+                                         6Months Customers<b>: <?php echo $total6monthp; ?></b>&nbsp;
+                                         12Months Customers<b>: <?php echo $total3monthp; ?>                                        
+                                        </p>                                        
+                                        <p class="pull-right"> Total Customers<b>: <?php echo $total; ?></b></p>
                                     </div>                                       
 
 

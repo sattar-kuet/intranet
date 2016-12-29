@@ -8,13 +8,17 @@
     }
     .txtArea { width:300px; }
 
+      ul.pagination {
+        display: flex;
+        justify-content: center;
+    }
 </style>
 
 <div class="page-content-wrapper">
     <div class="page-content">
         <!-- BEGIN PAGE HEADER-->
         <h3 class="page-title">
-           In-progress tickets <small>You can resolve, unresolve or froward</small>
+            In-progress tickets <small>You can resolve, unresolve or froward</small>
         </h3>
 
         <!-- END PAGE HEADER-->
@@ -34,6 +38,20 @@
                     </div>
                     <div class="portlet-body">
                         <?php echo $this->Session->flash(); ?>
+                        <ul class="pagination" >
+                            <?php
+                            for ($i = 1; $i <= $total_page; $i++):
+                                $active = '';
+                                if (isset($this->params['pass'][0]) && $this->params['pass'][0] == $i) {
+                                    $active = 'active';
+                                }
+                                ?>
+                                <li class="paginate_button <?php echo $active; ?>" aria-controls="sample_editable_1" tabindex="<?php echo $i; ?>">
+                                    <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'in_progress', $i)) ?>"><?php echo $i; ?></a>
+                                </li>
+                            <?php endfor; ?>
+                        </ul>
+
                         <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                             <thead>
                                 <tr>
@@ -55,14 +73,13 @@
                                     $customer = end($single['history']);
                                     $customer = $customer['pc'];
                                     $ticket = $single['ticket'];
-                                    
-                                    
+
+
                                     $customer = $single['history'][0]['pc'];
 //                                         pr($customer['street']); exit;
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
                                             . $customer['zip'];
-                                    
                                     ?>
                                     <tr >
                                         <td >
@@ -77,7 +94,7 @@
                                             </ul>
                                         </td>
                                         <td>
-                                        <?php echo date('m-d-Y h:i:sa', strtotime($ticket['created'])); ?>
+                                            <?php echo date('m-d-Y h:i:sa', strtotime($ticket['created'])); ?>
                                         </td>
                                         <td><?php echo $ticket['content']; ?></td>
                                         <td>
@@ -99,7 +116,7 @@
                                                         <?php echo $history['fb']['name']; ?>
                                                         <p><strong>Forwarded To:</strong><ul><li><?php echo $history['fi']['name']; ?> </li><li><?php echo $history['fd']['name']; ?> </li></ul>
                                                         <strong>Time:</strong>                                                            
-                                                         <?php echo date('m-d-Y h:i:sa', strtotime($history['tr']['created'])); ?>
+                                                        <?php echo date('m-d-Y h:i:sa', strtotime($history['tr']['created'])); ?>
                                                         &nbsp;&nbsp;<strong>Status:</strong> <?php echo $history['tr']['status']; ?><br>
                                                         <?php
                                                         if (!empty($history['tr']['comment'])):
@@ -117,7 +134,7 @@
                                         <td>   
                                             <div class="controls center text-center">
                                                 <?php if ($lasthistory['status'] == 'open') { ?>                                            
-                                             
+
                                                     <a 
                                                         href="#" title="Solved">
                                                         <span id="<?php echo $ticket['id']; ?>" class="fa fa-check fa-lg solve_ticket"></span>
@@ -322,7 +339,7 @@
                                                         );
                                                         ?>
 
-                                                         <?php
+                                                        <?php
                                                         echo $this->Form->input('package_customer_id', array(
                                                             'type' => 'hidden',
                                                             'value' => $lasthistory['package_customer_id'],
@@ -434,7 +451,7 @@
                                                                 )
                                                         );
                                                         ?>
-                                                        
+
                                                         <?php
                                                         echo $this->Form->input('package_customer_id', array(
                                                             'type' => 'hidden',
