@@ -676,8 +676,9 @@ class TicketsController extends AppController {
                         left JOIN issues i ON tr.issue_id = i.id
                         left join package_customers pc on tr.package_customer_id = pc.id
                          WHERE t.status = 'open' ORDER BY tr.created DESC " . " LIMIT " . $offset . "," . $this->per_page);
-        $total = $this->Ticket->query("SELECT COUNT(tickets.id) as total FROM `tickets` WHERE tickets.status = 'open'");
-        $total_page = ceil($total[0][0]['total'] / $this->per_page);
+        $temp = $this->Ticket->query("SELECT COUNT(tickets.id) as total FROM `tickets` WHERE tickets.status = 'open'");
+        $total = $temp[0][0]['total'];
+        $total_page = ceil($total / $this->per_page);
 
         $filteredTicket = array();
         $unique = array();

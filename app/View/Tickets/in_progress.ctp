@@ -29,7 +29,7 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-ticket"></i> Tickets is in Progress... Total tickets: <?php echo count($data); ?>                                
+                            <i class="fa fa-ticket"></i> Tickets is in Progress... Total tickets: <?php echo $total; ?>                                
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="reload">
