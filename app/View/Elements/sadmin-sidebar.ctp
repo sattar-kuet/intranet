@@ -149,7 +149,7 @@
 
             <li 
             <?php
-            $tickets = array('Ticketscreate', 'Ticketsmanage', 'Ticketsassigned_to_me', 'TicketsForwarded_by', 'Ticketssolved_ticket', 'Ticketsin_progress');
+            $tickets = array('Ticketscreate', 'Ticketsmanage', 'Ticketsassigned_to_me', 'Ticketsforwarded_by', 'Ticketssolved_ticket', 'Ticketsin_progress');
             if (in_array($this->name . '' . $this->action, $tickets)):
                 ?>
                     class="active"
@@ -202,7 +202,7 @@
                             Inform to Me</a>
                     </li>
                     <li
-                    <?php if ($this->name . '' . $this->action == 'forwarded_by'):
+                    <?php if ($this->name . '' . $this->action == 'Forwarded_by'):
                         ?>
                             class="active"
                             <?php
