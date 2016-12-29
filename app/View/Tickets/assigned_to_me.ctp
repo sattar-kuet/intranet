@@ -7,7 +7,10 @@
         text-align: center;
     }
     .txtArea { width:300px; }
-
+    ul.pagination {
+        display: flex;
+        justify-content: center;
+    }
 </style>
 
 <div class="page-content-wrapper">
@@ -36,7 +39,19 @@
                     <div class="portlet-body">
 
                         <?php echo $this->Session->flash(); ?>
-
+                        <ul class="pagination" >
+                            <?php
+                            for ($i = 1; $i <= $total_page; $i++):
+                                $active = '';
+                                if (isset($this->params['pass'][0]) && $this->params['pass'][0] == $i) {
+                                    $active = 'active';
+                                }
+                                ?>
+                                <li class="paginate_button <?php echo $active; ?>" aria-controls="sample_editable_1" tabindex="<?php echo $i; ?>">
+                                    <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'assigned_to_me', $i)) ?>"><?php echo $i; ?></a>
+                                </li>
+                            <?php endfor; ?>
+                        </ul>
                         <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                             <thead>
                                 <tr>
@@ -51,14 +66,14 @@
                             </thead>
                             <tbody>
                                 <?php
-                                foreach ($data as $single):                                   
+                                foreach ($data as $single):
                                     $issue = end($single['history']);
                                     $customer = end($single['history']);
                                     $customer = $customer['pc'];
                                     $ticket = $single['ticket'];
                                     ?>
                                     <tr >
-                                         <td >
+                                        <td >
                                             <?php echo $single['ticket']['id']; ?>                            
                                         </td>
                                         <td><?php echo $issue['i']['name']; ?></td>
@@ -69,7 +84,7 @@
                                             </ul>
                                         </td>
                                         <td><?php echo date('m-d-Y h:i:sa', strtotime($ticket['created'])); ?></td>
-                                        
+
                                         <td><?php echo $ticket['content']; ?></td>
                                         <td>
                                             <ol>
@@ -89,7 +104,7 @@
                                                         <?php echo $history['fb']['name']; ?>
                                                         <p><strong>Forwarded To:</strong><ul><li><?php echo $history['fi']['name']; ?> </li><li><?php echo $history['fd']['name']; ?> </li></ul>
                                                         <strong>Time:</strong> <?php echo date('m-d-Y h:i:sa', strtotime($history['tr']['created'])); ?>
-                                                        
+
                                                         &nbsp;&nbsp;<strong>Status:</strong> <?php echo $history['tr']['status']; ?><br>
                                                         <?php
                                                         if (!empty($history['tr']['comment'])):
@@ -111,7 +126,7 @@
 
 
                                                 <?php if ($lasthistory['status'] == 'open') { ?>
-                                               
+
 
                                                     <a 
                                                         href="#" title="Solved">
@@ -309,8 +324,8 @@
                                                                 )
                                                         );
                                                         ?>
-                                                        
-                                                          <?php
+
+                                                        <?php
                                                         echo $this->Form->input('package_customer_id', array(
                                                             'type' => 'hidden',
                                                             'value' => $lasthistory['package_customer_id'],
@@ -414,7 +429,7 @@
                                                                 )
                                                         );
                                                         ?>
-                                                          <?php
+                                                        <?php
                                                         echo $this->Form->input('package_customer_id', array(
                                                             'type' => 'hidden',
                                                             'value' => $lasthistory['package_customer_id'],
@@ -464,7 +479,7 @@
                                                         <!-- END FORM-->
                                                     </div> 
 
-                                                    
+
                                                     <div id="comment_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
 
                                                         <!-- BEGIN FORM-->
@@ -555,7 +570,7 @@
                                                         <!-- END FORM-->
                                                     </div> 
 
-                                                    
+
                                                     <?php
                                                 } else {
                                                     echo 'Nothing to do';

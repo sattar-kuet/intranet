@@ -7,7 +7,10 @@
         text-align: center;
     }
     .txtArea { width:300px; }
-
+      ul.pagination {
+        display: flex;
+        justify-content: center;
+    }
 </style>
 
 <div class="page-content-wrapper">
@@ -36,7 +39,19 @@
                     <div class="portlet-body">
 
                         <?php echo $this->Session->flash(); ?>
-
+                         <ul class="pagination" >
+                            <?php
+                            for ($i = 1; $i <= $total_page; $i++):
+                                $active = '';
+                                if (isset($this->params['pass'][0]) && $this->params['pass'][0] == $i) {
+                                    $active = 'active';
+                                }
+                                ?>
+                                <li class="paginate_button <?php echo $active; ?>" aria-controls="sample_editable_1" tabindex="<?php echo $i; ?>">
+                                    <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'solved_ticket', $i)) ?>"><?php echo $i; ?></a>
+                                </li>
+                            <?php endfor; ?>
+                        </ul>
                         <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                             <thead>
                                 <tr>

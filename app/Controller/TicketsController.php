@@ -337,15 +337,11 @@ class TicketsController extends AppController {
         $this->set(compact('roles'));
     }
 
-    function manage() {
+    function manage($page=1) {
         $this->loadModel('Track');
         $this->loadModel('User');
         $this->loadModel('Role');
-//        $tickets = $this->Track->query("SELECT * FROM tracks tr 
-//                    inner join tickets t on tr.ticket_id = t.id
-//                    inner join users fb on tr.forwarded_by = fb.id
-//                    inner join roles r on  tr.role_id = r.id
-//                    inner join users ft on  tr.user_id = ft.id order by tr.created desc");
+        $offset = --$page * $this->per_page;
         $loggedUser = $this->Auth->user();
         if ($loggedUser['Role']['name'] == 'sadmin') {
             $tickets = $this->Track->query("SELECT * FROM tracks tr
@@ -354,8 +350,13 @@ class TicketsController extends AppController {
                         left JOIN roles fd ON tr.role_id = fd.id
                         left JOIN users fi ON tr.user_id = fi.id
                         left JOIN issues i ON tr.issue_id = i.id
-			left join package_customers pc on tr.package_customer_id = pc.id order by tr.created DESC limit 100");
-        } else {
+			left join package_customers pc on tr.package_customer_id = pc.id order by tr.created DESC" . " LIMIT " . $offset . "," . $this->per_page);
+       
+             $temp = $this->Ticket->query("SELECT COUNT(tickets.id) as total FROM `tickets`");
+        $total = $temp[0][0]['total'];
+        $total_page = ceil($total / $this->per_page);
+            
+            } else { 
             $tickets = $this->Track->query("SELECT * FROM tracks tr
                         left JOIN tickets t ON tr.ticket_id = t.id
                         left JOIN users fb ON tr.forwarded_by = fb.id
@@ -363,8 +364,13 @@ class TicketsController extends AppController {
                         left JOIN users fi ON tr.user_id = fi.id
                         left JOIN issues i ON tr.issue_id = i.id
                         left join package_customers pc on tr.package_customer_id = pc.id
-                         WHERE tr.user_id =" . $loggedUser['id'] . " ORDER BY tr.created DESC limit 100");
-        }
+                         WHERE tr.user_id =" . $loggedUser['id'] . " ORDER BY tr.created DESC LIMIT0,250");
+        
+           
+            }
+        
+       
+        
         $filteredTicket = array();
         $unique = array();
         $index = 0;
@@ -388,14 +394,16 @@ class TicketsController extends AppController {
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
 
         //  pr($roles); exit;
-        $this->set(compact('data', 'users', 'roles'));
+        $this->set(compact('data', 'users', 'roles','total_page','total'));
     }
 
-    function assigned_to_me() {
+    function assigned_to_me($page=1) {
         $this->loadModel('Ticket');
         $this->loadModel('User');
         $this->loadModel('Role');
         $loggedUser = $this->Auth->user();
+        $offset = --$page * $this->per_page;
+//        pr($loggedUser['id']); exit;
         $tickets = $this->Ticket->query("SELECT * 
                                         FROM tickets t
                                         LEFT JOIN tracks tr ON tr.ticket_id = t.id
@@ -407,8 +415,11 @@ class TicketsController extends AppController {
                                         left JOIN users fi ON tr.user_id = fi.id
                                         left join package_customers pc on tr.package_customer_id = pc.id
                                         WHERE tr.ticket_id IN (SELECT ticket_id from tracks  tr where  tr.user_id  = " .
-                $loggedUser['id'] . ")" . " ORDER BY tr.id DESC");
-//              pr($tickets); exit;
+                $loggedUser['id'] . ")" . " ORDER BY tr.id DESC" . " LIMIT " . $offset . "," . $this->per_page);
+        
+        $temp = $this->Ticket->query("SELECT COUNT(tickets.id) as total FROM tickets where  tickets.user_id  = " . $loggedUser['id'] ." ");
+        $total = $temp[0][0]['total'];
+        $total_page = ceil($total / $this->per_page);
 
         $filteredTicket = array();
         $unique = array();
@@ -433,13 +444,14 @@ class TicketsController extends AppController {
         $data = $filteredTicket;
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
-        $this->set(compact('data', 'users', 'roles'));
+        $this->set(compact('data', 'users', 'roles','total_page','total'));
     }
 
-    function forwarded_by() {
+    function forwarded_by($page=1) {
         $this->loadModel('Ticket');
         $this->loadModel('User');
         $this->loadModel('Role');
+        $offset = --$page * $this->per_page;
         $loggedUser = $this->Auth->user();
         $tickets = $this->Ticket->query("SELECT * 
                                         FROM tickets t
@@ -452,8 +464,12 @@ class TicketsController extends AppController {
                                         left JOIN users fi ON tr.user_id = fi.id
                                         left join package_customers pc on tr.package_customer_id = pc.id
                                         WHERE tr.ticket_id IN (SELECT ticket_id from tracks  tr where tr.forwarded_by = " .
-                $loggedUser['id'] . ")" . " ORDER BY tr.id DESC");
+                $loggedUser['id'] . ")" . " ORDER BY tr.id DESC" . " LIMIT " . $offset . "," . $this->per_page);
 
+        $temp = $this->Ticket->query("SELECT COUNT(tickets.id) as total FROM tickets where  tickets.user_id  = " . $loggedUser['id'] ." ");
+        $total = $temp[0][0]['total'];
+        $total_page = ceil($total / $this->per_page);
+        
         $filteredTicket = array();
         $unique = array();
         $index = 0;
@@ -477,7 +493,7 @@ class TicketsController extends AppController {
         $data = $filteredTicket;
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
-        $this->set(compact('data', 'users', 'roles'));
+        $this->set(compact('data', 'users', 'roles','total_page','total'));
     }
 
     function customertickethistory($id = null) {
@@ -705,10 +721,11 @@ class TicketsController extends AppController {
         $this->set(compact('data', 'users', 'roles','total_page','total'));
     }
 
-    function solved_ticket() {
+    function solved_ticket($page=1) {
         $this->loadModel('Track');
         $this->loadModel('User');
         $this->loadModel('Role');
+        $offset = --$page * $this->per_page;
         $tickets = $this->Track->query("SELECT * FROM tracks tr
                         left JOIN tickets t ON tr.ticket_id = t.id
                         left JOIN users fb ON tr.forwarded_by = fb.id
@@ -716,7 +733,11 @@ class TicketsController extends AppController {
                         left JOIN users fi ON tr.user_id = fi.id
                         left JOIN issues i ON tr.issue_id = i.id
                         left join package_customers pc on tr.package_customer_id = pc.id
-                         WHERE t.status = 'solved' ORDER BY tr.created DESC LIMIT 0 , 100");
+                         WHERE t.status = 'solved' ORDER BY tr.created DESC" . " LIMIT " . $offset . "," . $this->per_page);
+        
+        $temp = $this->Ticket->query("SELECT COUNT(tickets.id) as total FROM `tickets` WHERE tickets.status = 'solved'");
+        $total = $temp[0][0]['total'];
+        $total_page = ceil($total / $this->per_page);
 
         $filteredTicket = array();
         $unique = array();
@@ -739,7 +760,7 @@ class TicketsController extends AppController {
         $data = $filteredTicket;
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
-        $this->set(compact('data', 'users', 'roles'));
+        $this->set(compact('data', 'users', 'roles','total_page','total'));
     }
 
 }
