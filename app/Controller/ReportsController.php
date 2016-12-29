@@ -128,9 +128,9 @@ class ReportsController extends AppController {
 
             //Auto recurring
             $sqlautore = "SELECT SUM(payable_amount)as totalautore FROM transactions tr WHERE $conditions and tr.auto_recurring = 1";
-            $totalautore = $this->Transaction->query($sqlautore);          
-            $totalautore = round($totalautore[0][0]['totalautore'], 2);        
-                       
+            $totalautore = $this->Transaction->query($sqlautore);
+            $totalautore = round($totalautore[0][0]['totalautore'], 2);
+
             //1 month total packages
             $sql1monthp = "SELECT COUNT(ps.name) as total1monthp FROM transactions tr left join package_customers pc on pc.id = tr.package_customer_id 
             left join psettings ps on ps.id = pc.psetting_id  LEFT JOIN packages p ON p.id = ps.package_id 
@@ -138,21 +138,21 @@ class ReportsController extends AppController {
             $sql1monthp = $this->Transaction->query($sql1monthp);
 //            pr($sql1monthp); exit;
             $sql1monthp = $sql1monthp[0][0]['total1monthp'];
-            
+
             //3 month total packages
             $sql3monthp = "SELECT COUNT(ps.name) as total3monthp FROM transactions tr left join package_customers pc on pc.id = tr.package_customer_id 
             left join psettings ps on ps.id = pc.psetting_id  LEFT JOIN packages p ON p.id = ps.package_id 
             WHERE $conditions and ps.name = '3 month package $90'";
             $total3monthp = $this->Transaction->query($sql3monthp);
             $total3monthp = round($total3monthp[0][0]['total3monthp']);
-            
+
             //6 month total packages
             $total6monthp = "SELECT COUNT(ps.name) as total6monthp FROM transactions tr left join package_customers pc on pc.id = tr.package_customer_id 
             left join psettings ps on ps.id = pc.psetting_id LEFT JOIN packages p ON p.id = ps.package_id 
             WHERE $conditions and ps.name = '6 month package $180'";
-            $total6monthp = $this->Transaction->query($total6monthp);                        
+            $total6monthp = $this->Transaction->query($total6monthp);
             $total6monthp = $total6monthp[0][0]['total6monthp'];
-            
+
             //12 month total packages
             $sql12monthp = "SELECT COUNT(ps.name) as total12monthp FROM transactions tr left join package_customers pc on pc.id = tr.package_customer_id 
             left join psettings ps on ps.id = pc.psetting_id LEFT JOIN packages p ON p.id = ps.package_id 
@@ -161,7 +161,7 @@ class ReportsController extends AppController {
             $sql12monthp = round($sql12monthp[0][0]['total12monthp']);
 
             $clicked = true;
-            $this->set(compact('transactions', 'totalamount','total_page','total','start','end','totalmanual','totalautore','sql1monthp','total3monthp','total6monthp','sql12monthp'));
+            $this->set(compact('transactions', 'totalamount', 'total_page', 'total', 'start', 'end', 'totalmanual', 'totalautore', 'sql1monthp', 'total3monthp', 'total6monthp', 'sql12monthp'));
         }
         $this->set(compact('clicked'));
     }
@@ -632,16 +632,14 @@ class ReportsController extends AppController {
         $data = $this->Track->query($sql);
         return $data[0][0]['total'];
     }
-    
-    
+
     function getTotalCardinfotaken() {
         $this->loadModel('Transaction');
         $datrange = json_decode($this->request->data['Track']['daterange'], true);
         $start = $datrange['start'];
         $end = $datrange['end'];
-        $cardinfotaken = $this->Transaction->query("SELECT count(status) as cardinfotaken FROM transaction WHERE (date) >= '" . $start . "' AND status_histories.date <='" . $end . "' and status = 'reconnection'");
-       
-        return $reconnection[0][0]['reconnection'];
+        $cardinfotaken = $this->Transaction->query("SELECT count(status) as cardinfotaken FROM transactions WHERE (transactions.created) >= '" . $start . "' AND transactions.created <='" . $end . "' and transactions.status = 'update'");
+        return $cardinfotaken[0][0]['cardinfotaken'];
     }
 
     function supportCall() {
@@ -710,6 +708,7 @@ class ReportsController extends AppController {
             $total['ready'] = $this->getTotalNewordertaken();
             $total['servicecancel'] = $this->getTotalFullServiceCancel();
             $total['cancelduebill'] = $this->getTotalCancelDueBill();
+            $total['cardinfotaken'] = $this->getTotalCardinfotaken();
 
             $total['check_send'] = $this->getTotalCallBySatatus('check send');
             $total['vod'] = $this->getTotalCallBySatatus('vod');

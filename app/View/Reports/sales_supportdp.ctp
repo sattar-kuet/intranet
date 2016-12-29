@@ -260,7 +260,7 @@
                                             CARD INFO TAKEN
                                         </td>  
                                         <td style="text-align: center;">                                        
-                                            <?php echo $total['card_info_taken'] ?>
+                                            <?php echo $total['cardinfotaken'] ?>
                                         </td>  
                                         <td style="text-align: center;"> 
                                             CHECK SEND
