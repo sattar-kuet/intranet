@@ -2110,11 +2110,8 @@
                                                                 <li>Card No : <?php echo substr($payment['tr']['card_no'], -4); ?></li>  
                                                                 <li>Zip Code : <?php echo $payment['tr']['zip_code']; ?></li>  
 
-<<<<<<< HEAD
                                                                 <li>CVV Code : ***<?php //echo $payment['tr']['cvv_code'];         ?></li> 
-=======
-                                                                <li>CVV Code : ***<?php //echo $payment['tr']['cvv_code'];           ?></li> 
->>>>>>> b8265305b4ac09e3d8ae987cc5a75d2b1f21e2c6
+
                                                                 <li>Expire Date : <?php echo $payment['tr']['exp_date']; ?></li>
 
                                                             <?php elseif ($payment['tr']['pay_mode'] == 'cash'): ?>
