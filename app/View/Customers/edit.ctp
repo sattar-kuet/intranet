@@ -1951,7 +1951,7 @@
                                                             echo date('m-d-Y');
                                                             $customer = $customer_info['PackageCustomer'];
                                                             ?></td>  
-                                                        <td>#<?php echo $customer['id']; ?></td>
+                                                        <td>#<?php echo $this->request->params['pass'][0]; ?></td>
                                                     </tr>
                                                 </tbody>
                                             </table>

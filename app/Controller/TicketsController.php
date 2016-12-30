@@ -42,6 +42,7 @@ class TicketsController extends AppController {
     }
 
     function create($customer_id = null) {
+       // pr($this->request->data); exit;
 
         if ($customer_id == null) {
             $this->redirect('/admins/servicemanage');
@@ -186,7 +187,7 @@ class TicketsController extends AppController {
                         'shipment_note' => $this->request->data['Ticket']['shipment_note']
                     );
                     $this->PackageCustomer->id = $customer_id;
-                    $cusinfo = $this->PackageCustomer->save($data['PackageCustomer']);
+                    $this->PackageCustomer->save($data['PackageCustomer']);
                 }
                 if (trim($this->request->data['Ticket']['action_type']) == 'shipment') {
 
@@ -200,6 +201,7 @@ class TicketsController extends AppController {
                         'shipment_equipment' => $this->request->data['Ticket']['shipment_equipment'],
                         'shipment_note' => $this->request->data['Ticket']['shipment_note']
                     );
+                    $this->PackageCustomer->save($data['PackageCustomer']);
                 }
                 $customer = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $customer_id)));
 

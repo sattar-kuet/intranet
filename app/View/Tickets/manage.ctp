@@ -45,7 +45,7 @@
                                 }
                                 ?>
                                 <li class="paginate_button <?php echo $active; ?>" aria-controls="sample_editable_1" tabindex="<?php echo $i; ?>">
-                                    <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'in_progress', $i)) ?>"><?php echo $i; ?></a>
+                                    <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'manage', $i)) ?>"><?php echo $i; ?></a>
                                 </li>
                             <?php endfor; ?>
                         </ul>

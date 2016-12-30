@@ -119,14 +119,14 @@ class PaymentsController extends AppController {
         $this->loadModel('Ticket');
         if (strpos($this->request->data['Transaction']['card_no'], 'X') !== false) {
             //Card number is not provided. So fetch previous card number
-          //  $temp = $this->Transaction->findById($this->request->data['Transaction']['id']);
+            //  $temp = $this->Transaction->findById($this->request->data['Transaction']['id']);
             $latestcardInfo = $this->getLastCardInfo($this->request->data['Transaction']['package_customer_id']);
             $this->request->data['Transaction']['card_no'] = trim($latestcardInfo['card_no']);
         }
-      //  pr($temp);
-       // exit;
-      //  pr($this->request->data['Transaction']);
-      //  exit;
+        //  pr($temp);
+        // exit;
+        //  pr($this->request->data['Transaction']);
+        //  exit;
         // PROCESS PAYMENT
         // Common setup for API credentials  
         $loggedUser = $this->Auth->user();
@@ -221,7 +221,7 @@ class PaymentsController extends AppController {
                 $this->Transaction->saveField("status", $status);
 
                 $msg .='<li> Transaction   successfull</li>';
-                $tdata['Ticket'] = array('content' => "Transaction successfull <br> <b>Amount : </b>$amount <br> <b> payment Mode: </b> Card");
+                $tdata['Ticket'] = array('content' => "Transaction successfull <br> <b>Amount : </b>$amount <br> <b> payment Mode: </b> Card", 'status' => 'solved');
                 $tickect = $this->Ticket->save($tdata); // Data save in Ticket
                 $trackData['Track'] = array(
                     'package_customer_id' => $cid,
@@ -250,7 +250,7 @@ class PaymentsController extends AppController {
 
                 $msg .='<li>' . $errorMsg . ' </li>';
 
-                $tdata['Ticket'] = array('content' => $errorMsg . "<br> <b>Amount</b> : $amount <br> <b> payment Mode: </b> Card");
+                $tdata['Ticket'] = array('content' => $errorMsg . "<br> <b>Amount</b> : $amount <br> <b> payment Mode: </b> Card", 'status' => 'solved');
 
                 $tickect = $this->Ticket->save($tdata);
 
@@ -269,7 +269,7 @@ class PaymentsController extends AppController {
             $msg .='<li> Transaction failed due to Marchant Account credential changed. Please contact with administrator</li>';
 
 
-            $tdata['Ticket'] = array('content' => "Transaction failed due to Marchant Account credential changed. Please contact with administrator <br> <b> Amount : </b> $amount <br> <b> payment Mode: </b> Card");
+            $tdata['Ticket'] = array('content' => "Transaction failed due to Marchant Account credential changed. Please contact with administrator <br> <b> Amount : </b> $amount <br> <b> payment Mode: </b> Card", 'status' => 'solved');
             $tickect = $this->Ticket->save($tdata); // Data save in Ticket
 
 
@@ -304,10 +304,10 @@ class PaymentsController extends AppController {
         $this->layout = 'ajax';
         // Common setup for API credentials  
         $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
-        $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
-        //  $merchantAuthentication->setName("7zKH4b45"); //42UHbr9Qa9B live mode
-        $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
-        //  $merchantAuthentication->setTransactionKey("738QpWvHH4vS59vY"); // live mode 7UBSq68ncs65p8QX
+      //  $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
+          $merchantAuthentication->setName("7zKH4b45"); //42UHbr9Qa9B live mode
+      //  $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
+          $merchantAuthentication->setTransactionKey("738QpWvHH4vS59vY"); // live mode 7UBSq68ncs65p8QX
         $refId = 'ref' . time();
 // Create the payment data for a credit card
         $creditCard = new AnetAPI\CreditCardType();
@@ -347,8 +347,8 @@ class PaymentsController extends AppController {
         $request->setRefId($refId);
         $request->setTransactionRequest($transactionRequestType);
         $controller = new AnetController\CreateTransactionController($request);
-        $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
-        // $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
+       // $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
+         $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
         $transaction = array();
         $transaction['error_msg'] = '';
         $transaction['status'] = '';
@@ -393,7 +393,7 @@ class PaymentsController extends AppController {
                 $this->Transaction->saveField("status", $status);
 
                 $msg .='<li> Transaction   successfull by auto recurring</li>';
-                $tdata['Ticket'] = array('content' => "Transaction successfull by auto recurring <br> <b>Amount : </b>$amount <br> <b> payment Mode: </b> Card");
+                $tdata['Ticket'] = array('content' => "Transaction successfull by auto recurring <br> <b>Amount : </b>$amount <br> <b> payment Mode: </b> Card", 'status' => 'solved');
                 $tickect = $this->Ticket->create(); // Data save in Ticket
                 $tickect = $this->Ticket->save($tdata); // Data save in Ticket
                 $trackData['Track'] = array(
@@ -427,7 +427,7 @@ class PaymentsController extends AppController {
                     $errorMsg = $errors->getErrorText() . '<br> <b> Error Code: ' . $errorCode . '</b>';
                 }
                 $msg .='<li>' . $errorMsg . ' </li>';
-                $tdata['Ticket'] = array('content' => $errorMsg . "<br> <b>Amount</b> : $amount <br> <b> payment Mode: </b> Card");
+                $tdata['Ticket'] = array('content' => $errorMsg . "<br> <b>Amount</b> : $amount <br> <b> payment Mode: </b> Card", 'status' => 'solved');
                 $tickect = $this->Ticket->create();
                 $tickect = $this->Ticket->save($tdata);
                 // Data save in Ticket
@@ -443,7 +443,7 @@ class PaymentsController extends AppController {
         } else {
             $alert = '<div class="alert alert-error"> ';
             $msg .='<li> This payment attempt was from auto recurring. Transaction failed due to Marchant Account credential changed. Please contact with administrator</li>';
-            $tdata['Ticket'] = array('content' => "This payment attempt was from auto recurring. Transaction failed due to Marchant Account credential changed. Please contact with administrator <br> <b> Amount : </b> $amount <br> <b> payment Mode: </b> Card");
+            $tdata['Ticket'] = array('content' => "This payment attempt was from auto recurring. Transaction failed due to Marchant Account credential changed. Please contact with administrator <br> <b> Amount : </b> $amount <br> <b> payment Mode: </b> Card", 'status' => 'solved');
             $tickect = $this->Ticket->save($tdata); // Data save in Ticket
             $trackData['Track'] = array(
                 'package_customer_id' => $cid,
@@ -593,7 +593,7 @@ class PaymentsController extends AppController {
             <p> <strong>Refund SUCCESS</strong>
                 </p> </div>';
 
-                $tdata['Ticket'] = array('content' => 'Refund successfull');
+                $tdata['Ticket'] = array('content' => 'Refund successfull', 'status' => 'solved');
                 $tickect = $this->Ticket->save($tdata); // Data save in Ticket
                 $trackData['Track'] = array(
                     'package_customer_id' => $data4transaction['Transaction']['package_customer_id'],
@@ -613,7 +613,7 @@ class PaymentsController extends AppController {
                         '</strong> </p> </div>';
 
 
-                $tdata['Ticket'] = array('content' => 'Refund failed for Null response');
+                $tdata['Ticket'] = array('content' => 'Refund failed for Null response', 'status' => 'solved');
                 //  pr($tdata['Ticket']);exit;
                 $tickect = $this->Ticket->save($tdata['Ticket']); // Data save in Ticket
                 $trackData['Track'] = array(
@@ -635,7 +635,7 @@ class PaymentsController extends AppController {
             <p> <strong>Refund failed for Null response  </strong> </p> </div>';
 
 
-            $tdata['Ticket'] = array('content' => 'Transaction ' . ' Refund failed for Null response');
+            $tdata['Ticket'] = array('content' => 'Transaction ' . ' Refund failed for Null response', 'status' => 'solved');
             $tickect = $this->Ticket->save($tdata); // Data save in Ticket
             $trackData['Track'] = array(
                 'package_customer_id' => $data4transaction['Transaction']['package_customer_id'],
@@ -715,7 +715,7 @@ class PaymentsController extends AppController {
 //         pr('here'); exit;
         $this->Transaction->save($this->request->data['Transaction']);
         // generate Ticket
-        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment mode :</b> Check");
+        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment mode :</b> Check", 'status' => 'solved');
         $tickect = $this->Ticket->save($tdata); // Data save in Ticket
 
         $trackData['Track'] = array(
@@ -769,7 +769,7 @@ class PaymentsController extends AppController {
         $this->Transaction->id = $id;
         $this->Transaction->save($this->request->data['Transaction']);
         // generate Ticket
-        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment mode: </b> Money Order");
+        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment mode: </b> Money Order", 'status' => 'solved');
         $tickect = $this->Ticket->save($tdata); // Data save in Ticket
 
         $trackData['Track'] = array(
@@ -824,7 +824,7 @@ class PaymentsController extends AppController {
 
         $this->Transaction->save($this->request->data['Transaction']);
         // generate Ticket
-        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment Mode : </b> Online Bill");
+        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment Mode : </b> Online Bill", 'status' => 'solved');
         $tickect = $this->Ticket->save($tdata); // Data save in Ticket
 
         $trackData['Track'] = array(
@@ -876,7 +876,7 @@ class PaymentsController extends AppController {
 //        pr($this->request->data['Transaction']); exit;
         $this->Transaction->save($this->request->data['Transaction']);
         // generate Ticket
-        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment Mode :</b> Cash");
+        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment Mode :</b> Cash", 'status' => 'solved');
         $tickect = $this->Ticket->save($tdata); // Data save in Ticket
 
         $trackData['Track'] = array(
@@ -959,7 +959,7 @@ class PaymentsController extends AppController {
         echo $this->Transaction->getLastQuery();
         exit;
         // generate Ticket
-        $tdata['Ticket'] = array('content' => "This is paid invoice.Paid invoice record saved successfully<br> <b> Amount : </b> $amount <br> <b> Payment mode :</b> Card");
+        $tdata['Ticket'] = array('content' => "This is paid invoice.Paid invoice record saved successfully<br> <b> Amount : </b> $amount <br> <b> Payment mode :</b> Card", 'status' => 'solved');
         $tickect = $this->Ticket->save($tdata); // Data save in Ticket
 
         $trackData['Track'] = array(
