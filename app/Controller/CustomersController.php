@@ -357,7 +357,6 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
 
         $c_acc_no = $customer_info['PackageCustomer']['c_acc_no'];
 
-
         $transactions = $this->Transaction->find('all', array('conditions' => array('Transaction.package_customer_id' => $id)));
 
         $this->set(compact('transactions', 'customer_info', 'c_acc_no', 'macstb', 'custom_package_duration', 'checkMark', 'statusHistories'));

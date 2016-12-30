@@ -1514,10 +1514,12 @@
                                                 <td><?php echo date('m-d-Y', strtotime($date)); ?></td>
 
                                                 <td><?php echo $info['transactions']['note']; ?></td>
-                                                <td>   
-                                                    <a  target="_blank" title="Edit" href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit', $info['transactions']['id'])) ?>" >
-                                                        <span class="fa fa-pencil"></span>
-                                                    </a>
+                                                <td> 
+                                                    <?php if (($user == 'sadmin') || ($user == 'supervisor')): ?>
+                                                        <a  target="_blank" title="Edit" href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit', $info['transactions']['id'])) ?>" >
+                                                            <span class="fa fa-pencil"></span>
+                                                        </a>
+                                                    <?php endif; ?>
                                                     <?php if ($info['package_customers']['auto_r'] != 'yes'): ?>
                                                         &nbsp;&nbsp;
                                                         <a  target="_blank" title="Take Payment" href="<?php echo Router::url(array('controller' => 'payments', 'action' => 'process', $info['transactions']['id'], $info['package_customers']['id'])) ?>" >
@@ -2109,12 +2111,8 @@
                                                                 <li>Transaction No : <?php echo $payment['tr']['trx_id']; ?></li> 
                                                                 <li>Card No : <?php echo substr($payment['tr']['card_no'], -4); ?></li>  
                                                                 <li>Zip Code : <?php echo $payment['tr']['zip_code']; ?></li>  
+                                                                <li>CVV Code : ***<?php //echo $payment['tr']['cvv_code'];            ?></li> 
 
-<<<<<<< HEAD
-                                                                <li>CVV Code : ***<?php //echo $payment['tr']['cvv_code'];         ?></li> 
-=======
-                                                                <li>CVV Code : ***<?php //echo $payment['tr']['cvv_code'];           ?></li> 
->>>>>>> b8265305b4ac09e3d8ae987cc5a75d2b1f21e2c6
                                                                 <li>Expire Date : <?php echo $payment['tr']['exp_date']; ?></li>
 
                                                             <?php elseif ($payment['tr']['pay_mode'] == 'cash'): ?>

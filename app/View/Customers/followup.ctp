@@ -75,6 +75,8 @@
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
                                             . $customer['zip'];
                                     ?>
+
+
                                     <tr>
                                         <td class="hidden-480">
                                             <?php echo $results['customers']['id']; ?>                            
@@ -109,9 +111,18 @@
                                                 <?php echo $results['issue']['name']; ?>
                                             <?php endif; ?>
                                         </td>
-                                        <td>
-                                            <?php echo date('m-d-Y h:i:sa', strtotime($results['customers']['follow_date'])); ?>
-                                        </td>
+                                        <?php
+                                        $date = date("m/d/Y");
+                                        if ($date<($results['customers']['follow_date'])) { ?>
+                                            <td class="alert-danger">
+                                                <?php echo date('m-d-Y h:i:sa', strtotime($results['customers']['follow_date'])); ?>
+                                            </td>
+                                        <?php } else { ?>
+                                            <td>
+                                                <?php echo date('m-d-Y h:i:sa', strtotime($results['customers']['follow_date'])); ?>
+                                            </td> 
+                                        <?php } ?>
+
                                         <td>
                                             <ul>
                                                 <?php foreach ($results['comments'] as $comment): ?>
