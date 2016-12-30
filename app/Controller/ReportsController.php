@@ -131,34 +131,31 @@ class ReportsController extends AppController {
             $totalautore = $this->Transaction->query($sqlautore);
             $totalautore = round($totalautore[0][0]['totalautore'], 2);
 
-            //1 month total packages
-            $sql1monthp = "SELECT COUNT(ps.name) as total1monthp FROM transactions tr left join package_customers pc on pc.id = tr.package_customer_id 
-            left join psettings ps on ps.id = pc.psetting_id  LEFT JOIN packages p ON p.id = ps.package_id 
-            WHERE $conditions and ps.name = '1 month package $40'";
-            $sql1monthp = $this->Transaction->query($sql1monthp);
-//            pr($sql1monthp); exit;
-            $sql1monthp = $sql1monthp[0][0]['total1monthp'];
+           $sql1monthp = $this->getSubscriptionNo($conditions, '1 month package',1);
+           $total3monthp = $this->getSubscriptionNo($conditions, '3 month package',3);
+           $total6monthp = $this->getSubscriptionNo($conditions, '6 month package',6);
+           $total12monthp = $this->getSubscriptionNo($conditions, '1 year package',12);
 
             //3 month total packages
-            $sql3monthp = "SELECT COUNT(ps.name) as total3monthp FROM transactions tr left join package_customers pc on pc.id = tr.package_customer_id 
-            left join psettings ps on ps.id = pc.psetting_id  LEFT JOIN packages p ON p.id = ps.package_id 
-            WHERE $conditions and ps.name = '3 month package $90'";
-            $total3monthp = $this->Transaction->query($sql3monthp);
-            $total3monthp = round($total3monthp[0][0]['total3monthp']);
+//            $sql3monthp = "SELECT COUNT(ps.name) as total3monthp FROM transactions tr left join package_customers pc on pc.id = tr.package_customer_id 
+//            left join psettings ps on ps.id = pc.psetting_id  LEFT JOIN packages p ON p.id = ps.package_id 
+//            WHERE $conditions and ps.name = '3 month package $90'";
+//            $total3monthp = $this->Transaction->query($sql3monthp);
+//            $total3monthp = round($total3monthp[0][0]['total3monthp']);
 
             //6 month total packages
-            $total6monthp = "SELECT COUNT(ps.name) as total6monthp FROM transactions tr left join package_customers pc on pc.id = tr.package_customer_id 
-            left join psettings ps on ps.id = pc.psetting_id LEFT JOIN packages p ON p.id = ps.package_id 
-            WHERE $conditions and ps.name = '6 month package $180'";
-            $total6monthp = $this->Transaction->query($total6monthp);
-            $total6monthp = $total6monthp[0][0]['total6monthp'];
-
-            //12 month total packages
-            $sql12monthp = "SELECT COUNT(ps.name) as total12monthp FROM transactions tr left join package_customers pc on pc.id = tr.package_customer_id 
-            left join psettings ps on ps.id = pc.psetting_id LEFT JOIN packages p ON p.id = ps.package_id 
-            WHERE $conditions  and ps.name = '1 year package $360'";
-            $sql12monthp = $this->Transaction->query($sql12monthp);
-            $sql12monthp = round($sql12monthp[0][0]['total12monthp']);
+//            $total6monthp = "SELECT COUNT(ps.name) as total6monthp FROM transactions tr left join package_customers pc on pc.id = tr.package_customer_id 
+//            left join psettings ps on ps.id = pc.psetting_id LEFT JOIN packages p ON p.id = ps.package_id 
+//            WHERE $conditions and ps.name = '6 month package $180'";
+//            $total6monthp = $this->Transaction->query($total6monthp);
+//            $total6monthp = $total6monthp[0][0]['total6monthp'];
+//
+//            //12 month total packages
+//            $sql12monthp = "SELECT COUNT(ps.name) as total12monthp FROM transactions tr left join package_customers pc on pc.id = tr.package_customer_id 
+//            left join psettings ps on ps.id = pc.psetting_id LEFT JOIN packages p ON p.id = ps.package_id 
+//            WHERE $conditions  and ps.name = '1 year package $360'";
+//            $sql12monthp = $this->Transaction->query($sql12monthp);
+//            $sql12monthp = round($sql12monthp[0][0]['total12monthp']);
 
             $clicked = true;
             $this->set(compact('transactions', 'totalamount', 'total_page', 'total', 'start', 'end', 'totalmanual', 'totalautore', 'sql1monthp', 'total3monthp', 'total6monthp', 'sql12monthp'));

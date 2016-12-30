@@ -358,19 +358,41 @@ class AppController extends Controller {
 
     function generateInvoice($data = array()) {
         $this->loadModel('Transaction');
-        
+
         $this->Transaction->create();
         $this->Transaction->save($data);
     }
-    
-    
-    function formatCardNumber($card){
-        $digits  = strlen($card);
-        $last4 = substr($card,-4);
+
+    function formatCardNumber($card) {
+        $digits = strlen($card);
+        $last4 = substr($card, -4);
         $fill = '';
-        for($i=0;$i<$digits-4;$i++){
+        for ($i = 0; $i < $digits - 4; $i++) {
             $fill .='X';
         }
-        return $fill.$last4;
+        return $fill . $last4;
     }
+
+    function getSubscriptionNo($daterange,$package,$duration=0) {
+        $this->loadModel('Transaction');
+        //1 month total packages
+        $sql1monthp = "SELECT COUNT(ps.name) as total1monthp FROM transactions tr
+                left join package_customers pc on pc.id = tr.package_customer_id 
+            left join psettings ps on ps.id = pc.psetting_id 
+            LEFT JOIN packages p ON p.id = ps.package_id 
+            WHERE $daterange AND LOWER(ps.name) LIKE '%$package%'";
+        $sql1monthp = $this->Transaction->query($sql1monthp);
+//            pr($sql1monthp); exit;
+        $sql1monthp1 = $sql1monthp[0][0]['total1monthp'];
+        $sql1monthp = "SELECT COUNT(cp.id) as total1monthp FROM transactions tr
+                left join package_customers pc on pc.id = tr.package_customer_id 
+            left join custom_packages cp on cp.id = pc.custom_package_id 
+            WHERE $daterange AND cp.duration = $duration";
+        $sql1monthp = $this->Transaction->query($sql1monthp);
+//            pr($sql1monthp); exit;
+        $sql1monthp2 = $sql1monthp[0][0]['total1monthp'];
+        
+        return $sql1monthp1 + $sql1monthp2;
+    }
+
 }
