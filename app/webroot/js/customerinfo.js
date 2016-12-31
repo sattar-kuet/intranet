@@ -166,5 +166,7 @@ $(document).ready(function () {
         //alert(formId);
     });
     
-
+     var valueContainer = $('.showthis').data('box');
+     var totalBox  = $('#'+valueContainer).text();
+     $('.showthis').text(totalBox);
 });

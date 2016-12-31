@@ -118,25 +118,20 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-12">  
-                                 <div class="alert alert-info clearfix" style="color: #000; font-size: 14px;"> 
-                                        <p class="pull-left"> 
-                                         Total Amount Collected<b>: $<?php echo $totalamount; ?></b>&nbsp;
-                                         Manually Collected<b>: $<?php echo $totalmanual; ?></b>&nbsp;
-                                         Auto Recurring Collected<b>: $<?php echo $totalautore; ?></b>&nbsp;
-                                         1Month Subscription<b>: <?php echo $sql1monthp; ?></b>&nbsp;
-                                         3Months Subscription<b>: <?php echo $total3monthp; ?></b>&nbsp;
-                                         6Months Subscription<b>: <?php echo $total6monthp; ?></b>&nbsp;
-                                         12Months Subscription<b>: <?php echo $total3monthp; ?>                                        
-                                        </p>                                        
-                                        <p class="pull-right"> Total Customers<b>: <?php echo $total; ?></b></p>
-                                    </div>  
+                                <div class="alert alert-info clearfix" style="color: #000; font-size: 14px;"> 
+                                    <p class="pull-left"> 
+                                        Total Amount Collected<b>: $<?php echo $totalamount; ?></b>&nbsp;
+                                        Manually Collected<b>: $<?php echo $totalmanual; ?></b>&nbsp;
+                                        Auto Recurring Collected<b>: $<?php echo $totalautore; ?></b>&nbsp;
+                                        1Month Subscription<b>: <?php echo $sql1monthp; ?></b>&nbsp;
+                                        3Months Subscription<b>: <?php echo $total3monthp; ?></b>&nbsp;
+                                        6Months Subscription<b>: <?php echo $total6monthp; ?></b>&nbsp;
+                                        12Months Subscription<b>: <?php echo $total3monthp; ?>                                    
+                                    </p>                                       
+                                    <p class="pull-right"> Total Subscription<b>: <?php echo $total; ?></b></p><br>
+                                    <p class="pull-right"> Total Boxes<b>: <span class="showthis" data-box="box"></span> </b></p>
+                                </div>  
                                 <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
-
-                                                                        
-
-
-
-
                                     <ul class="pagination" >
                                         <?php
                                         for ($i = 1; $i <= $total_page; $i++):
@@ -161,14 +156,19 @@
                                     <tbody>                                     
                                         <?php
                                         $total = 0;
+                                        $boxes = 0;
                                         foreach ($transactions as $single):
                                             $tr = $single['tr'];
 //                                            $total += $tr['paid_amount'];
                                             $pc = $single['pc'];
+                                            $stbs = json_decode($pc['mac']);
+                                            $boxes += count($stbs);
+                                            //  pr($stbs); 
                                             $customer_address = $pc['house_no'] . ' ' . $pc['street'] . ' ' .
                                                     $pc['apartment'] . ' ' . $pc['city'] . ' ' . $pc['state'] . ' '
                                                     . $pc['zip'];
                                             ?>
+                                    
                                             <tr >
                                                 <td>
                                                     <ul>
@@ -184,6 +184,13 @@
                                                             </a><br>
                                                         </li> 
                                                         <li><strong> Cell: </strong>  <?php echo $pc['cell']; ?> </li> 
+                                                        <li><strong> Mac: </strong> 
+                                                            <ul>
+                                                                <?php if (is_array($stbs)) foreach ($stbs as $stb): ?>
+                                                                        <li> <?php echo $stb; ?></li>
+                                                                    <?php endforeach; ?>
+                                                            </ul>
+                                                        </li> 
                                                     </ul>
                                                 </td>
                                                 <td>
@@ -202,7 +209,8 @@
                                             </tr>
                                             <?php
                                         endforeach;
-                                        ?>         
+                                        ?>   
+                                    <span id="box" class="hide"><?php echo $boxes; ?></span>
                                     </tbody>
                                 </table>
                                 <!--<h2 style="text-align: center;" > Grant Total: $<?php echo $total; ?></h2>-->

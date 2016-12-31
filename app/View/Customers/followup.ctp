@@ -33,7 +33,7 @@
                     </div>
                     <div class="portlet-body">
                         <?php echo $this->Session->flash(); ?> 
-                        <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+                        <table class="table  table-bordered" id="sample_editable_1">
                             <thead>
                                 <tr>
                                     <th>
@@ -75,9 +75,16 @@
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
                                             . $customer['zip'];
                                     ?>
+                                    <?php
+                                    $follow_up_time = strtotime($results['customers']['follow_date']);
+//                                        pr($milliseconds); exit;
+                                    $warning = '';
+                                    if ($follow_up_time < time()) {
+                                        $warning = 'alert alert-danger';
+                                    }
+                                    ?>
 
-
-                                    <tr>
+                                    <tr class="<?php echo $warning; ?>">
                                         <td class="hidden-480">
                                             <?php echo $results['customers']['id']; ?>                            
                                         </td>
@@ -104,24 +111,16 @@
                                                 <li>Duration:  <?php echo $results['package']['duration']; ?> </li>
                                                 <li>Amount:  <?php echo $results['package']['amount']; ?> </li>
                                             </ul>
-
                                         </td>
                                         <td>
                                             <?php if (!empty($results['issue']['name'])): ?>
                                                 <?php echo $results['issue']['name']; ?>
                                             <?php endif; ?>
                                         </td>
-                                        <?php
-                                        $date = date("m/d/Y");
-                                        if ($date<($results['customers']['follow_date'])) { ?>
-                                            <td class="alert-danger">
-                                                <?php echo date('m-d-Y h:i:sa', strtotime($results['customers']['follow_date'])); ?>
-                                            </td>
-                                        <?php } else { ?>
-                                            <td>
-                                                <?php echo date('m-d-Y h:i:sa', strtotime($results['customers']['follow_date'])); ?>
-                                            </td> 
-                                        <?php } ?>
+
+                                        <td>
+                                            <?php echo date('m-d-Y h:i:sa', strtotime($results['customers']['follow_date'])); ?>
+                                        </td> 
 
                                         <td>
                                             <ul>
