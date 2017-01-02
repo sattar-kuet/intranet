@@ -250,8 +250,9 @@ class CustomersController extends AppController {
             //Card number is not changed. So fetch previous card number
             $card = $this->Transaction->findById($this->request->data['Transaction']['id']);
             $this->request->data['Transaction']['card_no'] = $card['Transaction']['card_no'];
-           
         }
+        unset($this->request->data['Transaction']['id']); 
+       // pr($this->request->data['Transaction']); exit;
         $this->Transaction->save($this->request->data['Transaction']);
         $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
