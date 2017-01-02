@@ -232,7 +232,7 @@ class TicketsController extends AppController {
                 $this->Track->save($trackData); // Data save in Track
                 $msg = '<div class="alert alert-success">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
-				<strong> Ticket Created succeesfully </strong>
+				<strong> Ticket created succeesfully </strong>
 			</div>';
                 $this->Session->setFlash($msg);
                 return $this->redirect($this->referer());

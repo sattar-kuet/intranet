@@ -131,10 +131,10 @@ class ReportsController extends AppController {
             $totalautore = $this->Transaction->query($sqlautore);
             $totalautore = round($totalautore[0][0]['totalautore'], 2);
 
-           $sql1monthp = $this->getSubscriptionNo($conditions, '1 month package',1);
-           $total3monthp = $this->getSubscriptionNo($conditions, '3 month package',3);
-           $total6monthp = $this->getSubscriptionNo($conditions, '6 month package',6);
-           $total12monthp = $this->getSubscriptionNo($conditions, '1 year package',12);
+            $sql1monthp = $this->getSubscriptionNo($conditions, '1 month package', 1);
+            $total3monthp = $this->getSubscriptionNo($conditions, '3 month package', 3);
+            $total6monthp = $this->getSubscriptionNo($conditions, '6 month package', 6);
+            $total12monthp = $this->getSubscriptionNo($conditions, '1 year package', 12);
 
             //3 month total packages
 //            $sql3monthp = "SELECT COUNT(ps.name) as total3monthp FROM transactions tr left join package_customers pc on pc.id = tr.package_customer_id 
@@ -142,7 +142,6 @@ class ReportsController extends AppController {
 //            WHERE $conditions and ps.name = '3 month package $90'";
 //            $total3monthp = $this->Transaction->query($sql3monthp);
 //            $total3monthp = round($total3monthp[0][0]['total3monthp']);
-
             //6 month total packages
 //            $total6monthp = "SELECT COUNT(ps.name) as total6monthp FROM transactions tr left join package_customers pc on pc.id = tr.package_customer_id 
 //            left join psettings ps on ps.id = pc.psetting_id LEFT JOIN packages p ON p.id = ps.package_id 
@@ -300,6 +299,49 @@ class ReportsController extends AppController {
         WHERE pc.exp_date>='" . date('Y-m-d') . "' AND pc.exp_date<='" . $expiredate . "' AND pc.exp_date != 0000-00-00 "
                 . "GROUP BY pc.id");
         $this->set(compact('packagecustomers'));
+    }
+
+    function summeryReport() {
+        $this->loadModel('Transaction');
+        $this->loadModel('PackageCustomer');
+        $date = date("'Y-m-d'");
+        $expiredate = trim(date('Y-m-d', strtotime("+25 days")));
+         
+        $sql ="SELECT * 
+        FROM transactions tr
+        LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id
+        LEFT JOIN psettings ps ON ps.id = pc.psetting_id
+        LEFT JOIN packages p ON p.id = ps.package_id
+        WHERE pc.package_exp_date ='" . date('Y-m-d') . "' AND pc.package_exp_date<='" . $expiredate . "' AND pc.package_exp_date != 0000-00-00 "
+                . "GROUP BY pc.id";
+        
+        echo $sql; exit;
+        $packagecustomers = $this->Transaction->query("SELECT * 
+        FROM transactions tr
+        LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id
+        LEFT JOIN psettings ps ON ps.id = pc.psetting_id
+        LEFT JOIN packages p ON p.id = ps.package_id
+        WHERE pc.package_exp_date ='" . date('Y-m-d') . "' AND pc.package_exp_date<='" . $expiredate . "' AND pc.package_exp_date != 0000-00-00 "
+                . "GROUP BY pc.id");
+
+        pr($packagecustomers); exit;
+       
+        $passedInvoice = $this->PackageCustomer->query("SELECT COUNT(tr.id) AS passedInvoice FROM transactions  tr            
+            left join package_customers pc on pc.id = tr.package_customer_id
+            left join psettings ps on ps.id = pc.psetting_id
+            LEFT JOIN packages p ON p.id = ps.package_id 
+            WHERE  pc.printed = 1");
+
+
+        $closeInvoice = $this->Transaction->query("SELECT COUNT(tr.id) as totalcloseinvoice FROM transactions tr
+            left join package_customers pc on tr.package_customer_id = pc.id
+            left join psettings ps on ps.id = pc.psetting_id
+            LEFT JOIN packages p ON p.id = ps.package_id 
+            WHERE paid_amount !=0 and
+            CAST(tr.created as DATE) = $date");
+//        pr($closeInvoice); exit;
+//        pr($passedInvoice); exit;
+        $this->set(compact('packagecustomers', 'passedInvoice', 'closeInvoice'));
     }
 
     function printed() {
@@ -659,6 +701,46 @@ class ReportsController extends AppController {
         return $totalIBCS;
     }
 
+    function addsalesReceive() { //ADDITIONAL SALES RECEIVE
+        $this->loadModel('Issue');
+        $this->loadModel('Track');
+        $datrange = json_decode($this->request->data['Track']['daterange'], true);
+        $datrange['start'] = $datrange['start'] . ' 00:00:00';
+        $datrange['end'] = $datrange['end'] . ' 23:59:59';
+
+        $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as addsalesreceive FROM tracks 
+                 LEFT JOIN issues ON tracks.issue_id = issues.id 
+                 LEFT JOIN tickets ON tracks.ticket_id = tickets.id 
+                 WHERE (issues.name = '2nd Box' 
+                 or issues.name = '3rd Box' 
+                 or issues.name = '2nd & 3rd Box' 
+                 or issues.name = '4th Box' 
+                 or issues.name = '3rd & 4th Box' 
+                 or issues.name = '4th & 5th Box' 
+                 or issues.name = '5th Box')  
+                 AND tickets.created >='" . $datrange['start'] . "' AND tickets.created <='" . $datrange['end'] . "'";
+
+        $data = $this->Track->query($sql);
+        return $data[0][0]['addsalesreceive'];
+    }
+
+    function totalOutbound() { //Total out bound call
+        $this->loadModel('Issue');
+        $this->loadModel('Track');
+        $datrange = json_decode($this->request->data['Track']['daterange'], true);
+        $datrange['start'] = $datrange['start'] . ' 00:00:00';
+        $datrange['end'] = $datrange['end'] . ' 23:59:59';
+
+        $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as totaloutbound FROM tracks 
+                 LEFT JOIN issues ON tracks.issue_id = issues.id 
+                 LEFT JOIN tickets ON tracks.ticket_id = tickets.id 
+                 WHERE LOWER(issues.name) LIKE  '%outbound'  
+                 AND tickets.created >='" . $datrange['start'] . "' AND tickets.created <='" . $datrange['end'] . "'";
+
+        $data = $this->Track->query($sql);
+        return $data[0][0]['totaloutbound'];
+    }
+
     function accountCall() {
         $this->loadModel('Issue');
         $this->loadModel('Track');
@@ -714,10 +796,12 @@ class ReportsController extends AppController {
             $total['cancel_from_da'] = $this->getTotalCallBySatatus('cancel from dealer & agent');
             $total['cancel_from_hold'] = $this->getTotalCallBySatatus('cancel from hold');
             $total['card_info_taken'] = $this->getTotalCallBySatatus('card info taken');
-            $total['additional_box'] = $this->getTotalCallBySatatus('additional box installation');
+//            $total['additional_box'] = $this->getTotalCallBySatatus('additional box installation');
             $total['online_payment'] = $this->getTotalCallBySatatus('MONEY ORDER ONLINE PAYMENT');
             $this->getTotalCallBySatatus('check send');
+            $total['addsalesreceive'] = $this->addsalesReceive();
             $total['totalSupport'] = $this->supportCall();
+            $total['totaloutbound'] = $this->totalOutbound();
 
             $total['totalAccount'] = $this->accountCall();
             $clicked = true;

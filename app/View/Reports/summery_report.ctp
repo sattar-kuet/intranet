@@ -1,0 +1,66 @@
+<style type="text/css">
+    .alert {
+        padding: 6px;
+        margin-bottom: 5px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        text-align: center;
+    }
+
+</style>
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <!-- BEGIN PAGE HEADER-->
+        <h3 class="page-title">
+            Summery Report Information<small></small>
+        </h3>
+        <!-- BEGIN PAGE CONTENT-->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                <div class="portlet box green">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <div class="tools">
+                            <a href="javascript:;" class="reload">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Open Invoice
+                                    </th>
+
+                                    <th>
+                                        Passed due Invoice
+                                    </th>
+
+                                    <th>
+                                        Closed Invoice
+                                    </th>                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>                                    
+                                    <td>1</td>
+
+                                    <td><?php echo $passedInvoice[0][0]['passedInvoice']; ?></td>
+
+                                    <td><?php echo $closeInvoice[0][0]['totalcloseinvoice']; ?> </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- END EXAMPLE TABLE PORTLET-->
+            </div>
+        </div>
+        <!-- END PAGE CONTENT -->
+    </div>
+</div>
+<!-- END CONTENT -->
