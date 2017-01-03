@@ -5,6 +5,7 @@
  */
 App::uses('SimplePasswordHasher', 'Controller/Component/Auth');
 App::import('Controller', 'Transactions'); // mention at top
+App::import('Controller', 'Payments');
 require_once(APP . 'Vendor' . DS . 'class.upload.php');
 
 class AdminsController extends AppController {
@@ -88,6 +89,9 @@ class AdminsController extends AppController {
     function login() {
         $this->loadModel('User');
         $this->layout = "admin-login";
+        $payment = new PaymentsController();
+        $payment->auto_recurring_invoice();
+        $payment->auto_recurring_payment();
         // if already logged in check this step
         if ($this->Auth->loggedIn()) {
             return $this->redirect('dashboard'); //(array('action' => 'deshboard'));

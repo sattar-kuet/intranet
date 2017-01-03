@@ -71,25 +71,30 @@ class TicketsController extends AppController {
                     $this->Session->setFlash($msg);
                     return $this->redirect($this->referer());
                 }
+                if (trim($this->request->data['Ticket']['issue_id']) == 21 ||
+                        trim($this->request->data['Ticket']['issue_id']) == 30 || 
+                        trim($this->request->data['Ticket']['issue_id']) == 36 ||
+                        trim($this->request->data['Ticket']['issue_id']) == 24 || 
+                        trim($this->request->data['Ticket']['issue_id']) == 31 ||
+                        trim($this->request->data['Ticket']['issue_id']) == 20 ||
+                        trim($this->request->data['Ticket']['issue_id']) == 28 ||
+                        trim($this->request->data['Ticket']['action_type']) == "ready"||
+                        trim($this->request->data['Ticket']['action_type']) == 'shipment' ) {
+                    $this->PackageCustomer->id = $customer_id;
+                    $data['PackageCustomer'] = array(
+                        "deposit" => $this->request->data['Ticket']['deposit'],
+                        "monthly_bill" => $this->request->data['Ticket']['monthly_bill'],
+                        "others" => $this->request->data['Ticket']['others'],
+                        "total" => $this->request->data['Ticket']['total'],
+                        "remote_no" => $this->request->data['Ticket']['remote_no'],
+                        "issue_id" => $this->request->data['Ticket']['issue_id'],
+                        "comments" => $this->request->data['Ticket']['content'],
+                        "status" => 'requested',
+                        "user_id" => $loggedUser['id']
+                    );
+                    $cusinfo = $this->PackageCustomer->save($data);
+                }
 
-                $this->PackageCustomer->id = $customer_id;
-                $data['PackageCustomer'] = array(
-                    "deposit" => $this->request->data['Ticket']['deposit'],
-                    "monthly_bill" => $this->request->data['Ticket']['monthly_bill'],
-                    "others" => $this->request->data['Ticket']['others'],
-                    "total" => $this->request->data['Ticket']['total'],
-                    "remote_no" => $this->request->data['Ticket']['remote_no'],
-                    "issue_id" => $this->request->data['Ticket']['issue_id'],
-                    "comments" => $this->request->data['Ticket']['content'],
-                    "status" => 'requested',
-                    "user_id" => $loggedUser['id']
-                );
-
-//                pr($data);
-//                exit;
-//                $this->StatusHistory->save($data4statusHistory);
-
-                $cusinfo = $this->PackageCustomer->save($data);
                 $status = 'open';
                 if (trim($this->request->data['Ticket']['action_type']) == 'solved' ||
                         trim($this->request->data['Ticket']['action_type']) == 'ready' ||
@@ -112,9 +117,6 @@ class TicketsController extends AppController {
                     'forwarded_by' => $loggedUser['id']
                 );
 
-                if (trim($this->request->data['Ticket']['action_type']) == 'solved') {
-                    $trackData['Track']['status'] = 'solved';
-                }
 
                 if (trim($this->request->data['Ticket']['issue_id']) == 17) {
                     $this->addNewAddr($this->request->data['Ticket']['new_addr'], $customer_id);

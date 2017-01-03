@@ -492,7 +492,7 @@ class PaymentsController extends AppController {
                 $this->PackageCustomer->saveField('invoice_created', 1);
             }
         }
-        return $this->redirect('message');
+        
     }
 
     function auto_recurring_payment() {
@@ -530,8 +530,7 @@ class PaymentsController extends AppController {
 
             $this->individual_auto_recurring($data);
         }
-        $this->Session->setFlash('Done');
-        return $this->redirect('message');
+        
     }
 
     function message() {
