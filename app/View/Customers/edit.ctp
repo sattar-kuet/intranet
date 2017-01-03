@@ -659,6 +659,71 @@
             <!--End-->
 
 
+            <!-- -------------Set package exp date start--------------------------->     
+            <div class="col-md-12">
+                <div class="portlet box blue-steel">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-list-ul"></i>Package Expire Date Update
+                        </div>
+                        <div class="tools">
+                            <a  class="reload toggle" data-id="package_exp"></a>
+                        </div>
+                    </div>
+                    <div class="portlet-body" id="package_exp" style="display: none;">  
+                        <?php echo $this->Session->flash() ?>
+                        <?php
+                        echo $this->Form->create('PackageCustomer', array(
+                            'inputDefaults' => array(
+                                'label' => false,
+                                'div' => false
+                            ),
+                            'id' => 'form-validate',
+                            'class' => 'form-horizontal',
+                            'novalidate' => 'novalidate',
+                            'enctype' => 'multipart/form-data',
+                            'url' => array('controller' => 'customers', 'action' => 'package_expdate_update')
+                                )
+                        );
+                        ?>
+                        <br>
+                        <div class="row">                                     
+                            <?php
+                            echo $this->Form->input(
+                                    'package_customer_id', array(
+                                'type' => 'hidden',
+                                'value' => $this->params['pass'][0],
+                            ));
+                            ?>
+                            <br>
+                            <div class="col-md-2 signupfont">
+                                Package Expire Date:
+                            </div>
+                            <div class="col-md-2">
+                                <div class="input-list style-4 clearfix">
+                                    <?php
+                                    echo $this->Form->input(
+                                            'package_exp_date', array(
+                                        'class' => 'datepicker form-control ',
+                                        'type' => 'text',
+                                            )
+                                    );
+                                    ?>
+                                </div>
+                            </div>                         
+                            &nbsp;
+                            &nbsp;
+                            <div class="row margin-top-20">
+                                <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20"> 
+                                    <button class="btn btn-primary submitbtn grey-cascade" type="submit" id="">Update Date</button>                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php echo $this->Form->end(); ?>
+                </div>
+            </div>
+            <!-- -------------Set package exp date end--------------------------->  
+
             <!-- -------------Begin Next Payment--------------------------->     
             <div class="col-md-12">
 
@@ -2111,7 +2176,7 @@
                                                                 <li>Transaction No : <?php echo $payment['tr']['trx_id']; ?></li> 
                                                                 <li>Card No : <?php echo substr($payment['tr']['card_no'], -4); ?></li>  
                                                                 <li>Zip Code : <?php echo $payment['tr']['zip_code']; ?></li>  
-                                                                <li>CVV Code : ***<?php //echo $payment['tr']['cvv_code'];            ?></li> 
+                                                                <li>CVV Code : ***<?php //echo $payment['tr']['cvv_code'];              ?></li> 
 
                                                                 <li>Expire Date : <?php echo $payment['tr']['exp_date']; ?></li>
 
@@ -3165,27 +3230,29 @@
                 </div>
                 <!-- END CONTENT -->        
             </div>
-            <div class="col-md-offset-6 col-md-4">
-                <?php
-                echo $this->Form->create('PackageCustomer', array(
-                    'inputDefaults' => array(
-                        'label' => false,
-                        'div' => false
-                    ),
-                    'id' => 'form_sample_3',
-                    'class' => 'form-horizontal',
-                    'novalidate' => 'novalidate',
-                    'url' => array('controller' => 'customers', 'action' => 'delete')
-                        )
-                );
-                ?>
-                <button class="btn red-sunglo" onclick="if (confirm('Are you sure to Delete this Customer?')) {
-                            return true;
-                        }
-                        return false;" type="submit" style="background-color: red;">Delete customer</button>     
+            <?php if (($user == 'sadmin') || ($user == 'supervisor')): ?>
+                <div class="col-md-offset-6 col-md-4">
+                    <?php
+                    echo $this->Form->create('PackageCustomer', array(
+                        'inputDefaults' => array(
+                            'label' => false,
+                            'div' => false
+                        ),
+                        'id' => 'form_sample_3',
+                        'class' => 'form-horizontal',
+                        'novalidate' => 'novalidate',
+                        'url' => array('controller' => 'customers', 'action' => 'delete')
+                            )
+                    );
+                    ?>
+                    <button class="btn red-sunglo" onclick="if (confirm('Are you sure to Delete this Customer?')) {
+                                    return true;
+                                }
+                                return false;" type="submit" style="background-color: red;">Delete customer</button>     
 
-                <?php echo $this->Form->end(); ?>
+                    <?php echo $this->Form->end(); ?>
 
 
-            </div>
+                </div>
+            <?php endif; ?>
         </div>

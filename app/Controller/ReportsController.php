@@ -117,7 +117,6 @@ class ReportsController extends AppController {
                 WHERE $conditions order by tr.id desc limit $offset,$this->per_page";
 
             $transactions = $this->Transaction->query($sql);
-//            pr($transactions); exit;
 
             $sql1 = "SELECT SUM(payable_amount)as totalamount FROM transactions tr WHERE $conditions ";
             $totalamount = $this->Transaction->query($sql1);
@@ -152,7 +151,6 @@ class ReportsController extends AppController {
         left join packages p on ps.package_id = p.id
         left join custom_packages cp on pc.custom_package_id = cp.id
         WHERE  tr.id =$id ");
-//        pr($data[0]['tr']['transaction_id']); exit;
         $this->set(compact('data'));
     }
 
@@ -165,8 +163,7 @@ class ReportsController extends AppController {
             LEFT JOIN packages p ON p.id = ps.package_id 
             WHERE pc.exp_date>='" . date('Y-m-d') . "' AND pc.exp_date<='" . $expiredate . "' AND pc.exp_date != 0000-00-00 "
                 . "GROUP BY pc.id");
-//        pr($packagecustomers);
-//        exit;
+
         foreach ($packagecustomers as $data) {
             $pcid = $data['pc']['id'];
             $this->PackageCustomer->id = $pcid;
@@ -184,7 +181,6 @@ class ReportsController extends AppController {
             left join psettings ps on ps.id = pc.psetting_id
             LEFT JOIN packages p ON p.id = ps.package_id 
             WHERE  pc.printed = 1");
-        //  pr($packagecustomers); exit;
         $this->set(compact('packagecustomers'));
     }
 
@@ -214,8 +210,6 @@ class ReportsController extends AppController {
         $this->loadModel('Package_customer');
         $this->loadModel('Transaction');
         if ($this->request->is('post') || $this->request->is('put')) {
-//            pr($this->request->data);
-//            exit;
             $datrange = json_decode($this->request->data['Package_customer']['daterange'], true);
             $datrange['start'] = $datrange['start'] . ' 00:00:00';
             $datrange['end'] = $datrange['end'] . ' 23:59:59';
@@ -298,6 +292,7 @@ class ReportsController extends AppController {
                 . "GROUP BY pc.id";
         
         echo $sql; exit;
+        
         $packagecustomers = $this->Transaction->query("SELECT * 
         FROM transactions tr
         LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id
