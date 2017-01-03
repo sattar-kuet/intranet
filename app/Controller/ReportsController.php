@@ -67,8 +67,10 @@ class ReportsController extends AppController {
             left join psettings  on psettings.id = package_customers.psetting_id
             LEFT JOIN packages  ON packages.id = psettings.package_id 
             LEFT JOIN custom_packages  ON custom_packages.id = package_customers.custom_package_id 
-            where $conditions order by package_customers.id desc limit 0,199";
-
+            LEFT JOIN status_histories ON package_customers.id = status_histories.package_customer_id
+            
+            where $conditions and status_histories.status = 'canceled' order by status_histories.id desc limit 0,199";
+            echo $sql; exit;
 
             $block_customers = $this->PackageCustomer->query($sql);
             $clicked = true;
