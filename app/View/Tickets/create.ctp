@@ -337,7 +337,7 @@
                                 </div>
                             </div>
                             <div class="form-group assign_single">
-                                <label class="control-label col-md-3">Assign to (individual)
+                                <label class="control-label col-md-3">Assign to (Individual)
                                 </label>
                                 <div class="form-group">
 

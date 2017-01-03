@@ -960,7 +960,7 @@
 
             <li 
             <?php
-            $printqueues = array('ReportsopenInvoice25', 'ReportscloseInvoice', 'ReportsextraPayment', 'ReportspassedInvoice');
+            $printqueues = array('ReportsopenInvoice25', 'ReportscloseInvoice', 'ReportsextraPayment', 'ReportspassedInvoice','ReportssummeryReport');
             if (in_array($this->name . '' . $this->action, $printqueues)):
                 ?>
                     class="active"
@@ -986,6 +986,18 @@
                                                 <i class="fa fa-plus"></i>
                                                 Open Invoice</a>
                                         </li>-->
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'ReportssummeryReport'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'summeryReport')) ?>">
+                            <i class="fa fa-plus"></i>
+                            Summery</a>
+                    </li>
                     <li
                     <?php if ($this->name . '' . $this->action == 'ReportsopenInvoice25'):
                         ?>

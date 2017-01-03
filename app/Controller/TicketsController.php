@@ -42,7 +42,7 @@ class TicketsController extends AppController {
     }
 
     function create($customer_id = null) {
-       // pr($this->request->data); exit;
+        // pr($this->request->data); exit;
 
         if ($customer_id == null) {
             $this->redirect('/admins/servicemanage');
@@ -232,7 +232,7 @@ class TicketsController extends AppController {
                 $this->Track->save($trackData); // Data save in Track
                 $msg = '<div class="alert alert-success">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
-				<strong> Ticket Created succeesfully </strong>
+				<strong> Ticket created succeesfully </strong>
 			</div>';
                 $this->Session->setFlash($msg);
                 return $this->redirect($this->referer());
@@ -353,10 +353,6 @@ class TicketsController extends AppController {
                         left JOIN users fi ON tr.user_id = fi.id
                         left JOIN issues i ON tr.issue_id = i.id
 			left join package_customers pc on tr.package_customer_id = pc.id order by tr.created DESC" . " LIMIT " . $offset . "," . $this->per_page);
-
-            $temp = $this->Ticket->query("SELECT COUNT(tickets.id) as total FROM `tickets`");
-            $total = $temp[0][0]['total'];
-            $total_page = ceil($total / $this->per_page);
         } else {
             $tickets = $this->Track->query("SELECT * FROM tracks tr
                         left JOIN tickets t ON tr.ticket_id = t.id
@@ -365,10 +361,12 @@ class TicketsController extends AppController {
                         left JOIN users fi ON tr.user_id = fi.id
                         left JOIN issues i ON tr.issue_id = i.id
                         left join package_customers pc on tr.package_customer_id = pc.id
-                         WHERE tr.user_id =" . $loggedUser['id'] . " ORDER BY tr.created DESC LIMIT0,250");
+                         WHERE tr.user_id =" . $loggedUser['id'] . " ORDER BY tr.created DESC" . " LIMIT " . $offset . "," . $this->per_page);
         }
 
-
+        $temp = $this->Ticket->query("SELECT COUNT(tickets.id) as total FROM `tickets`");
+        $total = $temp[0][0]['total'];
+        $total_page = ceil($total / $this->per_page);
 
         $filteredTicket = array();
         $unique = array();
@@ -416,7 +414,8 @@ class TicketsController extends AppController {
                                         WHERE tr.ticket_id IN (SELECT ticket_id from tracks  tr where  tr.user_id  = " .
                 $loggedUser['id'] . ")" . " ORDER BY tr.id DESC" . " LIMIT " . $offset . "," . $this->per_page);
 
-        $temp = $this->Ticket->query("SELECT COUNT(tickets.id) as total FROM tickets where  tickets.user_id  = " . $loggedUser['id'] . " ");
+        $temp = $this->Ticket->query("SELECT COUNT( DISTINCT tr.ticket_id ) AS total FROM tracks tr WHERE tr.user_id = " . $loggedUser['id']);
+
         $total = $temp[0][0]['total'];
         $total_page = ceil($total / $this->per_page);
 
@@ -465,9 +464,9 @@ class TicketsController extends AppController {
                                         WHERE tr.ticket_id IN (SELECT ticket_id from tracks  tr where tr.forwarded_by = " .
                 $loggedUser['id'] . ")" . " ORDER BY tr.id DESC" . " LIMIT " . $offset . "," . $this->per_page);
 
-        
+
         $temp = $this->Ticket->query("SELECT COUNT( DISTINCT tr.ticket_id ) AS total FROM tracks tr WHERE tr.forwarded_by = " . $loggedUser['id']);
-        
+
 //          pr($temp); exit;    
         $total = $temp[0][0]['total'];
         $total_page = ceil($total / $this->per_page);
