@@ -187,9 +187,9 @@
                                                  
                                                  echo $info['transactions']['payable_amount'] - $paid;?> USD
                                                 </td>
-                                                <td><?php echo date('m-d-Y', strtotime($info['transactions']['exp_date']));?></td>                                              
+                                                <td><?php echo date('m-d-Y', strtotime($info['package_customers']['modified']));?></td>                                              
                                                
-                                                 <td><?php echo date('m-d-Y', strtotime($info['package_customers']['modified']));?></td>                                                
+                                                 <td><?php echo date('m-d-Y', strtotime($info['package_customers']['created']));?></td>                                                
                                             </tr>
                                         <?php endforeach; ?>                           
                                     </tbody>

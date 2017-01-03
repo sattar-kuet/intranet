@@ -197,6 +197,21 @@ class CustomersController extends AppController {
         $this->set(compact('clicked'));
     }
 
+    function package_expdate_update() {
+        $this->loadModel('PackageCustomer');
+        $this->PackageCustomer->id = $this->request->data['PackageCustomer']['package_customer_id'];
+//        pr($this->request->data); exit;
+        $this->PackageCustomer->saveField("package_exp_date", $this->getFormatedDate($this->request->data['PackageCustomer']['package_exp_date']));
+      
+        $Msg = '<div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Package expire date updated successfully! </strong>
+    </div>';
+        $this->Session->setFlash($Msg);
+        return $this->redirect($this->referer());
+    }
+    
+    
     function update_status() {
         $data4statusHistory = array();
         $this->loadModel('StatusHistory');
