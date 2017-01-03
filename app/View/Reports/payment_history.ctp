@@ -126,7 +126,7 @@
                                         1Month Subscription<b>: <?php echo $sql1monthp; ?></b>&nbsp;
                                         3Months Subscription<b>: <?php echo $total3monthp; ?></b>&nbsp;
                                         6Months Subscription<b>: <?php echo $total6monthp; ?></b>&nbsp;
-                                        12Months Subscription<b>: <?php echo $total3monthp; ?>                                    
+                                        12Months Subscription<b>: <?php echo $total12monthp; ?>                                    
                                     </p>                                       
                                     <p class="pull-right"> Total Subscription<b>: <?php echo $total; ?></b></p><br>
                                     <p class="pull-right"> Total Boxes<b>: <span class="showthis" data-box="box"></span> </b></p>
@@ -141,7 +141,7 @@
                                             }
                                             ?>
                                             <li class="paginate_button <?php echo $active; ?>" aria-controls="sample_editable_1" tabindex="<?php echo $i; ?>">
-                                                <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'payment_history', $i, $start, $end)) ?>"><?php echo $i; ?></a>
+                                                <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'payment_history', $i, $start, $end,$pay_mode)) ?>"><?php echo $i; ?></a>
                                             </li>
                                         <?php endfor; ?>
                                     </ul>

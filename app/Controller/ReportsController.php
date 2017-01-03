@@ -79,21 +79,21 @@ class ReportsController extends AppController {
         $this->set(compact('clicked'));
     }
 
-    function payment_history($page = 1, $start = null, $end = null) {
+    function payment_history($page = 1, $start = null, $end = null,$pay_mode = null) {
         $this->loadModel('Transaction');
         $clicked = false;
         if ($this->request->is('post') || $this->request->is('put') || $start != null) {
-
-            if ($start == null) {
-
+            
+            if (isset($this->request->data['Transaction'])) {
                 $datrange = json_decode($this->request->data['Transaction']['daterange'], true);
                 $start = $datrange['start'];
                 $end = $datrange['end'];
+                $pay_mode = $this->request->data['Transaction']['pay_mode'];
             }
-
+           
             $conditions = " tr.status = 'success' AND ";
-            if (!empty($this->request->data['Transaction']['pay_mode'])) {
-                $conditions .=" tr.pay_mode = '" . $this->request->data['Transaction']['pay_mode'] . "' AND ";
+            if (!empty($pay_mode) && $pay_mode !=null) {
+                $conditions .=" tr.pay_mode = '" . $pay_mode . "' AND ";
             }
             if ($start == $end) {
                 $nextday = date('Y-m-d', strtotime($end . "+1 days"));
@@ -133,33 +133,13 @@ class ReportsController extends AppController {
             $totalautore = $this->Transaction->query($sqlautore);
             $totalautore = round($totalautore[0][0]['totalautore'], 2);
 
-            $sql1monthp = $this->getSubscriptionNo($conditions, '1 month package', 1);
-            $total3monthp = $this->getSubscriptionNo($conditions, '3 month package', 3);
-            $total6monthp = $this->getSubscriptionNo($conditions, '6 month package', 6);
-            $total12monthp = $this->getSubscriptionNo($conditions, '1 year package', 12);
-
-            //3 month total packages
-//            $sql3monthp = "SELECT COUNT(ps.name) as total3monthp FROM transactions tr left join package_customers pc on pc.id = tr.package_customer_id 
-//            left join psettings ps on ps.id = pc.psetting_id  LEFT JOIN packages p ON p.id = ps.package_id 
-//            WHERE $conditions and ps.name = '3 month package $90'";
-//            $total3monthp = $this->Transaction->query($sql3monthp);
-//            $total3monthp = round($total3monthp[0][0]['total3monthp']);
-            //6 month total packages
-//            $total6monthp = "SELECT COUNT(ps.name) as total6monthp FROM transactions tr left join package_customers pc on pc.id = tr.package_customer_id 
-//            left join psettings ps on ps.id = pc.psetting_id LEFT JOIN packages p ON p.id = ps.package_id 
-//            WHERE $conditions and ps.name = '6 month package $180'";
-//            $total6monthp = $this->Transaction->query($total6monthp);
-//            $total6monthp = $total6monthp[0][0]['total6monthp'];
-//
-//            //12 month total packages
-//            $sql12monthp = "SELECT COUNT(ps.name) as total12monthp FROM transactions tr left join package_customers pc on pc.id = tr.package_customer_id 
-//            left join psettings ps on ps.id = pc.psetting_id LEFT JOIN packages p ON p.id = ps.package_id 
-//            WHERE $conditions  and ps.name = '1 year package $360'";
-//            $sql12monthp = $this->Transaction->query($sql12monthp);
-//            $sql12monthp = round($sql12monthp[0][0]['total12monthp']);
+           $sql1monthp = $this->getSubscriptionNo($conditions, '1 month package',1);
+           $total3monthp = $this->getSubscriptionNo($conditions, '3 month package',3);
+           $total6monthp = $this->getSubscriptionNo($conditions, '6 month package',6);
+           $total12monthp = $this->getSubscriptionNo($conditions, '1 year package',12);
 
             $clicked = true;
-            $this->set(compact('transactions', 'totalamount', 'total_page', 'total', 'start', 'end', 'totalmanual', 'totalautore', 'sql1monthp', 'total3monthp', 'total6monthp', 'sql12monthp'));
+            $this->set(compact('transactions', 'totalamount', 'total_page', 'total', 'start', 'end', 'pay_mode', 'totalmanual', 'totalautore', 'sql1monthp', 'total3monthp', 'total6monthp', 'total12monthp'));
         }
         $this->set(compact('clicked'));
     }
@@ -679,7 +659,8 @@ class ReportsController extends AppController {
         $datrange = json_decode($this->request->data['Track']['daterange'], true);
         $start = $datrange['start'];
         $end = $datrange['end'];
-        $cardinfotaken = $this->Transaction->query("SELECT count(status) as cardinfotaken FROM transactions WHERE (transactions.created) >= '" . $start . "' AND transactions.created <='" . $end . "' and transactions.status = 'update'");
+        $sql = "SELECT count(DISTINCT package_customer_id) as cardinfotaken FROM tracks WHERE CAST(tracks.created as DATE) >= '" . $start . "' AND CAST(tracks.created as DATE) <='" . $end . "' AND tracks.issue_id = 0";
+        $cardinfotaken = $this->Transaction->query($sql);
         return $cardinfotaken[0][0]['cardinfotaken'];
     }
 
@@ -797,8 +778,8 @@ class ReportsController extends AppController {
             $total['cancel'] = $this->getTotalCallBySatatus('service cancel');
             $total['cancel_from_da'] = $this->getTotalCallBySatatus('cancel from dealer & agent');
             $total['cancel_from_hold'] = $this->getTotalCallBySatatus('cancel from hold');
-            $total['card_info_taken'] = $this->getTotalCallBySatatus('card info taken');
-//            $total['additional_box'] = $this->getTotalCallBySatatus('additional box installation');
+            //$total['card_info_taken'] = $this->getTotalCallBySatatus('card info taken');
+            $total['additional_box'] = $this->getTotalCallBySatatus('additional box installation');
             $total['online_payment'] = $this->getTotalCallBySatatus('MONEY ORDER ONLINE PAYMENT');
             $this->getTotalCallBySatatus('check send');
             $total['addsalesreceive'] = $this->addsalesReceive();
@@ -806,6 +787,7 @@ class ReportsController extends AppController {
             $total['totaloutbound'] = $this->totalOutbound();
 
             $total['totalAccount'] = $this->accountCall();
+           // pr($total); exit;
             $clicked = true;
             $datrange = json_decode($this->request->data['Track']['daterange'], true);
             $start1 = $datrange['start'];

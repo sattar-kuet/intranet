@@ -927,7 +927,6 @@ class PaymentsController extends AppController {
     public function paidInvoice($trans_id = null, $customer_id = null) {
         $this->request->data['Transaction']['created'] = $this->getFormatedDate($this->request->data['Transaction']['created']) . ' 00:00:00';
         $this->loadModel('Transaction');
-
         $this->loadModel('Ticket');
         $this->loadModel('Track');
         $loggedUser = $this->Auth->user();
@@ -936,6 +935,13 @@ class PaymentsController extends AppController {
         $this->request->data['Transaction']['status'] = 'paid';
         $id = $this->request->data['Transaction']['id'];
         $this->request->data['Transaction']['transaction_id'] = $id;
+        
+        if (strpos($this->request->data['Transaction']['card_no'], 'X') !== false) {
+            //Card number is not changed. So fetch previous card number
+            $card = $this->getLastCardInfo($this->request->data['Transaction']['package_customer_id']);
+            $this->request->data['Transaction']['card_no'] = $card['card_no'];
+        }
+        
         unset($this->request->data['Transaction']['id']);
 
         //creatre transaction History 
@@ -956,8 +962,8 @@ class PaymentsController extends AppController {
         $this->Transaction->id = $id;
 //         pr('here'); exit;
         $this->Transaction->saveField('status', $status);
-        echo $this->Transaction->getLastQuery();
-        exit;
+//        echo $this->Transaction->getLastQuery();
+//        exit;
         // generate Ticket
         $tdata['Ticket'] = array('content' => "This is paid invoice.Paid invoice record saved successfully<br> <b> Amount : </b> $amount <br> <b> Payment mode :</b> Card", 'status' => 'solved');
         $tickect = $this->Ticket->save($tdata); // Data save in Ticket

@@ -204,7 +204,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="form-actions">
                                                     <div class="row">
                                                         <div class="col-md-offset-7 col-md-4">
                                                             <?php
@@ -214,7 +213,7 @@
                                                             ?>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                
                                                 <?php echo $this->Form->end(); ?>
                                                 <!-- END FORM-->
                                             </div> 
