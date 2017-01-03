@@ -598,6 +598,8 @@ class AdminsController extends AppController {
         $this->set(compact('filteredData', 'technician'));
     }
 
+   
+
     function donebytech() {
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
@@ -1001,11 +1003,11 @@ class AdminsController extends AppController {
         $loggedUser = $this->Auth->user();
         $comments = $this->request->data['Comment']['comments'];
         $data['PackageCustomer'] = array(
-        "id" => $pcid,
-        "approved" => "1",
-        "status" => "done",
-        "comments" => $comments,
-        "user_id" => $loggedUser['id']);
+            "id" => $pcid,
+            "approved" => "1",
+            "status" => "done",
+            "comments" => $comments,
+            "user_id" => $loggedUser['id']);
 //    pr($data); exit;
         $this->PackageCustomer->save($data);
         $msg = '<div class="alert alert-success">
@@ -1015,18 +1017,18 @@ class AdminsController extends AppController {
         // $this->generateInvoice($data);
         return $this->redirect($this->referer());
     }
-    
+
     function pcComment($id = null) {
         $this->loadModel('PackageCustomer');
         $this->PackageCustomer->id = $id;
         $pcid = $this->request->data['Comment']['package_customer_id'];
         $loggedUser = $this->Auth->user();
         $comments = $this->request->data['Comment']['comments'];
-        
+
         $data['PackageCustomer'] = array(
-        "id" => $pcid,
-        "comments" => $comments,
-        "user_id" => $loggedUser['id']);
+            "id" => $pcid,
+            "comments" => $comments,
+            "user_id" => $loggedUser['id']);
 //    pr($data); exit;
         $this->PackageCustomer->save($data);
         $msg = '<div class="alert alert-success">

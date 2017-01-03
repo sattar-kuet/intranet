@@ -962,6 +962,49 @@ class ReportsController extends AppController {
         $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
         $this->set(compact('filteredData', 'technician'));
     }
+    
+     function all() { //Auto recurring data all
+        $this->loadModel('User');
+        $this->loadModel('PackageCustomer');
+        $allData = $this->PackageCustomer->query("SELECT * 
+                    FROM package_customers pc
+                    LEFT JOIN users u ON pc.technician_id = u.id
+                    LEFT JOIN psettings ps ON ps.id = pc.psetting_id
+                    LEFT JOIN custom_packages cp ON cp.id = pc.custom_package_id
+                    WHERE pc.auto_r =  'yes'
+                    ORDER BY pc.id");
+     
+        $this->set(compact('allData'));
+    }
+     
+    function successful() { //Auto recurring data success
+        $this->loadModel('User');
+        $this->loadModel('PackageCustomer');
+        $allData = $this->PackageCustomer->query("SELECT * 
+                    FROM transactions
+                    LEFT JOIN package_customers ON package_customers.id = transactions.package_customer_id
+                    LEFT JOIN psettings ON psettings.id = package_customers.psetting_id
+                    LEFT JOIN custom_packages ON custom_packages.id = package_customers.custom_package_id
+                    WHERE transactions.auto_recurring = 1
+                    AND transactions.status =  'success'");
+     
+        $this->set(compact('allData'));
+    }
+    
+    
+    function failed() { //Auto recurring data error
+        $this->loadModel('User');
+        $this->loadModel('PackageCustomer');
+        $allData = $this->PackageCustomer->query("SELECT * 
+                    FROM transactions
+                    LEFT JOIN package_customers ON package_customers.id = transactions.package_customer_id
+                    LEFT JOIN psettings ON psettings.id = package_customers.psetting_id
+                    LEFT JOIN custom_packages ON custom_packages.id = package_customers.custom_package_id
+                    WHERE transactions.auto_recurring !=1
+                    AND transactions.status =  'error'");
+     
+        $this->set(compact('allData'));
+    }
 
 }
 
