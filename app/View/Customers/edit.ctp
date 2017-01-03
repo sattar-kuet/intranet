@@ -1921,9 +1921,9 @@
                     </div>
                     <div class="portlet-body">
                         <div class="row" id="attachment" style="display: none;"> 
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <?php
-                                echo $this->Form->create('PackageCustomer', array(
+                                echo $this->Form->create('Attachment', array(
                                     'inputDefaults' => array(
                                         'label' => false,
                                         'div' => false
@@ -1937,7 +1937,7 @@
                                 ?>
 
                                 <?php
-                                echo $this->Form->input('id', array(
+                                echo $this->Form->input('package_customer_id', array(
                                     'type' => 'hidden',
                                     'value' => $this->params['pass'][0],
                                         )
@@ -1952,7 +1952,7 @@
                                         <div class="col-md-4">
                                             <?php
                                             echo $this->Form->input(
-                                                    'extra_invoice', array(
+                                                    'name', array(
                                                 'type' => 'file',
                                                 'id' => 'required',
                                                 'class' => 'span9 text'
@@ -1974,6 +1974,13 @@
                                     </div>
                                     <?php echo $this->Form->end(); ?>
                                 </div>
+                            </div>
+                            <div class="col-md-6">
+                                <ul>
+                                    <?php foreach ($attachments as $no => $attachment): ?>
+                                        <li><a href="<?php echo $this->webroot . 'attachment/' . $attachment['Attachment']['name']; ?>" target="_blank">File<?php echo $no+1;?></a> </li>
+                                    <?php endforeach; ?>
+                                </ul>
                             </div>
                         </div>
                     </div>
