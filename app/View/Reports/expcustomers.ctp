@@ -153,7 +153,7 @@
                                                 ?>
                                                 <tr>
                                                     <td><?php echo $info['PackageCustomer']['c_acc_no']; ?></td>
-                                                    <td> <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'edit', $info['PackageCustomer']['id'])) ?>" target="_blank"><?php echo $info['PackageCustomer']['middle_name'] . " " . $info['PackageCustomer']['last_name']; ?></a> </td>
+                                                    <td> <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'edit', $info['PackageCustomer']['id'])) ?>" target="_blank"><?php echo $info['PackageCustomer']['first_name'] . " " . $info['PackageCustomer']['middle_name'] . " " . $info['PackageCustomer']['last_name']; ?></a> </td>
                                                     <td><?php echo $customer_address; ?></td>
                                                     <td><?php echo $info['PackageCustomer']['mac']; ?></td>
                                                     <td><?php echo $info['PackageCustomer']['cell']; ?></td>
