@@ -56,20 +56,15 @@ class ReportsController extends AppController {
         $clicked = false;
         if ($this->request->is('post') || $this->request->is('put')) {
             $datrange = json_decode($this->request->data['PackageCustomer']['daterange'], true);
-
             $start = $datrange['start'];
             $end = $datrange['end'];
-
-            $conditions = 'package_customers.cancelled_date >="' . $start . '" AND package_customers.cancelled_date <="' . $end . '"';
-
+            $conditions = 'package_customers.status ="canceled" AND package_customers.date >="' . $start . '" AND package_customers.date <="' . $end . '"';
             $sql = "SELECT * FROM package_customers     
             left join transactions  on package_customers.id = transactions.package_customer_id    
             left join psettings  on psettings.id = package_customers.psetting_id
             LEFT JOIN packages  ON packages.id = psettings.package_id 
             LEFT JOIN custom_packages  ON custom_packages.id = package_customers.custom_package_id 
             where $conditions order by package_customers.id desc limit 0,199";
-
-
             $block_customers = $this->PackageCustomer->query($sql);
             $clicked = true;
             $this->set(compact('block_customers'));
@@ -77,20 +72,20 @@ class ReportsController extends AppController {
         $this->set(compact('clicked'));
     }
 
-    function payment_history($page = 1, $start = null, $end = null,$pay_mode = null) {
+    function payment_history($page = 1, $start = null, $end = null, $pay_mode = null) {
         $this->loadModel('Transaction');
         $clicked = false;
         if ($this->request->is('post') || $this->request->is('put') || $start != null) {
-            
+
             if (isset($this->request->data['Transaction'])) {
                 $datrange = json_decode($this->request->data['Transaction']['daterange'], true);
                 $start = $datrange['start'];
                 $end = $datrange['end'];
                 $pay_mode = $this->request->data['Transaction']['pay_mode'];
             }
-           
+
             $conditions = " tr.status = 'success' AND ";
-            if (!empty($pay_mode) && $pay_mode !=null) {
+            if (!empty($pay_mode) && $pay_mode != null) {
                 $conditions .=" tr.pay_mode = '" . $pay_mode . "' AND ";
             }
             if ($start == $end) {
@@ -131,10 +126,10 @@ class ReportsController extends AppController {
             $totalautore = $this->Transaction->query($sqlautore);
             $totalautore = round($totalautore[0][0]['totalautore'], 2);
 
-           $sql1monthp = $this->getSubscriptionNo($conditions, '1 month package',1);
-           $total3monthp = $this->getSubscriptionNo($conditions, '3 month package',3);
-           $total6monthp = $this->getSubscriptionNo($conditions, '6 month package',6);
-           $total12monthp = $this->getSubscriptionNo($conditions, '1 year package',12);
+            $sql1monthp = $this->getSubscriptionNo($conditions, '1 month package', 1);
+            $total3monthp = $this->getSubscriptionNo($conditions, '3 month package', 3);
+            $total6monthp = $this->getSubscriptionNo($conditions, '6 month package', 6);
+            $total12monthp = $this->getSubscriptionNo($conditions, '1 year package', 12);
 
             $clicked = true;
             $this->set(compact('transactions', 'totalamount', 'total_page', 'total', 'start', 'end', 'pay_mode', 'totalmanual', 'totalautore', 'sql1monthp', 'total3monthp', 'total6monthp', 'total12monthp'));
@@ -286,16 +281,19 @@ class ReportsController extends AppController {
         $this->loadModel('PackageCustomer');
         $date = date("'Y-m-d'");
         $expiredate = trim(date('Y-m-d', strtotime("+25 days")));
-         
-        $sql ="SELECT * 
+
+        $sql = "SELECT * 
         FROM transactions tr
         LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id
         LEFT JOIN psettings ps ON ps.id = pc.psetting_id
         LEFT JOIN packages p ON p.id = ps.package_id
-        WHERE pc.package_exp_date ='" . date('Y-m-d') . "' AND pc.package_exp_date<='" . $expiredate . "' AND pc.package_exp_date != 0000-00-00 "
-                . "GROUP BY pc.id";
-        
-        echo $sql; exit;
+        WHERE pc.package_exp_date ='" . date('Y-m-d') .
+                "' AND pc.package_exp_date<='" . $expiredate .
+                "' AND pc.package_exp_date != 0000-00-00 " .
+                "GROUP BY pc.id";
+
+        echo $sql;
+        exit;
         $packagecustomers = $this->Transaction->query("SELECT * 
         FROM transactions tr
         LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id
@@ -304,8 +302,9 @@ class ReportsController extends AppController {
         WHERE pc.package_exp_date ='" . date('Y-m-d') . "' AND pc.package_exp_date<='" . $expiredate . "' AND pc.package_exp_date != 0000-00-00 "
                 . "GROUP BY pc.id");
 
-        pr($packagecustomers); exit;
-       
+        pr($packagecustomers);
+        exit;
+
         $passedInvoice = $this->PackageCustomer->query("SELECT COUNT(tr.id) AS passedInvoice FROM transactions  tr            
             left join package_customers pc on pc.id = tr.package_customer_id
             left join psettings ps on ps.id = pc.psetting_id
@@ -715,7 +714,7 @@ class ReportsController extends AppController {
         $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as totaloutbound FROM tracks 
                  LEFT JOIN issues ON tracks.issue_id = issues.id 
                  LEFT JOIN tickets ON tracks.ticket_id = tickets.id 
-                 WHERE LOWER(issues.name) LIKE  '%outbound'  
+                 WHERE LOWER(issues.name) LIKE  '%outbound%'  
                  AND tickets.created >='" . $datrange['start'] . "' AND tickets.created <='" . $datrange['end'] . "'";
 
         $data = $this->Track->query($sql);
@@ -785,7 +784,7 @@ class ReportsController extends AppController {
             $total['totaloutbound'] = $this->totalOutbound();
 
             $total['totalAccount'] = $this->accountCall();
-           // pr($total); exit;
+            // pr($total); exit;
             $clicked = true;
             $datrange = json_decode($this->request->data['Track']['daterange'], true);
             $start1 = $datrange['start'];

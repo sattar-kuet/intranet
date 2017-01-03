@@ -63,7 +63,7 @@ class CustomersController extends AppController {
     }
 
     function processInvoice($img) {
-        $upload = new Upload($img['extra_invoice']);
+        $upload = new Upload($img['name']);
         $upload->file_new_name_body = time();
         $upload->process($this->img_config['target_path']['attachment']);
         if (!$upload->processed) {
@@ -91,10 +91,11 @@ class CustomersController extends AppController {
     }
 
     function extrainvoice() {
-       $extra_invoice = $this->processInvoice($this->request->data['PackageCustomer']);
-       $this->loadModel('PackageCustomer');
-       $this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
-       $this->PackageCustomer->saveField('extra_invoice', $extra_invoice);
+        $extra_invoice = $this->processInvoice($this->request->data['Attachment']);
+        $this->loadModel('Attachment');
+        $loggedUser = $this->Auth->user();
+        $data = array('name' => $extra_invoice, 'user_id' => $loggedUser['id'], 'package_customer_id' => $this->request->data['Attachment']['package_customer_id']);
+        $this->Attachment->save($data);
         $Msg = '<div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <strong>Extra Invoice added Successfully! </strong>
@@ -245,14 +246,14 @@ class CustomersController extends AppController {
         $this->request->data['Transaction']['user_id'] = $user_id;
         $this->request->data['Transaction']['status'] = 'update';
         $this->request->data['Transaction']['exp_date'] = $this->request->data['Transaction']['exp_date']['month'] . '/' . substr($this->request->data['Transaction']['exp_date']['year'], -2);
-       
+
         if (strpos($this->request->data['Transaction']['card_no'], 'X') !== false) {
             //Card number is not changed. So fetch previous card number
             $card = $this->Transaction->findById($this->request->data['Transaction']['id']);
             $this->request->data['Transaction']['card_no'] = $card['Transaction']['card_no'];
         }
-        unset($this->request->data['Transaction']['id']); 
-       // pr($this->request->data['Transaction']); exit;
+        unset($this->request->data['Transaction']['id']);
+        // pr($this->request->data['Transaction']); exit;
         $this->Transaction->save($this->request->data['Transaction']);
         $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -357,8 +358,9 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $macstb['system'] = json_decode($customer_info['PackageCustomer']['system']);
 
         $c_acc_no = $customer_info['PackageCustomer']['c_acc_no'];
-
+        $this->loadModel('Attachment');
         $transactions = $this->Transaction->find('all', array('conditions' => array('Transaction.package_customer_id' => $id)));
+        $attachments = $this->Attachment->find('all', array('conditions' => array('Attachment.package_customer_id' => $id)));
 
         $this->set(compact('transactions', 'customer_info', 'c_acc_no', 'macstb', 'custom_package_duration', 'checkMark', 'statusHistories'));
 
@@ -387,7 +389,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $this->loadModel('Transaction');
         $invoices = $this->getOpenInvoice($pcid);
         $statements = $this->getStatements($pcid);
-        $this->set(compact('invoices', 'statements', 'packageList', 'psettings', 'ym', 'custom_package_charge', 'user'));
+        $this->set(compact('invoices', 'statements', 'packageList', 'psettings', 'ym', 'custom_package_charge', 'user','attachments'));
     }
 
     function send($param = null) {
