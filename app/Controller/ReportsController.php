@@ -77,7 +77,6 @@ class ReportsController extends AppController {
         $this->loadModel('Transaction');
         $clicked = false;
         if ($this->request->is('post') || $this->request->is('put') || $start != null) {
-
             if (isset($this->request->data['Transaction'])) {
                 $datrange = json_decode($this->request->data['Transaction']['daterange'], true);
                 $start = $datrange['start'];
