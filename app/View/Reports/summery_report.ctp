@@ -1,3 +1,4 @@
+
 <style type="text/css">
     .alert {
         padding: 6px;
@@ -6,7 +7,6 @@
         border-radius: 4px;
         text-align: center;
     }
-
 </style>
 <div class="page-content-wrapper">
     <div class="page-content">
@@ -47,7 +47,7 @@
                             </thead>
                             <tbody>
                                 <tr>                                    
-                                    <td>1</td>
+                                    <td><?php echo $totla25daysinvoice[0][0]['25daysinvoice']; ?></td>
 
                                     <td><?php echo $passedInvoice[0][0]['passedInvoice']; ?></td>
 
@@ -57,10 +57,7 @@
                         </table>
                     </div>
                 </div>
-                <!-- END EXAMPLE TABLE PORTLET-->
             </div>
         </div>
-        <!-- END PAGE CONTENT -->
     </div>
 </div>
-<!-- END CONTENT -->

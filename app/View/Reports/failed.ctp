@@ -38,14 +38,16 @@
                                     <th class="sorting_desc">
                                         ID
                                     </th>
-                                   
+
                                     <th>
                                         Customer Detail
                                     </th>
                                     <th>
                                         Package
                                     </th>
-                                  
+                                    <th>
+                                        Payment Information
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -61,10 +63,10 @@
                                     ?>
                                     <tr>
                                         <td class="hidden-480">
-                                            <?php echo $results['package_customers']['id']; ?>                            
+                                            <?php echo $results['transactions']['id']; ?>                            
                                         </td>
                                         <td class="hidden-480">
-                                           <?php echo $results['package_customers']['first_name'] . ' ' . $results['package_customers']['middle_name'] . ' ' . $results['package_customers']['last_name']; ?>
+                                            <?php echo $results['package_customers']['first_name'] . ' ' . $results['package_customers']['middle_name'] . ' ' . $results['package_customers']['last_name']; ?>
                                             <br> <?php echo $customer_address; ?>                            
                                         </td>                                     
                                         <td>
@@ -73,9 +75,16 @@
                                                 Duration:<?php echo $results['ps']['duration']; ?><br>
                                                 Amount: <?php echo $results['ps']['amount']; ?>
                                             <?php endif; ?>
-                                        </td>                                     
-                                    </tr>
-                                <?php endforeach; ?>  
+                                        </td>   
+                                        <td class="hidden-480">
+                                <li> <b>Paid Amount :</b> <?php echo $results['transactions']['paid_amount']; ?> </li>                           
+                                <li>  <b>Transaction ID :</b> <?php echo $results['transactions']['trx_id']; ?> </li>                           
+                                <li> <b>Payment Method :</b> <?php echo $results['transactions']['pay_mode']; ?> </li>                           
+                                <li> <b>Error Message :</b> <?php echo $results['transactions']['error_msg']; ?> </li>                           
+                                <li>  <b>Payment Date :</b> <?php echo $results['transactions']['created']; ?>  </li>                          
+                                </td>
+                                </tr>
+                            <?php endforeach; ?>  
                             </tbody>
                         </table>
                     </div>

@@ -217,6 +217,7 @@ class CustomersController extends AppController {
         $this->loadModel('StatusHistory');
         $this->loadModel('PackageCustomer');
         $this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
+//        pr($this->request->data); exit;
         $this->PackageCustomer->saveField("status", $this->request->data['PackageCustomer']['status']);
         $this->PackageCustomer->saveField("date", $this->getFormatedDate($this->request->data['PackageCustomer']['date']));
         $data4statusHistory['StatusHistory'] = array(
@@ -1108,17 +1109,17 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         if ($this->request->is('post') || $this->request->is('put')) {
             $datrange = json_decode($this->request->data['PackageCustomer']['daterange'], true);
             $start = explode('-', $datrange['start']);
-            $start = $start[1] . '/' . $start[2] . '/' . $start[0];
+            $start = $start[0] . '/' . $start[1] . '/' . $start[2];
             $end = explode('-', $datrange['end']);
-            $end = $end[1] . '/' . $end[2] . '/' . $end[0];
-            $conditions = 'pc.cancelled_date >="' . $start . '" AND pc.cancelled_date <="' . $end . '"';
+            $end = $end[0] . '/' . $end[1] . '/' . $end[2];
+            $conditions = 'pc.date >="' . $start . '" AND pc.date <="' . $end . '"';
             $sql = "SELECT * FROM package_customers pc 
                     left join comments c on pc.id = c.package_customer_id
                     left join users u on c.user_id = u.id
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                      left join issues i on pc.issue_id = i.id
-                    WHERE LOWER(pc.status) like '%request to cancel%' and $conditions";
+                    WHERE LOWER(pc.status) like '%Request to cancel%' and $conditions";
 //            echo $sql; exit;
             $allData = $this->PackageCustomer->query($sql);
             $filteredData = array();
@@ -1192,18 +1193,17 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
 
             $datrange = json_decode($this->request->data['PackageCustomer']['daterange'], true);
             $start = explode('-', $datrange['start']);
-            $start = $start[1] . '/' . $start[2] . '/' . $start[0];
+            $start = $start[0] . '/' . $start[1] . '/' . $start[2];
             $end = explode('-', $datrange['end']);
-            $end = $end[1] . '/' . $end[2] . '/' . $end[0];
-            $conditions = 'pc.hold_date >="' . $start . '" AND pc.hold_date <="' . $end . '"';
+            $end = $end[0] . '/' . $end[1] . '/' . $end[2];
+            $conditions = 'pc.date >="' . $start . '" AND pc.date <="' . $end . '"';
             $sql = "SELECT * FROM package_customers pc 
                     left join comments c on pc.id = c.package_customer_id
                     left join users u on c.user_id = u.id
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                      left join issues i on pc.issue_id = i.id
-                    WHERE LOWER(pc.status) like '%request to unhold%' and $conditions";
-
+                    WHERE LOWER(pc.status) like '%hold%' and $conditions";
             $allData = $this->PackageCustomer->query($sql);
             $filteredData = array();
             $unique = array();
@@ -1273,17 +1273,17 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
 
             $datrange = json_decode($this->request->data['PackageCustomer']['daterange'], true);
             $start = explode('-', $datrange['start']);
-            $start = $start[1] . '/' . $start[2] . '/' . $start[0];
+            $start = $start[0] . '/' . $start[1] . '/' . $start[2];
             $end = explode('-', $datrange['end']);
-            $end = $end[1] . '/' . $end[2] . '/' . $end[0];
-            $conditions = 'pc.unhold_date >="' . $start . '" AND pc.unhold_date <="' . $end . '"';
+            $end = $end[0] . '/' . $end[1] . '/' . $end[2];
+            $conditions = 'pc.date >="' . $start . '" AND pc.date <="' . $end . '"';
             $sql = "SELECT * FROM package_customers pc 
                     left join comments c on pc.id = c.package_customer_id
                     left join users u on c.user_id = u.id
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                      left join issues i on pc.issue_id = i.id
-                    WHERE LOWER(pc.status) like '%request to unhold%' and $conditions";
+                    WHERE LOWER(pc.status) like '%unhold%' and $conditions";
             $allData = $this->PackageCustomer->query($sql);
             $filteredData = array();
             $unique = array();
@@ -1354,17 +1354,17 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
 
             $datrange = json_decode($this->request->data['PackageCustomer']['daterange'], true);
             $start = explode('-', $datrange['start']);
-            $start = $start[1] . '/' . $start[2] . '/' . $start[0];
+            $start = $start[0] . '/' . $start[1] . '/' . $start[2];
             $end = explode('-', $datrange['end']);
-            $end = $end[1] . '/' . $end[2] . '/' . $end[0];
-            $conditions = 'pc.reconnect_date >="' . $start . '" AND pc.reconnect_date <="' . $end . '"';
+            $end = $end[0] . '/' . $end[1] . '/' . $end[2];
+            $conditions = 'pc.date >="' . $start . '" AND pc.date <="' . $end . '"';
             $sql = "SELECT * FROM package_customers pc 
                     left join comments c on pc.id = c.package_customer_id
                     left join users u on c.user_id = u.id
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                      left join issues i on pc.issue_id = i.id
-                    WHERE LOWER(pc.status) like '%request to reconnection%' and $conditions";
+                    WHERE LOWER(pc.status) like '%reconnection%' and $conditions";
             $allData = $this->PackageCustomer->query($sql);
             $filteredData = array();
             $unique = array();
