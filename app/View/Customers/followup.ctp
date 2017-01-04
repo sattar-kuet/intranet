@@ -6,7 +6,6 @@
         border-radius: 4px;
         text-align: center;
     }
-
 </style>
 <div class="page-content-wrapper">
     <div class="page-content">
@@ -14,7 +13,6 @@
         <h3 class="page-title">
             Follow up<small></small>
         </h3>
-
         <!-- END PAGE HEADER-->
         <!-- BEGIN PAGE CONTENT-->
         <div class="row">
@@ -25,7 +23,6 @@
                         <div class="caption">
                             <i class="fa fa-user"></i>
                         </div>
-
                         <div class="tools">
                             <a href="javascript:;" class="reload">
                             </a>
@@ -68,7 +65,6 @@
                             <tbody>
                                 <?php
                                 foreach ($filteredData as $results):
-//                                    pr($results); exit;
                                     $customer = $results['customers'];
 
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
@@ -83,7 +79,6 @@
                                         $warning = 'alert alert-danger';
                                     }
                                     ?>
-
                                     <tr class="<?php echo $warning; ?>">
                                         <td class="hidden-480">
                                             <?php echo $results['customers']['id']; ?>                            
@@ -117,11 +112,9 @@
                                                 <?php echo $results['issue']['name']; ?>
                                             <?php endif; ?>
                                         </td>
-
                                         <td>
                                             <?php echo date('m-d-Y h:i:sa', strtotime($results['customers']['follow_date'])); ?>
                                         </td> 
-
                                         <td>
                                             <ul>
                                                 <?php foreach ($results['comments'] as $comment): ?>
@@ -141,12 +134,10 @@
                                                         </div>
                                                     <?php } else { ?>
                                                         <h4> No Attachment</h4>
-
                                                     <?php } ?>
                                                 </div>
                                             </div>
                                         </td>
-
                                         <td>
                                             <a 
                                                 href="done_dialog<?php echo $results['customers']['id']; ?>" title="Done" class="toggleDiv">
@@ -157,10 +148,7 @@
                                                 href="ready_dialog<?php echo $results['customers']['id']; ?>" title="Ready" class="toggleDiv">
                                                 <span id="" class="fa fa-reddit fa-lg "></span>
                                             </a>                                             
-
-
                                             <div id="done_dialog<?php echo $results['customers']['id']; ?>" class=" hideRest portlet-body form" style="display: none;">
-
                                                 <!-- BEGIN FORM-->
                                                 <?php
                                                 echo $this->Form->create('Comment', array(
@@ -175,7 +163,6 @@
                                                         )
                                                 );
                                                 ?>
-
                                                 <?php
                                                 echo $this->Form->input('package_customer_id', array(
                                                     'type' => 'hidden',
@@ -213,7 +200,6 @@
                                                             ?>
                                                         </div>
                                                     </div>
-                                                
                                                 <?php echo $this->Form->end(); ?>
                                                 <!-- END FORM-->
                                             </div> 
@@ -232,7 +218,6 @@
                                                         )
                                                 );
                                                 ?>
-
                                                 <?php
                                                 echo $this->Form->input('package_customer_id', array(
                                                     'type' => 'hidden',
@@ -274,10 +259,8 @@
                                                 <!-- END FORM-->
                                             </div>
                                         </td>
-
                                     </tr>
                                 <?php endforeach; ?>  
-
                             </tbody>
                         </table>
                     </div>

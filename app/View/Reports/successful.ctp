@@ -24,7 +24,6 @@
                         <div class="caption">
                             <i class="fa fa-user"></i>
                         </div>
-
                         <div class="tools">
                             <a href="javascript:;" class="reload">
                             </a>
@@ -54,10 +53,7 @@
                             <tbody>
                                 <?php
                                 foreach ($allData as $results):
-//                                       pr($results);
-//                                            exit;
                                     $customer = $results['package_customers'];
-
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
                                             . $customer['zip'];
@@ -66,9 +62,15 @@
                                         <td class="hidden-480">
                                             <?php echo $results['transactions']['id']; ?>                            
                                         </td>
-                                        <td class="hidden-480">
-                                            <?php echo $results['package_customers']['first_name'] . ' ' . $results['package_customers']['middle_name'] . ' ' . $results['package_customers']['last_name']; ?>
-                                            <br> <?php echo $customer_address; ?>                            
+                                         <td class="hidden-480">
+                                            <a href="<?php
+                                            echo Router::url(array('controller' => 'customers',
+                                                'action' => 'edit_registration', $results['package_customers']['id']))
+                                            ?>" 
+                                               target="_blank">
+                                                    <?php echo $results['package_customers']['first_name'] . ' ' . $results['package_customers']['middle_name'] . ' ' . $results['package_customers']['last_name']; ?>
+                                            </a><br>
+                                            <?php echo $customer_address; ?> 
                                         </td>                                     
                                         <td>
                                             <?php if (!empty($results['ps']['name'])): ?>
@@ -89,10 +91,8 @@
                         </table>
                     </div>
                 </div>
-                <!-- END EXAMPLE TABLE PORTLET-->
             </div>
         </div>
-        <!-- END PAGE CONTENT -->
     </div>
 </div>
 <!-- END CONTENT -->
