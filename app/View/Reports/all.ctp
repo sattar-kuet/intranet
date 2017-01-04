@@ -64,9 +64,16 @@
                                             <?php echo $results['pc']['id']; ?>                            
                                         </td>
                                         <td class="hidden-480">
-                                           <?php echo $results['pc']['first_name'] . ' ' . $results['pc']['middle_name'] . ' ' . $results['pc']['last_name']; ?>
-                                            <br> <?php echo $customer_address; ?>                            
-                                        </td>                                     
+                                            <a href="<?php
+                                            echo Router::url(array('controller' => 'customers',
+                                                'action' => 'edit_registration', $results['pc']['id']))
+                                            ?>" 
+                                               target="_blank">
+                                                    <?php echo $results['pc']['first_name'] . ' ' . $results['pc']['middle_name'] . ' ' . $results['pc']['last_name']; ?>
+                                            </a><br>
+                                            <?php echo $customer_address; ?> 
+                                        </td>  
+                                                                            
                                         <td>
                                             <?php if (!empty($results['ps']['name'])): ?>
                                                 Name:<?php echo $results['ps']['name'] ?><br>

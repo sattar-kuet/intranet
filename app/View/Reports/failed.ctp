@@ -24,7 +24,6 @@
                         <div class="caption">
                             <i class="fa fa-user"></i>
                         </div>
-
                         <div class="tools">
                             <a href="javascript:;" class="reload">
                             </a>
@@ -53,10 +52,7 @@
                             <tbody>
                                 <?php
                                 foreach ($allData as $results):
-//                                       pr($results);
-//                                            exit;
                                     $customer = $results['package_customers'];
-
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
                                             . $customer['zip'];
@@ -66,8 +62,14 @@
                                             <?php echo $results['transactions']['id']; ?>                            
                                         </td>
                                         <td class="hidden-480">
-                                            <?php echo $results['package_customers']['first_name'] . ' ' . $results['package_customers']['middle_name'] . ' ' . $results['package_customers']['last_name']; ?>
-                                            <br> <?php echo $customer_address; ?>                            
+                                            <a href="<?php
+                                            echo Router::url(array('controller' => 'customers',
+                                                'action' => 'edit_registration', $results['package_customers']['id']))
+                                            ?>" 
+                                               target="_blank">
+                                                   <?php echo $results['package_customers']['first_name'] . ' ' . $results['package_customers']['middle_name'] . ' ' . $results['package_customers']['last_name']; ?>
+                                            </a><br>
+                                            <?php echo $customer_address; ?> 
                                         </td>                                     
                                         <td>
                                             <?php if (!empty($results['ps']['name'])): ?>
@@ -78,10 +80,10 @@
                                         </td>   
                                         <td class="hidden-480">
                                 <li> <b>Paid Amount :</b> <?php echo $results['transactions']['paid_amount']; ?> </li>                           
-                                <li>  <b>Transaction ID :</b> <?php echo $results['transactions']['trx_id']; ?> </li>                           
+                                <li> <b>Transaction ID :</b> <?php echo $results['transactions']['trx_id']; ?> </li>                           
                                 <li> <b>Payment Method :</b> <?php echo $results['transactions']['pay_mode']; ?> </li>                           
                                 <li> <b>Error Message :</b> <?php echo $results['transactions']['error_msg']; ?> </li>                           
-                                <li>  <b>Payment Date :</b> <?php echo $results['transactions']['created']; ?>  </li>                          
+                                <li> <b>Payment Date :</b> <?php echo $results['transactions']['created']; ?>  </li>                          
                                 </td>
                                 </tr>
                             <?php endforeach; ?>  
