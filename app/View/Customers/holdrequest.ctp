@@ -198,8 +198,8 @@
                                         </td>
                                         <td>
                                             <ul>
-                                                <?php if (!empty($results['customers']['hold_date'])): ?>
-                                                    <?php echo date_format( new DateTime($results['customers']['hold_date']) , 'm-d-Y' ); ?>
+                                                <?php if (!empty($results['customers']['date'])): ?>
+                                                    <?php echo date_format( new DateTime($results['customers']['date']) , 'm-d-Y' ); ?>
                                                 <?php endif ?>
                                             </ul>
                                         </td>

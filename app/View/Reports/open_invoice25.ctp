@@ -51,7 +51,7 @@
                     <div class="col-xs-5 invoice-payment">                             
                         <ul class="list-unstyled" style=" text-align: right; color: #555; margin-right: 10px;">
                             <li style="font-size: 17px; color: #555;">
-                                <h3>Total Cable USA</h3>
+                                <h3>Total Cable BD</h3>
                             </li>
                             <li style="color: #555;">
                                 37-19 57th Street, Woodside, NY 11377

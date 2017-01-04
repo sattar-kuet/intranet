@@ -211,9 +211,7 @@ class ReportsController extends AppController {
             $transactions = $this->Transaction->query("SELECT tr.id, tr.package_customer_id, 
             CONCAT( first_name,' ', middle_name,' ', last_name ) AS name, pc.psetting_id, pc.mac,
             ps.name, p.name, tr.paid_amount, ps.amount, ps.duration, tr.created 
-            
             FROM transactions tr
-            
             left join package_customers pc on tr.package_customer_id = pc.id
             left join psettings ps on ps.id = pc.psetting_id
             LEFT JOIN packages p ON p.id = ps.package_id 
@@ -277,29 +275,15 @@ class ReportsController extends AppController {
         $date = date("'Y-m-d'");
         $expiredate = trim(date('Y-m-d', strtotime("+25 days")));
 
-        $sql = "SELECT * 
+        $totla25daysinvoice = $this->Transaction->query("SELECT count(tr.id) as 25daysinvoice 
         FROM transactions tr
         LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id
         LEFT JOIN psettings ps ON ps.id = pc.psetting_id
         LEFT JOIN packages p ON p.id = ps.package_id
-        WHERE pc.package_exp_date ='" . date('Y-m-d') .
-                "' AND pc.package_exp_date<='" . $expiredate .
-                "' AND pc.package_exp_date != 0000-00-00 " .
-                "GROUP BY pc.id";
+        WHERE pc.package_exp_date >='" . date('Y-m-d') .
+                "' AND pc.package_exp_date <='" . $expiredate .
+                "' AND pc.package_exp_date != 0000-00-00");
 
-        echo $sql;
-        exit;
-
-        $packagecustomers = $this->Transaction->query("SELECT * 
-        FROM transactions tr
-        LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id
-        LEFT JOIN psettings ps ON ps.id = pc.psetting_id
-        LEFT JOIN packages p ON p.id = ps.package_id
-        WHERE pc.package_exp_date ='" . date('Y-m-d') . "' AND pc.package_exp_date<='" . $expiredate . "' AND pc.package_exp_date != 0000-00-00 "
-                . "GROUP BY pc.id");
-
-        pr($packagecustomers);
-        exit;
 
         $passedInvoice = $this->PackageCustomer->query("SELECT COUNT(tr.id) AS passedInvoice FROM transactions  tr            
             left join package_customers pc on pc.id = tr.package_customer_id
@@ -314,9 +298,8 @@ class ReportsController extends AppController {
             LEFT JOIN packages p ON p.id = ps.package_id 
             WHERE paid_amount !=0 and
             CAST(tr.created as DATE) = $date");
-//        pr($closeInvoice); exit;
-//        pr($passedInvoice); exit;
-        $this->set(compact('packagecustomers', 'passedInvoice', 'closeInvoice'));
+
+        $this->set(compact('totla25daysinvoice', 'passedInvoice', 'closeInvoice'));
     }
 
     function printed() {
@@ -505,8 +488,7 @@ class ReportsController extends AppController {
                         left JOIN issues i ON tr.issue_id = i.id
                         left join package_customers pc on tr.package_customer_id = pc.id
                          WHERE $conditions order by pc.id desc limit 0,200";
-//            pr($sql);
-//            exit;
+
             $tickets = $this->Track->query($sql);
 
             $filteredTicket = array();
@@ -527,7 +509,7 @@ class ReportsController extends AppController {
                 }
                 $filteredTicket;
             }
-//            pr($filteredTicket); exit;
+
             $clicked = true;
             $this->set(compact('filteredTicket'));
         }
@@ -962,8 +944,8 @@ class ReportsController extends AppController {
         $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
         $this->set(compact('filteredData', 'technician'));
     }
-    
-     function all() { //Auto recurring data all
+
+    function all() { //Auto recurring data all
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
         $allData = $this->PackageCustomer->query("SELECT * 
@@ -973,10 +955,10 @@ class ReportsController extends AppController {
                     LEFT JOIN custom_packages cp ON cp.id = pc.custom_package_id
                     WHERE pc.auto_r =  'yes'
                     ORDER BY pc.id");
-     
+
         $this->set(compact('allData'));
     }
-     
+
     function successful() { //Auto recurring data success
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
@@ -987,11 +969,10 @@ class ReportsController extends AppController {
                     LEFT JOIN custom_packages ON custom_packages.id = package_customers.custom_package_id
                     WHERE transactions.auto_recurring = 1
                     AND transactions.status =  'success'");
-     
+
         $this->set(compact('allData'));
     }
-    
-    
+
     function failed() { //Auto recurring data error
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
@@ -1002,7 +983,7 @@ class ReportsController extends AppController {
                     LEFT JOIN custom_packages ON custom_packages.id = package_customers.custom_package_id
                     WHERE transactions.auto_recurring !=1
                     AND transactions.status =  'error'");
-     
+
         $this->set(compact('allData'));
     }
 
