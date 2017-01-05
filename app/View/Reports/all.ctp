@@ -38,14 +38,17 @@
                                     <th class="sorting_desc">
                                         ID
                                     </th>
-                                   
+
                                     <th>
                                         Customer Detail
                                     </th>
                                     <th>
+                                        Auto Recurring Date
+                                    </th>
+                                    <th>
                                         Package
                                     </th>
-                                  
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -66,14 +69,17 @@
                                         <td class="hidden-480">
                                             <a href="<?php
                                             echo Router::url(array('controller' => 'customers',
-                                                'action' => 'edit_registration', $results['pc']['id']))
+                                                'action' => 'edit', $results['pc']['id']))
                                             ?>" 
                                                target="_blank">
-                                                    <?php echo $results['pc']['first_name'] . ' ' . $results['pc']['middle_name'] . ' ' . $results['pc']['last_name']; ?>
+                                                   <?php echo $results['pc']['first_name'] . ' ' . $results['pc']['middle_name'] . ' ' . $results['pc']['last_name']; ?>
                                             </a><br>
                                             <?php echo $customer_address; ?> 
                                         </td>  
-                                                                            
+                                        <td class="hidden-480">
+                                            <?php echo $results['pc']['r_form']; ?>                            
+                                        </td>
+
                                         <td>
                                             <?php if (!empty($results['ps']['name'])): ?>
                                                 Name:<?php echo $results['ps']['name'] ?><br>

@@ -66,10 +66,13 @@
                             <tbody>
                                 <?php
                                 foreach ($data as $single):
+                                    
                                     $issue = end($single['history']);
                                     $customer = end($single['history']);
+      
                                     $agent_name = $customer['fb']['name'];
                                     $customer = $customer['pc'];
+//                                                                  pr($customer['id']); exit;
                                     $ticket = $single['ticket'];
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
@@ -147,6 +150,12 @@
                                                     <a 
                                                         href="#" title="Forward">
                                                         <span id="<?php echo $ticket['id']; ?>" class="fa fa-mail-forward fa-lg forward_ticket"></span>
+                                                    </a>
+                                                    &nbsp;
+                                                    <a 
+                                                        href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'edit_ticket',$ticket['id'],$customer['id'])) ?>" title="Edit">
+                                                        
+                                                        <span class="fa fa-pencil fa-lg"></span>
                                                     </a>
                                                     <div id="forward_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
                                                         <!-- BEGIN FORM-->

@@ -64,7 +64,7 @@
                                         <td class="hidden-480">
                                             <a href="<?php
                                             echo Router::url(array('controller' => 'customers',
-                                                'action' => 'edit_registration', $results['package_customers']['id']))
+                                                'action' => 'edit', $results['package_customers']['id']))
                                             ?>" 
                                                target="_blank">
                                                    <?php echo $results['package_customers']['first_name'] . ' ' . $results['package_customers']['middle_name'] . ' ' . $results['package_customers']['last_name']; ?>
@@ -83,7 +83,8 @@
                                 <li> <b>Transaction ID :</b> <?php echo $results['transactions']['trx_id']; ?> </li>                           
                                 <li> <b>Payment Method :</b> <?php echo $results['transactions']['pay_mode']; ?> </li>                           
                                 <li> <b>Error Message :</b> <?php echo $results['transactions']['error_msg']; ?> </li>                           
-                                <li> <b>Payment Date :</b> <?php echo $results['transactions']['created']; ?>  </li>                          
+                                <li> <b>Payment Date :</b> <?php echo $results['transactions']['created']; ?>  </li> 
+                                <li> <b>Next Payment Date :</b> <?php echo $results['package_customers']['r_form']; ?></li> 
                                 </td>
                                 </tr>
                             <?php endforeach; ?>  
