@@ -1,6 +1,8 @@
-
-
-
+<style>
+    .ui-datepicker-multi-3 {
+        display: table-row-group !important;
+    }
+</style>
 
 <style type="text/css">
     .alert {
@@ -20,7 +22,7 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-plus"></i>  All auto Recurring<small></small>
+                            <i class="fa fa-plus"></i>All auto Recurring 
                             <?php // if ($clicked): ?>                              
                             Total Customers: <?php // echo count($transactions);  ?> 
                             <?php // endif; ?>
@@ -88,8 +90,10 @@
         <?php if ($clicked): ?>    
             <div class="page-content-wrapper" style="margin: 0px; padding: 0px;">
                 <div class="">
+
                     <!-- BEGIN PAGE CONTENT-->
                     <div class="invoice" id="printableArea">
+
                         <hr>
                         <div class="row">
                             <div class="col-xs-12">
@@ -99,6 +103,7 @@
                                             <th class="sorting_desc">
                                                 ID
                                             </th>
+
                                             <th>
                                                 Customer Detail
                                             </th>
@@ -108,9 +113,15 @@
                                             <th>
                                                 Package
                                             </th>
+
+
+                                            <th>
+                                                Auto Recurring Date
+                                            </th>
+
                                         </tr>
                                     </thead>
-                                    <tbody>                                    
+                                    <tbody>
                                         <?php
                                         foreach ($allData as $results):
                                             $customer = $results['pc'];
@@ -142,9 +153,10 @@
                                                         Duration:<?php echo $results['ps']['duration']; ?><br>
                                                         Amount: <?php echo $results['ps']['amount']; ?>
                                                     <?php endif; ?>
-                                                </td>                                     
+                                                </td>  
+                                                <td><?php echo $results['pc']['r_form']; ?></td>
                                             </tr>
-                                        <?php endforeach; ?>                          
+                                        <?php endforeach; ?>  
                                     </tbody>
                                 </table>
                             </div>
@@ -156,6 +168,5 @@
     </div>
 </div>
 <!-- END CONTENT -->
-
 
 
