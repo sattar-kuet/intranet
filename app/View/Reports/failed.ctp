@@ -44,49 +44,56 @@
                                     <th>
                                         Package
                                     </th>
+                                    
                                     <th>
                                         Payment Information
+                                    </th>
+                                    <th>
+                                        Payment attempt at
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                foreach ($allData as $results):
-                                    $customer = $results['package_customers'];
+                                foreach ($data as $results):
+                                    $customer = $results['pc'];
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
                                             . $customer['zip'];
                                     ?>
                                     <tr>
                                         <td class="hidden-480">
-                                            <?php echo $results['transactions']['id']; ?>                            
+                                            <?php echo $results['t']['id']; ?>                            
                                         </td>
                                         <td class="hidden-480">
                                             <a href="<?php
                                             echo Router::url(array('controller' => 'customers',
-                                                'action' => 'edit_registration', $results['package_customers']['id']))
+                                                'action' => 'edit', $results['pc']['id']))
                                             ?>" 
                                                target="_blank">
-                                                   <?php echo $results['package_customers']['first_name'] . ' ' . $results['package_customers']['middle_name'] . ' ' . $results['package_customers']['last_name']; ?>
+                                                   <?php echo $results['pc']['first_name'] . ' ' . $results['pc']['middle_name'] . ' ' . $results['pc']['last_name']; ?>
                                             </a><br>
                                             <?php echo $customer_address; ?> 
                                         </td>                                     
                                         <td>
-                                            <?php if (!empty($results['ps']['name'])): ?>
-                                                Name:<?php echo $results['ps']['name'] ?><br>
-                                                Duration:<?php echo $results['ps']['duration']; ?><br>
-                                                Amount: <?php echo $results['ps']['amount']; ?>
-                                            <?php endif; ?>
+                                            <?php if (!empty($results['psettings']['name'])) { ?>
+                                                Name:<?php echo $results['psettings']['name'] ?><br>
+                                                Duration:<?php echo $results['psettings']['duration']; ?><br>
+                                                Amount: <?php echo $results['psettings']['amount']; ?>
+                                            <?php } else { ?>
+                                                Name: <?php echo $results['custom_packages']['duration'] ?> Month(s) Custom Package<br>
+                                                Amount: <?php echo $results['custom_packages']['charge']; ?>
+                                            <?php } ?>
                                         </td>   
+                                       
                                         <td class="hidden-480">
-                                <li> <b>Paid Amount :</b> <?php echo $results['transactions']['paid_amount']; ?> </li>                           
-                                <li> <b>Transaction ID :</b> <?php echo $results['transactions']['trx_id']; ?> </li>                           
-                                <li> <b>Payment Method :</b> <?php echo $results['transactions']['pay_mode']; ?> </li>                           
-                                <li> <b>Error Message :</b> <?php echo $results['transactions']['error_msg']; ?> </li>                           
-                                <li> <b>Payment Date :</b> <?php echo $results['transactions']['created']; ?>  </li>                          
-                                </td>
-                                </tr>
-                            <?php endforeach; ?>  
+                                            <?php echo $results['t']['content']; ?>                          
+                                        </td>
+                                         <td>
+                                            <?php echo $results['t']['created']; ?>                          
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>  
                             </tbody>
                         </table>
                     </div>

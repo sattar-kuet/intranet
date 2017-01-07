@@ -973,17 +973,22 @@ class ReportsController extends AppController {
     }
 
     function failed() { //Auto recurring data error
-        $this->loadModel('User');
-        $this->loadModel('PackageCustomer');
-        $allData = $this->PackageCustomer->query("SELECT * 
-                    FROM transactions
-                    LEFT JOIN package_customers ON package_customers.id = transactions.package_customer_id
-                    LEFT JOIN psettings ON psettings.id = package_customers.psetting_id
-                    LEFT JOIN custom_packages ON custom_packages.id = package_customers.custom_package_id
-                    WHERE transactions.auto_recurring !=1
-                    AND transactions.status =  'error'");
-
-        $this->set(compact('allData'));
+        $this->loadModel('Ticket');
+        $data = $this->Ticket->query("SELECT * FROM tickets t
+                        left JOIN tracks tr ON t.id = tr.ticket_id
+                        left join package_customers pc on tr.package_customer_id = pc.id
+                        LEFT JOIN psettings ON psettings.id = pc.psetting_id
+                        LEFT JOIN custom_packages ON custom_packages.id = pc.custom_package_id
+                        WHERE t.auto_recurring != 0  GROUP BY pc.id");
+        
+        $sql ='SELECT SUM(pc.payable_amount) as total FROM package_customers pc '.
+                'LEFT JOIN tracks tr ON pc.id = tr.package_customer_id'.
+                ' LEFT JOIN tickets t ON tr.ticket_id = t.id WHERE t.auto_recurring = 1  GROUP BY pc.id';
+        echo $sql; exit;
+        $data = $this->Ticket->query($sql);
+        
+        //pr($data); exit;
+        $this->set(compact('data'));
     }
 
 }

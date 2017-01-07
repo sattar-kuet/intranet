@@ -52,7 +52,7 @@ class AppController extends Controller {
             )
         )
     );
-    public $per_page = 200;
+    public $per_page = 50;
 
     public function beforeFilter() {
         // save last visited url

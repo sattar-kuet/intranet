@@ -45,6 +45,10 @@
                                     <th>
                                         Package
                                     </th>
+                                   
+                                    <th>
+                                        Auto Recurring Date
+                                    </th>
                                   
                                 </tr>
                             </thead>
@@ -66,7 +70,7 @@
                                         <td class="hidden-480">
                                             <a href="<?php
                                             echo Router::url(array('controller' => 'customers',
-                                                'action' => 'edit_registration', $results['pc']['id']))
+                                                'action' => 'edit', $results['pc']['id']))
                                             ?>" 
                                                target="_blank">
                                                     <?php echo $results['pc']['first_name'] . ' ' . $results['pc']['middle_name'] . ' ' . $results['pc']['last_name']; ?>
@@ -80,7 +84,8 @@
                                                 Duration:<?php echo $results['ps']['duration']; ?><br>
                                                 Amount: <?php echo $results['ps']['amount']; ?>
                                             <?php endif; ?>
-                                        </td>                                     
+                                        </td>  
+                                        <td><?php echo $results['pc']['r_form']; ?></td>
                                     </tr>
                                 <?php endforeach; ?>  
                             </tbody>

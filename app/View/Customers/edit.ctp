@@ -1978,7 +1978,7 @@
                             <div class="col-md-6">
                                 <ul>
                                     <?php foreach ($attachments as $no => $attachment): ?>
-                                        <li><a href="<?php echo $this->webroot . 'attachment/' . $attachment['Attachment']['name']; ?>" target="_blank">File<?php echo $no+1;?></a> </li>
+                                        <li><a href="<?php echo $this->webroot . 'attachment/' . $attachment['Attachment']['name']; ?>" target="_blank">QB Statement<?php echo $no+1;?></a> </li>
                                     <?php endforeach; ?>
                                 </ul>
                             </div>

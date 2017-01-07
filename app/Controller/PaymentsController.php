@@ -304,10 +304,10 @@ class PaymentsController extends AppController {
         $this->layout = 'ajax';
         // Common setup for API credentials  
         $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
-      //  $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
-          $merchantAuthentication->setName("7zKH4b45"); //42UHbr9Qa9B live mode
-      //  $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
-          $merchantAuthentication->setTransactionKey("738QpWvHH4vS59vY"); // live mode 7UBSq68ncs65p8QX
+        //  $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
+        $merchantAuthentication->setName("7zKH4b45"); //42UHbr9Qa9B live mode
+        //  $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
+        $merchantAuthentication->setTransactionKey("738QpWvHH4vS59vY"); // live mode 7UBSq68ncs65p8QX
         $refId = 'ref' . time();
 // Create the payment data for a credit card
         $creditCard = new AnetAPI\CreditCardType();
@@ -315,8 +315,8 @@ class PaymentsController extends AppController {
         $this->loadModel('Transaction');
         $this->loadModel('Ticket');
         $this->loadModel('Track');
-        $loggedUser = $this->Auth->user();
-        $transaction['user_id'] = $loggedUser['id'];
+        // $loggedUser = $this->Auth->user();
+        $transaction['user_id'] = 0;
         $creditCard->setCardNumber($data['card_no']);
         $creditCard->setExpirationDate($data['exp_date']);
         //    $creditCard->setCardNumber("4117733943147221"); // live
@@ -347,8 +347,8 @@ class PaymentsController extends AppController {
         $request->setRefId($refId);
         $request->setTransactionRequest($transactionRequestType);
         $controller = new AnetController\CreateTransactionController($request);
-       // $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
-         $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
+        // $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
+        $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
         $transaction = array();
         $transaction['error_msg'] = '';
         $transaction['status'] = '';
@@ -400,7 +400,7 @@ class PaymentsController extends AppController {
                     'package_customer_id' => $cid,
                     'ticket_id' => $tickect['Ticket']['id'],
                     'status' => 'closed',
-                    'forwarded_by' => $loggedUser['id']
+                    'forwarded_by' => 0
                 );
                 $this->Track->create();
                 $this->Track->save($trackData);
@@ -427,7 +427,8 @@ class PaymentsController extends AppController {
                     $errorMsg = $errors->getErrorText() . '<br> <b> Error Code: ' . $errorCode . '</b>';
                 }
                 $msg .='<li>' . $errorMsg . ' </li>';
-                $tdata['Ticket'] = array('content' => $errorMsg . "<br> <b>Amount</b> : $amount <br> <b> payment Mode: </b> Card", 'status' => 'solved');
+                $tdata['Ticket'] = array('content' => $errorMsg . "<br> <b>Amount</b> : $amount <br> <b> payment Mode: </b> Card",
+                    'status' => 'solved', 'auto_recurring' => $amount);
                 $tickect = $this->Ticket->create();
                 $tickect = $this->Ticket->save($tdata);
                 // Data save in Ticket
@@ -435,7 +436,7 @@ class PaymentsController extends AppController {
                     'package_customer_id' => $cid,
                     'ticket_id' => $tickect['Ticket']['id'],
                     'status' => 'closed',
-                    'forwarded_by' => $loggedUser['id']
+                    'forwarded_by' => 0
                 );
                 $this->Track->create();
                 $this->Track->save($trackData);
@@ -443,13 +444,14 @@ class PaymentsController extends AppController {
         } else {
             $alert = '<div class="alert alert-error"> ';
             $msg .='<li> This payment attempt was from auto recurring. Transaction failed due to Marchant Account credential changed. Please contact with administrator</li>';
-            $tdata['Ticket'] = array('content' => "This payment attempt was from auto recurring. Transaction failed due to Marchant Account credential changed. Please contact with administrator <br> <b> Amount : </b> $amount <br> <b> payment Mode: </b> Card", 'status' => 'solved');
+            $tdata['Ticket'] = array('content' => "This payment attempt was from auto recurring. Transaction failed due to Marchant Account credential changed. Please contact with administrator <br> <b> Amount : </b> $amount <br> <b> payment Mode: </b> Card",
+                'status' => 'solved', 'auto_recurring' => $amount);
             $tickect = $this->Ticket->save($tdata); // Data save in Ticket
             $trackData['Track'] = array(
                 'package_customer_id' => $cid,
                 'ticket_id' => $tickect['Ticket']['id'],
                 'status' => 'closed',
-                'forwarded_by' => $loggedUser['id']
+                'forwarded_by' => 0
             );
             $this->Track->create();
             $this->Track->save($trackData);
@@ -492,7 +494,6 @@ class PaymentsController extends AppController {
                 $this->PackageCustomer->saveField('invoice_created', 1);
             }
         }
-        
     }
 
     function auto_recurring_payment() {
@@ -501,7 +502,8 @@ class PaymentsController extends AppController {
         $today = date('Y-m-d');
         $sql = "SELECT * FROM transactions"
                 . " LEFT JOIN package_customers ON transactions.package_customer_id = package_customers.id"
-                . " WHERE transactions.auto_recurring = 1 AND transactions.next_payment <= '$today' AND transactions.status = 'open' ";
+                . " WHERE transactions.auto_recurring = 1 AND transactions.next_payment <= '$today' AND transactions.status = 'open' LIMIT 20";
+
         // $data = $this->Transaction->find('all', array('conditions' => array('auto_recurring' => 1, 'next_payment' => $today)));
         $data = $this->Transaction->query($sql);
         //  pr($data);
@@ -530,7 +532,6 @@ class PaymentsController extends AppController {
 
             $this->individual_auto_recurring($data);
         }
-        
     }
 
     function message() {
@@ -934,13 +935,13 @@ class PaymentsController extends AppController {
         $this->request->data['Transaction']['status'] = 'paid';
         $id = $this->request->data['Transaction']['id'];
         $this->request->data['Transaction']['transaction_id'] = $id;
-        
+
         if (strpos($this->request->data['Transaction']['card_no'], 'X') !== false) {
             //Card number is not changed. So fetch previous card number
             $card = $this->getLastCardInfo($this->request->data['Transaction']['package_customer_id']);
             $this->request->data['Transaction']['card_no'] = $card['card_no'];
         }
-        
+
         unset($this->request->data['Transaction']['id']);
 
         //creatre transaction History 

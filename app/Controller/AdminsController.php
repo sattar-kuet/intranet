@@ -90,8 +90,8 @@ class AdminsController extends AppController {
         $this->loadModel('User');
         $this->layout = "admin-login";
         $payment = new PaymentsController();
-        $payment->auto_recurring_invoice();
-        $payment->auto_recurring_payment();
+      //  $payment->auto_recurring_invoice();
+       // $payment->auto_recurring_payment();
         // if already logged in check this step
         if ($this->Auth->loggedIn()) {
             return $this->redirect('dashboard'); //(array('action' => 'deshboard'));
