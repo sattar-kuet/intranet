@@ -68,7 +68,9 @@
                                         <td class="hidden-480">
                                             <a href="<?php
                                             echo Router::url(array('controller' => 'customers',
+
                                                 'action' => 'edit', $results['pc']['id']))
+
                                             ?>" 
                                                target="_blank">
                                                    <?php echo $results['pc']['first_name'] . ' ' . $results['pc']['middle_name'] . ' ' . $results['pc']['last_name']; ?>
@@ -94,6 +96,7 @@
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>  
+
                             </tbody>
                         </table>
                     </div>

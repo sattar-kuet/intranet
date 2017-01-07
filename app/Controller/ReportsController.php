@@ -272,30 +272,30 @@ class ReportsController extends AppController {
         $this->loadModel('Transaction');
         $this->loadModel('PackageCustomer');
         $date = date("'Y-m-d'");
-        $expiredate = trim(date('Y-m-d', strtotime("+25 days")));
+        $expiredate = trim(date('Y-m-d', strtotime("+25 days")));        
+                
+        //Pdf generate with in 25 days
+        $totla25daysinvoice = $this->Transaction->query("SELECT count(tr.id) as 25daysinvoice FROM transactions tr "
+                . "LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id "
+                . "LEFT JOIN psettings ps ON ps.id = pc.psetting_id "
+                . "LEFT JOIN packages p ON p.id = ps.package_id "
+                . "WHERE pc.package_exp_date >= $date AND pc.package_exp_date <= '$expiredate' "
+                . "AND pc.package_exp_date != 0000-00-00 "
+                . "AND pc.printed != 1");
 
-        $totla25daysinvoice = $this->Transaction->query("SELECT count(tr.id) as 25daysinvoice 
-        FROM transactions tr
-        LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id
-        LEFT JOIN psettings ps ON ps.id = pc.psetting_id
-        LEFT JOIN packages p ON p.id = ps.package_id
-        WHERE pc.package_exp_date >='" . date('Y-m-d') .
-                "' AND pc.package_exp_date <='" . $expiredate .
-                "' AND pc.package_exp_date != 0000-00-00");
-
-
+        //All ready priented invoice
         $passedInvoice = $this->PackageCustomer->query("SELECT COUNT(tr.id) AS passedInvoice FROM transactions  tr            
             left join package_customers pc on pc.id = tr.package_customer_id
             left join psettings ps on ps.id = pc.psetting_id
             LEFT JOIN packages p ON p.id = ps.package_id 
             WHERE  pc.printed = 1");
 
-
+        //All close invoice            
         $closeInvoice = $this->Transaction->query("SELECT COUNT(tr.id) as totalcloseinvoice FROM transactions tr
             left join package_customers pc on tr.package_customer_id = pc.id
             left join psettings ps on ps.id = pc.psetting_id
             LEFT JOIN packages p ON p.id = ps.package_id 
-            WHERE paid_amount !=0 and
+            WHERE tr.payable_amount !=0 and
             CAST(tr.created as DATE) = $date");
 
         $this->set(compact('totla25daysinvoice', 'passedInvoice', 'closeInvoice'));

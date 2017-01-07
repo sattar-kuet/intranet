@@ -38,18 +38,25 @@
                                     <th class="sorting_desc">
                                         ID
                                     </th>
-                                   
+
                                     <th>
                                         Customer Detail
                                     </th>
                                     <th>
+                                        Auto Recurring Date
+                                    </th>
+                                    <th>
                                         Package
                                     </th>
+<<<<<<< HEAD
                                    
                                     <th>
                                         Auto Recurring Date
                                     </th>
                                   
+=======
+
+>>>>>>> 42715c59b6716ed5791c3ca8465d6c72ca23203d
                                 </tr>
                             </thead>
                             <tbody>
@@ -73,11 +80,14 @@
                                                 'action' => 'edit', $results['pc']['id']))
                                             ?>" 
                                                target="_blank">
-                                                    <?php echo $results['pc']['first_name'] . ' ' . $results['pc']['middle_name'] . ' ' . $results['pc']['last_name']; ?>
+                                                   <?php echo $results['pc']['first_name'] . ' ' . $results['pc']['middle_name'] . ' ' . $results['pc']['last_name']; ?>
                                             </a><br>
                                             <?php echo $customer_address; ?> 
                                         </td>  
-                                                                            
+                                        <td class="hidden-480">
+                                            <?php echo $results['pc']['r_form']; ?>                            
+                                        </td>
+
                                         <td>
                                             <?php if (!empty($results['ps']['name'])): ?>
                                                 Name:<?php echo $results['ps']['name'] ?><br>
