@@ -18,9 +18,9 @@
                         <div class="caption">
                             <i class="fa fa-plus "></i>
 
-                            <?php // if (!empty(($customers['PackageCustomer']))): ?>
-                                <?php // $mac = $customers['PackageCustomer']; ?>
-                            <?php // endif; ?>
+                            <?php if (!empty(($customers['PackageCustomer']))): ?>
+                                <?php $mac = $customers['PackageCustomer']; ?>
+                            <?php endif; ?>
 
                             <?php
                             $current_isp_speed = '';
@@ -34,7 +34,7 @@
                                 <?php $current_service_provider = $customers['PackageCustomer']['current_service_provider']; ?>
                             <?php endif; ?>
 
-                            <span><?php // echo show_mac($mac) . ' ' . $current_isp_speed . ' ' . $current_service_provider; ?></span>
+                            <span><?php echo show_mac($mac) . ' ' . $current_isp_speed . ' ' . $current_service_provider; ?></span>
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="reload">

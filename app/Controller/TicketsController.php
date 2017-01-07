@@ -255,9 +255,9 @@ class TicketsController extends AppController {
     function edit_ticket($id = null, $customer_id =0) {
         // pr($this->request->data); exit;
 
-        if ($customer_id == null) {
-            $this->redirect('/admins/servicemanage');
-        }
+//        if ($customer_id == null) {
+//            $this->redirect('/admins/servicemanage');
+//        }
         $loggedUser = $this->Auth->user();
         $this->loadModel('Ticket');
         $this->loadModel('Track');
@@ -453,38 +453,6 @@ class TicketsController extends AppController {
 
         $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
         $customers = $this->PackageCustomer->findById($customer_id);
-
-        $this->set(compact('users', 'roles', 'issues', 'customers'));
-    }
-    
-       function edit_ticketback() {
-        $this->loadModel('Tickets');
-        $this->loadModel('User');
-        $this->loadModel('Issue');
-        $this->loadModel('Role');
-        $this->loadModel('PackageCustomer');
-        if ($this->request->is('post')) {
-            $this->Tickets->set($this->request->data);
-            if ($this->Tickets->validates()) {
-                $this->Tickets->id = $this->request->data['Tickets']['id'];
-                $this->Tickets->save($this->request->data['Tickets']);
-                $msg = '<div class="alert alert-success">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong> Ticket edited succeesfully </strong>
-        </div>';
-                $this->Session->setFlash($msg);
-                return $this->redirect($this->referer());
-            } else {
-                $msg = $this->generateError($this->Tickets->validationErrors);
-                $this->Session->setFlash($msg);
-            }
-        }
-        $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
-        $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
-        $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
-
-        $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
-//        $customers = $this->PackageCustomer->findById($customer_id);
 
         $this->set(compact('users', 'roles', 'issues', 'customers'));
     }
