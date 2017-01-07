@@ -273,8 +273,8 @@ class ReportsController extends AppController {
         $this->loadModel('Transaction');
         $this->loadModel('PackageCustomer');
         $date = date("'Y-m-d'");
-        $expiredate = trim(date('Y-m-d', strtotime("+25 days")));        
-                
+        $expiredate = trim(date('Y-m-d', strtotime("+25 days")));
+
         //Pdf generate with in 25 days
         $totla25daysinvoice = $this->Transaction->query("SELECT count(tr.id) as 25daysinvoice FROM transactions tr "
                 . "LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id "
@@ -948,15 +948,34 @@ class ReportsController extends AppController {
     function all() { //Auto recurring data all
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
-        $allData = $this->PackageCustomer->query("SELECT * 
+//         pr($this->request->data); exit;
+       
+        $clicked = false;
+        if ($this->request->is('post') || $this->request->is('put')) {
+             $datrange = json_decode($this->request->data['PackageCustomer']['daterange'], true);
+       
+        $datrange['start'] = $datrange['start'];
+        $datrange['end'] = $datrange['end'];
+//            $sql = "SELECT * 
+//                    FROM package_customers pc
+//                    LEFT JOIN users u ON pc.technician_id = u.id
+//                    LEFT JOIN psettings ps ON ps.id = pc.psetting_id
+//                    LEFT JOIN custom_packages cp ON cp.id = pc.custom_package_id
+//                    WHERE pc.auto_r =  'yes' and pc.r_form >='" . $datrange['start'] . "' AND pc.r_form <='" . $datrange['end'] . "'  order by pc.id desc";
+////
+//            echo $sql;
+//            exit;
+
+            $allData = $this->PackageCustomer->query("SELECT * 
                     FROM package_customers pc
                     LEFT JOIN users u ON pc.technician_id = u.id
                     LEFT JOIN psettings ps ON ps.id = pc.psetting_id
                     LEFT JOIN custom_packages cp ON cp.id = pc.custom_package_id
-                    WHERE pc.auto_r =  'yes'
-                    ORDER BY pc.id");
-
-        $this->set(compact('allData'));
+                    WHERE pc.auto_r =  'yes' and pc.r_form >='" . $datrange['start'] . "' AND pc.r_form <='" . $datrange['end'] . "'  order by pc.id desc");
+            $clicked = true;
+            $this->set(compact('allData'));
+        }
+        $this->set(compact('clicked'));
     }
 
     function successful() { //Auto recurring data success

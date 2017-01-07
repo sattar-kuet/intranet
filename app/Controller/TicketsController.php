@@ -267,8 +267,10 @@ class TicketsController extends AppController {
         $this->loadModel('Issue');
         $this->loadModel('TicketDepartment');
         $this->loadModel('PackageCustomer');
-         $ticket_info = $this->Ticket->findById($id);
-        $this->request->data = $ticket_info;
+        $ticket_info = $this->Ticket->query("SELECT * FROM tracks where ticket_id = $id");
+        
+//         pr($ticket_info); exit;
+        $this->request->data = $ticket_info[0]['tracks'];
         if ($this->request->is('post')) {
             $this->Ticket->set($this->request->data);
             if ($this->Ticket->validates()) {
