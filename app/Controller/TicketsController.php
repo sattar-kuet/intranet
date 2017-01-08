@@ -72,14 +72,14 @@ class TicketsController extends AppController {
                     return $this->redirect($this->referer());
                 }
                 if (trim($this->request->data['Ticket']['issue_id']) == 21 ||
-                        trim($this->request->data['Ticket']['issue_id']) == 30 || 
+                        trim($this->request->data['Ticket']['issue_id']) == 30 ||
                         trim($this->request->data['Ticket']['issue_id']) == 36 ||
-                        trim($this->request->data['Ticket']['issue_id']) == 24 || 
+                        trim($this->request->data['Ticket']['issue_id']) == 24 ||
                         trim($this->request->data['Ticket']['issue_id']) == 31 ||
                         trim($this->request->data['Ticket']['issue_id']) == 20 ||
                         trim($this->request->data['Ticket']['issue_id']) == 28 ||
-                        trim($this->request->data['Ticket']['action_type']) == "ready"||
-                        trim($this->request->data['Ticket']['action_type']) == 'shipment' ) {
+                        trim($this->request->data['Ticket']['action_type']) == "ready" ||
+                        trim($this->request->data['Ticket']['action_type']) == 'shipment') {
                     $this->PackageCustomer->id = $customer_id;
                     $data['PackageCustomer'] = array(
                         "deposit" => $this->request->data['Ticket']['deposit'],
@@ -252,14 +252,8 @@ class TicketsController extends AppController {
 
         $this->set(compact('users', 'roles', 'issues', 'customers'));
     }
-    
-    
-    function edit_ticket($id = null, $customer_id =0) {
-        // pr($this->request->data); exit;
 
-//        if ($customer_id == null) {
-//            $this->redirect('/admins/servicemanage');
-//        }
+    function edit_ticket($id = null, $customer_id = 0) {
         $loggedUser = $this->Auth->user();
         $this->loadModel('Ticket');
         $this->loadModel('Track');
@@ -269,11 +263,14 @@ class TicketsController extends AppController {
         $this->loadModel('Issue');
         $this->loadModel('TicketDepartment');
         $this->loadModel('PackageCustomer');
-         $ticket_info = $this->Ticket->findById($id);
-        $this->request->data = $ticket_info;
-        if ($this->request->is('post')) {
-            $this->Ticket->set($this->request->data);
-            if ($this->Ticket->validates()) {
+        $ticket_info = $this->Ticket->query("SELECT * FROM tickets LEFT JOIN tracks on tickets.id = tracks.ticket_id where tickets.id = $id");
+        $track_id = $ticket_info[0]['tracks']['id'];
+        unset($ticket_info[0]['tracks']['id']);
+        $data = $ticket_info[0]['tracks'] + $ticket_info[0]['tickets'];
+        $this->request->data['Ticket'] = $data;
+        if ($this->request->is('post') || $this->request->is('put')) {
+            pr($this->request->data);
+            
                 if (empty($this->request->data['Ticket']['user_id']) &&
                         empty($this->request->data['Ticket']['role_id']) &&
                         empty($this->request->data['Ticket']['action_type'])) {
@@ -285,20 +282,31 @@ class TicketsController extends AppController {
                     return $this->redirect($this->referer());
                 }
 
-                $this->PackageCustomer->id = $customer_id;
-                $data['PackageCustomer'] = array(
-                    "deposit" => $this->request->data['Ticket']['deposit'],
-                    "monthly_bill" => $this->request->data['Ticket']['monthly_bill'],
-                    "others" => $this->request->data['Ticket']['others'],
-                    "total" => $this->request->data['Ticket']['total'],
-                    "remote_no" => $this->request->data['Ticket']['remote_no'],
-                    "issue_id" => $this->request->data['Ticket']['issue_id'],
-                    "comments" => $this->request->data['Ticket']['content'],
-                    "status" => 'requested',
-                    "user_id" => $loggedUser['id']
-                );
-
-                $cusinfo = $this->PackageCustomer->save($data);
+                  if (trim($this->request->data['Ticket']['issue_id']) == 21 ||
+                        trim($this->request->data['Ticket']['issue_id']) == 30 ||
+                        trim($this->request->data['Ticket']['issue_id']) == 36 ||
+                        trim($this->request->data['Ticket']['issue_id']) == 24 ||
+                        trim($this->request->data['Ticket']['issue_id']) == 31 ||
+                        trim($this->request->data['Ticket']['issue_id']) == 20 ||
+                        trim($this->request->data['Ticket']['issue_id']) == 28 ||
+                        trim($this->request->data['Ticket']['action_type']) == "ready" ||
+                        trim($this->request->data['Ticket']['action_type']) == 'shipment') {
+                    $this->PackageCustomer->id = $customer_id;
+                    $data['PackageCustomer'] = array(
+                        "deposit" => $this->request->data['Ticket']['deposit'],
+                        "monthly_bill" => $this->request->data['Ticket']['monthly_bill'],
+                        "others" => $this->request->data['Ticket']['others'],
+                        "total" => $this->request->data['Ticket']['total'],
+                        "remote_no" => $this->request->data['Ticket']['remote_no'],
+                        "issue_id" => $this->request->data['Ticket']['issue_id'],
+                        "comments" => $this->request->data['Ticket']['content'],
+                        "status" => 'requested',
+                        "user_id" => $loggedUser['id']
+                    );
+                    $cusinfo = $this->PackageCustomer->save($data);
+                }
+                
+               
                 $status = 'open';
                 if (trim($this->request->data['Ticket']['action_type']) == 'solved' ||
                         trim($this->request->data['Ticket']['action_type']) == 'ready' ||
@@ -308,14 +316,15 @@ class TicketsController extends AppController {
                     $this->request->data['Ticket']['status'] = 'solved';
                     $status = 'solved';
                 }
-                $tickect = $this->Ticket->save($this->request->data['Ticket']); // Data save in Ticket
+                $this->Ticket->id = $id;
+                $this->Ticket->save($this->request->data['Ticket']); // Data save in Ticket
                 $trackData['Track'] = array(
                     'issue_id' => $this->request->data['Ticket']['issue_id'],
                     'package_customer_id' => $customer_id,
                     'user_id' => $this->request->data['Ticket']['user_id'],
                     'role_id' => $this->request->data['Ticket']['role_id'],
                     'issue_id' => $this->request->data['Ticket']['issue_id'],
-                    'ticket_id' => $tickect['Ticket']['id'],
+                    'ticket_id' => $id,
                     'status' => $status,
                     'forwarded_by' => $loggedUser['id']
                 );
@@ -436,7 +445,7 @@ class TicketsController extends AppController {
 //                    // End send mail 
 //                }
 //
-
+                $this->Track->id = $track_id;
                 $this->Track->save($trackData); // Data save in Track
                 $msg = '<div class="alert alert-success">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -444,10 +453,7 @@ class TicketsController extends AppController {
 			</div>';
                 $this->Session->setFlash($msg);
                 return $this->redirect($this->referer());
-            } else {
-                $msg = $this->generateError($this->Ticket->validationErrors);
-                $this->Session->setFlash($msg);
-            }
+            
         }
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
         $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
@@ -546,9 +552,6 @@ class TicketsController extends AppController {
         $roles = $this->Role->find('list', array('order' => array('Role.name' => 'ASC')));
         $this->set(compact('roles'));
     }
-    
-    
-    
 
     function manage($page = 1) {
         $this->loadModel('Track');

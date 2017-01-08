@@ -392,7 +392,7 @@ class PaymentsController extends AppController {
                 //$this->Transaction->create();
                 $this->Transaction->saveField("status", $status);
 
-                $msg .='<li> Transaction   successfull by auto recurring</li>';
+                $msg .='<li> Transaction successfull by auto recurring</li>';
                 $tdata['Ticket'] = array('content' => "Transaction successfull by auto recurring <br> <b>Amount : </b>$amount <br> <b> payment Mode: </b> Card", 'status' => 'solved');
                 $tickect = $this->Ticket->create(); // Data save in Ticket
                 $tickect = $this->Ticket->save($tdata); // Data save in Ticket

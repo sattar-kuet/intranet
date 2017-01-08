@@ -3,7 +3,7 @@
  * 
  */
 class Track extends AppModel {
-    var $belongsTo = array('User', 'Track');
+    var $belongsTo = array('User', 'Ticket');
 }
 
 ?>

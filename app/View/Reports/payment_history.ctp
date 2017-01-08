@@ -129,7 +129,23 @@
                                         12Months Subscription<b>: <?php echo $total12monthp; ?>                                    
                                     </p>                                       
                                     <p class="pull-right"> Total Subscription<b>: <?php echo $total; ?></b></p><br>
-                                    <p class="pull-right"> Total Boxes<b>: <span class="showthis" data-box="box"></span> </b></p>
+                                    <!--<p class="pull-right"> Total Boxes<b>: <span class="showthis" data-box="box"></span> </b></p>-->
+
+                                        <?php
+                                        $boxes = 0;
+                                        foreach ($totalbox as $single):
+
+                                            $pc = $single['pc'];
+                                            $stbs = json_decode($pc['mac']);
+                                            $boxes += count($stbs);
+                                            ?>
+                                           
+                                   
+                                            <?php
+                                        endforeach;
+                                        ?> 
+                                     <p class="pull-right"> Total Boxes<b>:  <?php echo $boxes; ?>  </b>
+                                    </p>
                                 </div>  
                                 <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                                     <ul class="pagination" >
@@ -141,7 +157,7 @@
                                             }
                                             ?>
                                             <li class="paginate_button <?php echo $active; ?>" aria-controls="sample_editable_1" tabindex="<?php echo $i; ?>">
-                                                <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'payment_history', $i, $start, $end,$pay_mode)) ?>"><?php echo $i; ?></a>
+                                                <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'payment_history', $i, $start, $end, $pay_mode)) ?>"><?php echo $i; ?></a>
                                             </li>
                                         <?php endfor; ?>
                                     </ul>
@@ -168,15 +184,15 @@
                                                     $pc['apartment'] . ' ' . $pc['city'] . ' ' . $pc['state'] . ' '
                                                     . $pc['zip'];
                                             ?>
-                                    
+
                                             <tr >
                                                 <td>
                                                     <ul>
                                                         <li><strong>Name:</strong>  
                                                             <a href="<?php
-                                                            echo Router::url(array('controller' => 'customers',
-                                                                'action' => 'edit', $pc['id']))
-                                                            ?>" 
+                                    echo Router::url(array('controller' => 'customers',
+                                        'action' => 'edit', $pc['id']))
+                                            ?>" 
                                                                target="_blank">
                                                                    <?php
                                                                    echo $pc['first_name'] . ' ' . $pc['middle_name'] . ' ' . $pc['last_name'];
@@ -210,7 +226,7 @@
                                             <?php
                                         endforeach;
                                         ?>   
-                                    <span id="box" class="hide"><?php echo $boxes; ?></span>
+                                    <!--<span id="box" class="hide"><?php echo $boxes; ?></span>-->
                                     </tbody>
                                 </table>
                                 <!--<h2 style="text-align: center;" > Grant Total: $<?php echo $total; ?></h2>-->

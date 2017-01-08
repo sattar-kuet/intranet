@@ -1810,7 +1810,8 @@
                                         'type' => 'hidden',
                                         'value' => $this->params['pass'][0]
                                     ));
-                                    ?>
+                                    ?>                                   
+
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="control-label col-md-2">Transaction Number<span class="">
@@ -1884,6 +1885,11 @@
                                             </div>
                                         </div>
                                     </div>
+
+
+
+
+
                                     <div class="form-actions">
                                         <div class="row">
                                             <div class="col-md-offset-6 col-md-4">
@@ -1978,7 +1984,7 @@
                             <div class="col-md-6">
                                 <ul>
                                     <?php foreach ($attachments as $no => $attachment): ?>
-                                        <li><a href="<?php echo $this->webroot . 'attachment/' . $attachment['Attachment']['name']; ?>" target="_blank">QB Statement<?php echo $no+1;?></a> </li>
+                                        <li><a href="<?php echo $this->webroot . 'attachment/' . $attachment['Attachment']['name']; ?>" target="_blank">QB Statement<?php echo $no + 1; ?></a> </li>
                                     <?php endforeach; ?>
                                 </ul>
                             </div>
@@ -2183,7 +2189,7 @@
                                                                 <li>Transaction No : <?php echo $payment['tr']['trx_id']; ?></li> 
                                                                 <li>Card No : <?php echo substr($payment['tr']['card_no'], -4); ?></li>  
                                                                 <li>Zip Code : <?php echo $payment['tr']['zip_code']; ?></li>  
-                                                                <li>CVV Code : ***<?php //echo $payment['tr']['cvv_code'];              ?></li> 
+                                                                <li>CVV Code : ***<?php //echo $payment['tr']['cvv_code'];                 ?></li> 
 
                                                                 <li>Expire Date : <?php echo $payment['tr']['exp_date']; ?></li>
 
