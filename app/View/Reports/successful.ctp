@@ -31,6 +31,12 @@
                     </div>
                     <div class="portlet-body">
                         <?php echo $this->Session->flash(); ?> 
+                        
+                        <div class="alert alert-info clearfix" style="color: #000; font-size: 14px;"> 
+                            <p> Total Subscription<b>: <?php echo $totalCustomer; ?></b> &nbsp; &nbsp;&nbsp;&nbsp;
+                                Total Paid Amount<b>: $<?php echo $totalPayment; ?> </b></p>
+                        </div> 
+                        
                         <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                             <thead>
                                 <tr>
@@ -83,13 +89,10 @@
                                             <?php endif; ?>
                                         </td>                                     
                                         <td class="hidden-480">
-<<<<<<< HEAD
+
                                 <li> <b>Paid Amount :</b> <?php echo $results['transactions']['payable_amount']; ?> </li>                           
                                 <li>  <b>Transaction ID :</b> <?php echo $results['transactions']['trx_id']; ?> </li>                           
-=======
-                                <li> <b>Paid Amount :</b> <?php echo $results['transactions']['paid_amount']; ?> </li>                           
-                                <li> <b>Transaction ID :</b> <?php echo $results['transactions']['trx_id']; ?> </li>                           
->>>>>>> 42715c59b6716ed5791c3ca8465d6c72ca23203d
+
                                 <li> <b>Payment Method :</b> <?php echo $results['transactions']['pay_mode']; ?> </li>                           
                                 <li> <b>Payment Date :</b> <?php echo $results['transactions']['created']; ?>  </li>                          
                                 <li> <b>Next Payment Date :</b> <?php echo $results['package_customers']['r_form']; ?></li>                           

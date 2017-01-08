@@ -31,6 +31,11 @@
                     </div>
                     <div class="portlet-body">
                         <?php echo $this->Session->flash(); ?> 
+                        <div class="alert alert-info clearfix" style="color: #000; font-size: 14px;"> 
+                            <p> Total Subscription<b>: <?php echo $totalCustomer; ?></b> &nbsp; &nbsp;&nbsp;&nbsp;
+                                Total Payable Amount<b>: $<?php echo $totalPayment; ?> </b></p>
+                        </div> 
+
                         <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                             <thead>
                                 <tr>
@@ -44,7 +49,7 @@
                                     <th>
                                         Package
                                     </th>
-                                    
+
                                     <th>
                                         Payment Information
                                     </th>
@@ -68,34 +73,32 @@
                                         <td class="hidden-480">
                                             <a href="<?php
                                             echo Router::url(array('controller' => 'customers',
-
                                                 'action' => 'edit', $results['pc']['id']))
-
                                             ?>" 
                                                target="_blank">
-                                                   <?php echo $results['pc']['first_name'] . ' ' . $results['pc']['middle_name'] . ' ' . $results['pc']['last_name']; ?>
+                                               <?php echo $results['pc']['first_name'] . ' ' . $results['pc']['middle_name'] . ' ' . $results['pc']['last_name']; ?>
                                             </a><br>
-                                            <?php echo $customer_address; ?> 
+                                                   <?php echo $customer_address; ?> 
                                         </td>                                     
                                         <td>
-                                            <?php if (!empty($results['psettings']['name'])) { ?>
+    <?php if (!empty($results['psettings']['name'])) { ?>
                                                 Name:<?php echo $results['psettings']['name'] ?><br>
                                                 Duration:<?php echo $results['psettings']['duration']; ?><br>
                                                 Amount: <?php echo $results['psettings']['amount']; ?>
-                                            <?php } else { ?>
+    <?php } else { ?>
                                                 Name: <?php echo $results['custom_packages']['duration'] ?> Month(s) Custom Package<br>
                                                 Amount: <?php echo $results['custom_packages']['charge']; ?>
-                                            <?php } ?>
+    <?php } ?>
                                         </td>   
-                                       
+
                                         <td class="hidden-480">
-                                            <?php echo $results['t']['content']; ?>                          
+    <?php echo $results['t']['content']; ?>                          
                                         </td>
-                                         <td>
-                                            <?php echo $results['t']['created']; ?>                          
+                                        <td>
+    <?php echo $results['t']['created']; ?>                          
                                         </td>
                                     </tr>
-                                <?php endforeach; ?>  
+<?php endforeach; ?>  
 
                             </tbody>
                         </table>

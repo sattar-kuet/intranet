@@ -272,8 +272,8 @@ class ReportsController extends AppController {
         $this->loadModel('Transaction');
         $this->loadModel('PackageCustomer');
         $date = date("'Y-m-d'");
-        $expiredate = trim(date('Y-m-d', strtotime("+25 days")));        
-                
+        $expiredate = trim(date('Y-m-d', strtotime("+25 days")));
+
         //Pdf generate with in 25 days
         $totla25daysinvoice = $this->Transaction->query("SELECT count(tr.id) as 25daysinvoice FROM transactions tr "
                 . "LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id "
@@ -961,6 +961,7 @@ class ReportsController extends AppController {
     function successful() { //Auto recurring data success
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
+        $this->loadModel('Transaction');
         $allData = $this->PackageCustomer->query("SELECT * 
                     FROM transactions
                     LEFT JOIN package_customers ON package_customers.id = transactions.package_customer_id
@@ -968,8 +969,20 @@ class ReportsController extends AppController {
                     LEFT JOIN custom_packages ON custom_packages.id = package_customers.custom_package_id
                     WHERE transactions.auto_recurring = 1
                     AND transactions.status =  'success'");
+        
+         $sql = "SELECT SUM(payable_amount) as total FROM transactions 
+                WHERE transactions.auto_recurring = 1 AND transactions.status =  'success'";
+        // echo $sql; exit;
+        $temp = $this->Transaction->query($sql);
+        $totalPayment = $temp[0][0]['total'];
+        $totalPayment = round($totalPayment,2);
+        $sql = "SELECT COUNT(id) as total FROM transactions 
+                WHERE transactions.auto_recurring = 1 AND transactions.status =  'success'";
+        // echo $sql; exit;
+        $temp = $this->Transaction->query($sql);
+        $totalCustomer = $temp[0][0]['total'];
 
-        $this->set(compact('allData'));
+        $this->set(compact('allData','totalPayment','totalCustomer'));
     }
 
     function failed() { //Auto recurring data error
@@ -980,15 +993,17 @@ class ReportsController extends AppController {
                         LEFT JOIN psettings ON psettings.id = pc.psetting_id
                         LEFT JOIN custom_packages ON custom_packages.id = pc.custom_package_id
                         WHERE t.auto_recurring != 0  GROUP BY pc.id");
-        
-        $sql ='SELECT SUM(pc.payable_amount) as total FROM package_customers pc '.
-                'LEFT JOIN tracks tr ON pc.id = tr.package_customer_id'.
-                ' LEFT JOIN tickets t ON tr.ticket_id = t.id WHERE t.auto_recurring = 1  GROUP BY pc.id';
-        echo $sql; exit;
-        $data = $this->Ticket->query($sql);
-        
-        //pr($data); exit;
-        $this->set(compact('data'));
+
+        $sql = 'SELECT SUM(auto_recurring) as total FROM tickets WHERE tickets.auto_recurring != 0';
+        // echo $sql; exit;
+        $temp = $this->Ticket->query($sql);
+        $totalPayment = $temp[0][0]['total'];
+        $totalPayment = round($totalPayment,2);
+        $sql = 'SELECT COUNT(id) as total FROM tickets WHERE tickets.auto_recurring != 0';
+        // echo $sql; exit;
+        $temp = $this->Ticket->query($sql);
+        $totalCustomer = $temp[0][0]['total'];
+        $this->set(compact('data', 'totalPayment', 'totalCustomer'));
     }
 
 }
