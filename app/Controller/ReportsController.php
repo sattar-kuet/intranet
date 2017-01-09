@@ -1021,8 +1021,6 @@ class ReportsController extends AppController {
                         LEFT JOIN psettings ON psettings.id = pc.psetting_id
                         LEFT JOIN custom_packages ON custom_packages.id = pc.custom_package_id
                         WHERE t.auto_recurring != 0  GROUP BY pc.id");
-
-
         $sql = 'SELECT SUM(auto_recurring) as total FROM tickets WHERE tickets.auto_recurring != 0 ';
         // echo $sql; exit;
         $temp = $this->Ticket->query($sql);
