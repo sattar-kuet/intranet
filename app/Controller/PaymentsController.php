@@ -399,7 +399,6 @@ class PaymentsController extends AppController {
                 $trackData['Track'] = array(
                     'package_customer_id' => $cid,
                     'ticket_id' => $tickect['Ticket']['id'],
-                    'status' => 'closed',
                     'forwarded_by' => 0
                 );
                 $this->Track->create();
@@ -428,7 +427,7 @@ class PaymentsController extends AppController {
                 }
                 $msg .='<li>' . $errorMsg . ' </li>';
                 $tdata['Ticket'] = array('content' => $errorMsg . "<br> <b>Amount</b> : $amount <br> <b> payment Mode: </b> Card",
-                    'status' => 'solved', 'auto_recurring' => $amount);
+                     'auto_recurring' => $amount);
                 $tickect = $this->Ticket->create();
                 $tickect = $this->Ticket->save($tdata);
                 // Data save in Ticket
@@ -445,7 +444,7 @@ class PaymentsController extends AppController {
             $alert = '<div class="alert alert-error"> ';
             $msg .='<li> This payment attempt was from auto recurring. Transaction failed due to Marchant Account credential changed. Please contact with administrator</li>';
             $tdata['Ticket'] = array('content' => "This payment attempt was from auto recurring. Transaction failed due to Marchant Account credential changed. Please contact with administrator <br> <b> Amount : </b> $amount <br> <b> payment Mode: </b> Card",
-                'status' => 'solved', 'auto_recurring' => $amount);
+                 'auto_recurring' => $amount);
             $tickect = $this->Ticket->save($tdata); // Data save in Ticket
             $trackData['Track'] = array(
                 'package_customer_id' => $cid,
