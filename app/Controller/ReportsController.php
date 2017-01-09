@@ -641,6 +641,7 @@ class ReportsController extends AppController {
         return $cardinfotaken[0][0]['cardinfotaken'];
     }
 
+    
     function supportCall() {
         $this->loadModel('Issue');
         $this->loadModel('Track');
@@ -656,8 +657,8 @@ class ReportsController extends AppController {
 
         $sql = "SELECT count(status) as requested FROM status_histories WHERE (status_histories.date) >= '" . $start . "' AND status_histories.date <='" . $end . "'  and status = 'requested'";
         $requested = $this->StatusHistory->query($sql);
-        $totalIBCS = ((($data[0][0]['totalSupport']) - ($this->accountCall('totalAccount')) + ($requested[0][0]['requested']))); //total in bound call DCC
-
+        $totalIBCS = ((($data[0][0]['totalSupport']) - ($this->accountCall('totalAccount'))  + ($requested[0][0]['requested']))); //total in bound call DCC
+        $totalIBCS = $totalIBCS - $this->getTotalCallBySatatus('payment');
         return $totalIBCS;
     }
 

@@ -74,9 +74,15 @@ class PaymentsController extends AppController {
         $latestcardInfo = array('card_no' => '', 'exp_date' => array('year' => 0, 'month' => 0), 'fname' => '', 'lname' => '', 'cvv_code' => '', 'zip_code' => '', 'trx_id' => '');
         if (count($temp)) {
             $date = explode('/', $temp[0]['transactions']['exp_date']);
+            if(count($date) !=2){
+               $date = explode('-', $temp[0]['transactions']['exp_date']); 
+            }
+           // pr($date); exit;
             $yyyy = date('Y');
             $yy = substr($yyyy, 0, 2);
-            if (isset($date[1])) {
+            $digits = strlen((string)$date[1]);
+            $yyyy =  $date[1];
+            if (isset($date[1]) && $digits<4 ) {
                 $yyyy = $yy . '' . $date[1];
             }
             $mm = $date[0];
@@ -221,12 +227,12 @@ class PaymentsController extends AppController {
                 $this->Transaction->saveField("status", $status);
 
                 $msg .='<li> Transaction   successfull</li>';
-                $tdata['Ticket'] = array('content' => "Transaction successfull <br> <b>Amount : </b>$amount <br> <b> payment Mode: </b> Card", 'status' => 'solved');
+                $tdata['Ticket'] = array('content' => "Transaction successfull <br> <b>Amount : </b>$amount <br> <b> payment Mode: </b> Card");
                 $tickect = $this->Ticket->save($tdata); // Data save in Ticket
                 $trackData['Track'] = array(
                     'package_customer_id' => $cid,
                     'ticket_id' => $tickect['Ticket']['id'],
-                    'status' => 'closed',
+                    //'status' => 'closed',
                     'forwarded_by' => $loggedUser['id']
                 );
 
@@ -250,7 +256,7 @@ class PaymentsController extends AppController {
 
                 $msg .='<li>' . $errorMsg . ' </li>';
 
-                $tdata['Ticket'] = array('content' => $errorMsg . "<br> <b>Amount</b> : $amount <br> <b> payment Mode: </b> Card", 'status' => 'solved');
+                $tdata['Ticket'] = array('content' => $errorMsg . "<br> <b>Amount</b> : $amount <br> <b> payment Mode: </b> Card");
 
                 $tickect = $this->Ticket->save($tdata);
 
@@ -258,7 +264,7 @@ class PaymentsController extends AppController {
                 $trackData['Track'] = array(
                     'package_customer_id' => $cid,
                     'ticket_id' => $tickect['Ticket']['id'],
-                    'status' => 'closed',
+//                    'status' => 'closed',
                     'forwarded_by' => $loggedUser['id']
                 );
                 $this->Track->save($trackData);
@@ -269,14 +275,14 @@ class PaymentsController extends AppController {
             $msg .='<li> Transaction failed due to Marchant Account credential changed. Please contact with administrator</li>';
 
 
-            $tdata['Ticket'] = array('content' => "Transaction failed due to Marchant Account credential changed. Please contact with administrator <br> <b> Amount : </b> $amount <br> <b> payment Mode: </b> Card", 'status' => 'solved');
+            $tdata['Ticket'] = array('content' => "Transaction failed due to Marchant Account credential changed. Please contact with administrator <br> <b> Amount : </b> $amount <br> <b> payment Mode: </b> Card");
             $tickect = $this->Ticket->save($tdata); // Data save in Ticket
 
 
             $trackData['Track'] = array(
                 'package_customer_id' => $cid,
                 'ticket_id' => $tickect['Ticket']['id'],
-                'status' => 'closed',
+//                'status' => 'closed',
                 'forwarded_by' => $loggedUser['id']
             );
             $this->Track->save($trackData);
@@ -434,7 +440,7 @@ class PaymentsController extends AppController {
                 $trackData['Track'] = array(
                     'package_customer_id' => $cid,
                     'ticket_id' => $tickect['Ticket']['id'],
-                    'status' => 'closed',
+                   // 'status' => 'closed',
                     'forwarded_by' => 0
                 );
                 $this->Track->create();
@@ -449,7 +455,7 @@ class PaymentsController extends AppController {
             $trackData['Track'] = array(
                 'package_customer_id' => $cid,
                 'ticket_id' => $tickect['Ticket']['id'],
-                'status' => 'closed',
+               // 'status' => 'closed',
                 'forwarded_by' => 0
             );
             $this->Track->create();
