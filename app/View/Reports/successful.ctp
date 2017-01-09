@@ -15,6 +15,11 @@
         border-radius: 4px;
         text-align: center;
     }
+    .txtArea { width:300px; }
+      ul.pagination {
+        display: flex;
+        justify-content: center;
+    }
 </style>
 
 <div class="page-content-wrapper">
@@ -103,6 +108,19 @@
                                     <p> Total Subscription<b>: <?php echo $totalCustomer; ?></b> &nbsp; &nbsp;&nbsp;&nbsp;
                                         Total Paid Amount<b>: $<?php echo $totalPayment; ?> </b> </p>
                                 </div> 
+                                   <ul class="pagination" >
+                            <?php
+                            for ($i = 1; $i <= $total_page; $i++):
+                                $active = '';
+                                if (isset($this->params['pass'][0]) && $this->params['pass'][0] == $i) {
+                                    $active = 'active';
+                                }
+                                ?>
+                                <li class="paginate_button <?php echo $active; ?>" aria-controls="sample_editable_1" tabindex="<?php echo $i; ?>">
+                                    <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'successful', $i)) ?>"><?php echo $i; ?></a>
+                                </li>
+                            <?php endfor; ?>
+                        </ul>
                                 <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                                     <thead>
                                         <tr>

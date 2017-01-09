@@ -2,6 +2,7 @@
     .ui-datepicker-multi-3 {
         display: table-row-group !important;
     }
+    
 </style>
 
 <style type="text/css">
@@ -11,6 +12,11 @@
         border: 1px solid transparent;
         border-radius: 4px;
         text-align: center;
+    }
+    .txtArea { width:300px; }
+      ul.pagination {
+        display: flex;
+        justify-content: center;
     }
 </style>
 
@@ -97,6 +103,19 @@
                         <hr>
                         <div class="row">
                             <div class="col-xs-12">
+                                  <ul class="pagination" >
+                            <?php
+                            for ($i = 1; $i <= $total_page; $i++):
+                                $active = '';
+                                if (isset($this->params['pass'][0]) && $this->params['pass'][0] == $i) {
+                                    $active = 'active';
+                                }
+                                ?>
+                                <li class="paginate_button <?php echo $active; ?>" aria-controls="sample_editable_1" tabindex="<?php echo $i; ?>">
+                                    <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'all', $i)) ?>"><?php echo $i; ?></a>
+                                </li>
+                            <?php endfor; ?>
+                        </ul>
                                 <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                                     <thead>
                                         <tr>
