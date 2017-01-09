@@ -947,46 +947,62 @@ class ReportsController extends AppController {
         $this->set(compact('filteredData', 'technician'));
     }
 
-    function all($page = 1) { //Auto recurring data all
+    function all($page = 1, $start = null, $end = null, $pay_mode = null) { //Auto recurring data all
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
+        $this->loadModel('Transaction');
         $offset = --$page * $this->per_page;
         $clicked = false;
-        if ($this->request->is('post') || $this->request->is('put')) {
-            $datrange = json_decode($this->request->data['PackageCustomer']['daterange'], true);
-
-            $datrange['start'] = $datrange['start'];
-            $datrange['end'] = $datrange['end'];
+        if ($this->request->is('post') || $this->request->is('put') || $start != null) {
+            if (isset($this->request->data['PackageCustomer'])) {
+                $datrange = json_decode($this->request->data['PackageCustomer']['daterange'], true);
+                $start = $datrange['start'];
+                $end = $datrange['end'];
+            }
 
             $allData = $this->PackageCustomer->query("SELECT * 
                     FROM package_customers pc
                     LEFT JOIN users u ON pc.technician_id = u.id
                     LEFT JOIN psettings ps ON ps.id = pc.psetting_id
                     LEFT JOIN custom_packages cp ON cp.id = pc.custom_package_id
-                    WHERE pc.auto_r =  'yes' and pc.r_form >='" . $datrange['start'] . "' AND pc.r_form <='" . $datrange['end'] . "'  order by pc.id desc" . " LIMIT " . $offset . "," . $this->per_page);
+                    WHERE pc.auto_r =  'yes' and pc.r_form >='" . $start . "' AND pc.r_form <='" . $end . "'  order by pc.id desc" . " LIMIT " . $offset . "," . $this->per_page);
 
-            $temp = $this->PackageCustomer->query("SELECT COUNT(package_customers.id) as total FROM package_customers");
-            $total = $temp[0][0]['total'];
-            $total_page = ceil($total / $this->per_page);
+            $sql = "SELECT SUM(pc.payable_amount) as total FROM package_customers pc
+                left join transactions tr on pc.id = tr.package_customer_id
+                WHERE pc.auto_r =  'yes' and pc.r_form >='" . $start . "' AND pc.r_form <='" . $end . "'";
+            $temp = $this->Transaction->query($sql);
+            $totalPayment = $temp[0][0]['total'];
+            $totalPayment = round($totalPayment, 2);
+
+            $sql = "SELECT COUNT(pc.id) as total FROM package_customers pc
+                left join transactions tr on pc.id = tr.package_customer_id
+                WHERE pc.auto_r =  'yes' and pc.r_form >='" . $start . "' AND pc.r_form <='" . $end . "'";
+            $temp = $this->Transaction->query($sql);
+            $totalCustomer = $temp[0][0]['total'];
 
 
             $clicked = true;
-            $this->set(compact('allData', 'total_page'));
+            $temp = $this->PackageCustomer->query("SELECT COUNT(pc.id) as total FROM package_customers pc WHERE pc.auto_r =  'yes' and pc.r_form >='" . $start . "' AND pc.r_form <='" . $end . "'");
+            $total = $temp[0][0]['total'];
+            $total_page = ceil($total / $this->per_page);
+            $this->set(compact('allData', 'total_page', 'totalCustomer', 'totalPayment', 'start', 'end'));
         }
         $this->set(compact('clicked'));
     }
 
-    function successful($page = 1) { //Auto recurring data success
+    function successful($page = 1, $start = null, $end = null) { //Auto recurring data success
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
         $offset = --$page * $this->per_page;
+        //Pagination query
         $clicked = FALSE;
-        if ($this->request->is('post') || $this->request->is('put')) {
-            $daterange = json_decode($this->request->data['PackageCustomer']['daterange'], true);
-            $daterange['start'] = $daterange['start'];
-            $daterange['end'] = $daterange['end'];
-
+        if ($this->request->is('post') || $this->request->is('put') || $start != null) {
+            if (isset($this->request->data['PackageCustomer'])) {
+                $datrange = json_decode($this->request->data['PackageCustomer']['daterange'], true);
+                $start = $datrange['start'];
+                $end = $datrange['end'];
+            }
             $allData = $this->PackageCustomer->query("SELECT * 
                     FROM transactions
                     LEFT JOIN package_customers ON package_customers.id = transactions.package_customer_id
@@ -994,55 +1010,84 @@ class ReportsController extends AppController {
                     LEFT JOIN custom_packages ON custom_packages.id = package_customers.custom_package_id
                     WHERE transactions.auto_recurring = 1
                     AND  transactions.status =  'success' AND CAST(transactions.created as DATE) >='" .
-                    $daterange['start'] . "' AND CAST(transactions.created as DATE) <='" . $daterange['end'] .
-                    "' order by transactions.id desc");
-
+                    $start . "' AND CAST(transactions.created as DATE) <='" . $end .
+                    "' order by transactions.id desc" . " LIMIT " . $offset . "," . $this->per_page);
 
             $sql = "SELECT SUM(payable_amount) as total FROM transactions 
                 WHERE transactions.auto_recurring = 1 AND transactions.status =  'success' AND CAST(transactions.created as DATE) >='" .
-                    $daterange['start'] . "' AND CAST(transactions.created as DATE) <='" . $daterange['end'] . "'";
+                    $start . "' AND CAST(transactions.created as DATE) <='" . $end . "'";
             $temp = $this->Transaction->query($sql);
             $totalPayment = $temp[0][0]['total'];
             $totalPayment = round($totalPayment, 2);
-            
+
             $sql = "SELECT COUNT(id) as total FROM transactions 
                 WHERE transactions.auto_recurring = 1 AND transactions.status =  'success' AND CAST(transactions.created as DATE) >='" .
-                    $daterange['start'] . "' AND CAST(transactions.created as DATE) <='" . $daterange['end']."'";
+                    $start . "' AND CAST(transactions.created as DATE) <='" . $end . "'";
             $temp = $this->Transaction->query($sql);
             $totalCustomer = $temp[0][0]['total'];
-            
-            $this->set(compact('allData', 'totalPayment', 'totalCustomer'));
+
             $clicked = TRUE;
+
+            $temp = $this->Transaction->query("SELECT COUNT(transactions.id) as total FROM transactions WHERE
+                transactions.auto_recurring = 1 AND  transactions.status =  'success' AND 
+                    CAST(transactions.created as DATE) >='" .
+                    $start . "' AND CAST(transactions.created as DATE) <='" . $end . "'");
+            $total = $temp[0][0]['total'];
+            $total_page = ceil($total / $this->per_page);
+
+            $this->set(compact('allData', 'total_page', 'totalPayment', 'totalCustomer', 'start', 'end'));
         }
         $this->set(compact('clicked'));
     }
 
-    function failed() { //Auto recurring data error
+    function failed($page = 1, $start = null, $end = null) { //Auto recurring data error
         $this->loadModel('Ticket');
-        $sql = "SELECT * FROM tickets t
-                        left JOIN tracks tr ON t.id = tr.ticket_id
-                        left join package_customers pc on tr.package_customer_id = pc.id
-                        LEFT JOIN psettings ON psettings.id = pc.psetting_id
-                        LEFT JOIN custom_packages ON custom_packages.id = pc.custom_package_id
-                        WHERE t.auto_recurring != 0  GROUP BY pc.id";
-        echo $sql; exit;
-        
-        $data = $this->Ticket->query("SELECT * FROM tickets t
-                        left JOIN tracks tr ON t.id = tr.ticket_id
-                        left join package_customers pc on tr.package_customer_id = pc.id
-                        LEFT JOIN psettings ON psettings.id = pc.psetting_id
-                        LEFT JOIN custom_packages ON custom_packages.id = pc.custom_package_id
-                        WHERE t.auto_recurring != 0  GROUP BY pc.id");
-        $sql = 'SELECT SUM(auto_recurring) as total FROM tickets WHERE tickets.auto_recurring != 0 ';
-        // echo $sql; exit;
-        $temp = $this->Ticket->query($sql);
-        $totalPayment = $temp[0][0]['total'];
-        $totalPayment = round($totalPayment, 2);
-        $sql = 'SELECT COUNT(id) as total FROM tickets WHERE tickets.auto_recurring != 0';
-        // echo $sql; exit;
-        $temp = $this->Ticket->query($sql);
-        $totalCustomer = $temp[0][0]['total'];
-        $this->set(compact('data', 'totalPayment', 'totalCustomer'));
+        $this->loadModel('User');
+        $this->loadModel('PackageCustomer');
+        $this->loadModel('Transaction');
+        $offset = --$page * $this->per_page;
+        $clicked = FALSE;
+        if ($this->request->is('post') || $this->request->is('put') || $start != null) {
+            if (isset($this->request->data['PackageCustomer'])) {
+                $datrange = json_decode($this->request->data['PackageCustomer']['daterange'], true);
+                $start = $datrange['start'];
+                $end = $datrange['end'];
+            }
+
+            $data = $this->Ticket->query("SELECT * FROM tickets t
+                    left JOIN tracks tr ON t.id = tr.ticket_id
+                    left join package_customers pc on tr.package_customer_id = pc.id
+                    LEFT JOIN psettings ON psettings.id = pc.psetting_id
+                    LEFT JOIN custom_packages ON custom_packages.id = pc.custom_package_id
+                    WHERE t.auto_recurring != 0 and pc.r_form >='" . $start . "' AND pc.r_form <='" . $end . "'  order by pc.id desc" . " LIMIT " . $offset . "," . $this->per_page);
+//            pr($data); exit;
+
+            $sql = "SELECT SUM(t.auto_recurring) as total FROM tickets t
+                    left JOIN tracks tr ON t.id = tr.ticket_id
+                    left join package_customers pc on tr.package_customer_id = pc.id 
+                    WHERE t.auto_recurring != 0 and pc.r_form >='" . $start . "' AND pc.r_form <='" . $end . "'";
+            $temp = $this->Ticket->query($sql);
+            $totalPayment = $temp[0][0]['total'];
+            $totalPayment = round($totalPayment, 2);
+
+            $sql = "SELECT COUNT(t.id) as total FROM tickets t
+                    left JOIN tracks tr ON t.id = tr.ticket_id
+                    left join package_customers pc on tr.package_customer_id = pc.id
+                    WHERE t.auto_recurring != 0 and pc.r_form >='" . $start . "' AND pc.r_form <='" . $end . "'";
+            $temp = $this->Ticket->query($sql);
+            $totalCustomer = $temp[0][0]['total'];
+
+            $clicked = TRUE;
+            $temp = $this->PackageCustomer->query("SELECT COUNT(pc.id) as total  FROM package_customers pc 
+                left JOIN tracks tr ON tr.package_customer_id = pc.id               
+                    left join tickets t on  t.id = tr.ticket_id
+                    WHERE pc.auto_r =  'yes' and pc.r_form >='" . $start . "' AND pc.r_form <='" . $end . "'");
+            $total = $temp[0][0]['total'];
+            $total_page = ceil($total / $this->per_page);
+
+            $this->set(compact('data', 'total_page', 'totalPayment', 'totalCustomer', 'start', 'end'));
+        }
+        $this->set(compact('clicked'));
     }
 
 }
