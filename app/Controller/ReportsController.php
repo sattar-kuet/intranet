@@ -658,7 +658,7 @@ class ReportsController extends AppController {
         $sql = "SELECT count(status) as requested FROM status_histories WHERE (status_histories.date) >= '" . $start . "' AND status_histories.date <='" . $end . "'  and status = 'requested'";
         $requested = $this->StatusHistory->query($sql);
         $totalIBCS = ((($data[0][0]['totalSupport']) - ($this->accountCall('totalAccount'))  + ($requested[0][0]['requested']))); //total in bound call DCC
-        $totalIBCS = $totalIBCS - $this->getTotalCallBySatatus('payment');
+       // $totalIBCS = $totalIBCS - $this->getTotalCallBySatatus('payment');
         return $totalIBCS;
     }
 
@@ -765,6 +765,9 @@ class ReportsController extends AppController {
             $total['totaloutbound'] = $this->totalOutbound();
 
             $total['totalAccount'] = $this->accountCall();
+            $total['inbound'] = $total['totalSupport'] + $total['totalAccount'] + $total['done'] + $total['sales_query'] + $total['reconnection']
+                    + $total['cardinfotaken'] + $total['check_send'] + $total['vod'] + $total['interruption'] + $total['addsalesreceive']
+                    + $total['online_payment'] + $total['cancel'] + $total['cancel_from_da'] + $total['unhold'] + $total['cancel_from_hold'];
             // pr($total); exit;
             $clicked = true;
             $datrange = json_decode($this->request->data['Track']['daterange'], true);
@@ -1060,7 +1063,8 @@ class ReportsController extends AppController {
                     left join package_customers pc on tr.package_customer_id = pc.id
                     LEFT JOIN psettings ON psettings.id = pc.psetting_id
                     LEFT JOIN custom_packages ON custom_packages.id = pc.custom_package_id
-                    WHERE t.auto_recurring != 0 and pc.r_form >='" . $start . "' AND pc.r_form <='" . $end . "'  order by pc.id desc" . " LIMIT " . $offset . "," . $this->per_page);
+                    WHERE t.auto_recurring != 0 and pc.r_form >='" . $start . "' AND pc.r_form <='" . $end .
+                    "' GROUP BY t.id" . " LIMIT " . $offset . "," . $this->per_page);
 //            pr($data); exit;
 
             $sql = "SELECT SUM(t.auto_recurring) as total FROM tickets t
@@ -1079,10 +1083,8 @@ class ReportsController extends AppController {
             $totalCustomer = $temp[0][0]['total'];
 
             $clicked = TRUE;
-            $temp = $this->PackageCustomer->query("SELECT COUNT(pc.id) as total  FROM package_customers pc 
-                left JOIN tracks tr ON tr.package_customer_id = pc.id               
-                    left join tickets t on  t.id = tr.ticket_id
-                    WHERE pc.auto_r =  'yes' and pc.r_form >='" . $start . "' AND pc.r_form <='" . $end . "'");
+            $temp = $this->PackageCustomer->query("SELECT COUNT(t.id) as total  FROM tickets t 
+                    WHERE t.auto_recurring != 0 and CAST(t.created as DATE) >='" . $start . "' AND CAST(t.created as DATE) <='" . $end . "'");
             $total = $temp[0][0]['total'];
             $total_page = ceil($total / $this->per_page);
 

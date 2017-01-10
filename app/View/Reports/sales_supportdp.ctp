@@ -152,7 +152,7 @@
                                     TOTAL IN BOUND CALL DCC
                                 </td>  
                                 <td style="text-align: center; background: lightgrey !important; "> 
-                                    <?php echo $total['totalSupport'] + $total['totalAccount']; ?>
+                                    <?php echo $total['inbound']; ?>
                                 </td>  
 
                                 <td style="text-align: center; background: lightgrey !important; font-size: 17px;" colspan="4">                                        
