@@ -959,8 +959,13 @@ class ReportsController extends AppController {
         if ($this->request->is('post') || $this->request->is('put') || $start != null) {
             if (isset($this->request->data['PackageCustomer'])) {
                 $datrange = json_decode($this->request->data['PackageCustomer']['daterange'], true);
+
                 $start = $datrange['start'];
                 $end = $datrange['end'];
+            }
+
+            if ($start == $end) {
+                $datrange = $start;
             }
 
             $allData = $this->PackageCustomer->query("SELECT * 
@@ -1005,6 +1010,10 @@ class ReportsController extends AppController {
                 $datrange = json_decode($this->request->data['PackageCustomer']['daterange'], true);
                 $start = $datrange['start'];
                 $end = $datrange['end'];
+            }
+            
+            if ($start == $end) {
+                $datrange = $start;
             }
             $allData = $this->PackageCustomer->query("SELECT * 
                     FROM transactions
@@ -1055,6 +1064,10 @@ class ReportsController extends AppController {
                 $datrange = json_decode($this->request->data['PackageCustomer']['daterange'], true);
                 $start = $datrange['start'];
                 $end = $datrange['end'];
+            }
+            
+            if ($start == $end) {
+                $datrange = $start;
             }
 
             $data = $this->Ticket->query("SELECT * FROM tickets t

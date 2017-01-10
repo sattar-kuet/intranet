@@ -2,7 +2,7 @@
     .ui-datepicker-multi-3 {
         display: table-row-group !important;
     }
-    
+
 </style>
 
 <style type="text/css">
@@ -14,7 +14,7 @@
         text-align: center;
     }
     .txtArea { width:300px; }
-      ul.pagination {
+    ul.pagination {
         display: flex;
         justify-content: center;
     }
@@ -28,10 +28,7 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-plus"></i>All auto Recurring 
-                            <?php // if ($clicked): ?>                              
-                            Total Customers: <?php // echo count($transactions);  ?> 
-                            <?php // endif; ?>
+                          
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="reload">
@@ -96,50 +93,43 @@
         <?php if ($clicked): ?>    
             <div class="page-content-wrapper" style="margin: 0px; padding: 0px;">
                 <div class="">
-
                     <!-- BEGIN PAGE CONTENT-->
                     <div class="invoice" id="printableArea">
-
                         <hr>
                         <div class="row">
                             <div class="col-xs-12">
-                                 <div class="alert alert-info clearfix" style="color: #000; font-size: 14px;"> 
+                                <div class="alert alert-info clearfix" style="color: #000; font-size: 14px;"> 
                                     <p> Total Subscription<b>: <?php echo $totalCustomer; ?></b> &nbsp; &nbsp;&nbsp;&nbsp;
                                         Total Paid Amount<b>: $<?php echo $totalPayment; ?> </b> </p>
                                 </div> 
-                                  <ul class="pagination" >
-                            <?php
-                            for ($i = 1; $i <= $total_page; $i++):
-                                $active = '';
-                                if (isset($this->params['pass'][0]) && $this->params['pass'][0] == $i) {
-                                    $active = 'active';
-                                }
-                                ?>
-                                <li class="paginate_button <?php echo $active; ?>" aria-controls="sample_editable_1" tabindex="<?php echo $i; ?>">
-                                    <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'all', $i,$start,$end)) ?>"><?php echo $i; ?></a>
-                                </li>
-                            <?php endfor; ?>
-                        </ul>
+                                <ul class="pagination" >
+                                    <?php
+                                    for ($i = 1; $i <= $total_page; $i++):
+                                        $active = '';
+                                        if (isset($this->params['pass'][0]) && $this->params['pass'][0] == $i) {
+                                            $active = 'active';
+                                        }
+                                        ?>
+                                        <li class="paginate_button <?php echo $active; ?>" aria-controls="sample_editable_1" tabindex="<?php echo $i; ?>">
+                                            <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'all', $i, $start, $end)) ?>"><?php echo $i; ?></a>
+                                        </li>
+                                    <?php endfor; ?>
+                                </ul>
                                 <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                                     <thead>
                                         <tr>
                                             <th class="sorting_desc">
                                                 ID
                                             </th>
-
                                             <th>
                                                 Customer Detail
-                                            </th>
-                                            
+                                            </th>                                            
                                             <th>
                                                 Package
                                             </th>
-
-
                                             <th>
                                                 Auto Recurring Date
                                             </th>
-
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -163,8 +153,7 @@
                                                            <?php echo $results['pc']['first_name'] . ' ' . $results['pc']['middle_name'] . ' ' . $results['pc']['last_name']; ?>
                                                     </a><br>
                                                     <?php echo $customer_address; ?> 
-                                                </td>  
-                                                 
+                                                </td> 
                                                 <td>
                                                     <?php if (!empty($results['ps']['name'])): ?>
                                                         Name:<?php echo $results['ps']['name'] ?><br>
