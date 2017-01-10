@@ -641,7 +641,6 @@ class ReportsController extends AppController {
         return $cardinfotaken[0][0]['cardinfotaken'];
     }
 
-    
     function supportCall() {
         $this->loadModel('Issue');
         $this->loadModel('Track');
@@ -655,10 +654,12 @@ class ReportsController extends AppController {
          WHERE CAST(tickets.created as DATE) >='" . $start . "' AND CAST(tickets.created as DATE) <='" . $end . "'";
         $data = $this->Track->query($sql);
 
-        $sql = "SELECT count(status) as requested FROM status_histories WHERE (status_histories.date) >= '" . $start . "' AND status_histories.date <='" . $end . "'  and status = 'requested'";
+        $sql = "SELECT count(status) as requested FROM status_histories WHERE (status_histories.date) >= '" . $start .
+                "' AND status_histories.date <='" . $end . "'  and status = 'requested'";
+
         $requested = $this->StatusHistory->query($sql);
-        $totalIBCS = ((($data[0][0]['totalSupport']) - ($this->accountCall('totalAccount'))  + ($requested[0][0]['requested']))); //total in bound call DCC
-       // $totalIBCS = $totalIBCS - $this->getTotalCallBySatatus('payment');
+        $totalIBCS = ((($data[0][0]['totalSupport']) - ($this->accountCall('totalAccount')) + ($requested[0][0]['requested']))); //total in bound call DCC
+        // $totalIBCS = $totalIBCS - $this->getTotalCallBySatatus('payment');
         return $totalIBCS;
     }
 
@@ -765,9 +766,7 @@ class ReportsController extends AppController {
             $total['totaloutbound'] = $this->totalOutbound();
 
             $total['totalAccount'] = $this->accountCall();
-            $total['inbound'] = $total['totalSupport'] + $total['totalAccount'] + $total['done'] + $total['sales_query'] + $total['reconnection']
-                    + $total['cardinfotaken'] + $total['check_send'] + $total['vod'] + $total['interruption'] + $total['addsalesreceive']
-                    + $total['online_payment'] + $total['cancel'] + $total['cancel_from_da'] + $total['unhold'] + $total['cancel_from_hold'];
+            $total['inbound'] = $total['totalSupport'] + $total['totalAccount'] + $total['done'] + $total['sales_query'] + $total['reconnection'] + $total['cardinfotaken'] + $total['check_send'] + $total['vod'] + $total['interruption'] + $total['addsalesreceive'] + $total['online_payment'] + $total['cancel'] + $total['cancel_from_da'] + $total['unhold'] + $total['cancel_from_hold'];
             // pr($total); exit;
             $clicked = true;
             $datrange = json_decode($this->request->data['Track']['daterange'], true);
