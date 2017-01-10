@@ -30,10 +30,7 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-plus"></i>All auto Recurring 
-                            <?php // if ($clicked): ?>                              
-                            Total Customers: <?php // echo count($transactions);    ?> 
-                            <?php // endif; ?>
+                            
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="reload">

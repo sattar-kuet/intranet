@@ -2136,20 +2136,15 @@
                                                     <td>
                                                         <a href="#invoice-pop-up<?php echo $bill['id']; ?>" class="btn btn-default fancybox-fast-view"> <?php echo empty($bill['invoice']) ? $bill['id'] : $bill['invoice']; ?></a><br>
                                                     </td>
-
                                                     <td>
                                             <li>
                                                 Payable Amount : <?php echo $bill['payable_amount']; ?> 
                                             </li>
                                             <li>
                                                 Invoice Date : 
-
                                                 <?php echo date('m-d-Y', strtotime($bill['next_payment'])); ?>
-
                                             </li>
-
                                             </td>
-
                                             <td>
                                                 <?php
                                                 echo $amount;
@@ -2189,7 +2184,7 @@
                                                                 <li>Transaction No : <?php echo $payment['tr']['trx_id']; ?></li> 
                                                                 <li>Card No : <?php echo substr($payment['tr']['card_no'], -4); ?></li>  
                                                                 <li>Zip Code : <?php echo $payment['tr']['zip_code']; ?></li>  
-                                                                <li>CVV Code : ***<?php //echo $payment['tr']['cvv_code'];                 ?></li> 
+                                                                <li>CVV Code : ***<?php //echo $payment['tr']['cvv_code'];                  ?></li> 
 
                                                                 <li>Expire Date : <?php echo $payment['tr']['exp_date']; ?></li>
 
@@ -3259,9 +3254,9 @@
                     );
                     ?>
                     <button class="btn red-sunglo" onclick="if (confirm('Are you sure to Delete this Customer?')) {
-                                    return true;
-                                }
-                                return false;" type="submit" style="background-color: red;">Delete customer</button>     
+                                return true;
+                            }
+                            return false;" type="submit" style="background-color: red;">Delete customer</button>     
 
                     <?php echo $this->Form->end(); ?>
 
