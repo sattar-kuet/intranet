@@ -73,15 +73,15 @@ class PaymentsController extends AppController {
         $latestcardInfo = array('card_no' => '', 'exp_date' => array('year' => 0, 'month' => 0), 'fname' => '', 'lname' => '', 'cvv_code' => '', 'zip_code' => '', 'trx_id' => '');
         if (count($temp)) {
             $date = explode('/', $temp[0]['transactions']['exp_date']);
-            if(count($date) !=2){
-               $date = explode('-', $temp[0]['transactions']['exp_date']); 
+            if (count($date) != 2) {
+                $date = explode('-', $temp[0]['transactions']['exp_date']);
             }
-           // pr($date); exit;
+            // pr($date); exit;
             $yyyy = date('Y');
             $yy = substr($yyyy, 0, 2);
-            $digits = strlen((string)$date[1]);
-            $yyyy =  $date[1];
-            if (isset($date[1]) && $digits<4 ) {
+            $digits = strlen((string) $date[1]);
+            $yyyy = $date[1];
+            if (isset($date[1]) && $digits < 4) {
                 $yyyy = $yy . '' . $date[1];
             }
             $mm = $date[0];
@@ -430,14 +430,14 @@ class PaymentsController extends AppController {
                 }
                 $msg .='<li>' . $errorMsg . ' </li>';
                 $tdata['Ticket'] = array('content' => $errorMsg . "<br> <b>Amount</b> : $amount <br> <b> payment Mode: </b> Card",
-                     'auto_recurring' => $amount);
+                    'auto_recurring' => $amount);
                 $tickect = $this->Ticket->create();
                 $tickect = $this->Ticket->save($tdata);
                 // Data save in Ticket
                 $trackData['Track'] = array(
                     'package_customer_id' => $cid,
                     'ticket_id' => $tickect['Ticket']['id'],
-                   // 'status' => 'closed',
+                    // 'status' => 'closed',
                     'forwarded_by' => 0
                 );
                 $this->Track->create();
@@ -447,12 +447,12 @@ class PaymentsController extends AppController {
             $alert = '<div class="alert alert-error"> ';
             $msg .='<li> This payment attempt was from auto recurring. Transaction failed due to Marchant Account credential changed. Please contact with administrator</li>';
             $tdata['Ticket'] = array('content' => "This payment attempt was from auto recurring. Transaction failed due to Marchant Account credential changed. Please contact with administrator <br> <b> Amount : </b> $amount <br> <b> payment Mode: </b> Card",
-                 'auto_recurring' => $amount);
+                'auto_recurring' => $amount);
             $tickect = $this->Ticket->save($tdata); // Data save in Ticket
             $trackData['Track'] = array(
                 'package_customer_id' => $cid,
                 'ticket_id' => $tickect['Ticket']['id'],
-               // 'status' => 'closed',
+                // 'status' => 'closed',
                 'forwarded_by' => 0
             );
             $this->Track->create();
@@ -984,6 +984,21 @@ class PaymentsController extends AppController {
                         <strong> Paid invoice record saved successfully</strong>
                         </div>';
         $this->Session->setFlash($transactionMsg);
+        return $this->redirect($this->referer());
+    }
+
+    function adjustmentMemo($id = null) {
+        $this->loadModel('PackageCustomer');
+        $this->PackageCustomer->set($this->request->data);
+        $this->PackageCustomer->id = $id;
+       
+        $this->PackageCustomer->id = $this->request->data['PackageCustomer']['cid'];
+//         pr($this->request->data); exit;
+        $this->PackageCustomer->save($this->request->data['PackageCustomer']);
+        $msg = '<div class="alert alert-success">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<strong>Succeesfully insert data </strong></div>';
+        $this->Session->setFlash($msg);
         return $this->redirect($this->referer());
     }
 

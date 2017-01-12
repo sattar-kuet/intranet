@@ -53,18 +53,22 @@ class ReportsController extends AppController {
     function cancel() {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
+        $this->loadModel('StatusHistory');
         $clicked = false;
         if ($this->request->is('post') || $this->request->is('put')) {
             $datrange = json_decode($this->request->data['PackageCustomer']['daterange'], true);
             $start = $datrange['start'];
             $end = $datrange['end'];
-            $conditions = 'package_customers.status ="canceled" AND package_customers.date >="' . $start . '" AND package_customers.date <="' . $end . '"';
-            $sql = "SELECT * FROM package_customers     
+
+            $conditions = 'status_histories.status ="canceled" AND status_histories.date >="' . $start . '" AND status_histories.date <="' . $end . '"';
+
+            $sql = "SELECT * FROM status_histories  
+            LEFT JOIN package_customers  ON package_customers.id = status_histories.package_customer_id 
             left join transactions  on package_customers.id = transactions.package_customer_id    
             left join psettings  on psettings.id = package_customers.psetting_id
             LEFT JOIN packages  ON packages.id = psettings.package_id 
             LEFT JOIN custom_packages  ON custom_packages.id = package_customers.custom_package_id 
-            where $conditions order by package_customers.id desc limit 0,199";
+            where $conditions order by status_histories.id desc limit 0,199";
 
             $block_customers = $this->PackageCustomer->query($sql);
             $clicked = true;
@@ -424,19 +428,22 @@ class ReportsController extends AppController {
 
     function newcustomers() {
         $this->loadModel('PackageCustomer');
+        $this->loadModel('StatusHistory');
         $clicked = false;
         if ($this->request->is('post') || $this->request->is('put')) {
-            $datrange = json_decode($this->request->data['Transaction']['daterange'], true);
-            $datrange['start'] = $datrange['start'] . ' 00:00:00';
-            $datrange['end'] = $datrange['end'] . ' 23:59:59';
+            $datrange = json_decode($this->request->data['StatusHistory']['daterange'], true);
+            $start = $datrange['start'];
+            $end = $datrange['end'];
+            $conditions = 'status_histories.status ="sales done" AND status_histories.date >="' . $start . '" AND status_histories.date <="' . $end . '"';
 
-            $transactions = $this->PackageCustomer->query("SELECT *            
-            FROM package_customers pc             
-            left join transactions tr on tr.package_customer_id = pc.id
+            $transactions = $this->StatusHistory->query("SELECT * FROM status_histories  
+            LEFT JOIN package_customers pc ON pc.id = status_histories.package_customer_id 
+            left join transactions tr on pc.id = tr.package_customer_id    
             left join psettings ps on ps.id = pc.psetting_id
             LEFT JOIN packages p ON p.id = ps.package_id 
-            LEFT JOIN custom_packages cp ON cp.id = pc.custom_package_id             
-            WHERE  pc.installation_date >='" . $datrange['start'] . "' AND pc.installation_date <='" . $datrange['end'] . "'  order by pc.id desc limit 0,200");
+            LEFT JOIN custom_packages cp  ON cp.id = pc.custom_package_id 
+            WHERE  $conditions order by status_histories.id desc limit 0,200");
+
             $clicked = true;
             $this->set(compact('transactions'));
         }
@@ -1009,7 +1016,7 @@ class ReportsController extends AppController {
                 $start = $datrange['start'];
                 $end = $datrange['end'];
             }
-            
+
             if ($start == $end) {
                 $datrange = $start;
             }
@@ -1063,7 +1070,7 @@ class ReportsController extends AppController {
                 $start = $datrange['start'];
                 $end = $datrange['end'];
             }
-            
+
             if ($start == $end) {
                 $datrange = $start;
             }

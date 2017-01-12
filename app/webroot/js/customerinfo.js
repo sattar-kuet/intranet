@@ -155,8 +155,6 @@ $(document).ready(function () {
     });
 
     //    Net price calculation end
-
-
     
     $('.openForm').click(function(e){
         e.preventDefault();
@@ -169,4 +167,24 @@ $(document).ready(function () {
      var valueContainer = $('.showthis').data('box');
      var totalBox  = $('#'+valueContainer).text();
      $('.showthis').text(totalBox);
+     
+     //    auto adjusment strat
+   
+    $('.adjusmentChange').change(function () {       
+        var selected = $('.adjusmentChange option:selected').text().toLowerCase();
+         if (selected.trim() == "sdrefund") {
+            $('#referralbonus').hide();
+            $('#attachment').show();
+        }
+        else if (selected.trim() == "refferal") {
+            $('#referralbonus').show();
+            $('#attachment').hide();
+        }
+        else {
+            $('#attachment').hide();
+            $('#referralbonus').hide();
+        }
+    });
+    
+    //    auto adjusment end
 });

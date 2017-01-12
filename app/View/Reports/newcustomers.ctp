@@ -35,7 +35,7 @@
                     <div class="portlet-body form">
                         <!-- BEGIN FORM-->
                         <?php
-                        echo $this->Form->create('Transaction', array(
+                        echo $this->Form->create('StatusHistory', array(
                             'inputDefaults' => array(
                                 'label' => false,
                                 'div' => false
@@ -121,9 +121,9 @@
                                             <th class="hidden-480">
                                                 Due
                                             </th>
-                                            <th class="hidden-480">
+<!--                                            <th class="hidden-480">
                                                 Exp Date
-                                            </th>
+                                            </th>-->
                                             <th class="hidden-480">
                                                 Registration Date
                                             </th>
@@ -160,14 +160,14 @@
                                                     $<?php
                                                     $paid = 0;
                                                     if (!empty($info['tr']['id'])) {
-                                                        $paid = getPaid($info['transactions']['id']);
+                                                        $paid = getPaid($info['tr']['id']);
                                                     }
 
                                                     echo $info['tr']['payable_amount'] - $paid;
                                                     ?> USD
                                                 </td>
-                                                <td><?php echo date('m-d-Y', strtotime($info['tr']['exp_date'])); ?></td>
-                                                <td><?php echo date('m-d-Y', strtotime($info['pc']['created'])); ?></td>  
+                                                <td><?php // echo date('m-d-Y', strtotime($info['tr']['exp_date'])); ?></td>
+                                                <td><?php echo date('m-d-Y', strtotime($info['status_histories']['date'])); ?></td>  
 
 
                                             </tr>
