@@ -307,6 +307,14 @@
                                                             )
                                                     );
                                                     ?>
+                                                    
+                                                     <?php
+                                                    echo $this->Form->input('status', array(
+                                                        'type' => 'hidden',
+                                                        'value' => 'sales done',
+                                                            )
+                                                    );
+                                                    ?>
 
                                                     <div class="form-body">
                                                         <div class="alert alert-danger display-hide">

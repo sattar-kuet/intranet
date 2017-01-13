@@ -77,7 +77,6 @@ class PaymentsController extends AppController {
             if (count($date) != 2) {
                 $date = explode('-', $temp[0]['transactions']['exp_date']);
             }
-            // pr($date); exit;
             $yyyy = date('Y');
             $yy = substr($yyyy, 0, 2);
             $digits = strlen((string) $date[1]);

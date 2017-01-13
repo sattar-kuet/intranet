@@ -327,14 +327,11 @@ class TechniciansController extends AppController {
                     left join installations ins on ins.package_customer_id = pc.id 
                     WHERE ins.user_id = " . $loggedUser['id'] . " and pc.status = 'scheduled' "
                 . " ORDER BY ins.id");
-//        pr($allData); exit;
-//         echo $sql; exit;
+
         $filteredData = array();
         $unique = array();
         $index = 0;
-       // pr($allData); exit;
         foreach ($allData as $key => $data) {
-//            pr($data); exit;
             $pd = $data['pc']['id'];
             if (isset($unique[$pd])) {
                 //  echo 'already exist'.$key.'<br/>';
@@ -346,7 +343,6 @@ class TechniciansController extends AppController {
                 if ($key != 0)
                     $index++;
                 $unique[$pd] = 'set';
-
                 $filteredData[$index]['customers'] = $data['pc'];
                 $filteredData[$index]['users'] = $data['u'];
 
@@ -390,9 +386,7 @@ class TechniciansController extends AppController {
                 }
             }
         }
-//         pr($filteredData); exit;
         $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
-//        pr($filteredData); exit;
         $this->set(compact('filteredData', 'technician'));
     }
 
