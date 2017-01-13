@@ -385,9 +385,6 @@ class AdminsController extends AppController {
             if (count($data['customer']) == 0) {
                 $data = $this->getCustomerByParam($param, 'full_name');
             }
-
-
-
             $clicked = true;
             //FIND customer DETAILS
             //  exit;
@@ -396,7 +393,6 @@ class AdminsController extends AppController {
         $loggedUser = $this->Auth->user();
         $uid = $loggedUser['id'];
         $rid = $loggedUser['Role']['id'];
-
 
         $this->loadModel('Role');
         $sql = 'SELECT * FROM roles WHERE LOWER(roles.name)="general"';
@@ -1056,7 +1052,6 @@ class AdminsController extends AppController {
             $timestamp = $de->getTimestamp(); // Unix timestamp
             $endd = $de->format('m/y'); // 2003-10-16
             $conditions = "";
-
             if (count($datrange)) {
                 if ($datrange['start'] == $datrange['end']) {
 
@@ -1077,7 +1072,6 @@ class AdminsController extends AppController {
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id
                     WHERE pc.status = 'scheduled' and $conditions ORDER BY pc.id";
-
 
             $allData = $this->PackageCustomer->query($sql);
             //$allData; 

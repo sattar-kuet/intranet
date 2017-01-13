@@ -66,22 +66,23 @@ class PaymentsController extends AppController {
 
     public function getLastCardInfo($customer_id = null) {
         $this->loadModel('Transaction');
-        $sql = "SELECT * FROM transactions WHERE (transactions.status ='success' OR transactions.status ='close'  OR transactions.status ='update' OR transactions.status ='auto_recurring') AND transactions.pay_mode='card' AND transactions.package_customer_id = $customer_id ORDER BY transactions.id DESC LIMIT 1";
+        $sql = "SELECT * FROM transactions WHERE (transactions.status ='success' OR transactions.status ='close'  OR transactions.status ='update') AND transactions.pay_mode='card' AND transactions.package_customer_id = $customer_id ORDER BY transactions.id DESC LIMIT 1";
         $temp = $this->Transaction->query($sql);
         $yyyy = 0;
         $mm = -1;
         $latestcardInfo = array('card_no' => '', 'exp_date' => array('year' => 0, 'month' => 0), 'fname' => '', 'lname' => '', 'cvv_code' => '', 'zip_code' => '', 'trx_id' => '');
         if (count($temp)) {
             $date = explode('/', $temp[0]['transactions']['exp_date']);
-            if(count($date) !=2){
-               $date = explode('-', $temp[0]['transactions']['exp_date']); 
+            if (count($date) != 2) {
+                $date = explode('-', $temp[0]['transactions']['exp_date']);
             }
-           // pr($date); exit;
+            // pr($date); exit;
             $yyyy = date('Y');
             $yy = substr($yyyy, 0, 2);
-            $digits = strlen((string)$date[1]);
-            $yyyy =  $date[1];
-            if (isset($date[1]) && $digits<4 ) {
+            $digits = strlen((string) $date[1]);
+            // pr($date); exit;
+            $yyyy = $date[1];
+            if (isset($date[1]) && $digits < 4) {
                 $yyyy = $yy . '' . $date[1];
             }
             $mm = $date[0];
@@ -117,6 +118,7 @@ class PaymentsController extends AppController {
 
     public function individual_transaction_by_card() {
 
+        $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
         $this->loadModel('Track');
         $this->loadModel('Ticket');
@@ -134,10 +136,10 @@ class PaymentsController extends AppController {
         // Common setup for API credentials  
         $loggedUser = $this->Auth->user();
         $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
-        //$merchantAuthentication->setName("95x9PuD6b2"); // testing mode
-        $merchantAuthentication->setName("7zKH4b45"); //42UHbr9Qa9B live mode
-        //$merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
-        $merchantAuthentication->setTransactionKey("738QpWvHH4vS59vY"); // live mode 7UBSq68ncs65p8QX
+        $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
+        //  $merchantAuthentication->setName("7zKH4b45"); //42UHbr9Qa9B live mode
+        $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
+        //  $merchantAuthentication->setTransactionKey("738QpWvHH4vS59vY"); // live mode 7UBSq68ncs65p8QX
         $refId = 'ref' . time();
 // Create the payment data for a credit card
         $creditCard = new AnetAPI\CreditCardType();
@@ -145,7 +147,8 @@ class PaymentsController extends AppController {
         //$this->request->data['Transaction']['id'] = $cid;
         $card = $this->request->data['Transaction'];
         $cid = $this->request->data['Transaction']['package_customer_id'];
-        //      pr($card);
+        $pc = $this->PackageCustomer->findById($cid);
+
 //        exit;
         $creditCard->setCardNumber($card['card_no']);
         $exp_date = $card['exp_date']['month'] . '-' . $card['exp_date']['year'];
@@ -188,10 +191,8 @@ class PaymentsController extends AppController {
         $request->setRefId($refId);
         $request->setTransactionRequest($transactionRequestType);
         $controller = new AnetController\CreateTransactionController($request);
-        // $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
-        $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
-
-
+        $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
+        //  $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
         $this->request->data['Transaction']['error_msg'] = '';
         $this->request->data['Transaction']['status'] = '';
         $this->request->data['Transaction']['trx_id'] = '';
@@ -234,6 +235,23 @@ class PaymentsController extends AppController {
                 );
 
                 $this->Track->save($trackData);
+
+                if (strtolower($pc['PackageCustomer']['auto_r']) == 'yes') {
+                    $data = $pc['PackageCustomer'];
+                    $this->PackageCustomer->id = $data['id'];
+                    $r_from = date('Y-m-d', strtotime('+' . $data['r_duration'] . '  days'));
+                    $data = array(
+                        'r_form' => $r_from,
+                        'invoice_created' => 0,
+                        'card_check_no' => $card['card_no'],
+                        'exp_date' => $exp_date,
+                        'cfirst_name' => $card['fname'],
+                        'clast_name' => $card['lname'],
+                        'cvv_code' => $exp_date,
+                        'czip' => $card['zip_code']
+                    );
+                    $this->PackageCustomer->save($data);
+                }
             } else {
                 $alert = '<div class="alert alert-error"> ';
                 $tresponse = $response->getTransactionResponse();
@@ -268,14 +286,9 @@ class PaymentsController extends AppController {
             }
         } else {
             $alert = '<div class="alert alert-error"> ';
-
             $msg .='<li> Transaction failed due to Marchant Account credential changed. Please contact with administrator</li>';
-
-
             $tdata['Ticket'] = array('content' => "Transaction failed due to Marchant Account credential changed. Please contact with administrator <br> <b> Amount : </b> $amount <br> <b> payment Mode: </b> Card");
             $tickect = $this->Ticket->save($tdata); // Data save in Ticket
-
-
             $trackData['Track'] = array(
                 'package_customer_id' => $cid,
                 'ticket_id' => $tickect['Ticket']['id'],
@@ -430,33 +443,41 @@ class PaymentsController extends AppController {
                 }
                 $msg .='<li>' . $errorMsg . ' </li>';
                 $tdata['Ticket'] = array('content' => $errorMsg . "<br> <b>Amount</b> : $amount <br> <b> payment Mode: </b> Card",
-                     'auto_recurring' => $amount);
+                    'auto_recurring' => $amount);
                 $tickect = $this->Ticket->create();
                 $tickect = $this->Ticket->save($tdata);
                 // Data save in Ticket
                 $trackData['Track'] = array(
                     'package_customer_id' => $cid,
                     'ticket_id' => $tickect['Ticket']['id'],
-                   // 'status' => 'closed',
+                    // 'status' => 'closed',
                     'forwarded_by' => 0
                 );
                 $this->Track->create();
                 $this->Track->save($trackData);
+
+                $this->PackageCustomer->create();
+                $this->PackageCustomer->id = $data['cid'];
+                $this->PackageCustomer->saveField('auto_recurring_failed', 1);
             }
         } else {
             $alert = '<div class="alert alert-error"> ';
             $msg .='<li> This payment attempt was from auto recurring. Transaction failed due to Marchant Account credential changed. Please contact with administrator</li>';
             $tdata['Ticket'] = array('content' => "This payment attempt was from auto recurring. Transaction failed due to Marchant Account credential changed. Please contact with administrator <br> <b> Amount : </b> $amount <br> <b> payment Mode: </b> Card",
-                 'auto_recurring' => $amount);
+                'auto_recurring' => $amount);
             $tickect = $this->Ticket->save($tdata); // Data save in Ticket
             $trackData['Track'] = array(
                 'package_customer_id' => $cid,
                 'ticket_id' => $tickect['Ticket']['id'],
-               // 'status' => 'closed',
+                // 'status' => 'closed',
                 'forwarded_by' => 0
             );
             $this->Track->create();
             $this->Track->save($trackData);
+
+            $this->PackageCustomer->create();
+            $this->PackageCustomer->id = $data['cid'];
+            $this->PackageCustomer->saveField('auto_recurring_failed', 1);
         }
         //$this->set(compact('msg'));
     }
@@ -496,6 +517,7 @@ class PaymentsController extends AppController {
                 $this->PackageCustomer->saveField('invoice_created', 1);
             }
         }
+        $this->redirect('message');
     }
 
     function auto_recurring_payment() {
@@ -504,11 +526,11 @@ class PaymentsController extends AppController {
         $today = date('Y-m-d');
         $sql = "SELECT * FROM transactions"
                 . " LEFT JOIN package_customers ON transactions.package_customer_id = package_customers.id"
-                . " WHERE transactions.auto_recurring = 1 AND transactions.next_payment <= '$today' AND transactions.status = 'open' LIMIT 20";
+                . " WHERE transactions.auto_recurring = 1 AND package_customers.auto_recurring_failed = 0 AND transactions.next_payment <= '$today' AND transactions.status = 'open' LIMIT 20";
 
         // $data = $this->Transaction->find('all', array('conditions' => array('auto_recurring' => 1, 'next_payment' => $today)));
         $data = $this->Transaction->query($sql);
-        //  pr($data);
+
         foreach ($data as $single) {
             $transaction = $single['transactions'];
             $pc = $single['package_customers'];
@@ -531,9 +553,10 @@ class PaymentsController extends AppController {
                 'id' => $transaction['id'],
                 'duration' => $pc['r_duration']
             );
-
+//pr($data); exit;
             $this->individual_auto_recurring($data);
         }
+        return $this->redirect('message');
     }
 
     function message() {

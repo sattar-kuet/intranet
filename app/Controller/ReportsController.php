@@ -964,9 +964,6 @@ class ReportsController extends AppController {
                 $end = $datrange['end'];
             }
 
-            if ($start == $end) {
-                $datrange = $start;
-            }
 
             $allData = $this->PackageCustomer->query("SELECT * 
                     FROM package_customers pc
@@ -1012,10 +1009,7 @@ class ReportsController extends AppController {
                 $end = $datrange['end'];
             }
             
-            if ($start == $end) {
-                $datrange = $start;
-            }
-            $allData = $this->PackageCustomer->query("SELECT * 
+           $sql = "SELECT * 
                     FROM transactions
                     LEFT JOIN package_customers ON package_customers.id = transactions.package_customer_id
                     LEFT JOIN psettings ON psettings.id = package_customers.psetting_id
@@ -1023,8 +1017,9 @@ class ReportsController extends AppController {
                     WHERE transactions.auto_recurring = 1
                     AND  transactions.status =  'success' AND CAST(transactions.created as DATE) >='" .
                     $start . "' AND CAST(transactions.created as DATE) <='" . $end .
-                    "' order by transactions.id desc" . " LIMIT " . $offset . "," . $this->per_page);
-
+                    "' order by transactions.id desc" . " LIMIT " . $offset . "," . $this->per_page;
+            $allData = $this->PackageCustomer->query($sql);
+            
             $sql = "SELECT SUM(payable_amount) as total FROM transactions 
                 WHERE transactions.auto_recurring = 1 AND transactions.status =  'success' AND CAST(transactions.created as DATE) >='" .
                     $start . "' AND CAST(transactions.created as DATE) <='" . $end . "'";
@@ -1066,10 +1061,6 @@ class ReportsController extends AppController {
                 $end = $datrange['end'];
             }
             
-            if ($start == $end) {
-                $datrange = $start;
-            }
-
             $data = $this->Ticket->query("SELECT * FROM tickets t
                     left JOIN tracks tr ON t.id = tr.ticket_id
                     left join package_customers pc on tr.package_customer_id = pc.id

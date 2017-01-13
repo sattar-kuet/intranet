@@ -116,7 +116,6 @@ class CustomersController extends AppController {
         }
         if ($field == "full_name") {
             $fullname = strtolower($param);
-
             $condition = "LOWER(CONCAT(package_customers.first_name,package_customers.middle_name,package_customers.last_name)) LIKE '%" . $fullname . "%'";
         }
         $sql = "SELECT * FROM package_customers "
@@ -243,6 +242,8 @@ class CustomersController extends AppController {
         //  pr($this->request->data); exit;
         $this->PackageCustomer->id = $this->request->data['Transaction']['package_customer_id'];
         $this->request->data['Transaction']['r_form'] = $this->getFormatedDate($this->request->data['Transaction']['r_form']);
+        $this->request->data['Transaction']['auto_recurring_failed'] = 0;
+        
         // pr($this->request->data['Transaction']); exit;
 
         $this->PackageCustomer->save($this->request->data['Transaction']);
