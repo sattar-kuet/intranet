@@ -57,8 +57,7 @@ class TicketsController extends AppController {
         $this->loadModel('TicketDepartment');
         $this->loadModel('PackageCustomer');
         if ($this->request->is('post')) {
-//            pr($this->request->data['Ticket']);
-            // exit;
+//           pr($this->request->data); exit; 
             $this->Ticket->set($this->request->data);
             if ($this->Ticket->validates()) {
                 if (empty($this->request->data['Ticket']['user_id']) &&
@@ -99,7 +98,6 @@ class TicketsController extends AppController {
                 if (trim($this->request->data['Ticket']['action_type']) == 'solved' ||
                         trim($this->request->data['Ticket']['action_type']) == 'ready' ||
                         trim($this->request->data['Ticket']['action_type']) == 'shipment') {
-                    //   echo 'here'; exit;
                     $this->request->data['Ticket']['priority'] = 'low';
                     $this->request->data['Ticket']['status'] = 'solved';
                     $status = 'solved';
