@@ -90,8 +90,8 @@ class AdminsController extends AppController {
         $this->loadModel('User');
         $this->layout = "admin-login";
         $payment = new PaymentsController();
-      //  $payment->auto_recurring_invoice();
-       // $payment->auto_recurring_payment();
+        //  $payment->auto_recurring_invoice();
+        // $payment->auto_recurring_payment();
         // if already logged in check this step
         if ($this->Auth->loggedIn()) {
             return $this->redirect('dashboard'); //(array('action' => 'deshboard'));
@@ -602,8 +602,6 @@ class AdminsController extends AppController {
         $this->set(compact('filteredData', 'technician'));
     }
 
-   
-
     function donebytech() {
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
@@ -975,6 +973,7 @@ class AdminsController extends AppController {
 
     function approved($id = null, $tid = null) {
         $this->loadModel('PackageCustomer');
+        $this->loadModel('StatusHistory');
         $this->PackageCustomer->id = $id;
         $loggedUser = $this->Auth->user();
         //  echo $id.'<br>';
@@ -982,12 +981,20 @@ class AdminsController extends AppController {
         $this->PackageCustomer->saveField("approved", "1");
         $this->PackageCustomer->saveField("status", "done");
         $this->PackageCustomer->saveField("ins_by", $tid);
-        $this->PackageCustomer->saveField("user_id", $loggedUser['id']);
+        $pc = $this->PackageCustomer->saveField("user_id", $loggedUser['id']);
+        $status = 'sales done';
+        $data4statusHistory = array();
+        $data4statusHistory['StatusHistory'] = array(
+            'package_customer_id' => $pc['PackageCustomer']['id'],
+            'date' => date('Y-m-d'),
+            'status' => $status
+        );
+        
+        $this->StatusHistory->save($data4statusHistory);
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
 	<strong>Succeesfully approved </strong></div>';
         $this->Session->setFlash($msg);
-        //  pr($this->request->data); exit;
         $temp = $this->PackageCustomer->findById($id);
         $payable_amount = $temp['PackageCustomer']['deposit'] + $temp['PackageCustomer']['monthly_bill'] + $temp['PackageCustomer']['others'];
         $data['Transaction'] = array(
@@ -1002,7 +1009,8 @@ class AdminsController extends AppController {
 
     function shortApprove($id = null) {
         $this->loadModel('PackageCustomer');
-        $this->PackageCustomer->id = $id;
+        $this->loadModel('StatusHistory');
+        $this->PackageCustomer->id = $id;   
         $pcid = $this->request->data['Comment']['package_customer_id'];
         $loggedUser = $this->Auth->user();
         $comments = $this->request->data['Comment']['comments'];
@@ -1012,8 +1020,14 @@ class AdminsController extends AppController {
             "status" => "done",
             "comments" => $comments,
             "user_id" => $loggedUser['id']);
-//    pr($data); exit;
-        $this->PackageCustomer->save($data);
+        $pc = $this->PackageCustomer->save($data);
+        $data4statusHistory = array();
+        $data4statusHistory['StatusHistory'] = array(
+            'package_customer_id' => $pc['PackageCustomer']['id'],
+            'date' => date('Y-m-d'),
+            'status' => $this->request->data['Comment']['status']
+        );
+        $this->StatusHistory->save($data4statusHistory);
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
 	<strong>Succeesfully approved </strong></div>';

@@ -118,11 +118,11 @@
                                         </td>
 
                                         <td>
-                                             <strong>Equipment:</strong> <?php echo $results['customers']['shipment_equipment']; ?>
-                                                    <br>
-                                                    <strong>Quantity:</strong> <?php echo $results['customers']['remote_no']; ?>
-                                                    <br>
-                                                    <strong>Additional Note:</strong> <?php echo $results['customers']['shipment_note']; ?>
+                                            <strong>Equipment:</strong> <?php echo $results['customers']['shipment_equipment']; ?>
+                                            <br>
+                                            <strong>Quantity:</strong> <?php echo $results['customers']['remote_no']; ?>
+                                            <br>
+                                            <strong>Additional Note:</strong> <?php echo $results['customers']['shipment_note']; ?>
                                         </td>
                                         <td>
                                             <ul>
@@ -173,6 +173,7 @@
                                                             )
                                                     );
                                                     ?>
+
                                                     <?php
                                                     echo $this->Form->input('repair_type', array(
                                                         'type' => 'hidden',
@@ -266,6 +267,14 @@
                                                     echo $this->Form->input('package_customer_id', array(
                                                         'type' => 'hidden',
                                                         'value' => $results['customers']['id'],
+                                                            )
+                                                    );
+                                                    ?>
+
+                                                    <?php
+                                                    echo $this->Form->input('status', array(
+                                                        'type' => 'hidden',
+                                                        'value' => 'troubleshot shipment',
                                                             )
                                                     );
                                                     ?>

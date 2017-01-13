@@ -456,6 +456,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $this->loadModel('Issue');
         $loggedUser = $this->Auth->user();
         if ($this->request->is('post') || $this->request->is('put')) {
+//            pr($this->request->data); exit;
             $this->request->data['PackageCustomer']['status'] = 'requested';
 
             if ($this->request->data['PackageCustomer']['shipment_equipment'] == 'OTHER') {
@@ -485,6 +486,9 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             $status = 'sales done';
             if ($this->request->data['PackageCustomer']['follow_up']) {
                 $status = 'sales query';
+            }
+            if ($this->request->data['PackageCustomer']['shipment']) {
+                $status = 'shipment';
             }
             $pc = $this->PackageCustomer->save($this->request->data['PackageCustomer']);
 
@@ -655,12 +659,10 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id
                     WHERE pc.status = 'requested' AND pc.follow_up = 1");
-        // echo $sql; exit;
         $filteredData = array();
         $unique = array();
         $index = 0;
         foreach ($allData as $key => $data) {
-
             $pd = $data['pc']['id'];
             if (isset($unique[$pd])) {
                 //  echo 'already exist'.$key.'<br/>';
@@ -1045,7 +1047,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                      left join issues i on pc.issue_id = i.id
-                    WHERE pc.shipment = 2 and approved = 0 and pc.status ='requested' ");
+                    WHERE pc.shipment = 1 and approved = 0 and pc.status ='requested' ");
         $filteredData = array();
         $unique = array();
         $index = 0;

@@ -191,6 +191,7 @@
                                                             )
                                                     );
                                                     ?>
+                                                      
                                                     <?php
                                                     echo $this->Form->input('repair_type', array(
                                                         'type' => 'hidden',
@@ -287,6 +288,13 @@
                                                             )
                                                     );
                                                     ?>
+                                                     <?php
+                                                        echo $this->Form->input('status', array(
+                                                            'type' => 'hidden',
+                                                            'value' => 'troubleshot technician',
+                                                                )
+                                                        );
+                                                        ?>
 
                                                     <div class="form-body">
                                                         <div class="alert alert-danger display-hide">

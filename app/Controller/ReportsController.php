@@ -435,9 +435,12 @@ class ReportsController extends AppController {
             $start = $datrange['start'];
             $end = $datrange['end'];
             $conditions = 'status_histories.status ="sales done" AND status_histories.date >="' . $start . '" AND status_histories.date <="' . $end . '"';
+            
+            $transactions = $this->StatusHistory->query("SELECT * FROM package_customers pc
+                
+            LEFT JOIN status_histories ON pc.id = status_histories.package_customer_id 
+            
 
-            $transactions = $this->StatusHistory->query("SELECT * FROM status_histories  
-            LEFT JOIN package_customers pc ON pc.id = status_histories.package_customer_id 
             left join transactions tr on pc.id = tr.package_customer_id    
             left join psettings ps on ps.id = pc.psetting_id
             LEFT JOIN packages p ON p.id = ps.package_id 

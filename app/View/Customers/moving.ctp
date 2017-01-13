@@ -151,7 +151,7 @@
                                                 <div id="assign<?php echo $results['customers']['id']; ?>" class="portlet-body form hideForm" style="display: none;">
                                                     <!--BEGIN FORM-->
                                                     <?php
-                                                    echo $this->Form->create('PackageCustomer', array(
+                                                    echo $this->Form->create('Comment', array(
                                                         'inputDefaults' => array(
                                                             'label' => false,
                                                             'div' => false,
@@ -172,6 +172,7 @@
                                                             )
                                                     );
                                                     ?>
+                                                      
                                                     <?php
                                                     echo $this->Form->input('repair_type', array(
                                                         'type' => 'hidden',
@@ -265,6 +266,13 @@
                                                     echo $this->Form->input('package_customer_id', array(
                                                         'type' => 'hidden',
                                                         'value' => $results['customers']['id'],
+                                                            )
+                                                    );
+                                                    ?>
+                                                     <?php
+                                                    echo $this->Form->input('status', array(
+                                                        'type' => 'hidden',
+                                                        'value' => 'moving',
                                                             )
                                                     );
                                                     ?>
