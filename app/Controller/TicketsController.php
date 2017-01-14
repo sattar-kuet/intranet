@@ -38,7 +38,12 @@ class TicketsController extends AppController {
     function addNewAddr($new_addr, $cid) {
         $this->loadModel('PackageCustomer');
         $this->PackageCustomer->id = $cid;
-        $this->PackageCustomer->saveField("new_addr", $new_addr);
+        $data['PackageCustomer'] = array(
+            "issue_id" => 17,
+            "approved" => 0,
+            "new_addr" => $new_addr
+        );
+        $this->PackageCustomer->save($data);
     }
 
     function create($customer_id = null) {
@@ -268,157 +273,157 @@ class TicketsController extends AppController {
         $this->request->data['Ticket'] = $data;
         if ($this->request->is('post') || $this->request->is('put')) {
             pr($this->request->data);
-            
-                if (empty($this->request->data['Ticket']['user_id']) &&
-                        empty($this->request->data['Ticket']['role_id']) &&
-                        empty($this->request->data['Ticket']['action_type'])) {
-                    $msg = '<div class="alert alert-error">
+
+            if (empty($this->request->data['Ticket']['user_id']) &&
+                    empty($this->request->data['Ticket']['role_id']) &&
+                    empty($this->request->data['Ticket']['action_type'])) {
+                $msg = '<div class="alert alert-error">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
 				<strong> You must select: Who or Which department is responsible for this ticket  </strong>
+			</div>';
+                $this->Session->setFlash($msg);
+                return $this->redirect($this->referer());
+            }
+
+            if (trim($this->request->data['Ticket']['issue_id']) == 21 ||
+                    trim($this->request->data['Ticket']['issue_id']) == 30 ||
+                    trim($this->request->data['Ticket']['issue_id']) == 36 ||
+                    trim($this->request->data['Ticket']['issue_id']) == 24 ||
+                    trim($this->request->data['Ticket']['issue_id']) == 31 ||
+                    trim($this->request->data['Ticket']['issue_id']) == 20 ||
+                    trim($this->request->data['Ticket']['issue_id']) == 28 ||
+                    trim($this->request->data['Ticket']['action_type']) == "ready" ||
+                    trim($this->request->data['Ticket']['action_type']) == 'shipment') {
+                $this->PackageCustomer->id = $customer_id;
+                $data['PackageCustomer'] = array(
+                    "deposit" => $this->request->data['Ticket']['deposit'],
+                    "monthly_bill" => $this->request->data['Ticket']['monthly_bill'],
+                    "others" => $this->request->data['Ticket']['others'],
+                    "total" => $this->request->data['Ticket']['total'],
+                    "remote_no" => $this->request->data['Ticket']['remote_no'],
+                    "issue_id" => $this->request->data['Ticket']['issue_id'],
+                    "comments" => $this->request->data['Ticket']['content'],
+                    "status" => 'requested',
+                    "user_id" => $loggedUser['id']
+                );
+                $cusinfo = $this->PackageCustomer->save($data);
+            }
+
+
+            $status = 'open';
+            if (trim($this->request->data['Ticket']['action_type']) == 'solved' ||
+                    trim($this->request->data['Ticket']['action_type']) == 'ready' ||
+                    trim($this->request->data['Ticket']['action_type']) == 'shipment') {
+                //   echo 'here'; exit;
+                $this->request->data['Ticket']['priority'] = 'low';
+                $this->request->data['Ticket']['status'] = 'solved';
+                $status = 'solved';
+            }
+            $this->Ticket->id = $id;
+            $this->Ticket->save($this->request->data['Ticket']); // Data save in Ticket
+            $trackData['Track'] = array(
+                'issue_id' => $this->request->data['Ticket']['issue_id'],
+                'package_customer_id' => $customer_id,
+                'user_id' => $this->request->data['Ticket']['user_id'],
+                'role_id' => $this->request->data['Ticket']['role_id'],
+                'issue_id' => $this->request->data['Ticket']['issue_id'],
+                'ticket_id' => $id,
+                'status' => $status,
+                'forwarded_by' => $loggedUser['id']
+            );
+
+            if (trim($this->request->data['Ticket']['action_type']) == 'solved') {
+                $trackData['Track']['status'] = 'solved';
+            }
+
+            if (trim($this->request->data['Ticket']['issue_id']) == 17) {
+                $this->addNewAddr($this->request->data['Ticket']['new_addr'], $customer_id);
+                $trackData['Track']['status'] = 'others';
+            }
+            if (trim($this->request->data['Ticket']['issue_id']) == 21 || trim($this->request->data['Ticket']['issue_id']) == 30) {
+                $this->updateCustomer('Request to hold', $customer_id);
+                // $trackData['Track']['status'] = 'others';
+                $mac = json_encode($this->request->data['mac']);
+                $data = array(
+                    'cancel_mac' => $mac,
+                    'hold_date' => $this->request->data['Ticket']['hold_date']
+                );
+                $cusinfo = $this->PackageCustomer->save($data);
+            }
+
+            if (trim($this->request->data['Ticket']['issue_id']) == 36) {
+                $this->updateCustomer('Request to reconnection', $customer_id);
+                $trackData['Track']['status'] = 'others';
+                $mac = json_encode($this->request->data['mac']);
+                $data = array(
+                    'cancel_mac' => $mac,
+                    'reconnect_date' => $this->request->data['Ticket']['reconnect_date']
+                );
+
+                $cusinfo = $this->PackageCustomer->save($data);
+            }
+
+            if (trim($this->request->data['Ticket']['issue_id']) == 24 || trim($this->request->data['Ticket']['issue_id']) == 31) {
+                $this->updateCustomer('Request to unhold', $customer_id);
+                // $trackData['Track']['status'] = 'others';
+                $data = array(
+                    'unhold_date' => $this->request->data['Ticket']['unhold_date']
+                );
+                if (isset($this->request->data['mac'])) {
+                    $mac = json_encode($this->request->data['mac']);
+                    $data['cancel_mac'] = $mac;
+                }
+                $cusinfo = $this->PackageCustomer->save($data);
+            }
+
+            if (trim($this->request->data['Ticket']['issue_id']) == 20 || trim($this->request->data['Ticket']['issue_id']) == 28) {
+
+                $this->request->data['Ticket']['cancelled_date'] = $this->getFormatedDate($this->request->data['Ticket']['cancelled_date']);
+                $this->request->data['Ticket']['pickup_date'] = $this->getFormatedDate($this->request->data['Ticket']['pickup_date']);
+
+                $this->updateCustomer('request to cancel', $customer_id);
+                if (!array_key_exists('mac', $this->request->data)) {
+                    $msg = '<div class="alert alert-danger">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong> No mac was selected !</strong>
 			</div>';
                     $this->Session->setFlash($msg);
                     return $this->redirect($this->referer());
                 }
-
-                  if (trim($this->request->data['Ticket']['issue_id']) == 21 ||
-                        trim($this->request->data['Ticket']['issue_id']) == 30 ||
-                        trim($this->request->data['Ticket']['issue_id']) == 36 ||
-                        trim($this->request->data['Ticket']['issue_id']) == 24 ||
-                        trim($this->request->data['Ticket']['issue_id']) == 31 ||
-                        trim($this->request->data['Ticket']['issue_id']) == 20 ||
-                        trim($this->request->data['Ticket']['issue_id']) == 28 ||
-                        trim($this->request->data['Ticket']['action_type']) == "ready" ||
-                        trim($this->request->data['Ticket']['action_type']) == 'shipment') {
-                    $this->PackageCustomer->id = $customer_id;
-                    $data['PackageCustomer'] = array(
-                        "deposit" => $this->request->data['Ticket']['deposit'],
-                        "monthly_bill" => $this->request->data['Ticket']['monthly_bill'],
-                        "others" => $this->request->data['Ticket']['others'],
-                        "total" => $this->request->data['Ticket']['total'],
-                        "remote_no" => $this->request->data['Ticket']['remote_no'],
-                        "issue_id" => $this->request->data['Ticket']['issue_id'],
-                        "comments" => $this->request->data['Ticket']['content'],
-                        "status" => 'requested',
-                        "user_id" => $loggedUser['id']
-                    );
-                    $cusinfo = $this->PackageCustomer->save($data);
-                }
-                
-               
-                $status = 'open';
-                if (trim($this->request->data['Ticket']['action_type']) == 'solved' ||
-                        trim($this->request->data['Ticket']['action_type']) == 'ready' ||
-                        trim($this->request->data['Ticket']['action_type']) == 'shipment') {
-                    //   echo 'here'; exit;
-                    $this->request->data['Ticket']['priority'] = 'low';
-                    $this->request->data['Ticket']['status'] = 'solved';
-                    $status = 'solved';
-                }
-                $this->Ticket->id = $id;
-                $this->Ticket->save($this->request->data['Ticket']); // Data save in Ticket
-                $trackData['Track'] = array(
-                    'issue_id' => $this->request->data['Ticket']['issue_id'],
-                    'package_customer_id' => $customer_id,
-                    'user_id' => $this->request->data['Ticket']['user_id'],
-                    'role_id' => $this->request->data['Ticket']['role_id'],
-                    'issue_id' => $this->request->data['Ticket']['issue_id'],
-                    'ticket_id' => $id,
-                    'status' => $status,
-                    'forwarded_by' => $loggedUser['id']
+                $mac = json_encode($this->request->data['mac']);
+                $data = array(
+                    'cancel_mac' => $mac,
+                    'cancelled_date' => $this->request->data['Ticket']['cancelled_date'],
+                    'pickup_date' => $this->request->data['Ticket']['pickup_date'],
                 );
 
-                if (trim($this->request->data['Ticket']['action_type']) == 'solved') {
-                    $trackData['Track']['status'] = 'solved';
+                $cusinfo = $this->PackageCustomer->save($data);
+            }
+
+            if (trim($this->request->data['Ticket']['action_type']) == "ready") {
+                $data['PackageCustomer'] = array(
+                    'status' => 'old_ready',
+                    'shipment_equipment' => $this->request->data['Ticket']['shipment_equipment'],
+                    'shipment_note' => $this->request->data['Ticket']['shipment_note']
+                );
+                $this->PackageCustomer->id = $customer_id;
+                $this->PackageCustomer->save($data['PackageCustomer']);
+            }
+            if (trim($this->request->data['Ticket']['action_type']) == 'shipment') {
+
+                if ($this->request->data['Ticket']['shipment_equipment'] == 'OTHER') {
+                    $this->request->data['Ticket']['shipment_equipment'] = $this->request->data['Ticket']['shipment_equipment_other'];
                 }
-
-                if (trim($this->request->data['Ticket']['issue_id']) == 17) {
-                    $this->addNewAddr($this->request->data['Ticket']['new_addr'], $customer_id);
-                    $trackData['Track']['status'] = 'others';
-                }
-                if (trim($this->request->data['Ticket']['issue_id']) == 21 || trim($this->request->data['Ticket']['issue_id']) == 30) {
-                    $this->updateCustomer('Request to hold', $customer_id);
-                    // $trackData['Track']['status'] = 'others';
-                    $mac = json_encode($this->request->data['mac']);
-                    $data = array(
-                        'cancel_mac' => $mac,
-                        'hold_date' => $this->request->data['Ticket']['hold_date']
-                    );
-                    $cusinfo = $this->PackageCustomer->save($data);
-                }
-
-                if (trim($this->request->data['Ticket']['issue_id']) == 36) {
-                    $this->updateCustomer('Request to reconnection', $customer_id);
-                    $trackData['Track']['status'] = 'others';
-                    $mac = json_encode($this->request->data['mac']);
-                    $data = array(
-                        'cancel_mac' => $mac,
-                        'reconnect_date' => $this->request->data['Ticket']['reconnect_date']
-                    );
-
-                    $cusinfo = $this->PackageCustomer->save($data);
-                }
-
-                if (trim($this->request->data['Ticket']['issue_id']) == 24 || trim($this->request->data['Ticket']['issue_id']) == 31) {
-                    $this->updateCustomer('Request to unhold', $customer_id);
-                    // $trackData['Track']['status'] = 'others';
-                    $data = array(
-                        'unhold_date' => $this->request->data['Ticket']['unhold_date']
-                    );
-                    if (isset($this->request->data['mac'])) {
-                        $mac = json_encode($this->request->data['mac']);
-                        $data['cancel_mac'] = $mac;
-                    }
-                    $cusinfo = $this->PackageCustomer->save($data);
-                }
-
-                if (trim($this->request->data['Ticket']['issue_id']) == 20 || trim($this->request->data['Ticket']['issue_id']) == 28) {
-
-                    $this->request->data['Ticket']['cancelled_date'] = $this->getFormatedDate($this->request->data['Ticket']['cancelled_date']);
-                    $this->request->data['Ticket']['pickup_date'] = $this->getFormatedDate($this->request->data['Ticket']['pickup_date']);
-
-                    $this->updateCustomer('request to cancel', $customer_id);
-                    if (!array_key_exists('mac', $this->request->data)) {
-                        $msg = '<div class="alert alert-danger">
-				<button type="button" class="close" data-dismiss="alert">&times;</button>
-				<strong> No mac was selected !</strong>
-			</div>';
-                        $this->Session->setFlash($msg);
-                        return $this->redirect($this->referer());
-                    }
-                    $mac = json_encode($this->request->data['mac']);
-                    $data = array(
-                        'cancel_mac' => $mac,
-                        'cancelled_date' => $this->request->data['Ticket']['cancelled_date'],
-                        'pickup_date' => $this->request->data['Ticket']['pickup_date'],
-                    );
-
-                    $cusinfo = $this->PackageCustomer->save($data);
-                }
-
-                if (trim($this->request->data['Ticket']['action_type']) == "ready") {
-                    $data['PackageCustomer'] = array(
-                        'status' => 'old_ready',
-                        'shipment_equipment' => $this->request->data['Ticket']['shipment_equipment'],
-                        'shipment_note' => $this->request->data['Ticket']['shipment_note']
-                    );
-                    $this->PackageCustomer->id = $customer_id;
-                    $this->PackageCustomer->save($data['PackageCustomer']);
-                }
-                if (trim($this->request->data['Ticket']['action_type']) == 'shipment') {
-
-                    if ($this->request->data['Ticket']['shipment_equipment'] == 'OTHER') {
-                        $this->request->data['Ticket']['shipment_equipment'] = $this->request->data['Ticket']['shipment_equipment_other'];
-                    }
-                    $data['PackageCustomer'] = array(
-                        'id' => $customer_id,
-                        'shipment' => 2,
-                        'approved' => 0,
-                        'shipment_equipment' => $this->request->data['Ticket']['shipment_equipment'],
-                        'shipment_note' => $this->request->data['Ticket']['shipment_note']
-                    );
-                    $this->PackageCustomer->save($data['PackageCustomer']);
-                }
-                $customer = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $customer_id)));
+                $data['PackageCustomer'] = array(
+                    'id' => $customer_id,
+                    'shipment' => 2,
+                    'approved' => 0,
+                    'shipment_equipment' => $this->request->data['Ticket']['shipment_equipment'],
+                    'shipment_note' => $this->request->data['Ticket']['shipment_note']
+                );
+                $this->PackageCustomer->save($data['PackageCustomer']);
+            }
+            $customer = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $customer_id)));
 
 //                if (!empty($customer['PackageCustomer']['email'])) {
 //                    // send mail :
@@ -443,15 +448,14 @@ class TicketsController extends AppController {
 //                    // End send mail 
 //                }
 //
-                $this->Track->id = $track_id;
-                $this->Track->save($trackData); // Data save in Track
-                $msg = '<div class="alert alert-success">
+            $this->Track->id = $track_id;
+            $this->Track->save($trackData); // Data save in Track
+            $msg = '<div class="alert alert-success">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
 				<strong> Ticket created succeesfully </strong>
 			</div>';
-                $this->Session->setFlash($msg);
-                return $this->redirect($this->referer());
-            
+            $this->Session->setFlash($msg);
+            return $this->redirect($this->referer());
         }
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
         $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));

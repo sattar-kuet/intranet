@@ -17,7 +17,6 @@
         display: flex;
         justify-content: center;
     }
-
 </style>
 
 <div class="page-content-wrapper">
@@ -171,7 +170,7 @@
                                                         ?>
                                                     </td>
                                                     <td>$<?php echo $info['PackageCustomer']['payable_amount']; ?></td>                                               
-                                                    <td><?php echo date('m-d-Y', strtotime($info['PackageCustomer']['exp_date'])); ?></td>
+                                                    <td><?php echo date('m-d-Y', strtotime($info['PackageCustomer']['package_exp_date'])); ?></td>
                                                 </tr>
                                             <?php endforeach; ?>                           
                                         </tbody>
