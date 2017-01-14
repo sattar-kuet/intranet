@@ -637,7 +637,6 @@ class PaymentsController extends AppController {
             <p> <strong>Refund ERROR  ' . //$tresponse->ResponseCode() . 
                         '</strong> </p> </div>';
 
-
                 $tdata['Ticket'] = array('content' => 'Refund failed for Null response', 'status' => 'solved');
                 //  pr($tdata['Ticket']);exit;
                 $tickect = $this->Ticket->save($tdata['Ticket']); // Data save in Ticket
