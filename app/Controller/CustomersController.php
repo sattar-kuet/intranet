@@ -726,7 +726,6 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
                     WHERE pc.status = 'ready'  OR (pc.follow_up=0 AND pc.status ='requested' AND 
                     pc.status != 'old_ready' ) AND shipment =0  ORDER BY pc.created DESC LIMIT 100");
 
-        // pr($allData); 
         $filteredData = array();
         $unique = array();
         $index = 0;

@@ -47,11 +47,11 @@
                             </thead>
                             <tbody>
                                 <tr>                                    
-                                    <td><?php echo $totla25daysinvoice[0][0]['25daysinvoice']; ?></td>
+                                    <td><?php echo $invoice['open']; ?></td>
 
-                                    <td><?php echo $passedInvoice[0][0]['passedInvoice']; ?></td>
+                                    <td><?php echo $invoice['passed']; ?></td>
 
-                                    <td><?php echo $closeInvoice[0][0]['totalcloseinvoice']; ?> </td>
+                                    <td><?php echo $invoice['close']; ?> </td>
                                 </tr>
                             </tbody>
                         </table>
