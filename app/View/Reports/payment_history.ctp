@@ -130,7 +130,6 @@
                                     </p>                                       
                                     <p class="pull-right"> Total Subscription<b>: <?php echo $total; ?></b></p><br>
                                     <!--<p class="pull-right"> Total Boxes<b>: <span class="showthis" data-box="box"></span> </b></p>-->
-
                                         <?php
                                         $boxes = 0;
                                         foreach ($totalbox as $single):
@@ -139,8 +138,6 @@
                                             $stbs = json_decode($pc['mac']);
                                             $boxes += count($stbs);
                                             ?>
-                                           
-                                   
                                             <?php
                                         endforeach;
                                         ?> 

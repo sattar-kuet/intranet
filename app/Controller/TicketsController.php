@@ -206,6 +206,7 @@ class TicketsController extends AppController {
                         'shipment_equipment' => $this->request->data['Ticket']['shipment_equipment'],
                         'shipment_note' => $this->request->data['Ticket']['shipment_note']
                     );
+//                    pr($data['PackageCustomer']); exit;
                     $this->PackageCustomer->save($data['PackageCustomer']);
                 }
                 $customer = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $customer_id)));
@@ -521,11 +522,13 @@ class TicketsController extends AppController {
 
         $loggedUser = $this->Auth->user();
         $this->request->data['Track']['forwarded_by'] = $loggedUser['id'];
-//                pr($this->request->data); exit;
+//        pr($this->request->data);
+//        exit;
         $this->Track->save($this->request->data['Track']);
         $this->Ticket->id = $this->request->data['Track']['ticket_id'];
-        $this->Ticket->saveField('status', 'solved');
-        $msg = '<div class="alert alert-success">
+       $data= $this->Ticket->saveField('status', 'solved');
+//       pr($data); exit; 
+       $msg = '<div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <strong> Ticket is Solved succeesfully </strong>
         </div>';
@@ -943,6 +946,7 @@ class TicketsController extends AppController {
         $this->loadModel('User');
         $this->loadModel('Role');
         $offset = --$page * $this->per_page;
+        
         $tickets = $this->Track->query("SELECT * FROM tracks tr
                         left JOIN tickets t ON tr.ticket_id = t.id
                         left JOIN users fb ON tr.forwarded_by = fb.id
@@ -951,7 +955,7 @@ class TicketsController extends AppController {
                         left JOIN issues i ON tr.issue_id = i.id
                         left join package_customers pc on tr.package_customer_id = pc.id
                          WHERE t.status = 'solved' ORDER BY tr.created DESC" . " LIMIT " . $offset . "," . $this->per_page);
-
+        
         $temp = $this->Ticket->query("SELECT COUNT(tickets.id) as total FROM `tickets` WHERE tickets.status = 'solved'");
         $total = $temp[0][0]['total'];
         $total_page = ceil($total / $this->per_page);

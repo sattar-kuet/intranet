@@ -971,6 +971,36 @@
                             Failed</a>
                     </li>
                 </ul>
+            </li>            
+            <li 
+            <?php
+            $reports= array('ReportsCustomer');
+            if (in_array($this->name . '' . $this->action, $reports)):
+                ?>
+                    class="active"
+                    <?php
+                endif;
+                ?>
+                >
+                <a href="javascript:;">
+                    <i class="fa fa-file-word-o"></i>
+                    <span class="title">System</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">                   
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'ReportsCustomer'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'customer')) ?>">
+                            <i class="fa icon-ban"></i>
+                            Customer </a>
+                    </li>
+                </ul>
             </li>
             <li 
             <?php

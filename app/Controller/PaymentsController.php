@@ -553,7 +553,6 @@ class PaymentsController extends AppController {
                 'id' => $transaction['id'],
                 'duration' => $pc['r_duration']
             );
-//pr($data); exit;
             $this->individual_auto_recurring($data);
         }
         return $this->redirect('message');
@@ -1009,20 +1008,7 @@ class PaymentsController extends AppController {
         return $this->redirect($this->referer());
     }
 
-    function adjustmentMemo($id = null) {
-        $this->loadModel('PackageCustomer');
-        $this->PackageCustomer->set($this->request->data);
-        $this->PackageCustomer->id = $id;
-       
-        $this->PackageCustomer->id = $this->request->data['PackageCustomer']['cid'];
-//         pr($this->request->data); exit;
-        $this->PackageCustomer->save($this->request->data['PackageCustomer']);
-        $msg = '<div class="alert alert-success">
-	<button type="button" class="close" data-dismiss="alert">&times;</button>
-	<strong>Succeesfully insert data </strong></div>';
-        $this->Session->setFlash($msg);
-        return $this->redirect($this->referer());
-    }
+ 
 
 }
 

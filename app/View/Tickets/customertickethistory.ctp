@@ -436,7 +436,7 @@
 
                                                     <?php
                                                 } else {
-                                                    echo 'Nothing to do';
+                                                    echo 'Close';
                                                 }
                                                 ?>
 
