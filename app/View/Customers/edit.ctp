@@ -1335,20 +1335,24 @@
                                                     )
                                             );
                                             ?>
-                                        </div>                            
+                                        </div>  
+
+                                        <span class="pull-right"> Month(s)</span>
 
                                     </div>                                    
 
                                     <div class="col-md-2 signupfont">
-                                        Charge Amount
+                                        Payment Date
                                     </div>
                                     <div class="col-md-2">
                                         <div>
                                             <?php
                                             echo $this->Form->input(
-                                                    'payable_amount', array(
-                                                'class' => 'form-control required',
-                                                'type' => 'text'
+                                                    'recurring_date', array('type' => 'select',
+                                                'options' => array_combine(range(1,31),range(1,31)),
+                                                'empty' => 'Select Date ',
+                                                'class' => 'span12 form-control select1 required',
+                                                'div' => array('class' => 'span12 ')
                                                     )
                                             );
                                             ?>
@@ -1373,10 +1377,27 @@
                                 <br>
 
                                 <div class="row"> 
+
                                     <div class="col-md-2 signupfont" style="padding-right: 0px;">
+                                        Charge Amount
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div>
+                                            <?php
+                                            echo $this->Form->input(
+                                                    'payable_amount', array(
+                                                'class' => 'form-control required',
+                                                'type' => 'text'
+                                                    )
+                                            );
+                                            ?>
+                                        </div>                           
+                                    </div>                                    
+
+                                    <div class="col-md-2 signupfont">
                                         Card Number: 
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-2">
                                         <?php
                                         echo $this->Form->input(
                                                 'card_check_no', array(
@@ -1386,10 +1407,10 @@
                                         ?>
                                     </div>
 
-                                    <div class="col-md-2 signupfont">
-                                        Expiration Date:
+                                    <div class="col-md-1 signupfont">
+                                        Expire On:
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-1">
                                         <?php
                                         echo $this->Form->input('exp_date.year', array(
                                             'type' => 'select',
@@ -1402,7 +1423,7 @@
                                         ?>
                                     </div>
 
-                                    <div class="col-md-2">
+                                    <div class="col-md-1">
                                         <?php
                                         echo $this->Form->input('exp_date.month', array(
                                             'type' => 'select',
@@ -1583,12 +1604,12 @@
                                                             <span class="fa fa-pencil"></span>
                                                         </a>
                                                     <?php endif; ?>
-                                                    
-                                                        &nbsp;&nbsp;
-                                                        <a  target="_blank" title="Take Payment" href="<?php echo Router::url(array('controller' => 'payments', 'action' => 'process', $info['transactions']['id'], $info['package_customers']['id'])) ?>" >
-                                                            <span class="fa fa-dollar"></span>
-                                                        </a>
-                                                    
+
+                                                    &nbsp;&nbsp;
+                                                    <a  target="_blank" title="Take Payment" href="<?php echo Router::url(array('controller' => 'payments', 'action' => 'process', $info['transactions']['id'], $info['package_customers']['id'])) ?>" >
+                                                        <span class="fa fa-dollar"></span>
+                                                    </a>
+
                                                     &nbsp;&nbsp;
                                                     <a href="#invoice-pop-up<?php echo $info['transactions']['id']; ?>" class="btn btn-default fancybox-fast-view"> <span class="fa fa-file"></span>
                                                     </a>
@@ -2005,23 +2026,23 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        
-                                            <div class="form-group">
-                                                <label class="control-label col-md-2">Note<span class="">
-                                                    </span>
-                                                </label>
-                                                <div class="col-md-3">
-                                                    <?php
-                                                    echo $this->Form->input(
-                                                            'info', array(
-                                                        'class' => 'form-control ',
-                                                        'type' => 'textarea'
-                                                            )
-                                                    );
-                                                    ?>
-                                                </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">Note<span class="">
+                                                </span>
+                                            </label>
+                                            <div class="col-md-3">
+                                                <?php
+                                                echo $this->Form->input(
+                                                        'info', array(
+                                                    'class' => 'form-control ',
+                                                    'type' => 'textarea'
+                                                        )
+                                                );
+                                                ?>
                                             </div>
-                                      
+                                        </div>
+
                                     </div>
                                     <div class="form-actions">
                                         <div class="row">
@@ -2034,14 +2055,14 @@
                                             </div>
                                         </div>
                                     </div>
-    <?php echo $this->Form->end(); ?>
+                                    <?php echo $this->Form->end(); ?>
                                 </div>
                             </div> 
                         </div>
                     </div>    
                 </div>
 
-<?php endif; ?>
+            <?php endif; ?>
 
             <!-------------------------------------END REFUND---------------------->
 
@@ -2111,14 +2132,14 @@
                                             </div>
                                         </div>
                                     </div>
-<?php echo $this->Form->end(); ?>
+                                    <?php echo $this->Form->end(); ?>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <ul>
                                     <?php foreach ($attachments as $no => $attachment): ?>
                                         <li><a href="<?php echo $this->webroot . 'attachment/' . $attachment['Attachment']['name']; ?>" target="_blank">QB Statement<?php echo $no + 1; ?></a> </li>
-<?php endforeach; ?>
+                                    <?php endforeach; ?>
                                 </ul>
                             </div>
                         </div>
@@ -2142,7 +2163,7 @@
                             </div>
                         </div>
                         <div class="portlet-body">
-<?php if (count($statements)) { ?>
+                            <?php if (count($statements)) { ?>
                                 <div class="row" id="transaction" style="display: none;">
                                     <div  class="col-md-12 col-sm-12">
                                         <div  class="col-md-9 col-sm-9">
@@ -2197,7 +2218,7 @@
                                                             <?php endif; ?><br>
                                                             <?php if (!empty($customer['home'])): ?>
                                                                 <b> Phone: </b> <a href="tel:<?php echo $customer['home'] ?>"><?php echo $customer['home']; ?></a>
-    <?php endif; ?> <br>
+                                                            <?php endif; ?> <br>
                                                             <b> Address: </b> <?php echo $customer_address; ?> 
                                                         </td>
                                                     </tr>                                           
@@ -2275,7 +2296,7 @@
                                             </li>
                                             <li>
                                                 Invoice Date : 
-        <?php echo date('m-d-Y', strtotime($bill['next_payment'])); ?>
+                                                <?php echo date('m-d-Y', strtotime($bill['next_payment'])); ?>
                                             </li>
                                             </td>
                                             <td>
@@ -2284,7 +2305,7 @@
                                                 ?>
                                             </td>
                                             <td>
-        <?php echo end($balance); ?>
+                                                <?php echo end($balance); ?>
                                             </td>
                                             </tr>
 
@@ -2304,11 +2325,11 @@
 
                                                     <td>
                                                         <ul>
-            <?php if ($payment['tr']['pay_mode'] == 'card'): ?>
+                                                            <?php if ($payment['tr']['pay_mode'] == 'card'): ?>
 
                                                                 <li>Pay Mode : <?php echo $payment['tr']['pay_mode']; ?></li> 
                                                                 <li>Status : <?php echo $payment['tr']['status']; ?></li>
-                <?php if ($payment['tr']['status'] == 'error'): ?>
+                                                                <?php if ($payment['tr']['status'] == 'error'): ?>
                                                                     <ul>
                                                                         <li>Error Message : <?php echo $payment['tr']['error_msg']; ?></li> 
                                                                     </ul>
@@ -2317,28 +2338,28 @@
                                                                 <li>Transaction No : <?php echo $payment['tr']['trx_id']; ?></li> 
                                                                 <li>Card No : <?php echo substr($payment['tr']['card_no'], -4); ?></li>  
                                                                 <li>Zip Code : <?php echo $payment['tr']['zip_code']; ?></li>  
-                                                                <li>CVV Code : ***<?php //echo $payment['tr']['cvv_code'];                       ?></li> 
+                                                                <li>CVV Code : ***<?php //echo $payment['tr']['cvv_code'];                         ?></li> 
 
                                                                 <li>Expire Date : <?php echo $payment['tr']['exp_date']; ?></li>
 
-            <?php elseif ($payment['tr']['pay_mode'] == 'cash'): ?>
+                                                            <?php elseif ($payment['tr']['pay_mode'] == 'cash'): ?>
                                                                 <li>Pay Mode : <?php echo $payment['tr']['pay_mode']; ?></li> 
                                                                 <li> Cash By : <?php echo $payment['tr']['cash_by']; ?> </li>
 
-            <?php elseif ($payment['tr']['pay_mode'] == 'refund'): ?>
+                                                            <?php elseif ($payment['tr']['pay_mode'] == 'refund'): ?>
                                                                 <li>Pay Mode : <?php echo $payment['tr']['pay_mode']; ?></li>
                                                                 <li>Check Info : <?php echo $payment['tr']['check_info']; ?></li>
                                                                 <ul> <li>Amount : <?php echo $payment['tr']['paid_amount']; ?></li>
                                                                     <li>Refund Date : <?php echo date('m-d-Y', strtotime($payment['tr']['created'])); ?></li>
                                                                 </ul>
 
-            <?php else: ?>
+                                                            <?php else: ?>
                                                                 <li>Pay Mode : <?php echo $payment['tr']['pay_mode']; ?></li> 
                                                                 <li>Check Info : <?php echo $payment['tr']['check_info']; ?></li>
                                                                 <?php if (!empty($payment['tr']['check_image'])): ?>
                                                                     <img src="<?php echo $this->webroot . 'check_images' . '/' . $payment['tr']['check_image']; ?>"  width="50px" height="50px" />
                                                                 <?php endif; ?>
-            <?php endif; ?> 
+                                                            <?php endif; ?> 
 
                                                             <li> Payment Date: <?php echo date('m-d-Y', strtotime($payment['tr']['created'])); ?> </li>
 
@@ -2437,7 +2458,7 @@
                                                                             <?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?>
                                                                             <br>
                                                                             <?php echo $customer_address_one; ?><br>
-    <?php echo $customer_address_two; ?>
+                                                                            <?php echo $customer_address_two; ?>
                                                                         </td>
                                                                     </tr>
                                                                 </table>                               
@@ -2513,7 +2534,7 @@
                                                                                 <li><?php echo $package; ?> </li>
                                                                                 <?php if (!empty($bill['note'])) { ?>
                                                                                     <li><?php echo $bill['note']; ?></li> 
-    <?php } ?>
+                                                                                <?php } ?>
                                                                             </ul>                                                                          
                                                                         </td> 
                                                                         <td style=" color: #333 !important; text-align: center;  padding: 43px 0px 0px 9px ;">
@@ -2525,11 +2546,11 @@
 
 
                                                                         <td style=" color: #333 !important; text-align: center; padding: 43px 0px 0px 9px ;">
-    <?php echo $bill['payable_amount']; ?>
+                                                                            <?php echo $bill['payable_amount']; ?>
                                                                         </td>
 
                                                                         <td  style=" padding: 43px 0px 0px 9px ; text-align: center; font-size: 19px; font-weight: bold; color: #000 !important; width: 151px;">
-    <?php echo $bill['status']; ?> 
+                                                                            <?php echo $bill['status']; ?> 
                                                                         </td>                                          
                                                                     </tr>
                                                                 </tbody>
@@ -2674,14 +2695,14 @@
                                                                             <td style="padding-left: 5px; min-height: 115px; line-height: 15px;">
                                                                                 <?php // if (!empty($single['0']['name'])):               ?>
 
-        <?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?>
+                                                                                <?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?>
 
 
 
                                                                                 <br>
                                                                                 <?php echo $customer_address_one; ?><br>
 
-        <?php echo $customer_address_two; ?>
+                                                                                <?php echo $customer_address_two; ?>
 
 
                                                                             </td>
@@ -2749,7 +2770,7 @@
                                                                                     <li><?php echo $package; ?> </li>
                                                                                     <?php if (!empty($payment['note'])) { ?>
                                                                                         <li><?php echo $payment['note']; ?></li> 
-        <?php } ?>
+                                                                                    <?php } ?>
 
                                                                                 </ul>
                                                                             </td> 
@@ -2762,11 +2783,11 @@
                                                                             </td>
 
                                                                             <td style=" color: #333 !important; text-align: center; padding: 43px 0px 0px 9px ;">
-        <?php echo $payment['payable_amount']; ?>
+                                                                                <?php echo $payment['payable_amount']; ?>
                                                                             </td>
 
                                                                             <td  style=" padding: 43px 0px 0px 9px ; text-align: center; font-size: 19px; font-weight: bold; color: #000 !important; width: 151px;">
-        <?php echo $payment['status']; ?> 
+                                                                                <?php echo $payment['status']; ?> 
 
                                                                             </td>
 
@@ -2842,10 +2863,10 @@
                                 </div>
 
 
-    <?php endforeach; ?>
+                            <?php endforeach; ?>
 
 
-<?php endforeach; ?>
+                        <?php endforeach; ?>
 
 
 
@@ -2919,7 +2940,7 @@
                                                                             <?php
                                                                         }
                                                                         ?>
-        <?php echo $history['fb']['name']; ?>
+                                                                        <?php echo $history['fb']['name']; ?>
                                                                         <p><strong>Forwarded To:</strong><ul><li><?php echo $history['fi']['name']; ?> </li><li><?php echo $history['fd']['name']; ?> </li></ul>
                                                                         <strong>Time:</strong>
                                                                         <?php echo date('m-d-Y h:m:s', strtotime($history['tr']['created'])); ?>
@@ -2934,12 +2955,12 @@
                                                                         ?> 
                                                                     </li>
                                                                     <br>
-    <?php endforeach; ?>
+                                                                <?php endforeach; ?>
                                                             </ol>
                                                         </td>
                                                         <td>   
                                                             <div class="controls center text-center">
-    <?php if ($lasthistory['status'] == 'open') { ?>
+                                                                <?php if ($lasthistory['status'] == 'open') { ?>
                                                                     <a 
                                                                         href="#" title="Solved">
                                                                         <span id="<?php echo $ticket['id']; ?>" class="fa fa-check fa-lg solve_ticket"></span>
@@ -2994,7 +3015,7 @@
                                                                                 <button class="close" data-close="alert"></button>
                                                                                 You have some form errors. Please check below.
                                                                             </div>
-        <?php echo $this->Session->flash(); ?>
+                                                                            <?php echo $this->Session->flash(); ?>
                                                                             <div class="form-group">
                                                                                 <div class="form-group">
                                                                                     <div class="col-md-12">
@@ -3068,7 +3089,7 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-        <?php echo $this->Form->end(); ?>
+                                                                        <?php echo $this->Form->end(); ?>
                                                                         <!-- END FORM-->
                                                                     </div>
 
@@ -3139,7 +3160,7 @@
                                                                                 <button class="close" data-close="alert"></button>
                                                                                 You have some form errors. Please check below.
                                                                             </div>
-        <?php echo $this->Session->flash(); ?>
+                                                                            <?php echo $this->Session->flash(); ?>
                                                                             <div class="form-group">
                                                                                 <div class="form-group">
                                                                                     <div class="col-md-12">
@@ -3166,7 +3187,7 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-        <?php echo $this->Form->end(); ?>
+                                                                        <?php echo $this->Form->end(); ?>
                                                                         <!-- END FORM-->
                                                                     </div> 
                                                                     <div id="unsolve_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
@@ -3226,7 +3247,7 @@
                                                                                 <button class="close" data-close="alert"></button>
                                                                                 You have some form errors. Please check below.
                                                                             </div>
-        <?php echo $this->Session->flash(); ?>
+                                                                            <?php echo $this->Session->flash(); ?>
                                                                             <div class="form-group">
                                                                                 <div class="form-group">
                                                                                     <div class="col-md-12">
@@ -3253,7 +3274,7 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-        <?php echo $this->Form->end(); ?>
+                                                                        <?php echo $this->Form->end(); ?>
                                                                         <!-- END FORM-->
                                                                     </div> 
 
@@ -3316,7 +3337,7 @@
                                                                                 <button class="close" data-close="alert"></button>
                                                                                 You have some form errors. Please check below.
                                                                             </div>
-        <?php echo $this->Session->flash(); ?>
+                                                                            <?php echo $this->Session->flash(); ?>
                                                                             <div class="form-group">
                                                                                 <div class="form-group">
                                                                                     <div class="col-md-12">
@@ -3343,7 +3364,7 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-        <?php echo $this->Form->end(); ?>
+                                                                        <?php echo $this->Form->end(); ?>
                                                                         <!-- END FORM-->
                                                                     </div> 
 
@@ -3371,7 +3392,7 @@
                 </div>
                 <!-- END CONTENT -->        
             </div>
-                <?php if (($user == 'sadmin') || ($user == 'supervisor')): ?>
+            <?php if (($user == 'sadmin') || ($user == 'supervisor')): ?>
                 <div class="col-md-offset-6 col-md-4">
                     <?php
                     echo $this->Form->create('PackageCustomer', array(
@@ -3387,13 +3408,13 @@
                     );
                     ?>
                     <button class="btn red-sunglo" onclick="if (confirm('Are you sure to Delete this Customer?')) {
-                                return true;
-                            }
-                            return false;" type="submit" style="background-color: red;">Delete customer</button>     
+                                    return true;
+                                }
+                                return false;" type="submit" style="background-color: red;">Delete customer</button>     
 
-    <?php echo $this->Form->end(); ?>
+                    <?php echo $this->Form->end(); ?>
 
 
                 </div>
-<?php endif; ?>
+            <?php endif; ?>
         </div>

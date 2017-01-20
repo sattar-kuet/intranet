@@ -71,7 +71,7 @@ class PaymentsController extends AppController {
         $yyyy = 0;
         $mm = -1;
         $latestcardInfo = array('card_no' => '', 'exp_date' => array('year' => 0, 'month' => 0), 'fname' => '', 'lname' => '', 'cvv_code' => '', 'zip_code' => '', 'trx_id' => '');
-      // pr($temp); exit;
+        // pr($temp); exit;
         if (count($temp)) {
             $date = explode('/', $temp[0]['transactions']['exp_date']);
             if (count($date) != 2) {
@@ -239,7 +239,7 @@ class PaymentsController extends AppController {
                 if (strtolower($pc['PackageCustomer']['auto_r']) == 'yes') {
                     $data = $pc['PackageCustomer'];
                     $this->PackageCustomer->id = $data['id'];
-                    $r_from = date('Y-m-d', strtotime('+' . $data['r_duration'] . '  days'));
+                    $r_from = date('Y-m-' . $data['recurring_date'], strtotime("+" . $data['r_duration'] . " months", strtotime($data['from'])));
                     $data = array(
                         'r_form' => $r_from,
                         'invoice_created' => 0,
@@ -320,10 +320,10 @@ class PaymentsController extends AppController {
         $this->layout = 'ajax';
         // Common setup for API credentials  
         $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
-        //  $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
-        $merchantAuthentication->setName("7zKH4b45"); //42UHbr9Qa9B live mode
-        //  $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
-        $merchantAuthentication->setTransactionKey("738QpWvHH4vS59vY"); // live mode 7UBSq68ncs65p8QX
+        $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
+        // $merchantAuthentication->setName("7zKH4b45"); //42UHbr9Qa9B live mode
+        $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
+        //  $merchantAuthentication->setTransactionKey("738QpWvHH4vS59vY"); // live mode 7UBSq68ncs65p8QX
         $refId = 'ref' . time();
 // Create the payment data for a credit card
         $creditCard = new AnetAPI\CreditCardType();
@@ -363,8 +363,8 @@ class PaymentsController extends AppController {
         $request->setRefId($refId);
         $request->setTransactionRequest($transactionRequestType);
         $controller = new AnetController\CreateTransactionController($request);
-        // $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
-        $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
+        $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
+        // $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
         $transaction = array();
         $transaction['error_msg'] = '';
         $transaction['status'] = '';
@@ -423,6 +423,7 @@ class PaymentsController extends AppController {
                 $this->PackageCustomer->create();
                 $this->PackageCustomer->id = $data['cid'];
                 $r_from = date('Y-m-d', strtotime('+' . $data['duration'] . '  days'));
+                $r_from = date('Y-m-' . $data['day'], strtotime("+" . $data['duration'] . " months", strtotime($data['from'])));
                 $this->PackageCustomer->saveField('r_form', $r_from);
                 $this->PackageCustomer->saveField('invoice_created', 0);
             } else {
@@ -526,7 +527,8 @@ class PaymentsController extends AppController {
         $today = date('Y-m-d');
         $sql = "SELECT * FROM transactions"
                 . " LEFT JOIN package_customers ON transactions.package_customer_id = package_customers.id"
-                . " WHERE transactions.auto_recurring = 1 AND package_customers.auto_recurring_failed = 0 AND transactions.next_payment <= '$today' AND transactions.status = 'open' LIMIT 20";
+                . " WHERE transactions.auto_recurring = 1 AND package_customers.auto_recurring_failed = 0 "
+                . "AND transactions.next_payment <= '$today' AND transactions.status = 'open' LIMIT 20";
 
         // $data = $this->Transaction->find('all', array('conditions' => array('auto_recurring' => 1, 'next_payment' => $today)));
         $data = $this->Transaction->query($sql);
@@ -551,7 +553,9 @@ class PaymentsController extends AppController {
                 'payable_amount' => $transaction['payable_amount'],
                 'cid' => $pc['id'],
                 'id' => $transaction['id'],
-                'duration' => $pc['r_duration']
+                'duration' => $pc['r_duration'],
+                'day' => $pc['recurring_date'],
+                'from' => $pc['r_form']
             );
 //pr($data); exit;
             $this->individual_auto_recurring($data);
@@ -1013,7 +1017,7 @@ class PaymentsController extends AppController {
         $this->loadModel('PackageCustomer');
         $this->PackageCustomer->set($this->request->data);
         $this->PackageCustomer->id = $id;
-       
+
         $this->PackageCustomer->id = $this->request->data['PackageCustomer']['cid'];
 //         pr($this->request->data); exit;
         $this->PackageCustomer->save($this->request->data['PackageCustomer']);

@@ -77,7 +77,7 @@
 //                                    pr($results['package']['name']);
 //                                    exit;
                                     $customer = $results['customers'];
-                                    $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
+                                    $customer_address = $customer['address'] . ' ' . $customer['street'] . ' ' .
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
                                             . $customer['zip'];
                                     ?>

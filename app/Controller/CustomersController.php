@@ -328,6 +328,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $loggedUser = $this->Auth->user();
         $user = $loggedUser['Role']['name'];
         if ($this->request->is('post') || $this->request->is('put')) {
+            pr($this->request->data); exit;
             // update package_customers table
             $this->request->data['PackageCustomer']['id'] = $id;
             $this->updatePackageCustomerTable($this->request->data['PackageCustomer']);
