@@ -2029,11 +2029,7 @@
                                             <div class="col-md-3">
                                                 <?php
                                                 echo $this->Form->input(
-<<<<<<< HEAD
-                                                        'info', array(
-=======
                                                         'note', array(
->>>>>>> b34900884c02a6e6932160fc55aa13f6fb0ff4ce
                                                     'class' => 'form-control ',
                                                     'type' => 'textarea'
                                                         )
