@@ -716,7 +716,6 @@ class ReportsController extends AppController {
     function salesSupportdp() {
         $clicked = false;
         if ($this->request->is('post') || $this->request->is('put')) {
-
             $total = array();
             //$total['call'] = $this->getTotalCall();
             //$total['cancel'] = $this->getTotalCancel(); 
@@ -1078,45 +1077,62 @@ class ReportsController extends AppController {
 
     function customerFilter($status = 0, $system = 0) {
         $this->loadModel('PackageCustomer');
+        $sql ="SELECT count(id) as total FROM`package_customers`WHERE LOWER(system) LIKE  '%$system%' AND LOWER(status) = '$status' ";
+//        echo $sql; exit;
         $temp = $this->PackageCustomer->query("SELECT count(id) as total FROM`package_customers`WHERE LOWER(system) LIKE  '%$system%' AND LOWER(status) = '$status' ;");
         return $temp[0][0]['total'];
     }
 
     function customer() {
-
+        $active = array();
         //Active
         $active['cms1'] = $this->customerFilter('active', 'cms1') + $this->customerFilter('done', 'cms1');
         $active['cms2'] = $this->customerFilter('active', 'cms2') + $this->customerFilter('done', 'cms2');
         $active['cms3'] = $this->customerFilter('active', 'cms3') + $this->customerFilter('done', 'cms3');
         $active['portal'] = $this->customerFilter('active', 'portal') + $this->customerFilter('done', 'portal');
+
         $active['portal1'] = $this->customerFilter('active', 'portal1') + $this->customerFilter('done', 'portal1');
 
+//        $active['portal'] = $total['portal']- $active['portal1'];
         //Canceled
         $canceled['cms1'] = $this->customerFilter('canceled', 'cms1');
         $canceled['cms2'] = $this->customerFilter('canceled', 'cms2');
         $canceled['cms3'] = $this->customerFilter('canceled', 'cms3');
-        $canceled['portal'] = $this->customerFilter('canceled', 'portal');
+        $total['portal'] = $this->customerFilter('canceled', 'portal');
         $canceled['portal1'] = $this->customerFilter('canceled', 'portal1');
+        $canceled['portal'] = $total['portal'] - $canceled['portal1'];
+
 
         //Hold
+        $hold = array();
         $hold['cms1'] = $this->customerFilter('hold', 'cms1');
         $hold['cms2'] = $this->customerFilter('hold', 'cms2');
         $hold['cms3'] = $this->customerFilter('hold', 'cms3');
-        $hold['portal'] = $this->customerFilter('hold', 'portal');
+        $total['portal'] = $this->customerFilter('hold', 'portal');
+                
         $hold['portal1'] = $this->customerFilter('hold', 'portal1');
+        pr($hold['portal1']); exit;
+        $hold['portal'] = $total['portal'] - $active['portal1'];
 
         //Unhold
         $unhold['cms1'] = $this->customerFilter('unhold', 'cms1');
         $unhold['cms2'] = $this->customerFilter('unhold', 'cms2');
         $unhold['cms3'] = $this->customerFilter('unhold', 'cms3');
-        $unhold['portal'] = $this->customerFilter('unhold', 'portal');
+        $total['portal'] = $this->customerFilter('unhold', 'portal');
+        
         $unhold['portal1'] = $this->customerFilter('unhold', 'portal1');
+       
+        $unhold['portal'] = $total['portal'] - $active['portal1'];
+        
 
-        //Total
+        
+        //Total        
         $total_active = $active['cms1'] + $active['cms2'] + $active['cms3'] + $active['portal'] + $active['portal1'];
+
         $total_canceled = $canceled['cms1'] + $canceled['cms2'] + $canceled['cms3'] + $canceled['portal'] + $canceled['portal1'];
         $total_hold = $hold['cms1'] + $hold['cms2'] + $hold['cms3'] + $hold['portal'] + $hold['portal1'];
         $total_unhold = $unhold['cms1'] + $unhold['cms2'] + $unhold['cms3'] + $unhold['portal'] + $unhold['portal1'];
+
 
         $this->set(compact('active', 'hold', 'unhold', 'canceled', 'total_active', 'total_canceled', 'total_hold', 'total_unhold'));
     }
