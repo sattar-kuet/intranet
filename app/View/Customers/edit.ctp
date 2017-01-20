@@ -1942,7 +1942,7 @@
                         <div class="portlet-body">
                             <div class="row" id="adjustment" style="display: none;"> 
                                 <?php
-                                echo $this->Form->create('PackageCustomer', array(
+                                echo $this->Form->create('Transaction', array(
                                     'inputDefaults' => array(
                                         'label' => false,
                                         'div' => false
@@ -1950,17 +1950,12 @@
                                     'id' => 'form_sample_3',
                                     'class' => 'form-horizontal',
                                     'novalidate' => 'novalidate',
-                                    'url' => array('controller' => 'payments', 'action' => 'adjustmentMemo')
+                                    'type' => 'file',
+                                    'url' => array('controller' => 'customers', 'action' => 'adjustmentMemo')
                                         )
                                 );
                                 ?>
-                                <?php
-                                echo $this->Form->input(
-                                        'pay_mode', array(
-                                    'type' => 'hidden',
-                                    'value' => 'refund'
-                                ));
-                                ?>
+                                
                                 <div class="form-body">
                                     <?php
                                     echo $this->Form->input(
@@ -2000,7 +1995,7 @@
                                             <div class="col-md-3">
                                                 <?php
                                                 echo $this->Form->input(
-                                                        'name', array(
+                                                        'attachment', array(
                                                     'type' => 'file',
                                                     'id' => 'required',
                                                     'class' => ' span9 text'
@@ -2011,15 +2006,15 @@
                                         </div>
                                         <div class=" display-hide" id="referralbonus" >
                                             <div class="form-group">
-                                                <label class="control-label col-md-2">Customer Info<span class="">
+                                                <label class="control-label col-md-2">Contact No<span class="">
                                                     </span>
                                                 </label>
                                                 <div class="col-md-3">
                                                     <?php
                                                     echo $this->Form->input(
-                                                            'info', array(
+                                                            'phone', array(
                                                         'class' => 'form-control ',
-                                                        'type' => 'textarea'
+                                                        'type' => 'text'
                                                             )
                                                     );
                                                     ?>
@@ -2034,7 +2029,11 @@
                                             <div class="col-md-3">
                                                 <?php
                                                 echo $this->Form->input(
+<<<<<<< HEAD
                                                         'info', array(
+=======
+                                                        'note', array(
+>>>>>>> b34900884c02a6e6932160fc55aa13f6fb0ff4ce
                                                     'class' => 'form-control ',
                                                     'type' => 'textarea'
                                                         )
@@ -2338,7 +2337,11 @@
                                                                 <li>Transaction No : <?php echo $payment['tr']['trx_id']; ?></li> 
                                                                 <li>Card No : <?php echo substr($payment['tr']['card_no'], -4); ?></li>  
                                                                 <li>Zip Code : <?php echo $payment['tr']['zip_code']; ?></li>  
+<<<<<<< HEAD
                                                                 <li>CVV Code : ***<?php //echo $payment['tr']['cvv_code'];                         ?></li> 
+=======
+                                                                <li>CVV Code : ***<?php //echo $payment['tr']['cvv_code'];                        ?></li> 
+>>>>>>> b34900884c02a6e6932160fc55aa13f6fb0ff4ce
 
                                                                 <li>Expire Date : <?php echo $payment['tr']['exp_date']; ?></li>
 
@@ -3370,7 +3373,7 @@
 
                                                                     <?php
                                                                 } else {
-                                                                    echo 'Nothing to do';
+                                                                    echo 'Close';
                                                                 }
                                                                 ?>
                                                             </div>

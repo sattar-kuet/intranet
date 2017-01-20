@@ -266,11 +266,11 @@ class ReportsController extends AppController {
         $openInvoice = $this->Transaction->query("SELECT count(tr.id) as total FROM transactions tr WHERE tr.status = 'open' AND tr.next_payment >= '" . date('Y-m-d') . "'");
         $passedDueInvoice = $this->Transaction->query("SELECT count(tr.id) as total FROM transactions tr WHERE tr.status = 'open' AND tr.next_payment < '" . date('Y-m-d') . "'");
         $closeInvoice = $this->Transaction->query("SELECT count(tr.id) as total FROM transactions tr WHERE tr.status = 'close'");
-        
+
         $invoice['open'] = $openInvoice[0][0]['total'];
         $invoice['passed'] = $passedDueInvoice[0][0]['total'];
         $invoice['close'] = $closeInvoice[0][0]['total'];
-        
+
         $this->set(compact('invoice'));
     }
 
@@ -419,11 +419,13 @@ class ReportsController extends AppController {
         $this->set(compact('clicked'));
     }
 
-    function call_log() {
+    function call_log($page = 1) {
         $this->loadModel('Issue');
         $this->loadModel('Track');
         $this->loadModel('User');
         $this->loadModel('Role');
+        $this->loadModel('Ticket');
+        $offset = --$page * $this->per_page;
         $clicked = false;
         if ($this->request->is('post') || $this->request->is('put')) {
             $issue = $this->request->data['Track']['issue_id'];
@@ -465,7 +467,12 @@ class ReportsController extends AppController {
                         left JOIN users fi ON tr.user_id = fi.id
                         left JOIN issues i ON tr.issue_id = i.id
                         left join package_customers pc on tr.package_customer_id = pc.id
-                         WHERE $conditions order by pc.id desc limit 0,200";
+                         WHERE $conditions order by pc.id desc" . " LIMIT " . $offset . "," . $this->per_page;
+
+            //        pr($tickets); exit;
+            $temp = $this->Ticket->query("SELECT COUNT(tickets.id) as total FROM `tickets`");
+            $total = $temp[0][0]['total'];
+            $total_page = ceil($total / $this->per_page);
 
             $tickets = $this->Track->query($sql);
 
@@ -489,7 +496,7 @@ class ReportsController extends AppController {
             }
 
             $clicked = true;
-            $this->set(compact('filteredTicket'));
+            $this->set(compact('filteredTicket', 'total_page', 'total'));
         }
 
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
@@ -709,7 +716,6 @@ class ReportsController extends AppController {
     function salesSupportdp() {
         $clicked = false;
         if ($this->request->is('post') || $this->request->is('put')) {
-
             $total = array();
             //$total['call'] = $this->getTotalCall();
             //$total['cancel'] = $this->getTotalCancel(); 
@@ -935,11 +941,9 @@ class ReportsController extends AppController {
         if ($this->request->is('post') || $this->request->is('put') || $start != null) {
             if (isset($this->request->data['PackageCustomer'])) {
                 $datrange = json_decode($this->request->data['PackageCustomer']['daterange'], true);
-
                 $start = $datrange['start'];
                 $end = $datrange['end'];
             }
-
 
             $allData = $this->PackageCustomer->query("SELECT * 
                     FROM package_customers pc
@@ -995,7 +999,7 @@ class ReportsController extends AppController {
                     $start . "' AND CAST(transactions.created as DATE) <='" . $end .
                     "' order by transactions.id desc" . " LIMIT " . $offset . "," . $this->per_page;
             $allData = $this->PackageCustomer->query($sql);
-            
+
             $sql = "SELECT SUM(payable_amount) as total FROM transactions 
                 WHERE transactions.auto_recurring = 1 AND transactions.status =  'success' AND CAST(transactions.created as DATE) >='" .
                     $start . "' AND CAST(transactions.created as DATE) <='" . $end . "'";
@@ -1044,7 +1048,6 @@ class ReportsController extends AppController {
                     LEFT JOIN custom_packages ON custom_packages.id = pc.custom_package_id
                     WHERE t.auto_recurring != 0 and pc.r_form >='" . $start . "' AND pc.r_form <='" . $end .
                     "' GROUP BY t.id" . " LIMIT " . $offset . "," . $this->per_page);
-//            pr($data); exit;
 
             $sql = "SELECT SUM(t.auto_recurring) as total FROM tickets t
                     left JOIN tracks tr ON t.id = tr.ticket_id
@@ -1070,6 +1073,68 @@ class ReportsController extends AppController {
             $this->set(compact('data', 'total_page', 'totalPayment', 'totalCustomer', 'start', 'end'));
         }
         $this->set(compact('clicked'));
+    }
+
+    function customerFilter($status = 0, $system = 0) {
+        $this->loadModel('PackageCustomer');
+        $sql ="SELECT count(id) as total FROM`package_customers`WHERE LOWER(system) LIKE  '%$system%' AND LOWER(status) = '$status' ";
+//        echo $sql; exit;
+        $temp = $this->PackageCustomer->query("SELECT count(id) as total FROM`package_customers`WHERE LOWER(system) LIKE  '%$system%' AND LOWER(status) = '$status' ;");
+        return $temp[0][0]['total'];
+    }
+
+    function customer() {
+        $active = array();
+        //Active
+        $active['cms1'] = $this->customerFilter('active', 'cms1') + $this->customerFilter('done', 'cms1');
+        $active['cms2'] = $this->customerFilter('active', 'cms2') + $this->customerFilter('done', 'cms2');
+        $active['cms3'] = $this->customerFilter('active', 'cms3') + $this->customerFilter('done', 'cms3');
+        $active['portal'] = $this->customerFilter('active', 'portal') + $this->customerFilter('done', 'portal');
+
+        $active['portal1'] = $this->customerFilter('active', 'portal1') + $this->customerFilter('done', 'portal1');
+
+//        $active['portal'] = $total['portal']- $active['portal1'];
+        //Canceled
+        $canceled['cms1'] = $this->customerFilter('canceled', 'cms1');
+        $canceled['cms2'] = $this->customerFilter('canceled', 'cms2');
+        $canceled['cms3'] = $this->customerFilter('canceled', 'cms3');
+        $total['portal'] = $this->customerFilter('canceled', 'portal');
+        $canceled['portal1'] = $this->customerFilter('canceled', 'portal1');
+        $canceled['portal'] = $total['portal'] - $canceled['portal1'];
+
+
+        //Hold
+        $hold = array();
+        $hold['cms1'] = $this->customerFilter('hold', 'cms1');
+        $hold['cms2'] = $this->customerFilter('hold', 'cms2');
+        $hold['cms3'] = $this->customerFilter('hold', 'cms3');
+        $total['portal'] = $this->customerFilter('hold', 'portal');
+                
+        $hold['portal1'] = $this->customerFilter('hold', 'portal1');
+        pr($hold['portal1']); exit;
+        $hold['portal'] = $total['portal'] - $active['portal1'];
+
+        //Unhold
+        $unhold['cms1'] = $this->customerFilter('unhold', 'cms1');
+        $unhold['cms2'] = $this->customerFilter('unhold', 'cms2');
+        $unhold['cms3'] = $this->customerFilter('unhold', 'cms3');
+        $total['portal'] = $this->customerFilter('unhold', 'portal');
+        
+        $unhold['portal1'] = $this->customerFilter('unhold', 'portal1');
+       
+        $unhold['portal'] = $total['portal'] - $active['portal1'];
+        
+
+        
+        //Total        
+        $total_active = $active['cms1'] + $active['cms2'] + $active['cms3'] + $active['portal'] + $active['portal1'];
+
+        $total_canceled = $canceled['cms1'] + $canceled['cms2'] + $canceled['cms3'] + $canceled['portal'] + $canceled['portal1'];
+        $total_hold = $hold['cms1'] + $hold['cms2'] + $hold['cms3'] + $hold['portal'] + $hold['portal1'];
+        $total_unhold = $unhold['cms1'] + $unhold['cms2'] + $unhold['cms3'] + $unhold['portal'] + $unhold['portal1'];
+
+
+        $this->set(compact('active', 'hold', 'unhold', 'canceled', 'total_active', 'total_canceled', 'total_hold', 'total_unhold'));
     }
 
 }

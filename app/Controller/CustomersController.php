@@ -25,6 +25,9 @@ class CustomersController extends AppController {
                 'image_x' => 50,
                 'image_y' => 40
             ),
+            //for attachment upload 
+            'file' => array(
+            ),
             'attachment' => array(
                 'image_ratio_crop' => false,
             ),
@@ -62,6 +65,7 @@ class CustomersController extends AppController {
         return $return;
     }
 
+
     function processInvoice($img) {
         $upload = new Upload($img['name']);
         $upload->file_new_name_body = time();
@@ -85,7 +89,6 @@ class CustomersController extends AppController {
             $this->Session->setFlash($msg);
             return $this->redirect($this->referer());
         }
-
         $return['file_dst_name'] = $upload->file_dst_name;
         return $return;
     }
@@ -201,7 +204,7 @@ class CustomersController extends AppController {
         $this->PackageCustomer->id = $this->request->data['PackageCustomer']['package_customer_id'];
 //        pr($this->request->data); exit;
         $this->PackageCustomer->saveField("package_exp_date", $this->getFormatedDate($this->request->data['PackageCustomer']['package_exp_date']));
-      
+
         $Msg = '<div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <strong>Package expire date updated successfully! </strong>
@@ -209,8 +212,7 @@ class CustomersController extends AppController {
         $this->Session->setFlash($Msg);
         return $this->redirect($this->referer());
     }
-    
-    
+
     function update_status() {
         $data4statusHistory = array();
         $this->loadModel('StatusHistory');
@@ -243,7 +245,7 @@ class CustomersController extends AppController {
         $this->PackageCustomer->id = $this->request->data['Transaction']['package_customer_id'];
         $this->request->data['Transaction']['r_form'] = $this->getFormatedDate($this->request->data['Transaction']['r_form']);
         $this->request->data['Transaction']['auto_recurring_failed'] = 0;
-        
+
         // pr($this->request->data['Transaction']); exit;
 
         $this->PackageCustomer->save($this->request->data['Transaction']);
@@ -350,7 +352,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         unset($customer_info['PackageCustomer']['cvv_code']);
         unset($customer_info['PackageCustomer']['zip_code']);
         unset($customer_info['PackageCustomer']['id']);
-       // pr($latestcardInfo); exit;
+        // pr($latestcardInfo); exit;
         $this->request->data['Transaction'] = $customer_info['PackageCustomer'] + $latestcardInfo;
         $this->request->data['Transaction']['card_no'] = $this->formatCardNumber($this->request->data['Transaction']['card_no']);
         $nextPay = $this->Transaction->find('first', array('conditions' => array('Transaction.package_customer_id' => $pcid, 'Transaction.status' => 'open'), 'order' => array('Transaction.id' => 'DESC')));
@@ -408,8 +410,29 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $this->loadModel('Transaction');
         $invoices = $this->getOpenInvoice($pcid);
         $statements = $this->getStatements($pcid);
-      //  pr($this->request->data); exit;
-        $this->set(compact('invoices', 'statements', 'packageList', 'psettings', 'ym', 'custom_package_charge', 'user','attachments'));
+        //  pr($this->request->data); exit;
+        $this->set(compact('invoices', 'statements', 'packageList', 'psettings', 'ym', 'custom_package_charge', 'user', 'attachments'));
+    }
+
+    function adjustmentMemo($id = null) {
+        $this->loadModel('Transaction');
+        $this->Transaction->set($this->request->data);
+        $this->Transaction->id = $id;
+        $this->Transaction->id = $this->request->data['Transaction']['cid'];
+        
+        $result = array();
+        if (!empty($this->request->data['Transaction']['attachment']['name'])) {
+            $result = $this->processAttachment($this->request->data['Transaction'], 'attachment');
+            $this->request->data['Transaction']['attachment'] = (string) $result['file_dst_name'];
+        } else {
+            $this->request->data['Transaction']['attachment'] = '';
+        }
+        $this->Transaction->save($this->request->data['Transaction']);
+        $msg = '<div class="alert alert-success">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<strong>Succeesfully insert data </strong></div>';
+        $this->Session->setFlash($msg);
+        return $this->redirect($this->referer());
     }
 
     function send($param = null) {
@@ -555,6 +578,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $this->loadModel('Comment');
         $this->loadModel('Issue');
         if ($this->request->is('post') || $this->request->is('put')) {
+//            pr($this->request->data); exit;
             $this->PackageCustomer->set($this->request->data);
             $this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
             //For Custom Package data insert
@@ -576,7 +600,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             } else {
                 $this->request->data['PackageCustomer']['attachment'] = '';
             }
-
+//            pr($this->request->data); exit;
             $this->PackageCustomer->save($this->request->data['PackageCustomer']);
             //update last comment
             if ($this->request->data['PackageCustomer']['comment_id']) {
@@ -1048,7 +1072,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                      left join issues i on pc.issue_id = i.id
-                    WHERE pc.shipment = 1 and approved = 0 and pc.status ='requested' ");
+                    WHERE pc.shipment = 2 and approved = 0 and pc.status ='requested' ");
         $filteredData = array();
         $unique = array();
         $index = 0;

@@ -1085,7 +1085,7 @@ class AdminsController extends AppController {
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id
-                    WHERE pc.status = 'scheduled' and $conditions ORDER BY pc.id";
+                    WHERE pc.status = 'scheduled' $conditions ORDER BY pc.id";
 
             $allData = $this->PackageCustomer->query($sql);
             //$allData; 

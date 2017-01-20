@@ -557,7 +557,6 @@ class PaymentsController extends AppController {
                 'day' => $pc['recurring_date'],
                 'from' => $pc['r_form']
             );
-//pr($data); exit;
             $this->individual_auto_recurring($data);
         }
         return $this->redirect('message');
@@ -1027,6 +1026,7 @@ class PaymentsController extends AppController {
         $this->Session->setFlash($msg);
         return $this->redirect($this->referer());
     }
+
 
 }
 
