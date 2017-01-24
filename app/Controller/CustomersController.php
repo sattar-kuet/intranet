@@ -65,7 +65,6 @@ class CustomersController extends AppController {
         return $return;
     }
 
-
     function processInvoice($img) {
         $upload = new Upload($img['name']);
         $upload->file_new_name_body = time();
@@ -330,7 +329,8 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $loggedUser = $this->Auth->user();
         $user = $loggedUser['Role']['name'];
         if ($this->request->is('post') || $this->request->is('put')) {
-            pr($this->request->data); exit;
+            pr($this->request->data);
+            exit;
             // update package_customers table
             $this->request->data['PackageCustomer']['id'] = $id;
             $this->updatePackageCustomerTable($this->request->data['PackageCustomer']);
@@ -416,16 +416,34 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
 
     function adjustmentMemo($id = null) {
         $this->loadModel('Transaction');
-        $this->Transaction->set($this->request->data);
-        $this->Transaction->id = $id;
-        $this->Transaction->id = $this->request->data['Transaction']['cid'];
-        
+        $this->loadModel('PackageCustomer');
+ 
+
         $result = array();
         if (!empty($this->request->data['Transaction']['attachment']['name'])) {
             $result = $this->processAttachment($this->request->data['Transaction'], 'attachment');
             $this->request->data['Transaction']['attachment'] = (string) $result['file_dst_name'];
         } else {
             $this->request->data['Transaction']['attachment'] = '';
+        }
+        if (!empty($this->request->data['Transaction']['phone'])) {
+            $sql = 'SELECT * FROM package_customers WHERE cell = "' . trim($this->request->data['Transaction']['phone']) .
+                    '" OR home = "' . trim($this->request->data['Transaction']['phone']) . '"';
+            $data = $this->PackageCustomer->query($sql);
+            if (count($data) == 0) {
+                $msg = '<div class="alert alert-error">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<strong>This referral record does not exist </strong></div>';
+                $this->Session->setFlash($msg);
+                return $this->redirect($this->referer());
+            }
+            else{
+               $this->loadModel('Referral');
+               $temp = array('referred'=>,'reffered_by');
+               $this->Referral->save();
+            }
+            pr($data);
+            exit;
         }
         $this->Transaction->save($this->request->data['Transaction']);
         $msg = '<div class="alert alert-success">
