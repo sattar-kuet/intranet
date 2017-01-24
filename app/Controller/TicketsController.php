@@ -96,6 +96,7 @@ class TicketsController extends AppController {
                         "status" => 'requested',
                         "user_id" => $loggedUser['id']
                     );
+//                    pr($data); exit;
                     $cusinfo = $this->PackageCustomer->save($data);
                 }
 
@@ -181,7 +182,7 @@ class TicketsController extends AppController {
                         'cancelled_date' => $this->request->data['Ticket']['cancelled_date'],
                         'pickup_date' => $this->request->data['Ticket']['pickup_date'],
                     );
-
+//pr('here'); exit;
                     $cusinfo = $this->PackageCustomer->save($data);
                 }
 
@@ -571,7 +572,7 @@ class TicketsController extends AppController {
                         left JOIN roles fd ON tr.role_id = fd.id
                         left JOIN users fi ON tr.user_id = fi.id
                         left JOIN issues i ON tr.issue_id = i.id
-			left join package_customers pc on tr.package_customer_id = pc.id order by tr.created DESC" . " LIMIT " . $offset . "," . $this->per_page);
+			left join package_customers pc on tr.package_customer_id = pc.id where tr.status != 'solved' and tr.status != 'closed' order by tr.created DESC" . " LIMIT " . $offset . "," . $this->per_page);
         } else {
             $tickets = $this->Track->query("SELECT * FROM tracks tr
                         left JOIN tickets t ON tr.ticket_id = t.id
@@ -580,7 +581,7 @@ class TicketsController extends AppController {
                         left JOIN users fi ON tr.user_id = fi.id
                         left JOIN issues i ON tr.issue_id = i.id
                         left join package_customers pc on tr.package_customer_id = pc.id
-                         WHERE tr.user_id =" . $loggedUser['id'] . " ORDER BY tr.created DESC" . " LIMIT " . $offset . "," . $this->per_page);
+                         WHERE tr.user_id =" . $loggedUser['id'] . " AND tr.status != 'solved' ORDER BY tr.created DESC" . " LIMIT " . $offset . "," . $this->per_page);
         }
 
         $temp = $this->Ticket->query("SELECT COUNT(tickets.id) as total FROM `tickets`");

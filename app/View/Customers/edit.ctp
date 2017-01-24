@@ -2023,6 +2023,21 @@
                                         </div>
 
                                         <div class="form-group">
+                                            <label class="control-label col-md-2">Amount<span class="">
+                                                </span>
+                                            </label>
+                                            <div class="col-md-3">
+                                                <?php
+                                                echo $this->Form->input(
+                                                        'payable_amount', array(
+                                                    'class' => 'form-control',
+                                                    'type' => 'text'
+                                                        )
+                                                );
+                                                ?>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
                                             <label class="control-label col-md-2">Note<span class="">
                                                 </span>
                                             </label>
