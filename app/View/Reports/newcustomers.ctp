@@ -1,4 +1,3 @@
-
 <style>
     .ui-datepicker-multi-3 {
         display: table-row-group !important;
@@ -13,11 +12,6 @@
         border-radius: 4px;
         text-align: center;
     }
-    ul.pagination {
-        display: flex;
-        justify-content: center;
-    }
-
 </style>
 
 <div class="page-content-wrapper">
@@ -28,7 +22,10 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-plus"></i>New Customers
+                            <i class="fa fa-plus"></i>New Customers 
+                            <?php if ($clicked): ?>                              
+                                Total Customers: <?php echo count($transactions); ?> 
+                            <?php endif; ?>
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="reload">
@@ -37,7 +34,7 @@
                     </div>
                     <div class="portlet-body form">
                         <!-- BEGIN FORM-->
-                         <?php
+                        <?php
                         echo $this->Form->create('StatusHistory', array(
                             'inputDefaults' => array(
                                 'label' => false,
@@ -55,8 +52,9 @@
                                 You have some form errors. Please check below.
                             </div>
                             <?php echo $this->Session->flash(); ?>
+
                             <div class="form-group">                                
-                                <label class="control-label col-md-3" for="required">Select date</label>
+                                <label class="control-label col-md-3" for="required">Select Date:</label>
                                 <div class="col-md-4">
                                     <?php
                                     echo $this->Form->input(
@@ -68,7 +66,6 @@
                                     ?>
                                 </div>
                             </div>
-
                         </div>
                         <div class="form-actions">
                             <div class="row">
@@ -90,31 +87,18 @@
         </div>
         <!-- END PAGE CONTENT -->
         <?php if ($clicked): ?>    
+            <div class="page-content-wrapper" style="margin: 0px; padding: 0px;">
+                <div class="">
 
-            <div class="row">
-                <div class="col-md-12">
-                    <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                    <div class="portlet box green">
-                        <div class="portlet-title">
-                            <div class="caption">
-                                <i class="fa ">Total Customers: <?php echo count($transactions); ?></i>
-                            </div>
+                    <!-- BEGIN PAGE CONTENT-->
+                    <div class="invoice" id="printableArea">
 
-                            <div class="tools">
-                                <a href="javascript:;" class="reload">
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="portlet-body">
-                            <?php echo $this->Session->flash(); ?> 
-
-
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <table class="table table-striped table-hover">
-                                        <thead>
-                                             <tr> 
+                        <hr>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+                                    <thead>
+                                        <tr> 
                                             <th class="hidden-480">
                                                 Account no.
                                             </th>
@@ -143,10 +127,11 @@
                                                 Registration Date
                                             </th>
                                         </tr>
-                                        </thead>
-                                        <tbody>                                    
-                                             <?php
+                                    </thead>
+                                    <tbody>                                    
+                                        <?php
                                         foreach ($transactions as $info):
+//                                            pr($info); exit; 
                                             $pc = $info['pc'];
                                             $customer_address = $pc['house_no'] . ' ' . $pc['street'] . ' ' .
                                                     $pc['apartment'] . ' ' . $pc['city'] . ' ' . $pc['state'] . ' '
@@ -160,7 +145,7 @@
                                                 <td><?php echo $info['pc']['cell']; ?></td>
                                                 <td>
                                                     <?php
-                                                    if ($info['pc']['custom_package_id'] == 0) {
+                                                    if ($info['pc']['custom_package_id'] == null) {
                                                         echo $info['ps']['name'];
                                                     } else {
                                                         echo $info['cp']['duration'] . ' Months, Custom package ' . $info['cp']['charge'] . '$';
@@ -168,41 +153,34 @@
                                                     ?>
                                                 </td>
                                                 <td>
+
                                                     <?php // echo $info['Transaction']['due']; ?>
+
                                                     $<?php
                                                     $paid = 0;
                                                     if (!empty($info['tr']['id'])) {
-                                                        $paid = getPaid($info['tr']['id']);
+                                                        $paid = getPaid($info['transactions']['id']);
                                                     }
+
                                                     echo $info['tr']['payable_amount'] - $paid;
                                                     ?> USD
                                                 </td>
-                                                <td><?php // echo date('m-d-Y', strtotime($info['tr']['exp_date']));  ?></td>
-                                                <td><?php echo date('m-d-Y', strtotime($info['status_histories']['date'])); ?></td>  
+                                                <!--<td><?php // echo date('m-d-Y', strtotime($info['tr']['exp_date']));  ?></td>-->
+                                                <td><?php echo date('m-d-Y', strtotime($info['pc']['created'])); ?></td>  
+
+
                                             </tr>
                                         <?php endforeach; ?>                           
-                                        </tbody>
-                                    </table>
-                                </div>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                        <!-- END EXAMPLE TABLE PORTLET-->
                     </div>
-
-                   
-                       
-
                 </div>
-            <?php endif; ?>
-        </div>
+            </div>                            
+        <?php endif; ?>
     </div>
-    <!-- END CONTENT -->
-
-
-
-
-
-
-
+</div>
+<!-- END CONTENT -->
 
 

@@ -41,9 +41,7 @@ class ReportsController extends AppController {
             $datrange = json_decode($this->request->data['PackageCustomer']['daterange'], true);
             $start = $datrange['start'];
             $end = $datrange['end'];
-
             $conditions = 'status_histories.status ="canceled" AND status_histories.date >="' . $start . '" AND status_histories.date <="' . $end . '"';
-
             $sql = "SELECT * FROM status_histories  
             LEFT JOIN package_customers  ON package_customers.id = status_histories.package_customer_id 
             left join transactions  on package_customers.id = transactions.package_customer_id    
@@ -266,11 +264,11 @@ class ReportsController extends AppController {
         $openInvoice = $this->Transaction->query("SELECT count(tr.id) as total FROM transactions tr WHERE tr.status = 'open' AND tr.next_payment >= '" . date('Y-m-d') . "'");
         $passedDueInvoice = $this->Transaction->query("SELECT count(tr.id) as total FROM transactions tr WHERE tr.status = 'open' AND tr.next_payment < '" . date('Y-m-d') . "'");
         $closeInvoice = $this->Transaction->query("SELECT count(tr.id) as total FROM transactions tr WHERE tr.status = 'close'");
-
+        
         $invoice['open'] = $openInvoice[0][0]['total'];
         $invoice['passed'] = $passedDueInvoice[0][0]['total'];
         $invoice['close'] = $closeInvoice[0][0]['total'];
-
+        
         $this->set(compact('invoice'));
     }
 
@@ -402,11 +400,8 @@ class ReportsController extends AppController {
             $end = $datrange['end'];
             $conditions = 'status_histories.status ="sales done" AND status_histories.date >="' . $start . '" AND status_histories.date <="' . $end . '"';
 
-            $transactions = $this->StatusHistory->query("SELECT * FROM package_customers pc
-                
-            LEFT JOIN status_histories ON pc.id = status_histories.package_customer_id 
-            
-
+            $transactions = $this->StatusHistory->query("SELECT * FROM package_customers pc                
+            LEFT JOIN status_histories ON pc.id = status_histories.package_customer_id           
             left join transactions tr on pc.id = tr.package_customer_id    
             left join psettings ps on ps.id = pc.psetting_id
             LEFT JOIN packages p ON p.id = ps.package_id 
@@ -419,13 +414,11 @@ class ReportsController extends AppController {
         $this->set(compact('clicked'));
     }
 
-    function call_log($page = 1) {
+    function call_log() {
         $this->loadModel('Issue');
         $this->loadModel('Track');
         $this->loadModel('User');
         $this->loadModel('Role');
-        $this->loadModel('Ticket');
-        $offset = --$page * $this->per_page;
         $clicked = false;
         if ($this->request->is('post') || $this->request->is('put')) {
             $issue = $this->request->data['Track']['issue_id'];
@@ -467,12 +460,7 @@ class ReportsController extends AppController {
                         left JOIN users fi ON tr.user_id = fi.id
                         left JOIN issues i ON tr.issue_id = i.id
                         left join package_customers pc on tr.package_customer_id = pc.id
-                         WHERE $conditions order by pc.id desc" . " LIMIT " . $offset . "," . $this->per_page;
-
-            //        pr($tickets); exit;
-            $temp = $this->Ticket->query("SELECT COUNT(tickets.id) as total FROM `tickets`");
-            $total = $temp[0][0]['total'];
-            $total_page = ceil($total / $this->per_page);
+                         WHERE $conditions order by pc.id desc limit 0,200";
 
             $tickets = $this->Track->query($sql);
 
@@ -496,7 +484,7 @@ class ReportsController extends AppController {
             }
 
             $clicked = true;
-            $this->set(compact('filteredTicket', 'total_page', 'total'));
+            $this->set(compact('filteredTicket'));
         }
 
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
@@ -716,6 +704,7 @@ class ReportsController extends AppController {
     function salesSupportdp() {
         $clicked = false;
         if ($this->request->is('post') || $this->request->is('put')) {
+
             $total = array();
             //$total['call'] = $this->getTotalCall();
             //$total['cancel'] = $this->getTotalCancel(); 
@@ -941,9 +930,11 @@ class ReportsController extends AppController {
         if ($this->request->is('post') || $this->request->is('put') || $start != null) {
             if (isset($this->request->data['PackageCustomer'])) {
                 $datrange = json_decode($this->request->data['PackageCustomer']['daterange'], true);
+
                 $start = $datrange['start'];
                 $end = $datrange['end'];
             }
+
 
             $allData = $this->PackageCustomer->query("SELECT * 
                     FROM package_customers pc
@@ -999,7 +990,7 @@ class ReportsController extends AppController {
                     $start . "' AND CAST(transactions.created as DATE) <='" . $end .
                     "' order by transactions.id desc" . " LIMIT " . $offset . "," . $this->per_page;
             $allData = $this->PackageCustomer->query($sql);
-
+            
             $sql = "SELECT SUM(payable_amount) as total FROM transactions 
                 WHERE transactions.auto_recurring = 1 AND transactions.status =  'success' AND CAST(transactions.created as DATE) >='" .
                     $start . "' AND CAST(transactions.created as DATE) <='" . $end . "'";
@@ -1048,6 +1039,7 @@ class ReportsController extends AppController {
                     LEFT JOIN custom_packages ON custom_packages.id = pc.custom_package_id
                     WHERE t.auto_recurring != 0 and pc.r_form >='" . $start . "' AND pc.r_form <='" . $end .
                     "' GROUP BY t.id" . " LIMIT " . $offset . "," . $this->per_page);
+//            pr($data); exit;
 
             $sql = "SELECT SUM(t.auto_recurring) as total FROM tickets t
                     left JOIN tracks tr ON t.id = tr.ticket_id
@@ -1074,8 +1066,7 @@ class ReportsController extends AppController {
         }
         $this->set(compact('clicked'));
     }
-
-    function customerFilter($status = 0, $system = 0) {
+      function customerFilter($status = 0, $system = 0) {
         $this->loadModel('PackageCustomer');
         $sql ="SELECT count(id) as total FROM`package_customers`WHERE LOWER(system) LIKE  '%$system%' AND LOWER(status) = '$status' ";
 //        echo $sql; exit;
@@ -1111,7 +1102,7 @@ class ReportsController extends AppController {
         $total['portal'] = $this->customerFilter('hold', 'portal');
                 
         $hold['portal1'] = $this->customerFilter('hold', 'portal1');
-        pr($hold['portal1']); exit;
+
         $hold['portal'] = $total['portal'] - $active['portal1'];
 
         //Unhold
@@ -1119,11 +1110,11 @@ class ReportsController extends AppController {
         $unhold['cms2'] = $this->customerFilter('unhold', 'cms2');
         $unhold['cms3'] = $this->customerFilter('unhold', 'cms3');
         $total['portal'] = $this->customerFilter('unhold', 'portal');
-        
+               
         $unhold['portal1'] = $this->customerFilter('unhold', 'portal1');
        
         $unhold['portal'] = $total['portal'] - $active['portal1'];
-        
+        pr($unhold['portal']); exit;
 
         
         //Total        

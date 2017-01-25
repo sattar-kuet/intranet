@@ -96,6 +96,7 @@ class TicketsController extends AppController {
                         "status" => 'requested',
                         "user_id" => $loggedUser['id']
                     );
+//                    pr($data); exit;
                     $cusinfo = $this->PackageCustomer->save($data);
                 }
 
@@ -181,7 +182,7 @@ class TicketsController extends AppController {
                         'cancelled_date' => $this->request->data['Ticket']['cancelled_date'],
                         'pickup_date' => $this->request->data['Ticket']['pickup_date'],
                     );
-
+//pr('here'); exit;
                     $cusinfo = $this->PackageCustomer->save($data);
                 }
 
@@ -487,7 +488,11 @@ class TicketsController extends AppController {
         $this->request->data['Track']['package_customer_id'] = $this->request->data['Track']['package_customer_id'];
         $loggedUser = $this->Auth->user();
         $this->request->data['Track']['forwarded_by'] = $loggedUser['id'];
+
         $this->Track->save($this->request->data['Track']);
+        $this->Ticket->id = $this->request->data['Track']['ticket_id'];
+        $this->Ticket->saveField('status', 'unresolved');
+
         $msg = '<div class="alert alert-warning">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <strong> Ticket is closed without solution </strong>
@@ -522,13 +527,12 @@ class TicketsController extends AppController {
 
         $loggedUser = $this->Auth->user();
         $this->request->data['Track']['forwarded_by'] = $loggedUser['id'];
-//        pr($this->request->data);
-//        exit;
+
         $this->Track->save($this->request->data['Track']);
         $this->Ticket->id = $this->request->data['Track']['ticket_id'];
-       $data= $this->Ticket->saveField('status', 'solved');
+        $data = $this->Ticket->saveField('status', 'solved');
 //       pr($data); exit; 
-       $msg = '<div class="alert alert-success">
+        $msg = '<div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <strong> Ticket is Solved succeesfully </strong>
         </div>';
@@ -571,7 +575,7 @@ class TicketsController extends AppController {
                         left JOIN roles fd ON tr.role_id = fd.id
                         left JOIN users fi ON tr.user_id = fi.id
                         left JOIN issues i ON tr.issue_id = i.id
-			left join package_customers pc on tr.package_customer_id = pc.id order by tr.created DESC" . " LIMIT " . $offset . "," . $this->per_page);
+			left join package_customers pc on tr.package_customer_id = pc.id where tr.status != 'solved' and tr.status != 'closed' order by tr.created DESC" . " LIMIT " . $offset . "," . $this->per_page);
         } else {
             $tickets = $this->Track->query("SELECT * FROM tracks tr
                         left JOIN tickets t ON tr.ticket_id = t.id
@@ -580,7 +584,7 @@ class TicketsController extends AppController {
                         left JOIN users fi ON tr.user_id = fi.id
                         left JOIN issues i ON tr.issue_id = i.id
                         left join package_customers pc on tr.package_customer_id = pc.id
-                         WHERE tr.user_id =" . $loggedUser['id'] . " ORDER BY tr.created DESC" . " LIMIT " . $offset . "," . $this->per_page);
+                         WHERE tr.user_id =" . $loggedUser['id'] . " AND tr.status != 'solved' ORDER BY tr.created DESC" . " LIMIT " . $offset . "," . $this->per_page);
         }
 
         $temp = $this->Ticket->query("SELECT COUNT(tickets.id) as total FROM `tickets`");
@@ -946,7 +950,7 @@ class TicketsController extends AppController {
         $this->loadModel('User');
         $this->loadModel('Role');
         $offset = --$page * $this->per_page;
-        
+
         $tickets = $this->Track->query("SELECT * FROM tracks tr
                         left JOIN tickets t ON tr.ticket_id = t.id
                         left JOIN users fb ON tr.forwarded_by = fb.id
@@ -955,7 +959,7 @@ class TicketsController extends AppController {
                         left JOIN issues i ON tr.issue_id = i.id
                         left join package_customers pc on tr.package_customer_id = pc.id
                          WHERE t.status = 'solved' ORDER BY tr.created DESC" . " LIMIT " . $offset . "," . $this->per_page);
-        
+
         $temp = $this->Ticket->query("SELECT COUNT(tickets.id) as total FROM `tickets` WHERE tickets.status = 'solved'");
         $total = $temp[0][0]['total'];
         $total_page = ceil($total / $this->per_page);

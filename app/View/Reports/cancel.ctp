@@ -143,9 +143,9 @@
                                             <th class="hidden-480">
                                                 Exp Date
                                             </th>
-                                            <th class="hidden-480">
+<!--                                            <th class="hidden-480">
                                                 Registration Date
-                                            </th>
+                                            </th>-->
                                         </tr>
                                     </thead>
                                     <tbody>                                    
@@ -189,7 +189,7 @@
                                                 </td>
                                                 <td><?php echo date('m-d-Y', strtotime($info['package_customers']['modified']));?></td>                                              
                                                
-                                                 <td><?php echo date('m-d-Y', strtotime($info['package_customers']['created']));?></td>                                                
+                                                 <td><?php // echo date('m-d-Y', strtotime($info['package_customers']['created']));?></td>                                                
                                             </tr>
                                         <?php endforeach; ?>                           
                                     </tbody>

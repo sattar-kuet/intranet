@@ -329,8 +329,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $loggedUser = $this->Auth->user();
         $user = $loggedUser['Role']['name'];
         if ($this->request->is('post') || $this->request->is('put')) {
-            pr($this->request->data);
-            exit;
+
             // update package_customers table
             $this->request->data['PackageCustomer']['id'] = $id;
             $this->updatePackageCustomerTable($this->request->data['PackageCustomer']);
@@ -417,8 +416,10 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
     function adjustmentMemo($id = null) {
         $this->loadModel('Transaction');
         $this->loadModel('PackageCustomer');
- 
-
+        pr($this->request->data);
+          exit;
+        $loggedUser = $this->Auth->user();
+        pr($loggedUser);
         $result = array();
         if (!empty($this->request->data['Transaction']['attachment']['name'])) {
             $result = $this->processAttachment($this->request->data['Transaction'], 'attachment');
@@ -436,19 +437,22 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
 	<strong>This referral record does not exist </strong></div>';
                 $this->Session->setFlash($msg);
                 return $this->redirect($this->referer());
+            } else {
+                $this->loadModel('Referral');
+                $temp = array('referred' => $id, 'reffered_by' => $data[0]['package_customers']['id'], 'user_id' => $loggedUser['id']);
+                $this->Referral->save($temp);
+                $msg = '<div class="alert alert-success">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<strong>Succeesfully saved </strong></div>';
+                $this->Session->setFlash($msg);
+                return $this->redirect($this->referer());
             }
-            else{
-               $this->loadModel('Referral');
-               $temp = array('referred'=>$id,'reffered_by'=>$data['']);
-               $this->Referral->save();
-            }
-            pr($data);
-            exit;
         }
+        
         $this->Transaction->save($this->request->data['Transaction']);
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
-	<strong>Succeesfully insert data </strong></div>';
+	<strong>Succeesfully saved </strong></div>';
         $this->Session->setFlash($msg);
         return $this->redirect($this->referer());
     }

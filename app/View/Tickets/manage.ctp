@@ -136,7 +136,7 @@
                                         </td>
                                         <td>   
                                             <div class="controls center text-center">
-                                                <?php if ($lasthistory['status'] == 'open') { ?>
+                                                <?php if ($lasthistory['status'] == 'open' || $lasthistory['status'] == 'others') { ?>
                                                     <a 
                                                         href="#" title="Solved">
                                                         <span id="<?php echo $ticket['id']; ?>" class="fa fa-check fa-lg solve_ticket"></span>
