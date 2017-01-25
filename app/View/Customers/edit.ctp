@@ -1349,7 +1349,7 @@
                                             <?php
                                             echo $this->Form->input(
                                                     'recurring_date', array('type' => 'select',
-                                                'options' => array_combine(range(1,31),range(1,31)),
+                                                'options' => array_combine(range(1, 31), range(1, 31)),
                                                 'empty' => 'Select Date ',
                                                 'class' => 'span12 form-control select1 required',
                                                 'div' => array('class' => 'span12 ')
@@ -1955,7 +1955,7 @@
                                         )
                                 );
                                 ?>
-                                
+
                                 <div class="form-body">
                                     <?php
                                     echo $this->Form->input(
@@ -1965,29 +1965,59 @@
                                     ));
                                     ?>                                   
 
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label class="control-label col-md-2">Adjustment<span class="">
+
+                                    <div class="row">
+                                        <label class="control-label col-md-2">Adjustment<span class="">
+                                            </span>
+                                        </label>
+                                        <div class="col-md-2">
+                                            <?php
+                                            echo $this->Form->input('status', array(
+                                                'type' => 'select',
+                                                'empty' => 'Select Type',
+                                                'options' => array(
+                                                    'credit' => 'Credit',
+                                                    'sdadjustment' => 'SD Adjustment',
+                                                    'sdrefund' => 'SD Refund',
+                                                    'refferalbonus' => 'Refferal Bonus'
+                                                ),
+                                                'class' => 'adjusmentChange')
+                                            );
+                                            ?>
+                                        </div>
+                                        <label class="control-label col-md-1">Date<span class="">
+                                            </span>
+                                        </label>
+                                        <div class="col-md-2">
+                                            <?php
+                                            echo $this->Form->input(
+                                                    'next_payment', array(
+                                                'type' => 'text',
+                                                'id' => 'next_payment1',
+                                                'class' => 'datepicker form-control'
+                                            ));
+                                            ?>
+                                        </div>
+                                        <div id="amount">
+                                            <label class="control-label col-md-1">Amount<span class="">
                                                 </span>
                                             </label>
                                             <div class="col-md-2">
                                                 <?php
-                                                echo $this->Form->input('status', array(
-                                                    'type' => 'select',
-                                                    'empty' => 'Select Type',
-                                                    'options' => array(
-                                                        'credit' => 'Credit',
-                                                        'discount' => 'Discount',
-                                                        'sdadjustment' => 'SD Adjustment',
-                                                        'sdrefund' => 'SDRefund',
-                                                        'refferal' => 'Refferal',
-                                                        'bonus' => 'Bonus'
-                                                    ),
-                                                    'class' => 'adjusmentChange')
+                                                echo $this->Form->input(
+                                                        'payable_amount', array(
+                                                    'class' => 'form-control',
+                                                    'type' => 'text'
+                                                        )
                                                 );
                                                 ?>
                                             </div>
                                         </div>
+                                    </div>
+
+                                    <br>
+
+                                    <div class="row">
                                         <div class=" display-hide" id="attachment" >
                                             <label class="control-label col-md-2">PDF Attachment<span class="">
                                                 </span>
@@ -2004,56 +2034,38 @@
                                                 ?>
                                             </div>
                                         </div>
-                                        <div class=" display-hide" id="referralbonus" >
-                                            <div class="form-group">
-                                                <label class="control-label col-md-2">Contact No<span class="">
-                                                    </span>
-                                                </label>
-                                                <div class="col-md-3">
-                                                    <?php
-                                                    echo $this->Form->input(
-                                                            'phone', array(
-                                                        'class' => 'form-control ',
-                                                        'type' => 'text'
-                                                            )
-                                                    );
-                                                    ?>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="control-label col-md-2">Amount<span class="">
+                                        <div class=" display-hide" id="referralbonus" >                                           
+                                            <label class="control-label col-md-2">Referred By<span class="">
                                                 </span>
                                             </label>
-                                            <div class="col-md-3">
+                                            <div class="col-md-2">
                                                 <?php
                                                 echo $this->Form->input(
-                                                        'payable_amount', array(
-                                                    'class' => 'form-control',
-                                                    'type' => 'text'
-                                                        )
-                                                );
-                                                ?>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-md-2">Note<span class="">
-                                                </span>
-                                            </label>
-                                            <div class="col-md-3">
-                                                <?php
-                                                echo $this->Form->input(
-                                                        'note', array(
+                                                        'phone', array(
                                                     'class' => 'form-control ',
-                                                    'type' => 'textarea'
+                                                    'type' => 'text',
+                                                    'placeholder' => 'Contact no'
                                                         )
                                                 );
                                                 ?>
-                                            </div>
+                                            </div>                                           
                                         </div>
-
+                                       
+                                        <label class="control-label col-md-1">Note<span class="">
+                                            </span>
+                                        </label> 
+                                        <div class="col-md-3">
+                                            <?php
+                                            echo $this->Form->input(
+                                                    'note', array(
+                                                'class' => 'form-control ',
+                                                'type' => 'textarea'
+                                                    )
+                                            );
+                                            ?>
+                                        </div>
                                     </div>
+                                    <br>
                                     <div class="form-actions">
                                         <div class="row">
                                             <div class="col-md-offset-6 col-md-4">
@@ -2348,11 +2360,6 @@
                                                                 <li>Transaction No : <?php echo $payment['tr']['trx_id']; ?></li> 
                                                                 <li>Card No : <?php echo substr($payment['tr']['card_no'], -4); ?></li>  
                                                                 <li>Zip Code : <?php echo $payment['tr']['zip_code']; ?></li>  
-<<<<<<< HEAD
-                                                                <li>CVV Code : ***<?php //echo $payment['tr']['cvv_code'];                         ?></li> 
-=======
-                                                                <li>CVV Code : ***<?php //echo $payment['tr']['cvv_code'];                        ?></li> 
->>>>>>> b34900884c02a6e6932160fc55aa13f6fb0ff4ce
 
                                                                 <li>Expire Date : <?php echo $payment['tr']['exp_date']; ?></li>
 
@@ -3422,9 +3429,9 @@
                     );
                     ?>
                     <button class="btn red-sunglo" onclick="if (confirm('Are you sure to Delete this Customer?')) {
-                                    return true;
-                                }
-                                return false;" type="submit" style="background-color: red;">Delete customer</button>     
+                                return true;
+                            }
+                            return false;" type="submit" style="background-color: red;">Delete customer</button>     
 
                     <?php echo $this->Form->end(); ?>
 
