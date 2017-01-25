@@ -417,12 +417,12 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $this->loadModel('Transaction');
 
         $this->loadModel('PackageCustomer');
-        pr($this->request->data);
-          exit;
+      //  pr($this->request->data);
+       //   exit;
         $loggedUser = $this->Auth->user();
-        pr($loggedUser);
+       // pr($loggedUser);
 
-        $this->Transaction->id = $this->request->data['Transaction']['cid'];
+        $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
         $this->request->data['Transaction']['next_payment'] = $this->getFormatedDate($this->request->data['Transaction']['next_payment']);
         $result = array();
         if (!empty($this->request->data['Transaction']['attachment']['name'])) {

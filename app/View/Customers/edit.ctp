@@ -1959,7 +1959,7 @@
                                 <div class="form-body">
                                     <?php
                                     echo $this->Form->input(
-                                            'cid', array(
+                                            'package_customer_id', array(
                                         'type' => 'hidden',
                                         'value' => $this->params['pass'][0]
                                     ));
@@ -2007,7 +2007,8 @@
                                                 echo $this->Form->input(
                                                         'payable_amount', array(
                                                     'class' => 'form-control',
-                                                    'type' => 'text'
+                                                    'type' => 'text',
+                                                    'value' => ''
                                                         )
                                                 );
                                                 ?>
@@ -2044,13 +2045,14 @@
                                                         'phone', array(
                                                     'class' => 'form-control ',
                                                     'type' => 'text',
-                                                    'placeholder' => 'Contact no'
+                                                    'placeholder' => 'Contact no',
+                                                    'value' => ''
                                                         )
                                                 );
                                                 ?>
                                             </div>                                           
                                         </div>
-                                       
+
                                         <label class="control-label col-md-1">Note<span class="">
                                             </span>
                                         </label> 
@@ -2071,7 +2073,7 @@
                                             <div class="col-md-offset-6 col-md-4">
                                                 <?php
                                                 echo $this->Form->button(
-                                                        'Insert', array('class' => 'btn red-sunglo', 'type' => 'submit')
+                                                        'Submit', array('class' => 'btn', 'type' => 'submit')
                                                 );
                                                 ?>
                                             </div>
