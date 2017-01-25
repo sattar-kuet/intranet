@@ -329,6 +329,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $loggedUser = $this->Auth->user();
         $user = $loggedUser['Role']['name'];
         if ($this->request->is('post') || $this->request->is('put')) {
+
             // update package_customers table
             $this->request->data['PackageCustomer']['id'] = $id;
             $this->updatePackageCustomerTable($this->request->data['PackageCustomer']);
@@ -414,9 +415,14 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
 
     function adjustmentMemo($id = null) {
         $this->loadModel('Transaction');
-        $this->Transaction->set($this->request->data);
-        $this->Transaction->id = $id;
-        $this->Transaction->id = $this->request->data['Transaction']['cid'];
+
+        $this->loadModel('PackageCustomer');
+      //  pr($this->request->data);
+       //   exit;
+        $loggedUser = $this->Auth->user();
+       // pr($loggedUser);
+
+        $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
         $this->request->data['Transaction']['next_payment'] = $this->getFormatedDate($this->request->data['Transaction']['next_payment']);
         $result = array();
         if (!empty($this->request->data['Transaction']['attachment']['name'])) {
@@ -425,10 +431,32 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         } else {
             $this->request->data['Transaction']['attachment'] = '';
         }
+        if (!empty($this->request->data['Transaction']['phone'])) {
+            $sql = 'SELECT * FROM package_customers WHERE cell = "' . trim($this->request->data['Transaction']['phone']) .
+                    '" OR home = "' . trim($this->request->data['Transaction']['phone']) . '"';
+            $data = $this->PackageCustomer->query($sql);
+            if (count($data) == 0) {
+                $msg = '<div class="alert alert-error">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<strong>This referral record does not exist </strong></div>';
+                $this->Session->setFlash($msg);
+                return $this->redirect($this->referer());
+            } else {
+                $this->loadModel('Referral');
+                $temp = array('referred' => $id, 'reffered_by' => $data[0]['package_customers']['id'], 'user_id' => $loggedUser['id']);
+                $this->Referral->save($temp);
+                $msg = '<div class="alert alert-success">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<strong>Succeesfully saved </strong></div>';
+                $this->Session->setFlash($msg);
+                return $this->redirect($this->referer());
+            }
+        }
+        
         $this->Transaction->save($this->request->data['Transaction']);
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
-	<strong>Succeesfully insert data </strong></div>';
+	<strong>Succeesfully saved </strong></div>';
         $this->Session->setFlash($msg);
         return $this->redirect($this->referer());
     }
