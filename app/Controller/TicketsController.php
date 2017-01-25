@@ -491,7 +491,7 @@ class TicketsController extends AppController {
 
         $this->Track->save($this->request->data['Track']);
         $this->Ticket->id = $this->request->data['Track']['ticket_id'];
-        $data = $this->Ticket->saveField('status', 'unresolved');
+        $this->Ticket->saveField('status', 'unresolved');
 
         $msg = '<div class="alert alert-warning">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
