@@ -172,17 +172,21 @@ $(document).ready(function () {
    
     $('.adjusmentChange').change(function () {       
         var selected = $('.adjusmentChange option:selected').text().toLowerCase();
-         if (selected.trim() == "sdrefund") {
+//        alert(selected);
+         if (selected.trim() == "sd refund") {
             $('#referralbonus').hide();
             $('#attachment').show();
+            $('#amount').show();
         }
-        else if (selected.trim() == "refferal") {
+        else if (selected.trim() == "refferal bonus") {
             $('#referralbonus').show();
             $('#attachment').hide();
+            $('#amount').hide();
         }
         else {
             $('#attachment').hide();
             $('#referralbonus').hide();
+            $('#amount').show();
         }
     });
     

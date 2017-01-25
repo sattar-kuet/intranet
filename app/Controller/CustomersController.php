@@ -65,7 +65,6 @@ class CustomersController extends AppController {
         return $return;
     }
 
-
     function processInvoice($img) {
         $upload = new Upload($img['name']);
         $upload->file_new_name_body = time();
@@ -418,7 +417,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $this->Transaction->set($this->request->data);
         $this->Transaction->id = $id;
         $this->Transaction->id = $this->request->data['Transaction']['cid'];
-        
+        $this->request->data['Transaction']['next_payment'] = $this->getFormatedDate($this->request->data['Transaction']['next_payment']);
         $result = array();
         if (!empty($this->request->data['Transaction']['attachment']['name'])) {
             $result = $this->processAttachment($this->request->data['Transaction'], 'attachment');
