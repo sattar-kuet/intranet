@@ -439,7 +439,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             }
             else{
                $this->loadModel('Referral');
-             //  $temp = array('referred'=>,'reffered_by');
+               $temp = array('referred'=>$id,'reffered_by'=>$data['']);
                $this->Referral->save();
             }
             pr($data);
