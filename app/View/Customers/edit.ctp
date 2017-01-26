@@ -1979,7 +1979,7 @@
                                                     'credit' => 'Credit',
                                                     'sdadjustment' => 'SD Adjustment',
                                                     'sdrefund' => 'SD Refund',
-                                                    'refferalbonus' => 'Refferal Bonus'
+                                                    'referralbonus' => 'Referral Bonus'
                                                 ),
                                                 'class' => 'adjusmentChange')
                                             );

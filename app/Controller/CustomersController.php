@@ -415,13 +415,8 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
 
     function adjustmentMemo($id = null) {
         $this->loadModel('Transaction');
-
         $this->loadModel('PackageCustomer');
-      //  pr($this->request->data);
-       //   exit;
         $loggedUser = $this->Auth->user();
-       // pr($loggedUser);
-
         $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
         $this->request->data['Transaction']['next_payment'] = $this->getFormatedDate($this->request->data['Transaction']['next_payment']);
         $result = array();
@@ -432,6 +427,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             $this->request->data['Transaction']['attachment'] = '';
         }
         if (!empty($this->request->data['Transaction']['phone'])) {
+//                     pr('here'); exit;
             $sql = 'SELECT * FROM package_customers WHERE cell = "' . trim($this->request->data['Transaction']['phone']) .
                     '" OR home = "' . trim($this->request->data['Transaction']['phone']) . '"';
             $data = $this->PackageCustomer->query($sql);
@@ -452,7 +448,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
                 return $this->redirect($this->referer());
             }
         }
-        
+
         $this->Transaction->save($this->request->data['Transaction']);
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
