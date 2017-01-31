@@ -62,7 +62,7 @@
                                             <div class="controls center text-center">
                                                 <?php if ($single['others_payments']['status'] == 'open'): ?>
                                                     <a aria-describedby="qtip-8" data-hasqtip="true" title="Cancel" oldtitle="Remove task" 
-                                                       onclick="if (confirm( & quot; Are you sure to cancel this Admin? & quot; )) { return true; } return false;"
+                                                       onclick="if (confirm('Are you sure to cancel this Admin?' )) { return true; } return false;"
                                                        href="<?php echo Router::url(array('controller' => 'otherspayments', 'action' => 'cancel', $single['others_payments']['id'])) ?>" title="block">
                                                         <span class="fa  fa-close"></span>
                                                     </a>

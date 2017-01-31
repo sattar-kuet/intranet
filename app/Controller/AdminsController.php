@@ -1170,6 +1170,16 @@ class AdminsController extends AppController {
             return $this->redirect($this->referer());
         }
     }
+    
+    function adjustmentMemo(){
+        $sql = "SELECT * FROM transactions ".
+            "LEFT JOIN package_customers ON package_customers.id = transactions.package_customer_id ".
+            "WHERE LOWER(transactions.status) IN ('credit','sdadjustment','sdrefund','refferalbonus')";
+        $this->loadModel('Transaction');
+        $data = $this->Transaction->query($sql);
+        $this->set(compact('data'));
+      //  pr($data); exit;
+    }
 
 }
 

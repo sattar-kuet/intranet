@@ -465,7 +465,7 @@ class PaymentsController extends AppController {
         $this->loadModel('PackageCustomer');
         $this->loadModel('AutoRecurring');
         $pcs = $this->PackageCustomer->find('all', array('conditions' => array('auto_r' => 'yes', 'invoice_created' => 0)));
-        
+
         $success = 0;
         $failure = 0;
         foreach ($pcs as $single) {
@@ -477,11 +477,11 @@ class PaymentsController extends AppController {
 //echo $rFrom; exit;
             $temp = date('Y-m-d', strtotime($rFrom . '-15  days'));
             $deadline = strtotime($temp);
-          //  echo $rFrom.':'.$temp.'<br>';
+            //  echo $rFrom.':'.$temp.'<br>';
             $temp = date('Y-m-d');
             $now = strtotime($temp);
             if ($now >= $deadline) { // this is prior 15 days of payment date. So generate invoice 
-               // pr($pc); 
+                // pr($pc); 
                 $data['Transaction'] = array(
                     'package_customer_id' => $pc['id'],
                     'note' => 'This Invoice is generated from system',
@@ -498,8 +498,8 @@ class PaymentsController extends AppController {
                 $this->PackageCustomer->saveField('invoice_created', 1);
             }
         }
-  
-         $this->redirect('message');
+
+        $this->redirect('message');
     }
 
     function auto_recurring_payment() {
@@ -991,20 +991,32 @@ class PaymentsController extends AppController {
         $this->Session->setFlash($transactionMsg);
         return $this->redirect($this->referer());
     }
-
+  
+    
     function adjustmentMemo($id = null) {
-        $this->loadModel('PackageCustomer');
-        $this->PackageCustomer->set($this->request->data);
-        $this->PackageCustomer->id = $id;
-       
-        $this->PackageCustomer->id = $this->request->data['PackageCustomer']['cid'];
-//         pr($this->request->data); exit;
-        $this->PackageCustomer->save($this->request->data['PackageCustomer']);
-        $msg = '<div class="alert alert-success">
+        //  echo 'here'; exit;
+        $this->loadModel('Transaction');
+        $data = $this->Transaction->findById($id);
+        $this->request->data = $data;
+        if ($this->request->is('post') || $this->request->is('put')) {
+            $this->Transaction->id = $this->request->data['Transaction']['id'];
+            //unset($this->Transaction->belongsTo);
+            
+            
+          //  pr($this->request->data['Transaction']);
+           $data =  $this->removeEmptyElement($this->request->data['Transaction']);
+           unset($data['id']);
+           unset($data['next_payment']);
+           $this->Transaction->save(array('user_id'=>10));
+           echo $this->Transaction->getLastQuery();
+            pr($data);
+            exit;
+            $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
 	<strong>Succeesfully insert data </strong></div>';
-        $this->Session->setFlash($msg);
-        return $this->redirect($this->referer());
+            $this->Session->setFlash($msg);
+            return $this->redirect($this->referer());
+        }
     }
 
 }

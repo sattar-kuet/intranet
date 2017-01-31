@@ -394,5 +394,13 @@ class AppController extends Controller {
         
         return $sql1monthp1 + $sql1monthp2;
     }
+    function removeEmptyElement($data = array()){
+      foreach($data as $index=>$single){
+          if(empty($single)){
+              unset($data[$index]);
+          }
+      }
+      return $data;
+  }
 
 }
