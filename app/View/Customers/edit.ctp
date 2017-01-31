@@ -1613,6 +1613,14 @@
                                                     &nbsp;&nbsp;
                                                     <a href="#invoice-pop-up<?php echo $info['transactions']['id']; ?>" class="btn btn-default fancybox-fast-view"> <span class="fa fa-file"></span>
                                                     </a>
+                                                    
+                                                   &nbsp;
+                                                     <a 
+                                                        onclick="if (confirm(&quot; Are you sure to Void this Transaction?&quot; )) { return true; } return false;"
+
+                                                        href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'void', $info['transactions']['id'])) ?>" title="Void">
+                                                        <span class="fa  fa-ban"></span>
+                                                    </a>
                                                 </td>
                                             </tr>
                                             <?php
@@ -1979,7 +1987,7 @@
                                                     'credit' => 'Credit',
                                                     'sdadjustment' => 'SD Adjustment',
                                                     'sdrefund' => 'SD Refund',
-                                                    'refferalbonus' => 'Refferal Bonus'
+                                                    'referralbonus' => 'Referral Bonus'
                                                 ),
                                                 'class' => 'adjusmentChange')
                                             );

@@ -416,11 +416,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
     function adjustmentMemo($id = null) {
         $this->loadModel('Transaction');
         $this->loadModel('PackageCustomer');
-      //  pr($this->request->data);
-       //   exit;
         $loggedUser = $this->Auth->user();
-       // pr($loggedUser);
-
         $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
         $this->request->data['Transaction']['next_payment'] = $this->getFormatedDate($this->request->data['Transaction']['next_payment']);
         $result = array();
@@ -455,7 +451,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
                 return $this->redirect($this->referer());
             }
         }
-        
+
         $this->Transaction->save($this->request->data['Transaction']);
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>

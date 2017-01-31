@@ -178,7 +178,7 @@ $(document).ready(function () {
             $('#attachment').show();
             $('#amount').show();
         }
-        else if (selected.trim() == "refferal bonus") {
+        else if (selected.trim() == "referral bonus") {
             $('#referralbonus').show();
             $('#attachment').hide();
             $('#amount').hide();
