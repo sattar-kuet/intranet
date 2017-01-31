@@ -75,7 +75,7 @@
 
                                         <td>   
                                             <div class="controls center text-center">
-                                                <a  target="_blank" title="edit" href="<?php echo Router::url(array('controller' => 'payments', 'action' => 'adjustmentMemo', $t['id'])) ?>" >
+                                                <a  target="_blank" title="edit" href="<?php echo Router::url(array('controller' => 'payments', 'action' => 'adjustmentMemoEdit', $t['id'])) ?>" >
                                                     <span class="fa fa-pencil"></span></a>
                                                 &nbsp;&nbsp;
                                                 <a 

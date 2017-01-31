@@ -8,6 +8,7 @@ require_once(APP . 'Vendor' . DS . 'class.upload.php');
 use net\authorize\api\contract\v1 as AnetAPI;
 use net\authorize\api\controller as AnetController;
 
+require_once(APP . 'Vendor' . DS . 'class.upload.php');
 define("AUTHORIZENET_LOG_FILE", APP . 'Vendor' . DS . 'authorize' . DS . 'phplog');
 
 class PaymentsController extends AppController {
@@ -30,11 +31,20 @@ class PaymentsController extends AppController {
             'check_image' => array(
                 'image_ratio_crop' => false,
             ),
+            //for attachment upload 
+            'file' => array(
+            ),
+            'attachment' => array(
+                'image_ratio_crop' => false,
+            ),
             'parent_dir' => 'check_images',
             'target_path' => array(
-                'check_image' => WWW_ROOT . 'check_images' . DS
+                'check_image' => WWW_ROOT . 'check_images' . DS,
+                'attachment' => WWW_ROOT . 'attachment' . DS
             )
         );
+
+
         if (!is_dir($this->img_config['parent_dir'])) {
             mkdir($this->img_config['parent_dir']);
         }
@@ -1010,38 +1020,83 @@ class PaymentsController extends AppController {
         $this->Session->setFlash($transactionMsg);
         return $this->redirect($this->referer());
     }
-  
-    
-    function adjustmentMemo($id = null) {
-        //  echo 'here'; exit;
+
+    function processAttachment($img) {
+        $upload = new Upload($img['attachment']);
+        $upload->file_new_name_body = time();
+        foreach ($this->img_config['attachment'] as $key => $value) {
+            $upload->$key = $value;
+        }
+        $upload->process($this->img_config['target_path']['attachment']);
+        if (!$upload->processed) {
+            $msg = $this->generateError($upload->error);
+            $this->Session->setFlash($msg);
+            return $this->redirect($this->referer());
+        }
+        $return['file_dst_name'] = $upload->file_dst_name;
+        return $return;
+    }
+
+    function adjustmentMemoEdit1($id = null) {
         $this->loadModel('Transaction');
-        $data = $this->Transaction->findById($id);
-        $this->request->data = $data;
         if ($this->request->is('post') || $this->request->is('put')) {
-            $this->Transaction->id = $this->request->data['Transaction']['id'];
+            //  $this->Transaction->id = $id;
             //unset($this->Transaction->belongsTo);
-          //  pr($this->request->data['Transaction']);
-           $data =  $this->removeEmptyElement($this->request->data['Transaction']);
-           unset($data['id']);
-           unset($data['next_payment']);
-           $this->Transaction->save(array('user_id'=>10));
-           echo $this->Transaction->getLastQuery();
+            if (empty($this->request->data['Transaction']['attachment']['name'])) {
+                unset($this->request->data['Transaction']['attachment']);
+            }
+            $data = $this->removeEmptyElement($this->request->data['Transaction']);
+
+            unset($data['id']);
             pr($data);
+            $this->Transaction->save($data);
+
+            echo $this->Transaction->getLastQuery();
             exit;
-        $this->loadModel('PackageCustomer');
-        $this->PackageCustomer->set($this->request->data);
-        $this->PackageCustomer->id = $id;
-        $this->PackageCustomer->id = $this->request->data['PackageCustomer']['cid'];
-//         pr($this->request->data); exit;
-        $this->PackageCustomer->save($this->request->data['PackageCustomer']);
-        $msg = '<div class="alert alert-success">
+            $msg = '<div class="alert alert-success">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
 	<strong>Succeesfully insert data </strong></div>';
             $this->Session->setFlash($msg);
             return $this->redirect($this->referer());
         }
+        $data = $this->Transaction->findById($id);
+        $this->request->data = $data;
     }
 
+    function adjustmentMemoEdit($id = NULL) {
+        $this->loadModel('Transaction');
+        if ($this->request->is('post') || $this->request->is('put')) {
+            $this->request->data['Transaction']['next_payment'] = $this->getFormatedDate($this->request->data['Transaction']['next_payment']);
+            $this->Transaction->id = $this->request->data['Transaction']['id'];
+
+            $result = array();
+            $attach = $this->Transaction->findById($id);
+            $directory = WWW_ROOT . 'attachment';
+            
+            if (!empty($this->request->data['Transaction']['attachment']['name'])) {
+                $result = $this->processAttachment($this->request->data['Transaction'], 'attachment');
+                $this->request->data['Transaction']['attachment'] = (string) $result['file_dst_name'];
+                
+                if (unlink($directory . DIRECTORY_SEPARATOR . $attach['Transaction']['attachment'])) { //Delete attachment from root and database
+                    echo 'Attachment deleted.....';
+                }
+                
+            } else {
+                $this->request->data['Transaction']['attachment'] = $attach['Transaction']['attachment'];
+            }
+
+            $data = $this->removeEmptyElement($this->request->data['Transaction']);
+            unset($data['id']);
+            $this->Transaction->save($data);
+            $msg = '<div class="alert alert-success">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+	<strong>Succeesfully insert data </strong></div>';
+            $this->Session->setFlash($msg);
+            return $this->redirect($this->referer());
+        }
+        $data = $this->Transaction->findById($id);
+        $this->request->data = $data;
+    }
 
 }
 
