@@ -985,7 +985,7 @@ class AdminsController extends AppController {
             'date' => date('Y-m-d'),
             'status' => $status
         );
-        
+
         $this->StatusHistory->save($data4statusHistory);
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -1006,7 +1006,7 @@ class AdminsController extends AppController {
     function shortApprove($id = null) {
         $this->loadModel('PackageCustomer');
         $this->loadModel('StatusHistory');
-        $this->PackageCustomer->id = $id;   
+        $this->PackageCustomer->id = $id;
         $pcid = $this->request->data['Comment']['package_customer_id'];
         $loggedUser = $this->Auth->user();
         $comments = $this->request->data['Comment']['comments'];
@@ -1170,15 +1170,41 @@ class AdminsController extends AppController {
             return $this->redirect($this->referer());
         }
     }
-    
-    function adjustmentMemo(){
-        $sql = "SELECT * FROM transactions ".
-            "LEFT JOIN package_customers ON package_customers.id = transactions.package_customer_id ".
-            "WHERE LOWER(transactions.status) IN ('credit','sdadjustment','sdrefund','refferalbonus')";
+
+    function adjustmentMemo() {
+        $sql = "SELECT * FROM transactions " .
+                "LEFT JOIN package_customers ON package_customers.id = transactions.package_customer_id " .
+                "WHERE LOWER(transactions.status) IN ('credit','sdadjustment','sdrefund','refferalbonus')";
         $this->loadModel('Transaction');
         $data = $this->Transaction->query($sql);
         $this->set(compact('data'));
-      //  pr($data); exit;
+        //  pr($data); exit;
+    }
+
+    function deleteMemo($id = null) {
+        $this->loadModel('Transaction');
+        $this->Transaction->delete($id);
+        $msg = '<div class="alert alert-success">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<strong> Memo deleted succeesfully </strong>
+</div>';
+        $this->Session->setFlash($msg);
+        return $this->redirect('adjustmentMemo');
+    }
+
+    function approveMemo($id = null) {
+        $this->loadModel('Transaction');
+        $this->Transaction->id = $id;
+        $loggedUser = $this->Auth->user();
+
+        $this->Transaction->saveField("status", "approved");
+        $this->Transaction->saveField("user_id", $loggedUser['id']);
+
+        $msg = '<div class="alert alert-success">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<strong>Succeesfully approved </strong></div>';
+
+        return $this->redirect($this->referer());
     }
 
 }
