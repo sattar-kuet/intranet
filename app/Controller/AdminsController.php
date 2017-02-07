@@ -1178,7 +1178,6 @@ class AdminsController extends AppController {
         $this->loadModel('Transaction');
         $data = $this->Transaction->query($sql);
         $this->set(compact('data'));
-        //  pr($data); exit;
     }
 
     function deleteMemo($id = null) {
@@ -1203,7 +1202,6 @@ class AdminsController extends AppController {
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
 	<strong>Succeesfully approved </strong></div>';
-
         return $this->redirect($this->referer());
     }
 

@@ -56,9 +56,6 @@ class PaymentsController extends AppController {
     }
 
     function processImg($img, $type) {
-//        pr($img); 
-//         echo $type;
-//         exit;
         $upload = new Upload($img[$type]);
         $upload->file_new_name_body = time();
         foreach ($this->img_config[$type] as $key => $value) {
@@ -234,7 +231,7 @@ class PaymentsController extends AppController {
                 $this->Transaction->id = $id;
                 $this->Transaction->saveField("status", $status);
 
-                $msg .='<li> Transaction   successfull</li>';
+                $msg .='<li> Transaction successfull</li>';
                 $tdata['Ticket'] = array('content' => "Transaction successfull <br> <b>Amount : </b>$amount <br> <b> payment Mode: </b> Card");
                 $tickect = $this->Ticket->save($tdata); // Data save in Ticket
                 $trackData['Track'] = array(

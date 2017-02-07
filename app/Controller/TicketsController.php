@@ -47,8 +47,6 @@ class TicketsController extends AppController {
     }
 
     function create($customer_id = null) {
-        // pr($this->request->data); exit;
-
         if ($customer_id == null) {
             $this->redirect('/admins/servicemanage');
         }
@@ -62,7 +60,6 @@ class TicketsController extends AppController {
         $this->loadModel('TicketDepartment');
         $this->loadModel('PackageCustomer');
         if ($this->request->is('post')) {
-//           pr($this->request->data); exit; 
             $this->Ticket->set($this->request->data);
             if ($this->Ticket->validates()) {
                 if (empty($this->request->data['Ticket']['user_id']) &&
@@ -96,7 +93,6 @@ class TicketsController extends AppController {
                         "status" => 'requested',
                         "user_id" => $loggedUser['id']
                     );
-//                    pr($data); exit;
                     $cusinfo = $this->PackageCustomer->save($data);
                 }
 
@@ -108,7 +104,6 @@ class TicketsController extends AppController {
                     $this->request->data['Ticket']['status'] = 'solved';
                     $status = 'solved';
                 }
-                // pr($this->request->data['Ticket']); exit;
                 $tickect = $this->Ticket->save($this->request->data['Ticket']); // Data save in Ticket
                 $trackData['Track'] = array(
                     'issue_id' => $this->request->data['Ticket']['issue_id'],
@@ -915,7 +910,7 @@ class TicketsController extends AppController {
                         left JOIN users fi ON tr.user_id = fi.id
                         left JOIN issues i ON tr.issue_id = i.id
                         left join package_customers pc on tr.package_customer_id = pc.id
-                         WHERE t.status = 'open' ORDER BY tr.created DESC " . " LIMIT " . $offset . "," . $this->per_page);
+                        WHERE t.status = 'open' ORDER BY tr.created DESC " . " LIMIT " . $offset . "," . $this->per_page);
         $temp = $this->Ticket->query("SELECT COUNT(tickets.id) as total FROM `tickets` WHERE tickets.status = 'open'");
         $total = $temp[0][0]['total'];
         $total_page = ceil($total / $this->per_page);

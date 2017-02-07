@@ -68,7 +68,6 @@
                             <tbody>
                                 <?php
                                 foreach ($data as $single):
-//                                    pr($single['history'][0]['pc']); exit;
                                     $issue = end($single['history']);
                                     $customer = end($single['history']);
                                     $customer = $customer['pc'];
@@ -76,7 +75,6 @@
 
 
                                     $customer = $single['history'][0]['pc'];
-//                                         pr($customer['street']); exit;
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
                                             . $customer['zip'];
@@ -101,7 +99,6 @@
                                             <ol>
                                                 <?php
                                                 $lasthistory = $single['history'][0]['tr'];
-//                                                pr($lasthistory['package_customer_id']); exit;
                                                 foreach ($single['history'] as $history):
                                                     ?>
                                                     <li>
