@@ -41,7 +41,8 @@ class ReportsController extends AppController {
             $datrange = json_decode($this->request->data['PackageCustomer']['daterange'], true);
             $start = $datrange['start'];
             $end = $datrange['end'];
-            $conditions = 'status_histories.status ="canceled" AND status_histories.date >="' . $start . '" AND status_histories.date <="' . $end . '"';
+            $conditions = 'status_histories.status = "canceled" AND status_histories.date >="' . $start . '" AND status_histories.date <="' . $end . '"';
+            
             $sql = "SELECT * FROM status_histories  
             LEFT JOIN package_customers  ON package_customers.id = status_histories.package_customer_id 
             left join transactions  on package_customers.id = transactions.package_customer_id    
@@ -491,6 +492,21 @@ class ReportsController extends AppController {
         $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
         $this->set(compact('clicked', 'data', 'users', 'issues', 'roles'));
+    }
+    function criteria() {
+        $this->loadModel('Issue');
+        $this->loadModel('Track');
+        $this->loadModel('User');
+        $this->loadModel('Role');
+        $clicked = false;
+        if ($this->request->is('post') || $this->request->is('put')) {
+                       
+
+            $clicked = true;
+            $this->set(compact(''));
+        }
+       
+        $this->set(compact('clicked'));
     }
 
     function getTotalCall() {
@@ -1074,7 +1090,7 @@ class ReportsController extends AppController {
         return $temp[0][0]['total'];
     }
 
-    function customer() {
+    function customerSummary() {
         $active = array();
         //Active
         $active['cms1'] = $this->customerFilter('active', 'cms1') + $this->customerFilter('done', 'cms1');

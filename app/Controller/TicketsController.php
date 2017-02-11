@@ -177,7 +177,6 @@ class TicketsController extends AppController {
                         'cancelled_date' => $this->request->data['Ticket']['cancelled_date'],
                         'pickup_date' => $this->request->data['Ticket']['pickup_date'],
                     );
-//pr('here'); exit;
                     $cusinfo = $this->PackageCustomer->save($data);
                 }
 

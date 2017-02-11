@@ -217,7 +217,6 @@ class CustomersController extends AppController {
         $this->loadModel('StatusHistory');
         $this->loadModel('PackageCustomer');
         $this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
-//        pr($this->request->data); exit;
         $this->PackageCustomer->saveField("status", $this->request->data['PackageCustomer']['status']);
         $this->PackageCustomer->saveField("date", $this->getFormatedDate($this->request->data['PackageCustomer']['date']));
         $data4statusHistory['StatusHistory'] = array(
@@ -225,7 +224,6 @@ class CustomersController extends AppController {
             'date' => $this->getFormatedDate($this->request->data['PackageCustomer']['date']),
             'status' => $this->request->data['PackageCustomer']['status'],
         );
-//        pr($data4statusHistory); exit;
         $this->StatusHistory->save($data4statusHistory);
         $Msg = '<div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert">&times;</button>

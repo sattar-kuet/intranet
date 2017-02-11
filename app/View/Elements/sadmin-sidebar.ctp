@@ -818,7 +818,7 @@
             </li>
             <li 
             <?php
-            $reports = array('Reportsduecustomers', 'Reportscall_log', 'Reportspayment_history', 'Reportscancel', 'Reportspaidcustomers', 'Reportsactive', 'Reportsblock', 'Reportspayment', 'Reportsnewcustomers', 'Reportsexpcustomers');
+            $reports = array('ReportsCriteria','ReportscustomerSummary','Reportsduecustomers', 'Reportscall_log', 'Reportspayment_history', 'Reportscancel', 'Reportspaidcustomers', 'Reportsactive', 'Reportsblock', 'Reportspayment', 'Reportsnewcustomers', 'Reportsexpcustomers');
 
             if (in_array($this->name . '' . $this->action, $reports)):
                 ?>
@@ -911,6 +911,31 @@
                             <i class="fa fa-warning"></i>
                             Call Log</a>
                     </li>
+                    
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'ReportscustomerSummary'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'customerSummary')) ?>">
+                            <i class="fa fa-warning"></i>
+                            Customer summary</a>
+                    </li>
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'ReportsCriteria'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'criteria')) ?>">
+                            <i class="fa fa-warning"></i>
+                            Criteria</a>
+                    </li>
                 </ul>
             </li>
 
@@ -972,36 +997,7 @@
                     </li>
                 </ul>
             </li>            
-            <li 
-            <?php
-            $reports= array('ReportsCustomer');
-            if (in_array($this->name . '' . $this->action, $reports)):
-                ?>
-                    class="active"
-                    <?php
-                endif;
-                ?>
-                >
-                <a href="javascript:;">
-                    <i class="fa fa-file-word-o"></i>
-                    <span class="title">System</span>
-                    <span class="arrow "></span>
-                </a>
-                <ul class="sub-menu">                   
-                    <li
-                    <?php if ($this->name . '' . $this->action == 'ReportsCustomer'):
-                        ?>
-                            class="active"
-                            <?php
-                        endif;
-                        ?>
-                        >
-                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'customer')) ?>">
-                            <i class="fa icon-ban"></i>
-                            Customer </a>
-                    </li>
-                </ul>
-            </li>
+           
             <li 
             <?php
             $dailyreports = array('ReportssalesSupportdp', 'Reportsaccountsdp');

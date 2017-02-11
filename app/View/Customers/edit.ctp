@@ -1971,9 +1971,7 @@
                                         'type' => 'hidden',
                                         'value' => $this->params['pass'][0]
                                     ));
-                                    ?>                                   
-
-
+                                    ?>                                 
                                     <div class="row">
                                         <label class="control-label col-md-2">Adjustment<span class="">
                                             </span>
@@ -2992,23 +2990,19 @@
                                                         <td>   
                                                             <div class="controls center text-center">
                                                                 <?php if ($lasthistory['status'] == 'open') { ?>
-                                                                    <a 
-                                                                        href="#" title="Solved">
+                                                                    <a  href="#" title="Solved">
                                                                         <span id="<?php echo $ticket['id']; ?>" class="fa fa-check fa-lg solve_ticket"></span>
                                                                     </a>
                                                                     &nbsp;
-                                                                    <a 
-                                                                        href="#" title="Unresolved">
+                                                                    <a  href="#" title="Unresolved">
                                                                         <span id="<?php echo $ticket['id']; ?>" class="fa fa-times fa-lg unsolve_ticket"></span>
                                                                     </a>
                                                                     &nbsp;
-                                                                    <a 
-                                                                        href="#" title="Forward">
+                                                                    <a href="#" title="Forward">
                                                                         <span id="<?php echo $ticket['id']; ?>" class="fa fa-mail-forward fa-lg forward_ticket"></span>
                                                                     </a>
                                                                     &nbsp;
-                                                                    <a 
-                                                                        href="#" title="Comment">
+                                                                    <a href="#" title="Comment">
                                                                         <span id="<?php echo $ticket['id']; ?>" class="fa fa-comment fa-lg comment_ticket"></span>
                                                                     </a>
                                                                     <div id="forward_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
