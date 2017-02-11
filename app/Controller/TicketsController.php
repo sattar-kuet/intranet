@@ -103,7 +103,8 @@ class TicketsController extends AppController {
                 $status = 'open';
                 if (trim($this->request->data['Ticket']['action_type']) == 'solved' ||
                         trim($this->request->data['Ticket']['action_type']) == 'ready' ||
-                        trim($this->request->data['Ticket']['action_type']) == 'shipment') {
+                        trim($this->request->data['Ticket']['action_type']) == 'shipment' || 
+                        trim($this->request->data['Ticket']['issue_id']) == 17) {
                     $this->request->data['Ticket']['priority'] = 'low';
                     $this->request->data['Ticket']['status'] = 'solved';
                     $status = 'solved';
@@ -124,7 +125,7 @@ class TicketsController extends AppController {
 
                 if (trim($this->request->data['Ticket']['issue_id']) == 17) {
                     $this->addNewAddr($this->request->data['Ticket']['new_addr'], $customer_id);
-                    $trackData['Track']['status'] = 'others';
+                    $trackData['Track']['status'] = 'close';
                 }
                 if (trim($this->request->data['Ticket']['issue_id']) == 21 || trim($this->request->data['Ticket']['issue_id']) == 30) {
                     $this->updateCustomer('Request to hold', $customer_id);

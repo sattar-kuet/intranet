@@ -1266,7 +1266,7 @@
                     <div class="portlet-body"  id="auto_recurring" style="display: none;">  
                         <?php echo $this->Session->flash() ?>
                         <?php
-                        echo $this->Form->create('Transaction', array(
+                        echo $this->Form->create('AutoTransaction', array(
                             'inputDefaults' => array(
                                 'label' => false,
                                 'div' => false

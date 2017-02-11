@@ -62,17 +62,15 @@ class AppController extends Controller {
         }
         $this->set('baseUrl', Router::url('/', true));
         $this->Auth->allow('index', 'logo');
-
         $admin = $this->Auth->user();
-
         if (isset($admin['Role']['name'])) {
             $sidebar = $admin['Role']['name'];
             $this->set(compact('sidebar'));
         }
-
         $loggedUser = $this->Auth->user();
         $this->set('loggedUser', $loggedUser['name']);
-
+      //  $this->sendReport();
+      // echo 'works'; exit;
         //   $loggedUserpic = $this->Auth->user();       
         //  $this->set('loggedUserpic', $loggedUser['picture']);
     }
@@ -201,76 +199,6 @@ class AppController extends Controller {
         }
     }
 
-    function sendEmail($emailInfo = array()) {
-        $from = $emailInfo['from']; //'info@jegeachi.com';
-        $subject = $emailInfo['subject']; // "Reseller Registration";
-        $title = $emailInfo['title'];
-
-        $to = $emailInfo['to']; //array('sattar.kuet@gmail.com');
-        $mail_content = $emailInfo['content'];
-        $Email = new CakeEmail('default');
-        if (array_key_exists("img", $emailInfo)) {
-            $Email->template($emailInfo['content']['template'], null)
-                    ->emailFormat('html')
-                    ->from(array($from => $title))
-                    ->attachments(array(
-                        array(
-                            //<img src="../../assets/admin/pages/media/email/social_twitter.png" alt="social icon">
-                            'file' => ROOT . '/app/webroot/assets/admin/pages/media/email/social_twitter.png',
-                            'mimetype' => 'image',
-                            'contentId' => 'twitterIcon'
-                        ),
-                        array(
-                            ///assets/admin/pages/media/email/social_facebook.png
-                            'file' => ROOT . '/app/webroot/assets/admin/pages/media/email/social_facebook.png',
-                            'mimetype' => 'image/png',
-                            'contentId' => 'fbIcon'
-                        ),
-                        array(
-                            'file' => ROOT . '/app/webroot/img/logo.png',
-                            'mimetype' => 'image',
-                            'contentId' => 'logo'
-                        ),
-                        $emailInfo['img']
-                    ))
-                    ->viewVars(compact('mail_content'))
-                    ->to($to)
-                    ->subject($subject);
-        } else {
-            $Email->template($emailInfo['content']['template'], null)
-                    ->emailFormat('html')
-                    ->from(array($from => $title))
-                    ->attachments(array(
-                        array(
-                            //<img src="../../assets/admin/pages/media/email/social_twitter.png" alt="social icon">
-                            'file' => ROOT . '/app/webroot/assets/admin/pages/media/email/social_twitter.png',
-                            'mimetype' => 'image',
-                            'contentId' => 'twitterIcon'
-                        ),
-                        array(
-                            ///assets/admin/pages/media/email/social_facebook.png
-                            'file' => ROOT . '/app/webroot/assets/admin/pages/media/email/social_facebook.png',
-                            'mimetype' => 'image/png',
-                            'contentId' => 'fbIcon'
-                        ),
-                        array(
-                            'file' => ROOT . '/app/webroot/img/logo.png',
-                            'mimetype' => 'image',
-                            'contentId' => 'logo'
-                        )
-                    ))
-                    ->viewVars(compact('mail_content'))
-                    ->to($to)
-                    ->subject($subject);
-        }
-        try {
-            $Email->send();
-            return true;
-        } catch (SocketException $e) {
-            return false;
-        }
-    }
-
     public function getYM() {
         $cy = date('Y');
         $cm = date('m');
@@ -373,7 +301,7 @@ class AppController extends Controller {
         return $fill . $last4;
     }
 
-    function getSubscriptionNo($daterange,$package,$duration=0) {
+    function getSubscriptionNo($daterange, $package, $duration = 0) {
         $this->loadModel('Transaction');
         //1 month total packages
         $sql1monthp = "SELECT COUNT(ps.name) as total1monthp FROM transactions tr
@@ -391,16 +319,74 @@ class AppController extends Controller {
         $sql1monthp = $this->Transaction->query($sql1monthp);
 //            pr($sql1monthp); exit;
         $sql1monthp2 = $sql1monthp[0][0]['total1monthp'];
-        
+
         return $sql1monthp1 + $sql1monthp2;
     }
-    function removeEmptyElement($data = array()){
-      foreach($data as $index=>$single){
-          if(empty($single)){
-              unset($data[$index]);
-          }
-      }
-      return $data;
-  }
+
+    function removeEmptyElement($data = array()) {
+        foreach ($data as $index => $single) {
+            if (empty($single)) {
+                unset($data[$index]);
+            }
+        }
+        return $data;
+    }
+
+    function sendEmail($emailInfo = array()) {
+ //pr($emailInfo); exit;
+        $from = $emailInfo['from']; //'info@totalitsolution.com';
+        $title = $emailInfo['title']; //'Report';
+        $subject = $emailInfo['subject']; // "Reseller Registration";
+        $to = $emailInfo['to']; //array('sattar.kuet@gmail.com');
+        $mail_content = $emailInfo['content'];
+        $Email = new CakeEmail('default');
+        $Email->template($emailInfo['template'], null)
+                ->emailFormat('html')
+                ->from(array($from => $title))
+//                ->attachments(array(
+//                    array(
+////<img src="../../assets/admin/pages/media/email/social_twitter.png" alt="social icon">
+//                        'file' => ROOT . '/app/webroot/media/twitter.png',
+//                        'mimetype' => 'image',
+//                        'contentId' => 'twitterIcon'
+//                    ),
+//                    array(
+/////assets/admin/pages/media/email/social_facebook.png
+//                        'file' => ROOT . '/app/webroot/media/facebook.png',
+//                        'mimetype' => 'image/png',
+//                        'contentId' => 'fbIcon'
+//                    ),
+//                    array(
+//                        'file' => ROOT . '/app/webroot/media/logo-corp-red.png',
+//                        'mimetype' => 'image',
+//                        'contentId' => 'logo'
+//                    )
+//                ))
+                ->viewVars(compact('mail_content'))
+                ->to($to)
+                ->subject($subject);
+
+        try {
+            $Email->send();
+            return true;
+        } catch (SocketException $e) {
+            return false;
+        }
+    }
+
+    function sendReport() {
+        
+        $emailInfo = array(
+            'from' => 'info@totalitsolution.com',
+            'to' => array('sattar.kuet@gmail.com'),
+            'title' => 'Report',
+            'template' => 'report',
+            'subject' => 'Report',
+            'content' => array()
+        );
+        $this->sendEmail($emailInfo);
+       
+        // End send mail 
+    }
 
 }

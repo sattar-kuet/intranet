@@ -1203,8 +1203,13 @@ class AdminsController extends AppController {
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
 	<strong>Succeesfully approved </strong></div>';
-
+        $this->Session->setFlash($msg);
         return $this->redirect($this->referer());
+    }
+    
+    function runReport(){
+        $this->sendReport();
+        return $this->redirect('/admins/servicemanage');
     }
 
 }

@@ -146,10 +146,10 @@ class PaymentsController extends AppController {
         // Common setup for API credentials  
         $loggedUser = $this->Auth->user();
         $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
-        $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
-        //  $merchantAuthentication->setName("7zKH4b45"); //42UHbr9Qa9B live mode
-        $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
-        //  $merchantAuthentication->setTransactionKey("738QpWvHH4vS59vY"); // live mode 7UBSq68ncs65p8QX
+       // $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
+         $merchantAuthentication->setName("7zKH4b45"); //42UHbr9Qa9B live mode
+       // $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
+          $merchantAuthentication->setTransactionKey("738QpWvHH4vS59vY"); // live mode 7UBSq68ncs65p8QX
         $refId = 'ref' . time();
 // Create the payment data for a credit card
         $creditCard = new AnetAPI\CreditCardType();
@@ -201,8 +201,8 @@ class PaymentsController extends AppController {
         $request->setRefId($refId);
         $request->setTransactionRequest($transactionRequestType);
         $controller = new AnetController\CreateTransactionController($request);
-        $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
-        //  $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
+      //  $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
+          $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
         $this->request->data['Transaction']['error_msg'] = '';
         $this->request->data['Transaction']['status'] = '';
         $this->request->data['Transaction']['trx_id'] = '';
@@ -330,10 +330,10 @@ class PaymentsController extends AppController {
         $this->layout = 'ajax';
         // Common setup for API credentials  
         $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
-        $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
-        // $merchantAuthentication->setName("7zKH4b45"); //42UHbr9Qa9B live mode
-        $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
-        //  $merchantAuthentication->setTransactionKey("738QpWvHH4vS59vY"); // live mode 7UBSq68ncs65p8QX
+        //$merchantAuthentication->setName("95x9PuD6b2"); // testing mode
+        $merchantAuthentication->setName("7zKH4b45"); //42UHbr9Qa9B live mode
+       // $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
+          $merchantAuthentication->setTransactionKey("738QpWvHH4vS59vY"); // live mode 7UBSq68ncs65p8QX
         $refId = 'ref' . time();
 // Create the payment data for a credit card
         $creditCard = new AnetAPI\CreditCardType();
@@ -373,8 +373,8 @@ class PaymentsController extends AppController {
         $request->setRefId($refId);
         $request->setTransactionRequest($transactionRequestType);
         $controller = new AnetController\CreateTransactionController($request);
-        $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
-        // $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
+       // $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
+         $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
         $transaction = array();
         $transaction['error_msg'] = '';
         $transaction['status'] = '';
@@ -496,7 +496,11 @@ class PaymentsController extends AppController {
     function auto_recurring_invoice() {
         $this->loadModel('PackageCustomer');
         $this->loadModel('AutoRecurring');
-        $pcs = $this->PackageCustomer->find('all', array('conditions' => array('auto_r' => 'yes', 'invoice_created' => 0)));
+       // $sql = 'SELECT * FROM package_customers WHERE  LOWER(package_customers.auto_r) ="yes" AND package_customers.invoice_created = 0';
+        //$pcs = $this->PackageCustomer->query($sql);
+        $pcs = $this->PackageCustomer->find('all', array('conditions' => array('PackageCustomer.auto_r' => 'yes', 'PackageCustomer.invoice_created' => 0)));
+       // echo $this->PackageCustomer->getLastQuery();
+      //  pr($pcs); exit;
         $success = 0;
         $failure = 0;
         foreach ($pcs as $single) {
@@ -1072,15 +1076,11 @@ class PaymentsController extends AppController {
             $result = array();
             $attach = $this->Transaction->findById($id);
             $directory = WWW_ROOT . 'attachment';
-            
+
             if (!empty($this->request->data['Transaction']['attachment']['name'])) {
                 $result = $this->processAttachment($this->request->data['Transaction'], 'attachment');
-                $this->request->data['Transaction']['attachment'] = (string) $result['file_dst_name'];
-                
-                if (unlink($directory . DIRECTORY_SEPARATOR . $attach['Transaction']['attachment'])) { //Delete attachment from root and database
-                    echo 'Attachment deleted.....';
-                }
-                
+                if (unlink($directory . DIRECTORY_SEPARATOR . $attach['Transaction']['attachment']))
+                    $this->request->data['Transaction']['attachment'] = (string) $result['file_dst_name'];
             } else {
                 $this->request->data['Transaction']['attachment'] = $attach['Transaction']['attachment'];
             }

@@ -339,6 +339,38 @@ function get_canceled_mac($macs = array(), $cancel_mac = array()) {
     return $output;
 }
 
+function sendEmail2($content = array(), $to= array(), $template) {
+    $Email = new CakeEmail();
+    $email_data = array(
+        'hash' => $subject);
+    // $Email->config('custom')
+    $Email->template($template)
+            ->emailFormat('html')
+            ->from(array($from => $content['from']))
+            ->attachments(array(
+                array(
+                    'file' => ROOT . '/app/webroot/media/logo-corp-red.png',
+                    'mimetype' => 'image/png',
+                    'contentId' => '12345'
+                ),
+                array(
+                    'file' => ROOT . '/app/webroot/media/facebook.png',
+                    'mimetype' => 'image/png',
+                    'contentId' => '123456'
+                ),
+                array(
+                    'file' => ROOT . '/app/webroot/media/twitter.png',
+                    'mimetype' => 'image/png',
+                    'contentId' => '1234567'
+                ),
+            ))
+            ->viewVars($email_data)
+            ->to($to)
+            ->subject($content['subject']);
+
+    $Email->send($body);
+}
+
 function sendEmail($from, $name, $to, $subject, $body) {
     $tests = array();
     foreach ($to as $user) {
