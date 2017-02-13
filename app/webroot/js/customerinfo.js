@@ -193,42 +193,6 @@ $(document).ready(function () {
     //    auto adjusment end
 
 
-    //    criteria strat
-
-    $('.criteria').change(function () {
-        var selected = $('.criteria option:selected').text().toLowerCase();
-        
-
-        if (selected.trim() == "customer type") {
-            alert('here');
-            var myOptions = {val1: 'Suganthar', val2: 'Suganthar2', val3: 'Suganthar3', val4: 'Suganthar4'};
-
-            $.each(myOptions, function (val, text) {
-                $('#mySelect').append(new Option(text, val));
-            });
-        
-        }
-
-        if (selected.trim() == "customer type") {
-            $('#referralbonus').hide();
-            $('#attachment').show();
-            $('#amount').show();
-        }
-        else if (selected.trim() == "referral bonus") {
-            $('#referralbonus').show();
-            $('#attachment').hide();
-            $('#amount').hide();
-        }
-        else {
-            $('#attachment').hide();
-            $('#referralbonus').hide();
-            $('#amount').show();
-        }
-    });
-
-
-
-
-    //    criteria end
+  
 
 });

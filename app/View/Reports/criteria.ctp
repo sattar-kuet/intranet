@@ -59,7 +59,7 @@
 
 
                             <div class="form-group">                                
-                                <label class="control-label col-md-3" for="required">Criteria</label>
+                                <label class="control-label col-md-3" for="required">Criteria 1</label>
                                 <div class="col-md-4">
                                     <?php
                                     echo $this->Form->input('criteria', array(
@@ -70,7 +70,7 @@
                                             'supportcenter' => 'Support Center',
                                             'installers' => 'Installers',
                                         ),
-                                        'class' => 'criteria')
+                                        'class' => 'criteria form-control pclass')
                                     );
                                     ?>
                                 </div>
@@ -78,15 +78,16 @@
 
 
                             <div class="form-group">                                
-                                <label class="control-label col-md-3" for="required">Criteria 1</label>
+                                <label class="control-label col-md-3" for="required">Criteria 2</label>
                                 <div class="col-md-4">
                                     <?php
                                     $status = array("active" => "Active", "hold" => "Hold", "Cancelled" => "Cancelled");
                                     echo $this->Form->input(
                                             'status', array(
-                                        'class' => 'form-control required',
+                                        'class' => 'form-control required cclass',
                                         'options' => $status,
                                         'label' => false,
+                                        'id' => 'cid',
                                         'empty' => 'Select status',
                                             )
                                     );

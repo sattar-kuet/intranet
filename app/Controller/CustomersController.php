@@ -236,17 +236,17 @@ class CustomersController extends AppController {
     function update_auto_recurring() {
         $this->loadModel('Transaction');
         $this->loadModel('PackageCustomer');
-        $dateObj = $this->request->data['Transaction']['exp_date'];
-        $this->request->data['Transaction']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
+        $dateObj = $this->request->data['AutoTransaction']['exp_date'];
+        $this->request->data['AutoTransaction']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
         //  pr($this->request->data); exit;
-        $this->PackageCustomer->id = $this->request->data['Transaction']['package_customer_id'];
-        $this->request->data['Transaction']['r_form'] = $this->getFormatedDate($this->request->data['Transaction']['r_form']);
-        $this->request->data['Transaction']['auto_recurring_failed'] = 0;
+        $this->PackageCustomer->id = $this->request->data['AutoTransaction']['package_customer_id'];
+        $this->request->data['AutoTransaction']['r_form'] = $this->getFormatedDate($this->request->data['AutoTransaction']['r_form']);
+        $this->request->data['AutoTransaction']['auto_recurring_failed'] = 0;
+        unset($this->request->data['AutoTransaction']['package_customer_id']);
+     //    pr($this->request->data['Transaction']); exit;
 
-        // pr($this->request->data['Transaction']); exit;
-
-        $this->PackageCustomer->save($this->request->data['Transaction']);
-
+        $this->PackageCustomer->save($this->request->data['AutoTransaction']);
+      //  pr($this->PackageCustomer); exit;
         $Msg = '<div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <strong>Auto recurring updated Successfully! </strong>
@@ -327,7 +327,6 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $loggedUser = $this->Auth->user();
         $user = $loggedUser['Role']['name'];
         if ($this->request->is('post') || $this->request->is('put')) {
-
             // update package_customers table
             $this->request->data['PackageCustomer']['id'] = $id;
             $this->updatePackageCustomerTable($this->request->data['PackageCustomer']);
@@ -341,6 +340,19 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $this->loadModel('Transaction');
         $customer_info = $this->PackageCustomer->findById($pcid);
         $this->request->data = $customer_info;
+         $date = explode('/', $customer_info['PackageCustomer']['exp_date']);
+        $yyyy = date('Y');
+        $yy = substr($yyyy, 0, 2);
+        $yyyy = 0;
+        $mm = -1;
+        if (count($date) == 2) {
+            $yyyy = $yy . '' . $date[1];
+            $mm = $date[0];
+        }
+        $customer_info['PackageCustomer']['exp_date'] = array('year' => $yyyy, 'month' => $mm);
+        
+        $this->request->data['AutoTransaction'] = $customer_info['PackageCustomer'];
+      //  pr($this->request->data['AutoTransaction']); exit;
         $payment = new PaymentsController();
         $latestcardInfo = $payment->getLastCardInfo($pcid);
         unset($customer_info['PackageCustomer']['email']);
@@ -357,6 +369,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             $this->request->data['NextTransaction'] = $nextPay['Transaction'];
             $this->request->data['NextTransaction']['exp_date'] = $nextPay['Transaction']['next_payment'];
         }
+        
         $statusHistories = $this->StatusHistory->find('all', array('conditions' => array('StatusHistory.package_customer_id' => $pcid)));
         $lastStatus = end($statusHistories);
         //Show default value for custome package
@@ -598,6 +611,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
     function edit_registration($id = null) {
         $pcid = $id;
         $this->loadModel('PackageCustomer');
+        $this->loadModel('CustomPackage');
         $this->loadModel('Comment');
         $this->loadModel('Issue');
         if ($this->request->is('post') || $this->request->is('put')) {
