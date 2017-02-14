@@ -128,7 +128,7 @@
                                     TOTAL IN BOUND CALL DCC
                                 </td>  
                                 <td style="text-align: center; background: lightgrey !important; "> 
-                                  10  <?php // echo $total['inbound']; ?>
+                                   <?php  echo $total['inbound']; ?>
                                 </td>  
 
                                 <td style="text-align: center; background: lightgrey !important; font-size: 17px;" colspan="4">                                        
@@ -136,7 +136,7 @@
                                 </td>  
 
                                 <td style="text-align: center;  background: darkgray !important;"> 
-                                   10 <?php //echo $total['check_send'] + $total['online_payment']; ?> 
+                                    <?php echo $total['check_send'] + $total['online_payment']; ?> 
                                 </td>  
                             </tr>
 
