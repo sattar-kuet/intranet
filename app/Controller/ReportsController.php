@@ -614,8 +614,7 @@ class ReportsController extends AppController {
     function supportCall($start = null, $end = null) {
         $this->loadModel('Issue');
         $this->loadModel('Track');
-        $this->loadModel('StatusHistory');
-     
+        $this->loadModel('StatusHistory');     
 
         $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as totalSupport FROM tracks        
         LEFT JOIN tickets ON tracks.ticket_id = tickets.id 

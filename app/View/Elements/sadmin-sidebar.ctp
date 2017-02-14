@@ -1177,6 +1177,23 @@
                     </li>
                 </ul>
             </li>
+            
+               <li 
+            <?php
+            $services = array('adminsAdjustmentMemo');
+            if (in_array($this->name . '' . $this->action, $services)):
+                ?>
+                    class="active"
+                    <?php
+                endif;
+                ?>
+                >                 
+                <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'adjustmentMemo')) ?>">
+                    <i class="fa fa-support"></i>
+                    <span class="title">Adjustment Memo</span>
+                    <span class="arrow "></span>
+                </a>
+            </li>
 
             <!--            <li 
             <?php
