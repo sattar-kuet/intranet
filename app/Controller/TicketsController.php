@@ -228,7 +228,7 @@ class TicketsController extends AppController {
 //                    // End send mail 
 //                }
 //
-
+//                pr($trackData); exit;
                 $this->Track->save($trackData); // Data save in Track
                 $msg = '<div class="alert alert-success">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
