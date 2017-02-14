@@ -544,18 +544,14 @@ class ReportsController extends AppController {
 
     function getTotalDone($start = null, $end = null) {
         $this->loadModel('StatusHistory');
-        $datrange = json_decode($this->request->data['Track']['daterange'], true);
-        $start = $datrange['start'];
-        $end = $datrange['end'];
+       
         $done = $this->StatusHistory->query("SELECT count(status) as done FROM status_histories WHERE date >= '" . $start . "' AND date <='" . $end . "' and status = 'sales done'");
         return $done[0][0]['done'];
     }
 
     function getTotalReconnection($start = null, $end = null) {
         $this->loadModel('StatusHistory');
-        $datrange = json_decode($this->request->data['Track']['daterange'], true);
-        $start = $datrange['start'];
-        $end = $datrange['end'];
+      
         $reconnection = $this->StatusHistory->query("SELECT count(status) as reconnection FROM status_histories WHERE date >= '" . $start . "' AND status_histories.date <='" . $end . "' and status = 'reconnection'");
         return $reconnection[0][0]['reconnection'];
     }
@@ -598,22 +594,18 @@ class ReportsController extends AppController {
 
     function getTotalCallBySatatus($status = null, $start = null, $end = null) {
         $this->loadModel('Track');
-        $datrange = json_decode($this->request->data['Track']['daterange'], true);
-        $end = date('Y-m-d', strtotime($end . ' +1 day'));
+      
         $start = $start . ' 00:00:00';
         $end = $end . ' 23:59:59';
         $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as total FROM tracks " .
                 "LEFT JOIN issues ON tracks.issue_id = issues.id " .
-                " WHERE LOWER(issues.name) = '$status' AND tracks.created >='" . $datrange['start'] . "' AND tracks.created <='" . $datrange['end'] . "'";
+                " WHERE LOWER(issues.name) = '$status' AND tracks.created >='" . $start . "' AND tracks.created <='" . $end . "'";
         $data = $this->Track->query($sql);
         return $data[0][0]['total'];
     }
 
     function getTotalCardinfotaken($start = null, $end = null) {
         $this->loadModel('Transaction');
-        $datrange = json_decode($this->request->data['Track']['daterange'], true);
-        $start = $datrange['start'];
-        $end = $datrange['end'];
         $sql = "SELECT count(DISTINCT package_customer_id) as cardinfotaken FROM tracks WHERE CAST(tracks.created as DATE) >= '" . $start . "' AND CAST(tracks.created as DATE) <='" . $end . "' AND tracks.issue_id = 0";
         $cardinfotaken = $this->Transaction->query($sql);
         return $cardinfotaken[0][0]['cardinfotaken'];
@@ -623,9 +615,7 @@ class ReportsController extends AppController {
         $this->loadModel('Issue');
         $this->loadModel('Track');
         $this->loadModel('StatusHistory');
-        $datrange = json_decode($this->request->data['Track']['daterange'], true);
-        $start = $datrange['start'];
-        $end = $datrange['end'];
+     
 
         $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as totalSupport FROM tracks        
         LEFT JOIN tickets ON tracks.ticket_id = tickets.id 
@@ -644,9 +634,9 @@ class ReportsController extends AppController {
     function addsalesReceive($start = null, $end = null) { //ADDITIONAL SALES RECEIVE
         $this->loadModel('Issue');
         $this->loadModel('Track');
-        $datrange = json_decode($this->request->data['Track']['daterange'], true);
-        $datrange['start'] = $datrange['start'] . ' 00:00:00';
-        $datrange['end'] = $datrange['end'] . ' 23:59:59';
+       
+        $start = $start . ' 00:00:00';
+        $end = $end . ' 23:59:59';
 
         $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as addsalesreceive FROM tracks 
                  LEFT JOIN issues ON tracks.issue_id = issues.id 
@@ -658,7 +648,7 @@ class ReportsController extends AppController {
                  or issues.name = '3rd & 4th Box' 
                  or issues.name = '4th & 5th Box' 
                  or issues.name = '5th Box')  
-                 AND tickets.created >='" . $datrange['start'] . "' AND tickets.created <='" . $datrange['end'] . "'";
+                 AND tickets.created >='" . $start . "' AND tickets.created <='" . $end . "'";
 
         $data = $this->Track->query($sql);
         return $data[0][0]['addsalesreceive'];
@@ -667,15 +657,15 @@ class ReportsController extends AppController {
     function totalOutbound($start = null, $end = null) { //Total out bound call
         $this->loadModel('Issue');
         $this->loadModel('Track');
-        $datrange = json_decode($this->request->data['Track']['daterange'], true);
-        $datrange['start'] = $datrange['start'] . ' 00:00:00';
-        $datrange['end'] = $datrange['end'] . ' 23:59:59';
+        
+        $start = $start . ' 00:00:00';
+        $end = $end . ' 23:59:59';
 
         $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as totaloutbound FROM tracks 
                  LEFT JOIN issues ON tracks.issue_id = issues.id 
                  LEFT JOIN tickets ON tracks.ticket_id = tickets.id 
                  WHERE LOWER(issues.name) LIKE  '%outbound%'  
-                 AND tickets.created >='" . $datrange['start'] . "' AND tickets.created <='" . $datrange['end'] . "'";
+                 AND tickets.created >='" . $start . "' AND tickets.created <='" . $end . "'";
 
         $data = $this->Track->query($sql);
         return $data[0][0]['totaloutbound'];
@@ -684,9 +674,8 @@ class ReportsController extends AppController {
     function accountCall($start = null, $end = null) {
         $this->loadModel('Issue');
         $this->loadModel('Track');
-        $datrange = json_decode($this->request->data['Track']['daterange'], true);
-        $datrange['start'] = $datrange['start'] . ' 00:00:00';
-        $datrange['end'] = $datrange['end'] . ' 23:59:59';
+        $start = $start . ' 00:00:00';
+        $end = $end . ' 23:59:59';
 
         $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as totalAccount FROM tracks 
                  LEFT JOIN issues ON tracks.issue_id = issues.id 
@@ -702,7 +691,7 @@ class ReportsController extends AppController {
                  or issues.name = 'Promotional package' 
                  or issues.name = 'Box Expired'  
                  or issues.name = 'MONEY ORDER ONLINE PAYMENT')  
-                 AND tickets.created >='" . $datrange['start'] . "' AND tickets.created <='" . $datrange['end'] . "'";
+                 AND tickets.created >='" . $start . "' AND tickets.created <='" . $end . "'";
 
         $data = $this->Track->query($sql);
         return $data[0][0]['totalAccount'];

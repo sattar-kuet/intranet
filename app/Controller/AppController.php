@@ -20,6 +20,7 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 App::uses('Controller', 'Controller');
+App::uses('ReportsController', 'Controller');
 App::uses('Mylib', 'Lib');
 App::uses('File', 'Utility');
 App::uses('CakeEmail', 'Network/Email');
@@ -69,8 +70,8 @@ class AppController extends Controller {
         }
         $loggedUser = $this->Auth->user();
         $this->set('loggedUser', $loggedUser['name']);
-      //  $this->sendReport();
-      // echo 'works'; exit;
+        //  $this->sendReport();
+        // echo 'works'; exit;
         //   $loggedUserpic = $this->Auth->user();       
         //  $this->set('loggedUserpic', $loggedUser['picture']);
     }
@@ -333,7 +334,7 @@ class AppController extends Controller {
     }
 
     function sendEmail($emailInfo = array()) {
- //pr($emailInfo); exit;
+        //pr($emailInfo); exit;
         $from = $emailInfo['from']; //'info@totalitsolution.com';
         $title = $emailInfo['title']; //'Report';
         $subject = $emailInfo['subject']; // "Reseller Registration";
@@ -375,17 +376,53 @@ class AppController extends Controller {
     }
 
     function sendReport() {
+        $report = new ReportsController();
+        $end = date('Y-m-d');
+        $start = date('Y-m-d', strtotime($end . ' -1 day'));
+        // echo $start.' to '. $end;
         
+        $total['sales_query'] = $report->getTotalSalesQuery($start, $end);
+        // $total[0] = $total['done'] + $total['ready'];
+        // $total['installation'] = $report->getTotalInstallation();
+        $total['hold'] = $report->getTotalHold($start, $end);
+        $total['unhold'] = $report->getTotalUnhold($start, $end);
+        $total['reconnection'] = $report->getTotalReconnection($start, $end);
+        $total['done'] = $report->getTotalDone($start, $end);
+
+//            $total['ready'] = $report->getTotalNewordertaken();
+//            $total['servicecancel'] = $report->getTotalFullServiceCancel();
+//            $total['cancelduebill'] = $report->getTotalCancelDueBill();
+
+        $total['cardinfotaken'] = $report->getTotalCardinfotaken($start, $end);
+        $total['check_send'] = $report->getTotalCallBySatatus('check send', $start, $end);
+        $total['vod'] = $report->getTotalCallBySatatus('vod', $start, $end);
+        $total['interruption'] = $report->getTotalCallBySatatus('service interruption', $start, $end);
+        $total['cancel'] = $report->getTotalCallBySatatus('service cancel', $start, $end);
+        $total['cancel_from_da'] = $report->getTotalCallBySatatus('cancel from dealer & agent', $start, $end);
+        $total['cancel_from_hold'] = $report->getTotalCallBySatatus('cancel from hold', $start, $end);
+        //$total['card_info_taken'] = $report->getTotalCallBySatatus('card info taken');
+        $total['additional_box'] = $report->getTotalCallBySatatus('additional box installation', $start, $end);
+        $total['online_payment'] = $report->getTotalCallBySatatus('MONEY ORDER ONLINE PAYMENT', $start, $end);
+        $report->getTotalCallBySatatus('check send', $start, $end);
+        $total['addsalesreceive'] = $report->addsalesReceive($start, $end);
+        $total['totalSupport'] = $report->supportCall($start, $end);
+        $total['totaloutbound'] = $report->totalOutbound($start, $end);
+
+        $total['totalAccount'] = $report->accountCall($start, $end);
+        $total['inbound'] = $total['totalSupport'] + $total['totalAccount'] + $total['done'] + $total['sales_query'] + $total['reconnection'] + $total['cardinfotaken'] + $total['check_send'] + $total['vod'] + $total['interruption'] + $total['addsalesreceive'] + $total['online_payment'] + $total['cancel'] + $total['cancel_from_da'] + $total['unhold'] + $total['cancel_from_hold'];
+        $total['start'] = $start;
+        $total['end'] = $end;
+       
         $emailInfo = array(
             'from' => 'info@totalitsolution.com',
             'to' => array('sattar.kuet@gmail.com'),
             'title' => 'Report',
             'template' => 'report',
             'subject' => 'Report',
-            'content' => array()
+            'content' => $total
         );
-        $this->sendEmail($emailInfo);
-       
+        $report->sendEmail($emailInfo);
+
         // End send mail 
     }
 
