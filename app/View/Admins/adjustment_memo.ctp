@@ -39,6 +39,7 @@
                             <thead>
                                 <tr>
                                     <th>Customer Detail</th>
+                                    <th>Note</th>
                                     <th>Adjustment Amount</th>
                                     <th>Adjustment Type</th>
                                     <th>Created Date</th>
@@ -65,6 +66,8 @@
                                             <br>
                                             <b>Phone:</b> <?php echo $pc['cell']; ?> &nbsp;&nbsp;&nbsp; <?php echo $pc['home']; ?>
                                         </td>
+                                        
+                                        <td><?php echo $t['note']; ?></td>
 
                                         <td> $<?php echo $t['payable_amount']; ?></td>
                                         <td>
