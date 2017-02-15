@@ -2247,7 +2247,7 @@
                                                                 <b>Cell:</b>  <a href="tel:<?php echo $customer['cell'] ?>"><?php echo $customer['cell']; ?></a> &nbsp;&nbsp;
                                                             <?php endif; ?><br>
                                                             <?php if (!empty($customer['home'])): ?>
-                                                                <b> Phone: </b> <a href="tel:<?php echo $customer['home'] ?>"><?php echo $customer['home']; ?></a>
+                                                                <b> Phone: </b> <a href="tel:<?php echo $customer['home']; ?>"><?php echo $customer['home']; ?></a>
                                                             <?php endif; ?> <br>
                                                             <b> Address: </b> <?php echo $customer_address; ?> 
                                                         </td>
@@ -2331,7 +2331,7 @@
                                             </td>
                                             <td>
                                                 <?php
-                                                echo $amount;
+                                                echo $amount;// + $bill['discount'];
                                                 ?>
                                             </td>
                                             <td>
@@ -2341,6 +2341,7 @@
 
                                             <?php
                                             foreach ($payments as $payment):
+                                                pr($payment['tr']['discount']); //exit;
                                                 $amount = -1 * $payment['tr']['payable_amount'];
                                                 $balance[] = $amount;
                                                 $prevIndex = count($balance) - 2;

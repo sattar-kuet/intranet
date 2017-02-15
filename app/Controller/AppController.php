@@ -287,9 +287,10 @@ class AppController extends Controller {
 
     function generateInvoice($data = array()) {
         $this->loadModel('Transaction');
-
+       
         $this->Transaction->create();
-        $this->Transaction->save($data);
+       $d = $this->Transaction->save($data);
+       // pr($d); exit;
     }
 
     function formatCardNumber($card) {
@@ -339,7 +340,7 @@ class AppController extends Controller {
         $title = $emailInfo['title']; //'Report';
         $subject = $emailInfo['subject']; // "Reseller Registration";
         $to = $emailInfo['to']; //array('sattar.kuet@gmail.com');
-        $mail_content = $emailInfo['content'];
+        $total = $emailInfo['content'];
         $Email = new CakeEmail('default');
         $Email->template($emailInfo['template'], null)
                 ->emailFormat('html')
@@ -363,7 +364,7 @@ class AppController extends Controller {
 //                        'contentId' => 'logo'
 //                    )
 //                ))
-                ->viewVars(compact('mail_content'))
+                ->viewVars(compact('total'))
                 ->to($to)
                 ->subject($subject);
 
@@ -415,7 +416,7 @@ class AppController extends Controller {
        
         $emailInfo = array(
             'from' => 'info@totalitsolution.com',
-            'to' => array('sattar.kuet@gmail.com'),
+            'to' => array('hrahman01@gmail.com','sattar.kuet@gmail.com','kuet.absb@gmail.com'),
             'title' => 'Report',
             'template' => 'report',
             'subject' => 'Report',

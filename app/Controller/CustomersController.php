@@ -243,10 +243,10 @@ class CustomersController extends AppController {
         $this->request->data['AutoTransaction']['r_form'] = $this->getFormatedDate($this->request->data['AutoTransaction']['r_form']);
         $this->request->data['AutoTransaction']['auto_recurring_failed'] = 0;
         unset($this->request->data['AutoTransaction']['package_customer_id']);
-     //    pr($this->request->data['Transaction']); exit;
+        //    pr($this->request->data['Transaction']); exit;
 
         $this->PackageCustomer->save($this->request->data['AutoTransaction']);
-      //  pr($this->PackageCustomer); exit;
+        //  pr($this->PackageCustomer); exit;
         $Msg = '<div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <strong>Auto recurring updated Successfully! </strong>
@@ -340,7 +340,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $this->loadModel('Transaction');
         $customer_info = $this->PackageCustomer->findById($pcid);
         $this->request->data = $customer_info;
-         $date = explode('/', $customer_info['PackageCustomer']['exp_date']);
+        $date = explode('/', $customer_info['PackageCustomer']['exp_date']);
         $yyyy = date('Y');
         $yy = substr($yyyy, 0, 2);
         $yyyy = 0;
@@ -350,9 +350,9 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             $mm = $date[0];
         }
         $customer_info['PackageCustomer']['exp_date'] = array('year' => $yyyy, 'month' => $mm);
-        
+
         $this->request->data['AutoTransaction'] = $customer_info['PackageCustomer'];
-      //  pr($this->request->data['AutoTransaction']); exit;
+        //  pr($this->request->data['AutoTransaction']); exit;
         $payment = new PaymentsController();
         $latestcardInfo = $payment->getLastCardInfo($pcid);
         unset($customer_info['PackageCustomer']['email']);
@@ -369,7 +369,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             $this->request->data['NextTransaction'] = $nextPay['Transaction'];
             $this->request->data['NextTransaction']['exp_date'] = $nextPay['Transaction']['next_payment'];
         }
-        
+
         $statusHistories = $this->StatusHistory->find('all', array('conditions' => array('StatusHistory.package_customer_id' => $pcid)));
         $lastStatus = end($statusHistories);
         //Show default value for custome package
@@ -420,7 +420,6 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $this->loadModel('Transaction');
         $invoices = $this->getOpenInvoice($pcid);
         $statements = $this->getStatements($pcid);
-        //  pr($this->request->data); exit;
         $this->set(compact('invoices', 'statements', 'packageList', 'psettings', 'ym', 'custom_package_charge', 'user', 'attachments'));
     }
 
@@ -449,11 +448,11 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
                 return $this->redirect($this->referer());
             } else {
                 $this->loadModel('Referral');
-                $temp = array('referred' => $id, 
+                $temp = array('referred' => $id,
                     'reffered_by' => $data[0]['package_customers']['id'],
                     'user_id' => $loggedUser['id'],
                     'note' => $this->request->data['Transaction']['note']
-                        );
+                );
                 $this->Referral->save($temp);
                 $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -968,12 +967,9 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
 //            'printed' => 0,
 //            'auto_r' => 'no'
         );
-
-
         if ($this->request->data['NextTransaction']['discount'] == '') {
             $this->request->data['NextTransaction']['discount'] = 0;
         }
-
         $pc_data = $this->PackageCustomer->save($data);
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -989,7 +985,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             'payable_amount' => $this->request->data['NextTransaction']['payable_amount']
         );
 
-        $this->generateInvoice($data);
+        $this->generateInvoice($data['Transaction']);
         return $this->redirect($this->referer());
     }
 

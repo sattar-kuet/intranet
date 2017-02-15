@@ -538,7 +538,7 @@ class PaymentsController extends AppController {
         $sql = "SELECT * FROM transactions"
                 . " LEFT JOIN package_customers ON transactions.package_customer_id = package_customers.id"
                 . " WHERE transactions.auto_recurring = 1 AND package_customers.auto_recurring_failed = 0 "
-                . "AND transactions.next_payment <= '$today' AND transactions.status = 'open' LIMIT 20";
+                . "AND transactions.next_payment <= '$today' AND transactions.status = 'open'";
 
         // $data = $this->Transaction->find('all', array('conditions' => array('auto_recurring' => 1, 'next_payment' => $today)));
         $data = $this->Transaction->query($sql);
