@@ -1179,6 +1179,7 @@
                                             'options' => array(
                                                 'installation' => 'Installation done',
                                                 'active' => 'Active',
+                                                'inactive' => 'Inactive',
                                                 'canceled' => 'Canceled',
                                                 'requested' => 'Requested',
                                                 'done' => 'Done',
@@ -1194,6 +1195,7 @@
                                                 'request to reconnection' => 'Request to reconnection',
                                                 'full service cancel' => 'Full Service Cancel',
                                                 'cancel from due bill' => 'Cancel From Due Bill',
+                                                'complimentary customer' => 'Complimentary customer',
                                                 'request to reconnection' => 'Request to reconnection',
                                                 'post pone' => 'Post pone',
                                                 'done' => 'Done',
