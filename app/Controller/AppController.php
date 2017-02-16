@@ -379,7 +379,10 @@ class AppController extends Controller {
         $report = new ReportsController();
         $end = date('Y-m-d');
         $start = date('Y-m-d', strtotime($end . ' -1 day'));
-        // echo $start.' to '. $end;
+        
+        $tbhead = $start.' to '. $end;
+//        pr($tbhead); exit;
+// echo $start.' to '. $end;
         
         $total['sales_query'] = $report->getTotalSalesQuery($start, $end);
         // $total[0] = $total['done'] + $total['ready'];
@@ -415,7 +418,7 @@ class AppController extends Controller {
        
         $emailInfo = array(
             'from' => 'info@totalitsolution.com',
-            'to' => array('sattar.kuet@gmail.com'),
+            'to' => array('farukmscse@gmail.com'),
             'title' => 'Report',
             'template' => 'report',
             'subject' => 'Report',
