@@ -296,7 +296,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             LEFT JOIN psettings ps ON ps.id = pc.psetting_id			
             LEFT JOIN packages p ON p.id = ps.package_id			
             LEFT JOIN custom_packages cp ON cp.id = pc.custom_package_id			
-            WHERE pc.id = $id AND (tr.status = 'open' OR tr.status ='close')"
+            WHERE pc.id = $id AND (tr.status = 'open' OR tr.status = 'close' OR tr.status = 'approved')"
         );
 
         $return = array();
@@ -420,6 +420,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $this->loadModel('Transaction');
         $invoices = $this->getOpenInvoice($pcid);
         $statements = $this->getStatements($pcid);
+    //   pr($statements); exit;
         $this->set(compact('invoices', 'statements', 'packageList', 'psettings', 'ym', 'custom_package_charge', 'user', 'attachments'));
     }
 
