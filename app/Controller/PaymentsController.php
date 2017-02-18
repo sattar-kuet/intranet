@@ -99,7 +99,7 @@ class PaymentsController extends AppController {
         return $latestcardInfo;
     }
 
-    function getCredit() {
+    function getCredit($customer_id = 0) {
         $this->loadModel('Transaction');
         $sql = "SELECT SUM(payable_amount) as credit FROM transactions WHERE transactions.status = 'approved' AND package_customer_id = $customer_id";
         $temp = $this->Transaction->query($sql);
@@ -121,7 +121,7 @@ class PaymentsController extends AppController {
         $this->request->data['Transaction'] = $latestcardInfo;
         $this->request->data['Transaction']['id'] = $trans_id;
         $paid = getPaid($trans_id);
-        $credit = $this->getCredit();
+        $credit = $this->getCredit($customer_id);
         //pr($temp[0][0]['credit']); exit;
         $data = $this->Transaction->findById($trans_id);
         $latestcardInfo['card_no'] = $this->formatCardNumber($latestcardInfo['card_no']);
@@ -150,12 +150,12 @@ class PaymentsController extends AppController {
         // Common setup for API credentials  
         $loggedUser = $this->Auth->user();
         $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
-        // $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
-        $merchantAuthentication->setName("7zKH4b45"); //42UHbr9Qa9B live mode
-        // $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
-        $merchantAuthentication->setTransactionKey("738QpWvHH4vS59vY"); // live mode 7UBSq68ncs65p8QX
+        $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
+        //  $merchantAuthentication->setName("7zKH4b45"); //42UHbr9Qa9B live mode
+        $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
+        // $merchantAuthentication->setTransactionKey("738QpWvHH4vS59vY"); // live mode 7UBSq68ncs65p8QX
         $refId = 'ref' . time();
-// Create the payment data for a credit card
+        // Create the payment data for a credit card
         $creditCard = new AnetAPI\CreditCardType();
         $msg = '<ul>';
         //$this->request->data['Transaction']['id'] = $cid;
@@ -205,17 +205,18 @@ class PaymentsController extends AppController {
         $request->setRefId($refId);
         $request->setTransactionRequest($transactionRequestType);
         $controller = new AnetController\CreateTransactionController($request);
-        //  $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
-        $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
+        $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
+        // $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
         $this->request->data['Transaction']['error_msg'] = '';
         $this->request->data['Transaction']['status'] = '';
         $this->request->data['Transaction']['trx_id'] = '';
         $this->request->data['Transaction']['auth_code'] = '';
         $amount = $this->request->data['Transaction']['payable_amount'];
         $alert = '<div class="alert alert-success"> ';
-
         if ($response != null) {
+            // pr($this->request->data); exit;
             $tresponse = $response->getTransactionResponse();
+            //  pr($response); exit;
             if (($tresponse != null) && ($tresponse->getResponseCode() == "1")) {
                 $this->request->data['Transaction']['trx_id'] = $tresponse->getTransId();
                 $this->request->data['Transaction']['auth_code'] = $tresponse->getAuthCode();
@@ -231,14 +232,28 @@ class PaymentsController extends AppController {
                 $status = 'close';
                 // check due amount 
                 $due = $this->getDue($id);
-                if ($due > 0) {
+                $credit = $this->getCredit($this->request->data['Transaction']['package_customer_id']);
+                // made credit as paid 
+                $sql = "SELECT * FROM transactions WHERE status = 'approved' AND package_customer_id = " . $this->request->data['Transaction']['package_customer_id'];
+                $temp = $this->Transaction->query($sql);
+                foreach ($temp as $t) {
+                    $this->Transaction->create();
+                    $this->Transaction->id = $t['transactions']['id'];
+                    $data = array('transaction_id' => $id, 'status' => 'paid');
+                    $this->Transaction->save($data);
+                }
+                // pr($temp);
+                $due = $this->getDue($id);
+                $credit = $this->getCredit($this->request->data['Transaction']['package_customer_id']);
+                $totalDue = $due + $credit;
+                if ($totalDue > 0) {
                     $status = 'open';
                 }
                 unset($this->request->data['Transaction']['payable_amount']);
                 $this->Transaction->id = $id;
                 $this->Transaction->saveField("status", $status);
 
-                $msg .='<li> Transaction successfull</li>';
+                $msg .='<li> Transaction Successfull</li>';
                 $tdata['Ticket'] = array('content' => "Transaction successfull <br> <b>Amount : </b>$amount <br> <b> payment Mode: </b> Card");
                 $tickect = $this->Ticket->save($tdata); // Data save in Ticket
                 $trackData['Track'] = array(
@@ -721,8 +736,8 @@ class PaymentsController extends AppController {
         $payable = $data1['Transaction']['payable_amount'];
         $paid = $data2[0][0]['paid'];
         $paid = round($paid, 2);
-        $credit = $this->getCredit();
-        return $payable - $paid -$credit;
+
+        return $payable - $paid;
     }
 
     public function individual_transaction_by_check() {
@@ -748,10 +763,21 @@ class PaymentsController extends AppController {
         unset($this->request->data['Transaction']['transaction_id']);
 
         $this->request->data['Transaction']['status'] = 'close';
-        // check due amount 
+        // made credit as paid 
+        $sql = "SELECT * FROM transactions WHERE status = 'approved' AND package_customer_id = " . $this->request->data['Transaction']['package_customer_id'];
+        $temp = $this->Transaction->query($sql);
+        foreach ($temp as $t) {
+            $this->Transaction->create();
+            $this->Transaction->id = $t['transactions']['id'];
+            $data = array('transaction_id' => $id, 'status' => 'paid');
+            $this->Transaction->save($data);
+        }
+        // pr($temp);
         $due = $this->getDue($id);
-        if ($due > 0) {
-            $this->request->data['Transaction']['status'] = 'open';
+        $credit = $this->getCredit($this->request->data['Transaction']['package_customer_id']);
+        $totalDue = $due + $credit;
+        if ($totalDue > 0) {
+            $status = 'open';
         }
         $amount = $this->request->data['Transaction']['payable_amount'];
         unset($this->request->data['Transaction']['payable_amount']);
@@ -803,10 +829,21 @@ class PaymentsController extends AppController {
         unset($this->request->data['Transaction']['transaction_id']);
 
         $this->request->data['Transaction']['status'] = 'close';
-        // check due amount 
+        // made credit as paid 
+        $sql = "SELECT * FROM transactions WHERE status = 'approved' AND package_customer_id = " . $this->request->data['Transaction']['package_customer_id'];
+        $temp = $this->Transaction->query($sql);
+        foreach ($temp as $t) {
+            $this->Transaction->create();
+            $this->Transaction->id = $t['transactions']['id'];
+            $data = array('transaction_id' => $id, 'status' => 'paid');
+            $this->Transaction->save($data);
+        }
+        // pr($temp);
         $due = $this->getDue($id);
-        if ($due > 0) {
-            $this->request->data['Transaction']['status'] = 'open';
+        $credit = $this->getCredit($this->request->data['Transaction']['package_customer_id']);
+        $totalDue = $due + $credit;
+        if ($totalDue > 0) {
+            $status = 'open';
         }
         $amount = $this->request->data['Transaction']['payable_amount'];
         unset($this->request->data['Transaction']['payable_amount']);
@@ -857,10 +894,21 @@ class PaymentsController extends AppController {
         unset($this->request->data['Transaction']['transaction_id']);
 
         $this->request->data['Transaction']['status'] = 'close';
-        // check due amount 
+        // made credit as paid 
+        $sql = "SELECT * FROM transactions WHERE status = 'approved' AND package_customer_id = " . $this->request->data['Transaction']['package_customer_id'];
+        $temp = $this->Transaction->query($sql);
+        foreach ($temp as $t) {
+            $this->Transaction->create();
+            $this->Transaction->id = $t['transactions']['id'];
+            $data = array('transaction_id' => $id, 'status' => 'paid');
+            $this->Transaction->save($data);
+        }
+        // pr($temp);
         $due = $this->getDue($id);
-        if ($due > 0) {
-            $this->request->data['Transaction']['status'] = 'open';
+        $credit = $this->getCredit($this->request->data['Transaction']['package_customer_id']);
+        $totalDue = $due + $credit;
+        if ($totalDue > 0) {
+            $status = 'open';
         }
         $amount = $this->request->data['Transaction']['payable_amount'];
         unset($this->request->data['Transaction']['payable_amount']);
@@ -908,10 +956,21 @@ class PaymentsController extends AppController {
 
 
         $this->request->data['Transaction']['status'] = 'close';
-        // check due amount 
+        // made credit as paid 
+        $sql = "SELECT * FROM transactions WHERE status = 'approved' AND package_customer_id = " . $this->request->data['Transaction']['package_customer_id'];
+        $temp = $this->Transaction->query($sql);
+        foreach ($temp as $t) {
+            $this->Transaction->create();
+            $this->Transaction->id = $t['transactions']['id'];
+            $data = array('transaction_id' => $id, 'status' => 'paid');
+            $this->Transaction->save($data);
+        }
+        // pr($temp);
         $due = $this->getDue($id);
-        if ($due > 0) {
-            $this->request->data['Transaction']['status'] = 'open';
+        $credit = $this->getCredit($this->request->data['Transaction']['package_customer_id']);
+        $totalDue = $due + $credit;
+        if ($totalDue > 0) {
+            $status = 'open';
         }
         $amount = $this->request->data['Transaction']['payable_amount'];
         unset($this->request->data['Transaction']['payable_amount']);
