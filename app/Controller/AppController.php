@@ -335,12 +335,13 @@ class AppController extends Controller {
     }
 
     function sendEmail($emailInfo = array()) {
-        //pr($emailInfo); exit;
         $from = $emailInfo['from']; //'info@totalitsolution.com';
         $title = $emailInfo['title']; //'Report';
         $subject = $emailInfo['subject']; // "Reseller Registration";
         $to = $emailInfo['to']; //array('sattar.kuet@gmail.com');
         $total = $emailInfo['content'];
+        $date = $emailInfo['date'];
+//        pr($tb); exit;
         $Email = new CakeEmail('default');
         $Email->template($emailInfo['template'], null)
                 ->emailFormat('html')
@@ -364,7 +365,7 @@ class AppController extends Controller {
 //                        'contentId' => 'logo'
 //                    )
 //                ))
-                ->viewVars(compact('total'))
+                ->viewVars(compact('total','date'))
                 ->to($to)
                 ->subject($subject);
 
@@ -380,7 +381,10 @@ class AppController extends Controller {
         $report = new ReportsController();
         $end = date('Y-m-d');
         $start = date('Y-m-d', strtotime($end . ' -1 day'));
-        // echo $start.' to '. $end;
+        
+        $tbhead = $start.' To '. $end;
+//        pr($tbhead); exit;
+// echo $start.' to '. $end;
         
         $total['sales_query'] = $report->getTotalSalesQuery($start, $end);
         // $total[0] = $total['done'] + $total['ready'];
@@ -416,11 +420,14 @@ class AppController extends Controller {
        
         $emailInfo = array(
             'from' => 'info@totalitsolution.com',
-            'to' => array('hrahman01@gmail.com','sattar.kuet@gmail.com','kuet.absb@gmail.com'),
+
+            'to' => array('hrahman01@gmail.com','sattar.kuet@gmail.com','farukmscse@gmail.com'),
+
             'title' => 'Report',
             'template' => 'report',
             'subject' => 'Report',
-            'content' => $total
+            'content' => $total,
+            'date' => $tbhead
         );
         $report->sendEmail($emailInfo);
 

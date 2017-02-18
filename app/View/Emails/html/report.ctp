@@ -115,9 +115,11 @@
     <body paddingwidth="0" paddingheight="0"   style="padding-top: 0; padding-bottom: 0; padding-top: 0; padding-bottom: 0; background-repeat: repeat; width: 100% !important; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; -webkit-font-smoothing: antialiased;" offset="0" toppadding="0" leftpadding="0">
         <div style="background-color:#dfdfdf;padding:0;margin:0 auto;width:100%">
             <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableContent bgBody" align="center"  style="font-family:Helvetica,Arial,sans-serif;border-collapse:collapse;width:100%!important;font-family:Helvetica,Arial,sans-serif;margin:0;padding:0">
-                <tr><td height='35'></td></tr>
                 <tr>
-                    <td>
+                    <td colspan="5" class="center" style="font: 21px bold !important; color: green !important; text-align: center !important; "> <?php echo $date; ?> </td>
+                </tr>
+                <tr>
+                    
                         <table class="table table-striped" style="color: #000; font-weight: bolder; border: 1px solid black !important;">
                             <tr style="border: 1px solid black !important;">
                                 <td style="text-align: center; background:  darkgray !important; "> 
