@@ -1615,10 +1615,13 @@
                                                     &nbsp;&nbsp;
                                                     <a href="#invoice-pop-up<?php echo $info['transactions']['id']; ?>" class="btn btn-default fancybox-fast-view"> <span class="fa fa-file"></span>
                                                     </a>
-                                                    
-                                                   &nbsp;
-                                                     <a 
-                                                        onclick="if (confirm(&quot; Are you sure to Void this Transaction?&quot; )) { return true; } return false;"
+
+                                                    &nbsp;
+                                                    <a 
+                                                        onclick="if (confirm( & quot; Are you sure to Void this Transaction? & quot; )) {
+                                                                    return true;
+                                                                }
+                                                                return false;"
 
                                                         href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'void', $info['transactions']['id'])) ?>" title="Void">
                                                         <span class="fa  fa-ban"></span>
@@ -2249,7 +2252,7 @@
                                                                 <b>Cell:</b>  <a href="tel:<?php echo $customer['cell'] ?>"><?php echo $customer['cell']; ?></a> &nbsp;&nbsp;
                                                             <?php endif; ?><br>
                                                             <?php if (!empty($customer['home'])): ?>
-                                                                <b> Phone: </b> <a href="tel:<?php echo $customer['home'] ?>"><?php echo $customer['home']; ?></a>
+                                                                <b> Phone: </b> <a href="tel:<?php echo $customer['home']; ?>"><?php echo $customer['home']; ?></a>
                                                             <?php endif; ?> <br>
                                                             <b> Address: </b> <?php echo $customer_address; ?> 
                                                         </td>
@@ -2300,6 +2303,9 @@
                                                 $payments = $single['payment'];
 
                                                 $amount = $bill['payable_amount'];
+                                                if($bill['status'] == 'approved'){
+                                                    $amount = (-1)*$bill['payable_amount'];
+                                                }
                                                 $balance[] = $amount;
                                                 // $prevIndex = -1;
                                                 $payment_date = $bill['next_payment'];
@@ -2333,7 +2339,7 @@
                                             </td>
                                             <td>
                                                 <?php
-                                                echo $amount;
+                                                echo $amount; // + $bill['discount'];
                                                 ?>
                                             </td>
                                             <td>
@@ -2343,6 +2349,7 @@
 
                                             <?php
                                             foreach ($payments as $payment):
+                                              //  pr($payment['tr']['discount']); //exit;
                                                 $amount = -1 * $payment['tr']['payable_amount'];
                                                 $balance[] = $amount;
                                                 $prevIndex = count($balance) - 2;
@@ -2724,7 +2731,7 @@
                                                                         </th>
                                                                         <tr>
                                                                             <td style="padding-left: 5px; min-height: 115px; line-height: 15px;">
-                                                                                <?php // if (!empty($single['0']['name'])):               ?>
+                                                                                <?php // if (!empty($single['0']['name'])):                ?>
 
                                                                                 <?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?>
 

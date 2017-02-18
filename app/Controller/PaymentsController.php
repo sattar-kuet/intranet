@@ -99,6 +99,13 @@ class PaymentsController extends AppController {
         return $latestcardInfo;
     }
 
+    function getCredit() {
+        $this->loadModel('Transaction');
+        $sql = "SELECT SUM(payable_amount) as credit FROM transactions WHERE transactions.status = 'approved' AND package_customer_id = $customer_id";
+        $temp = $this->Transaction->query($sql);
+        return $temp[0][0]['credit'];
+    }
+
     public function process($trans_id = null, $customer_id = null) {
         $ym = $this->getYm();
         $this->set(compact('ym'));
@@ -114,17 +121,17 @@ class PaymentsController extends AppController {
         $this->request->data['Transaction'] = $latestcardInfo;
         $this->request->data['Transaction']['id'] = $trans_id;
         $paid = getPaid($trans_id);
+        $credit = $this->getCredit();
+        //pr($temp[0][0]['credit']); exit;
         $data = $this->Transaction->findById($trans_id);
         $latestcardInfo['card_no'] = $this->formatCardNumber($latestcardInfo['card_no']);
         $this->request->data['Transaction'] = $latestcardInfo;
-
         $this->request->data['Transaction']['id'] = $data['Transaction']['id'];
-        $this->request->data['Transaction']['payable_amount'] = $data['Transaction']['payable_amount'] - $paid;
+        $this->request->data['Transaction']['payable_amount'] = $data['Transaction']['payable_amount'] - $paid - $credit;
         $this->set('customer_info');
     }
 
     public function individual_transaction_by_card() {
-
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
         $this->loadModel('Track');
@@ -143,10 +150,10 @@ class PaymentsController extends AppController {
         // Common setup for API credentials  
         $loggedUser = $this->Auth->user();
         $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
-       // $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
-         $merchantAuthentication->setName("7zKH4b45"); //42UHbr9Qa9B live mode
-       // $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
-          $merchantAuthentication->setTransactionKey("738QpWvHH4vS59vY"); // live mode 7UBSq68ncs65p8QX
+        // $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
+        $merchantAuthentication->setName("7zKH4b45"); //42UHbr9Qa9B live mode
+        // $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
+        $merchantAuthentication->setTransactionKey("738QpWvHH4vS59vY"); // live mode 7UBSq68ncs65p8QX
         $refId = 'ref' . time();
 // Create the payment data for a credit card
         $creditCard = new AnetAPI\CreditCardType();
@@ -198,8 +205,8 @@ class PaymentsController extends AppController {
         $request->setRefId($refId);
         $request->setTransactionRequest($transactionRequestType);
         $controller = new AnetController\CreateTransactionController($request);
-      //  $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
-          $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
+        //  $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
+        $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
         $this->request->data['Transaction']['error_msg'] = '';
         $this->request->data['Transaction']['status'] = '';
         $this->request->data['Transaction']['trx_id'] = '';
@@ -329,8 +336,8 @@ class PaymentsController extends AppController {
         $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
         //$merchantAuthentication->setName("95x9PuD6b2"); // testing mode
         $merchantAuthentication->setName("7zKH4b45"); //42UHbr9Qa9B live mode
-       // $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
-          $merchantAuthentication->setTransactionKey("738QpWvHH4vS59vY"); // live mode 7UBSq68ncs65p8QX
+        // $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
+        $merchantAuthentication->setTransactionKey("738QpWvHH4vS59vY"); // live mode 7UBSq68ncs65p8QX
         $refId = 'ref' . time();
 // Create the payment data for a credit card
         $creditCard = new AnetAPI\CreditCardType();
@@ -370,8 +377,8 @@ class PaymentsController extends AppController {
         $request->setRefId($refId);
         $request->setTransactionRequest($transactionRequestType);
         $controller = new AnetController\CreateTransactionController($request);
-       // $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
-         $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
+        // $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
+        $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
         $transaction = array();
         $transaction['error_msg'] = '';
         $transaction['status'] = '';
@@ -493,11 +500,11 @@ class PaymentsController extends AppController {
     function auto_recurring_invoice() {
         $this->loadModel('PackageCustomer');
         $this->loadModel('AutoRecurring');
-       // $sql = 'SELECT * FROM package_customers WHERE  LOWER(package_customers.auto_r) ="yes" AND package_customers.invoice_created = 0';
+        // $sql = 'SELECT * FROM package_customers WHERE  LOWER(package_customers.auto_r) ="yes" AND package_customers.invoice_created = 0';
         //$pcs = $this->PackageCustomer->query($sql);
         $pcs = $this->PackageCustomer->find('all', array('conditions' => array('PackageCustomer.auto_r' => 'yes', 'PackageCustomer.invoice_created' => 0)));
-       // echo $this->PackageCustomer->getLastQuery();
-      //  pr($pcs); exit;
+        // echo $this->PackageCustomer->getLastQuery();
+        //  pr($pcs); exit;
         $success = 0;
         $failure = 0;
         foreach ($pcs as $single) {
@@ -538,7 +545,7 @@ class PaymentsController extends AppController {
         $sql = "SELECT * FROM transactions"
                 . " LEFT JOIN package_customers ON transactions.package_customer_id = package_customers.id"
                 . " WHERE transactions.auto_recurring = 1 AND package_customers.auto_recurring_failed = 0 "
-                . "AND transactions.next_payment <= '$today' AND transactions.status = 'open' LIMIT 20";
+                . "AND transactions.next_payment <= '$today' AND transactions.status = 'open'";
 
         // $data = $this->Transaction->find('all', array('conditions' => array('auto_recurring' => 1, 'next_payment' => $today)));
         $data = $this->Transaction->query($sql);
@@ -706,7 +713,6 @@ class PaymentsController extends AppController {
     }
 
     function getDue($id = null) {
-
         $this->loadModel('Transaction');
         $data1 = $this->Transaction->findById($id);
         $sql = "SELECT SUM(payable_amount) as paid FROM transactions WHERE transaction_id =" . $id;
@@ -715,7 +721,8 @@ class PaymentsController extends AppController {
         $payable = $data1['Transaction']['payable_amount'];
         $paid = $data2[0][0]['paid'];
         $paid = round($paid, 2);
-        return $payable - $paid;
+        $credit = $this->getCredit();
+        return $payable - $paid -$credit;
     }
 
     public function individual_transaction_by_check() {

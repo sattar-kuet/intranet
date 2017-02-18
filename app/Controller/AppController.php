@@ -287,9 +287,10 @@ class AppController extends Controller {
 
     function generateInvoice($data = array()) {
         $this->loadModel('Transaction');
-
+       
         $this->Transaction->create();
-        $this->Transaction->save($data);
+       $d = $this->Transaction->save($data);
+       // pr($d); exit;
     }
 
     function formatCardNumber($card) {
@@ -334,12 +335,13 @@ class AppController extends Controller {
     }
 
     function sendEmail($emailInfo = array()) {
-        //pr($emailInfo); exit;
         $from = $emailInfo['from']; //'info@totalitsolution.com';
         $title = $emailInfo['title']; //'Report';
         $subject = $emailInfo['subject']; // "Reseller Registration";
         $to = $emailInfo['to']; //array('sattar.kuet@gmail.com');
-        $mail_content = $emailInfo['content'];
+        $total = $emailInfo['content'];
+        $date = $emailInfo['date'];
+//        pr($tb); exit;
         $Email = new CakeEmail('default');
         $Email->template($emailInfo['template'], null)
                 ->emailFormat('html')
@@ -363,7 +365,7 @@ class AppController extends Controller {
 //                        'contentId' => 'logo'
 //                    )
 //                ))
-                ->viewVars(compact('mail_content'))
+                ->viewVars(compact('total','date'))
                 ->to($to)
                 ->subject($subject);
 
@@ -380,7 +382,7 @@ class AppController extends Controller {
         $end = date('Y-m-d');
         $start = date('Y-m-d', strtotime($end . ' -1 day'));
         
-        $tbhead = $start.' to '. $end;
+        $tbhead = $start.' To '. $end;
 //        pr($tbhead); exit;
 // echo $start.' to '. $end;
         
@@ -418,11 +420,14 @@ class AppController extends Controller {
        
         $emailInfo = array(
             'from' => 'info@totalitsolution.com',
-            'to' => array('farukmscse@gmail.com'),
+
+            'to' => array('hrahman01@gmail.com','sattar.kuet@gmail.com','farukmscse@gmail.com'),
+
             'title' => 'Report',
             'template' => 'report',
             'subject' => 'Report',
-            'content' => $total
+            'content' => $total,
+            'date' => $tbhead
         );
         $report->sendEmail($emailInfo);
 
