@@ -42,7 +42,7 @@ class ReportsController extends AppController {
             $start = $datrange['start'];
             $end = $datrange['end'];
             $conditions = 'status_histories.status = "canceled" AND status_histories.date >="' . $start . '" AND status_histories.date <="' . $end . '"';
-            
+
             $sql = "SELECT * FROM status_histories  
             LEFT JOIN package_customers  ON package_customers.id = status_histories.package_customer_id 
             left join transactions  on package_customers.id = transactions.package_customer_id    
@@ -415,11 +415,12 @@ class ReportsController extends AppController {
         $this->set(compact('clicked'));
     }
 
-    function call_log() {
+    function call_log($page = 1) {
         $this->loadModel('Issue');
         $this->loadModel('Track');
         $this->loadModel('User');
         $this->loadModel('Role');
+        $offset = --$page * $this->per_page;
         $clicked = false;
         if ($this->request->is('post') || $this->request->is('put')) {
             $issue = $this->request->data['Track']['issue_id'];
@@ -442,9 +443,9 @@ class ReportsController extends AppController {
             if (count($datrange)) {
                 if ($datrange['start'] == $datrange['end']) {
                     $nextday = date('Y-m-d', strtotime($datrange['end'] . "+1 days"));
-                    $conditions .=" t.created >=' " . $datrange['start'] . "' AND  t.created < '" . $nextday . "' AND ";
+                    $conditions .=" CAST(t.created as DATE) >=' " . $datrange['start'] . "' AND  CAST(t.created as DATE) < '" . $nextday . "' AND ";
                 } else {
-                    $conditions .=" t.created >='" . $datrange['start'] . "' AND  t.created <='" . $datrange['end'] . "' AND ";
+                    $conditions .=" CAST(t.created as DATE) >='" . $datrange['start'] . "' AND  CAST(t.created as DATE) <='" . $datrange['end'] . "' AND ";
                 }
             }
             if (!empty($status)) {
@@ -454,6 +455,8 @@ class ReportsController extends AppController {
             $conditions = str_replace("AND###", "", $conditions);
             $conditions = str_replace("AND ###", "", $conditions);
             $conditions = str_replace("###", "", $conditions);
+
+
             $sql = "SELECT * FROM tracks tr
                         left JOIN tickets t ON tr.ticket_id = t.id
                         left JOIN users fb ON tr.forwarded_by = fb.id
@@ -461,9 +464,16 @@ class ReportsController extends AppController {
                         left JOIN users fi ON tr.user_id = fi.id
                         left JOIN issues i ON tr.issue_id = i.id
                         left join package_customers pc on tr.package_customer_id = pc.id
-                         WHERE $conditions order by pc.id desc limit 0,200";
+                         WHERE $conditions order by pc.id desc" . " LIMIT " . $offset . "," . $this->per_page;
+            // echo $sql.'<hr>'; 
+            $sql = str_replace("WHERE  order", "order", $sql);
 
+            // echo $sql; exit;
             $tickets = $this->Track->query($sql);
+
+            $temp = $this->Track->query("SELECT COUNT(tickets.id) as total FROM `tickets`");
+            $total = $temp[0][0]['total'];
+            $total_page = ceil($total / $this->per_page);
 
             $filteredTicket = array();
             $unique = array();
@@ -485,7 +495,7 @@ class ReportsController extends AppController {
             }
 
             $clicked = true;
-            $this->set(compact('filteredTicket'));
+            $this->set(compact('filteredTicket', 'total_page', 'total'));
         }
 
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
@@ -493,6 +503,7 @@ class ReportsController extends AppController {
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
         $this->set(compact('clicked', 'data', 'users', 'issues', 'roles'));
     }
+
     function criteria() {
         $this->loadModel('Issue');
         $this->loadModel('Track');
@@ -500,12 +511,12 @@ class ReportsController extends AppController {
         $this->loadModel('Role');
         $clicked = false;
         if ($this->request->is('post') || $this->request->is('put')) {
-                       
+
 
             $clicked = true;
             $this->set(compact(''));
         }
-       
+
         $this->set(compact('clicked'));
     }
 
@@ -544,14 +555,14 @@ class ReportsController extends AppController {
 
     function getTotalDone($start = null, $end = null) {
         $this->loadModel('StatusHistory');
-       
+
         $done = $this->StatusHistory->query("SELECT count(status) as done FROM status_histories WHERE date >= '" . $start . "' AND date <='" . $end . "' and status = 'sales done'");
         return $done[0][0]['done'];
     }
 
     function getTotalReconnection($start = null, $end = null) {
         $this->loadModel('StatusHistory');
-      
+
         $reconnection = $this->StatusHistory->query("SELECT count(status) as reconnection FROM status_histories WHERE date >= '" . $start . "' AND status_histories.date <='" . $end . "' and status = 'reconnection'");
         return $reconnection[0][0]['reconnection'];
     }
@@ -594,7 +605,7 @@ class ReportsController extends AppController {
 
     function getTotalCallBySatatus($status = null, $start = null, $end = null) {
         $this->loadModel('Track');
-      
+
         $start = $start . ' 00:00:00';
         $end = $end . ' 23:59:59';
         $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as total FROM tracks " .
@@ -614,7 +625,7 @@ class ReportsController extends AppController {
     function supportCall($start = null, $end = null) {
         $this->loadModel('Issue');
         $this->loadModel('Track');
-        $this->loadModel('StatusHistory');     
+        $this->loadModel('StatusHistory');
 
         $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as totalSupport FROM tracks        
         LEFT JOIN tickets ON tracks.ticket_id = tickets.id 
@@ -633,7 +644,7 @@ class ReportsController extends AppController {
     function addsalesReceive($start = null, $end = null) { //ADDITIONAL SALES RECEIVE
         $this->loadModel('Issue');
         $this->loadModel('Track');
-       
+
         $start = $start . ' 00:00:00';
         $end = $end . ' 23:59:59';
 
@@ -656,7 +667,7 @@ class ReportsController extends AppController {
     function totalOutbound($start = null, $end = null) { //Total out bound call
         $this->loadModel('Issue');
         $this->loadModel('Track');
-        
+
         $start = $start . ' 00:00:00';
         $end = $end . ' 23:59:59';
 
@@ -705,36 +716,36 @@ class ReportsController extends AppController {
             $datrange = json_decode($this->request->data['Track']['daterange'], true);
             $start = $datrange['start'];
             $end = $datrange['end'];
-            $total['sales_query'] = $this->getTotalSalesQuery($start,$end);
-            
+            $total['sales_query'] = $this->getTotalSalesQuery($start, $end);
+
             // $total[0] = $total['done'] + $total['ready'];
             // $total['installation'] = $this->getTotalInstallation();
-            
-            $total['hold'] = $this->getTotalHold($start,$end);
-            $total['unhold'] = $this->getTotalUnhold($start,$end);
-            $total['reconnection'] = $this->getTotalReconnection($start,$end);
-            $total['done'] = $this->getTotalDone($start,$end);
-            
+
+            $total['hold'] = $this->getTotalHold($start, $end);
+            $total['unhold'] = $this->getTotalUnhold($start, $end);
+            $total['reconnection'] = $this->getTotalReconnection($start, $end);
+            $total['done'] = $this->getTotalDone($start, $end);
+
 //            $total['ready'] = $this->getTotalNewordertaken();
 //            $total['servicecancel'] = $this->getTotalFullServiceCancel();
 //            $total['cancelduebill'] = $this->getTotalCancelDueBill();
-            
-            $total['cardinfotaken'] = $this->getTotalCardinfotaken($start,$end);
-            $total['check_send'] = $this->getTotalCallBySatatus('check send',$start,$end);
-            $total['vod'] = $this->getTotalCallBySatatus('vod',$start,$end);
-            $total['interruption'] = $this->getTotalCallBySatatus('service interruption',$start,$end);
-            $total['cancel'] = $this->getTotalCallBySatatus('service cancel',$start,$end);
-            $total['cancel_from_da'] = $this->getTotalCallBySatatus('cancel from dealer & agent',$start,$end);
-            $total['cancel_from_hold'] = $this->getTotalCallBySatatus('cancel from hold',$start,$end);
-            //$total['card_info_taken'] = $this->getTotalCallBySatatus('card info taken');
-            $total['additional_box'] = $this->getTotalCallBySatatus('additional box installation',$start,$end);
-            $total['online_payment'] = $this->getTotalCallBySatatus('MONEY ORDER ONLINE PAYMENT',$start,$end);
-            $this->getTotalCallBySatatus('check send',$start,$end);
-            $total['addsalesreceive'] = $this->addsalesReceive($start,$end);
-            $total['totalSupport'] = $this->supportCall($start,$end);
-            $total['totaloutbound'] = $this->totalOutbound($start,$end);
 
-            $total['totalAccount'] = $this->accountCall($start,$end);
+            $total['cardinfotaken'] = $this->getTotalCardinfotaken($start, $end);
+            $total['check_send'] = $this->getTotalCallBySatatus('check send', $start, $end);
+            $total['vod'] = $this->getTotalCallBySatatus('vod', $start, $end);
+            $total['interruption'] = $this->getTotalCallBySatatus('service interruption', $start, $end);
+            $total['cancel'] = $this->getTotalCallBySatatus('service cancel', $start, $end);
+            $total['cancel_from_da'] = $this->getTotalCallBySatatus('cancel from dealer & agent', $start, $end);
+            $total['cancel_from_hold'] = $this->getTotalCallBySatatus('cancel from hold', $start, $end);
+            //$total['card_info_taken'] = $this->getTotalCallBySatatus('card info taken');
+            $total['additional_box'] = $this->getTotalCallBySatatus('additional box installation', $start, $end);
+            $total['online_payment'] = $this->getTotalCallBySatatus('MONEY ORDER ONLINE PAYMENT', $start, $end);
+            $this->getTotalCallBySatatus('check send', $start, $end);
+            $total['addsalesreceive'] = $this->addsalesReceive($start, $end);
+            $total['totalSupport'] = $this->supportCall($start, $end);
+            $total['totaloutbound'] = $this->totalOutbound($start, $end);
+
+            $total['totalAccount'] = $this->accountCall($start, $end);
             $total['inbound'] = $total['totalSupport'] + $total['totalAccount'] + $total['done'] + $total['sales_query'] + $total['reconnection'] + $total['cardinfotaken'] + $total['check_send'] + $total['vod'] + $total['interruption'] + $total['addsalesreceive'] + $total['online_payment'] + $total['cancel'] + $total['cancel_from_da'] + $total['unhold'] + $total['cancel_from_hold'];
 
             $clicked = true;
@@ -1112,7 +1123,7 @@ class ReportsController extends AppController {
         $unhold['portal1'] = $this->customerFilter('unhold', 'portal1');
 
         $unhold['portal'] = $total['portal'] - $active['portal1'];
-        
+
 
 
         //Total        

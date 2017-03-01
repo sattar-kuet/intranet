@@ -420,7 +420,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $this->loadModel('Transaction');
         $invoices = $this->getOpenInvoice($pcid);
         $statements = $this->getStatements($pcid);
-    //   pr($statements); exit;
+     //   pr($statements); exit;
         $this->set(compact('invoices', 'statements', 'packageList', 'psettings', 'ym', 'custom_package_charge', 'user', 'attachments'));
     }
 
@@ -462,7 +462,6 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
                 return $this->redirect($this->referer());
             }
         }
-
         $this->Transaction->save($this->request->data['Transaction']);
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>

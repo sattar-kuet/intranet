@@ -1327,24 +1327,34 @@
                                         &nbsp;  Repeat at Every
                                     </div>
                                     <div class="col-md-2">
-
-                                        <div>
+                                        <div> 
                                             <?php
-                                            echo $this->Form->input(
-                                                    'r_duration', array(
-                                                'class' => 'form-control required',
-                                                'type' => 'text'
-                                                    )
+                                            echo $this->Form->input('r_duration', array(
+                                                'type' => 'select',
+                                                'empty' => 'Select Month',
+                                                'options' => array(
+                                                    '1' => '1',
+                                                    '2' => '2',
+                                                    '3' => '3',
+                                                    '4' => '4',
+                                                    '5' => '5',
+                                                    '6' => '6',
+                                                    '7' => '7',
+                                                    '8' => '8',
+                                                    '9' => '9',
+                                                    '10' => '10',
+                                                    '11' => '11',
+                                                    '12' => '12'
+                                                ),
+                                                'class' => 'form-control required')
                                             );
                                             ?>
-                                        </div>  
-
+                                        </div> 
                                         <span class="pull-right"> Month(s)</span>
-
                                     </div>                                    
 
                                     <div class="col-md-2 signupfont">
-                                        Payment Date
+                                        Date of Month
                                     </div>
                                     <div class="col-md-2">
                                         <div>
@@ -2110,12 +2120,11 @@
                         </div>
 
                         <div class="tools">
-                            <a  class="reload toggle"data-id="attachment">
-                            </a>
+                            <a  class="reload toggle"data-id="previousinvoiceattachment">   </a>
                         </div>
                     </div>
                     <div class="portlet-body">
-                        <div class="row" id="attachment" style="display: none;"> 
+                        <div class="row" id="previousinvoiceattachment" style="display: none;"> 
                             <div class="col-md-6">
                                 <?php
                                 echo $this->Form->create('Attachment', array(

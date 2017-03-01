@@ -131,7 +131,7 @@
                                     <tbody>                                    
                                         <?php
                                         foreach ($transactions as $info):
-//                                            pr($info); exit; 
+//                                            pr($info['tr']['id']); exit; 
                                             $pc = $info['pc'];
                                             $customer_address = $pc['house_no'] . ' ' . $pc['street'] . ' ' .
                                                     $pc['apartment'] . ' ' . $pc['city'] . ' ' . $pc['state'] . ' '
@@ -159,9 +159,8 @@
                                                     $<?php
                                                     $paid = 0;
                                                     if (!empty($info['tr']['id'])) {
-                                                        $paid = getPaid($info['transactions']['id']);
+                                                        $paid = getPaid($info['tr']['id']);
                                                     }
-
                                                     echo $info['tr']['payable_amount'] - $paid;
                                                     ?> USD
                                                 </td>

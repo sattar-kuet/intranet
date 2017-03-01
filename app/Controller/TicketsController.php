@@ -605,9 +605,15 @@ class TicketsController extends AppController {
         $data = $filteredTicket;
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
-
-        //  pr($roles); exit;
-        $this->set(compact('data', 'users', 'roles', 'total_page', 'total'));
+        
+        //Total tickets of open and solved
+        $sql = $this->Ticket->query("SELECT COUNT(tickets.id) as total FROM tickets where status = 'open'");
+        $total_inprogress = $sql[0][0]['total'];
+        
+        $sql = $this->Ticket->query("SELECT COUNT(tickets.id) as total FROM tickets where status = 'solved'");
+        $total_close = $sql[0][0]['total'];
+        
+        $this->set(compact('data', 'users', 'roles', 'total_page', 'total','total_inprogress','total_close'));
     }
 
     function assigned_to_me($page = 1) {
@@ -630,7 +636,7 @@ class TicketsController extends AppController {
                                         WHERE tr.ticket_id IN (SELECT ticket_id from tracks  tr where  tr.user_id  = " .
                 $loggedUser['id'] . ")" . " ORDER BY tr.id DESC" . " LIMIT " . $offset . "," . $this->per_page);
 
-        $temp = $this->Ticket->query("SELECT COUNT( DISTINCT tr.ticket_id ) AS total FROM tracks tr WHERE tr.user_id = " . $loggedUser['id']);
+        $temp = $this->Track->query("SELECT COUNT( DISTINCT tr.ticket_id ) AS total FROM tracks tr WHERE tr.user_id = " . $loggedUser['id']);
 
         $total = $temp[0][0]['total'];
         $total_page = ceil($total / $this->per_page);

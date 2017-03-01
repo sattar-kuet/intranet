@@ -28,6 +28,8 @@
                     <div class="portlet-title">
                         <div class="caption">
                             <i class="fa fa-ticket"></i>List of All Tickets Total tickets: <?php echo $total; ?> 
+                            &nbsp; In-progress : <?php echo $total_inprogress; ?> 
+                            &nbsp; Close : <?php echo $total_close; ?> 
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="reload">
