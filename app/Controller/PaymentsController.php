@@ -741,6 +741,8 @@ class PaymentsController extends AppController {
     }
 
     public function individual_transaction_by_check() {
+        
+        $this->request->data['Transaction']['created'] = $this->getFormatedDate($this->request->data['Transaction']['created_check']) . ' 00:00:00';
         $this->loadModel('Transaction');
         $this->loadModel('Ticket');
         $this->loadModel('Track');
@@ -757,6 +759,7 @@ class PaymentsController extends AppController {
         $id = $this->request->data['Transaction']['id'];
         $this->request->data['Transaction']['transaction_id'] = $id;
         unset($this->request->data['Transaction']['id']);
+//        pr($this->request->data['Transaction']); exit;
 
         //creatre transaction History 
         $this->Transaction->save($this->request->data['Transaction']);
@@ -805,7 +808,8 @@ class PaymentsController extends AppController {
         return $this->redirect($this->referer());
     }
 
-    public function individual_transaction_by_morder() {
+    public function individual_transaction_by_morder() { 
+        $this->request->data['Transaction']['created'] = $this->getFormatedDate($this->request->data['Transaction']['created_morder']) . ' 00:00:00';
         $this->loadModel('Transaction');
         $this->loadModel('Ticket');
         $this->loadModel('Track');
@@ -873,12 +877,14 @@ class PaymentsController extends AppController {
     }
 
     public function individual_transaction_by_online_bil() {
+        $this->request->data['Transaction']['created'] = $this->getFormatedDate($this->request->data['Transaction']['created_onlinebill']) . ' 00:00:00';
         $this->loadModel('Transaction');
         $this->loadModel('Ticket');
         $this->loadModel('Track');
         $loggedUser = $this->Auth->user();
-        $this->request->data['Transaction']['user_id'] = $loggedUser['id'];
-        $result = array();
+        $this->request->data['Transaction']['user_id'] = $loggedUser['id']; 
+        
+        $result = array();        
         if (!empty($this->request->data['Transaction']['check_image']['name'])) {
             $result = $this->processImg($this->request->data['Transaction'], 'check_image');
             $this->request->data['Transaction']['check_image'] = (string) $result['file_dst_name'];
@@ -886,24 +892,27 @@ class PaymentsController extends AppController {
             $this->request->data['Transaction']['check_image'] = '';
         }
 
-        $this->request->data['Transaction']['status'] = 'close';
-
-        // pr($this->request->data['Transaction']); exit;
+        $this->request->data['Transaction']['status'] = 'close';        
+        $id = $this->request->data['Transaction']['id'];
+        $this->request->data['Transaction']['transaction_id'] = $id;
+        unset($this->request->data['Transaction']['id']);
+        
         //creatre transaction History 
         $this->Transaction->save($this->request->data['Transaction']);
         unset($this->request->data['Transaction']['transaction_id']);
-
         $this->request->data['Transaction']['status'] = 'close';
+        
         // made credit as paid 
         $sql = "SELECT * FROM transactions WHERE status = 'approved' AND package_customer_id = " . $this->request->data['Transaction']['package_customer_id'];
         $temp = $this->Transaction->query($sql);
+        
         foreach ($temp as $t) {
             $this->Transaction->create();
             $this->Transaction->id = $t['transactions']['id'];
             $data = array('transaction_id' => $id, 'status' => 'paid');
             $this->Transaction->save($data);
         }
-        // pr($temp);
+        
         $due = $this->getDue($id);
         $credit = $this->getCredit($this->request->data['Transaction']['package_customer_id']);
         $totalDue = $due + $credit;
@@ -913,8 +922,8 @@ class PaymentsController extends AppController {
         $amount = $this->request->data['Transaction']['payable_amount'];
         unset($this->request->data['Transaction']['payable_amount']);
         $this->Transaction->id = $id;
-
         $this->Transaction->save($this->request->data['Transaction']);
+        
         // generate Ticket
         $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment Mode : </b> Online Bill", 'status' => 'open');
         $tickect = $this->Ticket->save($tdata); // Data save in Ticket
@@ -926,10 +935,9 @@ class PaymentsController extends AppController {
             'forwarded_by' => $loggedUser['id']
         );
         $this->Track->save($trackData);
+        
         // End generate Ticket
-
-        $this->Transaction->id = $this->request->data['Transaction']['id'];
-
+        $this->Transaction->id = $id;
         $this->Transaction->save($this->request->data['Transaction']);
         $transactionMsg = '<div class = "alert alert-success">
                         <button type = "button" class = "close" data-dismiss = "alert">&times;
@@ -941,6 +949,7 @@ class PaymentsController extends AppController {
     }
 
     public function individual_transaction_by_cash() {
+        $this->request->data['Transaction']['created'] = $this->getFormatedDate($this->request->data['Transaction']['created_cash']) . ' 00:00:00';
         $this->loadModel('Transaction');
         $this->loadModel('Ticket');
         $this->loadModel('Track');
@@ -951,6 +960,7 @@ class PaymentsController extends AppController {
         $this->request->data['Transaction']['transaction_id'] = $id;
         unset($this->request->data['Transaction']['id']);
         //creatre transaction History 
+//         pr($this->request->data['Transaction']); exit;
         $this->Transaction->save($this->request->data['Transaction']);
         unset($this->request->data['Transaction']['transaction_id']);
 
@@ -965,7 +975,7 @@ class PaymentsController extends AppController {
             $data = array('transaction_id' => $id, 'status' => 'paid');
             $this->Transaction->save($data);
         }
-        // pr($temp);
+        
         $due = $this->getDue($id);
         $credit = $this->getCredit($this->request->data['Transaction']['package_customer_id']);
         $totalDue = $due + $credit;
@@ -1001,6 +1011,7 @@ class PaymentsController extends AppController {
     }
 
     function custom_payment() {
+         $this->request->data['Transaction']['created'] = $this->getFormatedDate($this->request->data['Transaction']['created']) . ' 00:00:00';
         $this->loadModel('Transaction');
         $this->loadModel('Role');
         $this->loadModel('User');
@@ -1009,7 +1020,6 @@ class PaymentsController extends AppController {
             if ($this->Transaction->validates()) {
                 $temp = explode('/', $this->request->data['Transaction']['created']);
                 $this->request->data['Transaction']['created'] = $temp[2] . '-' . $temp[0] . '-' . $temp[1] . ' 00:00:00';
-                // pr($this->request->data); exit;
                 $this->Transaction->save($this->request->data['Transaction']);
                 $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>

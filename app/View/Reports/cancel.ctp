@@ -151,7 +151,7 @@
                                     <tbody>                                    
                                         <?php
                                         foreach ($block_customers as $info):
-                                            pr($info); exit;
+//                                            pr($info); exit;
                                             ?>
                                             <tr>
                                                 <td>

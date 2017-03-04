@@ -415,11 +415,12 @@ class ReportsController extends AppController {
         $this->set(compact('clicked'));
     }
 
-    function call_log() {
+    function call_log($page = 1) {
         $this->loadModel('Issue');
         $this->loadModel('Track');
         $this->loadModel('User');
         $this->loadModel('Role');
+        $offset = --$page * $this->per_page;
         $clicked = false;
         if ($this->request->is('post') || $this->request->is('put')) {
             $issue = $this->request->data['Track']['issue_id'];
@@ -442,9 +443,9 @@ class ReportsController extends AppController {
             if (count($datrange)) {
                 if ($datrange['start'] == $datrange['end']) {
                     $nextday = date('Y-m-d', strtotime($datrange['end'] . "+1 days"));
-                    $conditions .=" t.created >=' " . $datrange['start'] . "' AND  t.created < '" . $nextday . "' AND ";
+                    $conditions .=" CAST(t.created as DATE) >=' " . $datrange['start'] . "' AND  CAST(t.created as DATE) < '" . $nextday . "' AND ";
                 } else {
-                    $conditions .=" t.created >='" . $datrange['start'] . "' AND  t.created <='" . $datrange['end'] . "' AND ";
+                    $conditions .=" CAST(t.created as DATE) >='" . $datrange['start'] . "' AND  CAST(t.created as DATE) <='" . $datrange['end'] . "' AND ";
                 }
             }
             if (!empty($status)) {
@@ -454,6 +455,8 @@ class ReportsController extends AppController {
             $conditions = str_replace("AND###", "", $conditions);
             $conditions = str_replace("AND ###", "", $conditions);
             $conditions = str_replace("###", "", $conditions);
+
+
             $sql = "SELECT * FROM tracks tr
                         left JOIN tickets t ON tr.ticket_id = t.id
                         left JOIN users fb ON tr.forwarded_by = fb.id
@@ -461,9 +464,16 @@ class ReportsController extends AppController {
                         left JOIN users fi ON tr.user_id = fi.id
                         left JOIN issues i ON tr.issue_id = i.id
                         left join package_customers pc on tr.package_customer_id = pc.id
-                         WHERE $conditions order by pc.id desc limit 0,200";
+                         WHERE $conditions order by pc.id desc" . " LIMIT " . $offset . "," . $this->per_page;
+            // echo $sql.'<hr>'; 
+            $sql = str_replace("WHERE  order", "order", $sql);
 
+            // echo $sql; exit;
             $tickets = $this->Track->query($sql);
+
+            $temp = $this->Track->query("SELECT COUNT(tickets.id) as total FROM `tickets`");
+            $total = $temp[0][0]['total'];
+            $total_page = ceil($total / $this->per_page);
 
             $filteredTicket = array();
             $unique = array();
@@ -485,7 +495,7 @@ class ReportsController extends AppController {
             }
 
             $clicked = true;
-            $this->set(compact('filteredTicket'));
+            $this->set(compact('filteredTicket', 'total_page', 'total'));
         }
 
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));

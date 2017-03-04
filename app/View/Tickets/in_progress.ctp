@@ -71,6 +71,7 @@
                                     $issue = end($single['history']);
                                     $customer = end($single['history']);
                                     $customer = $customer['pc'];
+//                                    pr($customer['id']); exit;
                                     $ticket = $single['ticket'];
 
 
@@ -86,7 +87,17 @@
                                         <td><?php echo $issue['i']['name']; ?></td>
                                         <td>
                                             <ul>
-                                                <li> Name: <?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?> </li> 
+                                                
+                                               
+                                                 <a href="<?php
+                                            echo Router::url(array('controller' => 'customers',
+                                                'action' => 'edit', $customer['id']))
+                                            ?>" 
+                                               target="_blank">
+                                                   <li> Name: <?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?> </li> 
+                                            </a>
+                                                
+                                                
                                                 <li> Cell: <?php echo $customer['cell']; ?> </li> 
                                                 <li> Address: <?php echo $customer_address; ?> </li> 
                                             </ul>

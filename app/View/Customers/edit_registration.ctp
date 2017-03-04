@@ -16,7 +16,7 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-plus"></i>Add new Customer
+                            <i class="fa fa-plus"></i>Edit Customer
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="reload">
