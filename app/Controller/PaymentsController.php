@@ -741,6 +741,8 @@ class PaymentsController extends AppController {
     }
 
     public function individual_transaction_by_check() {
+        
+        $this->request->data['Transaction']['created'] = $this->getFormatedDate($this->request->data['Transaction']['created_check']) . ' 00:00:00';
         $this->loadModel('Transaction');
         $this->loadModel('Ticket');
         $this->loadModel('Track');
@@ -757,6 +759,7 @@ class PaymentsController extends AppController {
         $id = $this->request->data['Transaction']['id'];
         $this->request->data['Transaction']['transaction_id'] = $id;
         unset($this->request->data['Transaction']['id']);
+//        pr($this->request->data['Transaction']); exit;
 
         //creatre transaction History 
         $this->Transaction->save($this->request->data['Transaction']);
@@ -805,7 +808,8 @@ class PaymentsController extends AppController {
         return $this->redirect($this->referer());
     }
 
-    public function individual_transaction_by_morder() {
+    public function individual_transaction_by_morder() { 
+        $this->request->data['Transaction']['created'] = $this->getFormatedDate($this->request->data['Transaction']['created_morder']) . ' 00:00:00';
         $this->loadModel('Transaction');
         $this->loadModel('Ticket');
         $this->loadModel('Track');
@@ -873,6 +877,7 @@ class PaymentsController extends AppController {
     }
 
     public function individual_transaction_by_online_bil() {
+        $this->request->data['Transaction']['created'] = $this->getFormatedDate($this->request->data['Transaction']['created_onlinebill']) . ' 00:00:00';
         $this->loadModel('Transaction');
         $this->loadModel('Ticket');
         $this->loadModel('Track');
@@ -944,6 +949,7 @@ class PaymentsController extends AppController {
     }
 
     public function individual_transaction_by_cash() {
+        $this->request->data['Transaction']['created'] = $this->getFormatedDate($this->request->data['Transaction']['created_cash']) . ' 00:00:00';
         $this->loadModel('Transaction');
         $this->loadModel('Ticket');
         $this->loadModel('Track');
@@ -954,6 +960,7 @@ class PaymentsController extends AppController {
         $this->request->data['Transaction']['transaction_id'] = $id;
         unset($this->request->data['Transaction']['id']);
         //creatre transaction History 
+//         pr($this->request->data['Transaction']); exit;
         $this->Transaction->save($this->request->data['Transaction']);
         unset($this->request->data['Transaction']['transaction_id']);
 
@@ -968,7 +975,7 @@ class PaymentsController extends AppController {
             $data = array('transaction_id' => $id, 'status' => 'paid');
             $this->Transaction->save($data);
         }
-        // pr($temp);
+        
         $due = $this->getDue($id);
         $credit = $this->getCredit($this->request->data['Transaction']['package_customer_id']);
         $totalDue = $due + $credit;
@@ -1004,6 +1011,7 @@ class PaymentsController extends AppController {
     }
 
     function custom_payment() {
+         $this->request->data['Transaction']['created'] = $this->getFormatedDate($this->request->data['Transaction']['created']) . ' 00:00:00';
         $this->loadModel('Transaction');
         $this->loadModel('Role');
         $this->loadModel('User');

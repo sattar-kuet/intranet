@@ -788,7 +788,21 @@
                                                         ?>
                                                     </div>
                                                 </div>
-
+                                                 &nbsp;
+                                                 <div class="row">
+                                                    <div class="col-md-3 signupfont">
+                                                        Payment date:
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <?php
+                                                        echo $this->Form->input(
+                                                                'created_check', array(
+                                                            'type' => 'text',
+                                                            'class' => 'datepicker form-control ',
+                                                        ));
+                                                        ?>
+                                                    </div>
+                                                </div>
                                                 &nbsp;
                                                 <div class="row">
                                                     <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20"> 
@@ -908,7 +922,21 @@
                                                         ?>
                                                     </div>
                                                 </div>
-
+                                                 &nbsp;
+                                                 <div class="row">
+                                                    <div class="col-md-3 signupfont">
+                                                        Payment date:
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <?php
+                                                        echo $this->Form->input(
+                                                                'created_morder', array(
+                                                            'type' => 'text',
+                                                            'class' => 'datepicker form-control ',
+                                                        ));
+                                                        ?>
+                                                    </div>
+                                                </div>
                                                 &nbsp;
                                                 <div class="row">
                                                     <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20"> 
@@ -1024,7 +1052,21 @@
                                                         ?>
                                                     </div>
                                                 </div>
-
+                                                 &nbsp;
+                                                 <div class="row">
+                                                    <div class="col-md-3 signupfont">
+                                                        Payment date:
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <?php
+                                                        echo $this->Form->input(
+                                                                'created_onlinebill', array(
+                                                            'type' => 'text',
+                                                            'class' => 'datepicker form-control ',
+                                                        ));
+                                                        ?>
+                                                    </div>
+                                                </div>
                                                 &nbsp;
                                                 <div class="row">
                                                     <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20"> 
@@ -1123,6 +1165,21 @@
                                                         ?>
                                                     </div>
                                                 </div>
+                                                 &nbsp;
+                                                 <div class="row">
+                                                    <div class="col-md-3 signupfont">
+                                                        Payment date:
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <?php
+                                                        echo $this->Form->input(
+                                                                'created_cash', array(
+                                                            'type' => 'text',
+                                                            'class' => 'datepicker form-control ',
+                                                        ));
+                                                        ?>
+                                                    </div>
+                                                </div>
                                                 &nbsp;
                                                 <div class="row">
                                                     <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20"> 
@@ -1137,6 +1194,8 @@
 
                                                     </div>
                                                 </div>
+                                               
+                                                
                                                 <?php echo $this->Form->end(); ?>
                                             </div>
 

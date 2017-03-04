@@ -47,8 +47,6 @@ class TicketsController extends AppController {
     }
 
     function create($customer_id = null) {
-        // pr($this->request->data); exit;
-
         if ($customer_id == null) {
             $this->redirect('/admins/servicemanage');
         }
@@ -62,7 +60,6 @@ class TicketsController extends AppController {
         $this->loadModel('TicketDepartment');
         $this->loadModel('PackageCustomer');
         if ($this->request->is('post')) {
-//           pr($this->request->data); exit; 
             $this->Ticket->set($this->request->data);
             if ($this->Ticket->validates()) {
                 if (empty($this->request->data['Ticket']['user_id']) &&
@@ -96,7 +93,6 @@ class TicketsController extends AppController {
                         "status" => 'requested',
                         "user_id" => $loggedUser['id']
                     );
-//                    pr($data); exit;
                     $cusinfo = $this->PackageCustomer->save($data);
                 }
 
@@ -109,7 +105,6 @@ class TicketsController extends AppController {
                     $this->request->data['Ticket']['status'] = 'solved';
                     $status = 'solved';
                 }
-                // pr($this->request->data['Ticket']); exit;
                 $tickect = $this->Ticket->save($this->request->data['Ticket']); // Data save in Ticket
                 $trackData['Track'] = array(
                     'issue_id' => $this->request->data['Ticket']['issue_id'],
@@ -183,10 +178,8 @@ class TicketsController extends AppController {
                         'cancelled_date' => $this->request->data['Ticket']['cancelled_date'],
                         'pickup_date' => $this->request->data['Ticket']['pickup_date'],
                     );
-//pr('here'); exit;
                     $cusinfo = $this->PackageCustomer->save($data);
                 }
-
                 if (trim($this->request->data['Ticket']['action_type']) == "ready") {
                     $data['PackageCustomer'] = array(
                         'status' => 'old_ready',
@@ -208,7 +201,6 @@ class TicketsController extends AppController {
                         'shipment_equipment' => $this->request->data['Ticket']['shipment_equipment'],
                         'shipment_note' => $this->request->data['Ticket']['shipment_note']
                     );
-//                    pr($data['PackageCustomer']); exit;
                     $this->PackageCustomer->save($data['PackageCustomer']);
                 }
                 $customer = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $customer_id)));
@@ -236,7 +228,7 @@ class TicketsController extends AppController {
 //                    // End send mail 
 //                }
 //
-
+//                pr($trackData); exit;
                 $this->Track->save($trackData); // Data save in Track
                 $msg = '<div class="alert alert-success">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -613,9 +605,15 @@ class TicketsController extends AppController {
         $data = $filteredTicket;
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
-
-        //  pr($roles); exit;
-        $this->set(compact('data', 'users', 'roles', 'total_page', 'total'));
+        
+        //Total tickets of open and solved
+        $sql = $this->Ticket->query("SELECT COUNT(tickets.id) as total FROM tickets where status = 'open'");
+        $total_inprogress = $sql[0][0]['total'];
+        
+        $sql = $this->Ticket->query("SELECT COUNT(tickets.id) as total FROM tickets where status = 'solved'");
+        $total_close = $sql[0][0]['total'];
+        
+        $this->set(compact('data', 'users', 'roles', 'total_page', 'total','total_inprogress','total_close'));
     }
 
     function assigned_to_me($page = 1) {
@@ -638,7 +636,7 @@ class TicketsController extends AppController {
                                         WHERE tr.ticket_id IN (SELECT ticket_id from tracks  tr where  tr.user_id  = " .
                 $loggedUser['id'] . ")" . " ORDER BY tr.id DESC" . " LIMIT " . $offset . "," . $this->per_page);
 
-        $temp = $this->Ticket->query("SELECT COUNT( DISTINCT tr.ticket_id ) AS total FROM tracks tr WHERE tr.user_id = " . $loggedUser['id']);
+        $temp = $this->Track->query("SELECT COUNT( DISTINCT tr.ticket_id ) AS total FROM tracks tr WHERE tr.user_id = " . $loggedUser['id']);
 
         $total = $temp[0][0]['total'];
         $total_page = ceil($total / $this->per_page);
@@ -916,7 +914,7 @@ class TicketsController extends AppController {
                         left JOIN users fi ON tr.user_id = fi.id
                         left JOIN issues i ON tr.issue_id = i.id
                         left join package_customers pc on tr.package_customer_id = pc.id
-                         WHERE t.status = 'open' ORDER BY tr.created DESC " . " LIMIT " . $offset . "," . $this->per_page);
+                        WHERE t.status = 'open' ORDER BY tr.created DESC " . " LIMIT " . $offset . "," . $this->per_page);
         $temp = $this->Ticket->query("SELECT COUNT(tickets.id) as total FROM `tickets` WHERE tickets.status = 'open'");
         $total = $temp[0][0]['total'];
         $total_page = ceil($total / $this->per_page);
