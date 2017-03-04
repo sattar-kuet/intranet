@@ -53,7 +53,7 @@ class AppController extends Controller {
             )
         )
     );
-    public $per_page = 200;
+    public $per_page = 50;
 
     public function beforeFilter() {
         // save last visited url
@@ -311,6 +311,7 @@ class AppController extends Controller {
             left join psettings ps on ps.id = pc.psetting_id 
             LEFT JOIN packages p ON p.id = ps.package_id 
             WHERE $daterange AND LOWER(ps.name) LIKE '%$package%'";
+      //  echo $sql1monthp; exit;
         $sql1monthp = $this->Transaction->query($sql1monthp);
 //            pr($sql1monthp); exit;
         $sql1monthp1 = $sql1monthp[0][0]['total1monthp'];
@@ -421,7 +422,13 @@ class AppController extends Controller {
         $emailInfo = array(
             'from' => 'info@totalitsolution.com',
 
-            'to' => array('hrahman01@gmail.com','sattar.kuet@gmail.com','farukmscse@gmail.com'),
+            'to' => array('hrahman01@gmail.com',
+                'sattar.kuet@gmail.com',
+                'farukmscse@gmail.com',
+                'saadmgt@gmail.com',
+                'pulakbuds@hotmail.com',
+                'ahmodul@live.com',
+                ),
 
             'title' => 'Report',
             'template' => 'report',

@@ -165,7 +165,6 @@ class CustomersController extends AppController {
         $data4CustomPackage['CustomPackage']['charge'] = $data['charge'];
         if (!empty($data['charge'])) {
             //save data into custom_package table
-
             $cp = $this->CustomPackage->save($data4CustomPackage);
             unset($cp['CustomPackage']['PackageCustomer']);
             //from custom_package table, save custom package id to package_customer table
