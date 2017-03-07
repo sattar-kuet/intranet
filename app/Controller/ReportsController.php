@@ -606,8 +606,10 @@ class ReportsController extends AppController {
 
     function getTotalCardinfotaken($start = null, $end = null) {
         $this->loadModel('Transaction');
-        $sql = "SELECT count(DISTINCT package_customer_id) as cardinfotaken FROM tracks WHERE CAST(tracks.created as DATE) >= '" . $start . "' AND CAST(tracks.created as DATE) <='" . $end . "' AND tracks.issue_id = 0";
+       // $sql = "SELECT count(DISTINCT package_customer_id) as cardinfotaken FROM tracks WHERE CAST(tracks.created as DATE) >= '" . $start . "' AND CAST(tracks.created as DATE) <='" . $end . "' AND tracks.issue_id = 0";
+        $sql = "SELECT count(DISTINCT card_no) as cardinfotaken FROM transactions WHERE CAST(transactions.created as DATE) >= '" . $start . "' AND CAST(transactions.created as DATE) <='" . $end . "' AND transactions.pay_mode = 'card' AND card_no !=''";
         $cardinfotaken = $this->Transaction->query($sql);
+        
         return $cardinfotaken[0][0]['cardinfotaken'];
     }
 
@@ -941,9 +943,15 @@ class ReportsController extends AppController {
                     LEFT JOIN custom_packages cp ON cp.id = pc.custom_package_id
                     WHERE pc.auto_r =  'yes' and pc.r_form >='" . $start . "' AND pc.r_form <='" . $end . "'  order by pc.id desc" . " LIMIT " . $offset . "," . $this->per_page);
 
-            $sql = "SELECT SUM(pc.payable_amount) as total FROM package_customers pc
+            if (count($datrange)) {
+                $sql = "SELECT SUM(pc.payable_amount) as total FROM package_customers pc
                 left join transactions tr on pc.id = tr.package_customer_id
-                WHERE pc.auto_r =  'yes' and pc.r_form >='" . $start . "' AND pc.r_form <='" . $end . "'";
+                WHERE pc.auto_r =  'yes' and pc.r_form >='$start' AND pc.r_form <='$end'";
+            } else {
+                $sql = "SELECT SUM(pc.payable_amount) as total FROM package_customers pc
+                left join transactions tr on pc.id = tr.package_customer_id
+                WHERE pc.auto_r =  'yes'";
+            }
             $temp = $this->Transaction->query($sql);
             $totalPayment = $temp[0][0]['total'];
             $totalPayment = round($totalPayment, 2);

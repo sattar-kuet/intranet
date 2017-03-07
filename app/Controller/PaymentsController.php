@@ -150,10 +150,10 @@ class PaymentsController extends AppController {
         // Common setup for API credentials  
         $loggedUser = $this->Auth->user();
         $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
-        $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
-        //  $merchantAuthentication->setName("7zKH4b45"); //42UHbr9Qa9B live mode
-        $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
-        // $merchantAuthentication->setTransactionKey("738QpWvHH4vS59vY"); // live mode 7UBSq68ncs65p8QX
+      //  $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
+          $merchantAuthentication->setName("7zKH4b45"); //42UHbr9Qa9B live mode
+       // $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
+         $merchantAuthentication->setTransactionKey("738QpWvHH4vS59vY"); // live mode 7UBSq68ncs65p8QX
         $refId = 'ref' . time();
         // Create the payment data for a credit card
         $creditCard = new AnetAPI\CreditCardType();
@@ -205,8 +205,8 @@ class PaymentsController extends AppController {
         $request->setRefId($refId);
         $request->setTransactionRequest($transactionRequestType);
         $controller = new AnetController\CreateTransactionController($request);
-        $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
-        // $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
+      //  $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
+         $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
         $this->request->data['Transaction']['error_msg'] = '';
         $this->request->data['Transaction']['status'] = '';
         $this->request->data['Transaction']['trx_id'] = '';
@@ -788,13 +788,13 @@ class PaymentsController extends AppController {
 //         pr('here'); exit;
         $this->Transaction->save($this->request->data['Transaction']);
         // generate Ticket
-        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment mode :</b> Check", 'status' => 'solved');
+        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment mode :</b> Check", 'status' => 'open');
         $tickect = $this->Ticket->save($tdata); // Data save in Ticket
 
         $trackData['Track'] = array(
             'package_customer_id' => $this->request->data['Transaction']['package_customer_id'],
             'ticket_id' => $tickect['Ticket']['id'],
-            'status' => 'closed',
+            'status' => 'open',
             'forwarded_by' => $loggedUser['id']
         );
         $this->Track->save($trackData);
@@ -854,13 +854,13 @@ class PaymentsController extends AppController {
         $this->Transaction->id = $id;
         $this->Transaction->save($this->request->data['Transaction']);
         // generate Ticket
-        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment mode: </b> Money Order", 'status' => 'solved');
+        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment mode: </b> Money Order", 'status' => 'open');
         $tickect = $this->Ticket->save($tdata); // Data save in Ticket
 
         $trackData['Track'] = array(
             'package_customer_id' => $this->request->data['Transaction']['package_customer_id'],
             'ticket_id' => $tickect['Ticket']['id'],
-            'status' => 'closed',
+            'status' => 'open',
             'forwarded_by' => $loggedUser['id']
         );
         $this->Track->save($trackData);
@@ -925,13 +925,13 @@ class PaymentsController extends AppController {
         $this->Transaction->save($this->request->data['Transaction']);
         
         // generate Ticket
-        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment Mode : </b> Online Bill", 'status' => 'solved');
+        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment Mode : </b> Online Bill", 'status' => 'open');
         $tickect = $this->Ticket->save($tdata); // Data save in Ticket
 
         $trackData['Track'] = array(
             'package_customer_id' => $this->request->data['Transaction']['package_customer_id'],
             'ticket_id' => $tickect['Ticket']['id'],
-            'status' => 'closed',
+            'status' => 'open',
             'forwarded_by' => $loggedUser['id']
         );
         $this->Track->save($trackData);
@@ -989,13 +989,13 @@ class PaymentsController extends AppController {
 //        pr($this->request->data['Transaction']); exit;
         $this->Transaction->save($this->request->data['Transaction']);
         // generate Ticket
-        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment Mode :</b> Cash", 'status' => 'solved');
+        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment Mode :</b> Cash", 'status' => 'open');
         $tickect = $this->Ticket->save($tdata); // Data save in Ticket
 
         $trackData['Track'] = array(
             'package_customer_id' => $this->request->data['Transaction']['package_customer_id'],
             'ticket_id' => $tickect['Ticket']['id'],
-            'status' => 'closed',
+            'status' => 'open',
             'forwarded_by' => $loggedUser['id']
         );
         $this->Track->save($trackData);
@@ -1015,7 +1015,6 @@ class PaymentsController extends AppController {
         $this->loadModel('Transaction');
         $this->loadModel('Role');
         $this->loadModel('User');
-
         if ($this->request->is('post')) {
             $this->Transaction->set($this->request->data);
             if ($this->Transaction->validates()) {
@@ -1048,7 +1047,6 @@ class PaymentsController extends AppController {
         $this->request->data['Transaction']['status'] = 'paid';
         $id = $this->request->data['Transaction']['id'];
         $this->request->data['Transaction']['transaction_id'] = $id;
-
         if (strpos($this->request->data['Transaction']['card_no'], 'X') !== false) {
             //Card number is not changed. So fetch previous card number
             $card = $this->getLastCardInfo($this->request->data['Transaction']['package_customer_id']);
