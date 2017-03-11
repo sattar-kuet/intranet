@@ -41,7 +41,7 @@
                     <div class="col-xs-4">                              
                         <ul class="list-unstyled" style=" text-align: left; color: #555; margin-left: 10px;">
                             <img style="margin-top: 41px;"src="<?php echo $this->webroot; ?>assets/frontend/layout/img/totalcable.jpg">                                                  
-                            <div style="margin-left: 17px;">P.O BOX 170,E.MEADOM, NY 11554</div>
+                             <div style="margin-left: 17px;">P.O BOX 170,E.MEADOM, NY 11554</div>
                         </ul>
                     </div>
                     <div class="col-xs-3">                               
@@ -141,23 +141,20 @@
                             </thead>
                             <tbody>                                    
                                 <?php
+                                
+//                                  pr($packagecustomers); exit;
                                 foreach ($packagecustomers as $single):
+   
                                     ?>
                                     <tr>
                                         <td  style=" text-align: center; background-color:#990000; font-size: 19px; font-weight: bold; color: white; width: 101px;">
                                             <?php echo getInvoiceNumbe($single['tr']['id']); ?>
                                         </td>
                                         <td style="background-color:whitesmoke">
-                                            <a href="<?php
-                                            echo Router::url(array('controller' => 'customers',
-                                                'action' => 'edit', $single['pc']['id']))
-                                            ?>" 
-                                               target="_blank">
-                                               <?php echo $single['pc']['first_name'] . '' . $single['pc']['middle_name'] . '' . $single['pc']['last_name']; ?>
-                                            </a>
-                                        </td> 
+                                            <?php echo $single['pc']['first_name']. ''.$single['pc']['middle_name'].''.$single['pc']['last_name']; ?>
+                                        </td>
                                         <td style="background-color:whitesmoke">
-
+                                           
                                             <?php echo date('m-d-Y', strtotime($single['pc']['exp_date'])); ?>
                                         </td>
                                         <td style="background-color:whitesmoke">
@@ -194,7 +191,7 @@
     </div>
     <div class="controls center text-center">
         <a   target="_blank" title="Add to pdf" href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'allInvoice')) ?>" class="btn default btn-xs green-stripe">
-            Generate All Invoice </a>
+           Generate All Invoice </a>
     </div>
 </div>
 <!-- END CONTENT -->

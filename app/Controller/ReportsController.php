@@ -98,10 +98,22 @@ class ReportsController extends AppController {
             $sql1 = "SELECT SUM(payable_amount)as totalamount FROM transactions tr WHERE $conditions ";
             $totalamount = $this->Transaction->query($sql1);
             $totalamount = round($totalamount[0][0]['totalamount'], 2);
+            
+            
+            $sql = "SELECT pc.mac FROM transactions tr 
+                left join package_customers pc on pc.id = tr.package_customer_id
+                left join psettings ps on ps.id = pc.psetting_id
+                LEFT JOIN packages p ON p.id = ps.package_id 
+                WHERE $conditions";
+//            echo $sql; exit;
+            $total_mac = $this->Transaction->query($sql);
+            
+            
 
             //Total box
             $sqlbox = "SELECT * FROM transactions tr left join package_customers pc on pc.id = tr.package_customer_id WHERE $conditions";
             $totalbox = $this->Transaction->query($sqlbox);
+            
 
             //Total Manual
             $sqlmanual = "SELECT SUM(payable_amount)as totalmanual FROM transactions tr WHERE $conditions and tr.auto_recurring != 1";
@@ -119,7 +131,7 @@ class ReportsController extends AppController {
             $total12monthp = $this->getSubscriptionNo($conditions, '1 year package', 12);
 
             $clicked = true;
-            $this->set(compact('totalbox', 'transactions', 'totalamount', 'total_page', 'total', 'start', 'end', 'pay_mode', 'totalmanual', 'totalautore', 'sql1monthp', 'total3monthp', 'total6monthp', 'total12monthp'));
+            $this->set(compact('totalbox','total_mac', 'transactions', 'totalamount', 'total_page', 'total', 'start', 'end', 'pay_mode', 'totalmanual', 'totalautore', 'sql1monthp', 'total3monthp', 'total6monthp', 'total12monthp'));
         }
         $this->set(compact('clicked'));
     }
@@ -383,7 +395,7 @@ class ReportsController extends AppController {
             $conditions = array('PackageCustomer.package_exp_date >=' => $datrange['start'], 'PackageCustomer.package_exp_date <=' => $datrange['end']);
             $customers = $this->PackageCustomer->find('all', array('conditions' => $conditions));
             $clicked = true;
-            $total_page = 2;
+//            $total_page = 2;
             $start = $datrange['start'];
             $end = $datrange['end'];
             $this->set(compact('customers', 'total_page', 'start', 'end'));
@@ -500,12 +512,9 @@ class ReportsController extends AppController {
         $this->loadModel('Role');
         $clicked = false;
         if ($this->request->is('post') || $this->request->is('put')) {
-                       
-
             $clicked = true;
             $this->set(compact(''));
         }
-       
         $this->set(compact('clicked'));
     }
 

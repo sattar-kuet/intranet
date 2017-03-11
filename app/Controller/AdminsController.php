@@ -148,7 +148,7 @@ class AdminsController extends AppController {
                 $this->Role->save($this->request->data['Role']);
                 $msg = '<div class="alert alert-success">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
-				<strong> Role Created succeesfully </strong>
+				<strong> Role created succeesfully </strong>
 			</div>';
                 $this->Session->setFlash($msg);
                 return $this->redirect('addrole');
@@ -1047,7 +1047,7 @@ class AdminsController extends AppController {
         $this->PackageCustomer->save($data);
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
-	<strong>Succeesfully Commented </strong></div>';
+	<strong>Succeesfully commented </strong></div>';
         $this->Session->setFlash($msg);
         // $this->generateInvoice($data);
         return $this->redirect($this->referer());

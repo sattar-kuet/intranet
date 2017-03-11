@@ -392,7 +392,7 @@
                                             //'default' => $selected['package'],
                                             'empty' => 'Select Package Type',
                                             'id' => 'psettingId',
-                                            'class' => 'span12 uniform nostyle select1 packageChange' . $class,
+                                            'class' => 'span12 uniform nostyle select1 packageChange required' . $class,
                                             'div' => array('class' => 'span12')
                                                 )
                                         );
@@ -1327,34 +1327,24 @@
                                         &nbsp;  Repeat at Every
                                     </div>
                                     <div class="col-md-2">
-                                        <div> 
+
+                                        <div>
                                             <?php
-                                            echo $this->Form->input('r_duration', array(
-                                                'type' => 'select',
-                                                'empty' => 'Select Month',
-                                                'options' => array(
-                                                    '1' => '1',
-                                                    '2' => '2',
-                                                    '3' => '3',
-                                                    '4' => '4',
-                                                    '5' => '5',
-                                                    '6' => '6',
-                                                    '7' => '7',
-                                                    '8' => '8',
-                                                    '9' => '9',
-                                                    '10' => '10',
-                                                    '11' => '11',
-                                                    '12' => '12'
-                                                ),
-                                                'class' => 'form-control required')
+                                            echo $this->Form->input(
+                                                    'r_duration', array(
+                                                'class' => 'form-control required',
+                                                'type' => 'text'
+                                                    )
                                             );
                                             ?>
-                                        </div> 
+                                        </div>  
+
                                         <span class="pull-right"> Month(s)</span>
+
                                     </div>                                    
 
                                     <div class="col-md-2 signupfont">
-                                        Date of Month
+                                        Payment Date
                                     </div>
                                     <div class="col-md-2">
                                         <div>
@@ -2120,7 +2110,8 @@
                         </div>
 
                         <div class="tools">
-                            <a  class="reload toggle"data-id="previousinvoiceattachment">   </a>
+                            <a  class="reload toggle"data-id="previousinvoiceattachment">
+                            </a>
                         </div>
                     </div>
                     <div class="portlet-body">

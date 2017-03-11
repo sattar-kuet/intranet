@@ -129,12 +129,20 @@
                                         12Months Subscription<b>: <?php echo $total12monthp; ?>                                    
                                     </p>                                       
                                     <p class="pull-right"> Total Subscription<b>: <?php echo $total; ?></b></p><br>
+                                    <!--<p class="pull-right"> Total Boxes<b>: <span class="showthis" data-box="box"></span> </b></p>-->
+                                        <?php
+                                        $boxes = 0;
+                                        foreach ($totalbox as $single):
 
-                                   
-                                         <span id="box" class="hide"><?php echo $boxes; ?></span>
-                                    <?php // endforeach; ?>
-                                    
-                                    <p class="pull-right"> Total Boxes<b>: <span class="showthis" data-box="box"></span> </b></p>
+                                            $pc = $single['pc'];
+                                            $stbs = json_decode($pc['mac']);
+                                            $boxes += count($stbs);
+                                            ?>
+                                            <?php
+                                        endforeach;
+                                        ?> 
+                                     <p class="pull-right"> Total Boxes<b>:  <?php echo $boxes; ?>  </b>
+                                    </p>
                                 </div>  
                                 <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                                     <ul class="pagination" >
@@ -153,7 +161,6 @@
                                     <thead>
                                         <tr>
                                             <th>Customer Detail</th>
-                                            <th>Package info</th>
                                             <th>Payment Detail</th>
                                             <th>Payment Amount</th>
                                             <th>Payment Time</th>
@@ -165,13 +172,11 @@
                                         $boxes = 0;
                                         foreach ($transactions as $single):
                                             $tr = $single['tr'];
-//  pr($tr); exit;
 //                                            $total += $tr['paid_amount'];
-                                        
-//                                            $pc = $single['pc'];
-//                                            $stbs = json_decode($pc['mac']);
-//                                            $boxes += count($stbs);
-
+                                            $pc = $single['pc'];
+                                            $stbs = json_decode($pc['mac']);
+                                            $boxes += count($stbs);
+                                            //  pr($stbs); 
                                             $customer_address = $pc['house_no'] . ' ' . $pc['street'] . ' ' .
                                                     $pc['apartment'] . ' ' . $pc['city'] . ' ' . $pc['state'] . ' '
                                                     . $pc['zip'];
@@ -203,35 +208,13 @@
                                                 </td>
                                                 <td>
                                                     <ul>
-
-                                                        <?php if ($single['ps']['name'] != NULL): ?>
-                                                            <li><strong>Package Name :</strong> <?php echo $single['ps']['name']; ?></li>
+                                                        <li><strong>Mode :</strong> <?php echo $tr['pay_mode']; ?></li>
+                                                        <?php if ($tr['pay_mode'] == 'card'): ?>
+                                                            <li><strong>Transaction ID :</strong> <?php echo $tr['trx_id']; ?></li>
                                                         <?php endif;
                                                         ?>
                                                     </ul>
                                                 </td>
-
-                                                <td>
-                                                    <ul>
-                                                        <li><strong>Pay Mode :</strong> <?php echo $tr['pay_mode']; ?></li>
-                                                        <?php if (!empty($tr['check_info'])): ?>
-                                                            <li><strong>Check No :</strong> <?php echo $tr['check_info']; ?></li>
-                                                        <?php endif; ?>
-                                                        <?php if (!empty($tr['check_image'])): ?>
-                                                            <li>                                                                
-                                                                Check Image: <img src="<?php echo $this->webroot . 'check_images' . '/' . $tr['check_image']; ?>"  width="50px" height="50px" />
-                                                            </li>        
-                                                        <?php endif; ?>
-                                                        <?php if (!empty($tr['cash_by'])): ?>
-                                                            <li><strong>Received by:</strong> <?php echo $tr['cash_by']; ?></li>        
-                                                        <?php endif; ?>
-
-                                                        <?php if ($tr['pay_mode'] == 'card'): ?>
-                                                            <li><strong>Transaction ID :</strong> <?php echo $tr['trx_id']; ?></li>
-                                                        <?php endif; ?>
-                                                    </ul>
-                                                </td>
-
                                                 <td><h4> $<?php echo $tr['payable_amount']; ?> </h4></td>
                                                 <td>                                                    
                                                     <?php echo date('m-d-Y', strtotime($tr['created'])); ?>
@@ -240,7 +223,7 @@
                                             <?php
                                         endforeach;
                                         ?>   
-                                   
+                                    <!--<span id="box" class="hide"><?php echo $boxes; ?></span>-->
                                     </tbody>
                                 </table>
                                 <!--<h2 style="text-align: center;" > Grant Total: $<?php echo $total; ?></h2>-->

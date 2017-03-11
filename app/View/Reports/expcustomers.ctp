@@ -67,7 +67,6 @@
                                     ?>
                                 </div>
                             </div>
-
                         </div>
                         <div class="form-actions">
                             <div class="row">
@@ -89,7 +88,6 @@
         </div>
         <!-- END PAGE CONTENT -->
         <?php if ($clicked): ?>    
-
             <div class="row">
                 <div class="col-md-12">
                     <!-- BEGIN EXAMPLE TABLE PORTLET-->
@@ -98,7 +96,6 @@
                             <div class="caption">
                                 <i class="fa ">Total Customers: <?php echo count($customers); ?></i>
                             </div>
-
                             <div class="tools">
                                 <a href="javascript:;" class="reload">
                                 </a>
@@ -107,8 +104,6 @@
 
                         <div class="portlet-body">
                             <?php echo $this->Session->flash(); ?> 
-
-
                             <div class="row">
                                 <div class="col-xs-12">
                                     <table class="table table-striped table-hover">
@@ -138,8 +133,6 @@
                                                 <th class="hidden-480">
                                                     Exp Date
                                                 </th>
-
-
                                             </tr>
                                         </thead>
                                         <tbody>                                    
@@ -148,7 +141,6 @@
                                                 $customer_address = $info['PackageCustomer']['house_no'] . ' ' . $info['PackageCustomer']['street'] . ' ' .
                                                         $info['PackageCustomer']['apartment'] . ' ' . $info['PackageCustomer']['city'] . ' ' . $info['PackageCustomer']['state'] . ' '
                                                         . $info['PackageCustomer']['zip'];
-                                                // pr($info); exit;
                                                 ?>
                                                 <tr>
                                                     <td><?php echo $info['PackageCustomer']['c_acc_no']; ?></td>
@@ -180,20 +172,6 @@
                         </div>
                         <!-- END EXAMPLE TABLE PORTLET-->
                     </div>
-
-                    <ul class="pagination" >
-                        <?php
-                        for ($i = 1; $i <= $total_page; $i++):
-                            $active = '';
-                            if (isset($this->params['pass'][0]) && $this->params['pass'][0] == $i) {
-                                $active = 'active';
-                            }
-                            ?>
-                            <li class="paginate_button <?php echo $active; ?>" aria-controls="sample_editable_1" tabindex="<?php echo $i; ?>">
-                                <a href="<?php echo Router::url(array('controller' => 'otherspayments', 'action' => 'manage', $i, $start, $end)) ?>"><?php echo $i; ?></a>
-                            </li>
-                        <?php endfor; ?>
-
                 </div>
             <?php endif; ?>
         </div>

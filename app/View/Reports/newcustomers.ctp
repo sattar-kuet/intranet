@@ -124,6 +124,9 @@
                                                 Exp Date
                                             </th>-->
                                             <th class="hidden-480">
+                                                Installation Date
+                                            </th>
+                                            <th class="hidden-480">
                                                 Registration Date
                                             </th>
                                         </tr>
@@ -131,15 +134,14 @@
                                     <tbody>                                    
                                         <?php
                                         foreach ($transactions as $info):
-//                                            pr($info['tr']['id']); exit; 
                                             $pc = $info['pc'];
                                             $customer_address = $pc['house_no'] . ' ' . $pc['street'] . ' ' .
                                                     $pc['apartment'] . ' ' . $pc['city'] . ' ' . $pc['state'] . ' '
                                                     . $pc['zip'];
                                             ?>
                                             <tr>
-                                                <td><?php echo $info['pc']['c_acc_no']; ?></td>
-                                                <td> <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'edit', $info['pc']['id'])) ?>" target="_blank"><?php echo $info['pc']['middle_name'] . " " . $info['pc']['last_name']; ?></a> </td>
+                                                <td><?php echo $info['pc']['id']; ?></td>
+                                                <td> <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'edit', $info['pc']['id'])) ?>" target="_blank"><?php echo $info['pc']['first_name'] . " " .$info['pc']['middle_name'] . " " . $info['pc']['last_name']; ?></a> </td>
                                                 <td><?php echo $customer_address; ?></td>
                                                 <td><?php echo $info['pc']['mac']; ?></td>
                                                 <td><?php echo $info['pc']['cell']; ?></td>
@@ -165,6 +167,7 @@
                                                     ?> USD
                                                 </td>
                                                 <!--<td><?php // echo date('m-d-Y', strtotime($info['tr']['exp_date']));  ?></td>-->
+                                                <td><?php echo date('m-d-Y', strtotime($info['pc']['modified'])); ?></td>  
                                                 <td><?php echo date('m-d-Y', strtotime($info['pc']['created'])); ?></td>  
 
 
