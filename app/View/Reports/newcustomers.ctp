@@ -89,7 +89,6 @@
         <?php if ($clicked): ?>    
             <div class="page-content-wrapper" style="margin: 0px; padding: 0px;">
                 <div class="">
-
                     <!-- BEGIN PAGE CONTENT-->
                     <div class="invoice" id="printableArea">
 
@@ -120,14 +119,11 @@
                                             <th class="hidden-480">
                                                 Due
                                             </th>
-    <!--                                            <th class="hidden-480">
-                                                Exp Date
-                                            </th>-->
-                                            <th class="hidden-480">
-                                                Installation Date
-                                            </th>
                                             <th class="hidden-480">
                                                 Registration Date
+                                            </th>
+                                             <th class="hidden-480">
+                                                Installation Date
                                             </th>
                                         </tr>
                                     </thead>
@@ -147,17 +143,17 @@
                                                 <td><?php echo $info['pc']['cell']; ?></td>
                                                 <td>
                                                     <?php
-                                                    if ($info['pc']['custom_package_id'] == null) {
+                                                    if (!empty($info['pc']['psetting_id'])) {
                                                         echo $info['ps']['name'];
-                                                    } else {
+                                                    } elseif (!empty ($info['pc']['custom_package_id'])) {
                                                         echo $info['cp']['duration'] . ' Months, Custom package ' . $info['cp']['charge'] . '$';
+                                                    }else {
+                                                      echo 'Package not set !';
                                                     }
                                                     ?>
                                                 </td>
                                                 <td>
-
                                                     <?php // echo $info['Transaction']['due']; ?>
-
                                                     $<?php
                                                     $paid = 0;
                                                     if (!empty($info['tr']['id'])) {
@@ -166,11 +162,9 @@
                                                     echo $info['tr']['payable_amount'] - $paid;
                                                     ?> USD
                                                 </td>
-                                                <!--<td><?php // echo date('m-d-Y', strtotime($info['tr']['exp_date']));  ?></td>-->
-                                                <td><?php echo date('m-d-Y', strtotime($info['pc']['modified'])); ?></td>  
+                                                <!--<td><?php // echo date('m-d-Y', strtotime($info['tr']['exp_date']));  ?></td>-->                                                
                                                 <td><?php echo date('m-d-Y', strtotime($info['pc']['created'])); ?></td>  
-
-
+                                                <td><?php echo date('m-d-Y', strtotime($info['pc']['modified'])); ?></td>  
                                             </tr>
                                         <?php endforeach; ?>                           
                                     </tbody>

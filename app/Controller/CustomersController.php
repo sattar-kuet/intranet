@@ -156,6 +156,7 @@ class CustomersController extends AppController {
         $this->loadModel('CustomPackage');
         $this->loadModel('Ticket');
         $this->loadModel('Track');
+        
         $tmsg = 'Information of  ' . $data['first_name'] . '  ' .
                 $data['middle_name'] . '  ' .
                 $data['last_name'] . ' has been updated';
@@ -176,6 +177,7 @@ class CustomersController extends AppController {
         }
         //Ends Custom_package data entry  
         $this->PackageCustomer->id = $data['id'];
+//        $this->stbs_update($data['id']);
         
         $this->PackageCustomer->save($data);
     }
@@ -223,6 +225,7 @@ class CustomersController extends AppController {
             'date' => $this->getFormatedDate($this->request->data['PackageCustomer']['date']),
             'status' => $this->request->data['PackageCustomer']['status'],
         );
+//        pr($data4statusHistory);
         $this->StatusHistory->save($data4statusHistory);
         $Msg = '<div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -329,13 +332,14 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
 
             // update package_customers table
             $this->request->data['PackageCustomer']['id'] = $id;
-//                 pr($this->request->data); exit;
+//          pr($this->request->data); exit;
+             
             $this->updatePackageCustomerTable($this->request->data['PackageCustomer']);
             $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <strong> Customer information updated Successfully </strong>
             </div>';
-            $this->stbs_update($id);
+//            $this->stbs_update($id);
             $this->Session->setFlash($msg);
         }
         $this->loadModel('PackageCustomer');
@@ -551,6 +555,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             if ($this->request->data['PackageCustomer']['shipment']) {
                 $status = 'shipment';
             }
+//            pr($this->request->data); exit;
             $pc = $this->PackageCustomer->save($this->request->data['PackageCustomer']);
 
             $data4statusHistory = array();
@@ -573,7 +578,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             <strong> New customer entry succeesful </strong>
         </div>';
             $this->Session->setFlash($msg);
-            $this->stbs_update($pc['PackageCustomer']['id']);
+//            $this->stbs_update($pc['PackageCustomer']['id']);
             return $this->redirect($this->referer());
         }
 
@@ -640,7 +645,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             }
 //            pr($this->request->data); exit;
             $this->PackageCustomer->save($this->request->data['PackageCustomer']);
-            $this->stbs_update($id);
+//            $this->stbs_update($id);
             //update last comment
             if ($this->request->data['PackageCustomer']['comment_id']) {
                 $this->Comment->id = $this->request->data['PackageCustomer']['comment_id'];
@@ -1780,7 +1785,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
     
     function stbs_update($id = 0) {
         $this->loadModel('PackageCustomer');
-        $sql = "select id, mac from package_customers limit 6001,12131";
+//        $sql = "select id, mac from package_customers limit 6001,12131";
         if($id){
             $sql = "SELECT id, mac from package_customers WHERE id = $id";
         }        

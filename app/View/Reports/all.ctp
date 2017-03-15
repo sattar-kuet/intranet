@@ -28,7 +28,7 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                          
+
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="reload">
@@ -155,10 +155,18 @@
                                                     <?php echo $customer_address; ?> 
                                                 </td> 
                                                 <td>
-                                                    <?php if (!empty($results['ps']['name'])): ?>
-                                                        Name:<?php echo $results['ps']['name'] ?><br>
-                                                        Duration:<?php echo $results['ps']['duration']; ?><br>
+                                                    <?php if (!empty($results['pc']['psetting_id'])): ?>
+                                                    
+                                                        Name: <?php echo $results['ps']['name'] ?><br>
+                                                        Duration: <?php echo $results['ps']['duration']; ?><br>
                                                         Amount: <?php echo $results['ps']['amount']; ?>
+                                                    <?php elseif (!empty($results['pc']['custom_package_id'])): ?>
+                                                        
+                                                        Months: <?php echo $results['cp']['duration'] ?><br>                                                        
+                                                        Custom package: <?php echo $results['cp']['charge']; ?>
+                                                        
+                                                    <?php else: ?>
+                                                        Package not set !
                                                     <?php endif; ?>
                                                 </td>  
                                                 <td><?php echo $results['pc']['r_form']; ?></td>

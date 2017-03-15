@@ -131,7 +131,7 @@
                                     <p class="pull-right"> Total Subscription<b>: <?php echo $total; ?></b></p><br>
 
                                    
-                                         <span id="box" class="hide"><?php echo $boxes; ?></span>
+                                         <span id="box" class="hide"><?php // echo $boxes; ?></span>
                                     <?php // endforeach; ?>
                                     
                                     <p class="pull-right"> Total Boxes<b>: <span class="showthis" data-box="box"></span> </b></p>
@@ -165,12 +165,14 @@
                                         $boxes = 0;
                                         foreach ($transactions as $single):
                                             $tr = $single['tr'];
-//  pr($tr); exit;
 //                                            $total += $tr['paid_amount'];
                                         
-//                                            $pc = $single['pc'];
-//                                            $stbs = json_decode($pc['mac']);
-//                                            $boxes += count($stbs);
+                                            $pc = $single['pc'];
+                                            $stbs = count($pc['stbs']);
+//                                            $stbs = json_decode($pc['mac']);+
+                                              pr($stbs); exit;
+
+                                            $boxes = $stbs;
 
                                             $customer_address = $pc['house_no'] . ' ' . $pc['street'] . ' ' .
                                                     $pc['apartment'] . ' ' . $pc['city'] . ' ' . $pc['state'] . ' '

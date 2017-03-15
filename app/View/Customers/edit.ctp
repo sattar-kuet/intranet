@@ -1177,12 +1177,12 @@
                                         echo $this->Form->input('status', array(
                                             'type' => 'select',
                                             'options' => array(
-                                                'installation' => 'Installation done',
+                                                'sales done' => 'Installation done',
                                                 'active' => 'Active',
                                                 'inactive' => 'Inactive',
                                                 'canceled' => 'Canceled',
                                                 'requested' => 'Requested',
-                                                'done' => 'Done',
+                                                'troubleshot done' => 'Troubleshot Done',
                                                 'ready' => 'Ready to install',
                                                 'old_ready' => 'Troubleshot',
                                                 'scheduled' => 'Scheduled',
@@ -1198,7 +1198,6 @@
                                                 'complimentary customer' => 'Complimentary customer',
                                                 'request to reconnection' => 'Request to reconnection',
                                                 'post pone' => 'Post pone',
-                                                'done' => 'Done',
                                                 'rescheduled' => 'Reschedule'
                                             ),
                                             //'default' => $selected['package'],

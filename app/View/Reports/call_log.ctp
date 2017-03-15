@@ -32,7 +32,7 @@
                             <?php if ($clicked): ?>                              
                                 Total Tickets: <?php echo count($filteredTicket); ?> 
                             <?php endif; ?>
-                                
+
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="reload">
@@ -40,7 +40,7 @@
                         </div>
                     </div>
                     <div class="portlet-body form">
-                     
+
                         <!-- BEGIN FORM-->
                         <?php
                         echo $this->Form->create('Track', array(
@@ -162,19 +162,19 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-12">
-   <ul class="pagination" >
-                            <?php
-                            for ($i = 1; $i <= $total_page; $i++):
-                                $active = '';
-                                if (isset($this->params['pass'][0]) && $this->params['pass'][0] == $i) {
-                                    $active = 'active';
-                                }
-                                ?>
-                                <li class="paginate_button <?php echo $active; ?>" aria-controls="sample_editable_1" tabindex="<?php echo $i; ?>">
-                                    <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'call_log', $i)) ?>"><?php echo $i; ?></a>
-                                </li>
-                            <?php endfor; ?>
-                        </ul>
+                                <ul class="pagination" >
+                                    <?php
+                                    for ($i = 1; $i <= $total_page; $i++):
+                                        $active = '';
+                                        if (isset($this->params['pass'][0]) && $this->params['pass'][0] == $i) {
+                                            $active = 'active';
+                                        }
+                                        ?>
+                                        <li class="paginate_button <?php echo $active; ?>" aria-controls="sample_editable_1" tabindex="<?php echo $i; ?>">
+                                            <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'call_log', $i)) ?>"><?php echo $i; ?></a>
+                                        </li>
+                                    <?php endfor; ?>
+                                </ul>
                                 <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                                     <thead>
                                         <tr>
