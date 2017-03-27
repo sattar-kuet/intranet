@@ -145,10 +145,13 @@ class AdminsController extends AppController {
         if ($this->request->is('post')) {
             $this->Role->set($this->request->data);
             if ($this->Role->validates()) {
-                $this->Role->save($this->request->data['Role']);
+                $loggedUser = $this->Auth->user();
+                $data['Role'] = array(
+                    "user_id" => $loggedUser['id']);
+                $this->Role->save($data);
                 $msg = '<div class="alert alert-success">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
-				<strong> Role Created succeesfully </strong>
+				<strong> Role created succeesfully </strong>
 			</div>';
                 $this->Session->setFlash($msg);
                 return $this->redirect('addrole');
@@ -165,7 +168,10 @@ class AdminsController extends AppController {
             $this->Role->set($this->request->data);
             if ($this->Role->validates()) {
                 $this->Role->id = $this->request->data['Role']['id'];
-                $this->Role->save($this->request->data['Role']);
+                $loggedUser = $this->Auth->user();
+                $data['Role'] = array(
+                    "user_id" => $loggedUser['id']);
+                $this->Role->save($data);
                 $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <strong> Role edited succeesfully </strong>
@@ -200,6 +206,8 @@ class AdminsController extends AppController {
         $this->loadModel('User');
         $this->loadModel('Role');
         if ($this->request->is('post')) {
+            $loggedUser = $this->Auth->user();
+            $this->request->data['User']['user_id'] = $loggedUser['id'];
             $this->User->set($this->request->data);
             if ($this->User->validates()) {
                 $result = array();
@@ -234,6 +242,8 @@ class AdminsController extends AppController {
         $this->loadModel('Role');
         $this->loadModel('User');
         if ($this->request->is('post') || $this->request->is('put')) {
+             $loggedUser = $this->Auth->user();
+            $this->request->data['User']['user_id'] = $loggedUser['id'];
             $this->User->set($this->request->data);
             $this->User->id = $id;
             $this->User->save($this->request->data['User']);
@@ -1047,7 +1057,7 @@ class AdminsController extends AppController {
         $this->PackageCustomer->save($data);
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
-	<strong>Succeesfully Commented </strong></div>';
+	<strong>Succeesfully commented </strong></div>';
         $this->Session->setFlash($msg);
         // $this->generateInvoice($data);
         return $this->redirect($this->referer());
@@ -1072,10 +1082,10 @@ class AdminsController extends AppController {
                     $nextday = date('Y-m-d', strtotime($datrange['end'] . "+1 days"));
                     //  convert(varchar(10),pc.schedule_date, 120) = '2014-02-07'
                     //CAST(pc.schedule_date as DATE)
-                    $conditions .=" CAST(pc.schedule_date as DATE)  >=' " . $datrange['start'] . "' AND  CAST(pc.schedule_date as DATE) < '" . $nextday . "'";
+                    $conditions .="CAST(pc.schedule_date as DATE)  >=' " . $datrange['start'] . "' AND  CAST(pc.schedule_date as DATE) < '" . $nextday . "'";
                 } else {
 
-                    $conditions .=" CAST(pc.schedule_date as DATE) >='" . $datrange['start'] . "' AND  CAST(pc.schedule_date as DATE) <='" . $datrange['end'] . "'";
+                    $conditions .="CAST(pc.schedule_date as DATE) >='" . $datrange['start'] . "' AND  CAST(pc.schedule_date as DATE) <='" . $datrange['end'] . "'";
                 }
             }
             $sql = "SELECT * FROM package_customers pc 
@@ -1169,6 +1179,42 @@ class AdminsController extends AppController {
             $this->Session->setFlash($msg);
             return $this->redirect($this->referer());
         }
+    }
+
+    function adjustmentMemo() {
+        $sql = "SELECT * FROM transactions " .
+                "LEFT JOIN package_customers ON package_customers.id = transactions.package_customer_id " .
+                "WHERE LOWER(transactions.status) IN ('credit','sdadjustment','sdrefund','refferalbonus')";
+        $this->loadModel('Transaction');
+        $data = $this->Transaction->query($sql);
+        $this->set(compact('data'));
+    }
+
+    function deleteMemo($id = null) {
+        $this->loadModel('Transaction');
+        $this->Transaction->delete($id);
+        $msg = '<div class="alert alert-success">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<strong> Memo deleted succeesfully </strong>
+</div>';
+        $this->Session->setFlash($msg);
+        return $this->redirect('adjustmentMemo');
+    }
+
+    function approveMemo($id = null) {
+        $this->loadModel('Transaction');
+        $this->Transaction->id = $id;
+        $loggedUser = $this->Auth->user();
+
+        $this->Transaction->saveField("status", "approved");
+        $this->Transaction->saveField("user_id", $loggedUser['id']);
+
+        $msg = '<div class="alert alert-success">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<strong>Succeesfully approved </strong></div>';
+
+        $this->Session->setFlash($msg);
+        return $this->redirect($this->referer());
     }
 
     function runReport() {
