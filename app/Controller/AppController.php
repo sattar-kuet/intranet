@@ -56,6 +56,16 @@ class AppController extends Controller {
     public $per_page = 50;
 
     public function beforeFilter() {
+         if (in_array($this->params['controller'], array('rest_payments'))) {
+            // For RESTful web service requests, we check the name of our contoller
+            $this->Auth->allow();
+            // this line should always be there to ensure that all rest calls are secure
+            /* $this->Security->requireSecure(); */
+            $this->Security->unlockedActions = array('edit', 'delete', 'add', 'view', 'process');
+        } else {
+            // setup out Auth
+            $this->Auth->allow();
+        }
         // save last visited url
         $url = Router::url(NULL, true); //complete url
         if (!preg_match('/login|logout|isLooged_in/i', $url)) {

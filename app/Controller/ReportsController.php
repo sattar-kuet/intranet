@@ -708,10 +708,8 @@ class ReportsController extends AppController {
             $start = $datrange['start'];
             $end = $datrange['end'];
             $total['sales_query'] = $this->getTotalSalesQuery($start,$end);
-            
             // $total[0] = $total['done'] + $total['ready'];
             // $total['installation'] = $this->getTotalInstallation();
-            
             $total['hold'] = $this->getTotalHold($start,$end);
             $total['unhold'] = $this->getTotalUnhold($start,$end);
             $total['reconnection'] = $this->getTotalReconnection($start,$end);
@@ -720,7 +718,6 @@ class ReportsController extends AppController {
 //            $total['ready'] = $this->getTotalNewordertaken();
 //            $total['servicecancel'] = $this->getTotalFullServiceCancel();
 //            $total['cancelduebill'] = $this->getTotalCancelDueBill();
-            
             $total['cardinfotaken'] = $this->getTotalCardinfotaken($start,$end);
             $total['check_send'] = $this->getTotalCallBySatatus('check send',$start,$end);
             $total['vod'] = $this->getTotalCallBySatatus('vod',$start,$end);
