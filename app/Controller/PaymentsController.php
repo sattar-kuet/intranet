@@ -1,20 +1,11 @@
 <?php
-
-require_once(APP . 'Vendor' . DS . 'authorize' . DS . 'autoload.php');
+App::uses('HttpSocket', 'Network/Http');
 require_once(APP . 'Vendor' . DS . 'class.upload.php');
-
-//App::uses('AnetAPI', 'net\authorize\api\contract\v1');
-//App::uses('AnetController', 'net\authorize\api\controller');
-use net\authorize\api\contract\v1 as AnetAPI;
-use net\authorize\api\controller as AnetController;
-
-require_once(APP . 'Vendor' . DS . 'class.upload.php');
-define("AUTHORIZENET_LOG_FILE", APP . 'Vendor' . DS . 'authorize' . DS . 'phplog');
 
 class PaymentsController extends AppController {
 
     var $layout = 'admin';
-
+    public $components = array('Security', 'RequestHandler');
     // public $components = array('Auth');
     public function isAuthorized($user = null) {
         $sidebar = $user['Role']['name'];
@@ -131,7 +122,7 @@ class PaymentsController extends AppController {
         $this->set('customer_info');
     }
 
-    public function individual_transaction_by_card() {
+   public function request_process() {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
         $this->loadModel('Track');
@@ -142,92 +133,74 @@ class PaymentsController extends AppController {
             $latestcardInfo = $this->getLastCardInfo($this->request->data['Transaction']['package_customer_id']);
             $this->request->data['Transaction']['card_no'] = trim($latestcardInfo['card_no']);
         }
-        //  pr($temp);
-        // exit;
-        //  pr($this->request->data['Transaction']);
-        //  exit;
-        // PROCESS PAYMENT
-        // Common setup for API credentials  
-        $loggedUser = $this->Auth->user();
-        $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
-      //  $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
-          $merchantAuthentication->setName("7zKH4b45"); //42UHbr9Qa9B live mode
-       // $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
-         $merchantAuthentication->setTransactionKey("738QpWvHH4vS59vY"); // live mode 7UBSq68ncs65p8QX
-        $refId = 'ref' . time();
-        // Create the payment data for a credit card
-        $creditCard = new AnetAPI\CreditCardType();
-        $msg = '<ul>';
-        //$this->request->data['Transaction']['id'] = $cid;
-        $card = $this->request->data['Transaction'];
-        $cid = $this->request->data['Transaction']['package_customer_id'];
-        $pc = $this->PackageCustomer->findById($cid);
 
-//        exit;
-        $creditCard->setCardNumber($card['card_no']);
+        $loggedUser = $this->Auth->user();
+        if (count($loggedUser) == 0) {
+            $loggedUser['id'] = 0;
+        }
+        //  pr($loggedUser); exit;
+        $msg = '<ul>';
+        $card = $this->request->data['Transaction'];
         $exp_date = $card['exp_date']['month'] . '-' . $card['exp_date']['year'];
         $this->request->data['Transaction']['exp_date'] = $exp_date;
-        // pr($this->request->data); exit;
-        // echo $exp_date; exit;
-        $creditCard->setExpirationDate($exp_date);
-        //    $creditCard->setCardNumber("4117733943147221"); // live
-        // $creditCard->setExpirationDate("07-2019"); //live
-        $creditCard->setcardCode($card['cvv_code']); //live
-        $paymentOne = new AnetAPI\PaymentType();
-        $paymentOne->setCreditCard($creditCard);
-        //    Bill To
-        $billto = new AnetAPI\CustomerAddressType();
-        $billto->setFirstName($card['fname']);
-        $billto->setLastName($card['lname']);
-        $billto->setCompany($card['company']);
-        //$billto->setAddress("14 Main Street");
-        $billto->setAddress($card['address']);
-        $billto->setCity($card['city']);
-        $billto->setState($card['state']);
-        $billto->setZip($card['zip_code']);
-        $billto->setCountry($card['country']);
-        $billto->setphoneNumber($card['phone']);
-        $billto->setfaxNumber($card['fax']);
 
-        $paymentprofile = new AnetAPI\CustomerPaymentProfileType();
 
-        $paymentprofile->setCustomerType('individual');
-        $paymentprofile->setBillTo($billto);
-        $customerProfile = new AnetAPI\CreateCustomerPaymentProfileRequest();
-        $customerProfile->setPaymentProfile($paymentprofile);
+        $cid = $this->request->data['Transaction']['package_customer_id'];
+        $pc = $this->PackageCustomer->findById($cid);
+        $this->request->data['pc'] = $pc;
 
-        $transactionRequestType = new AnetAPI\TransactionRequestType();
-        $transactionRequestType->setTransactionType("authCaptureTransaction");
-        $transactionRequestType->setAmount($card['payable_amount']); // to do set amount from form
-        $transactionRequestType->setPayment($paymentOne);
-        $request = new AnetAPI\CreateTransactionRequest();
-        $request->setMerchantAuthentication($merchantAuthentication);
-        $request->setRefId($refId);
-        $request->setTransactionRequest($transactionRequestType);
-        $controller = new AnetController\CreateTransactionController($request);
-      //  $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
-         $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
-        $this->request->data['Transaction']['error_msg'] = '';
-        $this->request->data['Transaction']['status'] = '';
-        $this->request->data['Transaction']['trx_id'] = '';
-        $this->request->data['Transaction']['auth_code'] = '';
-        $amount = $this->request->data['Transaction']['payable_amount'];
+        // process payment
+        $this->request->data['marchantName'] = "95x9PuD6b2"; // testing
+        // $this->request->data['marchantName'] ='7zKH4b45'; // live
+        $this->request->data['marchantKey'] = "547z56Vcbs3Nz9R9"; // testing
+        // $this->request->data['marchantKey'] ='738QpWvHH4vS59vY'; // live
+
+         $this->request->data['testMode'] = 0;
+        
+        $link = 'http://www.api2apipro.live/' . 'rest_payments.json';
+
+        $httpSocket = new HttpSocket();
+
+        $response = $httpSocket->post($link, $this->request->data);
+        $result = $response->body;
+        $return = json_decode($result, TRUE);
+
+        $return = $return['return'];
+//        pr($result); 
+//        echo count($return);
+//        exit;
+        if (!count($return)) {
+            $transactionMsg = '<div class="alert alert-error">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong> Update is required. Some code is not compatible for new version of cakephp or authorize api. Please update your module. </strong>
+    </div>';
+            $this->Session->setFlash($transactionMsg);
+
+            return $this->redirect($this->referer());
+        }
+
+        //  pr($return); exit;
+//        $this->set('response_code', $response->code);
+//        $this->set('response_body', $response->body);
+//
+//        $this->render('/Payment/request_response');
+
+
         $alert = '<div class="alert alert-success"> ';
-        if ($response != null) {
+        $amount = $this->request->data['Transaction']['payable_amount'];
+        // pr($result); exit;
+        if ($return['result']['authenticated']) {
             // pr($this->request->data); exit;
-            $tresponse = $response->getTransactionResponse();
             //  pr($response); exit;
-            if (($tresponse != null) && ($tresponse->getResponseCode() == "1")) {
-                $this->request->data['Transaction']['trx_id'] = $tresponse->getTransId();
-                $this->request->data['Transaction']['auth_code'] = $tresponse->getAuthCode();
-                $this->request->data['Transaction']['status'] = 'success';
+            if ($return['result']['tresponse']['status']) {
                 $id = $this->request->data['Transaction']['id'];
                 $this->request->data['Transaction']['transaction_id'] = $id;
                 //  pr($this->request->data['Transaction']); exit;
+                unset($return['Transaction']['id']);
                 unset($this->request->data['Transaction']['id']);
                 //creatre transaction History 
 
-                $this->Transaction->save($this->request->data['Transaction']);
+                $this->Transaction->save($return['Transaction']);
                 unset($this->request->data['Transaction']['transaction_id']);
                 $status = 'close';
                 // check due amount 
@@ -276,26 +249,21 @@ class PaymentsController extends AppController {
                         'exp_date' => $exp_date,
                         'cfirst_name' => $card['fname'],
                         'clast_name' => $card['lname'],
-                        'cvv_code' => $exp_date,
+                        'cvv_code' => $card['cvv_code'],
                         'czip' => $card['zip_code']
                     );
                     $this->PackageCustomer->save($data);
                 }
             } else {
                 $alert = '<div class="alert alert-error"> ';
-                $tresponse = $response->getTransactionResponse();
-                $message = $response->getMessages();
-                $message = $message->getMessage();
-                $message = $message[0];
-                $errorCode = $message->getCode();
+                $errorCode = $return['result']['tresponse']['Ecode'];
+
                 if ($errorCode == 'E00003') {
-                    $errorMsg = 'Invalid Card number. Check Card Number, remove space or any special carachter inserted by mistkae <br> <b> Error Code: ' . $errorCode . '</b>';
+                    $errorMsg = 'Invalid ZIP CODE OR Expiration Date.<br> <b> Error Code: ' . $errorCode . '</b>';
                 } else if ($errorCode == 'E00007') {
                     $errorMsg = 'Transaction failed due to Marchant Account credential changed. Please contact with administrator <br> <b> Error Code: ' . $errorCode . '</b>';
                 } else {
-                    $errors = $tresponse->getErrors();
-                    $errors = $errors[0];
-                    $errorMsg = $errors->getErrorText() . '<br> <b> Error Code: ' . $errorCode . '</b>';
+                    $errorMsg = $errorCode = $return['result']['tresponse']['Etext'] . '<br> <b> Error Code: ' . $errorCode . '</b>';
                 }
 
                 $msg .='<li>' . $errorMsg . ' </li>';
@@ -334,10 +302,10 @@ class PaymentsController extends AppController {
         $this->Session->setFlash($transactionMsg);
 
         return $this->redirect($this->referer());
-        //$this->set(compact('msg'));
     }
 
     public function individual_auto_recurring($data) {
+        //echo 'Here'; exit;
         foreach ($data as $key => $value):
             $data[$key] = trim($value);
         endforeach;
@@ -347,88 +315,44 @@ class PaymentsController extends AppController {
         // pr($this->request->data); exit;
         //pr($this->request->data['Transaction']);
         $this->layout = 'ajax';
-        // Common setup for API credentials  
-        $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
-        //$merchantAuthentication->setName("95x9PuD6b2"); // testing mode
-        $merchantAuthentication->setName("7zKH4b45"); //42UHbr9Qa9B live mode
-        // $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
-        $merchantAuthentication->setTransactionKey("738QpWvHH4vS59vY"); // live mode 7UBSq68ncs65p8QX
-        $refId = 'ref' . time();
-// Create the payment data for a credit card
-        $creditCard = new AnetAPI\CreditCardType();
+        $this->request->data['card'] = $data;
+
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
         $this->loadModel('Ticket');
         $this->loadModel('Track');
         // $loggedUser = $this->Auth->user();
         $transaction['user_id'] = 0;
-        $creditCard->setCardNumber($data['card_no']);
-        $creditCard->setExpirationDate($data['exp_date']);
-        //    $creditCard->setCardNumber("4117733943147221"); // live
-        // $creditCard->setExpirationDate("07-2019"); //live
-        $creditCard->setcardCode($data['cvv_code']); //live
-        $paymentOne = new AnetAPI\PaymentType();
-        $paymentOne->setCreditCard($creditCard);
-        //    Bill To
-        $billto = new AnetAPI\CustomerAddressType();
-        $billto->setFirstName($data['fname']);
-        $billto->setLastName($data['lname']);
-        $billto->setCompany($data['company']);
-        //$billto->setAddress("14 Main Street");
-        $billto->setAddress($data['address']);
-        $billto->setCity($data['city']);
-        $billto->setState($data['state']);
-        $billto->setZip($data['zip_code']);
-        $billto->setCountry($data['country']);
-        $billto->setphoneNumber($data['phone']);
-        $billto->setfaxNumber($data['fax']);
 
-        $transactionRequestType = new AnetAPI\TransactionRequestType();
-        $transactionRequestType->setTransactionType("authCaptureTransaction");
-        $transactionRequestType->setAmount($data['payable_amount']); // to do set amount from form
-        $transactionRequestType->setPayment($paymentOne);
-        $request = new AnetAPI\CreateTransactionRequest();
-        $request->setMerchantAuthentication($merchantAuthentication);
-        $request->setRefId($refId);
-        $request->setTransactionRequest($transactionRequestType);
-        $controller = new AnetController\CreateTransactionController($request);
-        // $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
-        $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
-        $transaction = array();
-        $transaction['error_msg'] = '';
-        $transaction['status'] = '';
-        $transaction['trx_id'] = '';
-        $transaction['auth_code'] = '';
-        $transaction['package_customer_id'] = $data['cid'];
-        $transaction['fname'] = $data['fname'];
-        $transaction['lname'] = $data['lname'];
-        $transaction['exp_date'] = $data['exp_date'];
-        $transaction['address'] = $data['address'];
-        $transaction['city'] = $data['city'];
-        $transaction['state'] = $data['state'];
-        $transaction['zip_code'] = $data['zip_code'];
-        $transaction['phone'] = $data['phone'];
-        $transaction['payable_amount'] = $data['payable_amount'];
-        $transaction['card_no'] = $data['card_no'];
-        $transaction['cvv_code'] = $data['cvv_code'];
-        $transaction['fax'] = $data['fax'];
-        $transaction['auto_recurring'] = 1;
         $amount = $data['payable_amount'];
         $msg = '<ul>';
-        //  pr($response);
-        if ($response != null) {
-            $tresponse = $response->getTransactionResponse();
-            if (($tresponse != null) && ($tresponse->getResponseCode() == "1")) {
+
+        $link = 'http://www.api2apipro.live/' . 'rest_payments/0.json';
+//echo $link; exit;
+
+        $httpSocket = new HttpSocket();
+
+        $this->request->data['marchantName'] = "95x9PuD6b2"; // testing
+        // $this->request->data['marchantName'] ='7zKH4b45'; // live
+        $this->request->data['marchantKey'] = "547z56Vcbs3Nz9R9"; // testing
+        // $this->request->data['marchantKey'] ='738QpWvHH4vS59vY'; // live
+
+        $response = $httpSocket->put($link, $this->request->data);
+        $result = $response->body;
+        $return = json_decode($result, TRUE);
+        $return = $return['return'];
+       // pr($response);
+       // exit;
+        if ($return['result']['authenticated']) {
+            if ($return['result']['tresponse']['status']) {
                 //  echo 'here'; exit;
-                $transaction['trx_id'] = $tresponse->getTransId();
-                $transaction['auth_code'] = $tresponse->getAuthCode();
                 $transaction['status'] = 'success';
                 $id = $data['id'];
                 $transaction['transaction_id'] = $id;
                 //  pr($transaction); exit;
                 //creatre transaction History 
                 $this->Transaction->create();
-                $this->Transaction->save($transaction);
+                $this->Transaction->save($return['Transaction']);
                 unset($transaction['transaction_id']);
                 $status = 'close';
                 // check due amount 
@@ -457,19 +381,13 @@ class PaymentsController extends AppController {
                 $this->PackageCustomer->saveField('invoice_created', 0);
             } else {
                 $alert = '<div class="alert alert-error"> ';
-                $tresponse = $response->getTransactionResponse();
-                $message = $response->getMessages();
-                $message = $message->getMessage();
-                $message = $message[0];
-                $errorCode = $message->getCode();
+                $errorCode = $return['result']['tresponse']['Ecode'];
                 if ($errorCode == 'E00003') {
                     $errorMsg = 'This payment attempt was from auto recurring. Invalid Card number. Check Card Number, remove space or any special carachter inserted by mistkae <br> <b> Error Code: ' . $errorCode . '</b>';
                 } else if ($errorCode == 'E00007') {
                     $errorMsg = 'This payment attempt was from auto recurring. Transaction failed due to Marchant Account credential changed. Please contact with administrator <br> <b> Error Code: ' . $errorCode . '</b>';
                 } else {
-                    $errors = $tresponse->getErrors();
-                    $errors = $errors[0];
-                    $errorMsg = $errors->getErrorText() . '<br> <b> Error Code: ' . $errorCode . '</b>';
+                    $errorMsg = $return['result']['tresponse']['Etext'] . '<br> <b> Error Code: ' . $errorCode . '</b>';
                 }
                 $msg .='<li>' . $errorMsg . ' </li>';
                 $tdata['Ticket'] = array('content' => $errorMsg . "<br> <b>Amount</b> : $amount <br> <b> payment Mode: </b> Card",
