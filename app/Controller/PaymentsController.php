@@ -740,8 +740,7 @@ class PaymentsController extends AppController {
         return $payable - $paid;
     }
 
-    public function individual_transaction_by_check() {
-        
+    public function individual_transaction_by_check() {        
         $this->request->data['Transaction']['created'] = $this->getFormatedDate($this->request->data['Transaction']['created_check']) . ' 00:00:00';
         $this->loadModel('Transaction');
         $this->loadModel('Ticket');

@@ -17,6 +17,12 @@
         width: 860px !important;
     }
 </style>
+<?php
+$btn = '';
+if (strtolower($disabled != 'active')) {
+    $btn = "disabled";
+}
+?>
 <div class="page-content-wrapper">
     <!-- BEGIN PAGE CONTENT-->
     <div class="page-content">
@@ -640,14 +646,16 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20"> 
+                            <div  class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20"> 
                                 <?php
                                 echo $this->Form->button(
                                         'Update Customer Information', array(
                                     'class' => 'btn btn-primary submitbtn green',
                                     'type' => 'submit',
-                                    'id' => ''
+                                    'id' => '',                                            
+                                                'disabled' => $btn
                                 ));
+                                 
                                 ?>
                             </div>
                         </div>
@@ -715,7 +723,7 @@
                             &nbsp;
                             <div class="row margin-top-20">
                                 <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20"> 
-                                    <button class="btn btn-primary submitbtn grey-cascade" type="submit" id="">Update Date</button>                                    </div>
+                                    <button <?php echo $btn?> class="btn btn-primary submitbtn grey-cascade" type="submit" id="">Update Date</button>                                    </div>
                             </div>
                         </div>
                     </div>
@@ -831,7 +839,7 @@
                             &nbsp;
                             <div class="row margin-top-20">
                                 <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20"> 
-                                    <button class="btn btn-primary submitbtn grey-cascade" type="submit" id="">Generate Invoice</button>                                    </div>
+                                    <button <?php echo $btn?> class="btn btn-primary submitbtn grey-cascade" type="submit" id="">Generate Invoice</button>                                    </div>
                             </div>
                         </div>
                     </div>
@@ -1118,7 +1126,8 @@
                                         'Update Card', array(
                                     'class' => 'btn btn-primary submitbtn green-meadow',
                                     'type' => 'submit',
-                                    'id' => ''
+                                    'id' => '',
+                                                'disabled' => $btn
                                 ));
                                 ?>
                             </div>
@@ -1502,7 +1511,8 @@
                                             'Update', array(
                                         'class' => 'btn btn-primary submitbtn green',
                                         'type' => 'submit',
-                                        'id' => ''
+                                        'id' => '',
+                                                'disabled' => $btn
                                     ));
                                     ?>
                                 </div>
@@ -1618,9 +1628,9 @@
                                                     &nbsp;
                                                     <a 
                                                         onclick="if (confirm( & quot; Are you sure to Void this Transaction? & quot; )) {
-                                                                    return true;
-                                                                }
-                                                                return false;"
+                                                                        return true;
+                                                                    }
+                                                                    return false;"
 
                                                         href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'void', $info['transactions']['id'])) ?>" title="Void">
                                                         <span class="fa  fa-ban"></span>
@@ -1629,7 +1639,6 @@
                                             </tr>
                                             <?php
                                         endforeach;
-// exit;
                                         ?>
                                     </tbody>
                                 </table>
@@ -1784,7 +1793,8 @@
                                             <div class="col-md-offset-6 col-md-4">
                                                 <?php
                                                 echo $this->Form->button(
-                                                        'Generate', array('class' => 'btn red-sunglo', 'type' => 'submit', 'style' => "background-color: #daae2b;",)
+                                                        'Generate', array('class' => 'btn red-sunglo', 'type' => 'submit',
+                                                'disabled' => $btn, 'style' => "background-color: #daae2b;",)
                                                 );
                                                 ?>
                                             </div>
@@ -1921,7 +1931,8 @@
                                             <div class="col-md-offset-6 col-md-4">
                                                 <?php
                                                 echo $this->Form->button(
-                                                        'Confirm', array('class' => 'btn red-sunglo', 'type' => 'submit')
+                                                        'Confirm', array('class' => 'btn red-sunglo',
+                                                'disabled' => $btn, 'type' => 'submit')
                                                 );
                                                 ?>
                                             </div>
@@ -2083,7 +2094,8 @@
                                             <div class="col-md-offset-6 col-md-4">
                                                 <?php
                                                 echo $this->Form->button(
-                                                        'Submit', array('class' => 'btn', 'type' => 'submit')
+                                                        'Submit', array('class' => 'btn',
+                                                'disabled' => $btn, 'type' => 'submit')
                                                 );
                                                 ?>
                                             </div>
@@ -2160,7 +2172,8 @@
                                             <div class="col-md-offset-6 col-md-4">
                                                 <?php
                                                 echo $this->Form->button(
-                                                        'Submit', array('class' => 'btn red-sunglo', 'type' => 'submit', 'style' => "background-color: #8BC34A;",)
+                                                        'Submit', array('class' => 'btn red-sunglo',
+                                                'disabled' => $btn, 'type' => 'submit', 'style' => "background-color: #8BC34A;",)
                                                 );
                                                 ?>
                                             </div>
@@ -2297,13 +2310,13 @@
                                             $balance = array();
                                             foreach ($statements as $single):
 
-                                                $bill = $single['bill'];
 
+                                                $bill = $single['bill'];
                                                 $payments = $single['payment'];
 
                                                 $amount = $bill['payable_amount'];
-                                                if($bill['status'] == 'approved'){
-                                                    $amount = (-1)*$bill['payable_amount'];
+                                                if ($bill['status'] == 'approved') {
+                                                    $amount = (-1) * $bill['payable_amount'];
                                                 }
                                                 $balance[] = $amount;
                                                 // $prevIndex = -1;
@@ -2334,6 +2347,9 @@
                                             <li>
                                                 Invoice Date : 
                                                 <?php echo date('m-d-Y', strtotime($bill['next_payment'])); ?>
+                                                <a  target="_blank" title="Edit" href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit', $bill['id'])) ?>" >
+                                                    <span class="fa fa-pencil " target ="_blank"></span>
+                                                </a>
                                             </li>
                                             </td>
                                             <td>
@@ -2348,7 +2364,7 @@
 
                                             <?php
                                             foreach ($payments as $payment):
-                                              //  pr($payment['tr']['discount']); //exit;
+                                                //  pr($payment['tr']['discount']); //exit;
                                                 $amount = -1 * $payment['tr']['payable_amount'];
                                                 $balance[] = $amount;
                                                 $prevIndex = count($balance) - 2;
@@ -2382,20 +2398,27 @@
                                                             <?php elseif ($payment['tr']['pay_mode'] == 'cash'): ?>
                                                                 <li>Pay Mode : <?php echo $payment['tr']['pay_mode']; ?></li> 
                                                                 <li> Cash By : <?php echo $payment['tr']['cash_by']; ?> </li>
-
+                                                                <a  target="_blank" title="Edit"  href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit', $bill['id'])) ?>" >
+                                                                    <span class="fa fa-pencil" target ="_blank"></span>
+                                                                </a>
                                                             <?php elseif ($payment['tr']['pay_mode'] == 'refund'): ?>
                                                                 <li>Pay Mode : <?php echo $payment['tr']['pay_mode']; ?></li>
                                                                 <li>Check Info : <?php echo $payment['tr']['check_info']; ?></li>
                                                                 <ul> <li>Amount : <?php echo $payment['tr']['paid_amount']; ?></li>
                                                                     <li>Refund Date : <?php echo date('m-d-Y', strtotime($payment['tr']['created'])); ?></li>
                                                                 </ul>
-
+                                                                <a  target="_blank" title="Edit"  href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit', $bill['id'])) ?>" >
+                                                                    <span class="fa fa-pencil" target ="_blank"></span>
+                                                                </a>
                                                             <?php else: ?>
                                                                 <li>Pay Mode : <?php echo $payment['tr']['pay_mode']; ?></li> 
                                                                 <li>Check Info : <?php echo $payment['tr']['check_info']; ?></li>
                                                                 <?php if (!empty($payment['tr']['check_image'])): ?>
                                                                     <img src="<?php echo $this->webroot . 'check_images' . '/' . $payment['tr']['check_image']; ?>"  width="50px" height="50px" />
                                                                 <?php endif; ?>
+                                                                <a  target="_blank" title="Edit"  href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit', $bill['id'])) ?>" >
+                                                                    <span class="fa fa-pencil" target ="_blank"></span>
+                                                                </a>
                                                             <?php endif; ?> 
 
                                                             <li> Payment Date: <?php echo date('m-d-Y', strtotime($payment['tr']['created'])); ?> </li>
@@ -2403,6 +2426,7 @@
 
                                                             <li> Payment of : #<?php echo $payment['tr']['transaction_id']; ?> </li>
                                                         </ul>
+
                                                     </td>
 
 
@@ -2491,7 +2515,7 @@
                                                                     </th>
                                                                     <tr>
                                                                         <td style="padding-left: 5px; min-height: 115px; line-height: 15px;">
-                                                                            <?php // if (!empty($single['0']['name'])):           ?>
+                                                                            <?php // if (!empty($single['0']['name'])):            ?>
                                                                             <?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?>
                                                                             <br>
                                                                             <?php echo $customer_address_one; ?><br>
@@ -2949,6 +2973,7 @@
                                                     $issue = end($single['history']);
                                                     $customer = end($single['history']);
                                                     $customer = $customer['pc'];
+
                                                     $ticket = $single['ticket'];
                                                     ?>
                                                     <tr >
@@ -3364,7 +3389,6 @@
                                                                                 )
                                                                         );
                                                                         ?>
-
                                                                         <div class="form-body">
                                                                             <div class="alert alert-danger display-hide">
                                                                                 <button class="close" data-close="alert"></button>
@@ -3400,7 +3424,6 @@
                                                                         <?php echo $this->Form->end(); ?>
                                                                         <!-- END FORM-->
                                                                     </div> 
-
                                                                     <?php
                                                                 } else {
                                                                     echo 'Close';
@@ -3415,12 +3438,11 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="col-md-2"><a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'create', $this->request->params['pass'][0])) ?>" style="font-weight: bold; color: #E02222;">Generate Ticket</a></div>
+                                    <div class="col-md-2"><a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'create', $this->request->params['pass'][0])) ?>"  style=" font-weight: bold; color: #E02222;">Generate Ticket</a></div>
                                 </div>
                             </div>
                         </div>               
                         <!-- END PAGE CONTENT -->
-
                     </div>
                 </div>
                 <!-- END CONTENT -->        
@@ -3441,9 +3463,9 @@
                     );
                     ?>
                     <button class="btn red-sunglo" onclick="if (confirm('Are you sure to Delete this Customer?')) {
-                                return true;
-                            }
-                            return false;" type="submit" style="background-color: red;">Delete customer</button>     
+                                    return true;
+                                }
+                                return false;" <?php echo $btn; ?> type="submit" style="background-color: red;">Delete customer</button>     
 
                     <?php echo $this->Form->end(); ?>
 

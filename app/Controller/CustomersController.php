@@ -152,33 +152,31 @@ class CustomersController extends AppController {
             $data['system'] = json_encode($data['system']);
         }
         $this->loadModel('PackageCustomer');
-
         $this->loadModel('CustomPackage');
         $this->loadModel('Ticket');
         $this->loadModel('Track');
-        
+
         $tmsg = 'Information of  ' . $data['first_name'] . '  ' .
                 $data['middle_name'] . '  ' .
                 $data['last_name'] . ' has been updated';
-
+        
         //For Custom Package data insert
         $data4CustomPackage['CustomPackage']['duration'] = $data['duration'];
         $data4CustomPackage['CustomPackage']['charge'] = $data['charge'];
         if (!empty($data['charge'])) {
+            
             //save data into custom_package table
             $cp = $this->CustomPackage->save($data4CustomPackage);
             unset($cp['CustomPackage']['PackageCustomer']);
+            
             //from custom_package table, save custom package id to package_customer table
             $data['custom_package_id'] = $cp['CustomPackage']['id'];
         }
+        
         // if custom package is changed then custom_package_id will be reset to 0
         if (!isset($data['CustomPackage'])) {
             $data['custom_package_id'] = 0;
-        }
-        //Ends Custom_package data entry  
-        $this->PackageCustomer->id = $data['id'];
-//        $this->stbs_update($data['id']);
-        
+        }       
         $this->PackageCustomer->save($data);
     }
 
@@ -332,14 +330,13 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
 
             // update package_customers table
             $this->request->data['PackageCustomer']['id'] = $id;
-//          pr($this->request->data); exit;
-             
+
             $this->updatePackageCustomerTable($this->request->data['PackageCustomer']);
             $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <strong> Customer information updated Successfully </strong>
             </div>';
-//            $this->stbs_update($id);
+            $this->stbs_update($id);
             $this->Session->setFlash($msg);
         }
         $this->loadModel('PackageCustomer');
@@ -398,8 +395,9 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $this->loadModel('Attachment');
         $transactions = $this->Transaction->find('all', array('conditions' => array('Transaction.package_customer_id' => $id)));
         $attachments = $this->Attachment->find('all', array('conditions' => array('Attachment.package_customer_id' => $id)));
+        $disabled = $customer_info['PackageCustomer']['status'];
 
-        $this->set(compact('transactions', 'customer_info', 'c_acc_no', 'macstb', 'custom_package_duration', 'checkMark', 'statusHistories'));
+        $this->set(compact('disabled', 'transactions', 'customer_info', 'c_acc_no', 'macstb', 'custom_package_duration', 'checkMark', 'statusHistories'));
 
 //        Ticket History
         $response = $this->getAllTickectsByCustomer($id);
@@ -425,8 +423,9 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $ym = $this->getYm();
         $this->loadModel('Transaction');
         $invoices = $this->getOpenInvoice($pcid);
+
         $statements = $this->getStatements($pcid);
-     //   pr($statements); exit;
+        //   pr($statements); exit;
         $this->set(compact('invoices', 'statements', 'packageList', 'psettings', 'ym', 'custom_package_charge', 'user', 'attachments'));
     }
 
@@ -1782,20 +1781,20 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $this->BackupPackageCustomer->delete($id);
         $this->redirect(array('controller' => 'admins', 'action' => 'servicemanage'));
     }
-    
+
     function stbs_update($id = 0) {
         $this->loadModel('PackageCustomer');
-//        $sql = "select id, mac from package_customers limit 6001,12131";
-        if($id){
+//        $sql = "select id, mac from package_customers limit 10962,11781";
+        if ($id) {
             $sql = "SELECT id, mac from package_customers WHERE id = $id";
-        }        
+        }
         $data = $this->PackageCustomer->query($sql);
         foreach ($data as $temp) {
             $this->PackageCustomer->create();
             $this->PackageCustomer->id = $temp['package_customers']['id'];
             $mac = json_decode($temp['package_customers']['mac']);
             $stbs = count($mac);
-            $this->PackageCustomer->save(array('stbs' => $stbs));
+            $this->PackageCustomer->save('stbs', $stbs);
         }
         return $this->redirect($this->referer());
     }

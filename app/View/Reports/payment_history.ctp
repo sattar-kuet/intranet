@@ -130,11 +130,12 @@
                                     </p>                                       
                                     <p class="pull-right"> Total Subscription<b>: <?php echo $total; ?></b></p><br>
 
-                                   
-                                         <span id="box" class="hide"><?php // echo $boxes; ?></span>
+
+                                    <span id="box" class="hide"><?php // echo $boxes;    ?></span>
                                     <?php // endforeach; ?>
-                                    
-                                    <p class="pull-right"> Total Boxes<b>: <span class="showthis" data-box="box"></span> </b></p>
+
+                                    <p class="pull-right"> Total Boxes<b>: <?php echo $totalbox; ?> </b></p>
+                                    <!--<p class="pull-right"> Total Boxes<b>: <span class="showthis" data-box="box"></span> </b></p>-->
                                 </div>  
                                 <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                                     <ul class="pagination" >
@@ -166,11 +167,11 @@
                                         foreach ($transactions as $single):
                                             $tr = $single['tr'];
 //                                            $total += $tr['paid_amount'];
-                                        
+
                                             $pc = $single['pc'];
                                             $stbs = count($pc['stbs']);
 //                                            $stbs = json_decode($pc['mac']);+
-                                              pr($stbs); exit;
+//                                              pr($stbs); exit;
 
                                             $boxes = $stbs;
 
@@ -184,9 +185,9 @@
                                                     <ul>
                                                         <li><strong>Name:</strong>  
                                                             <a href="<?php
-                                    echo Router::url(array('controller' => 'customers',
-                                        'action' => 'edit', $pc['id']))
-                                            ?>" 
+                                                            echo Router::url(array('controller' => 'customers',
+                                                                'action' => 'edit', $pc['id']))
+                                                            ?>" 
                                                                target="_blank">
                                                                    <?php
                                                                    echo $pc['first_name'] . ' ' . $pc['middle_name'] . ' ' . $pc['last_name'];
@@ -205,11 +206,14 @@
                                                 </td>
                                                 <td>
                                                     <ul>
-
-                                                        <?php if ($single['ps']['name'] != NULL): ?>
+                                                        <?php if ($single['pc']['psetting_id']) { ?>
                                                             <li><strong>Package Name :</strong> <?php echo $single['ps']['name']; ?></li>
-                                                        <?php endif;
-                                                        ?>
+                                                        <?php } elseif (!empty($single['pc']['custom_package_id'])) { ?>
+                                                            <li><strong>Package Name :</strong> <?php echo $single['cp']['duration'] .' Months, Custom package' ; ?></li></br>
+                                                            <li><strong>Charge :</strong> <?php echo $single['cp']['charge'] . '$'; ?></li>
+                                                        <?php } else { ?>
+                                                            <?php echo 'Package not set !'; ?>
+                                                        <?php } ?> 
                                                     </ul>
                                                 </td>
 
@@ -242,7 +246,7 @@
                                             <?php
                                         endforeach;
                                         ?>   
-                                   
+
                                     </tbody>
                                 </table>
                                 <!--<h2 style="text-align: center;" > Grant Total: $<?php echo $total; ?></h2>-->

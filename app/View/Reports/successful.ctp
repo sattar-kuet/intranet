@@ -1,6 +1,3 @@
-
-
-
 <style>
     .ui-datepicker-multi-3 {
         display: table-row-group !important;
@@ -16,7 +13,7 @@
         text-align: center;
     }
     .txtArea { width:300px; }
-      ul.pagination {
+    ul.pagination {
         display: flex;
         justify-content: center;
     }
@@ -30,7 +27,6 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="reload">
@@ -57,7 +53,6 @@
                                 You have some form errors. Please check below.
                             </div>
                             <?php echo $this->Session->flash(); ?>
-
                             <div class="form-group">                                
                                 <label class="control-label col-md-3" for="required">Select Date:</label>
                                 <div class="col-md-4">
@@ -71,7 +66,6 @@
                                     ?>
                                 </div>
                             </div>
-
                         </div>
                         <div class="form-actions">
                             <div class="row">
@@ -95,7 +89,6 @@
         <?php if ($clicked): ?>    
             <div class="page-content-wrapper" style="margin: 0px; padding: 0px;">
                 <div class="">
-
                     <!-- BEGIN PAGE CONTENT-->
                     <div class="invoice" id="printableArea">
                         <hr>
@@ -105,19 +98,19 @@
                                     <p> Total Subscription<b>: <?php echo $totalCustomer; ?></b> &nbsp; &nbsp;&nbsp;&nbsp;
                                         Total Paid Amount<b>: $<?php echo $totalPayment; ?> </b> </p>
                                 </div> 
-                                   <ul class="pagination" >
-                            <?php
-                            for ($i = 1; $i <= $total_page; $i++):
-                                $active = '';
-                                if (isset($this->params['pass'][0]) && $this->params['pass'][0] == $i) {
-                                    $active = 'active';
-                                }
-                                ?>
-                                <li class="paginate_button <?php echo $active; ?>" aria-controls="sample_editable_1" tabindex="<?php echo $i; ?>">
-                                    <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'successful', $i,$start,$end)) ?>"><?php echo $i; ?></a>
-                                </li>
-                            <?php endfor; ?>
-                        </ul>
+                                <ul class="pagination" >
+                                    <?php
+                                    for ($i = 1; $i <= $total_page; $i++):
+                                        $active = '';
+                                        if (isset($this->params['pass'][0]) && $this->params['pass'][0] == $i) {
+                                            $active = 'active';
+                                        }
+                                        ?>
+                                        <li class="paginate_button <?php echo $active; ?>" aria-controls="sample_editable_1" tabindex="<?php echo $i; ?>">
+                                            <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'successful', $i, $start, $end)) ?>"><?php echo $i; ?></a>
+                                        </li>
+                                    <?php endfor; ?>
+                                </ul>
                                 <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                                     <thead>
                                         <tr>
@@ -134,7 +127,6 @@
                                             <th>
                                                 Payment Information
                                             </th>
-
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -158,16 +150,20 @@
                                                            <?php echo $results['package_customers']['first_name'] . ' ' . $results['package_customers']['middle_name'] . ' ' . $results['package_customers']['last_name']; ?>
                                                     </a><br>
                                                     <?php echo $customer_address; ?> 
-                                                </td>                                     
+                                                </td> 
                                                 <td>
-                                                    <?php if (!empty($results['ps']['name'])): ?>
-                                                        Name:<?php echo $results['ps']['name'] ?><br>
-                                                        Duration:<?php echo $results['ps']['duration']; ?><br>
-                                                        Amount: <?php echo $results['ps']['amount']; ?>
+                                                    <?php if (!empty($results['package_customers']['psetting_id'])): ?>
+                                                        <li> <strong>Name:</strong> <?php echo $results['psettings']['name']; ?></li>
+                                                        <li><strong>Duration:</strong> <?php echo $results['psettings']['duration']; ?></li>
+                                                        <li><strong>Amount:</strong> <?php echo $results['psettings']['amount']; ?></li>
+                                                    <?php elseif (!empty($results['custom_packages']['id'])): ?>
+                                                        <li><strong>Name:</strong> <?php echo $results['custom_packages']['duration'] . ' Months, Custom package '; ?></li>
+                                                        <li><strong>Charge:</strong> <?php echo $results['custom_packages']['charge'] . '$'; ?></li>
+                                                    <?php else : ?>
+                                                            <?php echo 'Package not set !'; ?>
                                                     <?php endif; ?>
-                                                </td>                                     
-                                                <td class="hidden-480">
-
+                                                 </td>       
+                                        <td class="hidden-480">
                                         <li> <b>Paid Amount :</b> <?php echo $results['transactions']['payable_amount']; ?> </li>                           
                                         <li> <b>Transaction ID :</b> <?php echo $results['transactions']['trx_id']; ?> </li>                           
 

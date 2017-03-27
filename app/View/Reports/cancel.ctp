@@ -6,11 +6,16 @@
 
 <style type="text/css">
     .alert {
+
         padding: 6px;
         margin-bottom: 5px;
         border: 1px solid transparent;
         border-radius: 4px;
         text-align: center;
+    }
+    ul.pagination {
+        display: flex;
+        justify-content: center;
     }
 </style>
 
@@ -22,16 +27,12 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-plus"></i>Canceled Customers
-                        </div>
-                        <div class="tools">
-                            <a href="javascript:;" class="reload">
-                            </a>
-                        </div>
+                            <i class="fa fa-plus"></i>Payment History
+                        </div>   
                     </div>
                     <div class="portlet-body form">
                         <!-- BEGIN FORM-->
-                        <?php
+                         <?php
                         echo $this->Form->create('PackageCustomer', array(
                             'inputDefaults' => array(
                                 'label' => false,
@@ -49,9 +50,8 @@
                                 You have some form errors. Please check below.
                             </div>
                             <?php echo $this->Session->flash(); ?>
-
                             <div class="form-group">                                
-                                <label class="control-label col-md-3" for="required">Select Date:</label>
+                                <label class="control-label col-md-3">Select Date:</label>
                                 <div class="col-md-4">
                                     <?php
                                     echo $this->Form->input(
@@ -85,23 +85,10 @@
         </div>
         <!-- END PAGE CONTENT -->
         <?php if ($clicked): ?>    
-            <div class="page-content-wrapper" style="margin: 0px; padding: 0px;">
-                <div class="">
-                   
+            <div class="page-content-wrapper" style="margin: 0px; padding: 0px;">                
                     <!-- BEGIN PAGE CONTENT-->
-                    <div class="invoice" id="printableArea">
-                          <div class="row">
-                            <div class="col-xs-6">                    
-                            </div>
-                            <div class="col-xs-4">
-                            </div>
-                            <div class="col-xs-2 invoice-payment">
-                                <div style="text-align: left;">
+                    <div class="invoice"  id="printableArea">
 
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
                         <div class="row">
                             <div class="col-xs-6">                    
                             </div>
@@ -114,9 +101,8 @@
                             </div>
                         </div>
                         <div class="row">
-                          <div class="col-xs-12">
-
-                                <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+                            <div class="col-xs-12">  
+                               <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                                     <thead>
                                         <tr> 
                                             <th class="hidden-480">
@@ -143,21 +129,15 @@
                                             <th class="hidden-480">
                                                 Exp Date
                                             </th>
-<!--                                            <th class="hidden-480">
-                                                Registration Date
-                                            </th>-->
                                         </tr>
                                     </thead>
                                     <tbody>                                    
                                         <?php
                                         foreach ($block_customers as $info):
-//                                            pr($info); exit;
                                             ?>
                                             <tr>
-                                                <td>
-                                                    <?php if (!empty($info['PackageCustomer']['c_acc_no'])): ?>
-                                                        <?php echo $info['PackageCustomer']['c_acc_no']; ?>
-                                                    <?php endif; ?>
+                                                <td>                                                    
+                                                    <?php echo $info['package_customers']['id']; ?>                                                
                                                 </td>
                                                 <td> <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'edit', $info['package_customers']['id'])) ?>" target="_blank"><?php echo $info['package_customers']['middle_name'] . " " . $info['package_customers']['last_name']; ?></a> </td>
                                                 <td>
@@ -169,39 +149,41 @@
                                                 <td><?php echo $info['package_customers']['cell']; ?></td>
                                                 <td>
                                                     <?php
-                                                    if ($info['package_customers']['custom_package_id'] == null) {
+                                                    if (!empty($info['package_customers']['psetting_id'])) {
                                                         echo $info['psettings']['name'];
-                                                    } else {
-                                                        
+                                                    } elseif (!empty($info['package_customers']['custom_package_id'])) {
                                                         echo $info['custom_packages']['duration'] . ' Months, Custom package ' . $info['custom_packages']['charge'] . '$';
-                                            
-                                                        }
+                                                    } else {
+                                                        echo 'Package not set !';
+                                                    }
                                                     ?>
                                                 </td>
                                                 <td>
-                                                 $<?php 
-                                                 $paid = 0;
-                                                 if(!empty($info['transactions']['id'])){
-                                                   $paid =  getPaid($info['transactions']['id']);
-                                                 }
-                                                 
-                                                 echo $info['transactions']['payable_amount'] - $paid;?> USD
+                                                    $<?php
+                                                    $paid = 0;
+                                                    if (!empty($info['transactions']['id'])) {
+                                                        $paid = getPaid($info['transactions']['id']);
+                                                    }
+
+                                                    echo $info['transactions']['payable_amount'] - $paid;
+                                                    ?> USD
                                                 </td>
-                                                <td><?php echo date('m-d-Y', strtotime($info['package_customers']['modified']));?></td>                                              
-                                               
-                                                 <td><?php // echo date('m-d-Y', strtotime($info['package_customers']['created']));?></td>                                                
+                                                <td><?php echo date('m-d-Y', strtotime($info['package_customers']['modified'])); ?></td>                                              
+
+                                                <td><?php // echo date('m-d-Y', strtotime($info['package_customers']['created']));  ?></td>                                                
                                             </tr>
                                         <?php endforeach; ?>                           
                                     </tbody>
                                 </table>
                             </div>
+
+
                         </div>
                     </div>
-                </div>
-            </div>                            
+               
+            </div>                             
         <?php endif; ?>
     </div>
 </div>
 <!-- END CONTENT -->
-
 
