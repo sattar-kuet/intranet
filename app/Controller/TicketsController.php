@@ -648,7 +648,6 @@ class TicketsController extends AppController {
         $index = 0;
         foreach ($tickets as $key => $ticket) {
 
-
             $t = $ticket['t']['id'];
 
             if (isset($unique[$t])) {

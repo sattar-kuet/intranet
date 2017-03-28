@@ -65,7 +65,7 @@
                                     ?>
                                 </div>
                             </div>
-                            <div class="form-group">
+<!--                            <div class="form-group">
                                 <label class="control-label col-md-3">Picture
                                 </label>
                                 <div class="col-md-4">
@@ -78,9 +78,9 @@
                                     );
                                     ?>
 
-                                    <img src="<?php echo $this->webroot . 'pictures' . '/' . $data['User']['picture']; ?>"  width="50px" height="50px" />
+                                    <img src="<?php // echo $this->webroot . 'pictures' . '/' . $data['User']['picture']; ?>"  width="50px" height="50px" />
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="form-group">
                                 <label class="control-label col-md-3">Email<span class="required">
                                         * </span>

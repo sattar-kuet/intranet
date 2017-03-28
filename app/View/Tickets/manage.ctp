@@ -7,7 +7,7 @@
         text-align: center;
     }
     .txtArea { width:300px; }
-      ul.pagination {
+    ul.pagination {
         display: flex;
         justify-content: center;
     }
@@ -28,8 +28,10 @@
                     <div class="portlet-title">
                         <div class="caption">
                             <i class="fa fa-ticket"></i>List of All Tickets Total tickets: <?php echo $total; ?> 
-                            &nbsp; In-progress : <?php echo $total_inprogress; ?> 
-                            &nbsp; Close : <?php echo $total_close; ?> 
+                            <!--&nbsp; In-progress :-->
+                            <?php // echo $total_inprogress; ?> 
+                            <!--&nbsp; Close :-->
+                            <?php // echo $total_close; ?> 
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="reload">
@@ -38,7 +40,7 @@
                     </div>
                     <div class="portlet-body">
                         <?php echo $this->Session->flash(); ?>
-                         <ul class="pagination" >
+                        <ul class="pagination" >
                             <?php
                             for ($i = 1; $i <= $total_page; $i++):
                                 $active = '';
@@ -68,10 +70,10 @@
                             <tbody>
                                 <?php
                                 foreach ($data as $single):
-                                    
+
                                     $issue = end($single['history']);
                                     $customer = end($single['history']);
-      
+
                                     $agent_name = $customer['fb']['name'];
                                     $customer = $customer['pc'];
 //                                                                  pr($customer['id']); exit;
@@ -155,8 +157,8 @@
                                                     </a>
                                                     &nbsp;
                                                     <a 
-                                                        href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'edit_ticket',$ticket['id'],$customer['id'])) ?>" title="Edit">
-                                                        
+                                                        href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'edit_ticket', $ticket['id'], $customer['id'])) ?>" title="Edit">
+
                                                         <span class="fa fa-pencil fa-lg"></span>
                                                     </a>
                                                     <div id="forward_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">

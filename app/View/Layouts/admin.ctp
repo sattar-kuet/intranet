@@ -3,7 +3,7 @@
 
 <?php 
 if(isset($sidebar)){
-      echo $this->element($sidebar.'-sidebar'); 	
+      echo $this->element(strtolower($sidebar.'-sidebar')); 	
  }
 ?> 
 <div style="margin-top: 19px;">

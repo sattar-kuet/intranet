@@ -101,7 +101,6 @@
                                 </a>
                             </div>
                         </div>
-
                         <div class="portlet-body">
                             <?php echo $this->Session->flash(); ?> 
                             <div class="row">
@@ -143,22 +142,20 @@
                                                         . $info['PackageCustomer']['zip'];
                                                 ?>
                                                 <tr>
-                                                    <td><?php echo $info['PackageCustomer']['c_acc_no']; ?></td>
+                                                    <td><?php echo $info['PackageCustomer']['id']; ?></td>
                                                     <td> <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'edit', $info['PackageCustomer']['id'])) ?>" target="_blank"><?php echo $info['PackageCustomer']['first_name'] . " " . $info['PackageCustomer']['middle_name'] . " " . $info['PackageCustomer']['last_name']; ?></a> </td>
                                                     <td><?php echo $customer_address; ?></td>
                                                     <td><?php echo $info['PackageCustomer']['mac']; ?></td>
                                                     <td><?php echo $info['PackageCustomer']['cell']; ?></td>
                                                     <td>
                                                         <?php
-                                                        if ($info['PackageCustomer']['custom_package_id'] == null) {
-                                                            if (count($info['Psetting']) == 0) {
-                                                                echo 'No package was selected with this customer';
-                                                            } else {
+                                                            if (!empty($info['PackageCustomer']['psetting_id'])) {
                                                                 echo $info['Psetting']['name'];
+                                                            } elseif (!empty ($info['PackageCustomer']['custom_package_id'])) {
+                                                                echo $info['CustomPackage']['duration'] . ' Months, Custom package ' . $info['CustomPackage']['charge'] . '$';
+                                                            }else {
+                                                              echo 'Package not set !';
                                                             }
-                                                        } else {
-                                                            echo $info['CustomPackage']['duration'] . ' Months, Custom package ' . $info['CustomPackage']['charge'] . '$';
-                                                        }
                                                         ?>
                                                     </td>
                                                     <td>$<?php echo $info['PackageCustomer']['payable_amount']; ?></td>                                               
