@@ -54,7 +54,7 @@
                                         <td><?php echo $issues['created']; ?></td>
                                         <td>   
                                             <div class="controls center text-center">
-                                                <a  target="_blank" title="edit" href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'editissue', $issues['id'])) ?>" >
+                                                <a  title="edit" href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'editissue', $issues['id'])) ?>" >
                                                     <span class="fa fa-pencil"></span></a>                                                                  
                                             </div>
                                         </td>
