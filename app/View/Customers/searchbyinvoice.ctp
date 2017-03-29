@@ -123,8 +123,6 @@
                     </tbody>
                 </table>
             </div>
-            <?php ?>
-            </tbody>
             <?php
         endif;
         ?>

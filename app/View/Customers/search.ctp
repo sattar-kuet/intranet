@@ -11,13 +11,13 @@
     <div class="page-content">
         <!-- BEGIN PAGE CONTENT-->
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-7">
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-search"></i>Search Customer Information
+                            <i class="fa fa-search"></i>Search Panel
                         </div>
-                     
+
                     </div>
                     <div class="portlet-body form">
                         <!-- BEGIN FORM-->
@@ -40,37 +40,32 @@
                                 You have some form errors. Please check below.
                             </div>
                             <?php echo $this->Session->flash(); ?>
-
                             <div class="form-group">
-
-                                <div class="col-md-12">
+                                <div class="col-md-9">
                                     <?php
                                     echo $this->Form->input('param', array(
                                         'type' => 'text',
-                                        'placeholder' => 'Type first name or last name or cell number or mac',
+                                        'placeholder' => 'Type search parameter',
                                         'class' => 'form-control required',
+                                        'style' => 'font-size: 15px;'
+                                            )
+                                    );
+                                    ?>
+                                </div>
+                                <div class="col-md-3">
+                                    <?php
+                                    $search = array("1" => "Customer", "2" => "Transaction ID", "3" => "Invoice No");
+                                    echo $this->Form->input(
+                                            'search', array(
+                                        'class' => 'form-control required',
+                                        'default' => 'Customer',
+                                        'options' => $search,
+                                        'label' => false
                                             )
                                     );
                                     ?>
                                 </div>
                             </div>
-
-                            <!--                            <div class="form-group">
-                                                            <label class="control-label col-md-3">
-                                                            </label>
-                                                            <div class="col-md-6">
-                            <?php
-                            echo $this->Form->input('home', array(
-                                'type' => 'select',
-                                'options' => $homes,
-                                'empty' => 'Select Home No',
-                                'class' => 'form-control select2me pclass',
-                                    )
-                            );
-                            ?>
-                                                            </div>
-                                                        </div>-->
-
                         </div>
                         <div class="form-actions">
                             <div class="row">
@@ -90,7 +85,7 @@
                 </div>
             </div>
 
-            <div class="col-md-6 col-sm-6">
+            <div class="col-md-5 col-sm-5">
                 <!-- BEGIN PORTLET-->
                 <div class="portlet">
                     <div class="portlet-title line" style="color:red;">
@@ -145,107 +140,20 @@
     </div>
     <!-- END PAGE CONTENT -->        
 
-    <?php if ($clicked): ?>
-
-        <div class="row-fluid">
-            <table cellpadding="0" cellspacing="0" border="0" class="responsive dynamicTable display table table-bordered" width="100%">
-                <thead>
-                    <tr>                                           
-                        <th>Name</th>
-                        <th>Customer Detail</th>
-                        <th>Package</th>
-                        <th>Status</th>
-                        <th>Action</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    foreach ($data['customer'] as $index => $d):
-                        $customer = $d;
-//                        pr($customer['status']); exit;
-                        $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
-                                $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
-                                . $customer['zip'];
-                        $package = array();
-                        if (count($data['package']) > 0) {
-                            $package = $data['package'][$index];
-                        }
-                        ?>
-                        <tr class="odd gradeX">
-
-                            <td><?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?></td>
-                            <td>
-                                <ul>
-                                    <li>Cell:<?php echo $customer['cell']; ?></li>
-                                    <li>Address:<?php echo $customer_address; ?></li>
-                                </ul>
-                            </td>
-                            
-                            <td>
-                                <?php if (count($package) > 0): ?>
-                                    <ul>
-                                        <li> Package Name: <?php echo $package['name']; ?></li>
-                                        <li> Month: <?php echo $package['duration']; ?></li>
-                                        <li> Charge: <?php echo $package['charge']; ?></li>
-                                    </ul>
-                                    <?php
-                                endif;
-                                ?>
-                            </td>
-                            <td>                               
-                                <?php echo $customer['status']; ?>                               
-                            </td>
-                            <td>
-                                <?php
-                                echo $this->Form->create('PackageCustomer', array(
-                                    'inputDefaults' => array(
-                                        'label' => false,
-                                        'div' => false
-                                    ),
-                                    'id' => 'form_sample_3',
-                                    'class' => 'form-horizontal',
-                                    'novalidate' => 'novalidate',
-                                    'url' => array('controller' => 'admins', 'action' => 'changeservice')
-                                        )
-                                );
-                                ?>
-                                <?php
-                                echo $this->Form->input('id', array(
-                                    'type' => 'hidden',
-                                    'value' => $customer['id']
-                                        )
-                                );
-                                ?>
-                                <?php
-                                echo $this->Form->input('status', array(
-                                    'type' => 'select',
-                                    'options' => Array('ticket' => 'Generate Ticket','info' => 'Customer  Information', 'history' => 'Ticket History'),
-                                    'empty' => 'Select Action',
-                                    'class' => 'form-control form-filter input-sm ',
-                                        )
-                                );
-                                ?>
-                                <br>
-                                <?php
-                                echo $this->Form->button(
-                                        'Go', array('class' => 'btn blue', 'title' => 'Do this selected action', 'type' => 'submit')
-                                );
-                                ?>
-                                <?php echo $this->Form->end(); ?>
-                            </td>
-                        </tr>
-                        <?php
-                    endforeach;
-                    ?>
-                </tbody>
-            </table>
-        </div>
-        <?php ?>
-    </tbody>
     <?php
-endif;
-?>
+    if ($clicked == 1) {
+        echo $this->element('customers', array('data' => $data));
+    }
+    
+    if ($clicked == 2) {
+        echo $this->element('transaction', array('data' => $data));
+    }
+   
+    if ($clicked == 3) {
+        echo $this->element('invoice', array('data' => $data));
+    }
+    ?>
+
 </div>
 </div>
 <!-- END CONTENT -->

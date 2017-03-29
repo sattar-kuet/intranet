@@ -28,7 +28,7 @@ echo $this->Html->css(
                 ?> <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
             </div>
             <div class="page-logo">
-                <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'servicemanage')) ?>">
+                <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'search')) ?>">
                     <img src="<?php echo $this->webroot; ?>images/support_icon_headset_orange.png" alt="logo" class="logo-default" style="margin: 9px 0 0 0;">
                 </a>
             </div>

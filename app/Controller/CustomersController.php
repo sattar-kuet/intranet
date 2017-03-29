@@ -159,42 +159,114 @@ class CustomersController extends AppController {
         $tmsg = 'Information of  ' . $data['first_name'] . '  ' .
                 $data['middle_name'] . '  ' .
                 $data['last_name'] . ' has been updated';
-        
+
         //For Custom Package data insert
         $data4CustomPackage['CustomPackage']['duration'] = $data['duration'];
         $data4CustomPackage['CustomPackage']['charge'] = $data['charge'];
         if (!empty($data['charge'])) {
-            
+
             //save data into custom_package table
             $cp = $this->CustomPackage->save($data4CustomPackage);
             unset($cp['CustomPackage']['PackageCustomer']);
-            
+
             //from custom_package table, save custom package id to package_customer table
             $data['custom_package_id'] = $cp['CustomPackage']['id'];
         }
-        
+
         // if custom package is changed then custom_package_id will be reset to 0
         if (!isset($data['CustomPackage'])) {
             $data['custom_package_id'] = 0;
-        }       
+        }
         $this->PackageCustomer->save($data);
     }
 
-    function searchbyinvoice($id = null) {
+    function search() {
+        $clicked = false;
+        $data = array();
+        if ($this->request->is('post')) {
+            $input = $this->request->data['PackageCustomer'];
+            $clicked = $input['search'];
+            $data = $this->searchByParam($input);
+        }
+        $admin_messages = $this->message();
+        $this->set(compact('data', 'clicked', 'admin_messages'));
+    }
 
+    function message() {
+        $this->loadModel('Message');
+        $loggedUser = $this->Auth->user();
+        $uid = $loggedUser['id'];
+        $rid = $loggedUser['Role']['id'];
+        $this->loadModel('Role');
+        $sql = 'SELECT * FROM roles WHERE LOWER(roles.name)="general"';
+        $temp = $this->Role->query($sql);
+        $rid2 = $temp[0]['roles']['id'];
+        $sql = "SELECT * FROM messages m
+        LEFT JOIN users u ON u.id = m.user_id  WHERE (m.assign_id = $uid OR m.role_id = $rid OR m.role_id = $rid2) AND m.status ='open' ORDER BY m.id DESC";
+        // echo $sql;
+        $admin_messages = $this->Message->query($sql);
+        return $admin_messages;
+    }
+
+    function searchByParam($input = array()) {
+        $this->loadModel('PackageCustomer');
+        $this->loadModel('Track');
+        $this->loadModel('CustomPackage');
+        $this->loadModel('Psetting');
+        $this->loadModel('Package');
+        $param = $input['param'];
+        $data['customer'] = array();
+        $data['package'] = array();
+        // pr($this->request->data);
+        if ($input['search'] == 1) {
+            $data = $this->getCustomerByParam($param, 'cell');
+            if (count($data['customer']) == 0) {
+                $data = $this->getCustomerByParam($param, 'first_name');
+            }
+            if (count($data['customer']) == 0) {
+                $data = $this->getCustomerByParam($param, 'last_name');
+            }
+            if (count($data['customer']) == 0) {
+                $data = $this->getCustomerByParam($param, 'mac');
+            }
+            if (count($data['customer']) == 0) {
+                $data = $this->getCustomerByParam($param, 'fm_name');
+            }
+            if (count($data['customer']) == 0) {
+                $data = $this->getCustomerByParam($param, 'ml_name');
+            }
+            if (count($data['customer']) == 0) {
+                $data = $this->getCustomerByParam($param, 'full_name');
+            }
+        } else if ($input['search'] == 2) {
+            $data = $this->searchBytrxId($input);
+        } else if ($input['search'] == 3) {
+
+            $data = $this->searchbyinvoice($input);
+        }
+
+        return $data;
+    }
+
+    function searchBytrxId($data = array()) {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
-        $clicked = false;
-        if ($this->request->is('post') || $this->request->is('put')) {
-            //  echo 'hello';  
-            $id = $this->request->data['Transaction']['id'];
-            $trinfo = $this->Transaction->query("SELECT * FROM `transactions` tr
+        $idtrx = $data['param'];
+        $trinfo = $this->Transaction->query("SELECT * FROM `transactions` tr
+            left join package_customers  pc on tr.package_customer_id =pc.id 
+            where trx_id = $idtrx");
+        return $trinfo;
+    }
+
+    function searchbyinvoice($data = array()) {
+        $this->loadModel('PackageCustomer');
+        $this->loadModel('Transaction');
+        //  echo 'hello';  
+        $id = $data['param'];
+        $invoiceInfo = $this->Transaction->query("SELECT * FROM `transactions` tr
             left join package_customers  pc on tr.package_customer_id =pc.id 
             where tr.id = $id");
-            $clicked = true;
-            $this->set(compact('trinfo'));
-        }
-        $this->set(compact('clicked'));
+        return $invoiceInfo;
     }
 
     function package_expdate_update() {
@@ -423,6 +495,8 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $ym = $this->getYm();
         $this->loadModel('Transaction');
         $invoices = $this->getOpenInvoice($pcid);
+
+//        pr($invoices); exit;
 
         $statements = $this->getStatements($pcid);
         //   pr($statements); exit;

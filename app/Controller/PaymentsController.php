@@ -662,7 +662,7 @@ class PaymentsController extends AppController {
         return $payable - $paid;
     }
 
-    public function individual_transaction_by_check() {        
+    public function individual_transaction_by_check() {
         $this->request->data['Transaction']['created'] = $this->getFormatedDate($this->request->data['Transaction']['created_check']) . ' 00:00:00';
         $this->loadModel('Transaction');
         $this->loadModel('Ticket');
@@ -931,10 +931,10 @@ class PaymentsController extends AppController {
     }
 
     function custom_payment() {
-        $this->request->data['Transaction']['created'] = $this->getFormatedDate($this->request->data['Transaction']['created']) . ' 00:00:00';
         $this->loadModel('Transaction');
         $this->loadModel('Role');
         $this->loadModel('User');
+//        $this->request->data['Transaction']['created'] = $this->getFormatedDate($this->request->data['Transaction']['created']) . ' 00:00:00';
         if ($this->request->is('post')) {
             $this->Transaction->set($this->request->data);
             if ($this->Transaction->validates()) {

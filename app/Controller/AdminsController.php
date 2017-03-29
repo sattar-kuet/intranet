@@ -106,7 +106,7 @@ class AdminsController extends AppController {
                     // user is activated
                     $pic = $this->Auth->user('picture');
 
-                    return $this->redirect('/admins/servicemanage');
+                    return $this->redirect('/customers/search');
                 } else {
                     // user is not activated
                     // log the user out
@@ -187,6 +187,108 @@ class AdminsController extends AppController {
         $this->set(compact('roles'));
     }
 
+    function manageRole() {
+        $this->loadModel('Role');
+        $roles = $this->Role->find('all');
+        $this->set(compact('roles'));
+    }
+
+    function adddepartment() {
+        $this->loadModel('TicketDepartment');
+        if ($this->request->is('post')) {
+            $this->TicketDepartment->set($this->request->data);
+            if ($this->TicketDepartment->validates()) {
+                $this->TicketDepartment->save($this->request->data['TicketDepartment']);
+                $msg = '<div class="alert alert-success">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong> Added New Department  </strong>
+			</div>';
+                $this->Session->setFlash($msg);
+                return $this->redirect('adddepartment');
+            } else {
+                $msg = $this->generateError($this->TicketDepartment->validationErrors);
+                $this->Session->setFlash($msg);
+            }
+        }
+    }
+
+    function editdepartment() {
+        $this->loadModel('TicketDepartment');
+        if ($this->request->is('post')) {
+            $this->TicketDepartment->set($this->request->data);
+            if ($this->TicketDepartment->validates()) {
+                $this->TicketDepartment->id = $this->request->data['TicketDepartment']['id'];
+                $this->TicketDepartment->save($this->request->data['TicketDepartment']);
+                $msg = '<div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong> Role edited succeesfully </strong>
+        </div>';
+                $this->Session->setFlash($msg);
+                return $this->redirect($this->referer());
+            } else {
+                $msg = $this->generateError($this->TicketDepartment->validationErrors);
+                $this->Session->setFlash($msg);
+            }
+        }
+        $roles = $this->TicketDepartment->find('list', array('order' => array('TicketDepartment.name' => 'ASC')));
+        $this->set(compact('TicketDepartment'));
+        $this->set(compact('roles'));
+    }
+
+    function manageDepartment() {
+        $this->loadModel('TicketDepartment');
+        $departments = $this->TicketDepartment->find('all');
+        $this->set(compact('departments'));
+    }
+
+    function addissue() {
+        $this->loadModel('Issue');
+        if ($this->request->is('post')) {
+            $this->Issue->set($this->request->data);
+            if ($this->Issue->validates()) {
+                $this->Issue->save($this->request->data['Issue']);
+                $msg = '<div class="alert alert-success">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong> Added New Issue </strong>
+			</div>';
+                $this->Session->setFlash($msg);
+                return $this->redirect('addissue');
+            } else {
+                $msg = $this->generateError($this->issue->validationErrors);
+                $this->Session->setFlash($msg);
+            }
+        }
+    }
+
+    function editissue() {
+        $this->loadModel('Issue');
+        if ($this->request->is('post')) {
+            $this->Issue->set($this->request->data);
+            if ($this->Issue->validates()) {
+                $this->Issue->id = $this->request->data['Issue']['id'];
+                $this->Issue->save($this->request->data['Issue']);
+                $msg = '<div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong> Role edited succeesfully </strong>
+        </div>';
+                $this->Session->setFlash($msg);
+                return $this->redirect($this->referer());
+            } else {
+                $msg = $this->generateError($this->Issue->validationErrors);
+                $this->Session->setFlash($msg);
+            }
+        }
+        $roles = $this->Issue->find('list', array('order' => array('Issue.name' => 'ASC')));
+        $this->set(compact('Issue'));
+        $this->set(compact('roles'));
+    }
+
+    function manageIssue() {
+        $this->loadModel('Issue');
+        $issues = $this->Issue->find('all');
+        $this->set(compact('issues'));
+    }
+
     function processImg($img) {
         $upload = new Upload($img['picture']);
         $upload->file_new_name_body = time();
@@ -242,7 +344,7 @@ class AdminsController extends AppController {
         $this->loadModel('Role');
         $this->loadModel('User');
         if ($this->request->is('post') || $this->request->is('put')) {
-             $loggedUser = $this->Auth->user();
+            $loggedUser = $this->Auth->user();
             $this->request->data['User']['user_id'] = $loggedUser['id'];
             $this->User->set($this->request->data);
             $this->User->id = $id;
@@ -359,79 +461,8 @@ class AdminsController extends AppController {
         return $data;
     }
 
-    function servicemanage($id = null) {
-        $this->loadModel('PackageCustomer');
-        $this->loadModel('Track');
-        $this->loadModel('Message');
-        $this->loadModel('CustomPackage');
-        $this->loadModel('Psetting');
-        $this->loadModel('Package');
-        $clicked = false;
-        if ($id) {
-            $customer_info = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $id)));
-            $clicked = true;
-            $this->set(compact('customer_info'));
-        }
-        if ($this->request->is('post')) {
-            $param = $this->request->data['PackageCustomer']['param'];
-            $data['customer'] = array();
-            $data['package'] = array();
-            $data = $this->getCustomerByParam($param, 'cell');
-            if (count($data['customer']) == 0) {
-                $data = $this->getCustomerByParam($param, 'first_name');
-            }
-            if (count($data['customer']) == 0) {
-                $data = $this->getCustomerByParam($param, 'last_name');
-            }
-            if (count($data['customer']) == 0) {
-                $data = $this->getCustomerByParam($param, 'mac');
-            }
-            if (count($data['customer']) == 0) {
-                $data = $this->getCustomerByParam($param, 'fm_name');
-            }
-            if (count($data['customer']) == 0) {
-                $data = $this->getCustomerByParam($param, 'ml_name');
-            }
-            if (count($data['customer']) == 0) {
-                $data = $this->getCustomerByParam($param, 'full_name');
-            }
-            $clicked = true;
-            //FIND customer DETAILS
-            //  exit;
-            $this->set(compact('data'));
-        }
-        $loggedUser = $this->Auth->user();
-        $uid = $loggedUser['id'];
-        $rid = $loggedUser['Role']['id'];
-
-        $this->loadModel('Role');
-        $sql = 'SELECT * FROM roles WHERE LOWER(roles.name)="general"';
-        $temp = $this->Role->query($sql);
-        $rid2 = $temp[0]['roles']['id'];
-        $sql = "SELECT * FROM messages m
-        LEFT JOIN users u ON u.id = m.user_id  WHERE (m.assign_id = $uid OR m.role_id = $rid OR m.role_id = $rid2) AND m.status ='open' ORDER BY m.id DESC";
-        // echo $sql;
-        $admin_messages = $this->Message->query($sql);
-
-        // pr($admin_messages); exit;
-        $cells = $this->PackageCustomer->find('list', array('fields' => array('cell', 'cell')));
-        $this->set(compact('cells', 'clicked', 'admin_messages'));
-    }
-
-    function transactionId($trx_id = null) {
-        $this->loadModel('PackageCustomer');
-        $this->loadModel('Transaction');
-        $clicked = false;
-        if ($this->request->is('post')) {
-            $idtrx = $this->request->data['Transaction']['trx_id'];
-            $trinfo = $this->Transaction->query("SELECT * FROM `transactions` tr
-            left join package_customers  pc on tr.package_customer_id =pc.id 
-            where trx_id = $idtrx");
-            $clicked = true;
-            $this->set(compact('trinfo'));
-        }
-        $this->set(compact('clicked'));
-    }
+   
+   
 
     function changeservice($id = null) {
         $this->loadModel('PackageCustomer');
