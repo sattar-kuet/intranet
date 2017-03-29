@@ -139,24 +139,6 @@
             </li>
 
 
-
-            <li 
-            <?php
-            $services = array('servicemanage');
-            if (in_array($this->name . '' . $this->action, $services)):
-                ?>
-                    class="active"
-                    <?php
-                endif;
-                ?>
-                >                 
-                <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'servicemanage')) ?>">
-                    <i class="fa fa-support"></i>
-                    <span class="title">Service Management</span>
-                    <span class="arrow "></span>
-                </a>
-            </li>
-
             <!--            <li 
             <?php
             $transactionId = array('transactionId');
