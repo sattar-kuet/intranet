@@ -68,7 +68,7 @@
 
                                         <td>   
                                             <div class="controls center text-center">
-                                                <a  target="_blank" title="edit" href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'edit_admin', $agent['id'])) ?>" >
+                                                <a  title="edit" href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'edit_admin', $agent['id'])) ?>" >
                                                     <span class="fa fa-pencil"></span></a>
                                                 &nbsp;&nbsp;
                                                 <a 
@@ -79,9 +79,7 @@
                                                 &nbsp;&nbsp;
                                                 <?php if ($agent['status'] != 'blocked'): ?>
 
-                                                    <a 
-                                                        onclick="if (confirm( & quot; Are you sure to block this Admin? & quot; )) { return true; } return false;"
-
+                                                    <a onclick="if (confirm( & quot; Are you sure to block this Admin? & quot; )) { return true; } return false;"
                                                         href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'block', $agent['id'])) ?>" title="block">
                                                         <span class="fa  fa-ban"></span>
                                                     </a>
@@ -90,7 +88,6 @@
                                                 <?php if ($agent['status'] != 'active'): ?>
                                                     <a aria-describedby="qtip-8" data-hasqtip="true" title="" oldtitle="Remove task" 
                                                        onclick="if (confirm( & quot; Are you sure to active this Admin? & quot; )) { return true; } return false;"
-
                                                        href="<?php
                                                        echo Router::url(array('controller' => 'admins', 'action' => 'active', $agent['id'])
                                                        )

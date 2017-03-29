@@ -50,7 +50,6 @@
                                         * </span>
                                 </label>
                                 <div class="col-md-4">
-
                                     <?php
                                     echo $this->Form->input('pay_to', array(
                                         'type' => 'select',
@@ -65,7 +64,7 @@
 
                             <div class="form-group">
                                 <label class="control-label col-md-3">Additional Note<span class="required">
-                                         </span>
+                                    </span>
                                 </label>
                                 <div class="col-md-4">
                                     <?php
@@ -112,7 +111,6 @@
                                     ?>
                                 </div>
                             </div>
-
                         </div>
                         <div class="form-actions">
                             <div class="row">

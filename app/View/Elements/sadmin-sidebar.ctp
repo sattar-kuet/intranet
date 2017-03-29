@@ -13,7 +13,7 @@
 
             <li 
             <?php
-            $admins = array('AdminsmanageRole', 'Adminsaddrole', 'AdminsAdjustmentMemo', 'AdminsmanageDepartment', 'MessagesManage', 'Adminsmanage', 'AdminsmanageIssue', 'paymentsCustom_payment');
+            $admins = array('AdminsmanageRole', 'Adminsaddrole', 'Adminseditrole', 'AdminsadjustmentMemo', 'AdminsmanageDepartment', 'Adminsadddepartment', 'Adminseditdepartment', 'Messagesmanage', 'Messagesadd', 'Messagesedit', 'Adminsmanage', 'Adminscreate', 'Adminsedit_admin', 'AdminsmanageIssue', 'Adminsaddissue', 'Adminseditissue', 'Paymentscustom_payment');
             if (in_array($this->name . '' . $this->action, $admins)):
                 ?>
                     class="active"
@@ -29,7 +29,7 @@
                 <ul class="sub-menu">
 
                     <li
-                    <?php if ($this->name . '' . $this->action == 'AdminsmanageRole' || $this->name . '' . $this->action == 'Adminsaddrole'):
+                    <?php if ($this->name . '' . $this->action == 'AdminsmanageRole' || $this->name . '' . $this->action == 'Adminsaddrole' || $this->name . '' . $this->action == 'Adminseditrole'):
                         ?>
                             class="active"
                             <?php
@@ -42,7 +42,7 @@
                     </li>
 
                     <li
-                    <?php if ($this->name . '' . $this->action == 'Adminsmanage'):
+                    <?php if ($this->name . '' . $this->action == 'Adminsmanage' || $this->name . '' . $this->action == 'Adminscreate' || $this->name . '' . $this->action == 'Adminsedit_admin'):
                         ?>
                             class="active"
                             <?php
@@ -55,7 +55,7 @@
                     </li>
 
                     <li
-                    <?php if ($this->name . '' . $this->action == 'AdminsmanageDepartment'):
+                    <?php if ($this->name . '' . $this->action == 'AdminsmanageDepartment' || $this->name . '' . $this->action == 'Adminsadddepartment' || $this->name . '' . $this->action == 'Adminseditdepartment'):
                         ?>
                             class="active"
                             <?php
@@ -68,7 +68,7 @@
                     </li>
 
                     <li
-                    <?php if ($this->name . '' . $this->action == 'AdminsmanageIssue'):
+                    <?php if ($this->name . '' . $this->action == 'AdminsmanageIssue' || $this->name . '' . $this->action == 'Adminsaddissue' || $this->name . '' . $this->action == 'Adminseditissue'):
                         ?>
                             class="active"
                             <?php
@@ -81,7 +81,7 @@
                     </li>
 
                     <li
-                    <?php if ($this->name . '' . $this->action == 'MessagesManage'):
+                    <?php if ($this->name . '' . $this->action == 'Messagesmanage' || $this->name . '' . $this->action == 'Messagesadd' || $this->name . '' . $this->action == 'Messagesedit'):
                         ?>
                             class="active"
                             <?php
@@ -94,7 +94,7 @@
                     </li>
 
                     <li
-                    <?php if ($this->name . '' . $this->action == 'paymentsCustom_payment'):
+                    <?php if ($this->name . '' . $this->action == 'Paymentscustom_payment'):
                         ?>
                             class="active"
                             <?php
@@ -107,7 +107,7 @@
                     </li>
 
                     <li
-                    <?php if ($this->name . '' . $this->action == 'adminsAdjustmentMemo'):
+                    <?php if ($this->name . '' . $this->action == 'AdminsadjustmentMemo'):
                         ?>
                             class="active"
                             <?php
@@ -118,11 +118,8 @@
                             <i class="fa fa-dashboard"></i>
                             Adjustment Memo</a>
                     </li>
-
                 </ul>
             </li>
-
-
 
             <li 
             <?php
@@ -140,9 +137,9 @@
                     <span class="arrow "></span>
                 </a>
             </li>
-            
-            
-            
+
+
+
             <li 
             <?php
             $services = array('servicemanage');
@@ -160,39 +157,39 @@
                 </a>
             </li>
 
-<!--            <li 
+            <!--            <li 
             <?php
             $transactionId = array('transactionId');
             if (in_array($this->name . '' . $this->action, $transactionId)):
                 ?>
-                    class="active"
-                    <?php
-                endif;
-                ?>
-                >                 
-                <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'transactionId')) ?>">
-                    <i class="fa fa-support"></i>
-                    <span class="title">Search By Trans ID</span>
-                    <span class="arrow "></span>
-                </a>
-            </li>-->
-            
-<!--            <li 
+                                    class="active"
+                <?php
+            endif;
+            ?>
+                            >                 
+                            <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'transactionId')) ?>">
+                                <i class="fa fa-support"></i>
+                                <span class="title">Search By Trans ID</span>
+                                <span class="arrow "></span>
+                            </a>
+                        </li>-->
+
+            <!--            <li 
             <?php
             $transactionId = array('searchbyinvoice');
             if (in_array($this->name . '' . $this->action, $transactionId)):
                 ?>
-                    class="active"
-                    <?php
-                endif;
-                ?>
-                >                 
-                <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'searchbyinvoice')) ?>">
-                    <i class="fa fa-support"></i>
-                    <span class="title">Search By Invoice</span>
-                    <span class="arrow "></span>
-                </a>
-            </li>-->
+                                    class="active"
+                <?php
+            endif;
+            ?>
+                            >                 
+                            <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'searchbyinvoice')) ?>">
+                                <i class="fa fa-support"></i>
+                                <span class="title">Search By Invoice</span>
+                                <span class="arrow "></span>
+                            </a>
+                        </li>-->
 
 
             <!--            <li 
@@ -200,7 +197,7 @@
             $payment = array('paymenthistory');
             if (in_array($this->name . '' . $this->action, $payment)):
                 ?>
-                                                                                    class="active"
+                                                                                        class="active"
                 <?php
             endif;
             ?>
@@ -234,7 +231,7 @@
                     <!--                    <li
                     <?php if ($this->name . '' . $this->action == 'Ticketscreate'):
                         ?>
-                                                                                                                            class="active"
+                                                                                                                                class="active"
                         <?php
                     endif;
                     ?>
@@ -317,7 +314,7 @@
 
                 if (in_array($this->name . '' . $this->action, $transactions)):
                     ?>
-                                                                                                    class="active"
+                                                                                                        class="active"
                     <?php
                 endif;
                 ?>
@@ -332,7 +329,7 @@
                         <li
                 <?php if ($this->name . '' . $this->action == 'Transactionssearch'):
                     ?>
-                                                                                                            class="active"
+                                                                                                                class="active"
                     <?php
                 endif;
                 ?>
@@ -345,7 +342,7 @@
                         <li
                 <?php if ($this->name . '' . $this->action == 'Transactionsexpire_customer'):
                     ?>
-                                                                                                            class="active"
+                                                                                                                class="active"
                     <?php
                 endif;
                 ?>
@@ -409,7 +406,7 @@
                     
                     <?php if ($this->name . '' . $this->action == 'Customersschedule_done'):
                         ?>
-                                                                        class="active"
+                                                                            class="active"
                         <?php
                     endif;
                     ?>
@@ -514,7 +511,7 @@
                     <!--                    <li
                     <?php if ($this->name . '' . $this->action == 'Customerswire_problem'):
                         ?>
-                                                            class="active"
+                                                                class="active"
                         <?php
                     endif;
                     ?>
@@ -526,7 +523,7 @@
                                         <li
                     <?php if ($this->name . '' . $this->action == 'Customersremote_problem'):
                         ?>
-                                                            class="active"
+                                                                class="active"
                         <?php
                     endif;
                     ?>
@@ -753,7 +750,7 @@
                     <!--                    <li
                     <?php if ($this->name . '' . $this->action == 'Reportsactive'):
                         ?>
-                                                                class="active"
+                                                                    class="active"
                         <?php
                     endif;
                     ?>
@@ -945,7 +942,7 @@
                     <!--                    <li
                     <?php if ($this->name . '' . $this->action == 'Reportsaccountsdp'):
                         ?>
-                                                                                class="active"
+                                                                                    class="active"
                         <?php
                     endif;
                     ?>
@@ -976,7 +973,7 @@
                     <!--                    <li
                     <?php if ($this->name . '' . $this->action == 'ReportsopenInvoice'):
                         ?>
-                                                                        class="active"
+                                                                            class="active"
                         <?php
                     endif;
                     ?>
@@ -1039,7 +1036,7 @@
                     <!--                    <li
                     <?php if ($this->name . '' . $this->action == 'ReportsextraPayment'):
                         ?>
-                                                            class="active"
+                                                                class="active"
                         <?php
                     endif;
                     ?>
@@ -1051,49 +1048,49 @@
 
                 </ul>
             </li>
-<!--            <li 
+            <!--            <li 
             <?php
             $Otherspayments = array('OtherspaymentsCreate', 'OtherspaymentsManage');
             if (in_array($this->name . '' . $this->action, $Otherspayments)):
                 ?>
-                    class="active"
-                    <?php
-                endif;
+                                    class="active"
+                <?php
+            endif;
+            ?>
+                            >
+                            <a href="javascript:;">
+                                <i class="fa fa-envelope"></i>
+                                <span class="title">Others Payment</span>
+                                <span class="arrow "></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li
+            <?php if ($this->name . '' . $this->action == 'OtherspaymentsCreate'):
                 ?>
-                >
-                <a href="javascript:;">
-                    <i class="fa fa-envelope"></i>
-                    <span class="title">Others Payment</span>
-                    <span class="arrow "></span>
-                </a>
-                <ul class="sub-menu">
-                    <li
-                    <?php if ($this->name . '' . $this->action == 'OtherspaymentsCreate'):
-                        ?>
-                            class="active"
-                            <?php
-                        endif;
-                        ?>
-                        >
-                        <a href="<?php echo Router::url(array('controller' => 'Otherspayments', 'action' => 'Create')) ?>">
-                            <i class="fa fa-plus"></i>
-                            Create</a>
-                    </li>   
-                    <li
-                    <?php if ($this->name . '' . $this->action == 'Otherspaymentsmanage'):
-                        ?>
-                            class="active"
-                            <?php
-                        endif;
-                        ?>
-                        >
-                        <a href="<?php echo Router::url(array('controller' => 'Otherspayments', 'action' => 'manage')) ?>">
-                            <i class="fa fa-wrench"></i>
-                            Manage</a>
-                    </li>
-                </ul>
-            </li>
--->
+                                            class="active"
+                <?php
+            endif;
+            ?>
+                                    >
+                                    <a href="<?php echo Router::url(array('controller' => 'Otherspayments', 'action' => 'Create')) ?>">
+                                        <i class="fa fa-plus"></i>
+                                        Create</a>
+                                </li>   
+                                <li
+            <?php if ($this->name . '' . $this->action == 'Otherspaymentsmanage'):
+                ?>
+                                            class="active"
+                <?php
+            endif;
+            ?>
+                                    >
+                                    <a href="<?php echo Router::url(array('controller' => 'Otherspayments', 'action' => 'manage')) ?>">
+                                        <i class="fa fa-wrench"></i>
+                                        Manage</a>
+                                </li>
+                            </ul>
+                        </li>
+            -->
 
 
             <!--            <li 
@@ -1101,7 +1098,7 @@
             $deleted = array('delete');
             if (in_array($this->name . '' . $this->action, $deleted)):
                 ?>
-                                            class="active"
+                                                class="active"
                 <?php
             endif;
             ?>

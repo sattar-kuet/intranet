@@ -57,7 +57,7 @@
                                         <td><?php echo $result['m']['status']; ?></td>                                      
                                         <td>   
                                             <div class="controls center text-center">
-                                                <a  target="_blank" title="edit" href="<?php echo Router::url(array('controller' => 'messages', 'action' => 'edit', $result['m']['id'])) ?>" >
+                                                <a  title="edit" href="<?php echo Router::url(array('controller' => 'messages', 'action' => 'edit', $result['m']['id'])) ?>" >
                                                     <span class="fa fa-pencil"></span></a>                                                                         
                                                 &nbsp;&nbsp;
                                                 <?php if ($result['m']['status'] != 'close'): ?>

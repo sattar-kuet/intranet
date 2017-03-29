@@ -55,7 +55,7 @@
                                         <td><?php echo $role['created']; ?></td>
                                         <td>   
                                             <div class="controls center text-center">
-                                                <a  target="_blank" title="edit" href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'editrole', $role['id'])) ?>" >
+                                                <a title="edit" href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'editrole', $role['id'])) ?>" >
                                                     <span class="fa fa-pencil"></span></a>                                                                  
                                             </div>
                                         </td>
