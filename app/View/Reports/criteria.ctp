@@ -56,8 +56,6 @@
                                 You have some form errors. Please check below.
                             </div>
                             <?php echo $this->Session->flash(); ?>
-
-
                             <div class="form-group">                                
                                 <label class="control-label col-md-3" for="required">Criteria 1</label>
                                 <div class="col-md-4">
@@ -75,8 +73,6 @@
                                     ?>
                                 </div>
                             </div> 
-
-
                             <div class="form-group">                                
                                 <label class="control-label col-md-3" for="required">Criteria 2</label>
                                 <div class="col-md-4">
@@ -92,14 +88,8 @@
                                             )
                                     );
                                     ?>
-
-
                                 </div>
                             </div> 
-
-
-
-
                         </div>
                         <div class="form-actions">
                             <div class="row">
@@ -121,7 +111,6 @@
         </div>
         <!-- END PAGE CONTENT -->
         <?php if ($clicked): ?>    
-
             <div class="page-content-wrapper" style="margin: 0px; padding: 0px;">
                 <div class="">
                     <!-- BEGIN PAGE HEADER-->
@@ -143,19 +132,7 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-12">
-                                <ul class="pagination" >
-                                    <?php
-                                    for ($i = 1; $i <= $total_page; $i++):
-                                        $active = '';
-                                        if (isset($this->params['pass'][0]) && $this->params['pass'][0] == $i) {
-                                            $active = 'active';
-                                        }
-                                        ?>
-                                        <li class="paginate_button <?php echo $active; ?>" aria-controls="sample_editable_1" tabindex="<?php echo $i; ?>">
-                                            <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'call_log', $i)) ?>"><?php echo $i; ?></a>
-                                        </li>
-                                    <?php endfor; ?>
-                                </ul>
+                                
                                 <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                                     <thead>
                                         <tr>
@@ -205,8 +182,6 @@
                                                                 <?php echo $history['fb']['name']; ?>
                                                                 <p><strong>Forwarded To:</strong><ul><li><?php echo $history['fi']['name']; ?> </li><li><?php echo $history['fd']['name']; ?> </li></ul>
                                                                 <strong>Time:</strong> <?php echo date('m-d-Y', strtotime($history['tr']['created'])); ?>
-
-
                                                                 &nbsp;&nbsp;<strong>Status:</strong> <?php echo $history['tr']['status']; ?><br>
                                                                 <?php
                                                                 if (!empty($history['tr']['comment'])):
@@ -630,7 +605,6 @@
                                                                 <?php echo $this->Form->end(); ?>
                                                                 <!-- END FORM-->
                                                             </div> 
-
                                                             <?php
                                                         } else {
                                                             echo 'Close';
@@ -644,7 +618,6 @@
                                         ?>
                                     </tbody>
                                 </table>
-
                             </div>
                         </div>
                     </div>

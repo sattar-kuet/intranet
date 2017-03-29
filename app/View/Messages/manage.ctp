@@ -26,7 +26,7 @@
                             <i class="fa fa-user"></i>List of all Message
                         </div>                        
                         <div class="tools">
-                            <a href="javascript:;" class="reload">
+                            <a href="<?php echo Router::url(array('controller' => 'messages', 'action' => 'add')) ?>" title="Add new message" class="fa fa-plus">
                             </a>
                         </div>
                     </div>

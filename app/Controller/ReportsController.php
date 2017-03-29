@@ -528,6 +528,8 @@ class ReportsController extends AppController {
         $this->loadModel('Role');
         $clicked = false;
         if ($this->request->is('post') || $this->request->is('put')) {
+
+
             $clicked = true;
             $this->set(compact(''));
         }

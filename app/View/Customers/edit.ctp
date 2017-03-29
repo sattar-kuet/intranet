@@ -1581,6 +1581,7 @@ if (strtolower($disabled != 'active')) {
                                         <?php
                                         foreach ($invoices as $info):
                                             $date = $info['transactions']['next_payment'];
+                                             
                                             $customer_address = $info['package_customers']['house_no'] . ' ' . $info['package_customers']['street'] . ' ' .
                                                     $info['package_customers']['apartment'] . ' ' . $info['package_customers']['city'] . ' ' . $info['package_customers']['state'] . ' '
                                                     . $info['package_customers']['zip'];

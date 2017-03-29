@@ -11,11 +11,11 @@
     <div class="page-content">
         <!-- BEGIN PAGE CONTENT-->
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-7">
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-search"></i>Search Customer Information
+                            <i class="fa fa-search"></i>Search Panel
                         </div>
                      
                     </div>
@@ -40,37 +40,32 @@
                                 You have some form errors. Please check below.
                             </div>
                             <?php echo $this->Session->flash(); ?>
-
                             <div class="form-group">
-
-                                <div class="col-md-12">
+                                <div class="col-md-9">
                                     <?php
                                     echo $this->Form->input('param', array(
                                         'type' => 'text',
-                                        'placeholder' => 'Type first name or last name or cell number or mac',
+                                        'placeholder' => 'Type search parameter',
                                         'class' => 'form-control required',
+                                        'style' => 'font-size: 15px;'
                                             )
                                     );
                                     ?>
                                 </div>
+                                <div class="col-md-3">
+                                     <?php
+                                        $search = array("1" => "Customer", "2" => "Transaction ID", "3" => "Invoice No");
+                                        echo $this->Form->input(
+                                                'search', array(
+                                            'class' => 'form-control required',
+                                            'default' => 'Customer',
+                                            'options' => $search,
+                                            'label' => false
+                                                )
+                                        );
+                                        ?>
+                                </div>
                             </div>
-
-                            <!--                            <div class="form-group">
-                                                            <label class="control-label col-md-3">
-                                                            </label>
-                                                            <div class="col-md-6">
-                            <?php
-                            echo $this->Form->input('home', array(
-                                'type' => 'select',
-                                'options' => $homes,
-                                'empty' => 'Select Home No',
-                                'class' => 'form-control select2me pclass',
-                                    )
-                            );
-                            ?>
-                                                            </div>
-                                                        </div>-->
-
                         </div>
                         <div class="form-actions">
                             <div class="row">
@@ -90,7 +85,7 @@
                 </div>
             </div>
 
-            <div class="col-md-6 col-sm-6">
+            <div class="col-md-5 col-sm-5">
                 <!-- BEGIN PORTLET-->
                 <div class="portlet">
                     <div class="portlet-title line" style="color:red;">
