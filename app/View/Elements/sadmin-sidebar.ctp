@@ -139,6 +139,60 @@
             </li>
 
 
+
+            <!--            <li 
+            <?php
+            $transactionId = array('transactionId');
+            if (in_array($this->name . '' . $this->action, $transactionId)):
+                ?>
+                                    class="active"
+                <?php
+            endif;
+            ?>
+                            >                 
+                            <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'transactionId')) ?>">
+                                <i class="fa fa-support"></i>
+                                <span class="title">Search By Trans ID</span>
+                                <span class="arrow "></span>
+                            </a>
+                        </li>-->
+
+            <!--            <li 
+            <?php
+            $transactionId = array('searchbyinvoice');
+            if (in_array($this->name . '' . $this->action, $transactionId)):
+                ?>
+                                    class="active"
+                <?php
+            endif;
+            ?>
+                            >                 
+                            <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'searchbyinvoice')) ?>">
+                                <i class="fa fa-support"></i>
+                                <span class="title">Search By Invoice</span>
+                                <span class="arrow "></span>
+                            </a>
+                        </li>-->
+
+
+            <!--            <li 
+            <?php
+            $payment = array('paymenthistory');
+            if (in_array($this->name . '' . $this->action, $payment)):
+                ?>
+                                                                                        class="active"
+                <?php
+            endif;
+            ?>
+                            >                 
+                            <a href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'payment_history')) ?>">
+                                <i class="fa fa-support"></i>
+                                <span class="title">Payment History</span>
+                                <span class="arrow "></span>
+                            </a>
+                        </li>-->
+
+
             <li 
             <?php
             $tickets = array('Ticketscreate', 'Ticketsmanage', 'Ticketsassigned_to_me', 'Ticketsforwarded_by', 'Ticketssolved_ticket', 'Ticketsin_progress');
