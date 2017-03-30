@@ -185,8 +185,10 @@ class CustomersController extends AppController {
         $data = array();
         if ($this->request->is('post')) {
             $input = $this->request->data['PackageCustomer'];
-            $clicked = $input['search'];
+            $clicked = $input['search'];                        pr($clicked); exit;
+
             $data = $this->searchByParam($input);
+
         }
         $admin_messages = $this->message();
         $this->set(compact('data', 'clicked', 'admin_messages'));

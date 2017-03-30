@@ -54,7 +54,7 @@
                     </li>
 
                     <li <?php if ($this->name . '' . $this->action == 'Customersmanage_delete_data'): ?> class="active"  <?php endif; ?> >
-                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'manage_delete_data')) ?>"> <i class="fa fa-dashboard"></i> Delete Data</a>
+                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'manage_delete_data')) ?>"> <i class="fa fa-dashboard"></i> Deleted Customers</a>
                     </li>
                 </ul>
             </li>
