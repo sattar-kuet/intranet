@@ -19,7 +19,7 @@
 </style>
 <?php
 $btn = '';
-if (strtolower($disabled == 'active')) {
+if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
     $btn = "disabled";
 }
 ?>

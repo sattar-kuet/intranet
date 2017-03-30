@@ -1,18 +1,10 @@
 <?php
 
-require_once(APP . 'Vendor' . DS . 'authorize' . DS . 'autoload.php');
-require_once(APP . 'Vendor' . DS . 'class.upload.php');
 
-//App::uses('AnetAPI', 'net\authorize\api\contract\v1');
-//App::uses('AnetController', 'net\authorize\api\controller');
-use net\authorize\api\contract\v1 as AnetAPI;
-use net\authorize\api\controller as AnetController;
-
-define("AUTHORIZENET_LOG_FILE", APP . 'Vendor' . DS . 'authorize' . DS . 'phplog');
 
 class OtherspaymentsController extends AppController {
 
-    var $layout = 'admin';
+     var $layout = 'admin';
 
     // public $components = array('Auth');
     public function isAuthorized($user = null) {
@@ -88,6 +80,7 @@ class OtherspaymentsController extends AppController {
     function manage($page=1) {
         $this->loadModel('User');
         $this->loadModel('OthersPayment');
+        
 //        $otherpayments = $this->OthersPayment->find('all');
         $offset = --$page*$this->per_page;
         $otherpayments = $this->OthersPayment->query("SELECT * FROM `others_payments`inner join users on"

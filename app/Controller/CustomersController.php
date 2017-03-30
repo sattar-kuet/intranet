@@ -469,7 +469,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $attachments = $this->Attachment->find('all', array('conditions' => array('Attachment.package_customer_id' => $id)));
         $status = $customer_info['PackageCustomer']['status'];
 
-        $this->set(compact('disabled', 'transactions', 'customer_info', 'c_acc_no', 'macstb', 'custom_package_duration', 'checkMark', 'statusHistories'));
+        $this->set(compact('status', 'transactions', 'customer_info', 'c_acc_no', 'macstb', 'custom_package_duration', 'checkMark', 'statusHistories'));
 
 //        Ticket History
         $response = $this->getAllTickectsByCustomer($id);
