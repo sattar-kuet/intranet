@@ -139,77 +139,6 @@
             </li>
 
 
-
-            <li 
-            <?php
-            $services = array('servicemanage');
-            if (in_array($this->name . '' . $this->action, $services)):
-                ?>
-                    class="active"
-                    <?php
-                endif;
-                ?>
-                >                 
-                <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'servicemanage')) ?>">
-                    <i class="fa fa-support"></i>
-                    <span class="title">Service Management</span>
-                    <span class="arrow "></span>
-                </a>
-            </li>
-
-            <!--            <li 
-            <?php
-            $transactionId = array('transactionId');
-            if (in_array($this->name . '' . $this->action, $transactionId)):
-                ?>
-                                    class="active"
-                <?php
-            endif;
-            ?>
-                            >                 
-                            <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'transactionId')) ?>">
-                                <i class="fa fa-support"></i>
-                                <span class="title">Search By Trans ID</span>
-                                <span class="arrow "></span>
-                            </a>
-                        </li>-->
-
-            <!--            <li 
-            <?php
-            $transactionId = array('searchbyinvoice');
-            if (in_array($this->name . '' . $this->action, $transactionId)):
-                ?>
-                                    class="active"
-                <?php
-            endif;
-            ?>
-                            >                 
-                            <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'searchbyinvoice')) ?>">
-                                <i class="fa fa-support"></i>
-                                <span class="title">Search By Invoice</span>
-                                <span class="arrow "></span>
-                            </a>
-                        </li>-->
-
-
-            <!--            <li 
-            <?php
-            $payment = array('paymenthistory');
-            if (in_array($this->name . '' . $this->action, $payment)):
-                ?>
-                                                                                        class="active"
-                <?php
-            endif;
-            ?>
-                            >                 
-                            <a href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'payment_history')) ?>">
-                                <i class="fa fa-support"></i>
-                                <span class="title">Payment History</span>
-                                <span class="arrow "></span>
-                            </a>
-                        </li>-->
-
-
             <li 
             <?php
             $tickets = array('Ticketscreate', 'Ticketsmanage', 'Ticketsassigned_to_me', 'Ticketsforwarded_by', 'Ticketssolved_ticket', 'Ticketsin_progress');
@@ -302,60 +231,6 @@
                     </li>
 
                 </ul>
-
-
-
-
-                <!--
-           
-                 <li 
-                <?php
-                $transactions = array('Transactionssearch', 'Transactionsexpire_customer');
-
-                if (in_array($this->name . '' . $this->action, $transactions)):
-                    ?>
-                                                                                                        class="active"
-                    <?php
-                endif;
-                ?>
-                    >
-    
-                    <a href="javascript:;">
-                        <i class="fa fa-dollar"></i>
-                        <span class="title">Transactions</span>
-                        <span class="arrow "></span>
-                    </a>
-                    <ul class="sub-menu">
-                        <li
-                <?php if ($this->name . '' . $this->action == 'Transactionssearch'):
-                    ?>
-                                                                                                                class="active"
-                    <?php
-                endif;
-                ?>
-                            >
-    
-                            <a href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'search')) ?>">
-                                <i class="fa fa-history"></i>
-                                History</a>
-                        </li>
-                        <li
-                <?php if ($this->name . '' . $this->action == 'Transactionsexpire_customer'):
-                    ?>
-                                                                                                                class="active"
-                    <?php
-                endif;
-                ?>
-                            >
-                            <a href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'expire_customer')) ?>">
-                                <i class="fa fa-money"></i>
-                                Payments </a>
-                        </li>
-    
-                    </ul>
-                </li>
-    
-                -->
 
 
 
