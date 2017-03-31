@@ -47,8 +47,6 @@
                                 You have some form errors. Please check below.
                             </div>
                             <?php echo $this->Session->flash(); ?>
-
-
                             <div class="form-group">
                                 <div class="col-md-5">
                                     <?php
@@ -177,9 +175,15 @@
         <!-- END PAGE CONTENT -->
         <?php
         if ($action) {
+          //  pr($action); exit;
             if ($action == 'newcustomer') {
 
                 echo $this->element('newcustomer', array('data' => $data));
+            }
+            
+            if ($action == 'paymenthistory') {
+
+                echo $this->element('payment_history', array('data' => $data));
             }
         }
         ?>

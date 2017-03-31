@@ -58,10 +58,10 @@ class ReportsController extends AppController {
         $this->set(compact('clicked'));
     }
 
-    function payment_history($page = 1, $start = null, $end = null, $pay_mode = null) {
+    function payment_history($page, $start, $end , $pay_mode) {
         $this->loadModel('Transaction');
         $this->loadModel('PackageCustomer');
-        
+
         if (isset($this->request->data['Role'])) {
             $datrange = json_decode($this->request->data['Role']['daterangepaymode'], true);
             $start = $datrange['start'];
@@ -83,13 +83,12 @@ class ReportsController extends AppController {
         $conditions = str_replace("AND###", "", $conditions);
         $conditions = str_replace("AND ###", "", $conditions);
         $conditions = str_replace("###", "", $conditions);
-
-        $offset = --$page * $this->per_page;
+              
+        $offset = 0; //--$page * $this->per_page;
         $total = $this->Transaction->query("SELECT COUNT(tr.id) as total FROM transactions tr 
                 WHERE $conditions");
         $total = $total[0][0]['total'];
         $total_page = ceil($total / $this->per_page);
-
 
         $sql = "SELECT * FROM transactions tr 
                 left join package_customers pc on pc.id = tr.package_customer_id
@@ -134,7 +133,7 @@ class ReportsController extends AppController {
         $total3monthp = $this->getSubscriptionNo($conditions, '3 month package', 3);
         $total6monthp = $this->getSubscriptionNo($conditions, '6 month package', 6);
         $total12monthp = $this->getSubscriptionNo($conditions, '1 year package', 12);
-        
+
         $return['totalbox'] = $totalbox;
         $return['total_mac'] = $total_mac;
         $return['transactions'] = $transactions;
@@ -145,15 +144,15 @@ class ReportsController extends AppController {
         $return['end'] = $end;
         $return['pay_mode'] = $pay_mode;
         $return['totalmanual'] = $totalmanual;
-        
+
         $return['totalautore'] = $totalautore;
         $return['sql1monthp'] = $sql1monthp;
         $return['total3monthp'] = $total3monthp;
         $return['total6monthp'] = $total6monthp;
         $return['total12monthp'] = $total12monthp;
-
-        $this->set(compact('totalbox', 'total_mac', 'transactions', 'totalamount', 'total_page', 'total', 'start', 'end', 'pay_mode', 'totalmanual', 'totalautore', 'sql1monthp', 'total3monthp', 'total6monthp', 'total12monthp'));
-       
+        return $return;
+        
+       // $this->set(compact('totalbox', 'total_mac', 'data', 'totalamount', 'total_page', 'total', 'start', 'end', 'pay_mode', 'totalmanual', 'totalautore', 'sql1monthp', 'total3monthp', 'total6monthp', 'total12monthp'));
     }
 
     function invoice($id = null) {
@@ -969,7 +968,7 @@ class ReportsController extends AppController {
         $this->set(compact('filteredData', 'technician'));
     }
 
-    function all() {
+    function all($page = 1, $start = null, $end = null, $pay_mode = null) {
         $this->loadModel('Issue');
         $this->loadModel('User');
         $this->loadModel('Role');
@@ -983,10 +982,10 @@ class ReportsController extends AppController {
                 $data = $this->newcustomers($this->request->data['Role']['daterangeonly']);
             }
             if ($action == 'paymenthistory') {
-                $data = $this->payment_history($this->request->data['Role']);
+                $data = $this->payment_history($page = 1, $start = null, $end = null, $pay_mode = null);
             }
         }
-       
+
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
         $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
