@@ -974,10 +974,10 @@ class ReportsController extends AppController {
         $this->loadModel('User');
         $this->loadModel('Role');
         $action = 0;
+        $data = array();
         if ($this->request->is('post')) {
 //            pr($this->request->data['Role']);
 //            exit;
-            $data = array();
             $action = strtolower($this->request->data['Role']['action']);
             if ($action == 'newcustomer') {
                 $data = $this->newcustomers($this->request->data['Role']['daterangeonly']);
@@ -986,7 +986,7 @@ class ReportsController extends AppController {
                 $data = $this->payment_history($this->request->data['Role']);
             }
         }
-
+       
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
         $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));

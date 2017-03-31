@@ -176,8 +176,11 @@
         </div>
         <!-- END PAGE CONTENT -->
         <?php
-        if ($action == 'newcustomer') {
-            echo $this->element('newcustomer', array('data' => $data));
+        if ($action) {
+            if ($action == 'newcustomer') {
+
+                echo $this->element('newcustomer', array('data' => $data));
+            }
         }
         ?>
     </div>
