@@ -191,6 +191,26 @@ $(document).ready(function () {
     });
 
     //    auto adjusment end
+    
+    $('#actionID').change(function(){
+        var action  = $(this).val();
+        //alert(action);
+        if(action == 'calllog'){
+            $('.hide-rest').hide(100);
+            $('#callog').show(1000);
+        }
+        else if(action == 'paymenthistory'){
+            $('.hide-rest').hide(100);
+            $('#date-range-pay-mode').show(1000);
+        }
+        else if(action == 'allinvoice' || action == 'openinvoice' || action == 'passeddueinvoice'){
+            $('.hide-rest').hide(100);
+        }
+        else{
+            $('.hide-rest').hide(100);
+           $('#only-date-range').show(1000); 
+        }
+    });
 
 
   

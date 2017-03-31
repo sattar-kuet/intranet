@@ -1,10 +1,3 @@
-<style>
-    .ui-datepicker-multi-3 {
-        display: table-row-group !important;
-    }
-
-</style>
-
 <style type="text/css">
     .alert {
         padding: 6px;
@@ -13,13 +6,11 @@
         border-radius: 4px;
         text-align: center;
     }
-    .txtArea { width:300px; }
-    ul.pagination {
-        display: flex;
-        justify-content: center;
+
+    .col-md-6 {
+        margin-top: 10px;
     }
 </style>
-
 <div class="page-content-wrapper">
     <div class="page-content">
         <!-- BEGIN PAGE CONTENT-->
@@ -28,24 +19,25 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-
+                            <i class="fa fa-paperclip"></i>All Reports
                         </div>
-                        <div class="tools">
-                            <a href="javascript:;" class="reload">
-                            </a>
-                        </div>
+                        <!--                        <div class="tools">
+                                                    <a href="javascript:;" class="reload">
+                                                    </a>
+                                                </div>-->
                     </div>
                     <div class="portlet-body form">
                         <!-- BEGIN FORM-->
                         <?php
-                        echo $this->Form->create('PackageCustomer', array(
+                        echo $this->Form->create('Role', array(
                             'inputDefaults' => array(
                                 'label' => false,
                                 'div' => false
                             ),
-                            'id' => 'form-validate',
+                            'id' => 'form_sample_3',
                             'class' => 'form-horizontal',
-                            'novalidate' => 'novalidate'
+                            'novalidate' => 'novalidate',
+                            'url' => array('controller' => 'reports', 'action' => 'all')
                                 )
                         );
                         ?>
@@ -56,27 +48,120 @@
                             </div>
                             <?php echo $this->Session->flash(); ?>
 
-                            <div class="form-group">                                
-                                <label class="control-label col-md-3" for="required">Select Date:</label>
-                                <div class="col-md-4">
+
+                            <div class="form-group">
+                                <div class="col-md-5">
                                     <?php
-                                    echo $this->Form->input(
-                                            'daterange', array(
-                                        'id' => 'e1', /* e1 is past to current date, e2 is past to future date */
-                                        'class' => 'span9 text'
+                                    echo $this->Form->input('action', array(
+                                        'type' => 'select',
+                                        'options' => array('cancel' => 'Cancel', 'paymenthistory' => 'Payment History', 'newcustomer' => 'New Customer', 'expirecustomer' => 'Expire Customer', 'calllog' => 'Call Log', 'allautorecurring' => 'All Auto Recurring', 'succeededautorecurring' => 'Succeeded Auto Recurring', 'faileautorecurring' => 'Faile Auto Recurring', 'summary' => 'Summary', 'allinvoice' => 'All Invoice', 'openinvoice' => 'Open Invoice', 'passeddueinvoice' => 'Passed Due Invoice', 'closedinvoice' => 'Closed Invoice', 'customerbylocation' => 'Customer By Location', 'allcustomers' => 'All Customers'),
+                                        'empty' => 'Select Paymode',
+                                        'class' => 'form-control select2me ',
+                                        'id' => 'actionID'
                                             )
                                     );
                                     ?>
                                 </div>
-                            </div>
 
+                                <div class="col-md-7" >
+                                    <div class="col-md-12 display-hide hide-rest" id="only-date-range">
+                                        <?php
+                                        echo $this->Form->input(
+                                                'daterangeonly', array(
+                                            'class' => 'span9 text e1' /* e1 is past to current date, e2 is past to future date */
+                                                )
+                                        );
+                                        ?>
+                                    </div>
+
+                                    <div class="col-md-12 row-fluid display-hide hide-rest" id="date-range-pay-mode">
+                                        <div class="col-md-6">
+                                            <?php
+                                            echo $this->Form->input(
+                                                    'daterangepaymode', array(
+                                                'class' => 'span9 text e1'/* e11 is past to current date, e2 is past to future date */
+                                                    )
+                                            );
+                                            ?>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <?php
+                                            echo $this->Form->input('pay_mode', array(
+                                                'type' => 'select',
+                                                'options' => array('card' => 'Card', 'check' => 'Check', 'money order' => 'Money Order', 'online bill' => 'Online Bill', 'cash' => 'Cash', 'refund' => 'Refund'),
+                                                'empty' => 'Select Paymode',
+                                                'class' => 'form-control select2me '
+                                                    )
+                                            );
+                                            ?>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 row-fluid display-hide hide-rest" id="callog">
+                                        <div class="row-fluid">
+                                            <div class="col-md-6">
+                                                <?php
+                                                echo $this->Form->input(
+                                                        'daterangecalllog', array(
+                                                    'class' => 'span9 text e1' /* e1 is past to current date, e2 is past to future date */
+                                                        )
+                                                );
+                                                ?>
+                                            </div>
+
+
+                                            <div class="col-md-6">
+                                                <?php
+                                                echo $this->Form->input('issue_id', array(
+                                                    'type' => 'select',
+                                                    'options' => $issues,
+                                                    'empty' => 'Select Issue',
+                                                    'class' => 'form-control select2me ',
+                                                        )
+                                                );
+                                                ?>
+                                            </div>
+                                        </div>
+                                        <div class="row-fluid margin-top-15">
+                                            <div class="col-md-6">
+                                                <?php
+                                                echo $this->Form->input('user_id', array(
+                                                    'type' => 'select',
+                                                    'options' => $users,
+                                                    'empty' => 'Select From Existing admins panel user',
+                                                    'class' => 'form-control select2me',
+                                                        )
+                                                );
+                                                ?>
+                                            </div>
+
+
+                                            <div class="col-md-6">
+                                                <?php
+                                                $status = array("closed" => "Closed", "solved" => "Solved", "unresolved" => "Unresolved", "open" => "Open");
+                                                echo $this->Form->input('status', array(
+                                                    'class' => 'form-control  select2me',
+                                                    'type' => 'select',
+                                                    'options' => $status,
+                                                    'empty' => 'Select status',
+                                                        )
+                                                );
+                                                ?>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-actions">
                             <div class="row">
-                                <div class="col-md-offset-5 col-md-4">
+                                <div class="col-md-offset-6 col-md-4">
                                     <?php
                                     echo $this->Form->button(
-                                            'Search', array('class' => 'btn btn-success', 'type' => 'submit')
+                                            'Search', array('class' => 'btn green', 'type' => 'submit')
                                     );
                                     ?>
                                 </div>
@@ -86,102 +171,16 @@
                         <!-- END FORM-->
                     </div>
                     <!-- END VALIDATION STATES-->
-                </div>                
+                </div>
             </div>
         </div>
         <!-- END PAGE CONTENT -->
-        <?php if ($clicked): ?>    
-            <div class="page-content-wrapper" style="margin: 0px; padding: 0px;">
-                <div class="">
-                    <!-- BEGIN PAGE CONTENT-->
-                    <div class="invoice" id="printableArea">
-                        <hr>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div class="alert alert-info clearfix" style="color: #000; font-size: 14px;"> 
-                                    <p> Total Subscription<b>: <?php echo $totalCustomer; ?></b> &nbsp; &nbsp;&nbsp;&nbsp;
-                                        Total Paid Amount<b>: $<?php echo $totalPayment; ?> </b> </p>
-                                </div> 
-                                <ul class="pagination" >
-                                    <?php
-                                    for ($i = 1; $i <= $total_page; $i++):
-                                        $active = '';
-                                        if (isset($this->params['pass'][0]) && $this->params['pass'][0] == $i) {
-                                            $active = 'active';
-                                        }
-                                        ?>
-                                        <li class="paginate_button <?php echo $active; ?>" aria-controls="sample_editable_1" tabindex="<?php echo $i; ?>">
-                                            <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'all', $i, $start, $end)) ?>"><?php echo $i; ?></a>
-                                        </li>
-                                    <?php endfor; ?>
-                                </ul>
-                                <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
-                                    <thead>
-                                        <tr>
-                                            <th class="sorting_desc">
-                                                ID
-                                            </th>
-                                            <th>
-                                                Customer Detail
-                                            </th>                                            
-                                            <th>
-                                                Package
-                                            </th>
-                                            <th>
-                                                Auto Recurring Date
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        foreach ($allData as $results):
-                                            $customer = $results['pc'];
-                                            $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
-                                                    $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
-                                                    . $customer['zip'];
-                                            ?>
-                                            <tr>
-                                                <td class="hidden-480">
-                                                    <?php echo $results['pc']['id']; ?>                            
-                                                </td>
-                                                <td class="hidden-480">
-                                                    <a href="<?php
-                                                    echo Router::url(array('controller' => 'customers',
-                                                        'action' => 'edit', $results['pc']['id']))
-                                                    ?>" 
-                                                       target="_blank">
-                                                           <?php echo $results['pc']['first_name'] . ' ' . $results['pc']['middle_name'] . ' ' . $results['pc']['last_name']; ?>
-                                                    </a><br>
-                                                    <?php echo $customer_address; ?> 
-                                                </td> 
-                                                <td>
-                                                    <?php if (!empty($results['pc']['psetting_id'])): ?>
-                                                    
-                                                        Name: <?php echo $results['ps']['name'] ?><br>
-                                                        Duration: <?php echo $results['ps']['duration']; ?><br>
-                                                        Amount: <?php echo $results['ps']['amount']; ?>
-                                                    <?php elseif (!empty($results['pc']['custom_package_id'])): ?>
-                                                        
-                                                        Months: <?php echo $results['cp']['duration'] ?><br>                                                        
-                                                        Custom package: <?php echo $results['cp']['charge']; ?>
-                                                        
-                                                    <?php else: ?>
-                                                        Package not set !
-                                                    <?php endif; ?>
-                                                </td>  
-                                                <td><?php echo $results['pc']['r_form']; ?></td>
-                                            </tr>
-                                        <?php endforeach; ?>  
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>                            
-        <?php endif; ?>
+        <?php
+        if ($action == 'newcustomer') {
+            echo $this->element('newcustomer', array('data' => $data));
+        }
+        ?>
     </div>
 </div>
 <!-- END CONTENT -->
-
 

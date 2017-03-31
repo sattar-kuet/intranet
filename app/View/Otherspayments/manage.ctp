@@ -19,7 +19,6 @@
         <h3 class="page-title">
             Manage Others Payments <small>You can edit, delete or cancel</small>
         </h3>
-
         <!-- END PAGE HEADER-->
         <!-- BEGIN PAGE CONTENT-->
         <div class="row">
@@ -29,8 +28,11 @@
                     <div class="portlet-title">
                         <div class="caption">
                             <i class="fa fa-user"></i>List of all others payments
+                        </div>                        
+                        <div class="tools">
+                            <a href="<?php echo Router::url(array('controller' => 'otherspayments', 'action' => 'create')) ?>" title="Add Others Payment" class="fa fa-plus">
+                            </a>
                         </div>
-
                     </div>
                     <div class="portlet-body">
                         <?php echo $this->Session->flash(); ?> 
@@ -53,10 +55,7 @@
                                         <td><?php echo $single['others_payments']['note']; ?></td>
                                         <td><?php echo $single['users']['name']; ?></td>
                                         <td><?php echo $single['others_payments']['payamount']; ?></td>
-                                        <td>
-                                        <?php echo date('m-d-Y', strtotime($single['others_payments']['payment_date'])); ?>
-                                        </td>
-                                        
+                                        <td><?php echo date('m-d-Y', strtotime($single['others_payments']['payment_date'])); ?></td>                                        
                                         <td><?php echo $single['others_payments']['status']; ?></td>
                                         <td>   
                                             <div class="controls center text-center">
@@ -78,7 +77,7 @@
                                                 <?php endif; ?>
 
                                                 &nbsp;&nbsp;                                              
-                                                <a  target="_blank" title="edit" href="<?php echo Router::url(array('controller' => 'otherspayments', 'action' => 'edit', $single['others_payments']['id'])) ?>" >
+                                                <a  title="edit" href="<?php echo Router::url(array('controller' => 'otherspayments', 'action' => 'edit', $single['others_payments']['id'])) ?>" >
                                                     <span class="fa fa-pencil"></span></a>
                                             </div>
                                         </td>
