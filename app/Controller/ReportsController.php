@@ -61,85 +61,99 @@ class ReportsController extends AppController {
     function payment_history($page = 1, $start = null, $end = null, $pay_mode = null) {
         $this->loadModel('Transaction');
         $this->loadModel('PackageCustomer');
-        $clicked = false;
-        if ($this->request->is('post') || $this->request->is('put') || $start != null) {
-            if (isset($this->request->data['Transaction'])) {
-                $datrange = json_decode($this->request->data['Transaction']['daterange'], true);
-                $start = $datrange['start'];
-                $end = $datrange['end'];
-                $pay_mode = $this->request->data['Transaction']['pay_mode'];
-            }
+        
+        if (isset($this->request->data['Role'])) {
+            $datrange = json_decode($this->request->data['Role']['daterangepaymode'], true);
+            $start = $datrange['start'];
+            $end = $datrange['end'];
+            $pay_mode = $this->request->data['Role']['pay_mode'];
+        }
 
-            $conditions = " tr.status = 'success' AND ";
-            if (!empty($pay_mode) && $pay_mode != null) {
-                $conditions .=" tr.pay_mode = '" . $pay_mode . "' AND ";
-            }
-            if ($start == $end) {
-                $nextday = date('Y-m-d', strtotime($end . "+1 days"));
-                $conditions .=" tr.created >=' " . $start . " 00:00:00' AND  tr.created < '" . $end . " 23:59:59' AND ";
-            } else {
-                $conditions .=" tr.created >='" . $start . " 00:00:00' AND  tr.created <='" . $end . " 23:59:59' AND ";
-            }
-            $conditions.="###";
-            $conditions = str_replace("AND###", "", $conditions);
-            $conditions = str_replace("AND ###", "", $conditions);
-            $conditions = str_replace("###", "", $conditions);
+        $conditions = " tr.status = 'success' AND ";
+        if (!empty($pay_mode) && $pay_mode != null) {
+            $conditions .=" tr.pay_mode = '" . $pay_mode . "' AND ";
+        }
+        if ($start == $end) {
+            $nextday = date('Y-m-d', strtotime($end . "+1 days"));
+            $conditions .=" tr.created >=' " . $start . " 00:00:00' AND  tr.created < '" . $end . " 23:59:59' AND ";
+        } else {
+            $conditions .=" tr.created >='" . $start . " 00:00:00' AND  tr.created <='" . $end . " 23:59:59' AND ";
+        }
+        $conditions.="###";
+        $conditions = str_replace("AND###", "", $conditions);
+        $conditions = str_replace("AND ###", "", $conditions);
+        $conditions = str_replace("###", "", $conditions);
 
-            $offset = --$page * $this->per_page;
-            $total = $this->Transaction->query("SELECT COUNT(tr.id) as total FROM transactions tr 
+        $offset = --$page * $this->per_page;
+        $total = $this->Transaction->query("SELECT COUNT(tr.id) as total FROM transactions tr 
                 WHERE $conditions");
-            $total = $total[0][0]['total'];
-            $total_page = ceil($total / $this->per_page);
+        $total = $total[0][0]['total'];
+        $total_page = ceil($total / $this->per_page);
 
 
-            $sql = "SELECT * FROM transactions tr 
+        $sql = "SELECT * FROM transactions tr 
                 left join package_customers pc on pc.id = tr.package_customer_id
                 left join psettings ps on ps.id = pc.psetting_id
                 LEFT JOIN packages p ON p.id = ps.package_id 
                 left join custom_packages cp on pc.custom_package_id = cp.id
                 WHERE $conditions order by tr.id desc limit $offset,$this->per_page";
-            $transactions = $this->Transaction->query($sql);
+        $transactions = $this->Transaction->query($sql);
 
-            $sql1 = "SELECT SUM(payable_amount)as totalamount FROM transactions tr WHERE $conditions ";
-            $totalamount = $this->Transaction->query($sql1);
-            $totalamount = round($totalamount[0][0]['totalamount'], 2);
+        $sql1 = "SELECT SUM(payable_amount)as totalamount FROM transactions tr WHERE $conditions ";
+        $totalamount = $this->Transaction->query($sql1);
+        $totalamount = round($totalamount[0][0]['totalamount'], 2);
 
-            $sql = "SELECT pc.mac FROM transactions tr 
+        $sql = "SELECT pc.mac FROM transactions tr 
                 left join package_customers pc on pc.id = tr.package_customer_id
                 left join psettings ps on ps.id = pc.psetting_id
                 LEFT JOIN packages p ON p.id = ps.package_id 
                 WHERE $conditions";
 
-            $total_mac = $this->Transaction->query($sql);
+        $total_mac = $this->Transaction->query($sql);
 
-            //Total box
+        //Total box
 //            $sqlbox = "SELECT * FROM transactions tr left join package_customers pc on pc.id = tr.package_customer_id WHERE $conditions";
 //            $totalbox = $this->Transaction->query($sqlbox);
-            $sql = "SELECT sum(stbs)as total FROM transactions tr                      
+        $sql = "SELECT sum(stbs)as total FROM transactions tr                      
                 left join package_customers pc on pc.id = tr.package_customer_id WHERE $conditions";
-            $stbs = $this->PackageCustomer->query($sql);
-            $totalbox = $stbs[0][0]['total'];
+        $stbs = $this->PackageCustomer->query($sql);
+        $totalbox = $stbs[0][0]['total'];
 
 
-            //Total Manual
-            $sqlmanual = "SELECT SUM(payable_amount)as totalmanual FROM transactions tr WHERE $conditions and tr.auto_recurring != 1";
-            $totalmanual = $this->Transaction->query($sqlmanual);
-            $totalmanual = round($totalmanual[0][0]['totalmanual'], 2);
+        //Total Manual
+        $sqlmanual = "SELECT SUM(payable_amount)as totalmanual FROM transactions tr WHERE $conditions and tr.auto_recurring != 1";
+        $totalmanual = $this->Transaction->query($sqlmanual);
+        $totalmanual = round($totalmanual[0][0]['totalmanual'], 2);
 
-            //Auto recurring
-            $sqlautore = "SELECT SUM(payable_amount)as totalautore FROM transactions tr WHERE $conditions and tr.auto_recurring = 1";
-            $totalautore = $this->Transaction->query($sqlautore);
-            $totalautore = round($totalautore[0][0]['totalautore'], 2);
+        //Auto recurring
+        $sqlautore = "SELECT SUM(payable_amount)as totalautore FROM transactions tr WHERE $conditions and tr.auto_recurring = 1";
+        $totalautore = $this->Transaction->query($sqlautore);
+        $totalautore = round($totalautore[0][0]['totalautore'], 2);
 
-            $sql1monthp = $this->getSubscriptionNo($conditions, '1 month package', 1);
-            $total3monthp = $this->getSubscriptionNo($conditions, '3 month package', 3);
-            $total6monthp = $this->getSubscriptionNo($conditions, '6 month package', 6);
-            $total12monthp = $this->getSubscriptionNo($conditions, '1 year package', 12);
+        $sql1monthp = $this->getSubscriptionNo($conditions, '1 month package', 1);
+        $total3monthp = $this->getSubscriptionNo($conditions, '3 month package', 3);
+        $total6monthp = $this->getSubscriptionNo($conditions, '6 month package', 6);
+        $total12monthp = $this->getSubscriptionNo($conditions, '1 year package', 12);
+        
+        $return['totalbox'] = $totalbox;
+        $return['total_mac'] = $total_mac;
+        $return['transactions'] = $transactions;
+        $return['totalamount'] = $totalamount;
+        $return['total_page'] = $total_page;
+        $return['total'] = $total;
+        $return['start'] = $start;
+        $return['end'] = $end;
+        $return['pay_mode'] = $pay_mode;
+        $return['totalmanual'] = $totalmanual;
+        
+        $return['totalautore'] = $totalautore;
+        $return['sql1monthp'] = $sql1monthp;
+        $return['total3monthp'] = $total3monthp;
+        $return['total6monthp'] = $total6monthp;
+        $return['total12monthp'] = $total12monthp;
 
-            $clicked = true;
-            $this->set(compact('totalbox', 'total_mac', 'transactions', 'totalamount', 'total_page', 'total', 'start', 'end', 'pay_mode', 'totalmanual', 'totalautore', 'sql1monthp', 'total3monthp', 'total6monthp', 'total12monthp'));
-        }
-        $this->set(compact('clicked'));
+        $this->set(compact('totalbox', 'total_mac', 'transactions', 'totalamount', 'total_page', 'total', 'start', 'end', 'pay_mode', 'totalmanual', 'totalautore', 'sql1monthp', 'total3monthp', 'total6monthp', 'total12monthp'));
+       
     }
 
     function invoice($id = null) {
@@ -409,28 +423,29 @@ class ReportsController extends AppController {
         $this->set(compact('clicked'));
     }
 
-    function newcustomers() {
+    function newcustomers($dateRange) {
         $this->loadModel('PackageCustomer');
         $this->loadModel('StatusHistory');
-        $clicked = false;
-        if ($this->request->is('post') || $this->request->is('put')) {
-            $datrange = json_decode($this->request->data['StatusHistory']['daterange'], true);
-            $start = $datrange['start'];
-            $end = $datrange['end'];
-            $conditions = 'status_histories.status ="sales done" AND status_histories.date >="' . $start . '" AND status_histories.date <="' . $end . '"';
+        $datrange = json_decode($dateRange, true);
+        $dateselected = count($datrange);
 
-            $transactions = $this->StatusHistory->query("SELECT * FROM package_customers pc                
+        $start = $datrange['start'];
+        $end = $datrange['end'];
+        $conditions = 'status_histories.status ="sales done" AND status_histories.date >="' . $start . '" AND status_histories.date <="' . $end . '"';
+        $sql = "SELECT * FROM package_customers pc                
             LEFT JOIN status_histories ON pc.id = status_histories.package_customer_id           
             left join transactions tr on pc.id = tr.package_customer_id    
             left join psettings ps on ps.id = pc.psetting_id
             LEFT JOIN packages p ON p.id = ps.package_id 
-            LEFT JOIN custom_packages cp  ON cp.id = pc.custom_package_id 
-            WHERE  $conditions GROUP BY status_histories.package_customer_id order by status_histories.id desc limit 0,200");
-
-            $clicked = true;
-            $this->set(compact('transactions'));
+            LEFT JOIN custom_packages cp  ON cp.id = pc.custom_package_id";
+        if ($dateselected) {
+            $sql .=" WHERE " . $conditions;
         }
-        $this->set(compact('clicked'));
+        $sql .= " GROUP BY status_histories.package_customer_id order by status_histories.id desc limit 0,200";
+
+        $customers = $this->StatusHistory->query($sql);
+
+        return $customers;
     }
 
     function call_log($page = 1, $start = null, $end = null) {
@@ -954,7 +969,31 @@ class ReportsController extends AppController {
         $this->set(compact('filteredData', 'technician'));
     }
 
-    function all($page = 1, $start = null, $end = null, $pay_mode = null) { //Auto recurring data all
+    function all() {
+        $this->loadModel('Issue');
+        $this->loadModel('User');
+        $this->loadModel('Role');
+        $action = 0;
+        if ($this->request->is('post')) {
+//            pr($this->request->data['Role']);
+//            exit;
+            $data = array();
+            $action = strtolower($this->request->data['Role']['action']);
+            if ($action == 'newcustomer') {
+                $data = $this->newcustomers($this->request->data['Role']['daterangeonly']);
+            }
+            if ($action == 'paymenthistory') {
+                $data = $this->payment_history($this->request->data['Role']);
+            }
+        }
+
+        $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
+        $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
+        $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
+        $this->set(compact('data', 'action', 'users', 'issues', 'roles'));
+    }
+
+    function allAutorecurring($page = 1, $start = null, $end = null, $pay_mode = null) { //Auto recurring data all
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');

@@ -185,8 +185,7 @@ class CustomersController extends AppController {
         $data = array();
         if ($this->request->is('post')) {
             $input = $this->request->data['PackageCustomer'];
-            $clicked = $input['search'];                        pr($clicked); exit;
-
+            $clicked = $input['search'];
             $data = $this->searchByParam($input);
 
         }
