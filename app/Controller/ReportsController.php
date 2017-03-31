@@ -75,7 +75,7 @@ class ReportsController extends AppController {
         }
         if ($start == $end) {
             $nextday = date('Y-m-d', strtotime($end . "+1 days"));
-            $conditions .=" tr.created >=' " . $start . " 00:00:00' AND  tr.created < '" . $end . " 23:59:59' AND ";
+            $conditions .="tr.created >=' " . $start . " 00:00:00' AND  tr.created < '" . $end . " 23:59:59' AND ";
         } else {
             $conditions .=" tr.created >='" . $start . " 00:00:00' AND  tr.created <='" . $end . " 23:59:59' AND ";
         }
