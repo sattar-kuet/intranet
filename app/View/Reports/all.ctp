@@ -177,9 +177,8 @@
         <!-- END PAGE CONTENT -->
         <?php
         if ($action) {
-            //  pr($action); exit;
+            
             if ($action == 'newcustomer') {
-
                 echo $this->element('newcustomer', array('data' => $data));
             }
 
@@ -196,7 +195,12 @@
                 echo $this->element('expcustomers', array('data' => $data));
             }
             if ($action == 'calllog') {
+                  
                 echo $this->element('call_log', array('data' => $data));
+            }
+            if ($action == 'allautorecurring') {
+//                pr($data['allData']); exit;
+                echo $this->element('allAutorecurring', array('data' => $data));
             }
         }
         ?>
