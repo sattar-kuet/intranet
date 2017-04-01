@@ -48,18 +48,6 @@
                             </div>
                             <?php echo $this->Session->flash(); ?>
                             <div class="form-group">
-                                <div class="col-md-5">
-                                    <?php
-                                    echo $this->Form->input('action', array(
-                                        'type' => 'select',
-                                        'options' => array('cancel' => 'Cancel', 'paymenthistory' => 'Payment History', 'newcustomer' => 'New Customer', 'expirecustomer' => 'Expire Customer', 'calllog' => 'Call Log', 'allautorecurring' => 'All Auto Recurring', 'succeededautorecurring' => 'Succeeded Auto Recurring', 'faileautorecurring' => 'Faile Auto Recurring', 'summary' => 'Summary', 'allinvoice' => 'All Invoice', 'openinvoice' => 'Open Invoice', 'passeddueinvoice' => 'Passed Due Invoice', 'closedinvoice' => 'Closed Invoice', 'customerbylocation' => 'Customer By Location', 'allcustomers' => 'All Customers'),
-                                        'empty' => 'Select Paymode',
-                                        'class' => 'form-control select2me ',
-                                        'id' => 'actionID'
-                                            )
-                                    );
-                                    ?>
-                                </div>
 
                                 <div class="col-md-7" >
                                     <div class="col-md-12 display-hide hide-rest" id="only-date-range">
@@ -108,7 +96,6 @@
                                                 ?>
                                             </div>
 
-
                                             <div class="col-md-6">
                                                 <?php
                                                 echo $this->Form->input('issue_id', array(
@@ -152,6 +139,21 @@
 
                                     </div>
                                 </div>
+
+                                <div class="col-md-5">
+                                    <?php
+                                    echo $this->Form->input('action', array(
+                                        'type' => 'select',
+                                        'options' => array('cancel' => 'Cancel', 'paymenthistory' => 'Payment History', 'newcustomer' => 'New Customer', 'expirecustomer' => 'Expire Customer', 'calllog' => 'Call Log', 'allautorecurring' => 'All Auto Recurring', 'succeededautorecurring' => 'Succeeded Auto Recurring', 'faileautorecurring' => 'Faile Auto Recurring', 'summary' => 'Summary', 'allinvoice' => 'All Invoice', 'openinvoice' => 'Open Invoice', 'passeddueinvoice' => 'Passed Due Invoice', 'closedinvoice' => 'Closed Invoice', 'customerbylocation' => 'Customer By Location', 'allcustomers' => 'All Customers'),
+                                        'empty' => 'Select Paymode',
+                                        'class' => 'form-control select2me ',
+                                        'id' => 'actionID'
+                                            )
+                                    );
+                                    ?>
+                                </div>
+
+
                             </div>
                         </div>
                         <div class="form-actions">
@@ -175,15 +177,26 @@
         <!-- END PAGE CONTENT -->
         <?php
         if ($action) {
-          //  pr($action); exit;
+            //  pr($action); exit;
             if ($action == 'newcustomer') {
 
                 echo $this->element('newcustomer', array('data' => $data));
             }
-            
+
             if ($action == 'paymenthistory') {
 
                 echo $this->element('payment_history', array('data' => $data));
+            }
+            if ($action == 'cancel') {
+
+                echo $this->element('cancel', array('data' => $data));
+            }
+            if ($action == 'expirecustomer') {
+
+                echo $this->element('expcustomers', array('data' => $data));
+            }
+            if ($action == 'calllog') {
+                echo $this->element('call_log', array('data' => $data));
             }
         }
         ?>

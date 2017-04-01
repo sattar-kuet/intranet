@@ -36,29 +36,26 @@ class ReportsController extends AppController {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
         $this->loadModel('StatusHistory');
-        $clicked = false;
-        if ($this->request->is('post') || $this->request->is('put')) {
-            $datrange = json_decode($this->request->data['PackageCustomer']['daterange'], true);
-            $start = $datrange['start'];
-            $end = $datrange['end'];
-            $conditions = 'status_histories.status = "canceled" AND status_histories.date >="' . $start . '" AND status_histories.date <="' . $end . '"';
+        //  pr($this->request->data); exit;
+        $datrange = json_decode($this->request->data['Role']['daterangeonly'], true);
+        $start = $datrange['start'];
+        $end = $datrange['end'];
+        $conditions = 'status_histories.status = "canceled" AND status_histories.date >="' . $start . '" AND status_histories.date <="' . $end . '"';
 
-            $sql = "SELECT * FROM status_histories  
+        $sql = "SELECT * FROM status_histories  
             LEFT JOIN package_customers  ON package_customers.id = status_histories.package_customer_id 
             left join transactions  on package_customers.id = transactions.package_customer_id    
             left join psettings  on psettings.id = package_customers.psetting_id
             LEFT JOIN packages  ON packages.id = psettings.package_id 
             LEFT JOIN custom_packages  ON custom_packages.id = package_customers.custom_package_id 
-            where $conditions order by status_histories.id desc limit 0,199";
-
-            $block_customers = $this->PackageCustomer->query($sql);
-            $clicked = true;
-            $this->set(compact('block_customers'));
-        }
-        $this->set(compact('clicked'));
+            where $conditions GROUP BY status_histories.id  limit 0,199";
+//        echo $sql;
+//        exit;
+        $data = $this->PackageCustomer->query($sql);
+        return $data;
     }
 
-    function payment_history($page, $start, $end , $pay_mode) {
+    function payment_history($page, $start, $end, $pay_mode) {
         $this->loadModel('Transaction');
         $this->loadModel('PackageCustomer');
 
@@ -83,7 +80,7 @@ class ReportsController extends AppController {
         $conditions = str_replace("AND###", "", $conditions);
         $conditions = str_replace("AND ###", "", $conditions);
         $conditions = str_replace("###", "", $conditions);
-              
+
         $offset = 0; //--$page * $this->per_page;
         $total = $this->Transaction->query("SELECT COUNT(tr.id) as total FROM transactions tr 
                 WHERE $conditions");
@@ -151,8 +148,8 @@ class ReportsController extends AppController {
         $return['total6monthp'] = $total6monthp;
         $return['total12monthp'] = $total12monthp;
         return $return;
-        
-       // $this->set(compact('totalbox', 'total_mac', 'data', 'totalamount', 'total_page', 'total', 'start', 'end', 'pay_mode', 'totalmanual', 'totalautore', 'sql1monthp', 'total3monthp', 'total6monthp', 'total12monthp'));
+
+        // $this->set(compact('totalbox', 'total_mac', 'data', 'totalamount', 'total_page', 'total', 'start', 'end', 'pay_mode', 'totalmanual', 'totalautore', 'sql1monthp', 'total3monthp', 'total6monthp', 'total12monthp'));
     }
 
     function invoice($id = null) {
@@ -406,20 +403,17 @@ class ReportsController extends AppController {
         $this->request->data = $this->Transaction->findById($id);
     }
 
-    function expcustomers($page = 0, $start = null, $end = null) {
+    function expcustomers($page, $start, $end) {
         $this->loadModel('PackageCustomer');
-        $clicked = false;
-        if ($this->request->is('post') || $this->request->is('put')) {
-            $datrange = json_decode($this->request->data['PackageCustomer']['daterange'], true);
-            $conditions = array('PackageCustomer.package_exp_date >=' => $datrange['start'], 'PackageCustomer.package_exp_date <=' => $datrange['end']);
-            $customers = $this->PackageCustomer->find('all', array('conditions' => $conditions));
-            $clicked = true;
-//            $total_page = 2;
-            $start = $datrange['start'];
-            $end = $datrange['end'];
-            $this->set(compact('customers', 'total_page', 'start', 'end'));
-        }
-        $this->set(compact('clicked'));
+        $datrange = json_decode($this->request->data['Role']['daterangeonly'], true);
+        $conditions = array('PackageCustomer.package_exp_date >=' => $datrange['start'], 'PackageCustomer.package_exp_date <=' => $datrange['end']);
+        $customers = $this->PackageCustomer->find('all', array('conditions' => $conditions));
+        
+        return $customers;
+//        $clicked = true;
+//        $start = $datrange['start'];
+//        $end = $datrange['end'];
+//        $this->set(compact('customers', 'total_page', 'start', 'end'));
     }
 
     function newcustomers($dateRange) {
@@ -454,12 +448,12 @@ class ReportsController extends AppController {
         $this->loadModel('User');
         $this->loadModel('Role');
         $offset = --$page * $this->per_page;
-        $clicked = false;
-        if ($this->request->is('post') || $this->request->is('put')) {
-            $issue = $this->request->data['Track']['issue_id'];
-            $agent = $this->request->data['Track']['user_id'];
-            $datrange = json_decode($this->request->data['Track']['daterange'], true);
-            $status = $this->request->data['Track']['status'];
+        
+      //  pr($this->request->data); exit;
+            $issue = $this->request->data['Role']['issue_id'];
+            $agent = $this->request->data['Role']['user_id'];
+            $datrange = json_decode($this->request->data['Role']['daterangecalllog'], true);
+            $status = $this->request->data['Role']['status'];
             $ds = new DateTime($datrange['start']);
             $timestamp = $ds->getTimestamp(); // Unix timestamp
             $startd = $ds->format('m/y'); // 2003-10-16
@@ -484,8 +478,6 @@ class ReportsController extends AppController {
             if (!empty($status)) {
                 $conditions .=" tr.status = '$status'";
             }
-
-
 
             $conditions.="###";
             $conditions = str_replace("AND###", "", $conditions);
@@ -524,15 +516,22 @@ class ReportsController extends AppController {
             $total = $temp[0][0]['total'];
             $total_page = ceil($total / $this->per_page);
 
-            $clicked = true;
+            
 
             $this->set(compact('filteredTicket', 'total_page', 'start', 'end'));
-        }
+        
 
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
         $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
-        $this->set(compact('clicked', 'data', 'users', 'issues', 'roles'));
+        $return['filteredTicket'] = $filteredTicket;
+        $return['total_page'] = $total_page;
+        $return['start'] = $start;
+        $return['end'] = $end;
+        $return['users'] = $users;
+        $return['issues'] = $issues;
+        $return['roles'] = $roles;
+       return $return;
     }
 
     function criteria() {
@@ -983,6 +982,15 @@ class ReportsController extends AppController {
             }
             if ($action == 'paymenthistory') {
                 $data = $this->payment_history($page = 1, $start = null, $end = null, $pay_mode = null);
+            }
+            if ($action == 'cancel') {
+                $data = $this->cancel();
+            }
+            if ($action == 'expirecustomer') {
+                $data = $this->expcustomers($page = 0, $start = null, $end = null);
+            }
+            if ($action == 'calllog') {
+                $data = $this->call_log($page = 1, $start = null, $end = null);
             }
         }
 
