@@ -206,7 +206,7 @@ class ReportsController extends AppController {
         $datrange = json_decode($this->request->data['Role']['daterangeonly'], true);
         $datrange['start'] = $datrange['start'] . ' 00:00:00';
         $datrange['end'] = $datrange['end'] . ' 23:59:59';
-        
+
         $packagecustomers = $this->Transaction->query("SELECT tr.id, tr.package_customer_id, 
             CONCAT( first_name,' ', middle_name,' ', last_name ) AS name, pc.psetting_id, pc.mac,
             ps.name, p.name, tr.paid_amount, ps.amount, ps.duration FROM transactions tr
@@ -218,7 +218,7 @@ class ReportsController extends AppController {
 //        pr ($packagecustomers); exit;
         $return['packagecustomers'] = $packagecustomers;
         return $return;
-        }
+    }
 
     function all_invoice_close() {
         $this->loadModel('Package_customer');
@@ -1028,9 +1028,11 @@ class ReportsController extends AppController {
             }
 
             if ($action == 'closedinvoice') {
-//                                pr($data); exit;
-
                 $data = $this->closedInvoice($start = null, $end = null);
+            }
+
+            if ($action == 'customersummary') {
+                $data = $this->customerSummary();
             }
         }
 
@@ -1210,12 +1212,12 @@ class ReportsController extends AppController {
 
     function customerSummary() {
         $active = array();
+
         //Active
         $active['cms1'] = $this->customerFilter('active', 'cms1') + $this->customerFilter('done', 'cms1');
         $active['cms2'] = $this->customerFilter('active', 'cms2') + $this->customerFilter('done', 'cms2');
         $active['cms3'] = $this->customerFilter('active', 'cms3') + $this->customerFilter('done', 'cms3');
         $active['portal'] = $this->customerFilter('active', 'portal') + $this->customerFilter('done', 'portal');
-
         $active['portal1'] = $this->customerFilter('active', 'portal1') + $this->customerFilter('done', 'portal1');
 
 //        $active['portal'] = $total['portal']- $active['portal1'];
@@ -1258,8 +1260,17 @@ class ReportsController extends AppController {
         $total_hold = $hold['cms1'] + $hold['cms2'] + $hold['cms3'] + $hold['portal'] + $hold['portal1'];
         $total_unhold = $unhold['cms1'] + $unhold['cms2'] + $unhold['cms3'] + $unhold['portal'] + $unhold['portal1'];
 
-
-        $this->set(compact('active', 'hold', 'unhold', 'canceled', 'total_active', 'total_canceled', 'total_hold', 'total_unhold'));
+        $return['active'] = $active;
+        $return['hold'] = $hold;
+        $return['unhold'] = $unhold;
+        $return['canceled'] = $canceled;
+        $return['total_active'] = $total_active;
+        $return['total_canceled'] = $total_canceled;
+        $return['total_hold'] = $total_hold;
+        $return['total_unhold'] = $total_unhold;
+        return $return;
+        
+//        $this->set(compact('active', 'hold', 'unhold', 'canceled', 'total_active', 'total_canceled', 'total_hold', 'total_unhold'));
     }
 
 }

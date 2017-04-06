@@ -21,16 +21,13 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption" style="color: Balck;">
-                            
                             Total Active : <?php echo $total_active; ?> &nbsp;
                             Total Canceled : <?php echo $total_canceled; ?>&nbsp; 
                             Total Hold : <?php echo $total_hold; ?>&nbsp; 
                             Total Unhold : <?php echo $total_unhold; ?>
                         </div>
                     </div>
-                    <div class="portlet-body">
-                        
-                        
+                    <div class="portlet-body">                       
                         <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                             <thead>
                                 <tr>
@@ -59,7 +56,6 @@
                                         <b>CMS3 :</b><?php echo $active['cms3']; ?><br>
                                         <b>Portal :</b><?php echo $active['portal']; ?><br>
                                         <b>Portal1 :</b><?php echo $active['portal1']; ?>
-
                                     </td>
 
                                     <td>

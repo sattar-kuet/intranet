@@ -144,7 +144,7 @@
                                     <?php
                                     echo $this->Form->input('action', array(
                                         'type' => 'select',
-                                        'options' => array('cancel' => 'Cancel', 'paymenthistory' => 'Payment History', 'newcustomer' => 'New Customer', 'expirecustomer' => 'Expire Customer', 'calllog' => 'Call Log', 'allautorecurring' => 'All Auto Recurring', 'successful' => 'Succeeded Auto Recurring', 'failed' => 'Faile Auto Recurring', 'summeryReport' => 'Summary', 'allinvoice' => 'All Invoice', 'openInvoice25' => 'Open Invoice', 'passedinvoice' => 'Passed Due Invoice', 'closedinvoice' => 'Closed Invoice', 'customerbylocation' => 'Customer By Location', 'allcustomers' => 'All Customers'),
+                                        'options' => array('cancel' => 'Cancel', 'paymenthistory' => 'Payment History', 'newcustomer' => 'New Customer', 'expirecustomer' => 'Expire Customer', 'calllog' => 'Call Log', 'allautorecurring' => 'All Auto Recurring', 'successful' => 'Succeeded Auto Recurring', 'failed' => 'Faile Auto Recurring', 'summeryReport' => 'Summary', 'allinvoice' => 'All Invoice', 'openInvoice25' => 'Open Invoice', 'passedinvoice' => 'Passed Due Invoice', 'closedinvoice' => 'Closed Invoice', 'customerbylocation' => 'Customer By Location', 'customersummary' => 'All Customers'),
                                         'empty' => 'Select Paymode',
                                         'class' => 'form-control select2me ',
                                         'id' => 'actionID'
@@ -227,8 +227,12 @@
             }
             
             if ($action == 'closedinvoice') {
-//                pr($data['']); exit;
                 echo $this->element('closedinvoice', array('data' => $data));
+            }
+            
+            if ($action == 'customersummary') {
+//                pr($data); exit;
+                echo $this->element('customersummary', array('data' => $data));
             }
         }
         ?>
