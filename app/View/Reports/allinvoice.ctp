@@ -22,7 +22,7 @@
             <div  id="printableArea">  
                 <div class="col-md-12" >
                     <div style="float: left; height:1153px; width:806px; ">
-                        <?php
+                        <?php                       
                         foreach ($packagecustomers as $single):
                             $pcaddress = $single['pc'];
                             $customer_address_one = $pcaddress['house_no'] . ' ' . $pcaddress['street'] . ' ' .

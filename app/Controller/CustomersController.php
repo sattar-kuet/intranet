@@ -409,7 +409,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <strong> Customer information updated Successfully </strong>
             </div>';
-            $this->stbs_update($id);
+            //$this->stbs_update($id);
             $this->Session->setFlash($msg);
         }
         $this->loadModel('PackageCustomer');

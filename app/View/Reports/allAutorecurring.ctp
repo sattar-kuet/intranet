@@ -104,14 +104,14 @@
                                 </div> 
                                 <ul class="pagination" >
                                     <?php
-                                    for ($i = 1; $i <= $total_page; $i++):
+                                    for ($i = 1; $i <= $data['total_page']; $i++):
                                         $active = '';
                                         if (isset($this->params['pass'][0]) && $this->params['pass'][0] == $i) {
                                             $active = 'active';
                                         }
                                         ?>
                                         <li class="paginate_button <?php echo $active; ?>" aria-controls="sample_editable_1" tabindex="<?php echo $i; ?>">
-                                            <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'all', $i, $start, $end)) ?>"><?php echo $i; ?></a>
+                                            <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'all', $i, $data['start'], $data['end'])) ?>"><?php echo $i; ?></a>
                                         </li>
                                     <?php endfor; ?>
                                 </ul>
@@ -156,15 +156,15 @@
                                                 </td> 
                                                 <td>
                                                     <?php if (!empty($results['pc']['psetting_id'])): ?>
-                                                    
+
                                                         Name: <?php echo $results['ps']['name'] ?><br>
                                                         Duration: <?php echo $results['ps']['duration']; ?><br>
                                                         Amount: <?php echo $results['ps']['amount']; ?>
                                                     <?php elseif (!empty($results['pc']['custom_package_id'])): ?>
-                                                        
+
                                                         Months: <?php echo $results['cp']['duration'] ?><br>                                                        
                                                         Custom package: <?php echo $results['cp']['charge']; ?>
-                                                        
+
                                                     <?php else: ?>
                                                         Package not set !
                                                     <?php endif; ?>

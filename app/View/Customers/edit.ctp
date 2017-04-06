@@ -398,7 +398,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                             //'default' => $selected['package'],
                                             'empty' => 'Select Package Type',
                                             'id' => 'psettingId',
-                                            'class' => 'span12 uniform nostyle select1 packageChange required' . $class,
+                                            'class' => 'span12 uniform nostyle select1 packageChange ' . $class,
                                             'div' => array('class' => 'span12')
                                                 )
                                         );

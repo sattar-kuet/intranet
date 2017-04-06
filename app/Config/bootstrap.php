@@ -444,25 +444,35 @@ function sendInvoice($from, $name, $to, $subject, $body) {
 
  function getPaid($id = null) {
         $ptr = ClassRegistry::init('Transaction');
+        if(empty($id)){
+            $id = 0;
+        }
         $sql = 'SELECT SUM(payable_amount) as paid FROM transactions WHERE transaction_id =' . $id;
 //        echo $sql;
         $data = $ptr->query($sql);
       //  pr($data);
       //  exit;
       //  return $data;
-        $paid = $data[0][0]['paid'];
+        $paid = 0;
+        if(count($data)){
+           $paid = $data[0][0]['paid']; 
+        }
         return  round($paid,2); 
     }
- function getFullPayment($id = null) {
+ function getFullPayment($id = 0) {
         $ptr = ClassRegistry::init('Transaction');
-//        pr($id); exit;
+       // pr($id); exit;
+        if(empty($id)){
+            $id = 0;
+        }
         $sql = 'SELECT payable_amount as paid FROM transactions WHERE id =' . $id;
-//        echo $sql; exit;
+      // echo $sql; exit;
         $data = $ptr->query($sql);
         //return $data;
-      
-        $paid = $data[0]['transactions']['paid'];
-         
+        $paid = 0;
+        if(count($data)){
+           $paid = $data[0]['transactions']['paid']; 
+        }
         return  $paid;
     }
 

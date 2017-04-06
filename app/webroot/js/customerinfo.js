@@ -203,7 +203,7 @@ $(document).ready(function () {
             $('.hide-rest').hide(100);
             $('#date-range-pay-mode').show(1000);
         }
-        else if(action == 'allinvoice' || action == 'openinvoice' || action == 'passeddueinvoice'){
+        else if(action == 'allinvoice' || action == 'openinvoice' || action == 'passedinvoice'){
             $('.hide-rest').hide(100);
         }
         else{

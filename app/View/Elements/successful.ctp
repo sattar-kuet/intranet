@@ -2,7 +2,6 @@
     .ui-datepicker-multi-3 {
         display: table-row-group !important;
     }
-
 </style>
 
 <style type="text/css">
@@ -19,6 +18,7 @@
         justify-content: center;
     }
 </style>
+
 
 <div class="page-content-wrapper" style="margin: 0px; padding: 0px;">
     <div class="">
@@ -40,7 +40,7 @@
                             }
                             ?>
                             <li class="paginate_button <?php echo $active; ?>" aria-controls="sample_editable_1" tabindex="<?php echo $i; ?>">
-                                <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'all', $i, $data['start'], $data['end'])) ?>"><?php echo $i; ?></a>
+                                <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'successful', $i, $data['start'], $data['end'])) ?>"><?php echo $i; ?></a>
                             </li>
                         <?php endfor; ?>
                     </ul>
@@ -50,65 +50,70 @@
                                 <th class="sorting_desc">
                                     ID
                                 </th>
+
                                 <th>
                                     Customer Detail
-                                </th>                                            
+                                </th>
                                 <th>
                                     Package
                                 </th>
                                 <th>
-                                    Auto Recurring Date
+                                    Payment Information
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
-                                                    
-                            foreach ($data['allData'] as $results):                                
-//                                pr($results); exit;
-                                $customer = $results['pc'];
+                            foreach ($data['allData'] as $results):
+                               
+                                $customer = $results['package_customers'];
                                 $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                         $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
                                         . $customer['zip'];
                                 ?>
                                 <tr>
                                     <td class="hidden-480">
-                                        <?php echo $results['pc']['id']; ?>                            
+                                        <?php echo $results['transactions']['id']; ?>                            
                                     </td>
                                     <td class="hidden-480">
                                         <a href="<?php
                                         echo Router::url(array('controller' => 'customers',
-                                            'action' => 'edit', $results['pc']['id']))
+                                            'action' => 'edit', $results['package_customers']['id']))
                                         ?>" 
                                            target="_blank">
-                                               <?php echo $results['pc']['first_name'] . ' ' . $results['pc']['middle_name'] . ' ' . $results['pc']['last_name']; ?>
+                                               <?php echo $results['package_customers']['first_name'] . ' ' . $results['package_customers']['middle_name'] . ' ' . $results['package_customers']['last_name']; ?>
                                         </a><br>
                                         <?php echo $customer_address; ?> 
                                     </td> 
                                     <td>
-                                        <?php if (!empty($results['pc']['psetting_id'])): ?>
+                                        <?php if (!empty($results['package_customers']['psetting_id'])): ?>
+                                <li> <strong>Name:</strong> <?php echo $results['psettings']['name']; ?></li>
+                                <li><strong>Duration:</strong> <?php echo $results['psettings']['duration']; ?></li>
+                                <li><strong>Amount:</strong> <?php echo $results['psettings']['amount']; ?></li>
+                            <?php elseif (!empty($results['custom_packages']['id'])): ?>
+                                <li><strong>Name:</strong> <?php echo $results['custom_packages']['duration'] . ' Months, Custom package '; ?></li>
+                                <li><strong>Charge:</strong> <?php echo $results['custom_packages']['charge'] . '$'; ?></li>
+                            <?php else : ?>
+                                <?php echo 'Package not set !'; ?>
+                            <?php endif; ?>
+                            </td>       
+                            <td class="hidden-480">
+                            <li> <b>Paid Amount :</b> <?php echo $results['transactions']['payable_amount']; ?> </li>                           
+                            <li> <b>Transaction ID :</b> <?php echo $results['transactions']['trx_id']; ?> </li>                           
 
-                                            Name: <?php echo $results['ps']['name'] ?><br>
-                                            Duration: <?php echo $results['ps']['duration']; ?><br>
-                                            Amount: <?php echo $results['ps']['amount']; ?>
-                                        <?php elseif (!empty($results['pc']['custom_package_id'])): ?>
-
-                                            Months: <?php echo $results['cp']['duration'] ?><br>                                                        
-                                            Custom package: <?php echo $results['cp']['charge']; ?>
-
-                                        <?php else: ?>
-                                            Package not set !
-                                        <?php endif; ?>
-                                    </td>  
-                                    <td><?php echo $results['pc']['r_form']; ?></td>
-                                </tr>
-                            <?php endforeach; ?>  
+                            <li> <b>Payment Method :</b> <?php echo $results['transactions']['pay_mode']; ?> </li>                           
+                            <li> <b>Payment Date :</b> <?php echo $results['transactions']['created']; ?>  </li>                          
+                            <li> <b>Next Payment Date :</b> <?php echo $results['package_customers']['r_form']; ?></li>                           
+                            </td>
+                            </tr>
+                        <?php endforeach; ?>  
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
-</div> 
+</div>
+
 
 
