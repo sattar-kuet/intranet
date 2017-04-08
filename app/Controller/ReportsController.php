@@ -1028,7 +1028,11 @@ class ReportsController extends AppController {
             }
 
             if ($action == 'closedinvoice') {
-                $data = $this->closedInvoice($start = null, $end = null);
+                $data = $this->closedinvoice($start = null, $end = null);
+            }
+
+            if ($action == 'customerbyloaction') {  
+                $data = $this->customerbyloaction();
             }
 
             if ($action == 'customersummary') {
@@ -1199,15 +1203,29 @@ class ReportsController extends AppController {
         $return['end'] = $end;
         return $return;
 
-//            $this->set(compact('data', 'total_page', 'totalPayment', 'totalCustomer', 'start', 'end'));
     }
 
     function customerFilter($status = 0, $system = 0) {
         $this->loadModel('PackageCustomer');
         $sql = "SELECT count(id) as total FROM`package_customers`WHERE LOWER(system) LIKE  '%$system%' AND LOWER(status) = '$status' ";
-//        echo $sql; exit;
         $temp = $this->PackageCustomer->query("SELECT count(id) as total FROM`package_customers`WHERE LOWER(system) LIKE  '%$system%' AND LOWER(status) = '$status' ;");
         return $temp[0][0]['total'];
+    }
+
+    function customerByloaction() {
+        $this->loadModel('PackageCustomer');
+        $this->loadModel('StatusHistory');
+        $city = $this->request->data['Role']['city'];
+        $sql = "SELECT * 
+                FROM package_customers pc
+                LEFT JOIN status_histories ON pc.id = status_histories.package_customer_id
+                LEFT JOIN psettings ps ON ps.id = pc.psetting_id
+                LEFT JOIN packages p ON p.id = ps.package_id
+                LEFT JOIN custom_packages cp ON cp.id = pc.custom_package_id
+                WHERE LOWER(city) LIKE '%$city%'";        
+        $cities = $this->PackageCustomer->query($sql);
+        $return['cities'] = $cities;
+        return $return;
     }
 
     function customerSummary() {
@@ -1269,7 +1287,7 @@ class ReportsController extends AppController {
         $return['total_hold'] = $total_hold;
         $return['total_unhold'] = $total_unhold;
         return $return;
-        
+
 //        $this->set(compact('active', 'hold', 'unhold', 'canceled', 'total_active', 'total_canceled', 'total_hold', 'total_unhold'));
     }
 

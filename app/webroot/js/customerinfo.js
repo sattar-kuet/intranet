@@ -206,6 +206,11 @@ $(document).ready(function () {
         else if(action == 'allinvoice' || action == 'openinvoice' || action == 'passedinvoice' || action == 'customersummary'){
             $('.hide-rest').hide(100);
         }
+        else if(action == 'customerbyloaction'){
+            $('.hide-rest').hide(100);
+             $('#only-date-range').hide(1000); 
+             $('#only-city').show(1000); 
+        }
         else{
             $('.hide-rest').hide(100);
            $('#only-date-range').show(1000); 

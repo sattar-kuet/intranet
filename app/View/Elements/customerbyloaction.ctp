@@ -27,12 +27,7 @@
                                 <th>
                                     Package
                                 </th>
-                                <th class="hidden-480">
-                                    Due
-                                </th>
-                                <th class="hidden-480">
-                                    Registration Date
-                                </th>
+
                                 <th class="hidden-480">
                                     Installation Date
                                 </th>
@@ -40,7 +35,7 @@
                         </thead>
                         <tbody>                                    
                             <?php
-                            foreach ($data as $info):
+                            foreach ($data['cities'] as $info):
                                 $pc = $info['pc'];
                                 $customer_address = $pc['house_no'] . ' ' . $pc['street'] . ' ' .
                                         $pc['apartment'] . ' ' . $pc['city'] . ' ' . $pc['state'] . ' '
@@ -62,19 +57,7 @@
                                             echo 'Package not set !';
                                         }
                                         ?>
-                                    </td>
-                                    <td>
-                                        <?php // echo $info['Transaction']['due']; ?>
-                                        $<?php
-                                        $paid = 0;
-                                        if (!empty($info['tr']['id'])) {
-                                            $paid = getPaid($info['tr']['id']);
-                                        }
-                                        echo $info['tr']['payable_amount'] - $paid;
-                                        ?> USD
-                                    </td>
-                                    <!--<td><?php // echo date('m-d-Y', strtotime($info['tr']['exp_date']));   ?></td>-->                                                
-                                    <td><?php echo date('m-d-Y', strtotime($info['pc']['created'])); ?></td>  
+                                    </td>                                                                                   
                                     <td><?php echo date('m-d-Y', strtotime($info['pc']['modified'])); ?></td>  
                                 </tr>
                             <?php endforeach; ?>                           
