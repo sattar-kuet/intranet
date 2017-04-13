@@ -7,7 +7,7 @@
         text-align: center;
     }
     .txtArea { width:300px; }
-      ul.pagination {
+    ul.pagination {
         display: flex;
         justify-content: center;
     }
@@ -39,7 +39,7 @@
                     <div class="portlet-body">
 
                         <?php echo $this->Session->flash(); ?>
-                         <ul class="pagination" >
+                        <ul class="pagination" >
                             <?php
                             for ($i = 1; $i <= $total_page; $i++):
                                 $active = '';
@@ -61,15 +61,16 @@
                                     <th>Open Time</th>
                                     <th>Detail</th>
                                     <th>History</th>
-                                    
+
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
                                 foreach ($data as $single):
                                     $issue = end($single['history']);
-                                    $customer = end($single['history']);
-                                    $customer = $customer['pc'];
+                                    $last = end($single['history']);
+                                    $lastStatus = $last['tr']['status'];
+                                    $customer = $last['pc'];
                                     $ticket = $single['ticket'];
                                     ?>
                                     <tr >
@@ -92,7 +93,7 @@
                                                 foreach ($single['history'] as $history):
                                                     ?>
                                                     <li>
-                                                        <?php if ($history['tr']['status'] != 'open') { ?>
+                                                        <?php if ($lastStatus != 'open') { ?>
                                                             <strong><?php echo ucfirst($history['tr']['status']); ?> By:</strong>
                                                         <?php } else {
                                                             ?>

@@ -453,7 +453,6 @@ class ReportsController extends AppController {
         $this->loadModel('Ticket');
         $this->loadModel('User');
         $this->loadModel('Role');
-        $offset = --$page * $this->per_page;
 
         //  pr($this->request->data); exit;
         $issue = $this->request->data['Role']['issue_id'];
@@ -467,18 +466,19 @@ class ReportsController extends AppController {
         $timestamp = $de->getTimestamp(); // Unix timestamp
         $endd = $de->format('m/y'); // 2003-10-16
         $conditions = "";
-        if (!empty($issue)) {
+        if (isset($issue) && is_numeric($issue)) {
             $conditions .= " tr.issue_id = $issue AND";
         }
+
         if (!empty($agent)) {
             $conditions .=" tr.forwarded_by = $agent AND";
         }
         if (count($datrange)) {
             if ($datrange['start'] == $datrange['end']) {
                 $nextday = date('Y-m-d', strtotime($datrange['end'] . "+1 days"));
-                $conditions .=" t.created >=' " . $datrange['start'] . "' AND  t.created < '" . $nextday . "' AND ";
+                $conditions .=" CAST(t.created as DATE) >=' " . $datrange['start'] . "' AND  CAST(t.created as DATE) < '" . $nextday . "' AND ";
             } else {
-                $conditions .=" t.created >='" . $datrange['start'] . "' AND  t.created <='" . $datrange['end'] . "' AND ";
+                $conditions .=" CAST(t.created as DATE) >='" . $datrange['start'] . "' AND  CAST(t.created as DATE) <='" . $datrange['end'] . "' AND ";
             }
         }
         if (!empty($status)) {
@@ -489,20 +489,28 @@ class ReportsController extends AppController {
         $conditions = str_replace("AND###", "", $conditions);
         $conditions = str_replace("AND ###", "", $conditions);
         $conditions = str_replace("###", "", $conditions);
-        $sql = "SELECT * FROM tracks tr
-                        left JOIN tickets t ON tr.ticket_id = t.id
+        $sql = "SELECT * FROM tickets t
+                        left JOIN tracks tr ON tr.ticket_id = t.id
                         left JOIN users fb ON tr.forwarded_by = fb.id
                         left JOIN roles fd ON tr.role_id = fd.id
                         left JOIN users fi ON tr.user_id = fi.id
                         left JOIN issues i ON tr.issue_id = i.id
-                        left join package_customers pc on tr.package_customer_id = pc.id
-                         WHERE $conditions order by pc.id desc limit $offset,$this->per_page";
+                        left join package_customers pc on tr.package_customer_id = pc.id";
+        if(!empty($conditions)){
+            $sql .= " WHERE ".$conditions;
+        }
+        
+        $sql .=" ORDER BY t.id LIMIT 0,200";
 
-        $tickets = $this->Track->query($sql);
+        $sql = str_replace("WHERE ORDER", "###", $sql);
 
+//        echo $sql;
+//        exit;
+        $tickets = $this->Ticket->query($sql);
         $filteredTicket = array();
         $unique = array();
         $index = 0;
+        //     pr($tickets); exit;
         foreach ($tickets as $key => $ticket) {
             $t = $ticket['t']['id'];
             if (isset($unique[$t])) {
@@ -518,20 +526,12 @@ class ReportsController extends AppController {
             }
             $filteredTicket;
         }
-        $temp = $this->Track->query("SELECT COUNT(tr.id) as total FROM  tracks tr left JOIN tickets t ON tr.ticket_id = t.id WHERE $conditions");
-        $total = $temp[0][0]['total'];
-        $total_page = ceil($total / $this->per_page);
-
-
-
-        $this->set(compact('filteredTicket', 'total_page', 'start', 'end'));
-
-
+        // pr($filteredTicket); exit;
+        $this->set(compact('filteredTicket', 'start', 'end'));
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
         $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
         $return['filteredTicket'] = $filteredTicket;
-        $return['total_page'] = $total_page;
         $return['start'] = $start;
         $return['end'] = $end;
         $return['users'] = $users;
@@ -1031,7 +1031,7 @@ class ReportsController extends AppController {
                 $data = $this->closedinvoice($start = null, $end = null);
             }
 
-            if ($action == 'customerbyloaction') {  
+            if ($action == 'customerbyloaction') {
                 $data = $this->customerbyloaction();
             }
 
@@ -1202,7 +1202,6 @@ class ReportsController extends AppController {
         $return['start'] = $start;
         $return['end'] = $end;
         return $return;
-
     }
 
     function customerFilter($status = 0, $system = 0) {
@@ -1212,21 +1211,21 @@ class ReportsController extends AppController {
         return $temp[0][0]['total'];
     }
 
-    function customerByloaction() {
-        $this->loadModel('PackageCustomer');
-        $this->loadModel('StatusHistory');
-        $city = $this->request->data['Role']['city'];
-        $sql = "SELECT * 
-                FROM package_customers pc
-                LEFT JOIN status_histories ON pc.id = status_histories.package_customer_id
-                LEFT JOIN psettings ps ON ps.id = pc.psetting_id
-                LEFT JOIN packages p ON p.id = ps.package_id
-                LEFT JOIN custom_packages cp ON cp.id = pc.custom_package_id
-                WHERE LOWER(city) LIKE '%$city%'";        
-        $cities = $this->PackageCustomer->query($sql);
-        $return['cities'] = $cities;
-        return $return;
-    }
+//    function customerByloaction() {
+//        $this->loadModel('PackageCustomer');
+//        $this->loadModel('StatusHistory');
+//        $city = $this->request->data['Role']['city'];
+//        $sql = "SELECT * 
+//                FROM package_customers pc
+//                LEFT JOIN status_histories ON pc.id = status_histories.package_customer_id
+//                LEFT JOIN psettings ps ON ps.id = pc.psetting_id
+//                LEFT JOIN packages p ON p.id = ps.package_id
+//                LEFT JOIN custom_packages cp ON cp.id = pc.custom_package_id
+//                WHERE LOWER(city) LIKE '%$city%'";        
+//        $cities = $this->PackageCustomer->query($sql);
+//        $return['cities'] = $cities;
+//        return $return;
+//    }
 
     function customerSummary() {
         $active = array();

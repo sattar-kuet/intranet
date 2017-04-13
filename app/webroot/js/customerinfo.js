@@ -191,33 +191,51 @@ $(document).ready(function () {
     });
 
     //    auto adjusment end
-    
-    $('#actionID').change(function(){
-        var action  = $(this).val();
-        //alert(action);
-        if(action == 'calllog'){
-            $('.hide-rest').hide(100);
-            $('#callog').show(1000);
+
+
+
+
+    //js for search 
+
+    $('#actionData').change(function () {
+        var action = $(this).val();
+        if (action == '4') {
+           // customer search by location
+            $('#param').hide();
+            $('#country').show(1000);
         }
-        else if(action == 'paymenthistory'){
-            $('.hide-rest').hide(100);
-            $('#date-range-pay-mode').show(1000);
-        }
-        else if(action == 'allinvoice' || action == 'openinvoice' || action == 'passedinvoice' || action == 'customersummary'){
-            $('.hide-rest').hide(100);
-        }
-        else if(action == 'customerbyloaction'){
-            $('.hide-rest').hide(100);
-             $('#only-date-range').hide(1000); 
-             $('#only-city').show(1000); 
-        }
-        else{
-            $('.hide-rest').hide(100);
-           $('#only-date-range').show(1000); 
+        else {
+            $('#country').hide();;
+            $('#param').show(1000);
         }
     });
 
+    //js for reports and printqueue
 
-  
+    $('#actionID').change(function () {
+        var action = $(this).val();
+        //alert(action);
+        if (action == 'calllog') {
+            $('.hide-rest').hide(100);
+            $('#callog').show(1000);
+        }
+        else if (action == 'paymenthistory') {
+            $('.hide-rest').hide(100);
+            $('#date-range-pay-mode').show(1000);
+        }
+        else if (action == 'allinvoice' || action == 'openinvoice' || action == 'passedinvoice' || action == 'customersummary') {
+            $('.hide-rest').hide(100);
+        }
+//        else if (action == 'customerbyloaction') {
+//            $('.hide-rest').hide(100);
+//            $('#only-date-range').hide(1000);
+//            $('#only-city').show(1000);
+//        }
+        else {
+            $('.hide-rest').hide(100);
+            $('#only-date-range').show(1000);
+        }
+    });
+
 
 });

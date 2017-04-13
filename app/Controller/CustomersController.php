@@ -181,16 +181,77 @@ class CustomersController extends AppController {
     }
 
     function search() {
+        $this->loadModel('PackageCustomer');
         $clicked = false;
         $data = array();
         if ($this->request->is('post')) {
-            $input = $this->request->data['PackageCustomer'];
-            $clicked = $input['search'];
-            $data = $this->searchByParam($input);
+            if ($this->request->data['PackageCustomer']['search'] == 1) {
+                $input = $this->request->data['PackageCustomer'];
+                $clicked = $input['search'];
+                $data = $this->searchByParam($input);
+            } else {
+                $all_data = $this->request->data['PackageCustomer'];
+                $input = $all_data['city'];
 
+                $clicked = $all_data['search'];
+                $data = $this->customerbyloaction($input);
+            }
         }
         $admin_messages = $this->message();
-        $this->set(compact('data', 'clicked', 'admin_messages'));
+      
+        $cities = $this->PackageCustomer->find('list', array(
+            'fields' => array('PackageCustomer.city', 'PackageCustomer.city'),
+            'order' => array('PackageCustomer.city' => 'ASC')));
+        
+        $states = $this->PackageCustomer->find('list', array(
+            'fields' => array('PackageCustomer.state', 'PackageCustomer.state'),
+            'order' => array('PackageCustomer.state' => 'ASC') ));
+      
+        $this->set(compact('data', 'clicked', 'admin_messages', 'cities', 'states'));
+    }
+
+    function customerByloaction($input) {
+        $this->loadModel('PackageCustomer');
+        $this->loadModel('StatusHistory');
+       
+        $state = $this->request->data['PackageCustomer']['country'];
+        $city = $this->request->data['PackageCustomer']['city'];
+        $zip = $this->request->data['PackageCustomer']['zip'];
+//        echo $state.','.$city.','.$zip; //exit; 
+        $sql = "SELECT * 
+                FROM package_customers pc
+                LEFT JOIN status_histories ON pc.id = status_histories.package_customer_id
+                LEFT JOIN psettings ps ON ps.id = pc.psetting_id
+                LEFT JOIN packages p ON p.id = ps.package_id
+                LEFT JOIN custom_packages cp ON cp.id = pc.custom_package_id";
+
+        $condition = '';
+
+        if (!empty($state)) {
+            $condition .= "pc.state= " . "'$state' AND";
+        } 
+        if (!empty($city)) {
+            $condition .=" pc.city= " . "'$city' AND";
+        } 
+        if (!empty($zip)) {
+            $condition .=" pc.zip= " . "'$zip' AND";
+        } 
+        if (empty($state) && empty($city) && empty($zip)) {
+            $Msg = '<div class="alert alert-error">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>You must select at least one criteria! </strong>
+    </div>';
+            $this->Session->setFlash($Msg);
+            return $this->redirect($this->referer());
+        }
+        $condition .="###";
+        $condition = str_replace("AND###", "", $condition);
+
+        $sql .=' WHERE ' . $condition;
+
+
+        $data = $this->PackageCustomer->query($sql);
+        return $data;
     }
 
     function message() {

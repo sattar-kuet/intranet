@@ -112,8 +112,8 @@ class TransactionsController extends AppController {
         }
         $this->set(compact('filteredPackage'));
     }
-    
-     function edit($id = null) {
+
+    function edit($id = null) {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
         if ($this->request->is('post') || $this->request->is('put')) {
@@ -132,7 +132,6 @@ class TransactionsController extends AppController {
         $this->request->data['Transaction'] = $data['Transaction'];
     }
 
-
     function updatecardinfo() {
         $this->loadModel('Transaction');
         $user_info = $this->Auth->user();
@@ -150,7 +149,7 @@ class TransactionsController extends AppController {
     }
 
     function extrainvoice() {
-         $this->request->data['Transaction']['next_payment'] = $this->getFormatedDate($this->request->data['Transaction']['next_payment']);
+        $this->request->data['Transaction']['next_payment'] = $this->getFormatedDate($this->request->data['Transaction']['next_payment']);
         $this->loadModel('Transaction');
         $user_info = $this->Auth->user();
         $user_id = $user_info['id'];
@@ -160,10 +159,10 @@ class TransactionsController extends AppController {
             <strong> Card information updated successfully </strong>
             </div>';
         $this->Session->setFlash($msg);
-       // return $this->redirect(array('controller' => 'reports', 'action' => 'extraPayment'));
+        // return $this->redirect(array('controller' => 'reports', 'action' => 'extraPayment'));
         return $this->redirect($this->referer());
     }
-    
+
     function void($id = null) {
         $this->loadModel('Transaction');
         $this->Transaction->id = $id;
@@ -174,8 +173,6 @@ class TransactionsController extends AppController {
         $this->Session->setFlash($msg);
         return $this->redirect($this->referer());
     }
-    
-    
 
 }
 

@@ -23,10 +23,7 @@
                         </span>
                     </div>
                 </form>
-                <!-- END RESPONSIVE QUICK SEARCH FORM -->
             </li>
-
-            
             <li 
             <?php
 
@@ -61,19 +58,6 @@
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
-
-<!--                    <li
-                    <?php if ($this->name . '' . $this->action == 'Ticketscreate'):
-                        ?>
-                            class="active"
-                            <?php
-                        endif;
-                        ?>
-                        >
-                        <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'create')) ?>">
-                            <i class="fa fa-graduation-cap"></i>
-                            Create New</a>
-                    </li>-->
                     <li
                     <?php if ($this->name . '' . $this->action == 'Ticketsmanage'):
                         ?>
@@ -87,10 +71,7 @@
                             Manage</a>
                     </li>
                 </ul>
-            
-   
         </ul>
-        <!-- END SIDEBAR MENU -->
     </div>
 </div>
 <!-- END SIDEBAR -->

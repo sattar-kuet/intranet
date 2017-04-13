@@ -68,8 +68,9 @@
                                 <?php
                                 foreach ($data as $single):
                                     $issue = end($single['history']);
-                                    $customer = end($single['history']);
-                                    $customer = $customer['pc'];
+                                    $last = end($single['history']);
+                                    $lastStatus = $last['tr']['status'];
+                                    $customer = $last['pc'];
                                     $ticket = $single['ticket'];
                                     ?>
                                     <tr >
@@ -124,10 +125,7 @@
                                         <td>   
                                             <div class="controls center text-center">
 
-
-                                                <?php if ($lasthistory['status'] == 'open') { ?>
-
-
+                                                <?php if ($lastStatus == 'open') { ?>
                                                     <a 
                                                         href="#" title="Solved">
                                                         <span id="<?php echo $ticket['id']; ?>" class="fa fa-check fa-lg solve_ticket"></span>

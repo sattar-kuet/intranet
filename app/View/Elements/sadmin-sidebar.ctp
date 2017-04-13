@@ -8,7 +8,6 @@
                 <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
                 <div class="sidebar-toggler">
                 </div>
-                <!-- END SIDEBAR TOGGLER BUTTON -->
             </li>  
 
             <li 
@@ -258,9 +257,6 @@
                     </li>
 
                 </ul>
-
-
-
             <li 
             <?php
             $services = array('Customersregistration', 'Customersshipment_installation', 'Customersedit_registration', 'Customersfollowup', 'Customersschedule_done');
@@ -424,6 +420,5 @@
             </li>
 
         </ul>
-        <!-- END SIDEBAR MENU -->
     </div>
     <!-- END SIDEBAR -->

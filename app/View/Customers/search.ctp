@@ -41,30 +41,82 @@
                             </div>
                             <?php echo $this->Session->flash(); ?>
                             <div class="form-group">
-                                <div class="col-md-9">
-                                    <?php
-                                    echo $this->Form->input('param', array(
-                                        'type' => 'text',
-                                        'placeholder' => 'Type search parameter',
-                                        'class' => 'form-control required',
-                                        'style' => 'font-size: 15px;'
-                                            )
-                                    );
-                                    ?>
-                                </div>
-                                <div class="col-md-3">
-                                    <?php
-                                    $search = array("1" => "Customer", "2" => "Transaction ID", "3" => "Invoice No");
-                                    echo $this->Form->input(
-                                            'search', array(
-                                        'class' => 'form-control required',
-                                        'default' => 'Customer',
-                                        'options' => $search,
-                                        'label' => false
-                                            )
-                                    );
-                                    ?>
-                                </div>
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <div class="display-hide" id="country">
+                                            <div class="col-md-5">
+                                                <?php
+//                                                $countries = array("bangla" => "Banglad", "india" => "India", "country3" => "Country3", "country4" => "Country4");
+                                                echo $this->Form->input(
+                                                        'country', array(
+                                                    'class' => 'form-control select2me ',
+                                                    'empty' => 'Select Cuntry',
+                                                    'options' => $states,
+                                                    'label' => false
+                                                        )
+                                                );
+                                                ?>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <?php
+//                                                $cities = array("ny" => "NY", "aa" => "AA", "bb" => "BB", "cc" => "CC");
+                                                echo $this->Form->input(
+                                                        'city', array(
+                                                    'class' => 'form-control select2me',
+                                                    'empty' => 'Select City',
+                                                    'options' => $cities,
+                                                    'label' => false
+                                                        )
+                                                );
+                                                ?>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <?php
+                                                echo $this->Form->input('zip', array(
+                                                    'type' => 'text',
+                                                    'placeholder' => 'Zip code',
+                                                    'class' => 'form-control',
+                                                    'style' => 'font-size: 15px;'
+                                                        )
+                                                );
+                                                ?>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12" id="param">
+                                            <?php
+                                            echo $this->Form->input('param', array(
+                                                'type' => 'text',
+                                                'placeholder' => 'Type search parameter',
+                                                'class' => 'form-control',
+                                                'style' => 'font-size: 15px;'
+                                                    )
+                                            );
+                                            ?>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-3" style="margin-left: -20px;">
+                                        <?php
+                                        $search = array("1" => "Customer", "2" => "Transaction ID", "3" => "Invoice No", "4" => "Customer By Location");
+                                        echo $this->Form->input(
+                                                'search', array(
+                                            'class' => 'form-control required',
+                                            'default' => 'Customer',
+                                            'options' => $search,
+                                            'label' => false,
+                                            'id' => 'actionData'
+                                                )
+                                        );
+                                        ?>
+
+                                    </div>
+
+                                </div>                              
+
+
                             </div>
                         </div>
                         <div class="form-actions">
@@ -92,14 +144,8 @@
                         <div class="caption">
                             <i class="fa fa-envelope-o fa-lg" style="color:red;"></i>Announcements From Admin 
                         </div>
-                        <!--                        <div class="tools">
-                        
-                                                    <a href="" class="reload" data-original-title="" title="">
-                                                    </a>
-                        
-                                                </div>-->
+
                     </div>
-                    <!--  <div class="portlet-body" id="chats" style="overflow-y: scroll; max-height: 300px;"/> -->
                     <div class="portlet-body" id="chats"/>
                     <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto;"><div class="scroller" style="overflow: hidden; width: auto;" data-always-visible="1" data-rail-visible1="1" data-initialized="1">
                             <ul class="chats ">
@@ -107,14 +153,7 @@
                                 <?php
                                 foreach ($admin_messages as $message):
                                     ?>
-
                                     <li class="in">
-                                        <!--<line style="border-bottom: 1px solid #999; display: block;">-->
-                                           <!--<img class="avatar" alt="" src="<?php echo $this->webroot; ?>/assets/admin/layout/img/avatar1.jpg">-->
-                                        <!--<div class="message">-->
-    <!--                                            <span class="arrow">
-                                            </span>-->
-
                                         <a style="color: #E02222; font-weight: bold;" href="#" class="name">
                                             <?php echo $message['u']['name']; ?> </a>                                                
                                         <span class="datetime">
@@ -144,13 +183,17 @@
     if ($clicked == 1) {
         echo $this->element('customers', array('data' => $data));
     }
-    
+
     if ($clicked == 2) {
         echo $this->element('transaction', array('data' => $data));
     }
-   
+
     if ($clicked == 3) {
         echo $this->element('invoice', array('data' => $data));
+    }
+    
+    if ($clicked == 4) {
+        echo $this->element('customerbyloaction', array('data' => $data));
     }
     ?>
 

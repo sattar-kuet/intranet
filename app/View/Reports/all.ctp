@@ -151,12 +151,12 @@
 
                                     </div>
                                 </div>
-
+ <!--'customerbyloaction' => 'Customer By Location',-->
                                 <div class="col-md-5">
                                     <?php
                                     echo $this->Form->input('action', array(
                                         'type' => 'select',
-                                        'options' => array('cancel' => 'Cancel', 'paymenthistory' => 'Payment History', 'newcustomer' => 'New Customer', 'expirecustomer' => 'Expire Customer', 'calllog' => 'Call Log', 'allautorecurring' => 'All Auto Recurring', 'successful' => 'Succeeded Auto Recurring', 'failed' => 'Faile Auto Recurring', 'summeryReport' => 'Summary', 'allinvoice' => 'All Invoice', 'openInvoice25' => 'Open Invoice', 'passedinvoice' => 'Passed Due Invoice', 'closedinvoice' => 'Closed Invoice', 'customerbyloaction' => 'Customer By Location', 'customersummary' => 'Customer Summary'),
+                                        'options' => array('cancel' => 'Cancel', 'paymenthistory' => 'Payment History', 'newcustomer' => 'New Customer', 'expirecustomer' => 'Expire Customer', 'calllog' => 'Call Log', 'allautorecurring' => 'All Auto Recurring', 'successful' => 'Succeeded Auto Recurring', 'failed' => 'Faile Auto Recurring', 'summeryReport' => 'Summary', 'allinvoice' => 'All Invoice', 'openInvoice25' => 'Open Invoice', 'passedinvoice' => 'Passed Due Invoice', 'closedinvoice' => 'Closed Invoice', 'customersummary' => 'Customer Summary'),
                                         'empty' => 'Select Paymode',
                                         'class' => 'form-control select2me ',
                                         'id' => 'actionID'
@@ -242,9 +242,9 @@
                 echo $this->element('closedinvoice', array('data' => $data));
             }
            
-            if ($action == 'customerbyloaction') {
-                echo $this->element('customerbyloaction', array('data' => $data));
-            }
+//            if ($action == 'customerbyloaction') {
+//                echo $this->element('customerbyloaction', array('data' => $data));
+//            }
             
             if ($action == 'customersummary') {
 //                pr($data); exit;

@@ -8,7 +8,6 @@
                 <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
                 <div class="sidebar-toggler">
                 </div>
-                <!-- END SIDEBAR TOGGLER BUTTON -->
             </li>          
 
             <li 
@@ -117,7 +116,6 @@
                     <li
 
                     <?php if ($this->name . '' . $this->action == 'Customersready_installation'):
-
                         ?>
                             class="active"
                             <?php
@@ -126,17 +124,11 @@
                         >
 
                         <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'ready_installation')) ?>">
-
                             <i class="fa fa-support"></i>
                             Ready to Installation </a>
                     </li>
                 </ul>
             </li>
-
-
         </ul>
-        <!-- END SIDEBAR MENU -->
     </div>
-
-
     <!-- END SIDEBAR -->

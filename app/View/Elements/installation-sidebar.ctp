@@ -8,10 +8,7 @@
                 <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
                 <div class="sidebar-toggler">
                 </div>
-                <!-- END SIDEBAR TOGGLER BUTTON -->
             </li>               
-
-           
             <li 
             <?php
             $services = array('servicemanage');
@@ -28,12 +25,6 @@
                     <span class="arrow "></span>
                 </a>
             </li>
-
-
-          
-
-
-            
             <li 
             <?php
             $tickets = array('Ticketscreate', 'Ticketsmanage', 'TicketsAssigned_to_me', 'TicketsForwarded_by', 'Ticketssolved_ticket', 'Ticketsin_progress');
@@ -50,20 +41,6 @@
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
-
-
-                    <!--                    <li
-                    <?php if ($this->name . '' . $this->action == 'Ticketscreate'):
-                        ?>
-                                                                                                            class="active"
-                        <?php
-                    endif;
-                    ?>
-                                            >
-                                            <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'create')) ?>">
-                                                <i class="fa fa-graduation-cap"></i>
-                                                Create New</a>
-                                        </li>-->
                     <li
                     <?php if ($this->name . '' . $this->action == 'Ticketsmanage'):
                         ?>
@@ -125,13 +102,6 @@
                             Solved Ticket</a>
                     </li>
                 </ul>          
-          
-           
-
-         
-
-      
-
             <li 
             <?php
             $services = array('Customersregistration', 'Customersshipment_installation', 'Customersedit_registration', 'Customersfollowup', 'Customersschedule_done');
@@ -174,23 +144,6 @@
                             <i class="fa icon-user-following"></i>
                             Opportunity Follow-up </a>
                     </li>
-                    <!--                    Temporary Blocked -->
-                    <!--                    <li
-                    
-                    <?php if ($this->name . '' . $this->action == 'Customersschedule_done'):
-                        ?>
-                                                        class="active"
-                        <?php
-                    endif;
-                    ?>
-                                            >
-                    
-                                            <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'schedule_done')) ?>">
-                    
-                                                <i class="fa icon-like"></i>
-                                                Schedule Done </a>
-                                        </li>-->
-                    <!--Temporary Blocked end -->
                 </ul>
             </li>
 
@@ -295,31 +248,6 @@
                             <i class="fa icon-like"></i>
                             Moving</a>
                     </li>
-
-<!--                    <li
-                    <?php if ($this->name . '' . $this->action == 'Customerswire_problem'):
-                        ?>
-                            class="active"
-                            <?php
-                        endif;
-                        ?>
-                        >
-                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'wire_problem')) ?>">
-                            <i class="fa icon-like"></i>
-                            Wire problem</a>
-                    </li>
-                    <li
-                    <?php if ($this->name . '' . $this->action == 'Customersremote_problem'):
-                        ?>
-                            class="active"
-                            <?php
-                        endif;
-                        ?>
-                        >
-                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'remote_problem')) ?>">
-                            <i class="fa icon-like"></i>
-                            Remote Problem</a>
-                    </li>-->
                 </ul>
             </li> 
             <li 
@@ -422,17 +350,12 @@
                             <i class="fa icon-like"></i>
                             Done By Admin</a>
                     </li>
-
                 </ul>
             </li> 
 
             <li 
             <?php
             $customerRequest = array('Customerscancelrequest', 'Customersholdrequest', 'Customersunholdrequest', 'CustomersreconnectionRequest');
-
-
-//            $customerRequest = array('Customerscancelrequest', 'Customersholdrequest', 'Customersunholdrequest','CustomersreconnectionRequest');
-
             if (in_array($this->name . '' . $this->action, $customerRequest)):
                 ?>
                     class="active"
@@ -499,80 +422,9 @@
                             <i class="fa fa-wrench"></i>
                             Reconnection Request</a>
                     </li>
-
-
                 </ul>
             </li>
-            
 
-<!--            <li 
-            <?php
-            $printqueues = array('ReportsopenInvoice25', 'ReportscloseInvoice', 'ReportsextraPayment');
-            if (in_array($this->name . '' . $this->action, $printqueues)):
-                ?>
-                    class="active"
-                    <?php
-                endif;
-                ?>
-                >
-                <a href="javascript:;">
-                    <i class="fa fa-envelope"></i>
-                    <span class="title">Print Queue</span>
-                    <span class="arrow "></span>
-                </a>
-                <ul class="sub-menu">
-                                        <li
-                    <?php if ($this->name . '' . $this->action == 'ReportsopenInvoice'):
-                        ?>
-                                                        class="active"
-                        <?php
-                    endif;
-                    ?>
-                                            >
-                                            <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'openInvoice')) ?>">
-                                                <i class="fa fa-plus"></i>
-                                                Open Invoice</a>
-                                        </li>
-                    <li
-                    <?php if ($this->name . '' . $this->action == 'ReportsopenInvoice25'):
-                        ?>
-                            class="active"
-                            <?php
-                        endif;
-                        ?>
-                        >
-                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'openInvoice25')) ?>">
-                            <i class="fa fa-plus"></i>
-                            Open Invoice</a>
-                    </li>
-
-
-                    <li
-                    <?php if ($this->name . '' . $this->action == 'ReportscloseInvoice'):
-                        ?>
-                            class="active"
-                            <?php
-                        endif;
-                        ?>
-                        >
-                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'closeInvoice')) ?>">
-                            <i class="fa fa-wrench"></i>
-                            Close Invoice</a>
-                    </li>
-                    <li
-                    <?php if ($this->name . '' . $this->action == 'ReportsextraPayment'):
-                        ?>
-                            class="active"
-                            <?php
-                        endif;
-                        ?>
-                        >
-                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'extraPayment')) ?>">
-                            <i class="fa fa-wrench"></i>
-                            Extra Payment</a>
-                    </li>
-                </ul>
-            </li>-->
             <li 
             <?php
             $Otherspayments = array('OtherspaymentsCreate', 'OtherspaymentsManage');
@@ -616,6 +468,5 @@
                 </ul>
             </li>
         </ul>
-        <!-- END SIDEBAR MENU -->
     </div>
     <!-- END SIDEBAR -->
