@@ -901,6 +901,31 @@ class TicketsController extends AppController {
         $this->set(compact('data', 'users', 'roles', 'total_page', 'total'));
     }
 
+    function success_payments() {
+        $this->loadModel('Package_customer');
+        $this->loadModel('Transaction');
+        $tickets = $this->Transaction->query("SELECT * FROM tickets t 
+                left join tracks tr on t.id = tr.ticket_id
+                left join package_customers pc on pc.id = tr.package_customer_id
+                left join psettings ps on ps.id = pc.psetting_id
+                LEFT JOIN packages p ON p.id = ps.package_id 
+                left join custom_packages cp on pc.custom_package_id = cp.id
+                WHERE t.payment_process = '2'");
+        $this->set(compact('tickets'));
+    }
+    
+    function failed_payments() {
+        $this->loadModel('Package_customer');
+        $this->loadModel('Transaction');
+        $tickets = $this->Transaction->query("SELECT * FROM tickets t 
+                left join tracks tr on t.id = tr.ticket_id
+                left join package_customers pc on pc.id = tr.package_customer_id
+                left join psettings ps on ps.id = pc.psetting_id
+                LEFT JOIN packages p ON p.id = ps.package_id 
+                left join custom_packages cp on pc.custom_package_id = cp.id
+                WHERE t.payment_process = '3'");
+        $this->set(compact('tickets'));
+    }
 }
 
 ?>

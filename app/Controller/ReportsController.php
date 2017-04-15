@@ -501,16 +501,12 @@ class ReportsController extends AppController {
         }
         
         $sql .=" ORDER BY t.id LIMIT 0,200";
-
         $sql = str_replace("WHERE ORDER", "###", $sql);
 
-//        echo $sql;
-//        exit;
         $tickets = $this->Ticket->query($sql);
         $filteredTicket = array();
         $unique = array();
         $index = 0;
-        //     pr($tickets); exit;
         foreach ($tickets as $key => $ticket) {
             $t = $ticket['t']['id'];
             if (isset($unique[$t])) {
@@ -526,7 +522,6 @@ class ReportsController extends AppController {
             }
             $filteredTicket;
         }
-        // pr($filteredTicket); exit;
         $this->set(compact('filteredTicket', 'start', 'end'));
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
         $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
