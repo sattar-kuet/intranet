@@ -229,7 +229,7 @@ class PaymentsController extends AppController {
                 $this->Transaction->saveField("status", $status);
 
                 $msg .='<li> Transaction Successfull</li>';
-                $tdata['Ticket'] = array('content' => "Transaction successfull <br> <b>Amount : </b>$amount <br> <b> payment Mode: </b> Card",'payment_process' => '2');
+                $tdata['Ticket'] = array('content' => "Transaction successfull <br> <b>Amount : </b>$amount <br> <b> payment Mode: </b> Card");
                 $tickect = $this->Ticket->save($tdata); // Data save in Ticket
                 $trackData['Track'] = array(
                     'package_customer_id' => $cid,
@@ -270,7 +270,7 @@ class PaymentsController extends AppController {
 
                 $msg .='<li>' . $errorMsg . ' </li>';
 
-                $tdata['Ticket'] = array('content' => $errorMsg . "<br> <b>Amount</b> : $amount <br> <b> payment Mode: </b> Card",'payment_process' => '3');
+                $tdata['Ticket'] = array('content' => $errorMsg . "<br> <b>Amount</b> : $amount <br> <b> payment Mode: </b> Card");
 
                 $tickect = $this->Ticket->save($tdata);
 
@@ -286,7 +286,7 @@ class PaymentsController extends AppController {
         } else {
             $alert = '<div class="alert alert-error"> ';
             $msg .='<li> Transaction failed due to Marchant Account credential changed. Please contact with administrator</li>';
-            $tdata['Ticket'] = array('content' => "Transaction failed due to Marchant Account credential changed. Please contact with administrator <br> <b> Amount : </b> $amount <br> <b> payment Mode: </b> Card",'payment_process' => '3');
+            $tdata['Ticket'] = array('content' => "Transaction failed due to Marchant Account credential changed. Please contact with administrator <br> <b> Amount : </b> $amount <br> <b> payment Mode: </b> Card");
             $tickect = $this->Ticket->save($tdata); // Data save in Ticket
             $trackData['Track'] = array(
                 'package_customer_id' => $cid,
@@ -334,7 +334,7 @@ class PaymentsController extends AppController {
 
         $httpSocket = new HttpSocket();
 
-        // $this->request->data['marchantName'] = "95x9PuD6b2"; // testing
+        //  $this->request->data['marchantName'] = "95x9PuD6b2"; // testing
         $this->request->data['marchantName'] = '7zKH4b45'; // live
         // $this->request->data['marchantKey'] = "547z56Vcbs3Nz9R9"; // testing
         $this->request->data['marchantKey'] = '738QpWvHH4vS59vY'; // live
@@ -685,7 +685,7 @@ class PaymentsController extends AppController {
         $this->Transaction->save($this->request->data['Transaction']);
         unset($this->request->data['Transaction']['transaction_id']);
 
-        $this->request->data['Transaction']['status'] = 'close';
+
         // made credit as paid 
         $sql = "SELECT * FROM transactions WHERE status = 'approved' AND package_customer_id = " . $this->request->data['Transaction']['package_customer_id'];
         $temp = $this->Transaction->query($sql);
@@ -695,20 +695,21 @@ class PaymentsController extends AppController {
             $data = array('transaction_id' => $id, 'status' => 'paid');
             $this->Transaction->save($data);
         }
-        // pr($temp);
+        //  pr($this->request->data);
         $due = $this->getDue($id);
         $credit = $this->getCredit($this->request->data['Transaction']['package_customer_id']);
         $totalDue = $due + $credit;
+        $status = 'close';
         if ($totalDue > 0) {
             $status = 'open';
         }
         $amount = $this->request->data['Transaction']['payable_amount'];
         unset($this->request->data['Transaction']['payable_amount']);
         $this->Transaction->id = $id;
-//         pr('here'); exit;
+        $this->request->data['Transaction']['status'] = $status;
         $this->Transaction->save($this->request->data['Transaction']);
         // generate Ticket
-        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment mode :</b> Check", 'status' => 'open','payment_process' => '2');
+        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment mode :</b> Check", 'status' => 'open');
         $tickect = $this->Ticket->save($tdata); // Data save in Ticket
 
         $trackData['Track'] = array(
@@ -774,7 +775,7 @@ class PaymentsController extends AppController {
         $this->Transaction->id = $id;
         $this->Transaction->save($this->request->data['Transaction']);
         // generate Ticket
-        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment mode: </b> Money Order", 'status' => 'open','payment_process' => '2');
+        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment mode: </b> Money Order", 'status' => 'open');
         $tickect = $this->Ticket->save($tdata); // Data save in Ticket
 
         $trackData['Track'] = array(
@@ -845,7 +846,7 @@ class PaymentsController extends AppController {
         $this->Transaction->save($this->request->data['Transaction']);
 
         // generate Ticket
-        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment Mode : </b> Online Bill", 'status' => 'open','payment_process' => '2');
+        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment Mode : </b> Online Bill", 'status' => 'open');
         $tickect = $this->Ticket->save($tdata); // Data save in Ticket
 
         $trackData['Track'] = array(
@@ -909,7 +910,7 @@ class PaymentsController extends AppController {
 //        pr($this->request->data['Transaction']); exit;
         $this->Transaction->save($this->request->data['Transaction']);
         // generate Ticket
-        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment Mode :</b> Cash", 'status' => 'open','payment_process' => '2');
+        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment Mode :</b> Cash", 'status' => 'open');
         $tickect = $this->Ticket->save($tdata); // Data save in Ticket
 
         $trackData['Track'] = array(

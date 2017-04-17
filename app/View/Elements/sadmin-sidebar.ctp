@@ -8,6 +8,7 @@
                 <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
                 <div class="sidebar-toggler">
                 </div>
+                <!-- END SIDEBAR TOGGLER BUTTON -->
             </li>  
 
             <li 
@@ -181,7 +182,7 @@
 
             <li 
             <?php
-            $tickets = array('Ticketssuccess_payments','Ticketsfailed_payments', 'Ticketscreate', 'Ticketsmanage', 'Ticketsassigned_to_me', 'Ticketsforwarded_by', 'Ticketssolved_ticket', 'Ticketsin_progress');
+            $tickets = array('Ticketscreate', 'Ticketsmanage', 'Ticketsassigned_to_me', 'Ticketsforwarded_by', 'Ticketssolved_ticket', 'Ticketsin_progress');
             if (in_array($this->name . '' . $this->action, $tickets)):
                 ?>
                     class="active"
@@ -256,17 +257,10 @@
                             Solved Ticket</a>
                     </li>
 
-                    <li <?php if ($this->name . '' . $this->action == 'success_payments'): ?> class="active" <?php endif; ?> >
-                        <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'success_payments')) ?>">
-                        <i class="fa fa-search"></i> Success Payments</a>
-                    </li>
-                    
-                    <li <?php if ($this->name . '' . $this->action == 'failed_payments'): ?> class="active" <?php endif; ?> >
-                        <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'failed_payments')) ?>">
-                        <i class="fa fa-search"></i> Failed Payments</a>
-                    </li>
-
                 </ul>
+
+
+
             <li 
             <?php
             $services = array('Customersregistration', 'Customersshipment_installation', 'Customersedit_registration', 'Customersfollowup', 'Customersschedule_done');
@@ -309,6 +303,8 @@
                             <i class="fa icon-user-following"></i>
                             Opportunity Follow-up </a>
                     </li>                 
+
+
                 </ul>
             </li>
 
@@ -428,5 +424,6 @@
             </li>
 
         </ul>
+        <!-- END SIDEBAR MENU -->
     </div>
     <!-- END SIDEBAR -->

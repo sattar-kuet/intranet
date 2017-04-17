@@ -1,9 +1,7 @@
 <?php
 require_once(APP . 'Vendor' . DS . 'class.upload.php');
 class PaymentsController extends AppController {
-
     var $layout = 'admin';
-
     // public $components = array('Auth');
     public function isAuthorized($user = null) {
         $sidebar = $user['Role']['name'];
@@ -697,6 +695,7 @@ class PaymentsController extends AppController {
         $this->request->data['Transaction']['status'] = 'close';
         // check due amount 
         $due = $this->getDue($id);
+        echo 'Due : '.$due; exit;
         if ($due > 0) {
             $this->request->data['Transaction']['status'] = 'open';
         }

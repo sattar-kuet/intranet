@@ -72,11 +72,11 @@
                                 foreach ($data as $single):
 
                                     $issue = end($single['history']);
-                                    $last = end($single['history']);
-                                    $lastStatus = $last['tr']['status'];
-                                    $customer = $last['pc'];
+                                    $customer = end($single['history']);
 
-                                    $agent_name = $last['fb']['name'];
+                                    $agent_name = $customer['fb']['name'];
+                                    $customer = $customer['pc'];
+//                                                                  pr($customer['id']); exit;
                                     $ticket = $single['ticket'];
                                     $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                             $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
@@ -140,7 +140,7 @@
                                         </td>
                                         <td>   
                                             <div class="controls center text-center">
-                                                <?php if ($lastStatus == 'open' || $lastStatus == 'others') { ?>
+                                                <?php if ($lasthistory['status'] == 'open' || $lasthistory['status'] == 'others') { ?>
                                                     <a 
                                                         href="#" title="Solved">
                                                         <span id="<?php echo $ticket['id']; ?>" class="fa fa-check fa-lg solve_ticket"></span>

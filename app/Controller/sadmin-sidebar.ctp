@@ -11,7 +11,73 @@
                 <!-- END SIDEBAR TOGGLER BUTTON -->
             </li>               
 
-            
+            <li 
+            <?php
+            $admins = array('Adminsaddrole', 'Adminseditrole', 'Adminscreate', 'Adminsmanage', 'Adminsedit_admin',);
+            if (in_array($this->name . '' . $this->action, $admins)):
+                ?>
+                    class="active"
+                    <?php
+                endif;
+                ?>
+                >
+                <a href="javascript:;">
+                    <i class="fa fa-user"></i>
+                    <span class="title">Admin Management</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Adminsaddrole'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'addrole')) ?>">
+                            <i class="fa fa-plus"></i>
+                            Add Role</a>
+                    </li>
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Adminseditrole'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'editrole')) ?>">
+                            <i class="fa fa-pencil"></i>
+                            Edit Role</a>
+                    </li>
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Adminscreate'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'create')) ?>">
+                            <i class="fa fa-plus"></i>
+                            Create Admin</a>
+                    </li>
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Adminsmanage'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'manage')) ?>">
+                            <i class="fa fa-wrench"></i>
+                            Manage Admin</a>
+                    </li>                    
+                </ul>
+            </li>
             <li 
             <?php
             $services = array('servicemanage');
@@ -28,7 +94,7 @@
                     <span class="arrow "></span>
                 </a>
             </li>
-           
+
             <li 
             <?php
             $transactionId = array('transactionId');
@@ -61,9 +127,29 @@
                     <span class="arrow "></span>
                 </a>
             </li>
+
+
+            <!--            <li 
+            <?php
+            $payment = array('paymenthistory');
+            if (in_array($this->name . '' . $this->action, $payment)):
+                ?>
+                                                                            class="active"
+                <?php
+            endif;
+            ?>
+                            >                 
+                            <a href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'payment_history')) ?>">
+                                <i class="fa fa-support"></i>
+                                <span class="title">Payment History</span>
+                                <span class="arrow "></span>
+                            </a>
+                        </li>-->
+
+
             <li 
             <?php
-            $tickets = array('Ticketscreate', 'Ticketsmanage', 'Ticketsassigned_to_me', 'TicketsForwarded_by', 'Ticketssolved_ticket', 'Ticketsin_progress');
+            $tickets = array('Ticketscreate', 'Ticketsmanage', 'Ticketsassigned_to_me', 'Ticketsforwarded_by', 'Ticketssolved_ticket', 'Ticketsin_progress');
             if (in_array($this->name . '' . $this->action, $tickets)):
                 ?>
                     class="active"
@@ -77,7 +163,20 @@
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
-                
+
+
+                    <!--                    <li
+                    <?php if ($this->name . '' . $this->action == 'Ticketscreate'):
+                        ?>
+                                                                                                                    class="active"
+                        <?php
+                    endif;
+                    ?>
+                                            >
+                                            <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'create')) ?>">
+                                                <i class="fa fa-graduation-cap"></i>
+                                                Create New</a>
+                                        </li>-->
                     <li
                     <?php if ($this->name . '' . $this->action == 'Ticketsmanage'):
                         ?>
@@ -103,7 +202,7 @@
                             Inform to Me</a>
                     </li>
                     <li
-                    <?php if ($this->name . '' . $this->action == 'forwarded_by'):
+                    <?php if ($this->name . '' . $this->action == 'Forwarded_by'):
                         ?>
                             class="active"
                             <?php
@@ -138,9 +237,150 @@
                             <i class="fa glyphicon glyphicon-check"></i>
                             Solved Ticket</a>
                     </li>
-                    
+
                 </ul>
+            <li 
+            <?php
+            $tickets = array('Ticketsadddepartment', 'Ticketseditdepartment');
+            if (in_array($this->name . '' . $this->action, $tickets)):
+                ?>
+                    class="active"
+                    <?php
+                endif;
+                ?>
+                >
+
+                <a href="javascript:;">
+                    <i class="fa fa-sitemap"></i>
+                    <span class="title">Department Manage</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Ticketsadddepartment'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+
+                        <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'adddepartment')) ?>">
+                            <i class="fa fa-plus"></i>
+                            Add Department</a>
+                    </li>
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Ticketseditdepartment'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'editdepartment')) ?>">
+                            <i class="fa fa-pencil"></i>
+                            Edit Department </a>
+                    </li>
+
+                </ul>
+            </li>
+            <li 
+            <?php
+            $tickets = array('Ticketsaddissue', 'Ticketseditissue');
+
+            if (in_array($this->name . '' . $this->action, $tickets)):
+                ?>
+                    class="active"
+                    <?php
+                endif;
+                ?>
+                >
+
+                <a href="javascript:;">
+                    <i class="fa fa-bug"></i>
+                    <span class="title">Issues Management</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Ticketsaddissue'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+
+                        <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'addissue')) ?>">
+                            <i class="fa fa-plus"></i>
+                            Add Issues</a>
+                    </li>
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Ticketseditissue'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'editissue')) ?>">
+                            <i class="fa fa-pencil"></i>
+                            Edit Issues </a>
+                    </li>
+
+                </ul>
+            </li> 
+
+            <!--
        
+             <li 
+            <?php
+            $transactions = array('Transactionssearch', 'Transactionsexpire_customer');
+
+            if (in_array($this->name . '' . $this->action, $transactions)):
+                ?>
+                                                                                        class="active"
+                <?php
+            endif;
+            ?>
+                >
+
+                <a href="javascript:;">
+                    <i class="fa fa-dollar"></i>
+                    <span class="title">Transactions</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li
+            <?php if ($this->name . '' . $this->action == 'Transactionssearch'):
+                ?>
+                                                                                                class="active"
+                <?php
+            endif;
+            ?>
+                        >
+
+                        <a href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'search')) ?>">
+                            <i class="fa fa-history"></i>
+                            History</a>
+                    </li>
+                    <li
+            <?php if ($this->name . '' . $this->action == 'Transactionsexpire_customer'):
+                ?>
+                                                                                                class="active"
+                <?php
+            endif;
+            ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'expire_customer')) ?>">
+                            <i class="fa fa-money"></i>
+                            Payments </a>
+                    </li>
+
+                </ul>
+            </li>
+
+            -->
 
             <li 
             <?php
@@ -238,7 +478,7 @@
                     
                     <?php if ($this->name . '' . $this->action == 'Customersschedule_done'):
                         ?>
-                                                            class="active"
+                                                                class="active"
                         <?php
                     endif;
                     ?>
@@ -355,30 +595,30 @@
                             Moving</a>
                     </li>
 
-<!--                    <li
+                    <!--                    <li
                     <?php if ($this->name . '' . $this->action == 'Customerswire_problem'):
                         ?>
-                            class="active"
-                            <?php
-                        endif;
-                        ?>
-                        >
-                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'wire_problem')) ?>">
-                            <i class="fa icon-like"></i>
-                            Wire problem</a>
-                    </li>
-                    <li
+                                                    class="active"
+                        <?php
+                    endif;
+                    ?>
+                                            >
+                                            <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'wire_problem')) ?>">
+                                                <i class="fa icon-like"></i>
+                                                Wire problem</a>
+                                        </li>
+                                        <li
                     <?php if ($this->name . '' . $this->action == 'Customersremote_problem'):
                         ?>
-                            class="active"
-                            <?php
-                        endif;
-                        ?>
-                        >
-                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'remote_problem')) ?>">
-                            <i class="fa icon-like"></i>
-                            Remote Problem</a>
-                    </li>-->
+                                                    class="active"
+                        <?php
+                    endif;
+                    ?>
+                                            >
+                                            <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'remote_problem')) ?>">
+                                                <i class="fa icon-like"></i>
+                                                Remote Problem</a>
+                                        </li>-->
                 </ul>
             </li> 
             <li 
@@ -502,6 +742,10 @@
             <li 
             <?php
             $customerRequest = array('Customerscancelrequest', 'Customersholdrequest', 'Customersunholdrequest', 'CustomersreconnectionRequest');
+
+
+//            $customerRequest = array('Customerscancelrequest', 'Customersholdrequest', 'Customersunholdrequest','CustomersreconnectionRequest');
+
             if (in_array($this->name . '' . $this->action, $customerRequest)):
                 ?>
                     class="active"
@@ -572,8 +816,188 @@
 
                 </ul>
             </li>
-         
+            <li 
+            <?php
+            $reports = array('ReportsCriteria','ReportscustomerSummary','Reportsduecustomers', 'Reportscall_log', 'Reportspayment_history', 'Reportscancel', 'Reportspaidcustomers', 'Reportsactive', 'Reportsblock', 'Reportspayment', 'Reportsnewcustomers', 'Reportsexpcustomers');
 
+            if (in_array($this->name . '' . $this->action, $reports)):
+                ?>
+                    class="active"
+                    <?php
+                endif;
+                ?>
+                >
+
+                <a href="javascript:;">
+                    <i class="fa fa-file-word-o"></i>
+                    <span class="title">Reports</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    <!--                    <li
+                    <?php if ($this->name . '' . $this->action == 'Reportsactive'):
+                        ?>
+                                                        class="active"
+                        <?php
+                    endif;
+                    ?>
+                                            >
+                    
+                                            <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'active')) ?>">
+                                                <i class="fa fa-check-square-o"></i>
+                                                Active</a>
+                                        </li>-->
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Reportscancel'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'cancel')) ?>">
+                            <i class="fa icon-ban"></i>
+                            Cancel </a>
+                    </li>
+
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Reportspayment_history'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'payment_history')) ?>">
+                            <i class="fa icon-credit-card"></i>
+                            Payment History </a>
+                    </li>
+
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Reportsnewcustomers'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'newcustomers')) ?>">
+                            <i class="fa glyphicon glyphicon-log-in"></i>
+                            New Customers</a>
+                    </li>
+
+
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Reportsexpcustomers'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'expcustomers')) ?>">
+                            <i class="fa fa-warning"></i>
+                            Expire Customers</a>
+                    </li>
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Reportscall_log'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'call_log')) ?>">
+                            <i class="fa fa-warning"></i>
+                            Call Log</a>
+                    </li>
+                    
+<!--                    <li
+                    <?php if ($this->name . '' . $this->action == 'ReportscustomerSummary'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'customerSummary')) ?>">
+                            <i class="fa fa-warning"></i>
+                            Customer summary</a>
+                    </li>
+                   <li
+                    <?php if ($this->name . '' . $this->action == 'ReportsCriteria'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'criteria')) ?>">
+                            <i class="fa fa-warning"></i>
+                            Criteria</a>
+                    </li>-->
+                </ul>
+            </li>
+
+            <li 
+            <?php
+            $reports= array('Reportsall', 'Reportssuccessful', 'Reportsfailed');
+            if (in_array($this->name . '' . $this->action, $reports)):
+                ?>
+                    class="active"
+                    <?php
+                endif;
+                ?>
+                >
+
+                <a href="javascript:;">
+                    <i class="fa fa-file-word-o"></i>
+                    <span class="title">Auto Recurring</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                   
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Reportsall'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'all')) ?>">
+                            <i class="fa icon-ban"></i>
+                            All </a>
+                    </li>
+
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Reportssuccessful'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'successful')) ?>">
+                            <i class="fa icon-credit-card"></i>
+                           Successful </a>
+                    </li>
+
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Reportsfailed'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'failed')) ?>">
+                            <i class="fa glyphicon glyphicon-log-in"></i>
+                            Failed</a>
+                    </li>
+                </ul>
+            </li>            
+           
             <li 
             <?php
             $dailyreports = array('ReportssalesSupportdp', 'Reportsaccountsdp');
@@ -605,7 +1029,7 @@
                     <!--                    <li
                     <?php if ($this->name . '' . $this->action == 'Reportsaccountsdp'):
                         ?>
-                                                                    class="active"
+                                                                        class="active"
                         <?php
                     endif;
                     ?>
@@ -619,7 +1043,7 @@
 
             <li 
             <?php
-            $printqueues = array('ReportsopenInvoice25', 'ReportscloseInvoice', 'ReportsextraPayment', 'ReportspassedInvoice');
+            $printqueues = array('ReportsopenInvoice25', 'ReportscloseInvoice', 'ReportsextraPayment', 'ReportspassedInvoice', 'ReportssummeryReport');
             if (in_array($this->name . '' . $this->action, $printqueues)):
                 ?>
                     class="active"
@@ -636,7 +1060,7 @@
                     <!--                    <li
                     <?php if ($this->name . '' . $this->action == 'ReportsopenInvoice'):
                         ?>
-                                                            class="active"
+                                                                class="active"
                         <?php
                     endif;
                     ?>
@@ -645,6 +1069,18 @@
                                                 <i class="fa fa-plus"></i>
                                                 Open Invoice</a>
                                         </li>-->
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'ReportssummeryReport'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'summeryReport')) ?>">
+                            <i class="fa fa-plus"></i>
+                            Summery</a>
+                    </li>
                     <li
                     <?php if ($this->name . '' . $this->action == 'ReportsopenInvoice25'):
                         ?>
@@ -684,22 +1120,22 @@
                             <i class="fa fa-wrench"></i>
                             Close Invoice</a>
                     </li>
-                    <li
+                    <!--                    <li
                     <?php if ($this->name . '' . $this->action == 'ReportsextraPayment'):
                         ?>
-                            class="active"
-                            <?php
-                        endif;
-                        ?>
-                        >
-                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'extraPayment')) ?>">
-                            <i class="fa fa-wrench"></i>
-                            Extra Payment</a>
-                    </li>
+                                                    class="active"
+                        <?php
+                    endif;
+                    ?>
+                                            >
+                                            <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'extraPayment')) ?>">
+                                                <i class="fa fa-wrench"></i>
+                                                Extra Payment</a>
+                                        </li>-->
 
                 </ul>
             </li>
-<!--            <li 
+            <li 
             <?php
             $Otherspayments = array('OtherspaymentsCreate', 'OtherspaymentsManage');
             if (in_array($this->name . '' . $this->action, $Otherspayments)):
@@ -740,24 +1176,41 @@
                             Manage</a>
                     </li>
                 </ul>
-            </li>-->
-
-<!--            <li 
+            </li>
+            
+               <li 
             <?php
-            $deleted = array('delete');
-            if (in_array($this->name . '' . $this->action, $deleted)):
+            $services = array('adminsAdjustmentMemo');
+            if (in_array($this->name . '' . $this->action, $services)):
                 ?>
                     class="active"
                     <?php
                 endif;
                 ?>
                 >                 
-                <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'manage_delete_data')) ?>">
+                <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'adjustmentMemo')) ?>">
                     <i class="fa fa-support"></i>
-                    <span class="title">Delete Data</span>
+                    <span class="title">Adjustment Memo</span>
                     <span class="arrow "></span>
                 </a>
-            </li>-->
+            </li>
+
+            <!--            <li 
+            <?php
+            $deleted = array('delete');
+            if (in_array($this->name . '' . $this->action, $deleted)):
+                ?>
+                                    class="active"
+                <?php
+            endif;
+            ?>
+                            >                 
+                            <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'manage_delete_data')) ?>">
+                                <i class="fa fa-support"></i>
+                                <span class="title">Delete Data</span>
+                                <span class="arrow "></span>
+                            </a>
+                        </li>-->
 
         </ul>
         <!-- END SIDEBAR MENU -->

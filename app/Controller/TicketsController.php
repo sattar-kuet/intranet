@@ -103,7 +103,7 @@ class TicketsController extends AppController {
                 $status = 'open';
                 if (trim($this->request->data['Ticket']['action_type']) == 'solved' ||
                         trim($this->request->data['Ticket']['action_type']) == 'ready' ||
-                        trim($this->request->data['Ticket']['action_type']) == 'shipment' ||
+                        trim($this->request->data['Ticket']['action_type']) == 'shipment' || 
                         trim($this->request->data['Ticket']['issue_id']) == 17) {
                     $this->request->data['Ticket']['priority'] = 'low';
                     $this->request->data['Ticket']['status'] = 'solved';
@@ -240,7 +240,7 @@ class TicketsController extends AppController {
                 $this->Track->save($trackData); // Data save in Track
                 $msg = '<div class="alert alert-success">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
-				<strong> Ticket created successfully </strong>
+				<strong> Ticket created succeesfully </strong>
 			</div>';
                 $this->Session->setFlash($msg);
                 return $this->redirect($this->referer());
@@ -275,7 +275,7 @@ class TicketsController extends AppController {
         $data = $ticket_info[0]['tracks'] + $ticket_info[0]['tickets'];
         $this->request->data['Ticket'] = $data;
         if ($this->request->is('post') || $this->request->is('put')) {
-//            pr($this->request->data);
+            pr($this->request->data);
 
             if (empty($this->request->data['Ticket']['user_id']) &&
                     empty($this->request->data['Ticket']['role_id']) &&
@@ -687,8 +687,10 @@ class TicketsController extends AppController {
                                         WHERE tr.ticket_id IN (SELECT ticket_id from tracks  tr where tr.forwarded_by = " .
                 $loggedUser['id'] . ")" . " ORDER BY tr.id DESC" . " LIMIT " . $offset . "," . $this->per_page);
 
+
         $temp = $this->Ticket->query("SELECT COUNT( DISTINCT tr.ticket_id ) AS total FROM tracks tr WHERE tr.forwarded_by = " . $loggedUser['id']);
 
+//          pr($temp); exit;    
         $total = $temp[0][0]['total'];
         $total_page = ceil($total / $this->per_page);
 
@@ -696,7 +698,10 @@ class TicketsController extends AppController {
         $unique = array();
         $index = 0;
         foreach ($tickets as $key => $ticket) {
+
+
             $t = $ticket['t']['id'];
+
             if (isset($unique[$t])) {
                 $temp = array('tr' => $ticket['tr'], 'sb' => $ticket['sb'], 'usb' => $ticket['usb'], 'fb' => $ticket['fb'], 'fd' => $ticket['fd'], 'fi' => $ticket['fi'], 'i' => $ticket['i'], 'pc' => $ticket['pc']);
                 $filteredTicket[$index]['history'][] = $temp;
@@ -792,6 +797,8 @@ class TicketsController extends AppController {
         return $this->redirect($this->referer());
     }
 
+
+
     function addmassage() {
         $this->loadModel('Message');
         if ($this->request->is('post')) {
@@ -819,9 +826,8 @@ class TicketsController extends AppController {
         $this->loadModel('User');
         $this->loadModel('Role');
         $offset = --$page * $this->per_page;
-        $tickets = $this->Ticket->query("SELECT * FROM tickets t 
-            
-                        left JOIN tracks tr ON tr.ticket_id = t.id
+        $tickets = $this->Track->query("SELECT * FROM tracks tr
+                        left JOIN tickets t ON tr.ticket_id = t.id
                         left JOIN users fb ON tr.forwarded_by = fb.id
                         left JOIN roles fd ON tr.role_id = fd.id
                         left JOIN users fi ON tr.user_id = fi.id
@@ -858,14 +864,13 @@ class TicketsController extends AppController {
     }
 
     function solved_ticket($page = 1) {
-        $this->loadModel('Ticket');
         $this->loadModel('Track');
         $this->loadModel('User');
         $this->loadModel('Role');
         $offset = --$page * $this->per_page;
 
-        $tickets = $this->Ticket->query("SELECT * FROM tickets t 
-                        left JOIN tracks tr ON tr.ticket_id = t.id
+        $tickets = $this->Track->query("SELECT * FROM tracks tr
+                        left JOIN tickets t ON tr.ticket_id = t.id
                         left JOIN users fb ON tr.forwarded_by = fb.id
                         left JOIN roles fd ON tr.role_id = fd.id
                         left JOIN users fi ON tr.user_id = fi.id
@@ -901,31 +906,6 @@ class TicketsController extends AppController {
         $this->set(compact('data', 'users', 'roles', 'total_page', 'total'));
     }
 
-    function success_payments() {
-        $this->loadModel('Package_customer');
-        $this->loadModel('Transaction');
-        $tickets = $this->Transaction->query("SELECT * FROM tickets t 
-                left join tracks tr on t.id = tr.ticket_id
-                left join package_customers pc on pc.id = tr.package_customer_id
-                left join psettings ps on ps.id = pc.psetting_id
-                LEFT JOIN packages p ON p.id = ps.package_id 
-                left join custom_packages cp on pc.custom_package_id = cp.id
-                WHERE t.payment_process = '2'");
-        $this->set(compact('tickets'));
-    }
-    
-    function failed_payments() {
-        $this->loadModel('Package_customer');
-        $this->loadModel('Transaction');
-        $tickets = $this->Transaction->query("SELECT * FROM tickets t 
-                left join tracks tr on t.id = tr.ticket_id
-                left join package_customers pc on pc.id = tr.package_customer_id
-                left join psettings ps on ps.id = pc.psetting_id
-                LEFT JOIN packages p ON p.id = ps.package_id 
-                left join custom_packages cp on pc.custom_package_id = cp.id
-                WHERE t.payment_process = '3'");
-        $this->set(compact('tickets'));
-    }
 }
 
 ?>

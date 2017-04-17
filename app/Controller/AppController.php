@@ -56,7 +56,7 @@ class AppController extends Controller {
     public $per_page = 200;
 
     public function beforeFilter() {
-        if (in_array($this->params['controller'], array('rest_payments'))) {
+         if (in_array($this->params['controller'], array('rest_payments'))) {
             // For RESTful web service requests, we check the name of our contoller
             $this->Auth->allow();
             // this line should always be there to ensure that all rest calls are secure
@@ -93,8 +93,6 @@ class AppController extends Controller {
         }
         return $date;
     }
-
-
 
     function loadFooter() {
         $this->loadModel('Footer');
@@ -299,10 +297,10 @@ class AppController extends Controller {
 
     function generateInvoice($data = array()) {
         $this->loadModel('Transaction');
-
+       
         $this->Transaction->create();
-        $d = $this->Transaction->save($data);
-        // pr($d); exit;
+       $d = $this->Transaction->save($data);
+       // pr($d); exit;
     }
 
     function formatCardNumber($card) {
@@ -323,7 +321,7 @@ class AppController extends Controller {
             left join psettings ps on ps.id = pc.psetting_id 
             LEFT JOIN packages p ON p.id = ps.package_id 
             WHERE $daterange AND LOWER(ps.name) LIKE '%$package%'";
-        //  echo $sql1monthp; exit;
+      //  echo $sql1monthp; exit;
         $sql1monthp = $this->Transaction->query($sql1monthp);
 //            pr($sql1monthp); exit;
         $sql1monthp1 = $sql1monthp[0][0]['total1monthp'];
@@ -378,7 +376,7 @@ class AppController extends Controller {
 //                        'contentId' => 'logo'
 //                    )
 //                ))
-                ->viewVars(compact('total', 'date'))
+                ->viewVars(compact('total','date'))
                 ->to($to)
                 ->subject($subject);
 
@@ -394,11 +392,11 @@ class AppController extends Controller {
         $report = new ReportsController();
         $end = date('Y-m-d');
         $start = date('Y-m-d', strtotime($end . ' -1 day'));
-
-        $tbhead = $start . ' To ' . $end;
+        
+        $tbhead = $start.' To '. $end;
 //        pr($tbhead); exit;
 // echo $start.' to '. $end;
-
+        
         $total['sales_query'] = $report->getTotalSalesQuery($start, $end);
         // $total[0] = $total['done'] + $total['ready'];
         // $total['installation'] = $report->getTotalInstallation();
@@ -430,16 +428,18 @@ class AppController extends Controller {
         $total['inbound'] = $total['totalSupport'] + $total['totalAccount'] + $total['done'] + $total['sales_query'] + $total['reconnection'] + $total['cardinfotaken'] + $total['check_send'] + $total['vod'] + $total['interruption'] + $total['addsalesreceive'] + $total['online_payment'] + $total['cancel'] + $total['cancel_from_da'] + $total['unhold'] + $total['cancel_from_hold'];
         $total['start'] = $start;
         $total['end'] = $end;
-
+       
         $emailInfo = array(
             'from' => 'info@totalitsolution.com',
+
             'to' => array('hrahman01@gmail.com',
                 'sattar.kuet@gmail.com',
                 'farukmscse@gmail.com',
                 'saadmgt@gmail.com',
                 'pulakbuds@hotmail.com',
                 'ahmodul@live.com',
-            ),
+                ),
+
             'title' => 'Report',
             'template' => 'report',
             'subject' => 'Report',

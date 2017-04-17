@@ -35,7 +35,7 @@
                         </thead>
                         <tbody>                                    
                             <?php
-                            foreach ($data as $info):
+                            foreach ($data['cities'] as $info):
                                 $pc = $info['pc'];
                                 $customer_address = $pc['house_no'] . ' ' . $pc['street'] . ' ' .
                                         $pc['apartment'] . ' ' . $pc['city'] . ' ' . $pc['state'] . ' '
