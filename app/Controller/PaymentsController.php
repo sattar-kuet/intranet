@@ -753,7 +753,7 @@ class PaymentsController extends AppController {
         $this->Transaction->save($this->request->data['Transaction']);
         unset($this->request->data['Transaction']['transaction_id']);
 
-        $this->request->data['Transaction']['status'] = 'close';
+
         // made credit as paid 
         $sql = "SELECT * FROM transactions WHERE status = 'approved' AND package_customer_id = " . $this->request->data['Transaction']['package_customer_id'];
         $temp = $this->Transaction->query($sql);
@@ -767,12 +767,14 @@ class PaymentsController extends AppController {
         $due = $this->getDue($id);
         $credit = $this->getCredit($this->request->data['Transaction']['package_customer_id']);
         $totalDue = $due + $credit;
+        $status = 'close';
         if ($totalDue > 0) {
             $status = 'open';
         }
         $amount = $this->request->data['Transaction']['payable_amount'];
         unset($this->request->data['Transaction']['payable_amount']);
         $this->Transaction->id = $id;
+        $this->request->data['Transaction']['status'] = $status;
         $this->Transaction->save($this->request->data['Transaction']);
         // generate Ticket
         $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment mode: </b> Money Order", 'status' => 'open');
@@ -813,7 +815,7 @@ class PaymentsController extends AppController {
             $this->request->data['Transaction']['check_image'] = '';
         }
 
-        $this->request->data['Transaction']['status'] = 'close';
+
         $id = $this->request->data['Transaction']['id'];
         $this->request->data['Transaction']['transaction_id'] = $id;
         unset($this->request->data['Transaction']['id']);
@@ -837,12 +839,14 @@ class PaymentsController extends AppController {
         $due = $this->getDue($id);
         $credit = $this->getCredit($this->request->data['Transaction']['package_customer_id']);
         $totalDue = $due + $credit;
+        $status = 'close';
         if ($totalDue > 0) {
             $status = 'open';
         }
         $amount = $this->request->data['Transaction']['payable_amount'];
         unset($this->request->data['Transaction']['payable_amount']);
         $this->Transaction->id = $id;
+        $this->request->data['Transaction']['status'] = $status;
         $this->Transaction->save($this->request->data['Transaction']);
 
         // generate Ticket
@@ -886,7 +890,7 @@ class PaymentsController extends AppController {
         unset($this->request->data['Transaction']['transaction_id']);
 
 
-        $this->request->data['Transaction']['status'] = 'close';
+
         // made credit as paid 
         $sql = "SELECT * FROM transactions WHERE status = 'approved' AND package_customer_id = " . $this->request->data['Transaction']['package_customer_id'];
         $temp = $this->Transaction->query($sql);
@@ -900,14 +904,14 @@ class PaymentsController extends AppController {
         $due = $this->getDue($id);
         $credit = $this->getCredit($this->request->data['Transaction']['package_customer_id']);
         $totalDue = $due + $credit;
+         $status = 'close';
         if ($totalDue > 0) {
             $status = 'open';
         }
         $amount = $this->request->data['Transaction']['payable_amount'];
         unset($this->request->data['Transaction']['payable_amount']);
         $this->Transaction->id = $id;
-
-//        pr($this->request->data['Transaction']); exit;
+        $this->request->data['Transaction']['status'] = $status;
         $this->Transaction->save($this->request->data['Transaction']);
         // generate Ticket
         $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment Mode :</b> Cash", 'status' => 'open');
