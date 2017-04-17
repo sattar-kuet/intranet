@@ -773,6 +773,7 @@ class PaymentsController extends AppController {
         $amount = $this->request->data['Transaction']['payable_amount'];
         unset($this->request->data['Transaction']['payable_amount']);
         $this->Transaction->id = $id;
+        $this->request->data['Transaction']['status'] = $status;
         $this->Transaction->save($this->request->data['Transaction']);
         // generate Ticket
         $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment mode: </b> Money Order", 'status' => 'open');
