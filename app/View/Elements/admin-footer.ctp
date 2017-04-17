@@ -40,7 +40,7 @@ echo $this->Html->script(
         $(".dateRange").daterangepicker();
     });
 
-    $(".e2").daterangepicker({
+    $(".e1").daterangepicker({
         presetRanges: [{
                 text: 'Today',
                 dateStart: function () {

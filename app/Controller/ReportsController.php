@@ -744,64 +744,66 @@ class ReportsController extends AppController {
         return $data[0][0]['totalAccount'];
     }
 
-    function salesSupportdp() {
-        $clicked = false;
-        if ($this->request->is('post') || $this->request->is('put')) {
-            $total = array();
-            //$total['call'] = $this->getTotalCall();
-            //$total['cancel'] = $this->getTotalCancel(); 
-            $datrange = json_decode($this->request->data['Track']['daterange'], true);
-            $start = $datrange['start'];
-            $end = $datrange['end'];
-            $total['sales_query'] = $this->getTotalSalesQuery($start, $end);
+    function overAllreport($start, $end) {
 
-            // $total[0] = $total['done'] + $total['ready'];
-            // $total['installation'] = $this->getTotalInstallation();
 
-            $total['hold'] = $this->getTotalHold($start, $end);
-            $total['unhold'] = $this->getTotalUnhold($start, $end);
-            $total['reconnection'] = $this->getTotalReconnection($start, $end);
-            $total['done'] = $this->getTotalDone($start, $end);
+        $total = array();
+        //$total['call'] = $this->getTotalCall();
+        //$total['cancel'] = $this->getTotalCancel(); 
+        $datrange = json_decode($this->request->data['Role']['daterangeonly'], true);
+        $start = $datrange['start'];
+        $end = $datrange['end'];
+        $total['sales_query'] = $this->getTotalSalesQuery($start, $end);
+
+        // $total[0] = $total['done'] + $total['ready'];
+        // $total['installation'] = $this->getTotalInstallation();
+
+        $total['hold'] = $this->getTotalHold($start, $end);
+        $total['unhold'] = $this->getTotalUnhold($start, $end);
+        $total['reconnection'] = $this->getTotalReconnection($start, $end);
+        $total['done'] = $this->getTotalDone($start, $end);
 
 //            $total['ready'] = $this->getTotalNewordertaken();
 //            $total['servicecancel'] = $this->getTotalFullServiceCancel();
 //            $total['cancelduebill'] = $this->getTotalCancelDueBill();
 
-            $total['cardinfotaken'] = $this->getTotalCardinfotaken($start, $end);
-            $total['check_send'] = $this->getTotalCallBySatatus('check send', $start, $end);
-            $total['vod'] = $this->getTotalCallBySatatus('vod', $start, $end);
-            $total['interruption'] = $this->getTotalCallBySatatus('service interruption', $start, $end);
-            $total['cancel'] = $this->getTotalCallBySatatus('service cancel', $start, $end);
-            $total['cancel_from_da'] = $this->getTotalCallBySatatus('cancel from dealer & agent', $start, $end);
-            $total['cancel_from_hold'] = $this->getTotalCallBySatatus('cancel from hold', $start, $end);
-            //$total['card_info_taken'] = $this->getTotalCallBySatatus('card info taken');
-            $total['additional_box'] = $this->getTotalCallBySatatus('additional box installation', $start, $end);
-            $total['online_payment'] = $this->getTotalCallBySatatus('MONEY ORDER ONLINE PAYMENT', $start, $end);
-            $this->getTotalCallBySatatus('check send', $start, $end);
-            $total['addsalesreceive'] = $this->addsalesReceive($start, $end);
-            $total['totalSupport'] = $this->supportCall($start, $end);
-            $total['totaloutbound'] = $this->totalOutbound($start, $end);
+        $total['cardinfotaken'] = $this->getTotalCardinfotaken($start, $end);
+        $total['check_send'] = $this->getTotalCallBySatatus('check send', $start, $end);
+        $total['vod'] = $this->getTotalCallBySatatus('vod', $start, $end);
+        $total['interruption'] = $this->getTotalCallBySatatus('service interruption', $start, $end);
+        $total['cancel'] = $this->getTotalCallBySatatus('service cancel', $start, $end);
+        $total['cancel_from_da'] = $this->getTotalCallBySatatus('cancel from dealer & agent', $start, $end);
+        $total['cancel_from_hold'] = $this->getTotalCallBySatatus('cancel from hold', $start, $end);
+        //$total['card_info_taken'] = $this->getTotalCallBySatatus('card info taken');
+        $total['additional_box'] = $this->getTotalCallBySatatus('additional box installation', $start, $end);
+        $total['online_payment'] = $this->getTotalCallBySatatus('MONEY ORDER ONLINE PAYMENT', $start, $end);
+        $this->getTotalCallBySatatus('check send', $start, $end);
+        $total['addsalesreceive'] = $this->addsalesReceive($start, $end);
+        $total['totalSupport'] = $this->supportCall($start, $end);
+        $total['totaloutbound'] = $this->totalOutbound($start, $end);
 
-            $total['totalAccount'] = $this->accountCall($start, $end);
-            $total['inbound'] = $total['totalSupport'] + $total['totalAccount'] +
-                    $total['done'] + $total['sales_query'] + $total['reconnection'] + $total['cardinfotaken']
-                    // + $total['check_send'] + $total['vod'] 
+        $total['totalAccount'] = $this->accountCall($start, $end);
+        $total['inbound'] = $total['totalSupport'] + $total['totalAccount'] +
+                $total['done'] + $total['sales_query'] + $total['reconnection'] + $total['cardinfotaken']
+                // + $total['check_send'] + $total['vod'] 
 //                    + $total['interruption']+ $total['online_payment'] + $total['cancel_from_hold']
-                    + $total['addsalesreceive'] + $total['cancel'] +
-                    $total['cancel_from_da'] + $total['unhold'];
+                + $total['addsalesreceive'] + $total['cancel'] +
+                $total['cancel_from_da'] + $total['unhold'];
 //            pr($total);
 //            exit;
-            $clicked = true;
-            $datrange = json_decode($this->request->data['Track']['daterange'], true);
-            $start1 = $datrange['start'];
-            $start = date("m-d-Y", strtotime($start1));
-            $end1 = $datrange['end'];
-            $end = date("m-d-Y", strtotime($end1));
 
-            $date = ($start . ' ' . 'To' . ' ' . $end);
-            $this->set(compact('total', 'date'));
-        }
-        $this->set(compact('clicked'));
+        $datrange = json_decode($this->request->data['Role']['daterangeonly'], true);
+        $start1 = $datrange['start'];
+        $start = date("m-d-Y", strtotime($start1));
+        $end1 = $datrange['end'];
+        $end = date("m-d-Y", strtotime($end1));
+
+        $date = ($start . ' ' . 'To' . ' ' . $end);
+
+        $return['date'] = $date;
+        $return['total'] = $total;
+//        pr($return); exit;
+        return $return;
     }
 
     function techPendingPayment() {
@@ -977,13 +979,15 @@ class ReportsController extends AppController {
         $this->loadModel('Issue');
         $this->loadModel('User');
         $this->loadModel('Role');
+        $this->loadModel('PackageCustomer');
+        $loggedUser = $this->Auth->user();
+        $role_name = $loggedUser['Role']['name'];
+//        pr($role_name); exit;
         $action = 0;
         $data = array();
         if ($this->request->is('post')) {
 
             $action = strtolower($this->request->data['Role']['action']);
-//            pr($action);
-//            exit;
             if ($action == 'newcustomer') {
                 $data = $this->newcustomers($this->request->data['Role']['daterangeonly']);
             }
@@ -1031,19 +1035,26 @@ class ReportsController extends AppController {
                 $data = $this->closedinvoice($start = null, $end = null);
             }
 
-            if ($action == 'customerbyloaction') {  
+            if ($action == 'customerbyloaction') {
                 $data = $this->customerbyloaction();
             }
 
             if ($action == 'customersummary') {
                 $data = $this->customerSummary();
             }
+
+            if ($action == 'overallreport') {
+                $data = $this->overAllreport($start = null, $end = null);
+//                pr($data); exit;
+            }
         }
 
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
         $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
-        $this->set(compact('data', 'action', 'users', 'issues', 'roles'));
+        $cities = $this->PackageCustomer->find('list', array('fields' => array('id', 'city',), 'group' => 'PackageCustomer.city', 'order' => array('PackageCustomer.city' => 'ASC')));
+//        pr($cities); exit;
+        $this->set(compact('data', 'action', 'users', 'issues', 'roles', 'cities', 'role_name'));
     }
 
     function allAutorecurring($page = 1, $start = null, $end = null, $pay_mode = null) { //Auto recurring data all
@@ -1202,7 +1213,6 @@ class ReportsController extends AppController {
         $return['start'] = $start;
         $return['end'] = $end;
         return $return;
-
     }
 
     function customerFilter($status = 0, $system = 0) {
@@ -1222,7 +1232,7 @@ class ReportsController extends AppController {
                 LEFT JOIN psettings ps ON ps.id = pc.psetting_id
                 LEFT JOIN packages p ON p.id = ps.package_id
                 LEFT JOIN custom_packages cp ON cp.id = pc.custom_package_id
-                WHERE LOWER(city) LIKE '%$city%'";        
+                WHERE LOWER(city) LIKE '%$city%'";
         $cities = $this->PackageCustomer->query($sql);
         $return['cities'] = $cities;
         return $return;

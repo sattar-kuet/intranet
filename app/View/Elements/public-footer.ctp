@@ -194,7 +194,6 @@ echo $this->Html->script(
                                     </label>
                                     <div class="col-md-9">
                                         <?php
-//pr($cities); //exit;
                                         echo $this->Form->input('city_id', array(
                                             'type' => 'select',
                                             'options' => $cities,
