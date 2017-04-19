@@ -21,10 +21,6 @@
                         <div class="caption">
                             <i class="fa fa-paperclip"></i>All Reports
                         </div>
-                        <!--                        <div class="tools">
-                                                    <a href="javascript:;" class="reload">
-                                                    </a>
-                                                </div>-->
                     </div>
                     <div class="portlet-body form">
                         <!-- BEGIN FORM-->
@@ -48,7 +44,6 @@
                             </div>
                             <?php echo $this->Session->flash(); ?>
                             <div class="form-group">
-
                                 <div class="col-md-7" >
                                     <div class="col-md-12 display-hide hide-rest" id="only-date-range">
                                         <?php
@@ -132,8 +127,6 @@
                                                 );
                                                 ?>
                                             </div>
-
-
                                             <div class="col-md-6">
                                                 <?php
                                                 $status = array("closed" => "Closed", "solved" => "Solved", "unresolved" => "Unresolved", "open" => "Open");
@@ -146,9 +139,7 @@
                                                 );
                                                 ?>
                                             </div>
-
                                         </div>
-
                                     </div>
                                 </div>
 
@@ -157,7 +148,31 @@
                                     if ($role_name == 'sadmin') {
                                         echo $this->Form->input('action', array(
                                             'type' => 'select',
-                                            'options' => array('cancel' => 'Cancel', 'paymenthistory' => 'Payment History', 'newcustomer' => 'New Customer', 'expirecustomer' => 'Expire Customer', 'calllog' => 'Call Log', 'allautorecurring' => 'All Auto Recurring', 'successful' => 'Succeeded Auto Recurring', 'failed' => 'Faile Auto Recurring', 'summeryReport' => 'Summary', 'allinvoice' => 'All Invoice', 'openInvoice25' => 'Open Invoice', 'passedinvoice' => 'Passed Due Invoice', 'closedinvoice' => 'Closed Invoice', 'customerbyloaction' => 'Customer By Location', 'customersummary' => 'Customer Summary', 'overallreport' => 'Over all Report'),
+                                            'options' => array(
+                                                'allautorecurring' => 'All Auto Recurring',
+                                                'allinvoice' => 'All Invoice',
+                                                'calllog' => 'Call Log',
+                                                'cancel' => 'Cancel',
+                                                'closedinvoice' => 'Closed Invoice',
+                                                'customerbyloaction' => 'Customer By Location',
+                                                'customersummary' => 'Customer Summary',
+                                                'expirecustomer' => 'Expire Customer',
+                                                'failed' => 'Failed Auto Recurring',
+                                                'newcustomer' => 'New Customer',
+                                                'openInvoice25' => 'Open Invoice',
+                                                'overallreport' => 'Over all Report',
+                                                'passedinvoice' => 'Passed Due Invoice',
+                                                'paymenthistory' => 'Payment History',
+                                                'successful' => 'Succeeded Auto Recurring',
+                                                'summeryReport' => 'Summary'),
+                                            'empty' => 'Select criteria',
+                                            'class' => 'form-control select2me ',
+                                            'id' => 'actionID'
+                                        ));
+                                    } else if ($role_name == 'supervisor') {
+                                        echo $this->Form->input('action', array(
+                                            'type' => 'select',
+                                            'options' => array('calllog' => 'Call Log'),
                                             'empty' => 'Select Paymode',
                                             'class' => 'form-control select2me ',
                                             'id' => 'actionID'
@@ -165,17 +180,6 @@
                                     }
                                     ?>
 
-                                    <?php
-                                    if ($role_name == 'supervisor') {
-                                        echo $this->Form->input('action', array(
-                                            'type' => 'select',
-                                            'options' => array('calllog' => 'Call Log', 'overallreport' => 'Over all Report'),
-                                            'empty' => 'Select Paymode',
-                                            'class' => 'form-control select2me ',
-                                            'id' => 'actionID'
-                                        ));
-                                    }
-                                    ?>
                                 </div>
                             </div>
                         </div>
@@ -200,7 +204,6 @@
         <!-- END PAGE CONTENT -->
         <?php
         if ($action) {
-//                            pr($action); exit;
             if ($action == 'newcustomer') {
                 echo $this->element('newcustomer', array('data' => $data));
             }
@@ -262,7 +265,6 @@
             }
 
             if ($action == 'overallreport') {
-//                pr($data); exit;
                 echo $this->element('over_allreport', array('data' => $data));
             }
         }

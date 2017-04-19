@@ -36,7 +36,6 @@ class ReportsController extends AppController {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
         $this->loadModel('StatusHistory');
-        //  pr($this->request->data); exit;
         $datrange = json_decode($this->request->data['Role']['daterangeonly'], true);
         $start = $datrange['start'];
         $end = $datrange['end'];
@@ -49,8 +48,6 @@ class ReportsController extends AppController {
             LEFT JOIN packages  ON packages.id = psettings.package_id 
             LEFT JOIN custom_packages  ON custom_packages.id = package_customers.custom_package_id 
             where $conditions GROUP BY status_histories.id  limit 0,199";
-//        echo $sql;
-//        exit;
         $data = $this->PackageCustomer->query($sql);
         return $data;
     }
@@ -70,12 +67,16 @@ class ReportsController extends AppController {
         if (!empty($pay_mode) && $pay_mode != null) {
             $conditions .=" tr.pay_mode = '" . $pay_mode . "' AND ";
         }
-        if ($start == $end) {
-            $nextday = date('Y-m-d', strtotime($end . "+1 days"));
-            $conditions .="tr.created >=' " . $start . " 00:00:00' AND  tr.created < '" . $end . " 23:59:59' AND ";
-        } else {
-            $conditions .=" tr.created >='" . $start . " 00:00:00' AND  tr.created <='" . $end . " 23:59:59' AND ";
+
+        if ($start != '') {
+            if ($start == $end) {
+                $nextday = date('Y-m-d', strtotime($end . "+1 days"));
+                $conditions .="tr.created >=' " . $start . " 00:00:00' AND  tr.created < '" . $end . " 23:59:59' AND ";
+            } else {
+                $conditions .=" tr.created >='" . $start . " 00:00:00' AND  tr.created <='" . $end . " 23:59:59' AND ";
+            }
         }
+
         $conditions.="###";
         $conditions = str_replace("AND###", "", $conditions);
         $conditions = str_replace("AND ###", "", $conditions);
@@ -93,6 +94,7 @@ class ReportsController extends AppController {
                 LEFT JOIN packages p ON p.id = ps.package_id 
                 left join custom_packages cp on pc.custom_package_id = cp.id
                 WHERE $conditions order by tr.id desc limit $offset,$this->per_page";
+//        echo $sql; exit;
         $transactions = $this->Transaction->query($sql);
 
         $sql1 = "SELECT SUM(payable_amount)as totalamount FROM transactions tr WHERE $conditions ";
@@ -148,8 +150,6 @@ class ReportsController extends AppController {
         $return['total6monthp'] = $total6monthp;
         $return['total12monthp'] = $total12monthp;
         return $return;
-
-        // $this->set(compact('totalbox', 'total_mac', 'data', 'totalamount', 'total_page', 'total', 'start', 'end', 'pay_mode', 'totalmanual', 'totalautore', 'sql1monthp', 'total3monthp', 'total6monthp', 'total12monthp'));
     }
 
     function invoice($id = null) {
@@ -182,7 +182,6 @@ class ReportsController extends AppController {
         $packagecustomers[0]['pc']['mac'] = $mac;
 
         $return['packagecustomers'] = $packagecustomers;
-//        pr($return['packagecustomers']); exit;
         return $return;
     }
 
@@ -199,10 +198,8 @@ class ReportsController extends AppController {
     }
 
     function closedInvoice($start = null, $end = null) {
-//        pr('here'); exit;
         $this->loadModel('Package_customer');
         $this->loadModel('Transaction');
-//        pr($this->request->data['Role']); exit;
         $datrange = json_decode($this->request->data['Role']['daterangeonly'], true);
         $datrange['start'] = $datrange['start'] . ' 00:00:00';
         $datrange['end'] = $datrange['end'] . ' 23:59:59';
@@ -215,7 +212,6 @@ class ReportsController extends AppController {
             LEFT JOIN packages p ON p.id = ps.package_id 
             WHERE paid_amount !=0 and
             tr.created >='" . $datrange['start'] . "' AND tr.created <='" . $datrange['end'] . "'");
-//        pr ($packagecustomers); exit;
         $return['packagecustomers'] = $packagecustomers;
         return $return;
     }
@@ -289,7 +285,6 @@ class ReportsController extends AppController {
 
         $return['packagecustomers'] = $packagecustomers;
         return $return;
-//        $this->set(compact('packagecustomers'));
     }
 
     function summeryReport() {
@@ -307,8 +302,6 @@ class ReportsController extends AppController {
         $invoice['close'] = $closeInvoice[0][0]['total'];
         $return['invoice'] = $invoice;
         return $return;
-
-//        $this->set(compact('invoice'));
     }
 
     function printed() {
@@ -521,9 +514,7 @@ class ReportsController extends AppController {
         $temp = $this->Track->query("SELECT COUNT(tr.id) as total FROM  tracks tr left JOIN tickets t ON tr.ticket_id = t.id WHERE $conditions");
         $total = $temp[0][0]['total'];
         $total_page = ceil($total / $this->per_page);
-
-
-
+        
         $this->set(compact('filteredTicket', 'total_page', 'start', 'end'));
 
 
@@ -547,8 +538,6 @@ class ReportsController extends AppController {
         $this->loadModel('Role');
         $clicked = false;
         if ($this->request->is('post') || $this->request->is('put')) {
-
-
             $clicked = true;
             $this->set(compact(''));
         }
@@ -652,7 +641,6 @@ class ReportsController extends AppController {
 
     function getTotalCardinfotaken($start = null, $end = null) {
         $this->loadModel('Transaction');
-        // $sql = "SELECT count(DISTINCT package_customer_id) as cardinfotaken FROM tracks WHERE CAST(tracks.created as DATE) >= '" . $start . "' AND CAST(tracks.created as DATE) <='" . $end . "' AND tracks.issue_id = 0";
         $sql = "SELECT count(DISTINCT card_no) as cardinfotaken FROM transactions WHERE CAST(transactions.created as DATE) >= '" . $start . "' AND CAST(transactions.created as DATE) <='" . $end .
                 "' AND transactions.pay_mode = 'card' AND card_no !='' AND auto_recurring = 0";
         $cardinfotaken = $this->Transaction->query($sql);
@@ -668,13 +656,10 @@ class ReportsController extends AppController {
         LEFT JOIN tickets ON tracks.ticket_id = tickets.id 
          WHERE CAST(tickets.created as DATE) >='" . $start . "' AND CAST(tickets.created as DATE) <='" . $end . "'";
         $data = $this->Track->query($sql);
-        //  pr($data);
         $sql = "SELECT count(DISTINCT package_customer_id) as requested FROM status_histories WHERE (status_histories.date) >= '" . $start .
                 "' AND status_histories.date <='" . $end . "'  and status = 'requested'";
         $requested = $this->StatusHistory->query($sql);
-//        pr($requested);
         $totalIBCS = ($data[0][0]['totalSupport'] - $this->accountCall($start, $end)) + $requested[0][0]['requested']; //total in bound call DCC
-        // $totalIBCS = $totalIBCS - $this->getTotalCallBySatatus('payment');
         return $totalIBCS;
     }
 
@@ -789,8 +774,7 @@ class ReportsController extends AppController {
 //                    + $total['interruption']+ $total['online_payment'] + $total['cancel_from_hold']
                 + $total['addsalesreceive'] + $total['cancel'] +
                 $total['cancel_from_da'] + $total['unhold'];
-//            pr($total);
-//            exit;
+
 
         $datrange = json_decode($this->request->data['Role']['daterangeonly'], true);
         $start1 = $datrange['start'];
@@ -982,7 +966,6 @@ class ReportsController extends AppController {
         $this->loadModel('PackageCustomer');
         $loggedUser = $this->Auth->user();
         $role_name = $loggedUser['Role']['name'];
-//        pr($role_name); exit;
         $action = 0;
         $data = array();
         if ($this->request->is('post')) {
@@ -1045,7 +1028,6 @@ class ReportsController extends AppController {
 
             if ($action == 'overallreport') {
                 $data = $this->overAllreport($start = null, $end = null);
-//                pr($data); exit;
             }
         }
 
@@ -1053,7 +1035,6 @@ class ReportsController extends AppController {
         $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
         $cities = $this->PackageCustomer->find('list', array('fields' => array('id', 'city',), 'group' => 'PackageCustomer.city', 'order' => array('PackageCustomer.city' => 'ASC')));
-//        pr($cities); exit;
         $this->set(compact('data', 'action', 'users', 'issues', 'roles', 'cities', 'role_name'));
     }
 
@@ -1098,7 +1079,6 @@ class ReportsController extends AppController {
         $temp = $this->PackageCustomer->query("SELECT COUNT(pc.id) as total FROM package_customers pc WHERE pc.auto_r =  'yes' and pc.r_form >='" . $start . "' AND pc.r_form <='" . $end . "'");
         $total = $temp[0][0]['total'];
         $total_page = ceil($total / $this->per_page);
-//        $this->set(compact('allData', 'total_page', 'totalCustomer', 'totalPayment', 'start', 'end'));
 
         $return['allData'] = $allData;
         $return['total_page'] = $total_page;
@@ -1161,7 +1141,6 @@ class ReportsController extends AppController {
         $return['totalCustomer'] = $totalCustomer;
         $return['totalPayment'] = $totalPayment;
         return $return;
-//            $this->set(compact('allData', 'total_page', 'totalPayment', 'totalCustomer', 'start', 'end'));
     }
 
     function failed($page = 1, $start = null, $end = null) { //Auto recurring data error
@@ -1248,7 +1227,6 @@ class ReportsController extends AppController {
         $active['portal'] = $this->customerFilter('active', 'portal') + $this->customerFilter('done', 'portal');
         $active['portal1'] = $this->customerFilter('active', 'portal1') + $this->customerFilter('done', 'portal1');
 
-//        $active['portal'] = $total['portal']- $active['portal1'];
         //Canceled
         $canceled['cms1'] = $this->customerFilter('canceled', 'cms1');
         $canceled['cms2'] = $this->customerFilter('canceled', 'cms2');
@@ -1297,8 +1275,6 @@ class ReportsController extends AppController {
         $return['total_hold'] = $total_hold;
         $return['total_unhold'] = $total_unhold;
         return $return;
-
-//        $this->set(compact('active', 'hold', 'unhold', 'canceled', 'total_active', 'total_canceled', 'total_hold', 'total_unhold'));
     }
 
 }

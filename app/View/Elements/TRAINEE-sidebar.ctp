@@ -11,36 +11,7 @@
                 <!-- END SIDEBAR TOGGLER BUTTON -->
             </li>  
 
-            <li 
-            <?php
-            $admins = array('Messagesmanage', 'Messagesadd', 'Messagesedite');
-            if (in_array($this->name . '' . $this->action, $admins)):
-                ?>
-                    class="active"
-                    <?php
-                endif;
-                ?>
-                >
-                <a href="javascript:;">
-                    <i class="fa fa-user"></i>
-                    <span class="title">General Setting</span>
-                    <span class="arrow "></span>
-                </a>
-                <ul class="sub-menu">                 
-                    <li
-                    <?php if ($this->name . '' . $this->action == 'Messagesmanage' || $this->name . '' . $this->action == 'Messagesadd' || $this->name . '' . $this->action == 'Messagesedit'):
-                        ?>
-                            class="active"
-                            <?php
-                        endif;
-                        ?>
-                        >
-                        <a href="<?php echo Router::url(array('controller' => 'messages', 'action' => 'manage')) ?>">
-                            <i class="fa fa-dashboard"></i>
-                            Messages</a>
-                    </li>                  
-                </ul>
-            </li>
+     
 
 
             <li 

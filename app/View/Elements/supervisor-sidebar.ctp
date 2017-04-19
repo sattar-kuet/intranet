@@ -11,9 +11,9 @@
                 <!-- END SIDEBAR TOGGLER BUTTON -->
             </li>  
 
-            <li 
+             <li 
             <?php
-            $admins = array('Messagesmanage', 'Messagesadd', 'Messagesedite');
+            $admins = array('Customersmanage_delete_data', 'Otherspaymentsmanage', 'Otherspaymentscreate', 'Otherspaymentsedit', 'AdminsmanageRole', 'Adminsaddrole', 'Adminseditrole', 'AdminsadjustmentMemo', 'AdminsmanageDepartment', 'Adminsadddepartment', 'Adminseditdepartment', 'Messagesmanage', 'Messagesadd', 'Messagesedit', 'Adminsmanage', 'Adminscreate', 'Adminsedit_admin', 'AdminsmanageIssue', 'Adminsaddissue', 'Adminseditissue', 'Paymentscustom_payment');
             if (in_array($this->name . '' . $this->action, $admins)):
                 ?>
                     class="active"
@@ -26,7 +26,60 @@
                     <span class="title">General Setting</span>
                     <span class="arrow "></span>
                 </a>
-                <ul class="sub-menu">                 
+                <ul class="sub-menu">
+
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'AdminsmanageRole' || $this->name . '' . $this->action == 'Adminsaddrole' || $this->name . '' . $this->action == 'Adminseditrole'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'manageRole')) ?>">
+                            <i class="fa fa-dashboard"></i>
+                            Roles</a>
+                    </li>
+
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Adminsmanage' || $this->name . '' . $this->action == 'Adminscreate' || $this->name . '' . $this->action == 'Adminsedit_admin'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'manage')) ?>">
+                            <i class="fa fa-dashboard"></i>
+                            Admin</a>
+                    </li>
+
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'AdminsmanageDepartment' || $this->name . '' . $this->action == 'Adminsadddepartment' || $this->name . '' . $this->action == 'Adminseditdepartment'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'manageDepartment')) ?>">
+                            <i class="fa fa-dashboard"></i>
+                            Department</a>
+                    </li>
+
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'AdminsmanageIssue' || $this->name . '' . $this->action == 'Adminsaddissue' || $this->name . '' . $this->action == 'Adminseditissue'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'manageIssue')) ?>">
+                            <i class="fa fa-dashboard"></i>
+                            Issue</a>
+                    </li>
+
                     <li
                     <?php if ($this->name . '' . $this->action == 'Messagesmanage' || $this->name . '' . $this->action == 'Messagesadd' || $this->name . '' . $this->action == 'Messagesedit'):
                         ?>
@@ -38,10 +91,62 @@
                         <a href="<?php echo Router::url(array('controller' => 'messages', 'action' => 'manage')) ?>">
                             <i class="fa fa-dashboard"></i>
                             Messages</a>
-                    </li>                  
+                    </li>
+
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Paymentscustom_payment'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'payments', 'action' => 'custom_payment')) ?>">
+                            <i class="fa fa-dashboard"></i>
+                            Staff Payment</a>
+                    </li>
+
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'AdminsadjustmentMemo'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'adjustmentMemo')) ?>">
+                            <i class="fa fa-dashboard"></i>
+                            Adjustment Memo</a>
+                    </li>
+
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Otherspaymentsmanage' || $this->name . '' . $this->action == 'Otherspaymentscreate' || $this->name . '' . $this->action == 'Otherspaymentsedit'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'otherspayments', 'action' => 'manage')) ?>">
+                            <i class="fa fa-dashboard"></i>
+                            Others Payment</a>
+                    </li>
+
+                    <li
+                    <?php if ($this->name . '' . $this->action == 'Customersmanage_delete_data'):
+                        ?>
+                            class="active"
+                            <?php
+                        endif;
+                        ?>
+                        >
+                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'manage_delete_data')) ?>">
+                            <i class="fa fa-dashboard"></i>
+                            Delete Data</a>
+                    </li>
                 </ul>
             </li>
-            
+
             <li 
             <?php
             $services = array('Customerssearch');

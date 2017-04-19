@@ -639,9 +639,10 @@ class AdminsController extends AppController {
         $this->set(compact('filteredData', 'technician'));
     }
 
-    function donebytech() {
+    function donebytech($page = 1) {
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
+        $offset = --$page * $this->per_page;
         $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
                     left join comments c on pc.id = c.package_customer_id
                     left join users u on c.user_id = u.id
@@ -649,21 +650,18 @@ class AdminsController extends AppController {
                     left join psettings ps on ps.id = pc.psetting_id
                     left join custom_packages cp on cp.id = pc.custom_package_id 
                     left join issues i on pc.issue_id = i.id
-                    WHERE pc.status = 'done' AND approved=0 ORDER BY pc.id");
+                    WHERE pc.status = 'done' AND approved=0 ORDER BY pc.id limit $offset,$this->per_page");
 
         $filteredData = array();
         $unique = array();
         $index = 0;
 
         foreach ($allData as $key => $data) {
-            //pr($data); exit;
             $pd = $data['pc']['id'];
             if (isset($unique[$pd])) {
                 //  echo 'already exist'.$key.'<br/>';
                 if (!empty($data['c']['content'])) {
                     //  $temp = $data['c'];// array('id' => $data['psettings']['id'], 'duration' => $data['psettings']['duration'], 'amount' => $data['psettings']['amount'], 'offer' => $data['psettings']['offer']);
-                    //pr($temp); exit;
-
                     $temp = array('content' => $data['c'], 'user' => $data['u']);
                     $filteredData[$index]['comments'][] = $temp;
                 }
@@ -671,7 +669,6 @@ class AdminsController extends AppController {
                 if ($key != 0)
                     $index++;
                 $unique[$pd] = 'set';
-
                 $filteredData[$index]['customers'] = $data['pc'];
                 $filteredData[$index]['users'] = $data['u'];
                 $filteredData[$index]['tech'] = $data['ut'];
@@ -707,10 +704,13 @@ class AdminsController extends AppController {
                 }
             }
         }
+        
+        $temp = $this->PackageCustomer->query("SELECT COUNT(pc.id) as total FROM  package_customers pc WHERE pc.status = 'done' AND approved=0");
+        $total = $temp[0][0]['total'];
+        $total_page = ceil($total / $this->per_page);
+        
         $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
-
-
-        $this->set(compact('filteredData', 'technician'));
+        $this->set(compact('filteredData', 'technician', 'total_page'));
     }
 
     function donebyadmin() {
