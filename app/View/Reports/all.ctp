@@ -154,7 +154,7 @@
                                                 'calllog' => 'Call Log',
                                                 'cancel' => 'Cancel',
                                                 'closedinvoice' => 'Closed Invoice',
-                                                'customerbyloaction' => 'Customer By Location',
+                                                
                                                 'customersummary' => 'Customer Summary',
                                                 'expirecustomer' => 'Expire Customer',
                                                 'failed' => 'Failed Auto Recurring',

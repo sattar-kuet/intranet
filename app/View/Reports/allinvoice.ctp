@@ -1,4 +1,27 @@
+<style>
+    .ui-datepicker-multi-3 {
+        display: table-row-group !important;
+    }
+</style>
+
+<style type="text/css">
+    .alert {
+
+        padding: 6px;
+        margin-bottom: 5px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        text-align: center;
+    }
+    ul.pagination {
+        display: flex;
+        justify-content: center;
+        color: blue;
+    }
+</style>
+
 <div class="page-content-wrapper">
+
     <div class="page-content">     
         <div class="">
             <!-- BEGIN PAGE HEADER-->
@@ -8,6 +31,7 @@
                     <li>   </li>
                     <li>   </li>
                 </ul>
+
                 <script></script>
                 <div class="page-toolbar">
                     <div class="btn-group pull-right">
@@ -16,14 +40,28 @@
                         </a>
                     </div>
                 </div>
+                <ul class="pagination" >
+                    <?php
+                    for ($i = 1; $i <= $total_page; $i++):
+                        $active = '';
+                        if (isset($this->params['pass'][0]) && $this->params['pass'][0] == $i) {
+                            $active = 'active';
+                        }
+                        ?>
+                        <li class="paginate_button <?php echo $active; ?>" aria-controls="sample_editable_1" tabindex="<?php echo $i; ?>">
+                            <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'allInvoice', $i)) ?>"><?php echo $i; ?></a>
+                        </li>
+                    <?php endfor; ?>
+                </ul>
             </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
             <div  id="printableArea">  
+
                 <div class="col-md-12" >
                     <div style="float: left; height:1153px; width:806px; ">
-                        <?php                       
-                        foreach ($packagecustomers as $single):
+                        <?php
+                        foreach ($data as $single):
                             $pcaddress = $single['pc'];
                             $customer_address_one = $pcaddress['house_no'] . ' ' . $pcaddress['street'] . ' ' .
                                     $pcaddress['apartment'];
@@ -133,10 +171,11 @@
                                                         <li><?php echo $single['ps']['name']; ?> </li>
                                                         <?php
                                                         if (!empty($single['tr']['note']))
-                                                            ; {
+                                                            ;
+                                                        {
                                                             ?>
                                                             <li><?php echo $single['tr']['note']; ?></li> 
-                                                        <?php } ?>
+    <?php } ?>
                                                     </ul>
                                                 </td>
 
@@ -151,7 +190,7 @@
                                                 </td> 
 
                                                 <td style=" color: #333 !important; text-align: center; padding: 43px 0px 0px 9px ;">
-                                                    <?php echo $single['tr']['status']; ?>
+    <?php echo $single['tr']['status']; ?>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -215,12 +254,14 @@
                                 </div>
                             </div> 
 
-                        <?php endforeach; ?> 
+<?php endforeach; ?> 
                     </div>
                 </div> 
             </div>
         </div>          
     </div> 
+
+
 </div>
 <!-- END CONTENT -->
 
