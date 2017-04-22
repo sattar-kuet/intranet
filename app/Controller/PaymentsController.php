@@ -709,7 +709,7 @@ class PaymentsController extends AppController {
         $this->request->data['Transaction']['status'] = $status;
         $this->Transaction->save($this->request->data['Transaction']);
         // generate Ticket
-        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment mode :</b> Check", 'status' => 'open');
+        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment mode :</b> Check", 'status' => 'open','payment_process' => '2');
         $tickect = $this->Ticket->save($tdata); // Data save in Ticket
 
         $trackData['Track'] = array(
@@ -777,7 +777,7 @@ class PaymentsController extends AppController {
         $this->request->data['Transaction']['status'] = $status;
         $this->Transaction->save($this->request->data['Transaction']);
         // generate Ticket
-        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment mode: </b> Money Order", 'status' => 'open');
+        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment mode: </b> Money Order", 'status' => 'open','payment_process' => '2');
         $tickect = $this->Ticket->save($tdata); // Data save in Ticket
 
         $trackData['Track'] = array(
@@ -850,7 +850,7 @@ class PaymentsController extends AppController {
         $this->Transaction->save($this->request->data['Transaction']);
 
         // generate Ticket
-        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment Mode : </b> Online Bill", 'status' => 'open');
+        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment Mode : </b> Online Bill", 'status' => 'open','payment_process' => '2');
         $tickect = $this->Ticket->save($tdata); // Data save in Ticket
 
         $trackData['Track'] = array(
@@ -914,7 +914,7 @@ class PaymentsController extends AppController {
         $this->request->data['Transaction']['status'] = $status;
         $this->Transaction->save($this->request->data['Transaction']);
         // generate Ticket
-        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment Mode :</b> Cash", 'status' => 'open');
+        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment Mode :</b> Cash", 'status' => 'open','payment_process' => '2');
         $tickect = $this->Ticket->save($tdata); // Data save in Ticket
 
         $trackData['Track'] = array(

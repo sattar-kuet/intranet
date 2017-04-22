@@ -30,7 +30,6 @@
                             'id' => 'form_sample_3',
                             'class' => 'form-horizontal',
                             'novalidate' => 'novalidate',
-                                //'url' => array('controler' => 'Admins', 'action' => 'changeservice')
                                 )
                         );
                         ?>
@@ -54,7 +53,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <?php
-                                    $search = array("1" => "Customer", "2" => "Transaction ID", "3" => "Invoice No");
+                                    $search = array("1" => "Customer","3" => "Invoice No", "2" => "Transaction ID");
                                     echo $this->Form->input(
                                             'search', array(
                                         'class' => 'form-control required',
@@ -92,29 +91,14 @@
                         <div class="caption">
                             <i class="fa fa-envelope-o fa-lg" style="color:red;"></i>Announcements From Admin 
                         </div>
-                        <!--                        <div class="tools">
-                        
-                                                    <a href="" class="reload" data-original-title="" title="">
-                                                    </a>
-                        
-                                                </div>-->
                     </div>
-                    <!--  <div class="portlet-body" id="chats" style="overflow-y: scroll; max-height: 300px;"/> -->
                     <div class="portlet-body" id="chats"/>
                     <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto;"><div class="scroller" style="overflow: hidden; width: auto;" data-always-visible="1" data-rail-visible1="1" data-initialized="1">
                             <ul class="chats ">
-
                                 <?php
                                 foreach ($admin_messages as $message):
                                     ?>
-
                                     <li class="in">
-                                        <!--<line style="border-bottom: 1px solid #999; display: block;">-->
-                                           <!--<img class="avatar" alt="" src="<?php echo $this->webroot; ?>/assets/admin/layout/img/avatar1.jpg">-->
-                                        <!--<div class="message">-->
-    <!--                                            <span class="arrow">
-                                            </span>-->
-
                                         <a style="color: #E02222; font-weight: bold;" href="#" class="name">
                                             <?php echo $message['u']['name']; ?> </a>                                                
                                         <span class="datetime">

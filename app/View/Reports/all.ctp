@@ -21,10 +21,6 @@
                         <div class="caption">
                             <i class="fa fa-paperclip"></i>All Reports
                         </div>
-                        <!--                        <div class="tools">
-                                                    <a href="javascript:;" class="reload">
-                                                    </a>
-                                                </div>-->
                     </div>
                     <div class="portlet-body form">
                         <!-- BEGIN FORM-->
@@ -48,7 +44,6 @@
                             </div>
                             <?php echo $this->Session->flash(); ?>
                             <div class="form-group">
-
                                 <div class="col-md-7" >
                                     <div class="col-md-12 display-hide hide-rest" id="only-date-range">
                                         <?php
@@ -59,17 +54,17 @@
                                         );
                                         ?>
                                     </div>
-                                    
+
                                     <div class="col-md-9 display-hide hide-rest" id="only-city">
                                         <?php
-                                            echo $this->Form->input('city', array(
-                                                'type' => 'select',
-                                                'options' => array('ny' => 'NY', 'aa' => 'AA', 'bb' => 'BB'),
-                                                'empty' => 'Select City',
-                                                'class' => 'form-control select2me '
-                                                    )
-                                            );
-                                            ?>
+                                        echo $this->Form->input('city', array(
+                                            'type' => 'select',
+                                            'options' => $cities,
+                                            'empty' => 'Select City',
+                                            'class' => 'form-control select2me '
+                                                )
+                                        );
+                                        ?>
                                     </div>
 
                                     <div class="col-md-12 row-fluid display-hide hide-rest" id="date-range-pay-mode">
@@ -132,8 +127,6 @@
                                                 );
                                                 ?>
                                             </div>
-
-
                                             <div class="col-md-6">
                                                 <?php
                                                 $status = array("closed" => "Closed", "solved" => "Solved", "unresolved" => "Unresolved", "open" => "Open");
@@ -146,26 +139,48 @@
                                                 );
                                                 ?>
                                             </div>
-
                                         </div>
-
                                     </div>
                                 </div>
 
                                 <div class="col-md-5">
                                     <?php
-                                    echo $this->Form->input('action', array(
-                                        'type' => 'select',
-                                        'options' => array('cancel' => 'Cancel', 'paymenthistory' => 'Payment History', 'newcustomer' => 'New Customer', 'expirecustomer' => 'Expire Customer', 'calllog' => 'Call Log', 'allautorecurring' => 'All Auto Recurring', 'successful' => 'Succeeded Auto Recurring', 'failed' => 'Faile Auto Recurring', 'summeryReport' => 'Summary', 'allinvoice' => 'All Invoice', 'openInvoice25' => 'Open Invoice', 'passedinvoice' => 'Passed Due Invoice', 'closedinvoice' => 'Closed Invoice', 'customerbyloaction' => 'Customer By Location', 'customersummary' => 'Customer Summary'),
-                                        'empty' => 'Select Paymode',
-                                        'class' => 'form-control select2me ',
-                                        'id' => 'actionID'
-                                            )
-                                    );
+                                    if ($role_name == 'sadmin') {
+                                        echo $this->Form->input('action', array(
+                                            'type' => 'select',
+                                            'options' => array(
+                                                'allautorecurring' => 'All Auto Recurring',
+                                                'allinvoice' => 'All Invoice',
+                                                'calllog' => 'Call Log',
+                                                'cancel' => 'Cancel',
+                                                'closedinvoice' => 'Closed Invoice',
+                                                'customerbyloaction' => 'Customer By Location',
+                                                'customersummary' => 'Customer Summary',
+                                                'expirecustomer' => 'Expire Customer',
+                                                'failed' => 'Failed Auto Recurring',
+                                                'newcustomer' => 'New Customer',
+                                                'openInvoice25' => 'Open Invoice',
+                                                'overallreport' => 'Over all Report',
+                                                'passedinvoice' => 'Passed Due Invoice',
+                                                'paymenthistory' => 'Payment History',
+                                                'successful' => 'Succeeded Auto Recurring',
+                                                'summeryReport' => 'Summary'),
+                                            'empty' => 'Select criteria',
+                                            'class' => 'form-control select2me ',
+                                            'id' => 'actionID'
+                                        ));
+                                    } else if ($role_name == 'supervisor') {
+                                        echo $this->Form->input('action', array(
+                                            'type' => 'select',
+                                            'options' => array('calllog' => 'Call Log'),
+                                            'empty' => 'Select Paymode',
+                                            'class' => 'form-control select2me ',
+                                            'id' => 'actionID'
+                                        ));
+                                    }
                                     ?>
+
                                 </div>
-
-
                             </div>
                         </div>
                         <div class="form-actions">
@@ -189,7 +204,6 @@
         <!-- END PAGE CONTENT -->
         <?php
         if ($action) {
-//                            pr($action); exit;
             if ($action == 'newcustomer') {
                 echo $this->element('newcustomer', array('data' => $data));
             }
@@ -233,22 +247,25 @@
             if ($action == 'openinvoice25') {
                 echo $this->element('openinvoice25', array('data' => $data));
             }
-            
+
             if ($action == 'passedinvoice') {
                 echo $this->element('passedinvoice', array('data' => $data));
             }
-            
+
             if ($action == 'closedinvoice') {
                 echo $this->element('closedinvoice', array('data' => $data));
             }
-           
+
             if ($action == 'customerbyloaction') {
                 echo $this->element('customerbyloaction', array('data' => $data));
             }
-            
+
             if ($action == 'customersummary') {
-//                pr($data); exit;
                 echo $this->element('customersummary', array('data' => $data));
+            }
+
+            if ($action == 'overallreport') {
+                echo $this->element('over_allreport', array('data' => $data));
             }
         }
         ?>

@@ -103,7 +103,7 @@ class TicketsController extends AppController {
                 $status = 'open';
                 if (trim($this->request->data['Ticket']['action_type']) == 'solved' ||
                         trim($this->request->data['Ticket']['action_type']) == 'ready' ||
-                        trim($this->request->data['Ticket']['action_type']) == 'shipment' || 
+                        trim($this->request->data['Ticket']['action_type']) == 'shipment' ||
                         trim($this->request->data['Ticket']['issue_id']) == 17) {
                     $this->request->data['Ticket']['priority'] = 'low';
                     $this->request->data['Ticket']['status'] = 'solved';
@@ -797,8 +797,6 @@ class TicketsController extends AppController {
         return $this->redirect($this->referer());
     }
 
-
-
     function addmassage() {
         $this->loadModel('Message');
         if ($this->request->is('post')) {
@@ -904,6 +902,28 @@ class TicketsController extends AppController {
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
         $this->set(compact('data', 'users', 'roles', 'total_page', 'total'));
+    }
+
+    function payment_success() {
+        $this->loadModel('User');
+        $this->loadModel('Ticket');
+        $this->loadModel('PackageCustomer');
+        $allData = $this->Ticket->query("SELECT * 
+        FROM tickets AS ti
+        LEFT JOIN tracks tr ON ti.id = tr.ticket_id
+        LEFT JOIN package_customers pc ON tr.package_Customer_id = pc.id
+        WHERE ti.payment_process =2");
+        $this->set(compact('allData'));
+    }
+    
+    function payment_failed() {
+        $this->loadModel('User');
+        $this->loadModel('Ticket');
+        $this->loadModel('PackageCustomer');
+        $allData = $this->Ticket->query("SELECT * FROM tickets AS ti
+        LEFT JOIN tracks tr ON ti.id = tr.ticket_id
+        LEFT JOIN package_customers pc ON tr.package_Customer_id = pc.id WHERE ti.payment_process =3");
+        $this->set(compact('allData'));
     }
 
 }

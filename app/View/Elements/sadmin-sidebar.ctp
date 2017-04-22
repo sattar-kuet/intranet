@@ -182,7 +182,7 @@
 
             <li 
             <?php
-            $tickets = array('Ticketscreate', 'Ticketsmanage', 'Ticketsassigned_to_me', 'Ticketsforwarded_by', 'Ticketssolved_ticket', 'Ticketsin_progress');
+            $tickets = array('Ticketspayment_failed', 'Ticketspayment_success', 'Ticketscreate', 'Ticketsmanage', 'Ticketsassigned_to_me', 'Ticketsforwarded_by', 'Ticketssolved_ticket', 'Ticketsin_progress');
             if (in_array($this->name . '' . $this->action, $tickets)):
                 ?>
                     class="active"
@@ -255,6 +255,16 @@
                         <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'solved_ticket')) ?>">
                             <i class="fa glyphicon glyphicon-check"></i>
                             Solved Ticket</a>
+                    </li>
+
+                   
+
+                    <li <?php if ($this->name . '' . $this->action == 'payment_success'): ?> class="active" <?php endif; ?>>
+                        <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'payment_success')) ?>"><i class="fa glyphicon glyphicon-check"></i> Payment Success</a>
+                    </li>
+                    
+                    <li <?php if ($this->name . '' . $this->action == 'payment_failed'): ?> class="active" <?php endif; ?>>
+                        <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'payment_failed')) ?>"><i class="fa glyphicon glyphicon-check"></i> Payment Failed</a>
                     </li>
 
                 </ul>
