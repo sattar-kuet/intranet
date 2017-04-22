@@ -2400,7 +2400,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                             <?php elseif ($payment['tr']['pay_mode'] == 'cash'): ?>
                                                                 <li>Pay Mode : <?php echo $payment['tr']['pay_mode']; ?></li> 
                                                                 <li> Cash By : <?php echo $payment['tr']['cash_by']; ?> </li>
-                                                                <a  target="_blank" title="Edit"  href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit', $bill['id'])) ?>" >
+                                                                <a  target="_blank" title="Edit"  href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit', $payment['tr']['id'])) ?>" >
                                                                     <span class="fa fa-pencil" target ="_blank"></span>
                                                                 </a>
                                                             <?php elseif ($payment['tr']['pay_mode'] == 'refund'): ?>
@@ -2409,7 +2409,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                                 <ul> <li>Amount : <?php echo $payment['tr']['paid_amount']; ?></li>
                                                                     <li>Refund Date : <?php echo date('m-d-Y', strtotime($payment['tr']['created'])); ?></li>
                                                                 </ul>
-                                                                <a  target="_blank" title="Edit"  href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit', $bill['id'])) ?>" >
+                                                                <a  target="_blank" title="Edit"  href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit', $payment['tr']['id'])) ?>" >
                                                                     <span class="fa fa-pencil" target ="_blank"></span>
                                                                 </a>
                                                             <?php else: ?>
@@ -2418,7 +2418,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                                 <?php if (!empty($payment['tr']['check_image'])): ?>
                                                                     <img src="<?php echo $this->webroot . 'check_images' . '/' . $payment['tr']['check_image']; ?>"  width="50px" height="50px" />
                                                                 <?php endif; ?>
-                                                                <a  target="_blank" title="Edit"  href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit', $bill['id'])) ?>" >
+                                                                <a  target="_blank" title="Edit"  href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit', $payment['tr']['id'])) ?>" >
                                                                     <span class="fa fa-pencil" target ="_blank"></span>
                                                                 </a>
                                                             <?php endif; ?> 

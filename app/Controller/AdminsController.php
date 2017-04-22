@@ -1249,7 +1249,7 @@ class AdminsController extends AppController {
 
     function runReport() {
         $this->sendReport();
-        return $this->redirect('/admins/servicemanage');
+        return $this->redirect('/customers/search');
     }
 
 }
