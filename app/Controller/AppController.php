@@ -446,7 +446,7 @@ class AppController extends Controller {
             'content' => $total,
             'date' => $tbhead
         );
-        $report->sendEmail($emailInfo);
+        $this->sendEmail($emailInfo);
 
         // End send mail 
     }
