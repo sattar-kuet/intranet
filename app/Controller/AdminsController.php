@@ -169,8 +169,7 @@ class AdminsController extends AppController {
             if ($this->Role->validates()) {
                 $this->Role->id = $this->request->data['Role']['id'];
                 $loggedUser = $this->Auth->user();
-                $data['Role'] = array(
-                    "user_id" => $loggedUser['id']);
+                $data['Role'] = array("user_id" => $loggedUser['id']);
                 $this->Role->save($data);
                 $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>

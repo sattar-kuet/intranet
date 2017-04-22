@@ -55,7 +55,6 @@
     <div  id="printableArea">  
         <div style=" height:1153px; width:806px; ">
             <?php
-//                pr($data); exit;
             foreach ($data['packagecustomers'] as $single):
                 $pcaddress = $single['pc'];
                 $customer_address_one = $pcaddress['house_no'] . ' ' . $pcaddress['street'] . ' ' .
