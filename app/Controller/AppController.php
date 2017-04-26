@@ -346,6 +346,7 @@ class AppController extends Controller {
     }
 
     function sendEmail($emailInfo = array()) {
+        
         $from = $emailInfo['from']; //'info@totalitsolution.com';
         $title = $emailInfo['title']; //'Report';
         $subject = $emailInfo['subject']; // "Reseller Registration";
