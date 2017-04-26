@@ -114,13 +114,20 @@ class CustomersController extends AppController {
 //            $param = $this->params['pass'][1];
 //        }
 
+
         $offset = --$page * $this->per_page;
         $param = str_replace(' ', '', $param);
-        $condition = "LOWER(package_customers." . $field . ") LIKE '%" . strtolower($param) . "%'";
+
+//        echo $field;
+//        exit;
+        $condition = " package_customers.cell LIKE '%$param%'";
         $name = array('first_name', 'last_name', 'middle_name');
         //  echo $condition;
-
-        if (in_array($field, $name)) {
+        if ($field == "cell") {
+            $regex = "/[^0-9]/i";
+            $param = preg_replace($regex, "", $param);
+            $condition = " package_customers.cell LIKE '%$param%' OR package_customers.home LIKE '%$param%'";
+        } else if (in_array($field, $name)) {
             $condition = " LOWER(package_customers.first_name) LIKE '%" . strtolower($param) .
                     "%' OR LOWER(package_customers.middle_name) LIKE '%" . strtolower($param) .
                     "%' OR LOWER(package_customers.last_name) LIKE '%" . strtolower($param) . "%'";
@@ -135,21 +142,14 @@ class CustomersController extends AppController {
             $fullname = strtolower($param);
             $condition = "LOWER(CONCAT(package_customers.first_name,package_customers.middle_name,package_customers.last_name)) LIKE '%" . $fullname . "%'";
         }
+
+        // echo $field.':' .$condition.'<br>';
+
         $sql = "SELECT * FROM package_customers "
                 . "LEFT JOIN psettings ON package_customers.psetting_id = psettings.id"
                 . " LEFT JOIN packages ON psettings.package_id = packages.id"
                 . " LEFT JOIN custom_packages ON package_customers.custom_package_id = custom_packages.id" .
-                " WHERE " . $condition . "limit $offset,$this->per_page";
-
-        // echo $sql.'<br>'; 
-
-        $temp = $this->PackageCustomer->query("SELECT COUNT(package_customers.id) as total FROM package_customers 
-                LEFT JOIN psettings ON package_customers.psetting_id = psettings.id
-                LEFT JOIN packages ON psettings.package_id = packages.id
-                LEFT JOIN custom_packages ON package_customers.custom_package_id = custom_packages.id
-                WHERE  $condition");
-        $total = $temp[0][0]['total'];
-        $total_page = ceil($total / $this->per_page);
+                " WHERE $condition  LIMIT $offset,$this->per_page";
 
         $temp = $this->PackageCustomer->query($sql);
         $data = array();
@@ -167,6 +167,12 @@ class CustomersController extends AppController {
         $data = array();
         $data['customer'] = $customer;
         $data['package'] = $package;
+
+        $sql = "SELECT COUNT(package_customers.id) as total FROM package_customers WHERE " . $condition;
+        $temp = $this->PackageCustomer->query($sql);
+        $total = $temp[0][0]['total'];
+        $total_page = ceil($total / $this->per_page);
+
         $data['total_page'] = $total_page;
         return $data;
     }
@@ -247,6 +253,7 @@ class CustomersController extends AppController {
                 $data = $this->searchBytrxId($trxId, $clicked, $page);
             } else {
                 $data = $this->searchByParam($input);
+                
             }
         }
         $admin_messages = $this->message();
@@ -337,7 +344,7 @@ class CustomersController extends AppController {
         $page = $input['page'];
         $data['customer'] = array();
         $data['package'] = array();
-       
+
         if ($input['search'] == 1) {
             $data = $this->getCustomerByParam($page, $param, 'cell');
             if (count($data['customer']) == 0) {
@@ -364,7 +371,6 @@ class CustomersController extends AppController {
             }
         } else if ($input['search'] == 2) {
             $data = $this->searchBytrxId($param);
-            
         } else if ($input['search'] == 3) {
             $data = $this->searchbyinvoice($param);
         }
