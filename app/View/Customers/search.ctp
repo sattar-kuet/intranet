@@ -1,3 +1,5 @@
+
+
 <style type="text/css">
     .alert {
         padding: 6px;
@@ -40,26 +42,66 @@
                             </div>
                             <?php echo $this->Session->flash(); ?>
                             <div class="form-group">
-                                <div class="col-md-9">
+                                <div class="col-md-9  hide-rest" id="only-date-range">
                                     <?php
                                     echo $this->Form->input('param', array(
                                         'type' => 'text',
                                         'placeholder' => 'Type search parameter',
-                                        'class' => 'form-control required',
+                                        'class' => 'form-control ',
                                         'style' => 'font-size: 15px;'
                                             )
                                     );
                                     ?>
                                 </div>
+
+                                <div class="col-md-9 display-hide hide-rest" id="only-city">
+                                    <div class="col-md-4">
+                                        <?php
+                                        echo $this->Form->input('state', array(
+                                            'type' => 'select',
+                                            'options' => $states,
+                                            'empty' => 'Select State',
+                                            'class' => 'form-control select2me '
+                                                )
+                                        );
+                                        ?>
+                                    </div> 
+
+                                    <div class="col-md-4">
+                                        <?php
+                                        echo $this->Form->input('city', array(
+                                            'type' => 'select',
+                                            'options' => $cities,
+                                            'empty' => 'Select City',
+                                            'class' => 'form-control select2me '
+                                                )
+                                        );
+                                        ?>
+                                    </div> 
+                                    <div class="col-md-4">
+                                        <?php
+                                        echo $this->Form->input('zip', array(
+                                            'type' => 'text',
+                                            'placeholder' => 'Type search zip',
+                                            'class' => 'form-control ',
+                                            'style' => 'font-size: 15px;'
+                                                )
+                                        );
+                                        ?>
+                                    </div> 
+                                </div>
+
                                 <div class="col-md-3">
                                     <?php
-                                    $search = array("1" => "Customer","3" => "Invoice No", "2" => "Transaction ID");
+                                    $search = array("1" => "Customer", "2" => "Invoice No", "3" => "Transaction ID", '4' => 'Customer By Location',);
                                     echo $this->Form->input(
                                             'search', array(
-                                        'class' => 'form-control required',
+                                        'class' => 'form-control ',
                                         'default' => 'Customer',
                                         'options' => $search,
-                                        'label' => false
+                                        'label' => false,
+                                        'id' => 'actionforSearch',
+                                        'style' => 'margin-left: -24px; width: 191px;'
                                             )
                                     );
                                     ?>
@@ -126,15 +168,19 @@
 
     <?php
     if ($clicked == 1) {
-        echo $this->element('customers', array('data' => $data));
+        echo $this->element('customers', array('data' => $data, 'type' => $clicked,'param' =>$param));
     }
-    
+
     if ($clicked == 2) {
-        echo $this->element('transaction', array('data' => $data));
+        echo $this->element('transaction', array('data' => $data, 'type' => $clicked,'param' =>$param));
     }
-   
+
     if ($clicked == 3) {
-        echo $this->element('invoice', array('data' => $data));
+        echo $this->element('invoice', array('data' => $data, 'type' => $clicked,'param' =>$param));
+    }
+
+    if ($clicked == 4) {
+        echo $this->element('customerbyloaction', array('data' => $data, 'type' => $clicked,'param' =>$param));
     }
     ?>
 

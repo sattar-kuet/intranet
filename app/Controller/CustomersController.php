@@ -106,10 +106,19 @@ class CustomersController extends AppController {
         return $this->redirect($this->referer());
     }
 
-    function getCustomerByParam($param, $field) {
+    function getCustomerByParam($page = 1, $param, $field) {
+
+        //  pr($this->params['pass']);
+//        if (count($this->params['pass'])) {
+//            $page = $this->params['pass'][2];
+//            $param = $this->params['pass'][1];
+//        }
+
+        $offset = --$page * $this->per_page;
         $param = str_replace(' ', '', $param);
         $condition = "LOWER(package_customers." . $field . ") LIKE '%" . strtolower($param) . "%'";
         $name = array('first_name', 'last_name', 'middle_name');
+        //  echo $condition;
 
         if (in_array($field, $name)) {
             $condition = " LOWER(package_customers.first_name) LIKE '%" . strtolower($param) .
@@ -118,8 +127,7 @@ class CustomersController extends AppController {
         } else if ($field == "fm_name") {
             $condition = " LOWER(CONCAT(package_customers.first_name,package_customers.middle_name)) LIKE '%" . strtolower($param) .
                     "%'";
-        }
-         else if ($field == "ml_name") {
+        } else if ($field == "ml_name") {
             $condition = " LOWER(CONCAT(package_customers.middle_name,package_customers.last_name)) LIKE '%" . strtolower($param) .
                     "%'";
         }
@@ -131,9 +139,18 @@ class CustomersController extends AppController {
                 . "LEFT JOIN psettings ON package_customers.psetting_id = psettings.id"
                 . " LEFT JOIN packages ON psettings.package_id = packages.id"
                 . " LEFT JOIN custom_packages ON package_customers.custom_package_id = custom_packages.id" .
-                " WHERE " . $condition;
+                " WHERE " . $condition . "limit $offset,$this->per_page";
 
-        //     echo $sql;
+        // echo $sql.'<br>'; 
+
+        $temp = $this->PackageCustomer->query("SELECT COUNT(package_customers.id) as total FROM package_customers 
+                LEFT JOIN psettings ON package_customers.psetting_id = psettings.id
+                LEFT JOIN packages ON psettings.package_id = packages.id
+                LEFT JOIN custom_packages ON package_customers.custom_package_id = custom_packages.id
+                WHERE  $condition");
+        $total = $temp[0][0]['total'];
+        $total_page = ceil($total / $this->per_page);
+
         $temp = $this->PackageCustomer->query($sql);
         $data = array();
         $customer = array();
@@ -150,6 +167,7 @@ class CustomersController extends AppController {
         $data = array();
         $data['customer'] = $customer;
         $data['package'] = $package;
+        $data['total_page'] = $total_page;
         return $data;
     }
 
@@ -187,16 +205,110 @@ class CustomersController extends AppController {
         $this->PackageCustomer->save($data);
     }
 
-    function search() {
-        $clicked = false;
+    function search($clicked = false, $param = null, $page = 1) {
+        $this->loadModel('PackageCustomer');
         $data = array();
+        $input['page'] = $page;
+
         if ($this->request->is('post')) {
             $input = $this->request->data['PackageCustomer'];
-            $clicked = $input['search'];
-            $data = $this->searchByParam($input);
+//            pr($input); exit;
+            if ($input['search'] == 4) {
+                $state = (empty($input['state'])) ? 0 : $input['state'];
+                $state = preg_replace("/[\r\n]+/", ' ', $state);
+                $state = trim($state);
+
+                $city = (empty($input['city'])) ? 0 : $input['city'];
+                $city = preg_replace("/[\r\n]+/", " ", $city);
+                $city = trim($city);
+
+                $zip = (empty($input['zip'])) ? 0 : $input['zip'];
+                $zip = preg_replace("/[\r\n]+/", " ", $zip);
+                $zip = trim($zip);
+                $param = $state . '#' . $city . "#" . $zip;
+                $temp = $this->redirect(array('controller' => 'customers', 'action' => 'search', $input['search'], $param, 1));
+            }
+            $this->redirect(array('controller' => 'customers', 'action' => 'search', $input['search'], $input['param'], 1));
+        } else if ($clicked) {
+
+            $input['search'] = $clicked;
+            $input['param'] = $param;
+            if ($clicked == 4) {
+                $params = explode("#", $param);
+                $state = $params[0];
+                $city = $params[1];
+                $zip = $params[2];
+                $data = $this->customerByloaction($state, $city, $zip, $clicked, $page);
+            } else if ($clicked == 2) {
+                $invoice = $input['param'];
+                $data = $this->searchbyinvoice($invoice, $clicked, $page);
+            } else if ($clicked == 3) {
+                $trxId = $input['param'];
+                $data = $this->searchBytrxId($trxId, $clicked, $page);
+            } else {
+                $data = $this->searchByParam($input);
+            }
         }
         $admin_messages = $this->message();
-        $this->set(compact('data', 'clicked', 'admin_messages'));
+        $states = $this->PackageCustomer->find('list', array('fields' => array('state', 'state'), 'group' => 'PackageCustomer.state', 'order' => array('PackageCustomer.state' => 'ASC')));
+        $cities = $this->PackageCustomer->find('list', array('fields' => array('city', 'city'), 'group' => 'PackageCustomer.city', 'order' => array('PackageCustomer.city' => 'ASC')));
+        $this->set(compact('data', 'clicked', 'param', 'cities', 'states', 'admin_messages'));
+    }
+
+    function customerByloaction($state, $city, $zip, $type, $page = 1) {
+        $this->loadModel('PackageCustomer');
+        $this->loadModel('StatusHistory');
+        $offset = --$page * $this->per_page;
+
+        $city = trim($city);
+        $city = strtolower($city);
+        $state = trim($state);
+        $state = strtolower($state);
+
+        $sql = "SELECT * 
+                FROM package_customers pc
+                LEFT JOIN status_histories ON pc.id = status_histories.package_customer_id
+                LEFT JOIN psettings ps ON ps.id = pc.psetting_id
+                LEFT JOIN packages p ON p.id = ps.package_id
+                LEFT JOIN custom_packages cp ON cp.id = pc.custom_package_id ";
+        $condition = '';
+
+        if ($state) {
+            $condition .= " LOWER(pc.state) LIKE '%$state%' AND";
+        }
+        if ($city) {
+            $condition .=" LOWER(pc.city) LIKE '%$city%' AND";
+        }
+        if ($zip) {
+            $condition .=" pc.zip= $zip AND";
+        }
+        if (empty($state) && empty($city) && empty($zip)) {
+            $Msg = '<div class="alert alert-error">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>You must select at least one criteria! </strong>
+    </div>';
+            $this->Session->setFlash($Msg);
+            return $this->redirect($this->referer());
+        }
+        $condition .="###";
+        $condition = str_replace("AND###", "", $condition);
+
+        $sql .=' WHERE ' . $condition . "LIMIT $offset,$this->per_page";
+
+        $temp = $this->PackageCustomer->query("SELECT COUNT(pc.id) as total 
+                FROM package_customers pc
+                LEFT JOIN status_histories ON pc.id = status_histories.package_customer_id
+                LEFT JOIN psettings ps ON ps.id = pc.psetting_id
+                LEFT JOIN packages p ON p.id = ps.package_id
+                LEFT JOIN custom_packages cp ON cp.id = pc.custom_package_id
+                WHERE  $condition");
+
+        $total = $temp[0][0]['total'];
+        $total_page = ceil($total / $this->per_page);
+
+        $data['data'] = $this->PackageCustomer->query($sql);
+        $data['total_page'] = $total_page;
+        return $data;
     }
 
     function message() {
@@ -210,7 +322,6 @@ class CustomersController extends AppController {
         $rid2 = $temp[0]['roles']['id'];
         $sql = "SELECT * FROM messages m
         LEFT JOIN users u ON u.id = m.user_id  WHERE (m.assign_id = $uid OR m.role_id = $rid OR m.role_id = $rid2) AND m.status ='open' ORDER BY m.id DESC";
-        // echo $sql;
         $admin_messages = $this->Message->query($sql);
         return $admin_messages;
     }
@@ -221,59 +332,58 @@ class CustomersController extends AppController {
         $this->loadModel('CustomPackage');
         $this->loadModel('Psetting');
         $this->loadModel('Package');
+
         $param = $input['param'];
+        $page = $input['page'];
         $data['customer'] = array();
         $data['package'] = array();
-        // pr($this->request->data);
+       
         if ($input['search'] == 1) {
-            $data = $this->getCustomerByParam($param, 'cell');
+            $data = $this->getCustomerByParam($page, $param, 'cell');
             if (count($data['customer']) == 0) {
-                $data = $this->getCustomerByParam($param, 'first_name');
+                $data = $this->getCustomerByParam($page, $param, 'first_name');
             }
             if (count($data['customer']) == 0) {
-                $data = $this->getCustomerByParam($param, 'last_name');
+                $data = $this->getCustomerByParam($page, $param, 'last_name');
             }
             if (count($data['customer']) == 0) {
-                $data = $this->getCustomerByParam($param, 'mac');
+                $data = $this->getCustomerByParam($page, $param, 'mac');
             }
             if (count($data['customer']) == 0) {
                 // search by first and middle name
-                $data = $this->getCustomerByParam($param, 'fm_name');
+                $data = $this->getCustomerByParam($page, $param, 'fm_name');
             }
             if (count($data['customer']) == 0) {
                 // search by  middle name and last name
-                $data = $this->getCustomerByParam($param, 'ml_name');
+                $data = $this->getCustomerByParam($page, $param, 'ml_name');
             }
-           
+
             if (count($data['customer']) == 0) {
                 // search by first name, middle name and last name
-                $data = $this->getCustomerByParam($param, 'full_name');
+                $data = $this->getCustomerByParam($page, $param, 'full_name');
             }
         } else if ($input['search'] == 2) {
-            $data = $this->searchBytrxId($input);
+            $data = $this->searchBytrxId($param);
+            
         } else if ($input['search'] == 3) {
-
-            $data = $this->searchbyinvoice($input);
+            $data = $this->searchbyinvoice($param);
         }
-
         return $data;
     }
 
-    function searchBytrxId($data = array()) {
+    function searchBytrxId($param) {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
-        $idtrx = $data['param'];
         $trinfo = $this->Transaction->query("SELECT * FROM `transactions` tr
             left join package_customers  pc on tr.package_customer_id =pc.id 
-            where trx_id = $idtrx");
+            where tr.trx_id = $param");
         return $trinfo;
     }
 
     function searchbyinvoice($data = array()) {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
-        //  echo 'hello';  
-        $id = $data['param'];
+        $id = $data;
         $invoiceInfo = $this->Transaction->query("SELECT * FROM `transactions` tr
             left join package_customers  pc on tr.package_customer_id =pc.id 
             where tr.id = $id");
@@ -283,7 +393,6 @@ class CustomersController extends AppController {
     function package_expdate_update() {
         $this->loadModel('PackageCustomer');
         $this->PackageCustomer->id = $this->request->data['PackageCustomer']['package_customer_id'];
-//        pr($this->request->data); exit;
         $this->PackageCustomer->saveField("package_exp_date", $this->getFormatedDate($this->request->data['PackageCustomer']['package_exp_date']));
 
         $Msg = '<div class="alert alert-success">
@@ -306,7 +415,6 @@ class CustomersController extends AppController {
             'date' => $this->getFormatedDate($this->request->data['PackageCustomer']['date']),
             'status' => $this->request->data['PackageCustomer']['status'],
         );
-//        pr($data4statusHistory);
         $this->StatusHistory->save($data4statusHistory);
         $Msg = '<div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -321,15 +429,12 @@ class CustomersController extends AppController {
         $this->loadModel('PackageCustomer');
         $dateObj = $this->request->data['AutoTransaction']['exp_date'];
         $this->request->data['AutoTransaction']['exp_date'] = $dateObj['month'] . '/' . substr($dateObj['year'], -2);
-        //  pr($this->request->data); exit;
         $this->PackageCustomer->id = $this->request->data['AutoTransaction']['package_customer_id'];
         $this->request->data['AutoTransaction']['r_form'] = $this->getFormatedDate($this->request->data['AutoTransaction']['r_form']);
         $this->request->data['AutoTransaction']['auto_recurring_failed'] = 0;
         unset($this->request->data['AutoTransaction']['package_customer_id']);
-        //    pr($this->request->data['Transaction']); exit;
 
         $this->PackageCustomer->save($this->request->data['AutoTransaction']);
-        //  pr($this->PackageCustomer); exit;
         $Msg = '<div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <strong>Auto recurring updated Successfully! </strong>
@@ -352,7 +457,6 @@ class CustomersController extends AppController {
             $this->request->data['Transaction']['card_no'] = $card['Transaction']['card_no'];
         }
         unset($this->request->data['Transaction']['id']);
-        // pr($this->request->data['Transaction']); exit;
         $this->Transaction->save($this->request->data['Transaction']);
         $msg = '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -438,7 +542,6 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $customer_info['PackageCustomer']['exp_date'] = array('year' => $yyyy, 'month' => $mm);
 
         $this->request->data['AutoTransaction'] = $customer_info['PackageCustomer'];
-        //  pr($this->request->data['AutoTransaction']); exit;
         $payment = new PaymentsController();
         $latestcardInfo = $payment->getLastCardInfo($pcid);
         unset($customer_info['PackageCustomer']['email']);
@@ -447,7 +550,6 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         unset($customer_info['PackageCustomer']['cvv_code']);
         unset($customer_info['PackageCustomer']['zip_code']);
         unset($customer_info['PackageCustomer']['id']);
-        // pr($latestcardInfo); exit;
         $this->request->data['Transaction'] = $customer_info['PackageCustomer'] + $latestcardInfo;
         $this->request->data['Transaction']['card_no'] = $this->formatCardNumber($this->request->data['Transaction']['card_no']);
         $nextPay = $this->Transaction->find('first', array('conditions' => array('Transaction.package_customer_id' => $pcid, 'Transaction.status' => 'open'), 'order' => array('Transaction.id' => 'DESC')));
@@ -507,10 +609,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $this->loadModel('Transaction');
         $invoices = $this->getOpenInvoice($pcid);
 
-//        pr($invoices); exit;
-
         $statements = $this->getStatements($pcid);
-        //   pr($statements); exit;
         $this->set(compact('invoices', 'statements', 'packageList', 'psettings', 'ym', 'custom_package_charge', 'user', 'attachments'));
     }
 
@@ -606,12 +705,10 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $this->loadModel('Issue');
         $loggedUser = $this->Auth->user();
         if ($this->request->is('post') || $this->request->is('put')) {
-//            pr($this->request->data); exit;
             $this->request->data['PackageCustomer']['status'] = 'requested';
             if ($this->request->data['PackageCustomer']['shipment_equipment'] == 'OTHER') {
                 $this->request->data['PackageCustomer']['shipment_equipment'] = $this->request->data['PackageCustomer']['shipment_equipment_other'];
             }
-            //$this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
             //For Custom Package data insert//
             if (!empty($this->request->data['PackageCustomer']['charge'])) {
                 $data4CustomPackage['CustomPackage']['duration'] = $this->request->data['PackageCustomer']['duration'];
@@ -639,7 +736,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             if ($this->request->data['PackageCustomer']['shipment']) {
                 $status = 'shipment';
             }
-//            pr($this->request->data); exit;
+            $this->request->data['PackageCustomer']['user_id'] = $loggedUser['id'];
             $pc = $this->PackageCustomer->save($this->request->data['PackageCustomer']);
 
             $data4statusHistory = array();
@@ -648,7 +745,6 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
                 'date' => date('Y-m-d'),
                 'status' => $status
             );
-//            pr($data4statusHistory); exit;
             $this->StatusHistory->save($data4statusHistory);
 //            data for comment
             $comment['Comment']['package_customer_id'] = $pc['PackageCustomer']['id'];
@@ -704,6 +800,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $this->loadModel('CustomPackage');
         $this->loadModel('Comment');
         $this->loadModel('Issue');
+        $loggedUser = $this->Auth->user();
         if ($this->request->is('post') || $this->request->is('put')) {
 //            pr($this->request->data); exit;
             $this->PackageCustomer->set($this->request->data);
@@ -727,7 +824,8 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
             } else {
                 $this->request->data['PackageCustomer']['attachment'] = '';
             }
-//            pr($this->request->data); exit;
+            $this->request->data['PackageCustomer']['user_id'] = $loggedUser['id'];
+//            pr($this->request->data['PackageCustomer']); exit;
             $this->PackageCustomer->save($this->request->data['PackageCustomer']);
 //            $this->stbs_update($id);
             //update last comment
