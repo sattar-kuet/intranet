@@ -1,3 +1,5 @@
+
+
 <style type="text/css">
     .alert {
         padding: 6px;
@@ -166,19 +168,19 @@
 
     <?php
     if ($clicked == 1) {
-        echo $this->element('customers', array('data' => $data));
+        echo $this->element('customers', array('data' => $data, 'type' => $clicked,'param' =>$param));
     }
 
     if ($clicked == 2) {
-        echo $this->element('transaction', array('data' => $data));
+        echo $this->element('transaction', array('data' => $data, 'type' => $clicked,'param' =>$param));
     }
 
     if ($clicked == 3) {
-        echo $this->element('invoice', array('data' => $data));
+        echo $this->element('invoice', array('data' => $data, 'type' => $clicked,'param' =>$param));
     }
 
     if ($clicked == 4) {
-        echo $this->element('customerByloaction', array('data' => $data));
+        echo $this->element('customerbyloaction', array('data' => $data, 'type' => $clicked,'param' =>$param));
     }
     ?>
 

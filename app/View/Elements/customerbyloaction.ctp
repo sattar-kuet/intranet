@@ -1,3 +1,26 @@
+
+<style>
+    .ui-datepicker-multi-3 {
+        display: table-row-group !important;
+    }
+</style>
+
+<style type="text/css">
+    .alert {
+
+        padding: 6px;
+        margin-bottom: 5px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        text-align: center;
+    }
+    ul.pagination {
+        display: flex;
+        justify-content: center;
+        color: blue;
+    }
+</style>
+
 <div class="page-content-wrapper" style="margin: 0px; padding: 0px;">
     <div class="">
         <!-- BEGIN PAGE CONTENT-->
@@ -6,6 +29,19 @@
             <hr>
             <div class="row">
                 <div class="col-xs-12">
+                    <ul class="pagination" >
+                        <?php
+                        for ($i = 1; $i <= $data['total_page']; $i++):
+                            $active = '';
+                            if (isset($this->params['pass'][2]) && $this->params['pass'][2] == $i) {
+                                $active = 'active';
+                            }
+                            ?>
+                            <li class="paginate_button <?php echo $active; ?>" aria-controls="sample_editable_1" tabindex="<?php echo $i; ?>">
+                                <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'search', $type,$this->params['pass'][1], $i)) ?>"><?php echo $i; ?></a>
+                            </li>
+                        <?php endfor; ?>
+                    </ul>
                     <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                         <thead>
                             <tr> 
@@ -35,7 +71,7 @@
                         </thead>
                         <tbody>                                    
                             <?php
-                            foreach ($data as $info):
+                            foreach ($data['data'] as $info):
                                 $pc = $info['pc'];
                                 $customer_address = $pc['house_no'] . ' ' . $pc['street'] . ' ' .
                                         $pc['apartment'] . ' ' . $pc['city'] . ' ' . $pc['state'] . ' '

@@ -1,4 +1,39 @@
+
+<style>
+    .ui-datepicker-multi-3 {
+        display: table-row-group !important;
+    }
+</style>
+
+<style type="text/css">
+    .alert {
+
+        padding: 6px;
+        margin-bottom: 5px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        text-align: center;
+    }
+    ul.pagination {
+        display: flex;
+        justify-content: center;
+        color: blue;
+    }
+</style>
 <div class="row-fluid">
+    <ul class="pagination" >
+        <?php
+        for ($i = 1; $i <= $data['total_page']; $i++):
+            $active = '';
+            if (isset($this->params['pass'][2]) && $this->params['pass'][2] == $i) {
+                $active = 'active';
+            }
+            ?>
+            <li class="paginate_button <?php echo $active; ?>" aria-controls="sample_editable_1" tabindex="<?php echo $i; ?>">
+                <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'search',$type, $param, $i)) ?>"><?php echo $i; ?></a>
+            </li>
+        <?php endfor; ?>
+    </ul>
     <table cellpadding="0" cellspacing="0" border="0" class="responsive dynamicTable display table table-bordered" width="100%">
         <thead>
             <tr>                                           
@@ -12,8 +47,8 @@
         </thead>
         <tbody>
             <?php
-         //    pr($data); exit;
-            
+            //    pr($data); exit;
+
             foreach ($data['customer'] as $index => $d):
                 $customer = $d;
 //                        pr($customer['status']); exit;
