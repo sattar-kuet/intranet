@@ -69,7 +69,7 @@ $(document).ready(function () {
             $('.priority').hide();
             $('#shipmentshow_hide').hide();
         }
-        else if (selected == 'shipment'|| selected == 'ready'){
+        else if (selected == 'shipment' || selected == 'ready') {
             $('.assign_single').hide();
             $('.assign_group').hide();
             $('.priority .priority_input').addClass('required');
@@ -102,6 +102,8 @@ $(document).ready(function () {
     });
 
 
+
+
     $('.issueChange').change(function () {
         var selected = $('.issueChange option:selected').text().toLowerCase();
         var box = "2nd box";
@@ -113,6 +115,7 @@ $(document).ready(function () {
         var holded = "hold";
         var unholded = "unhold";
         var recono = "reconnect";
+        var loutbound = "outbound";
 
         if (selected.trim() == "moving") {
             $('#action').hide();
@@ -140,6 +143,7 @@ $(document).ready(function () {
             $('#reconnect').hide();
             $('#action').hide();
             $('#equepment').hide();
+            $('#outbound_list').hide();
         }
         else if (selected.indexOf(holded) != -1 && selected.indexOf(unholded) == -1) {
             $('#check_mac').show();
@@ -150,8 +154,19 @@ $(document).ready(function () {
             $('#pickup_date').hide();
             $('#action').hide();
             $('#equepment').hide();
+            $('#outbound_list').hide();
         }
-        else if (selected.indexOf(unholded) !=-1) {
+        else if (selected.indexOf(loutbound) != -1) {
+            $('#outbound_list').show();
+            $('#hold').hide();
+            $('#unhold').hide();
+            $('#reconnect').hide();
+            $('#canceldate').hide();
+            $('#pickup_date').hide();
+            $('#action').hide();
+            $('#equepment').hide();
+        }
+        else if (selected.indexOf(unholded) != -1) {
             $('#check_mac').show();
             $('#unhold').show();
             $('#hold').hide();
@@ -160,8 +175,9 @@ $(document).ready(function () {
             $('#pickup_date').hide();
             $('#action').hide();
             $('#equepment').hide();
+            $('#outbound_list').hide();
         }
-        else if (selected.indexOf(recono) !=-1) {
+        else if (selected.indexOf(recono) != -1) {
             $('#check_mac').show();
             $('#reconnect').show();
             $('#hold').hide();
@@ -170,9 +186,11 @@ $(document).ready(function () {
             $('#pickup_date').hide();
             $('#action').hide();
             $('#equepment').hide();
+            $('#outbound_list').hide();
         }
-        else if (selected.indexOf(box)!= -1 || selected.indexOf(twbox)!= -1 || selected.indexOf(thbox)!= -1 || selected.indexOf(fobox)!= -1 || selected.indexOf(twthbox)!= -1 ) {
+        else if (selected.indexOf(box) != -1 || selected.indexOf(twbox) != -1 || selected.indexOf(thbox) != -1 || selected.indexOf(fobox) != -1 || selected.indexOf(twthbox) != -1) {
             $('#equepment').show();
+            $('#outbound_list').hide();
         }
 
         else {
@@ -184,10 +202,13 @@ $(document).ready(function () {
             $('#pickup_date').hide();
             //$('#action').show();
             $('#equepment').hide();
+            $('#outbound_list').hide();
 
         }
 
     });
- 
+
+
+
 
 })

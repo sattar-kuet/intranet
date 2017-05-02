@@ -61,9 +61,6 @@
                                 You have some form errors. Please check below.
                             </div>
                             <?php echo $this->Session->flash(); ?>                            
-
-
-
                             <div class="form-group">
                                 <label class="control-label col-md-3">Select Issue<span class="required">
                                         * </span>
@@ -83,12 +80,46 @@
                                     </div>
                                 </div>
                             </div>
-                            
-                            
-                            
-                            
-                            
-                            
+
+                            <div id="outbound_list" class="form-group display-hide"   >
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">Select Outbound<span class="">
+                                        </span>
+                                    </label>
+                                    <div class="col-md-4">
+                                        <?php
+                                        echo $this->Form->input('outbound', array(
+                                            'type' => 'select',
+                                            'options' => array(
+                                                'BOUNCH CHECK' => 'BOUNCH CHECK',
+                                                'BOX SHIPMENT' => 'BOX SHIPMENT',
+                                                'CHARGE BACK' => 'CHARGE BACK',
+                                                'DECLINED CARD' => 'DECLINED CARD',
+                                                'DUE BILL' => 'DUE BILL',
+                                                'EQUIPMENT SHIPMENT' => 'EQUIPMENT SHIPMENT',
+                                                'INPROGRESS & CALL US LATER' => 'INPROGRESS & CALL US LATER',
+                                                'NEW INST' => 'NEW INST',
+                                                'QC OUT' => 'QC OUT',
+                                                'RECOVERY' => 'RECOVERY',
+                                                'REMOTE OUT' => 'REMOTE OUT',
+                                                'REPLACE BOX' => 'REPLACE BOX',
+                                                'SALES QUERY' => 'SALES QUERY',
+                                                'SCHEDULE' => 'SCHEDULE',
+                                                'SERVICE INTERUPTION FOLLOW UP' => 'SERVICE INTERUPTION FOLLOW UP',
+                                                'SPECIAL' => 'SPECIAL'
+                                            ),
+                                            'empty' => 'Select Outbound',
+                                            'class' => 'form-control select2me'
+                                                )
+                                        );
+                                        ?>
+                                    </div>   
+                                </div>   
+                            </div>   
+
+
+
+
                             <div class="form-group display-hide" id="equepment">
                                 <label class="control-label col-md-1">SD:<span class="">
                                     </span>
@@ -253,7 +284,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
 
                             <div id="shipmentshow_hide" style="display: none" class="alert alert-success">
                                 <div class="form-group">
@@ -372,7 +403,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="form-group" id="action" >
                                 <label class="control-label col-md-3">Select Action 
                                 </label>
@@ -395,7 +426,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="form-group priority">
                                 <label class="control-label col-md-3">Select Priority<span class="required">
                                         * </span>

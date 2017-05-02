@@ -106,27 +106,123 @@ class CustomersController extends AppController {
         return $this->redirect($this->referer());
     }
 
+    function search($clicked = false, $param = null, $page = 1) {
+        $this->loadModel('PackageCustomer');
+        $data = array();
+        if ($this->request->is('post')) {
+            $input = $this->request->data['PackageCustomer'];
+            if ($input['search'] == 4) {
+                $state = (empty($input['state'])) ? 0 : $input['state'];
+                $state = preg_replace("/[\r\n]+/", ' ', $state);
+                $state = trim($state);
+
+                $city = (empty($input['city'])) ? 0 : $input['city'];
+                $city = preg_replace("/[\r\n]+/", " ", $city);
+                $city = trim($city);
+
+                $zip = (empty($input['zip'])) ? 0 : $input['zip'];
+                $zip = preg_replace("/[\r\n]+/", " ", $zip);
+                $zip = trim($zip);
+                $param = $state . '#' . $city . "#" . $zip;
+                $temp = $this->redirect(array('controller' => 'customers', 'action' => 'search', $input['search'], $input['param'], 1));
+            }
+            $input['param'] = str_replace(":", '>>>', $input['param']); //':' cuases problem. Hence this is used to reformat url so that cakephp can recognize it is as parmeter.
+            $this->redirect(array('controller' => 'customers', 'action' => 'search', $input['search'], $input['param'], 1));
+        } else if ($clicked) {
+
+
+            if ($clicked == 4) {               
+                $params = explode("#", $param);
+                pr($params); exit;                
+                $state = $params[0];
+                $city = $params[1];
+                $zip = $params[2];
+                $data = $this->customerByloaction($state, $city, $zip, $clicked, $page);
+            } else if ($clicked == 2) {
+                $invoice = $input['param'];
+                $data = $this->searchbyinvoice($invoice, $clicked, $page);
+            } else if ($clicked == 3) {
+                $trxId = $input['param'];
+                $data = $this->searchBytrxId($trxId, $clicked, $page);
+            } else {
+                $input = array();
+                $input['page'] = $page;
+                $input['search'] = $clicked;
+                // reformat mac before passing
+                $input['param'] = str_replace(">>>", ":", $param);
+                $data = $this->searchByParam($input);
+            }
+        }
+        $admin_messages = $this->message();
+        $states = $this->PackageCustomer->find('list', array('fields' => array('state', 'state'), 'group' => 'PackageCustomer.state', 'order' => array('PackageCustomer.state' => 'ASC')));
+        $cities = $this->PackageCustomer->find('list', array('fields' => array('city', 'city'), 'group' => 'PackageCustomer.city', 'order' => array('PackageCustomer.city' => 'ASC')));
+        $this->set(compact('data', 'clicked', 'param', 'cities', 'states', 'admin_messages'));
+    }
+
+    function searchByParam($input = array()) {
+        $this->loadModel('PackageCustomer');
+        $this->loadModel('Track');
+        $this->loadModel('CustomPackage');
+        $this->loadModel('Psetting');
+        $this->loadModel('Package');
+
+        $param = $input['param'];
+        $page = $input['page'];
+        $data['customer'] = array();
+        $data['package'] = array();
+
+        if ($input['search'] == 1) {
+            $data = $this->getCustomerByParam($page, $param, 'cell');
+            if (count($data['customer']) == 0 || empty($param)) {
+                $data = $this->getCustomerByParam($page, $param, 'first_name');
+            }
+            if (count($data['customer']) == 0 || empty($param)) {
+                $data = $this->getCustomerByParam($page, $param, 'last_name');
+            }
+            if (count($data['customer']) == 0 || empty($param)) {
+
+                $data = $this->getCustomerByParam($page, $param, 'mac');
+            }
+            if (count($data['customer']) == 0 || empty($param)) {
+                // search by first and middle name
+                $data = $this->getCustomerByParam($page, $param, 'fm_name');
+            }
+            if (count($data['customer']) == 0 || empty($param)) {
+                // search by  middle name and last name
+                $data = $this->getCustomerByParam($page, $param, 'ml_name');
+            }
+
+            if (count($data['customer']) == 0 || empty($param)) {
+                // search by first name, middle name and last name
+                $data = $this->getCustomerByParam($page, $param, 'full_name');
+            }
+        } else if ($input['search'] == 2) {
+            $data = $this->searchBytrxId($param);
+        } else if ($input['search'] == 3) {
+            $data = $this->searchbyinvoice($param);
+        }
+
+        return $data;
+    }
+
     function getCustomerByParam($page = 1, $param, $field) {
-
-        //  pr($this->params['pass']);
-//        if (count($this->params['pass'])) {
-//            $page = $this->params['pass'][2];
-//            $param = $this->params['pass'][1];
-//        }
-
-
+//        echo $param;
+//        exit;
         $offset = --$page * $this->per_page;
         $param = str_replace(' ', '', $param);
 
-//        echo $field;
-//        exit;
-        $condition = " package_customers.cell LIKE '%$param%'";
+        $condition = " package_customers." . $field . " LIKE '%$param%'";
+
         $name = array('first_name', 'last_name', 'middle_name');
-        //  echo $condition;
         if ($field == "cell") {
-            $regex = "/[^0-9]/i";
-            $param = preg_replace($regex, "", $param);
-            $condition = " package_customers.cell LIKE '%$param%' OR package_customers.home LIKE '%$param%'";
+            $regex = "/[()-]/i";
+            $cell = preg_replace($regex, "", $param);
+//            echo $param . ': ' . $cell;
+//            exit;
+            if (empty($cell)) {
+                $cell = $param;
+            }
+            $condition = " package_customers.cell LIKE '%$cell%' OR package_customers.home LIKE '%$cell%' ";
         } else if (in_array($field, $name)) {
             $condition = " LOWER(package_customers.first_name) LIKE '%" . strtolower($param) .
                     "%' OR LOWER(package_customers.middle_name) LIKE '%" . strtolower($param) .
@@ -143,13 +239,14 @@ class CustomersController extends AppController {
             $condition = "LOWER(CONCAT(package_customers.first_name,package_customers.middle_name,package_customers.last_name)) LIKE '%" . $fullname . "%'";
         }
 
-        // echo $field.':' .$condition.'<br>';
-
         $sql = "SELECT * FROM package_customers "
                 . "LEFT JOIN psettings ON package_customers.psetting_id = psettings.id"
                 . " LEFT JOIN packages ON psettings.package_id = packages.id"
                 . " LEFT JOIN custom_packages ON package_customers.custom_package_id = custom_packages.id" .
                 " WHERE $condition  LIMIT $offset,$this->per_page";
+
+        //   echo $sql . '<br>';
+//        exit;
 
         $temp = $this->PackageCustomer->query($sql);
         $data = array();
@@ -157,11 +254,20 @@ class CustomersController extends AppController {
         $package = array();
         foreach ($temp as $t) {
             $customer[] = $t['package_customers'];
-            if (isset($data['packages']['id'])) {
-                $psetting = $data['psettings'];
+            if (isset($t['psettings']['id'])) {
+                $psetting = $t['psettings'];
+                $data['packages']['name'] = $t['packages']['name'];
                 $data['packages']['duration'] = $psetting['duration'];
                 $data['packages']['charge'] = $psetting['amount'];
                 $package[] = $data['packages'];
+            } else if (isset($t['custom_packages']['id'])) {
+                $psetting = $t['custom_packages'];
+                $data['packages']['name'] = 'Custome Package';
+                $data['packages']['duration'] = $psetting['duration'];
+                $data['packages']['charge'] = $psetting['charge'];
+                $package[] = $data['packages'];
+            } else {
+                $package[] = 0;
             }
         }
         $data = array();
@@ -177,89 +283,23 @@ class CustomersController extends AppController {
         return $data;
     }
 
-    function updatePackageCustomerTable($data = array()) {
-        if (isset($data['mac'])) {
-            $data['mac'] = json_encode($data['mac']);
-            $data['system'] = json_encode($data['system']);
-        }
+    function searchBytrxId($param) {
         $this->loadModel('PackageCustomer');
-        $this->loadModel('CustomPackage');
-        $this->loadModel('Ticket');
-        $this->loadModel('Track');
-
-        $tmsg = 'Information of  ' . $data['first_name'] . '  ' .
-                $data['middle_name'] . '  ' .
-                $data['last_name'] . ' has been updated';
-
-        //For Custom Package data insert
-        $data4CustomPackage['CustomPackage']['duration'] = $data['duration'];
-        $data4CustomPackage['CustomPackage']['charge'] = $data['charge'];
-        if (!empty($data['charge'])) {
-
-            //save data into custom_package table
-            $cp = $this->CustomPackage->save($data4CustomPackage);
-            unset($cp['CustomPackage']['PackageCustomer']);
-
-            //from custom_package table, save custom package id to package_customer table
-            $data['custom_package_id'] = $cp['CustomPackage']['id'];
-        }
-
-        // if custom package is changed then custom_package_id will be reset to 0
-        if (!isset($data['CustomPackage'])) {
-            $data['custom_package_id'] = 0;
-        }
-        $this->PackageCustomer->save($data);
+        $this->loadModel('Transaction');
+        $trinfo = $this->Transaction->query("SELECT * FROM `transactions` tr
+            left join package_customers  pc on tr.package_customer_id =pc.id 
+            where tr.trx_id = $param");
+        return $trinfo;
     }
 
-    function search($clicked = false, $param = null, $page = 1) {
+    function searchbyinvoice($data = array()) {
         $this->loadModel('PackageCustomer');
-        $data = array();
-        $input['page'] = $page;
-
-        if ($this->request->is('post')) {
-            $input = $this->request->data['PackageCustomer'];
-//            pr($input); exit;
-            if ($input['search'] == 4) {
-                $state = (empty($input['state'])) ? 0 : $input['state'];
-                $state = preg_replace("/[\r\n]+/", ' ', $state);
-                $state = trim($state);
-
-                $city = (empty($input['city'])) ? 0 : $input['city'];
-                $city = preg_replace("/[\r\n]+/", " ", $city);
-                $city = trim($city);
-
-                $zip = (empty($input['zip'])) ? 0 : $input['zip'];
-                $zip = preg_replace("/[\r\n]+/", " ", $zip);
-                $zip = trim($zip);
-                $param = $state . '#' . $city . "#" . $zip;
-                $temp = $this->redirect(array('controller' => 'customers', 'action' => 'search', $input['search'], $param, 1));
-            }
-            $this->redirect(array('controller' => 'customers', 'action' => 'search', $input['search'], $input['param'], 1));
-        } else if ($clicked) {
-
-            $input['search'] = $clicked;
-            $input['param'] = $param;
-            if ($clicked == 4) {
-                $params = explode("#", $param);
-                $state = $params[0];
-                $city = $params[1];
-                $zip = $params[2];
-                $data = $this->customerByloaction($state, $city, $zip, $clicked, $page);
-            } else if ($clicked == 2) {
-                $invoice = $input['param'];
-                $data = $this->searchbyinvoice($invoice, $clicked, $page);
-            } else if ($clicked == 3) {
-                $trxId = $input['param'];
-                $data = $this->searchBytrxId($trxId, $clicked, $page);
-            } else {
-                $data = $this->searchByParam($input);
-                
-            }
-        }
-        $admin_messages = $this->message();
-        $states = $this->PackageCustomer->find('list', array('fields' => array('state', 'state'), 'group' => 'PackageCustomer.state', 'order' => array('PackageCustomer.state' => 'ASC')));
-        $cities = $this->PackageCustomer->find('list', array('fields' => array('city', 'city'), 'group' => 'PackageCustomer.city', 'order' => array('PackageCustomer.city' => 'ASC')));
-        $this->set(compact('data', 'clicked', 'param', 'cities', 'states', 'admin_messages'));
+        $this->loadModel('Transaction');
+        $id = $data;
+        $invoiceInfo = $this->Transaction->query("SELECT * FROM `transactions` tr
+            left join package_customers  pc on tr.package_customer_id =pc.id 
+            where tr.id = $id");
+        return $invoiceInfo;
     }
 
     function customerByloaction($state, $city, $zip, $type, $page = 1) {
@@ -318,6 +358,40 @@ class CustomersController extends AppController {
         return $data;
     }
 
+    function updatePackageCustomerTable($data = array()) {
+        if (isset($data['mac'])) {
+            $data['mac'] = json_encode($data['mac']);
+            $data['system'] = json_encode($data['system']);
+        }
+        $this->loadModel('PackageCustomer');
+        $this->loadModel('CustomPackage');
+        $this->loadModel('Ticket');
+        $this->loadModel('Track');
+
+        $tmsg = 'Information of  ' . $data['first_name'] . '  ' .
+                $data['middle_name'] . '  ' .
+                $data['last_name'] . ' has been updated';
+
+        //For Custom Package data insert
+        $data4CustomPackage['CustomPackage']['duration'] = $data['duration'];
+        $data4CustomPackage['CustomPackage']['charge'] = $data['charge'];
+        if (!empty($data['charge'])) {
+
+            //save data into custom_package table
+            $cp = $this->CustomPackage->save($data4CustomPackage);
+            unset($cp['CustomPackage']['PackageCustomer']);
+
+            //from custom_package table, save custom package id to package_customer table
+            $data['custom_package_id'] = $cp['CustomPackage']['id'];
+        }
+
+        // if custom package is changed then custom_package_id will be reset to 0
+        if (!isset($data['CustomPackage'])) {
+            $data['custom_package_id'] = 0;
+        }
+        $this->PackageCustomer->save($data);
+    }
+
     function message() {
         $this->loadModel('Message');
         $loggedUser = $this->Auth->user();
@@ -331,69 +405,6 @@ class CustomersController extends AppController {
         LEFT JOIN users u ON u.id = m.user_id  WHERE (m.assign_id = $uid OR m.role_id = $rid OR m.role_id = $rid2) AND m.status ='open' ORDER BY m.id DESC";
         $admin_messages = $this->Message->query($sql);
         return $admin_messages;
-    }
-
-    function searchByParam($input = array()) {
-        $this->loadModel('PackageCustomer');
-        $this->loadModel('Track');
-        $this->loadModel('CustomPackage');
-        $this->loadModel('Psetting');
-        $this->loadModel('Package');
-
-        $param = $input['param'];
-        $page = $input['page'];
-        $data['customer'] = array();
-        $data['package'] = array();
-
-        if ($input['search'] == 1) {
-            $data = $this->getCustomerByParam($page, $param, 'cell');
-            if (count($data['customer']) == 0) {
-                $data = $this->getCustomerByParam($page, $param, 'first_name');
-            }
-            if (count($data['customer']) == 0) {
-                $data = $this->getCustomerByParam($page, $param, 'last_name');
-            }
-            if (count($data['customer']) == 0) {
-                $data = $this->getCustomerByParam($page, $param, 'mac');
-            }
-            if (count($data['customer']) == 0) {
-                // search by first and middle name
-                $data = $this->getCustomerByParam($page, $param, 'fm_name');
-            }
-            if (count($data['customer']) == 0) {
-                // search by  middle name and last name
-                $data = $this->getCustomerByParam($page, $param, 'ml_name');
-            }
-
-            if (count($data['customer']) == 0) {
-                // search by first name, middle name and last name
-                $data = $this->getCustomerByParam($page, $param, 'full_name');
-            }
-        } else if ($input['search'] == 2) {
-            $data = $this->searchBytrxId($param);
-        } else if ($input['search'] == 3) {
-            $data = $this->searchbyinvoice($param);
-        }
-        return $data;
-    }
-
-    function searchBytrxId($param) {
-        $this->loadModel('PackageCustomer');
-        $this->loadModel('Transaction');
-        $trinfo = $this->Transaction->query("SELECT * FROM `transactions` tr
-            left join package_customers  pc on tr.package_customer_id =pc.id 
-            where tr.trx_id = $param");
-        return $trinfo;
-    }
-
-    function searchbyinvoice($data = array()) {
-        $this->loadModel('PackageCustomer');
-        $this->loadModel('Transaction');
-        $id = $data;
-        $invoiceInfo = $this->Transaction->query("SELECT * FROM `transactions` tr
-            left join package_customers  pc on tr.package_customer_id =pc.id 
-            where tr.id = $id");
-        return $invoiceInfo;
     }
 
     function package_expdate_update() {
@@ -413,6 +424,19 @@ class CustomersController extends AppController {
         $data4statusHistory = array();
         $this->loadModel('StatusHistory');
         $this->loadModel('PackageCustomer');
+        $this->loadModel('MacHistory');
+       $loggedUser = $this->Auth->user();
+//                   pr($loggedUser['id']); exit;
+        if ($this->request->is('post') || $this->request->is('put')) {
+            $data4macHistory['MacHistory'] = array(
+                'installed_by' => $loggedUser['id'],
+                'package_customer_id' => $this->request->data['PackageCustomer']['id'],
+                'user_id' => $this->request->data['PackageCustomer']['user_id'],
+                'installation_date' => $this->getFormatedDate($this->request->data['PackageCustomer']['installation_date'])
+            );
+//            pr($data4macHistory); exit;
+            $this->MacHistory->save($data4macHistory);
+        }
         $this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
         $this->PackageCustomer->saveField("status", $this->request->data['PackageCustomer']['status']);
         $this->PackageCustomer->saveField("date", $this->getFormatedDate($this->request->data['PackageCustomer']['date']));
@@ -516,6 +540,7 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
 
     function edit($id = null) {
         $this->loadModel('StatusHistory');
+        $this->loadModel('User');
         $pcid = $id;
         $loggedUser = $this->Auth->user();
         $user = $loggedUser['Role']['name'];
@@ -587,8 +612,9 @@ WHERE  transactions.package_customer_id = $pcid and transactions.status = 'open'
         $transactions = $this->Transaction->find('all', array('conditions' => array('Transaction.package_customer_id' => $id)));
         $attachments = $this->Attachment->find('all', array('conditions' => array('Attachment.package_customer_id' => $id)));
         $status = $customer_info['PackageCustomer']['status'];
+        $users = $this->User->find('list', array('order' => array('User.name' => 'ASC')));
 
-        $this->set(compact('status', 'transactions', 'customer_info', 'c_acc_no', 'macstb', 'custom_package_duration', 'checkMark', 'statusHistories'));
+        $this->set(compact('users', 'status', 'transactions', 'customer_info', 'c_acc_no', 'macstb', 'custom_package_duration', 'checkMark', 'statusHistories'));
 
 //        Ticket History
         $response = $this->getAllTickectsByCustomer($id);

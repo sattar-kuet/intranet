@@ -96,9 +96,10 @@ class TicketsController extends AppController {
                         "status" => 'requested',
                         "user_id" => $loggedUser['id']
                     );
-//                    pr($data); exit;
                     $cusinfo = $this->PackageCustomer->save($data);
                 }
+                
+                
 
                 $status = 'open';
                 if (trim($this->request->data['Ticket']['action_type']) == 'solved' ||
@@ -109,7 +110,7 @@ class TicketsController extends AppController {
                     $this->request->data['Ticket']['status'] = 'solved';
                     $status = 'solved';
                 }
-                // pr($this->request->data['Ticket']); exit;
+
                 $tickect = $this->Ticket->save($this->request->data['Ticket']); // Data save in Ticket
                 $trackData['Track'] = array(
                     'issue_id' => $this->request->data['Ticket']['issue_id'],
@@ -211,6 +212,22 @@ class TicketsController extends AppController {
 //                    pr($data['PackageCustomer']); exit;
                     $this->PackageCustomer->save($data['PackageCustomer']);
                 }
+                
+                //  This code for outbound
+
+                if (trim($this->request->data['Ticket']['issue_id']) == 171) {
+                    $this->PackageCustomer->id = $customer_id;
+                    $trackData['Track']['status'] = 'outbound';
+                    $data['PackageCustomer'] = array(
+                        "outbound" => $this->request->data['Ticket']['outbound'],
+                        "issue_id" => $this->request->data['Ticket']['issue_id'],
+                        "comments" => $this->request->data['Ticket']['content'],
+                        "status" => 'requested',
+                        "user_id" => $loggedUser['id']
+                    );
+                    $cusinfo = $this->PackageCustomer->save($data);
+                }
+                
                 $customer = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $customer_id)));
 
 //                if (!empty($customer['PackageCustomer']['email'])) {
@@ -236,7 +253,6 @@ class TicketsController extends AppController {
 //                    // End send mail 
 //                }
 //
-
                 $this->Track->save($trackData); // Data save in Track
                 $msg = '<div class="alert alert-success">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
