@@ -665,27 +665,27 @@ WHERE transaction_id = " . $statement['tr']['id']
         $invoices = $this->getOpenInvoice($pcid);
         $statements = $this->getStatements($pcid);
 
-
-       $data = $this->MacHistory->find('all', array('conditions' => array('package_customer_id' => $pcid)));
-      
-        $filteredData = array();
-
-        foreach ($data as $single) {
-                $mac[] = $single['MacHistory']['mac'];
-            $user_id[] = $single['MacHistory']['installed_by'];
-            $installation_date[] = $single['MacHistory']['installation_date'];
-        }
-
-        if (!empty($user_id)) {
-            
-            
-            $filteredData['mac'] = $mac;
-            $filteredData['user_id'] = $user_id;
-            $filteredData['installation_date'] = $installation_date;
-//             pr($filteredData); exit;
-            $this->request->data['PackageCustomer'] = $filteredData;
-
-        }
+//Need this code
+        
+//       $data = $this->MacHistory->find('all', array('conditions' => array('package_customer_id' => $pcid)));
+//      
+//        $filteredData = array();
+//
+//        foreach ($data as $single) {
+//                $mac[] = $single['MacHistory']['mac'];
+//            $user_id[] = $single['MacHistory']['installed_by'];
+//            $installation_date[] = $single['MacHistory']['installation_date'];
+//        }
+//
+//        if (!empty($user_id)) {
+//            
+//            
+//            $filteredData['mac'] = $mac;
+//            $filteredData['user_id'] = $user_id;
+//            $filteredData['installation_date'] = $installation_date;
+//            $this->request->data['PackageCustomer'] = $filteredData;
+//
+//        }
 //             pr($this->request->data); exit;
 
 
