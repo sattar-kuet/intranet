@@ -213,8 +213,26 @@ class ReportsController extends AppController {
         $this->loadModel('Package_customer');
         $this->loadModel('Transaction');
         $datrange = json_decode($this->request->data['Role']['daterangeonly'], true);
-        $datrange['start'] = $datrange['start'] . ' 00:00:00';
-        $datrange['end'] = $datrange['end'] . ' 23:59:59';
+       
+        $start = $datrange['start'] . ' 00:00:00';
+        $end= $datrange['end'] . ' 23:59:59';
+        
+        $sql ="SELECT tr.id, tr.package_customer_id, 
+            CONCAT( first_name,' ', middle_name,' ', last_name ) AS name, pc.psetting_id, pc.mac,
+            ps.name, p.name, tr.paid_amount, ps.amount, ps.duration FROM transactions tr
+            left join package_customers pc on tr.package_customer_id = pc.id
+            left join psettings ps on ps.id = pc.psetting_id
+            LEFT JOIN packages p ON p.id = ps.package_id 
+            WHERE paid_amount !=0 and
+            tr.created >='" . $start . "' AND tr.created <='" . $end . "'";
+        
+        
+        $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as total FROM tracks " .
+                "LEFT JOIN issues ON tracks.issue_id = issues.id " .
+                " WHERE LOWER(issues.name) = '$status' AND tracks.created >='" . $start . "' AND tracks.created <='" . $end . "'";
+        $data = $this->Track->query($sql);
+        
+        
 
         $packagecustomers = $this->Transaction->query("SELECT tr.id, tr.package_customer_id, 
             CONCAT( first_name,' ', middle_name,' ', last_name ) AS name, pc.psetting_id, pc.mac,
@@ -223,7 +241,8 @@ class ReportsController extends AppController {
             left join psettings ps on ps.id = pc.psetting_id
             LEFT JOIN packages p ON p.id = ps.package_id 
             WHERE paid_amount !=0 and
-            tr.created >='" . $datrange['start'] . "' AND tr.created <='" . $datrange['end'] . "'");
+            tr.created >='" . $start . "' AND tr.created <='" . $end . "'");
+//        pr($packagecustomers); exit;
         $return['packagecustomers'] = $packagecustomers;
         return $return;
     }

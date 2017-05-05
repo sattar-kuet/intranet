@@ -448,7 +448,6 @@ li.dropdown.dropdown-user {
 
 /**/
 .table-responsive {
-
     overflow-x:  hidden; 
 }
 
@@ -459,3 +458,4 @@ li.dropdown.dropdown-user {
     margin-left: 0px !important; 
 }
 /**/
+/* this code for report model */

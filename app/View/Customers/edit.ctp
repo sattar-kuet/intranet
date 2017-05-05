@@ -1,4 +1,6 @@
+
 <style type="text/css">
+
     .alert {
         padding: 6px;
         margin-bottom: 5px;
@@ -405,9 +407,6 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                         ?>
                                     </div>  
                                 </div>
-
-
-
                                 <div class="col-md-2">
                                     <label>
                                         <div class="" style="display: inline-block;"><span class=""><input id="customcheckbox" name="data[PackageCustomer][CustomPackage]"  type="checkbox" <?php
@@ -1156,9 +1155,9 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                 'label' => false,
                                 'div' => false
                             ),
-                            'id' => 'form-validate',
-                            'class' => 'form-horizontal',
-                            'novalidate' => 'novalidate',
+                            //'id' => 'form-validate',
+                            //'class' => 'form-horizontal',
+                            // 'novalidate' => 'novalidate',
                             'enctype' => 'multipart/form-data',
                             'url' => array('controller' => 'customers', 'action' => 'update_status')
                                 )
@@ -1252,47 +1251,61 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                             <br> 
                             <div class="col-md-12" >
                                 <div class="row"> 
-                                    <div class="col-md-3 signupfont">                              
-                                        <?php
-                                        if (is_array($macstb['mac'])):
-                                            foreach ($macstb['mac'] as $index => $mac):
-                                                $system = $macstb['system'][$index];
-                                                ?>
-                                                <li> <?php echo $system; ?></li><br>
+
+                                    <?php
+                                    if (is_array($macstb['mac'])):
+                                        foreach ($macstb['mac'] as $index => $mac):
+                                            $mac = $macstb['mac'][$index];
+                                            ?>
+                                            <div class="col-md-3 signupfont">
                                                 <?php
-                                            endforeach;
-                                        endif;
-                                        ?>                                
-                                    </div> 
-                                    <div class="col-md-1 signupfont">                                   
-                                        Done By   
-                                    </div>                              
-                                    <div class="col-md-3">
-                                        <?php
-                                        echo $this->Form->input('user_id', array(
-                                            'type' => 'select',
-                                            'options' => $users,
-                                            'empty' => 'Select User',
-                                            'class' => 'form-control select2me',
-                                                )
-                                        );
-                                        ?>
-                                    </div>
-                                    <div class="col-md-2 signupfont">                                  
-                                        Installation Date                           
-                                    </div> 
-                                    <div class="col-md-3">
-                                        <div class="input-list style-3 clearfix">
+                                                echo $this->Form->input(
+                                                        'mac.', array(
+                                                    'class' => 'form-control readonly',
+                                                    'type' => 'text',
+                                                    'value' => $mac,
+                                                    'readonly' => 'readonly'
+                                                        )
+                                                );
+                                                ?>
+                                            </div>
+                                            <div class="col-md-1 signupfont">                                   
+                                                Done By   
+                                            </div>                              
+                                            <div class="col-md-3">
+                                                <?php
+                                                echo $this->Form->input('user_id.', array(
+                                                    'type' => 'select',
+                                                    'options' => $users,
+                                                    'empty' => 'Select User',
+                                                    'default' => 0,
+                                                    'class' => 'form-control select2me ',
+                                                        )
+                                                );
+                                                ?>
+                                            </div>
+                                            <div class="col-md-2 signupfont">                                  
+                                                Installation Date                           
+                                            </div> 
+                                            <div class="col-md-3">
+                                                <div class="input-list style-3 clearfix">
+                                                    <?php
+                                                    echo $this->Form->input(
+                                                            'installation_date.', array(
+                                                        'type' => 'text',
+                                                        'placeholder' => 'Select date',
+                                                        'class' => "datepicker form-control ",
+                                                        'title' => 'Click & select date',
+                                                        'id' => false
+                                                            )
+                                                    );
+                                                    ?>                                          
+                                                </div>
+                                            </div> <br><br>
                                             <?php
-                                            echo $this->Form->input(
-                                                    'installation_date', array(
-                                                'class' => 'datepicker form-control required',
-                                                'type' => 'text',
-                                                    )
-                                            );
-                                            ?>                                          
-                                        </div>
-                                    </div>   
+                                        endforeach;
+                                    endif;
+                                    ?>                                
                                 </div>   
                             </div>  
                             &nbsp;
@@ -1674,9 +1687,9 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                     &nbsp;
                                                     <a 
                                                         onclick="if (confirm( & quot; Are you sure to Void this Transaction? & quot; )) {
-                                                                    return true;
-                                                                }
-                                                                return false;"
+                                                                        return true;
+                                                                    }
+                                                                    return false;"
 
                                                         href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'void', $info['transactions']['id'])) ?>" title="Void">
                                                         <span class="fa  fa-ban"></span>
@@ -2561,7 +2574,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                                     </th>
                                                                     <tr>
                                                                         <td style="padding-left: 5px; min-height: 115px; line-height: 15px;">
-                                                                            <?php // if (!empty($single['0']['name'])):              ?>
+                                                                            <?php // if (!empty($single['0']['name'])):               ?>
                                                                             <?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?>
                                                                             <br>
                                                                             <?php echo $customer_address_one; ?><br>
@@ -2800,7 +2813,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                                         </th>
                                                                         <tr>
                                                                             <td style="padding-left: 5px; min-height: 115px; line-height: 15px;">
-                                                                                <?php // if (!empty($single['0']['name'])):                     ?>
+                                                                                <?php // if (!empty($single['0']['name'])):                      ?>
 
                                                                                 <?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?>
 
@@ -3509,9 +3522,9 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                     );
                     ?>
                     <button class="btn red-sunglo" onclick="if (confirm('Are you sure to Delete this Customer?')) {
-                                return true;
-                            }
-                            return false;" <?php echo $btn; ?> type="submit" style="background-color: red;">Delete customer</button>     
+                                    return true;
+                                }
+                                return false;" <?php echo $btn; ?> type="submit" style="background-color: red;">Delete customer</button>     
 
                     <?php echo $this->Form->end(); ?>
 
