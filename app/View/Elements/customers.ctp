@@ -30,16 +30,16 @@
             }
             ?>
             <li class="paginate_button <?php echo $active; ?>" aria-controls="sample_editable_1" tabindex="<?php echo $i; ?>">
-                <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'search',$type, $param, $i)) ?>"><?php echo $i; ?></a>
+                <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'search', $type, $param, $i)) ?>"><?php echo $i; ?></a>
             </li>
         <?php endfor; ?>
     </ul>
     <table cellpadding="0" cellspacing="0" border="0" class="responsive dynamicTable display table table-bordered" width="100%">
         <thead>
-            <tr>                                           
+            <tr>  
+                <th>SL.</th>
                 <th>Name</th>
-                <th>Customer Detail</th>
-                <th>Package</th>
+                <th>Customer Detail</th>                
                 <th>Status</th>
                 <th>Action</th>
 
@@ -47,40 +47,42 @@
         </thead>
         <tbody>
             <?php
-            //    pr($data); exit;
-
             foreach ($data['customer'] as $index => $d):
                 $customer = $d;
-//                        pr($customer['status']); exit;
                 $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                         $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
                         . $customer['zip'];
                 $package = array();
+
                 if (count($data['package']) > 0) {
                     $package = $data['package'][$index];
                 }
                 ?>
                 <tr class="odd gradeX">
-
+                    <td><?php echo $customer['id']; ?></td>
                     <td><?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?></td>
                     <td>
                         <ul>
-                            <li>Cell:<?php echo $customer['cell']; ?></li>
-                            <li>Address:<?php echo $customer_address; ?></li>
+                            <li><strong>Cell:</strong><?php echo $customer['cell']; ?></li>
+                            <li><strong>Address:</strong><?php echo $customer_address; ?></li>
+                            <li><strong>Package:</strong>
+                                <?php if (!empty(($package['duration']))) { ?>
+                                    <ul>
+                                        <li> Name: <?php echo $package['name']; ?></li>
+                                        <li> Month: <?php echo $package['duration']; ?></li>
+                                        <li> Charge: <?php echo $package['charge']; ?></li>
+                                    </ul>
+                                <?php } else { ?> 
+                                    <?php echo 'No Package Selected!' ?>                                    
+                                <?php } ?>
+
+                            </li>
+                            <?php if (!empty($customer['mac'] )) { ?>
+                                <li> <strong>Mac:</strong> <?php echo $customer['mac']; ?></li>
+                            <?php } ?>
                         </ul>
                     </td>
 
-                    <td>
-                        <?php if (count($package) > 0): ?>
-                            <ul>
-                                <li> Package Name: <?php echo $package['name']; ?></li>
-                                <li> Month: <?php echo $package['duration']; ?></li>
-                                <li> Charge: <?php echo $package['charge']; ?></li>
-                            </ul>
-                            <?php
-                        endif;
-                        ?>
-                    </td>
                     <td>                               
                         <?php echo $customer['status']; ?>                               
                     </td>

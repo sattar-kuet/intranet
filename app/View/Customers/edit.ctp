@@ -1,4 +1,6 @@
+
 <style type="text/css">
+
     .alert {
         padding: 6px;
         margin-bottom: 5px;
@@ -405,9 +407,6 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                         ?>
                                     </div>  
                                 </div>
-
-
-
                                 <div class="col-md-2">
                                     <label>
                                         <div class="" style="display: inline-block;"><span class=""><input id="customcheckbox" name="data[PackageCustomer][CustomPackage]"  type="checkbox" <?php
@@ -652,10 +651,9 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                         'Update Customer Information', array(
                                     'class' => 'btn btn-primary submitbtn green',
                                     'type' => 'submit',
-                                    'id' => '',                                            
-                                                'disabled' => $btn
+                                    'id' => '',
+                                    'disabled' => $btn
                                 ));
-                                 
                                 ?>
                             </div>
                         </div>
@@ -723,7 +721,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                             &nbsp;
                             <div class="row margin-top-20">
                                 <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20"> 
-                                    <button <?php echo $btn?> class="btn btn-primary submitbtn grey-cascade" type="submit" id="">Update Date</button>                                    </div>
+                                    <button <?php echo $btn ?> class="btn btn-primary submitbtn grey-cascade" type="submit" id="">Update Date</button>                                    </div>
                             </div>
                         </div>
                     </div>
@@ -839,7 +837,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                             &nbsp;
                             <div class="row margin-top-20">
                                 <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20"> 
-                                    <button <?php echo $btn?> class="btn btn-primary submitbtn grey-cascade" type="submit" id="">Generate Invoice</button>                                    </div>
+                                    <button <?php echo $btn ?> class="btn btn-primary submitbtn grey-cascade" type="submit" id="">Generate Invoice</button>                                    </div>
                             </div>
                         </div>
                     </div>
@@ -1127,7 +1125,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                     'class' => 'btn btn-primary submitbtn green-meadow',
                                     'type' => 'submit',
                                     'id' => '',
-                                                'disabled' => $btn
+                                    'disabled' => $btn
                                 ));
                                 ?>
                             </div>
@@ -1157,9 +1155,9 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                 'label' => false,
                                 'div' => false
                             ),
-                            'id' => 'form-validate',
-                            'class' => 'form-horizontal',
-                            'novalidate' => 'novalidate',
+                            //'id' => 'form-validate',
+                            //'class' => 'form-horizontal',
+                            // 'novalidate' => 'novalidate',
                             'enctype' => 'multipart/form-data',
                             'url' => array('controller' => 'customers', 'action' => 'update_status')
                                 )
@@ -1185,11 +1183,10 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                         <?php
                                         echo $this->Form->input('status', array(
                                             'type' => 'select',
-                                            'options' => array(                                                
+                                            'options' => array(
                                                 'active' => 'Active',
                                                 'hold' => 'Hold',
                                                 'canceled' => 'Canceled',
-                                                
 //                                                'sales done' => 'Installation done',                                                
 //                                                'inactive' => 'Inactive',                                                
 //                                                'requested' => 'Requested',
@@ -1249,8 +1246,68 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                 <span  id="#status-history" title="Status History of Customer" class="toggleDiv">
                                     <i class="fa fa-eye pull-right"> </i>
                                 </span>
-                            </div>  
+                            </div> 
+                            <br>
+                            <br> 
+                            <div class="col-md-12" >
+                                <div class="row"> 
 
+                                    <?php
+                                    if (is_array($macstb['mac'])):
+                                        foreach ($macstb['mac'] as $index => $mac):
+                                            $mac = $macstb['mac'][$index];
+                                            ?>
+                                            <div class="col-md-3 signupfont">
+                                                <?php
+                                                echo $this->Form->input(
+                                                        'mac.', array(
+                                                    'class' => 'form-control readonly',
+                                                    'type' => 'text',
+                                                    'value' => $mac,
+                                                    'readonly' => 'readonly'
+                                                        )
+                                                );
+                                                ?>
+                                            </div>
+                                            <div class="col-md-1 signupfont">                                   
+                                                Done By   
+                                            </div>                              
+                                            <div class="col-md-3">
+                                                <?php
+                                                echo $this->Form->input('user_id.', array(
+                                                    'type' => 'select',
+                                                    'options' => $users,
+                                                    'empty' => 'Select User',
+                                                    'default' => 0,
+                                                    'class' => 'form-control select2me ',
+                                                        )
+                                                );
+                                                ?>
+                                            </div>
+                                            <div class="col-md-2 signupfont">                                  
+                                                Installation Date                           
+                                            </div> 
+                                            <div class="col-md-3">
+                                                <div class="input-list style-3 clearfix">
+                                                    <?php
+                                                    echo $this->Form->input(
+                                                            'installation_date.', array(
+                                                        'type' => 'text',
+                                                        'placeholder' => 'Select date',
+                                                        'class' => "datepicker form-control ",
+                                                        'title' => 'Click & select date',
+                                                        'id' => false
+                                                            )
+                                                    );
+                                                    ?>                                          
+                                                </div>
+                                            </div> <br><br>
+                                            <?php
+                                        endforeach;
+                                    endif;
+                                    ?>                                
+                                </div>   
+                            </div>  
                             &nbsp;
                             &nbsp;
                             <div class="row margin-top-20">
@@ -1513,7 +1570,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                         'class' => 'btn btn-primary submitbtn green',
                                         'type' => 'submit',
                                         'id' => '',
-                                                'disabled' => $btn
+                                        'disabled' => $btn
                                     ));
                                     ?>
                                 </div>
@@ -1582,7 +1639,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                         <?php
                                         foreach ($invoices as $info):
                                             $date = $info['transactions']['next_payment'];
-                                             
+
                                             $customer_address = $info['package_customers']['house_no'] . ' ' . $info['package_customers']['street'] . ' ' .
                                                     $info['package_customers']['apartment'] . ' ' . $info['package_customers']['city'] . ' ' . $info['package_customers']['state'] . ' '
                                                     . $info['package_customers']['zip'];
@@ -1796,7 +1853,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                 <?php
                                                 echo $this->Form->button(
                                                         'Generate', array('class' => 'btn red-sunglo', 'type' => 'submit',
-                                                'disabled' => $btn, 'style' => "background-color: #daae2b;",)
+                                                    'disabled' => $btn, 'style' => "background-color: #daae2b;",)
                                                 );
                                                 ?>
                                             </div>
@@ -1934,7 +1991,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                 <?php
                                                 echo $this->Form->button(
                                                         'Confirm', array('class' => 'btn red-sunglo',
-                                                'disabled' => $btn, 'type' => 'submit')
+                                                    'disabled' => $btn, 'type' => 'submit')
                                                 );
                                                 ?>
                                             </div>
@@ -2097,7 +2154,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                 <?php
                                                 echo $this->Form->button(
                                                         'Submit', array('class' => 'btn',
-                                                'disabled' => $btn, 'type' => 'submit')
+                                                    'disabled' => $btn, 'type' => 'submit')
                                                 );
                                                 ?>
                                             </div>
@@ -2175,7 +2232,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                 <?php
                                                 echo $this->Form->button(
                                                         'Submit', array('class' => 'btn red-sunglo',
-                                                'disabled' => $btn, 'type' => 'submit', 'style' => "background-color: #8BC34A;",)
+                                                    'disabled' => $btn, 'type' => 'submit', 'style' => "background-color: #8BC34A;",)
                                                 );
                                                 ?>
                                             </div>
@@ -2517,7 +2574,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                                     </th>
                                                                     <tr>
                                                                         <td style="padding-left: 5px; min-height: 115px; line-height: 15px;">
-                                                                            <?php // if (!empty($single['0']['name'])):            ?>
+                                                                            <?php // if (!empty($single['0']['name'])):               ?>
                                                                             <?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?>
                                                                             <br>
                                                                             <?php echo $customer_address_one; ?><br>
@@ -2756,7 +2813,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                                         </th>
                                                                         <tr>
                                                                             <td style="padding-left: 5px; min-height: 115px; line-height: 15px;">
-                                                                                <?php // if (!empty($single['0']['name'])):                ?>
+                                                                                <?php // if (!empty($single['0']['name'])):                      ?>
 
                                                                                 <?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?>
 

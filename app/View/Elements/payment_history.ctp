@@ -69,7 +69,7 @@
                                 $pc = $single['pc'];
                                 $stbs = count($pc['stbs']);
 //                                            $stbs = json_decode($pc['mac']);+
-//                                              pr($stbs); exit;
+                                             
 
                                 $boxes = $stbs;
 
