@@ -7,6 +7,10 @@ class ReportsController extends AppController {
     var $layout = 'admin';
 
     public function beforeFilter() {
+        if (!$this->Auth->loggedIn()) {
+            return $this->redirect('/admins/login');
+            //  echo 'here'; exit; //(array('action' => 'deshboard'));
+        }
         parent::beforeFilter();
     }
 
@@ -190,10 +194,10 @@ class ReportsController extends AppController {
         $mac = count(json_decode($packagecustomers['0']['pc']['mac']));
         $packagecustomers[0]['pc']['mac'] = $mac;
 
-        $return['packagecustomers'] = $packagecustomers; 
+        $return['packagecustomers'] = $packagecustomers;
         //pr($total_page); exit;
         $return['total_page'] = $total_page;
-       
+
         return $return;
     }
 

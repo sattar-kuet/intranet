@@ -7,6 +7,10 @@ class MessagesController extends AppController {
     var $layout = 'admin';
 
     public function beforeFilter() {
+        if (!$this->Auth->loggedIn()) {
+            return $this->redirect('/admins/login');
+            //  echo 'here'; exit; //(array('action' => 'deshboard'));
+        }
         parent::beforeFilter();
     }
 

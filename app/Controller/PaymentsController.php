@@ -16,6 +16,10 @@ class PaymentsController extends AppController {
     }
 
     public function beforeFilter() {
+        if (!$this->Auth->loggedIn()) {
+            return $this->redirect('/admins/login');
+            //  echo 'here'; exit; //(array('action' => 'deshboard'));
+        }
         parent::beforeFilter();
         // Allow users to register and logout.
         $this->Auth->allow('process');
@@ -124,11 +128,12 @@ class PaymentsController extends AppController {
         $this->set('customer_info');
     }
 
-    public function request_process() {
+     public function request_process() {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
         $this->loadModel('Track');
         $this->loadModel('Ticket');
+            
         if (strpos($this->request->data['Transaction']['card_no'], 'X') !== false) {
             //Card number is not provided. So fetch previous card number
             //  $temp = $this->Transaction->findById($this->request->data['Transaction']['id']);
@@ -149,21 +154,23 @@ class PaymentsController extends AppController {
 
         $cid = $this->request->data['Transaction']['package_customer_id'];
         $pc = $this->PackageCustomer->findById($cid);
-        $this->request->data['pc'] = $pc;
+      
 
         // process payment
-        // $this->request->data['marchantName'] = "95x9PuD6b2"; // testing
+       //  $this->request->data['marchantName'] = "95x9PuD6b2"; // testing
         $this->request->data['marchantName'] = '7zKH4b45'; // live
-        // $this->request->data['marchantKey'] = "547z56Vcbs3Nz9R9"; // testing
+      //  $this->request->data['marchantKey'] = "547z56Vcbs3Nz9R9"; // testing
         $this->request->data['marchantKey'] = '738QpWvHH4vS59vY'; // live
 
         $this->request->data['testMode'] = 0;
 
-        $link = 'http://www.api2apipro.live/' . 'rest_payments.json';
-
+        $link = 'http://www.api2apipro.live/' . 'rest_payments/add.json';
+//pr($this->request->data); exit;
+       // $httpSocket = new HttpSocket();
         $httpSocket = new HttpSocket();
 
         $response = $httpSocket->post($link, $this->request->data);
+     // pr($response); exit();
         $result = $response->body;
         $return = json_decode($result, TRUE);
 
@@ -181,11 +188,6 @@ class PaymentsController extends AppController {
             return $this->redirect($this->referer());
         }
 
-        //  pr($return); exit;
-//        $this->set('response_code', $response->code);
-//        $this->set('response_body', $response->body);
-//
-//        $this->render('/Payment/request_response');
 
 
         $alert = '<div class="alert alert-success"> ';
@@ -305,6 +307,7 @@ class PaymentsController extends AppController {
 
         return $this->redirect($this->referer());
     }
+   
 
     public function individual_auto_recurring($data) {
         //echo 'Here'; exit;
@@ -329,7 +332,7 @@ class PaymentsController extends AppController {
         $amount = $data['payable_amount'];
         $msg = '<ul>';
 
-        $link = 'http://www.api2apipro.live/' . 'rest_payments/0.json';
+        $link = 'http://www.api2apipro.live/' . 'rest_payments/edit.json';
 //echo $link; exit;
 
         $httpSocket = new HttpSocket();
@@ -340,7 +343,7 @@ class PaymentsController extends AppController {
         $this->request->data['marchantKey'] = '738QpWvHH4vS59vY'; // live
 
         $this->request->data['testMode'] = 0;
-
+        //pr($this->request->data); exit;
         $response = $httpSocket->put($link, $this->request->data);
         $result = $response->body;
         $return = json_decode($result, TRUE);
@@ -709,7 +712,7 @@ class PaymentsController extends AppController {
         $this->request->data['Transaction']['status'] = $status;
         $this->Transaction->save($this->request->data['Transaction']);
         // generate Ticket
-        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment mode :</b> Check", 'status' => 'open','payment_process' => '2');
+        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment mode :</b> Check", 'status' => 'open', 'payment_process' => '2');
         $tickect = $this->Ticket->save($tdata); // Data save in Ticket
 
         $trackData['Track'] = array(
@@ -777,7 +780,7 @@ class PaymentsController extends AppController {
         $this->request->data['Transaction']['status'] = $status;
         $this->Transaction->save($this->request->data['Transaction']);
         // generate Ticket
-        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment mode: </b> Money Order", 'status' => 'open','payment_process' => '2');
+        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment mode: </b> Money Order", 'status' => 'open', 'payment_process' => '2');
         $tickect = $this->Ticket->save($tdata); // Data save in Ticket
 
         $trackData['Track'] = array(
@@ -850,7 +853,7 @@ class PaymentsController extends AppController {
         $this->Transaction->save($this->request->data['Transaction']);
 
         // generate Ticket
-        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment Mode : </b> Online Bill", 'status' => 'open','payment_process' => '2');
+        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment Mode : </b> Online Bill", 'status' => 'open', 'payment_process' => '2');
         $tickect = $this->Ticket->save($tdata); // Data save in Ticket
 
         $trackData['Track'] = array(
@@ -904,7 +907,7 @@ class PaymentsController extends AppController {
         $due = $this->getDue($id);
         $credit = $this->getCredit($this->request->data['Transaction']['package_customer_id']);
         $totalDue = $due + $credit;
-         $status = 'close';
+        $status = 'close';
         if ($totalDue > 0) {
             $status = 'open';
         }
@@ -914,7 +917,7 @@ class PaymentsController extends AppController {
         $this->request->data['Transaction']['status'] = $status;
         $this->Transaction->save($this->request->data['Transaction']);
         // generate Ticket
-        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment Mode :</b> Cash", 'status' => 'open','payment_process' => '2');
+        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment Mode :</b> Cash", 'status' => 'open', 'payment_process' => '2');
         $tickect = $this->Ticket->save($tdata); // Data save in Ticket
 
         $trackData['Track'] = array(

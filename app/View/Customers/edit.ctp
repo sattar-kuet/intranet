@@ -2626,7 +2626,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                                 </div>
                                                                 <div class="col-xs-6 invoice-payment">
                                                                     <div class="col-xs-6">  
-                                                                        <b style=" color: #000;">Total Of New Charges</b>
+                                                                        <b style=" color: #000;">Total Payable Amount</b>
                                                                     </div>
                                                                     <div class="col-xs-6" style="text-align: right;">
                                                                         $<?php echo $bill['payable_amount']; ?>     
@@ -2641,7 +2641,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                                 </div>
                                                                 <div class="col-xs-6 invoice-payment">
                                                                     <div class="col-xs-6">  
-                                                                        <b style=" color: #000;">TOTAL Amount Due for this Invoice</b>
+                                                                        <b style=" color: #000;">Total Amount Due </b>
                                                                     </div>
                                                                     <div class="col-xs-6" style="text-align: right;">
                                                                         $<?php echo $bill['payable_amount'] - getPaid($bill['id']); ?>     
@@ -2656,7 +2656,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                                 </div>
                                                                 <div class="col-xs-6 invoice-payment">
                                                                     <div class="col-xs-6">  
-                                                                        <b style=" color: #000;">Your Current Balance</b>
+                                                                        <b style=" color: #000;">Current Balance</b>
                                                                     </div>
                                                                     <div class="col-xs-6" style="text-align: right;">
                                                                         $<strong class="due-amount"></strong>     
@@ -2866,7 +2866,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                                     </div>
                                                                     <div class="col-xs-6 invoice-payment">
                                                                         <div class="col-xs-6">  
-                                                                            <b style=" color: #000;">Total Of New Charges</b>
+                                                                            <b style=" color: #000;">Total Paid Amount</b>
                                                                         </div>
                                                                         <div class="col-xs-6" style="text-align: right;">
                                                                             $<?php echo getFullPayment($payment['transaction_id']); ?>     
@@ -2881,7 +2881,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                                     </div>
                                                                     <div class="col-xs-6 invoice-payment">
                                                                         <div class="col-xs-6">  
-                                                                            <b style=" color: #000;">TOTAL Amount Due</b>
+                                                                            <b style=" color: #000;">Total Amount Due</b>
                                                                         </div>
                                                                         <div class="col-xs-6" style="text-align: right;">
                                                                             $<?php echo getFullPayment($payment['transaction_id']) - getPaid($payment['transaction_id']); ?>     
