@@ -245,7 +245,7 @@
             }
 
             if ($action == 'openinvoice25') {
-                echo $this->element('openinvoice25', array('data' => $data));
+                echo $this->element('openInvoice25', array('data' => $data));
             }
 
             if ($action == 'passedinvoice') {
@@ -261,7 +261,7 @@
             }
 
             if ($action == 'customersummary') {
-                echo $this->element('customersummary', array('data' => $data));
+                echo $this->element('customerSummary', array('data' => $data));
             }
 
             if ($action == 'overallreport') {

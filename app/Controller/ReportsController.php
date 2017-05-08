@@ -190,10 +190,10 @@ class ReportsController extends AppController {
         $mac = count(json_decode($packagecustomers['0']['pc']['mac']));
         $packagecustomers[0]['pc']['mac'] = $mac;
 
-        $return['packagecustomers'] = $packagecustomers; 
+        $return['packagecustomers'] = $packagecustomers;
         //pr($total_page); exit;
         $return['total_page'] = $total_page;
-       
+
         return $return;
     }
 
@@ -213,36 +213,18 @@ class ReportsController extends AppController {
         $this->loadModel('Package_customer');
         $this->loadModel('Transaction');
         $datrange = json_decode($this->request->data['Role']['daterangeonly'], true);
-       
-        $start = $datrange['start'] . ' 00:00:00';
-        $end= $datrange['end'] . ' 23:59:59';
-        
-        $sql ="SELECT tr.id, tr.package_customer_id, 
-            CONCAT( first_name,' ', middle_name,' ', last_name ) AS name, pc.psetting_id, pc.mac,
-            ps.name, p.name, tr.paid_amount, ps.amount, ps.duration FROM transactions tr
-            left join package_customers pc on tr.package_customer_id = pc.id
-            left join psettings ps on ps.id = pc.psetting_id
-            LEFT JOIN packages p ON p.id = ps.package_id 
-            WHERE paid_amount !=0 and
-            tr.created >='" . $start . "' AND tr.created <='" . $end . "'";
-        
-        
-        $sql = "SELECT COUNT(DISTINCT(tracks.ticket_id)) as total FROM tracks " .
-                "LEFT JOIN issues ON tracks.issue_id = issues.id " .
-                " WHERE LOWER(issues.name) = '$status' AND tracks.created >='" . $start . "' AND tracks.created <='" . $end . "'";
-        $data = $this->Track->query($sql);
-        
-        
 
+        $start = $datrange['start'] . ' 00:00:00';
+        $end = $datrange['end'] . ' 23:59:59';
+        
         $packagecustomers = $this->Transaction->query("SELECT tr.id, tr.package_customer_id, 
             CONCAT( first_name,' ', middle_name,' ', last_name ) AS name, pc.psetting_id, pc.mac,
-            ps.name, p.name, tr.paid_amount, ps.amount, ps.duration FROM transactions tr
+            ps.name, p.name, tr.paid_amount, ps.amount, ps.duration,tr.created FROM transactions tr
             left join package_customers pc on tr.package_customer_id = pc.id
             left join psettings ps on ps.id = pc.psetting_id
             LEFT JOIN packages p ON p.id = ps.package_id 
             WHERE paid_amount !=0 and
             tr.created >='" . $start . "' AND tr.created <='" . $end . "'");
-//        pr($packagecustomers); exit;
         $return['packagecustomers'] = $packagecustomers;
         return $return;
     }
@@ -305,6 +287,7 @@ class ReportsController extends AppController {
 
     function openInvoice25() {
         $this->loadModel('Transaction');
+      
         $expiredate = trim(date('Y-m-d', strtotime("+25 days")));
         $packagecustomers = $this->Transaction->query("SELECT * 
         FROM transactions tr
@@ -483,6 +466,7 @@ class ReportsController extends AppController {
         $agent = $this->request->data['Role']['user_id'];
         $datrange = json_decode($this->request->data['Role']['daterangecalllog'], true);
         $status = $this->request->data['Role']['status'];
+
         $ds = new DateTime($datrange['start']);
         $timestamp = $ds->getTimestamp(); // Unix timestamp
         $startd = $ds->format('m/y'); // 2003-10-16
@@ -508,10 +492,15 @@ class ReportsController extends AppController {
             $conditions .= " tr.issue_id = $issue AND";
         }
 
+        if (!empty($status)) {
+            $conditions .= " tr.status = '$status' AND";
+        }
+
         $conditions.="###";
         $conditions = str_replace("AND###", "", $conditions);
         $conditions = str_replace("AND ###", "", $conditions);
         $conditions = str_replace("###", "", $conditions);
+//        pr($conditions); exit;
         $sql = "SELECT * FROM tracks tr
                         left JOIN tickets t ON tr.ticket_id = t.id
                         left JOIN users fb ON tr.forwarded_by = fb.id
@@ -520,6 +509,7 @@ class ReportsController extends AppController {
                         left JOIN issues i ON tr.issue_id = i.id
                         left join package_customers pc on tr.package_customer_id = pc.id
                          WHERE $conditions order by pc.id desc limit $offset,$this->per_page";
+        // echo $sql; exit;
 
         $tickets = $this->Track->query($sql);
 
@@ -1011,6 +1001,7 @@ class ReportsController extends AppController {
                 $data = $this->expcustomers($page = 0, $start = null, $end = null);
             }
             if ($action == 'calllog') {
+
                 $data = $this->call_log($page = 1, $start = null, $end = null);
             }
 
@@ -1035,6 +1026,7 @@ class ReportsController extends AppController {
             }
 
             if ($action == 'openinvoice25') {
+                
                 $data = $this->openinvoice25();
             }
             if ($action == 'passedinvoice') {

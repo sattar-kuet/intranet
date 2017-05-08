@@ -442,8 +442,8 @@ class CustomersController extends AppController {
 
         if ($this->request->is('post') || $this->request->is('put')) { // mac installation info will be insert in mac_history tbl. strat
             $data = $this->request->data['PackageCustomer'];
-                      pr($data);
-            exit;
+//                      pr($data);
+//            exit;
             foreach ($data['mac'] as $k => $single) {
                 $data2['MacHistory'] = array('mac' => $single, 'installed_by' => $data['user_id'][$k], 'installation_date' => $this->getFormatedDate($data['installation_date'][$k]), 'user_id' => $loggedUser['id'], 'package_customer_id' => $data['id']);
                 $this->MacHistory->create();
