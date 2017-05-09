@@ -203,7 +203,7 @@ $(document).ready(function () {
             $('.hide-rest').hide(100);
             $('#date-range-pay-mode').show(1000);
         }
-        else if (action == 'allinvoice' || action == 'openinvoice' || action == 'passedinvoice' || action == 'customersummary') {
+        else if (action == 'allinvoice' || action == 'allinvoice_tr' || action == 'openinvoice' || action == 'passedinvoice' || action == 'customersummary') {
             $('.hide-rest').hide(100);
         }
         else if (action == 'customerbyloaction') {
