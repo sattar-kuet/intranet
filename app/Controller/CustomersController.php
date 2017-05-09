@@ -16,6 +16,12 @@ class CustomersController extends AppController {
 
     public function beforeFilter() {
         parent::beforeFilter();
+        
+         if (!$this->Auth->loggedIn()) {
+            return $this->redirect( '/admins/login');
+          //  echo 'here'; exit; //(array('action' => 'deshboard'));
+        }
+        
         $this->Auth->allow('');
         // database name must be picture, attachment
         $this->img_config = array(

@@ -31,6 +31,7 @@ class AdminsController extends AppController {
     );
 
     public function beforeFilter() {
+
         parent::beforeFilter();
         $this->Auth->userScope = array('Admin.status' => 'active');
         $this->Auth->allow('create', 'getIsChatAgent');
@@ -137,7 +138,10 @@ class AdminsController extends AppController {
     }
 
     function dashboard() {
-        
+        if (!$this->Auth->loggedIn()) {
+            return $this->redirect('/admins/login');
+            //  echo 'here'; exit; //(array('action' => 'deshboard'));
+        }
     }
 
     function addrole() {
@@ -308,7 +312,11 @@ class AdminsController extends AppController {
         $this->loadModel('Role');
         if ($this->request->is('post')) {
             $loggedUser = $this->Auth->user();
-            $this->request->data['User']['user_id'] = $loggedUser['id'];
+            $user = 0;
+            if (count($loggedUser)) {
+                $user = $loggedUser['id'];
+            }
+            $this->request->data['User']['user_id'] = $user;
             $this->User->set($this->request->data);
             if ($this->User->validates()) {
                 $result = array();
@@ -459,9 +467,6 @@ class AdminsController extends AppController {
         $data['package'] = $package;
         return $data;
     }
-
-   
-   
 
     function changeservice($id = null) {
         $this->loadModel('PackageCustomer');
@@ -703,11 +708,11 @@ class AdminsController extends AppController {
                 }
             }
         }
-        
+
         $temp = $this->PackageCustomer->query("SELECT COUNT(pc.id) as total FROM  package_customers pc WHERE pc.status = 'done' AND approved=0");
         $total = $temp[0][0]['total'];
         $total_page = ceil($total / $this->per_page);
-        
+
         $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
         $this->set(compact('filteredData', 'technician', 'total_page'));
     }
