@@ -1044,7 +1044,7 @@ class ReportsController extends AppController {
 
             if ($action == 'allautorecurring') {
                 $data = $this->allautorecurring($page = 1, $start = null, $end = null);
-                pr($data); exit;
+                
             }
 
             if ($action == 'successful') {

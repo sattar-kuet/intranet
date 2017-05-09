@@ -1,195 +1,120 @@
+<!-- BEGIN PAGE CONTENT-->
 
-<style type="text/css">
-    .alert {
-        padding: 6px;
-        margin-bottom: 5px;
-        border: 1px solid transparent;
-        border-radius: 4px;
-        text-align: center;
-    }
-    .txtArea { width:300px; }
-    .signupfont{
-        font-size: 14px !important; 
-    }
-    .fancybox-inner{
-        width:844px !important;
-    }
-    .fancybox-wrap {
-        width: 860px !important;
-    }
-</style>
+<div  class="col-md-12 col-sm-12">
+    <h3 class="page-title">
+        All Paid Invoice
+    </h3>
+    <?php echo $this->Session->flash(); ?>
+    <!-- END EXAMPLE TABLE PORTLET-->          
+    <table cellpadding="0" cellspacing="0" border="0" class="responsive dynamicTable display table table-bordered" width="100%" >
+        <thead>
+            <tr >  
+                <th>Invoice</th>
+                <th>Payment info</th>
+                <th>Customer Details</th>
+                <th> Auto recurring Detail</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            foreach ($data['transactions'] as $single):
+                $customer_address = $single['pc']['house_no'] . ' ' . $single['pc']['street'] . ' ' .
+                        $single['pc']['apartment'] . ' ' . $single['pc']['city'] . ' ' . $single['pc']['state'] . ' '
+                        . $single['pc']['zip'];
+                ?>
+                <tr class="odd gradeX">
+                    <td> 
+                        <?php echo $single['tr']['id']; ?>
+                    </td>
+                    <td>
+                        <ul>
+                            <?php if ($single['tr']['pay_mode'] == 'card'): ?>
 
-<div class="page-content-wrapper">
-    <!-- BEGIN PAGE CONTENT-->
-    <div class="page-content">
-        <div  class="col-md-12 col-sm-12">
-            <h3 class="page-title">
-                Complete the transactions <small>(individually)</small>
-            </h3>
-            <?php echo $this->Session->flash(); ?>
-            <!-- END EXAMPLE TABLE PORTLET-->
-            <div class="col-md-12">
-                <!-------------payment history start----------------->
-                <div  class="col-md-12 col-sm-12">
-                    <div>
-                        <div class="portlet box " style="background-color: tomato; border: tomato solid 2px;">
-                            <div class="portlet-title">
-                                <div class="caption">
-                                    <i class="fa fa-list-ul"></i>Statement
-                                </div>
-                                <div class="tools">
-                                    <a  class="reload toggle" data-id="transaction" ></a>
-                                </div>
-                            </div>
-                            <div class="portlet-body">
-                                    <div class="row" id="transaction" style="display: none;">
-                                        <div  class="col-md-12 col-sm-12">
-                                            <div  class="col-md-9 col-sm-9">
-                                            </div>  
-                                        </div>
-                                        <table cellpadding="0" cellspacing="0" border="0" class="responsive dynamicTable display table table-bordered" width="100%" >
-                                            <thead>
-                                                <tr >  
-                                                    <th>Invoice</th>
-                                                    <th>Payment info</th>
-                                                    <th>Amount</th>
-                                                    <th>Balance</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                $balance = array();
-                                                foreach ($data['transactions'] as $single):
-                                                    $bill = $single['bill'];
-                                                    $payments = $single['payment'];
+                                <li>Pay Mode : <?php echo $single['tr']['pay_mode']; ?></li> 
+                                <li>Status : <?php echo $single['tr']['status']; ?></li>
+                                <?php if ($single['tr']['status'] == 'error'): ?>
+                                    <ul>
+                                        <li>Error Message : <?php echo $single['tr']['error_msg']; ?></li> 
+                                    </ul>
+                                <?php endif;
+                                ?>
+                                <li>Transaction No : <?php echo $single['tr']['trx_id']; ?></li> 
+                                <li>Card No : <?php echo substr($single['tr']['card_no'], -4); ?></li>  
+                                <li>Zip Code : <?php echo $single['tr']['zip_code']; ?></li>  
+                                <li>Expire Date : <?php echo $single['tr']['exp_date']; ?></li>
+                            <?php elseif ($single['tr']['pay_mode'] == 'cash'): ?>
+                                <li>Pay Mode : <?php echo $single['tr']['pay_mode']; ?></li> 
+                                <li> Cash By : <?php echo $single['tr']['cash_by']; ?> </li>
+                                <a  target="_blank" title="Edit"  href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit', $single['tr']['id'])) ?>" >
+                                    <span class="fa fa-pencil" target ="_blank"></span>
+                                </a>
+                            <?php elseif ($single['tr']['pay_mode'] == 'refund'): ?>
+                                <li>Pay Mode : <?php echo $single['tr']['pay_mode']; ?></li>
+                                <li>Check Info : <?php echo $single['tr']['check_info']; ?></li>
+                                <ul> <li>Amount : <?php echo $single['tr']['paid_amount']; ?></li>
+                                    <li>Refund Date : <?php echo date('m-d-Y', strtotime($single['tr']['created'])); ?></li>
+                                </ul>
+                                <a  target="_blank" title="Edit"  href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit', $single['tr']['id'])) ?>" >
+                                    <span class="fa fa-pencil" target ="_blank"></span>
+                                </a>
+                            <?php else: ?>
+                                <li>Pay Mode : <?php echo $single['tr']['pay_mode']; ?></li> 
+                                <li>Check Info : <?php echo $single['tr']['check_info']; ?></li>
+                                <?php if (!empty($single['tr']['check_image'])): ?>
+                                    <img src="<?php echo $this->webroot . 'check_images' . '/' . $single['tr']['check_image']; ?>"  width="50px" height="50px" />
+                                <?php endif; ?>
+                                <a  target="_blank" title="Edit"  href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit', $single['tr']['id'])) ?>" >
+                                    <span class="fa fa-pencil" target ="_blank"></span>
+                                </a>
+                            <?php endif; ?> 
 
-                                                    $amount = $bill['payable_amount'];
-                                                    if ($bill['status'] == 'approved') {
-                                                        $amount = (-1) * $bill['payable_amount'];
-                                                    }
-                                                    $balance[] = $amount;
-                                                    // $prevIndex = -1;
-                                                    $payment_date = $bill['next_payment'];
-
-                                                    $payment_time = strtotime($payment_date);
-                                                    $currenttime = strtotime(date('Y-m-d'));
-                                                    $next7days = strtotime("+7 day");
-                                                    $time_remaining = $next7days - $payment_time;
-                                                    $diff = 7 * 24 * 60 * 60;
-//                                                echo $next7days;
-//                                                echo ':'.$payment_time.'<br>'.$diff;
-//                                                echo '<hr>';
-
-                                                    if (count($balance) > 1) {
-                                                        $prevIndex = count($balance) - 2;
-                                                        $balance[] = $balance[$prevIndex] + $balance[$prevIndex + 1];
-                                                    }
-                                                    ?>
-                                                    <tr class="odd gradeX">
-                                                        <td>
-                                                            <a href="#invoice-pop-up<?php echo $bill['id']; ?>" class="btn btn-default fancybox-fast-view"> <?php echo empty($bill['invoice']) ? $bill['id'] : $bill['invoice']; ?></a><br>
-                                                        </td>
-                                                        <td>
-                                                <li>
-                                                    Payable Amount : <?php echo $bill['payable_amount']; ?> 
-                                                </li>
-                                                <li>
-                                                    Invoice Date : 
-                                                    <?php echo date('m-d-Y', strtotime($bill['next_payment'])); ?>
-                                                    <a  target="_blank" title="Edit" href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit', $bill['id'])) ?>" >
-                                                        <span class="fa fa-pencil " target ="_blank"></span>
-                                                    </a>
-                                                </li>
-                                                </td>
-                                                <td>
+                            <li> Payment Date: <?php echo date('m-d-Y', strtotime($single['tr']['created'])); ?> </li>
+                            <li> Payment of : #<?php echo $single['tr']['transaction_id']; ?> </li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <b>  Name :</b>  <a href="<?php
+                            echo Router::url(array('controller' => 'customers',
+                                'action' => 'edit', $single['pc']['id']))
+                            ?>" 
+                                                target="_blank">
                                                     <?php
-                                                    echo $amount; // + $bill['discount'];
+                                                    echo $single['pc']['first_name'] . " " .
+                                                    $single['pc']['middle_name'] . " " .
+                                                    $single['pc']['last_name'];
                                                     ?>
-                                                </td>
-                                                <td>
-                                                    <?php echo end($balance); ?>
-                                                </td>
-                                                </tr>
+                            </a><br>
+                            <b>  Address :  </b> <?php echo $customer_address; ?> <br>
+                            <?php if (!empty($single['pc']['cell'])): ?>
+                                <b> Cell :</b> <a href="tel:<?php echo $single['pc']['cell'] ?>"><?php echo $single['pc']['cell']; ?></a><br>
+                            <?php endif; ?>
+                            <?php if (!empty($single['pc']['home'])): ?>
+                                <b>  Home :</b>  <a href="tel:<?php echo $single['pc']['home'] ?>"><?php echo $single['pc']['home']; ?></a>
+                            <?php endif; ?> 
+                        </ul>
+                    </td>
+                    <td class="hidden-480">
+                        <?Php if ($single['pc']['auto_r'] == 'yes') { ?>
+                <li> <b>Auto Recurring :</b> <?php echo $single['pc']['auto_r']; ?> </li>                           
+                <li> <b>Repeating interval :</b> <?php echo $single['pc']['r_duration']; ?> </li>                           
+                <li> <b>Payment Date :</b> <?php echo $single['pc']['recurring_date']; ?> </li>                           
+                <li> <b>Recurring From Date :</b> <?php echo $single['pc']['r_form']; ?> </li>                           
+                <li> <b>Payable Amount :</b> <?php echo $single['pc']['payable_amount']; ?> </li>                           
+                <li> <b>Card No :</b> <?php echo $single['pc']['card_check_no']; ?> </li>                           
+                <li> <b>Expire Date :</b> <?php echo $single['pc']['exp_date']; ?> </li>                           
+                <li> <b>Name :</b> <?php echo $single['pc']['cfirst_name'] . ' ' . $single['pc']['clast_name']; ?> </li>                           
+                <li> <b>CVV Code :</b> <?php echo $single['pc']['cvv_code']; ?></li>                           
+                <li> <b>Zip :</b> <?php echo $single['pc']['czip']; ?></li>  
+            <?Php } else { ?>
+                <li> <b>Auto Recurring :</b> <?php echo 'NO'; ?> </li> 
+            <?Php }
+            ?>
+            </td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
 
-                                                <?php
-//                                                  pr('hh'); exit;
-                                                foreach ($data['transactions'] as $payment):
-                                                    
-                                                    $amount = -1 * $payment['tr']['payable_amount'];
-                                                    $balance[] = $amount;
-                                                    $prevIndex = count($balance) - 2;
-                                                    $balance[] = $balance[$prevIndex] + $balance[$prevIndex + 1];
-                                                    ?>
-                                                    <tr class="odd gradeX">
-                                                        <td> 
-                                                            <a href="#invoice-pop-up<?php echo $payment['tr']['id']; ?>" class="btn btn-default fancybox-fast-view"> <?php echo empty($payment['tr']['invoice']) ? $payment['tr']['id'] : $payment['tr']['invoice']; ?></a><br>
-                                                        </td>
-                                                        <td>
-                                                            <ul>
-                                                                <?php if ($payment['tr']['pay_mode'] == 'card'): ?>
 
-                                                                    <li>Pay Mode : <?php echo $payment['tr']['pay_mode']; ?></li> 
-                                                                    <li>Status : <?php echo $payment['tr']['status']; ?></li>
-                                                                    <?php if ($payment['tr']['status'] == 'error'): ?>
-                                                                        <ul>
-                                                                            <li>Error Message : <?php echo $payment['tr']['error_msg']; ?></li> 
-                                                                        </ul>
-                                                                    <?php endif;
-                                                                    ?>
-                                                                    <li>Transaction No : <?php echo $payment['tr']['trx_id']; ?></li> 
-                                                                    <li>Card No : <?php echo substr($payment['tr']['card_no'], -4); ?></li>  
-                                                                    <li>Zip Code : <?php echo $payment['tr']['zip_code']; ?></li>  
-                                                                    <li>Expire Date : <?php echo $payment['tr']['exp_date']; ?></li>
-                                                                <?php elseif ($payment['tr']['pay_mode'] == 'cash'): ?>
-                                                                    <li>Pay Mode : <?php echo $payment['tr']['pay_mode']; ?></li> 
-                                                                    <li> Cash By : <?php echo $payment['tr']['cash_by']; ?> </li>
-                                                                    <a  target="_blank" title="Edit"  href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit', $payment['tr']['id'])) ?>" >
-                                                                        <span class="fa fa-pencil" target ="_blank"></span>
-                                                                    </a>
-                                                                <?php elseif ($payment['tr']['pay_mode'] == 'refund'): ?>
-                                                                    <li>Pay Mode : <?php echo $payment['tr']['pay_mode']; ?></li>
-                                                                    <li>Check Info : <?php echo $payment['tr']['check_info']; ?></li>
-                                                                    <ul> <li>Amount : <?php echo $payment['tr']['paid_amount']; ?></li>
-                                                                        <li>Refund Date : <?php echo date('m-d-Y', strtotime($payment['tr']['created'])); ?></li>
-                                                                    </ul>
-                                                                    <a  target="_blank" title="Edit"  href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit', $payment['tr']['id'])) ?>" >
-                                                                        <span class="fa fa-pencil" target ="_blank"></span>
-                                                                    </a>
-                                                                <?php else: ?>
-                                                                    <li>Pay Mode : <?php echo $payment['tr']['pay_mode']; ?></li> 
-                                                                    <li>Check Info : <?php echo $payment['tr']['check_info']; ?></li>
-                                                                    <?php if (!empty($payment['tr']['check_image'])): ?>
-                                                                        <img src="<?php echo $this->webroot . 'check_images' . '/' . $payment['tr']['check_image']; ?>"  width="50px" height="50px" />
-                                                                    <?php endif; ?>
-                                                                    <a  target="_blank" title="Edit"  href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit', $payment['tr']['id'])) ?>" >
-                                                                        <span class="fa fa-pencil" target ="_blank"></span>
-                                                                    </a>
-                                                                <?php endif; ?> 
-
-                                                                <li> Payment Date: <?php echo date('m-d-Y', strtotime($payment['tr']['created'])); ?> </li>
-                                                                <li> Payment of : #<?php echo $payment['tr']['transaction_id']; ?> </li>
-                                                            </ul>
-                                                        </td>
-                                                        <td>
-                                                            <?php
-                                                            echo $amount;
-                                                            ?>
-                                                        </td>
-                                                        <td><?php echo end($balance); ?></td>
-                                                    </tr>
-
-                                                <?php endforeach; ?>
-                                                <?php
-                                            endforeach;
-                                            $due = end($balance);
-                                            echo '<span class="due-amount-2 hide">' . $due . '</span>';
-                                            ?>
-                                            </tbody>
-                                        </table>
-                                    </div>                                 
-                            </div>
-                        </div>
-                    </div>
-                    <!-- END CONTENT -->        
-                </div>
-            </div>

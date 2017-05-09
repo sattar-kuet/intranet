@@ -60,12 +60,16 @@
                                 <th>
                                     Payment Information
                                 </th>
+                                <th>
+                                    Auto recurring Detail
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
                             foreach ($data['allData'] as $results):
-                               
+//                                pr($results['package_customers']['auto_r']); exit;
+
                                 $customer = $results['package_customers'];
                                 $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                         $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
@@ -104,6 +108,24 @@
                             <li> <b>Payment Method :</b> <?php echo $results['transactions']['pay_mode']; ?> </li>                           
                             <li> <b>Payment Date :</b> <?php echo $results['transactions']['created']; ?>  </li>                          
                             <li> <b>Next Payment Date :</b> <?php echo $results['package_customers']['r_form']; ?></li>                           
+                            </td>
+
+                            <td class="hidden-480">
+                                <?Php if ($results['package_customers']['auto_r'] == 'yes') { ?>
+                                <li> <b>Auto Recurring :</b> <?php echo $results['package_customers']['auto_r']; ?> </li>                           
+                                <li> <b>Repeating interval :</b> <?php echo $results['package_customers']['r_duration']; ?> </li>                           
+                                <li> <b>Payment Date :</b> <?php echo $results['package_customers']['recurring_date']; ?> </li>                           
+                                <li> <b>Recurring From Date :</b> <?php echo $results['package_customers']['r_form']; ?> </li>                           
+                                <li> <b>Payable Amount :</b> <?php echo $results['package_customers']['payable_amount']; ?> </li>                           
+                                <li> <b>Card No :</b> <?php echo $results['package_customers']['card_check_no']; ?> </li>                           
+                                <li> <b>Expire Date :</b> <?php echo $results['package_customers']['exp_date']; ?> </li>                           
+                                <li> <b>Name :</b> <?php echo $results['package_customers']['cfirst_name'] . ' ' . $results['package_customers']['clast_name']; ?> </li>                           
+                                <li> <b>CVV Code :</b> <?php echo $results['package_customers']['cvv_code']; ?></li>                           
+                                <li> <b>Zip :</b> <?php echo $results['package_customers']['czip']; ?></li>  
+                            <?Php } else { ?>
+                                <li> <b>Auto Recurring :</b> <?php echo 'NO'; ?> </li> 
+                            <?Php }
+                            ?>
                             </td>
                             </tr>
                         <?php endforeach; ?>  
