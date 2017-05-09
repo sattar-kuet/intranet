@@ -195,9 +195,33 @@ class ReportsController extends AppController {
         $packagecustomers[0]['pc']['mac'] = $mac;
 
         $return['packagecustomers'] = $packagecustomers;
-        //pr($total_page); exit;
+
         $return['total_page'] = $total_page;
 
+        return $return;
+    }
+
+    function allinvoice_tr() {
+        $this->loadModel('PackageCustomer');
+        $this->loadModel('Transaction');
+        $transactions = $this->Transaction->query("SELECT *
+                    FROM transactions tr			
+                    LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id");
+        $return['transactions'] = $transactions;
+        return $return;
+    }
+
+    function paidInvoice() {
+        $this->loadModel('PackageCustomer');
+        $this->loadModel('Transaction');
+         $datrange = json_decode($this->request->data['Role']['daterangeonly'], true);
+            $start = $datrange['start'];
+            $end = $datrange['end'];
+        $sql = "SELECT * FROM transactions tr LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id "
+                . "WHERE tr.next_payment >= '" . $start . "' AND  tr.next_payment <='" . $end . "' AND tr.status = 'paid' ";
+     
+        $paid = $this->Transaction->query($sql);
+        $return['transactions'] = $paid;
         return $return;
     }
 
@@ -220,7 +244,7 @@ class ReportsController extends AppController {
 
         $start = $datrange['start'] . ' 00:00:00';
         $end = $datrange['end'] . ' 23:59:59';
-        
+
         $packagecustomers = $this->Transaction->query("SELECT tr.id, tr.package_customer_id, 
             CONCAT( first_name,' ', middle_name,' ', last_name ) AS name, pc.psetting_id, pc.mac,
             ps.name, p.name, tr.paid_amount, ps.amount, ps.duration,tr.created FROM transactions tr
@@ -289,19 +313,30 @@ class ReportsController extends AppController {
         $this->set(compact('packagecustomers'));
     }
 
-    function openInvoice25() {
+    function openInvoice() {
+        $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
-      
-        $expiredate = trim(date('Y-m-d', strtotime("+25 days")));
-        $packagecustomers = $this->Transaction->query("SELECT * 
-        FROM transactions tr
-        LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id
-        LEFT JOIN psettings ps ON ps.id = pc.psetting_id
-        LEFT JOIN packages p ON p.id = ps.package_id
-        WHERE pc.exp_date>='" . date('Y-m-d') . "' AND pc.exp_date<='" . $expiredate . "' AND pc.exp_date != 0000-00-00 "
-                . "GROUP BY pc.id");
-
-        $return['packagecustomers'] = $packagecustomers;
+         $datrange = json_decode($this->request->data['Role']['daterangeonly'], true);
+            $start = $datrange['start'];
+            $end = $datrange['end'];
+        $sql = "SELECT * FROM transactions tr LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id "
+                . "WHERE tr.next_payment >= '" . $start . "' AND  tr.next_payment <='" . $end . "' AND tr.status = 'open' ";
+     
+        $open = $this->Transaction->query($sql);
+        $return['transactions'] = $open;
+        return $return;
+    }
+    
+    function overdueInvoice() {
+        $this->loadModel('PackageCustomer');
+        $this->loadModel('Transaction');
+        $todaydate =date('Y-m-d');
+        $sql = "SELECT * FROM transactions tr LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id "
+                . "WHERE tr.status = 'open' and tr.next_payment < $todaydate";
+     echo $sql; exit;
+        $due = $this->Transaction->query($sql);
+        pr($due); exit;
+        $return['transactions'] = $due;
         return $return;
     }
 
@@ -1029,9 +1064,20 @@ class ReportsController extends AppController {
                 $data = $this->allInvoice();
             }
 
-            if ($action == 'openinvoice25') {
-                
-                $data = $this->openinvoice25();
+            if ($action == 'allinvoice_tr') {
+                $data = $this->allinvoice_tr();
+            }
+
+
+            if ($action == 'paidinvoice') {
+                $data = $this->paidInvoice();
+            }
+
+            if ($action == 'openinvoice') {
+                $data = $this->openinvoice();
+            }
+            if ($action == 'overdueinvoice') {
+                $data = $this->overdueInvoice();
             }
             if ($action == 'passedinvoice') {
                 $data = $this->passedinvoice();
@@ -1112,12 +1158,13 @@ class ReportsController extends AppController {
 
         return $return;
     }
+
     function allAutorecurring($page = 1, $start = null, $end = null) { //Auto recurring data all
-       $this->loadModel('User');
+        $this->loadModel('User');
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
         $offset = --$page * $this->per_page;
-       // echo $this->per_page; exit;
+        // echo $this->per_page; exit;
 
         if (isset($this->request->data['Role'])) {
             $datrange = json_decode($this->request->data['Role']['daterangeonly'], true);
@@ -1134,8 +1181,8 @@ class ReportsController extends AppController {
                     AND CAST(transactions.created as DATE) >='" .
                 $start . "' AND CAST(transactions.created as DATE) <='" . $end .
                 "' order by transactions.id desc" . " LIMIT " . $offset . "," . $this->per_page;
-        
-      //  echo $sql; exit;
+
+        //  echo $sql; exit;
         $allData = $this->Transaction->query($sql);
 
         $sql = "SELECT SUM(payable_amount) as total FROM transactions 

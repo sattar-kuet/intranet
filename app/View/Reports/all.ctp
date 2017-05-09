@@ -55,7 +55,7 @@
                                         ?>
                                     </div>
 
-                                   
+
 
                                     <div class="col-md-12 row-fluid display-hide hide-rest" id="date-range-pay-mode">
                                         <div class="col-md-6">
@@ -140,16 +140,18 @@
                                             'type' => 'select',
                                             'options' => array(
                                                 'allautorecurring' => 'All Auto Recurring',
-                                                'allinvoice' => 'All Invoice',
+                                                'allinvoice' => 'All Invoice(Print preview)',
+                                                'allinvoice_tr' => 'All Invoice',
                                                 'calllog' => 'Call Log',
                                                 'cancel' => 'Cancel',
                                                 'closedinvoice' => 'Closed Invoice',
-                                                
                                                 'customersummary' => 'Customer Summary',
                                                 'expirecustomer' => 'Expire Customer',
                                                 'failed' => 'Failed Auto Recurring',
                                                 'newcustomer' => 'New Customer',
-                                                'openInvoice25' => 'Open Invoice',
+                                                'openInvoice' => 'Open Invoice',
+                                                'paidinvoice' => 'Paid Invoice',
+                                                'overdueinvoice' => 'Over Due Invoice',
                                                 'overallreport' => 'Over all Report',
                                                 'passedinvoice' => 'Passed Due Invoice',
                                                 'paymenthistory' => 'Payment History',
@@ -234,8 +236,20 @@
                 echo $this->element('allinvoice', array('data' => $data));
             }
 
-            if ($action == 'openinvoice25') {
-                echo $this->element('openInvoice25', array('data' => $data));
+            if ($action == 'allinvoice_tr') {
+                echo $this->element('allinvoice_tr', array('data' => $data));
+            }
+
+            if ($action == 'paidinvoice') {
+                echo $this->element('paidInvoice', array('data' => $data));
+            }
+
+            if ($action == 'openinvoice') {
+                echo $this->element('openInvoice', array('data' => $data));
+            }
+
+            if ($action == 'overdueinvoice') {
+                echo $this->element('overdueInvoice', array('data' => $data));
             }
 
             if ($action == 'passedinvoice') {

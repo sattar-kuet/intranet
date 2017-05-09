@@ -1393,20 +1393,19 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                         &nbsp;  Repeat at Every
                                     </div>
                                     <div class="col-md-2">
-
                                         <div>
                                             <?php
                                             echo $this->Form->input(
-                                                    'r_duration', array(
-                                                'class' => 'form-control required',
-                                                'type' => 'text'
+                                                    'r_duration', array('type' => 'select',
+                                                'options' => array_combine(range(1, 12), range(1, 12)),
+                                                'empty' => 'Select Month ',
+                                                'class' => 'span12 form-control select1 required',
+                                                'div' => array('class' => 'span12 ')
                                                     )
                                             );
                                             ?>
                                         </div>  
-
                                         <span class="pull-right"> Month(s)</span>
-
                                     </div>                                    
 
                                     <div class="col-md-2 signupfont">
