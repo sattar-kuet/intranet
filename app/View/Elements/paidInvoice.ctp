@@ -75,7 +75,7 @@
                         <ul>
                             <b>  Name :</b>  <a href="<?php
                             echo Router::url(array('controller' => 'customers',
-                                'action' => 'edit_registration', $single['pc']['id']))
+                                'action' => 'edit', $single['pc']['id']))
                             ?>" 
                                                 target="_blank">
                                                     <?php

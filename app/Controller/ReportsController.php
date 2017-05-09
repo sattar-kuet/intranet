@@ -332,10 +332,8 @@ class ReportsController extends AppController {
         $this->loadModel('Transaction');
         $todaydate =date('Y-m-d');
         $sql = "SELECT * FROM transactions tr LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id "
-                . "WHERE tr.status = 'open' and tr.next_payment < $todaydate";
-     echo $sql; exit;
+                . "WHERE tr.status = 'open' and tr.next_payment < '$todaydate'";
         $due = $this->Transaction->query($sql);
-        pr($due); exit;
         $return['transactions'] = $due;
         return $return;
     }
@@ -1046,6 +1044,7 @@ class ReportsController extends AppController {
 
             if ($action == 'allautorecurring') {
                 $data = $this->allautorecurring($page = 1, $start = null, $end = null);
+                pr($data); exit;
             }
 
             if ($action == 'successful') {

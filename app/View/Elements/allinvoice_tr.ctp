@@ -12,6 +12,7 @@
                 <th>Invoice</th>
                 <th>Payment info</th>
                 <th>Customer Details</th>
+                <th>Auto Recurring Detail</th>
             </tr>
         </thead>
         <tbody>
@@ -75,7 +76,7 @@
                         <ul>
                             <b>  Name :</b>  <a href="<?php
                             echo Router::url(array('controller' => 'customers',
-                                'action' => 'edit_registration', $single['pc']['id']))
+                                'action' => 'edit', $single['pc']['id']))
                             ?>" 
                                                 target="_blank">
                                                     <?php
