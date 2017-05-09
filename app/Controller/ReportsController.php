@@ -1061,7 +1061,7 @@ class ReportsController extends AppController {
         $this->set(compact('data', 'action', 'users', 'issues', 'roles', 'role_name'));
     }
 
-    function allAutorecurring($page = 1, $start = null, $end = null, $pay_mode = null) { //Auto recurring data all
+    function allAutorecurringCustomer($page = 1, $start = null, $end = null, $pay_mode = null) { //Auto recurring data all
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
@@ -1110,6 +1110,57 @@ class ReportsController extends AppController {
         $return['totalCustomer'] = $totalCustomer;
         $return['totalPayment'] = $totalPayment;
 
+        return $return;
+    }
+    function allAutorecurring($page = 1, $start = null, $end = null) { //Auto recurring data all
+       $this->loadModel('User');
+        $this->loadModel('PackageCustomer');
+        $this->loadModel('Transaction');
+        $offset = --$page * $this->per_page;
+
+        if (isset($this->request->data['Role'])) {
+            $datrange = json_decode($this->request->data['Role']['daterangeonly'], true);
+            $start = $datrange['start'];
+            $end = $datrange['end'];
+        }
+
+        $sql = "SELECT * 
+                    FROM transactions
+                    LEFT JOIN package_customers ON package_customers.id = transactions.package_customer_id
+                    LEFT JOIN psettings ON psettings.id = package_customers.psetting_id
+                    LEFT JOIN custom_packages ON custom_packages.id = package_customers.custom_package_id
+                    WHERE transactions.auto_recurring = 1
+                    AND CAST(transactions.created as DATE) >='" .
+                $start . "' AND CAST(transactions.created as DATE) <='" . $end .
+                "' order by transactions.id desc" . " LIMIT " . $offset . "," . $this->per_page;
+        $allData = $this->PackageCustomer->query($sql);
+
+        $sql = "SELECT SUM(payable_amount) as total FROM transactions 
+                WHERE transactions.auto_recurring = 1 AND transactions.status =  'success' AND CAST(transactions.created as DATE) >='" .
+                $start . "' AND CAST(transactions.created as DATE) <='" . $end . "'";
+        $temp = $this->Transaction->query($sql);
+        $totalPayment = $temp[0][0]['total'];
+        $totalPayment = round($totalPayment, 2);
+
+        $sql = "SELECT COUNT(id) as total FROM transactions 
+                WHERE transactions.auto_recurring = 1 AND transactions.status =  'success' AND CAST(transactions.created as DATE) >='" .
+                $start . "' AND CAST(transactions.created as DATE) <='" . $end . "'";
+        $temp = $this->Transaction->query($sql);
+        $totalCustomer = $temp[0][0]['total'];
+
+
+        $temp = $this->Transaction->query("SELECT COUNT(transactions.id) as total FROM transactions WHERE
+                transactions.auto_recurring = 1  AND CAST(transactions.created as DATE) >='" .
+                $start . "' AND CAST(transactions.created as DATE) <='" . $end . "'");
+        $total = $temp[0][0]['total'];
+        $total_page = ceil($total / $this->per_page);
+
+        $return['allData'] = $allData;
+        $return['total_page'] = $total_page;
+        $return['start'] = $start;
+        $return['end'] = $end;
+        $return['totalCustomer'] = $totalCustomer;
+        $return['totalPayment'] = $totalPayment;
         return $return;
     }
 

@@ -446,17 +446,17 @@ class CustomersController extends AppController {
         $this->loadModel('MacHistory');
         $loggedUser = $this->Auth->user();
 
-        if ($this->request->is('post') || $this->request->is('put')) { // mac installation info will be insert in mac_history tbl. strat
-            $data = $this->request->data['PackageCustomer'];
-//                      pr($data);
-//            exit;
-            foreach ($data['mac'] as $k => $single) {
-                $data2['MacHistory'] = array('mac' => $single, 'installed_by' => $data['user_id'][$k], 'installation_date' => $this->getFormatedDate($data['installation_date'][$k]), 'user_id' => $loggedUser['id'], 'package_customer_id' => $data['id']);
-                $this->MacHistory->create();
-                $this->MacHistory->save($data2['MacHistory']);
-            }
-        } // end
-      
+//        if ($this->request->is('post') || $this->request->is('put')) { // mac installation info will be insert in mac_history tbl. strat
+//            $data = $this->request->data['PackageCustomer'];
+////                      pr($data);
+////            exit;
+//            foreach ($data['mac'] as $k => $single) {
+//                $data2['MacHistory'] = array('mac' => $single, 'installed_by' => $data['user_id'][$k], 'installation_date' => $this->getFormatedDate($data['installation_date'][$k]), 'user_id' => $loggedUser['id'], 'package_customer_id' => $data['id']);
+//                $this->MacHistory->create();
+//                $this->MacHistory->save($data2['MacHistory']);
+//            }
+//        } // end
+//      
         $this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
         $this->PackageCustomer->saveField("status", $this->request->data['PackageCustomer']['status']);
         $this->PackageCustomer->saveField("date", $this->getFormatedDate($this->request->data['PackageCustomer']['date']));

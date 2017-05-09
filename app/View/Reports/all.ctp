@@ -55,17 +55,7 @@
                                         ?>
                                     </div>
 
-                                    <div class="col-md-9 display-hide hide-rest" id="only-city">
-                                        <?php
-                                        echo $this->Form->input('city', array(
-                                            'type' => 'select',
-                                            'options' => $cities,
-                                            'empty' => 'Select City',
-                                            'class' => 'form-control select2me '
-                                                )
-                                        );
-                                        ?>
-                                    </div>
+                                   
 
                                     <div class="col-md-12 row-fluid display-hide hide-rest" id="date-range-pay-mode">
                                         <div class="col-md-6">
