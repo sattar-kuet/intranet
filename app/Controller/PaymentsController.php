@@ -337,12 +337,11 @@ class PaymentsController extends AppController {
 
         $httpSocket = new HttpSocket();
 
-        //  $this->request->data['marchantName'] = "95x9PuD6b2"; // testing
-        $this->request->data['marchantName'] = '7zKH4b45'; // live
-        // $this->request->data['marchantKey'] = "547z56Vcbs3Nz9R9"; // testing
-        $this->request->data['marchantKey'] = '738QpWvHH4vS59vY'; // live
-
-        $this->request->data['testMode'] = 0;
+        $this->request->data['marchantName'] = "95x9PuD6b2"; // testing
+        //$this->request->data['marchantName'] = '7zKH4b45'; // live
+        $this->request->data['marchantKey'] = "547z56Vcbs3Nz9R9"; // testing
+        //$this->request->data['marchantKey'] = '738QpWvHH4vS59vY'; // live
+        $this->request->data['testMode'] = 1;
         //pr($this->request->data); exit;
         $response = $httpSocket->put($link, $this->request->data);
         $result = $response->body;
