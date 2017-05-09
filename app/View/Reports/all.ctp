@@ -251,7 +251,7 @@
             }
 
             if ($action == 'customersummary') {
-                echo $this->element('customerSummary', array('data' => $data));
+                echo $this->element('customersummary', array('data' => $data));
             }
 
             if ($action == 'overallreport') {

@@ -1117,6 +1117,7 @@ class ReportsController extends AppController {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
         $offset = --$page * $this->per_page;
+       // echo $this->per_page; exit;
 
         if (isset($this->request->data['Role'])) {
             $datrange = json_decode($this->request->data['Role']['daterangeonly'], true);
@@ -1133,7 +1134,9 @@ class ReportsController extends AppController {
                     AND CAST(transactions.created as DATE) >='" .
                 $start . "' AND CAST(transactions.created as DATE) <='" . $end .
                 "' order by transactions.id desc" . " LIMIT " . $offset . "," . $this->per_page;
-        $allData = $this->PackageCustomer->query($sql);
+        
+      //  echo $sql; exit;
+        $allData = $this->Transaction->query($sql);
 
         $sql = "SELECT SUM(payable_amount) as total FROM transactions 
                 WHERE transactions.auto_recurring = 1 AND transactions.status =  'success' AND CAST(transactions.created as DATE) >='" .
