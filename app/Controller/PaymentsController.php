@@ -442,11 +442,12 @@ class PaymentsController extends AppController {
         // $sql = 'SELECT * FROM package_customers WHERE  LOWER(package_customers.auto_r) ="yes" AND package_customers.invoice_created = 0';
         //$pcs = $this->PackageCustomer->query($sql);
         $pcs = $this->PackageCustomer->find('all', array('conditions' => array('PackageCustomer.auto_r' => 'yes', 'PackageCustomer.invoice_created' => 0)));
-        // echo $this->PackageCustomer->getLastQuery();
-        //  pr($pcs); exit;
+       //  echo $this->PackageCustomer->getLastQuery();
+      //    pr($pcs); exit;
         $success = 0;
         $failure = 0;
         foreach ($pcs as $single) {
+            //pr($single); exit;
             $pc = $single['PackageCustomer'];
             $duration = $pc['r_duration'];
             $rFrom = $pc['r_form'];
@@ -454,10 +455,15 @@ class PaymentsController extends AppController {
 //            echo date('Y-m-d', strtotime($Date . ' + 1 days'));
 //echo $rFrom; exit;
             $temp = date('Y-m-d', strtotime($rFrom . '-15  days'));
+         //   echo $temp.'<br>';
             $deadline = strtotime($temp);
             $temp = date('Y-m-d');
+          //   echo $temp.'<br>';
             $now = strtotime($temp);
+          //  echo $now.'<br>';
+         //   echo $deadline; exit;
             if ($now >= $deadline) { // this is prior 15 days of payment date. So generate invoice 
+           //     echo 'here'; exit;
                 $data['Transaction'] = array(
                     'package_customer_id' => $pc['id'],
                     'note' => 'This Invoice is generated from system',
