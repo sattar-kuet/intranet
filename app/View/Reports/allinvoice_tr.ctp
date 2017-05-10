@@ -2,7 +2,7 @@
 
 <div  class="col-md-12 col-sm-12">
     <h3 class="page-title">
-        All Paid Transactions
+        All Invoice
     </h3>
     <?php echo $this->Session->flash(); ?>
     <!-- END EXAMPLE TABLE PORTLET-->          
@@ -12,6 +12,7 @@
                 <th>Invoice</th>
                 <th>Payment info</th>
                 <th>Customer Details</th>
+                <th>Auto Recurring Detail</th>
             </tr>
         </thead>
         <tbody>
@@ -75,7 +76,7 @@
                         <ul>
                             <b>  Name :</b>  <a href="<?php
                             echo Router::url(array('controller' => 'customers',
-                                'action' => 'edit_registration', $single['pc']['id']))
+                                'action' => 'edit', $single['pc']['id']))
                             ?>" 
                                                 target="_blank">
                                                     <?php
@@ -93,8 +94,25 @@
                             <?php endif; ?> 
                         </ul>
                     </td>
-                </tr>
-            <?php endforeach; ?>
+                    <td class="hidden-480">
+                        <?Php if ($single['pc']['auto_r'] == 'yes') { ?>
+                <li> <b>Auto Recurring :</b> <?php echo $single['pc']['auto_r']; ?> </li>                           
+                <li> <b>Repeating interval :</b> <?php echo $single['pc']['r_duration']; ?> </li>                           
+                <li> <b>Payment Date :</b> <?php echo $single['pc']['recurring_date']; ?> </li>                           
+                <li> <b>Recurring From Date :</b> <?php echo $single['pc']['r_form']; ?> </li>                           
+                <li> <b>Payable Amount :</b> <?php echo $single['pc']['payable_amount']; ?> </li>                           
+                <li> <b>Card No :</b> <?php echo $single['pc']['card_check_no']; ?> </li>                           
+                <li> <b>Expire Date :</b> <?php echo $single['pc']['exp_date']; ?> </li>                           
+                <li> <b>Name :</b> <?php echo $single['pc']['cfirst_name'] . ' ' . $single['pc']['clast_name']; ?> </li>                           
+                <li> <b>CVV Code :</b> <?php echo $single['pc']['cvv_code']; ?></li>                           
+                <li> <b>Zip :</b> <?php echo $single['pc']['czip']; ?></li>  
+            <?Php } else { ?>
+                <li> <b>Auto Recurring :</b> <?php echo 'NO'; ?> </li> 
+            <?Php }
+            ?>
+            </td>
+            </tr>
+        <?php endforeach; ?>
         </tbody>
     </table>
 </div>
