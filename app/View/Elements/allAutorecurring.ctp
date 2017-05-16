@@ -1,24 +1,3 @@
-<style>
-    .ui-datepicker-multi-3 {
-        display: table-row-group !important;
-    }
-</style>
-
-<style type="text/css">
-    .alert {
-        padding: 6px;
-        margin-bottom: 5px;
-        border: 1px solid transparent;
-        border-radius: 4px;
-        text-align: center;
-    }
-    .txtArea { width:300px; }
-    ul.pagination {
-        display: flex;
-        justify-content: center;
-    }
-</style>
-
 
 <div class="page-content-wrapper" style="margin: 0px; padding: 0px;">
     <div class="">
@@ -55,14 +34,21 @@
                                 <th>
                                     Customer Detail
                                 </th>
+                                
                                 <th>
                                     Package
                                 </th>
+                                
                                 <th>
                                     Payment Information
                                 </th>
+                                
                                 <th>
                                     Auto recurring Detail
+                                </th>
+                                
+                                <th>
+                                    Action
                                 </th>
                             </tr>
                         </thead>
@@ -78,6 +64,7 @@
                                     <td class="hidden-480">
                                         <?php echo $results['transactions']['id']; ?>                            
                                     </td>
+
                                     <td class="hidden-480">
                                         <a href="<?php
                                         echo Router::url(array('controller' => 'customers',
@@ -88,6 +75,7 @@
                                         </a><br>
                                         <?php echo $customer_address; ?> 
                                     </td> 
+
                                     <td>
                                         <?php if (!empty($results['package_customers']['psetting_id'])): ?>
                                 <li> <strong>Name:</strong> <?php echo $results['psettings']['name']; ?></li>
@@ -99,11 +87,11 @@
                             <?php else : ?>
                                 <?php echo 'Package not set !'; ?>
                             <?php endif; ?>
-                            </td>       
+                            </td>  
+
                             <td class="hidden-480">
                             <li> <b>Paid Amount :</b> <?php echo $results['transactions']['payable_amount']; ?> </li>                           
-                            <li> <b>Transaction ID :</b> <?php echo $results['transactions']['trx_id']; ?> </li>                           
-
+                            <li> <b>Transaction ID :</b> <?php echo $results['transactions']['trx_id']; ?> </li>                          
                             <li> <b>Payment Method :</b> <?php echo $results['transactions']['pay_mode']; ?> </li>                           
                             <li> <b>Payment Date :</b> <?php echo $results['transactions']['created']; ?>  </li>                          
                             <li> <b>Next Payment Date :</b> <?php echo $results['package_customers']['r_form']; ?></li>                           
@@ -113,9 +101,9 @@
                                 <?Php if ($results['package_customers']['auto_r'] == 'yes') { ?>
                                 <li> <b>Auto Recurring :</b> <?php echo $results['package_customers']['auto_r']; ?> </li>                           
                                 <li> <b>Repeating interval :</b> <?php echo $results['package_customers']['r_duration']; ?> </li>                           
-                                <li> <b>Payment Date :</b> <?php echo $results['package_customers']['recurring_date']; ?> </li>                           
-                                <li> <b>Recurring From Date :</b> <?php echo $results['package_customers']['r_form']; ?> </li>                           
-                                <li> <b>Payable Amount :</b> <?php echo $results['package_customers']['payable_amount']; ?> </li>                           
+                                <li> <b>Specific day of Payment :</b> <?php echo $results['package_customers']['recurring_date']; ?> </li>                           
+                                <li> <b>Recurring Date :</b> <?php echo $results['package_customers']['r_form']; ?> </li>                           
+                                <li> <b>Payable Amount :</b> $<?php echo $results['package_customers']['payable_amount']; ?> </li>                           
                                 <li> <b>Card No :</b> <?php echo $results['package_customers']['card_check_no']; ?> </li>                           
                                 <li> <b>Expire Date :</b> <?php echo $results['package_customers']['exp_date']; ?> </li>                           
                                 <li> <b>Name :</b> <?php echo $results['package_customers']['cfirst_name'] . ' ' . $results['package_customers']['clast_name']; ?> </li>                           
@@ -126,6 +114,12 @@
                             <?Php }
                             ?>
                             </td>
+                            <td>
+                                <div class="controls center text-center">
+                                    <a   target="_blank" title="Add to pdf" href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'invoice', $results['transactions']['id'])) ?>" class="btn default btn-xs green-stripe">
+                                        Invoice </a>
+                                </div>
+                            </td>
                             </tr>
                         <?php endforeach; ?>  
                         </tbody>
@@ -135,6 +129,3 @@
         </div>
     </div>
 </div>
-
-
-

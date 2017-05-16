@@ -60,9 +60,13 @@
                         <tbody>
                             <?php
                             foreach ($data['allData'] as $results):
+<<<<<<< HEAD:app/View/Reports/all_autorecurring_settings2.ctp
                                // pr($results); exit;
 
                                 $customer = $results['pc'];
+=======
+                                $customer = $results['package_customers'];
+>>>>>>> ca59ad6461495e6bf58c4bff14140e61e2c9e5f9:app/View/Reports/allAutorecurring.ctp
                                 $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                         $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '
                                         . $customer['zip'];

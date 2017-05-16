@@ -12,7 +12,8 @@
                 <th>Invoice</th>
                 <th>Payment info</th>
                 <th>Customer Details</th>
-                <th> Auto recurring Detail</th>
+                <th>Auto recurring Detail</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -111,6 +112,14 @@
             <?Php }
             ?>
             </td>
+
+            <td>
+                <div class="controls center text-center">
+                    <a   target="_blank" title="Add to pdf" href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'invoice', $single['tr']['id'])) ?>" class="btn default btn-xs green-stripe">
+                        Invoice </a>
+                </div>
+            </td>
+
             </tr>
         <?php endforeach; ?>
         </tbody>

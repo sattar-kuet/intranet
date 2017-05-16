@@ -2367,8 +2367,6 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                             <?php
                                             $balance = array();
                                             foreach ($statements as $single):
-
-
                                                 $bill = $single['bill'];
                                                 $payments = $single['payment'];
 

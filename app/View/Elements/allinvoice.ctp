@@ -1,4 +1,4 @@
-     <style>
+<style>
     .ui-datepicker-multi-3 {
         display: table-row-group !important;
     }
@@ -103,9 +103,9 @@
                                     </tr>
                                     <tr>
                                         <td style="text-align: center !important;"><?php
-                                    $date = $single['tr']['next_payment'];
-                                    echo date('m-d-Y', strtotime($date));
-                                        ?></td>
+                                            $date = $single['tr']['next_payment'];
+                                            echo date('m-d-Y', strtotime($date));
+                                            ?></td>
                                         <td style="text-align: center !important;"><?php echo $single['tr']['id']; ?></td>
                                     </tr>
                                     <tr>
@@ -115,9 +115,9 @@
                                     <tr>
                                         <td style="text-align: center !important;"> Next 7 Days</td>
                                         <td style="text-align: center !important;"><?php
-                                        $timestamp = strtotime("+7 days", strtotime($date));
-                                        echo date('m-d-Y', $timestamp);
-                                        ?>
+                                            $timestamp = strtotime("+7 days", strtotime($date));
+                                            echo date('m-d-Y', $timestamp);
+                                            ?>
                                         </td>
                                     </tr>
                                 </table>
@@ -173,17 +173,17 @@
                                     </td>
 
                                     <td  style=" padding: 39px; text-align: center; font-size: 19px; font-weight: bold; color: #000 !important; width: 101px;">
-    <?php
-    $stbs = json_decode($single['pc']['mac']);
-    echo count($stbs);
-    ?>
+                                        <?php
+                                        $stbs = json_decode($single['pc']['mac']);
+                                        echo count($stbs);
+                                        ?>
                                     </td>
                                     <td style="text-align: center; color: #333 !important; padding: 43px 0px 0px 19px ;">
                                         <b style="color: #333 !important;"><?php echo $single['tr']['payable_amount']; ?></b><br>    
                                     </td> 
 
                                     <td style=" color: #333 !important; text-align: center; padding: 43px 0px 0px 9px ;">
-    <?php echo $single['tr']['status']; ?>
+                                        <?php echo $single['tr']['status']; ?>
                                     </td>
                                 </tr>
                             </tbody>
@@ -226,10 +226,8 @@
                     <div class="col-xs-4">                              
                         <h6>Please write <b style="font-weight: normal !important; color:red !important;">INVOICE NUMBER</b> on check</h6>
                     </div>
-                    <div class="col-xs-4">                               
-
+                    <div class="col-xs-4">                              
                     </div>
-
                     <div class="col-xs-4">                             
                         <h6>Make check payable to <b style="font-weight: normal !important; color:red !important;">TOTAL CABLE BD</b></h6>
                     </div>
@@ -239,16 +237,13 @@
                     <div class="col-xs-4" style="text-align: center;">                              
                         <h5 style=" color: white !important;"> e-mail: info@totalcablebd.com</h5>
                     </div>
-                    <div class="col-xs-4">                               
-
+                    <div class="col-xs-4">                              
                     </div>
                     <div class="col-xs-4" style="text-align: center;">                             
                         <h5 style=" color: white !important;">Web: totalcablebd.com</h5>
                     </div>
                 </div> 
-
-<?php endforeach; ?> 
-
+            <?php endforeach; ?> 
         </div> 
     </div>
 </div>          

@@ -295,7 +295,7 @@ class TicketsController extends AppController {
         $data = $ticket_info[0]['tracks'] + $ticket_info[0]['tickets'];
         $this->request->data['Ticket'] = $data;
         if ($this->request->is('post') || $this->request->is('put')) {
-            pr($this->request->data);
+//            pr($this->request->data);
 
             if (empty($this->request->data['Ticket']['user_id']) &&
                     empty($this->request->data['Ticket']['role_id']) &&

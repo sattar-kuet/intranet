@@ -1020,7 +1020,6 @@ class ReportsController extends AppController {
                 $this->redirect("/reports/all/$action/1/$start/$end/$issue/$agent/$status");
             }
 
-
             $this->redirect("/reports/all/$action/1/$start/$end");
         }
 
@@ -1169,11 +1168,11 @@ class ReportsController extends AppController {
         $this->loadModel('Transaction');
         $offset = --$page * $this->per_page;
 
-        $sql = "SELECT * 
-                    FROM transactions
+        $sql = "SELECT * FROM transactions
                     LEFT JOIN package_customers ON package_customers.id = transactions.package_customer_id
                     LEFT JOIN psettings ON psettings.id = package_customers.psetting_id
                     LEFT JOIN custom_packages ON custom_packages.id = package_customers.custom_package_id
+
                     WHERE transactions.auto_recurring = 1";
         if ($end) {
             $sql .= " AND CAST(transactions.created as DATE) >='" .
@@ -1182,8 +1181,11 @@ class ReportsController extends AppController {
 
         $sql .= " ORDER BY transactions.id desc" . " LIMIT " . $offset . "," . $this->per_page;
 
+
+
         // echo $sql; exit;
         $allData = $this->Transaction->query($sql);
+
 
         $sql = "SELECT SUM(payable_amount) as total FROM transactions 
                 WHERE transactions.auto_recurring = 1";
