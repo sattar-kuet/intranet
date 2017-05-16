@@ -68,8 +68,6 @@
                         <tbody>
                             <?php
                             foreach ($data['allData'] as $results):
-//                                pr($results['package_customers']['auto_r']); exit;
-
                                 $customer = $results['package_customers'];
                                 $customer_address = $customer['house_no'] . ' ' . $customer['street'] . ' ' .
                                         $customer['apartment'] . ' ' . $customer['city'] . ' ' . $customer['state'] . ' '

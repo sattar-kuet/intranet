@@ -11,9 +11,10 @@
                 <script></script>
                 <div class="page-toolbar">
                     <div class="btn-group pull-right">
-                        <a class="btn btn-lg blue hidden-print margin-bottom-5" target="_blank" onclick="printDiv('printableArea')">
+                        <a class="btn btn-lg blue hidden-print margin-bottom-5" target="_blank" onclick="javascript:window.printDiv('printableArea')">
                             Print <i class="fa fa-print"></i>
                         </a>
+
                     </div>
                 </div>
             </div>
@@ -65,7 +66,9 @@
                             <div class="col-xs-5 invoice-payment"> 
                                 <ul class="list-unstyled" style=" text-align: right; color: #000; margin-right: 17px;">
                                     <table  cellpadding="0" cellspacing="0" border="0" class="responsive dynamicTable display table table-bordered" width="100%">
-                                        <b>Invoice</b>
+                                        <thead>
+                                            <tr><th style="text-align: center !important;" colspan="2">Invoice</th></tr>
+                                        </thead>
                                         <tr>
                                             <th style="text-align: center !important;">Date</th>
                                             <th style="text-align: center !important;">Invoice #</th>
@@ -133,10 +136,11 @@
                                                 <li><?php echo $data[0]['ps']['name']; ?> </li>
                                                 <?php
                                                 if (!empty($data[0]['tr']['note']))
-                                                    ; {
+                                                    ;
+                                                {
                                                     ?>
                                                     <li><?php echo $data[0]['tr']['note']; ?></li> 
-                                                <?php } ?>
+    <?php } ?>
 
                                             </ul>
                                         </td>
@@ -152,7 +156,7 @@
                                         </td> 
 
                                         <td style=" color: #333 !important; text-align: center; padding: 43px 0px 0px 9px ;">
-                                            <?php echo $data[0]['tr']['status']; ?>
+    <?php echo $data[0]['tr']['status']; ?>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -168,9 +172,9 @@
                                         <b style=" color: #000;">Total Of New Charges</b>
                                     </div>
                                     <div class="col-xs-6" style="text-align: right;">                                        
-                                        
-                                            $<?php echo getFullPayment($data[0]['tr']['id']); ?>   
-                                                                            </div>
+
+                                        $<?php echo getFullPayment($data[0]['tr']['id']); ?>   
+                                    </div>
                                     <hr style="border-color: #990000 !important; ">
                                 </div>
                             </div>
@@ -184,7 +188,7 @@
                                         <b style=" color: #000;">TOTAL Amount Due</b>
                                     </div>
                                     <div class="col-xs-6" style="text-align: right;">                                       
-                                            $<?php echo getFullPayment($data[0]['tr']['id']) - getPaid($data[0]['tr']['id']); ?>.00 USD      
+                                        $<?php echo getFullPayment($data[0]['tr']['id']) - getPaid($data[0]['tr']['id']); ?>.00 USD      
                                     </div>
                                     <hr style="border-color: #990000 !important; ">
                                 </div>
@@ -217,7 +221,7 @@
                             <h5 style=" color: white !important;">Web: totalcablebd.com</h5>
                         </div>
                     </div>                
-                <?php endforeach; ?>  
+<?php endforeach; ?>  
             </div>
         </div>          
     </div> 

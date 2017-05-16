@@ -26,12 +26,19 @@ echo $this->Html->css(
                 $dt = new DateTime();
                 echo $dt->format('l, F d, Y');
                 ?> <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+                &nbsp;&nbsp; &nbsp; <a style="font-size: 17px; font-weight: bold; color: dodgerblue; " class="fa fa-book"  target="_blank"
+                                       href="<?php echo Router::url(array('controller'=> 'customers', 'action'=>'knowledge'))?>"> &nbsp; Knowledge base
+                </a>
             </div>
+            
             <div class="page-logo">
                 <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'search')) ?>">
                     <img src="<?php echo $this->webroot; ?>images/support_icon_headset_orange.png" alt="logo" class="logo-default" style="margin: 9px 0 0 0;">
                 </a>
             </div>
+            
+                
+            
             <div class="top-menu">
                 <ul class="nav navbar-nav pull-right">
                     <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->

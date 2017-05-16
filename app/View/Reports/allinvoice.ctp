@@ -171,11 +171,10 @@
                                                         <li><?php echo $single['ps']['name']; ?> </li>
                                                         <?php
                                                         if (!empty($single['tr']['note']))
-                                                            ;
-                                                        {
+                                                            ; {
                                                             ?>
                                                             <li><?php echo $single['tr']['note']; ?></li> 
-    <?php } ?>
+                                                        <?php } ?>
                                                     </ul>
                                                 </td>
 
@@ -190,7 +189,7 @@
                                                 </td> 
 
                                                 <td style=" color: #333 !important; text-align: center; padding: 43px 0px 0px 9px ;">
-    <?php echo $single['tr']['status']; ?>
+                                                    <?php echo $single['tr']['status']; ?>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -254,7 +253,7 @@
                                 </div>
                             </div> 
 
-<?php endforeach; ?> 
+                        <?php endforeach; ?> 
                     </div>
                 </div> 
             </div>

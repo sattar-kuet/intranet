@@ -87,10 +87,10 @@
                             </a><br>
                             <b>  Address :  </b> <?php echo $customer_address; ?> <br>
                             <?php if (!empty($single['pc']['cell'])): ?>
-                                <b> Cell :</b> <a href="tel:<?php echo $single['pc']['cell'] ?>"><?php echo $single['pc']['cell']; ?></a><br>
+                                <b> Cell :</b><?php echo $single['pc']['cell']; ?><br>
                             <?php endif; ?>
                             <?php if (!empty($single['pc']['home'])): ?>
-                                <b>  Home :</b>  <a href="tel:<?php echo $single['pc']['home'] ?>"><?php echo $single['pc']['home']; ?></a>
+                                <b>  Home :</b>  tel:<?php echo $single['pc']['home']; ?>
                             <?php endif; ?> 
                         </ul>
                     </td>

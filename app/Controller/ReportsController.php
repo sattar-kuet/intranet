@@ -214,12 +214,12 @@ class ReportsController extends AppController {
     function paidInvoice() {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
-         $datrange = json_decode($this->request->data['Role']['daterangeonly'], true);
-            $start = $datrange['start'];
-            $end = $datrange['end'];
+        $datrange = json_decode($this->request->data['Role']['daterangeonly'], true);
+        $start = $datrange['start'];
+        $end = $datrange['end'];
         $sql = "SELECT * FROM transactions tr LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id "
                 . "WHERE tr.next_payment >= '" . $start . "' AND  tr.next_payment <='" . $end . "' AND tr.status = 'paid' ";
-     
+
         $paid = $this->Transaction->query($sql);
         $return['transactions'] = $paid;
         return $return;
@@ -316,21 +316,21 @@ class ReportsController extends AppController {
     function openInvoice() {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
-         $datrange = json_decode($this->request->data['Role']['daterangeonly'], true);
-            $start = $datrange['start'];
-            $end = $datrange['end'];
+        $datrange = json_decode($this->request->data['Role']['daterangeonly'], true);
+        $start = $datrange['start'];
+        $end = $datrange['end'];
         $sql = "SELECT * FROM transactions tr LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id "
                 . "WHERE tr.next_payment >= '" . $start . "' AND  tr.next_payment <='" . $end . "' AND tr.status = 'open' ";
-     
+
         $open = $this->Transaction->query($sql);
         $return['transactions'] = $open;
         return $return;
     }
-    
+
     function overdueInvoice() {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
-        $todaydate =date('Y-m-d');
+        $todaydate = date('Y-m-d');
         $sql = "SELECT * FROM transactions tr LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id "
                 . "WHERE tr.status = 'open' and tr.next_payment < '$todaydate'";
         $due = $this->Transaction->query($sql);
@@ -1044,7 +1044,6 @@ class ReportsController extends AppController {
 
             if ($action == 'allautorecurring') {
                 $data = $this->allautorecurring($page = 1, $start = null, $end = null);
-                
             }
 
             if ($action == 'successful') {
@@ -1171,11 +1170,11 @@ class ReportsController extends AppController {
             $end = $datrange['end'];
         }
 
-        $sql = "SELECT * 
-                    FROM transactions
+        $sql = "SELECT * FROM transactions
                     LEFT JOIN package_customers ON package_customers.id = transactions.package_customer_id
                     LEFT JOIN psettings ON psettings.id = package_customers.psetting_id
                     LEFT JOIN custom_packages ON custom_packages.id = package_customers.custom_package_id
+                    LEFT JOIN packages  ON packages.id = psettings.package_id
                     WHERE transactions.auto_recurring = 1
                     AND CAST(transactions.created as DATE) >='" .
                 $start . "' AND CAST(transactions.created as DATE) <='" . $end .
@@ -1183,6 +1182,7 @@ class ReportsController extends AppController {
 
         //  echo $sql; exit;
         $allData = $this->Transaction->query($sql);
+
 
         $sql = "SELECT SUM(payable_amount) as total FROM transactions 
                 WHERE transactions.auto_recurring = 1 AND transactions.status =  'success' AND CAST(transactions.created as DATE) >='" .

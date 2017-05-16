@@ -614,7 +614,6 @@ WHERE transaction_id = " . $statement['tr']['id']
         $statusHistories = $this->StatusHistory->find('all', array('conditions' => array('StatusHistory.package_customer_id' => $pcid)));
        
         $lastStatus = end($statusHistories);
-//         pr($lastStatus['StatusHistory']['date']); exit;
 //Show default value for custome package
         $customer_info['PackageCustomer']['date'] = $lastStatus['StatusHistory']['date'];
         $custom_package_charge = $customer_info['CustomPackage']['charge'];
@@ -637,9 +636,6 @@ WHERE transaction_id = " . $statement['tr']['id']
         $attachments = $this->Attachment->find('all', array('conditions' => array('Attachment.package_customer_id' => $id)));
         $status = $customer_info['PackageCustomer']['status'];
         $users = $this->User->find('list', array('order' => array('User.name' => 'ASC')));
-        
-        
-         
         
         
 
@@ -2067,6 +2063,12 @@ where LOWER(i.name) = 'remote problem' and approved = 0 and LOWER(pc.status)!= '
         }
         return $this->redirect($this->referer());
     }
+    
+    function knowledge(){
+        
+    }
+        
+        
 
 }
 
