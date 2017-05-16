@@ -23,21 +23,35 @@
                     <div class="portlet-body">                        
                         <div class="col-md-12">
                             <h1><u>New Installation </u></h1> 
-                            <h4>What is the requirements for new service?</h4>
-                            1.Atlease 5 Mbps download speed capable internet line for each box<br>
-                                2.A Router or Modem<br>
-                                3.One Box can only serve One TV <br>
+                            <h4><p>What is the requirements for new service?</p></h4>
+                            <pre style="text-align: left;">
+    1.Atlease 5 Mbps download speed capable internet line for each box
+    2.A Router or Modem
+    3.One Box can only serve One TV
+                            </pre> 
                             <h4>How can I get Service?</h4>
-                            You can Provide your contact information on our Website so that our representative can call you or you can directly call to our Customer Service contact number.<br>
+                            <pre>
+    You can Provide your contact information on our Website so that our representative can call you or you can directly call to our Customer Service contact number.
+                            </pre>
                             <h4>What are the Other charges?</h4>
-                            Customer need to provide Security Deposit according to package terms which is refundable and there are certain charges for wire and Technician/Shipment
+                            <pre> 
+    Customer need to provide Security Deposit according to package terms which is refundable and there are certain charges for wire and Technician/Shipment
+                            </pre> 
+
                             <h4>How to Connect the Box?</h4>
-                            After unbox please note the MAC number of the shipped box that is on the below, after that connect the internet wire with modem & the HDMI/ AVI wire with the TV and our Box. After that please plug in the power cable and put the TV on correct Source then turn on the TV BOX by our remote and after showing activation notice call to customer service and open the Box.<br>
+                            <pre> 
+    After unbox please note the MAC number of the shipped box that is on the below, after that connect the internet wire with modem &     the HDMI/ AVI wire with the TV 
+and our Box. After that please plug in the power cable and put the TV on correct Source then turn on 
+    the TV BOX by our remote and after showing activation notice call to customer service and open the Box.
+                            </pre> 
+
+
 
                             <h1><u>Troubleshoot</u></h1>
                             <h4>What will do if “No Signal” comes on screen?</h4>
+                            <pre> 
                             At first please check the Power light of the box, if the light is on the n check the output cable(HDMI/AVI/COMPONENT) that it’s connected with both end or not. If its connected, then please check the respective Source/Input of your TV by your TV remote After getting into correct source if problem arrives please contact to our customer service  <br>
-
+                            </pre> 
                             <h4>What need to do if “Page Loading Error/Back date” comes on screen?</h4>
                             At first please reboot (Plug out & plug in the power cable) the box, if problem not solves then check your internet status. If internet is good, then plug out power coble of our box then router and modem. After 2 minutes plug in the power cable of router. At first all lights will be blinking then it will be stable except the internet/wan light, then turn on the modem’s power and when internet light gets stable on router plug in the power cable of our box, if problem remains please contact to our customer service  <br>
 
@@ -61,11 +75,11 @@
                             <h4>Do you take partial bills?</h4>
                             No we don’t take ant partial bills of respective sessions 
 
-                            <h1><u>Cancelation</u></h1>
+                            <h1>Cancelation</h1>
                             <h4>What is the procedure of Security Deposit Refund?</h4>
                             After Pick up or ship back of box to our Ware house it will take 21 working days to send a check on the respective address that’s is mentioned at account with the respective account holder name.
 
-                          
+
                         </div>                       
                     </div>
                 </div>
