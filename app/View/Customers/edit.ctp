@@ -2359,6 +2359,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                             <tr >  
                                                 <th>Invoice</th>
                                                 <th>Payment info</th>
+                                                <th>Additional Note</th>
                                                 <th>Amount</th>
                                                 <th>Balance</th>
                                             </tr>
@@ -2367,7 +2368,9 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                             <?php
                                             $balance = array();
                                             foreach ($statements as $single):
+                                                
                                                 $bill = $single['bill'];
+//                                            pr($bill); exit;
                                                 $payments = $single['payment'];
 
                                                 $amount = $bill['payable_amount'];
@@ -2408,6 +2411,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                 </a>
                                             </li>
                                             </td>
+                                            <td><?php echo $bill['note']; ?></td>
                                             <td>
                                                 <?php
                                                 echo $amount; // + $bill['discount'];
@@ -2484,7 +2488,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                         </ul>
 
                                                     </td>
-
+<td><?php echo $payment['tr']['note']; ?></td>
 
                                                     <td>
                                                         <?php

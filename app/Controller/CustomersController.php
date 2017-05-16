@@ -666,7 +666,7 @@ WHERE transaction_id = " . $statement['tr']['id']
         $this->loadModel('Transaction');
         $invoices = $this->getOpenInvoice($pcid);
         $statements = $this->getStatements($pcid);
-
+       
 //Need this code
         
 //       $data = $this->MacHistory->find('all', array('conditions' => array('package_customer_id' => $pcid)));
