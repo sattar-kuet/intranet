@@ -217,6 +217,7 @@
             }
 
             if ($action == 'allautorecurring') {
+               // pr($data); exit;
                 echo $this->element('allAutorecurring', array('data' => $data));
             }
 

@@ -6,6 +6,7 @@ require_once(APP . 'Vendor' . DS . 'class.upload.php');
 class PaymentsController extends AppController {
 
     var $layout = 'admin';
+    var $LivePayMode = 1;
     public $components = array('Security', 'RequestHandler');
 
     // public $components = array('Auth');
@@ -128,12 +129,12 @@ class PaymentsController extends AppController {
         $this->set('customer_info');
     }
 
-     public function request_process() {
+    public function request_process() {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
         $this->loadModel('Track');
         $this->loadModel('Ticket');
-            
+
         if (strpos($this->request->data['Transaction']['card_no'], 'X') !== false) {
             //Card number is not provided. So fetch previous card number
             //  $temp = $this->Transaction->findById($this->request->data['Transaction']['id']);
@@ -154,23 +155,28 @@ class PaymentsController extends AppController {
 
         $cid = $this->request->data['Transaction']['package_customer_id'];
         $pc = $this->PackageCustomer->findById($cid);
-      
+
 
         // process payment
-       //  $this->request->data['marchantName'] = "95x9PuD6b2"; // testing
-        $this->request->data['marchantName'] = '7zKH4b45'; // live
-      //  $this->request->data['marchantKey'] = "547z56Vcbs3Nz9R9"; // testing
-        $this->request->data['marchantKey'] = '738QpWvHH4vS59vY'; // live
 
-        $this->request->data['testMode'] = 0;
+        if ($this->LivePayMode) {
+            $this->request->data['marchantName'] = '7zKH4b45'; // live
+            $this->request->data['marchantKey'] = '738QpWvHH4vS59vY'; // live
+            $this->request->data['testMode'] = 0;
+        } else {
+            $this->request->data['marchantName'] = "95x9PuD6b2"; // testing
+            $this->request->data['marchantKey'] = "547z56Vcbs3Nz9R9"; // testing
+            $this->request->data['testMode'] = 1;
+        }
+
 
         $link = 'http://www.api2apipro.live/' . 'rest_payments/add.json';
 //pr($this->request->data); exit;
-       // $httpSocket = new HttpSocket();
+        // $httpSocket = new HttpSocket();
         $httpSocket = new HttpSocket();
 
         $response = $httpSocket->post($link, $this->request->data);
-     // pr($response); exit();
+        // pr($response); exit();
         $result = $response->body;
         $return = json_decode($result, TRUE);
 
@@ -307,7 +313,6 @@ class PaymentsController extends AppController {
 
         return $this->redirect($this->referer());
     }
-   
 
     public function individual_auto_recurring($data) {
         //echo 'Here'; exit;
@@ -337,13 +342,16 @@ class PaymentsController extends AppController {
 
         $httpSocket = new HttpSocket();
 
-        //  $this->request->data['marchantName'] = "95x9PuD6b2"; // testing
-        $this->request->data['marchantName'] = '7zKH4b45'; // live
-        // $this->request->data['marchantKey'] = "547z56Vcbs3Nz9R9"; // testing
-        $this->request->data['marchantKey'] = '738QpWvHH4vS59vY'; // live
+        if ($this->LivePayMode) {
+            $this->request->data['marchantName'] = '7zKH4b45'; // live
+            $this->request->data['marchantKey'] = '738QpWvHH4vS59vY'; // live
+            $this->request->data['testMode'] = 0;
+        } else {
+            $this->request->data['marchantName'] = "95x9PuD6b2"; // testing
+            $this->request->data['marchantKey'] = "547z56Vcbs3Nz9R9"; // testing
+            $this->request->data['testMode'] = 1;
+        }
 
-        $this->request->data['testMode'] = 0;
-        //pr($this->request->data); exit;
         $response = $httpSocket->put($link, $this->request->data);
         $result = $response->body;
         $return = json_decode($result, TRUE);
@@ -443,11 +451,12 @@ class PaymentsController extends AppController {
         // $sql = 'SELECT * FROM package_customers WHERE  LOWER(package_customers.auto_r) ="yes" AND package_customers.invoice_created = 0';
         //$pcs = $this->PackageCustomer->query($sql);
         $pcs = $this->PackageCustomer->find('all', array('conditions' => array('PackageCustomer.auto_r' => 'yes', 'PackageCustomer.invoice_created' => 0)));
-        // echo $this->PackageCustomer->getLastQuery();
-        //  pr($pcs); exit;
+        //  echo $this->PackageCustomer->getLastQuery();
+        //    pr($pcs); exit;
         $success = 0;
         $failure = 0;
         foreach ($pcs as $single) {
+            //pr($single); exit;
             $pc = $single['PackageCustomer'];
             $duration = $pc['r_duration'];
             $rFrom = $pc['r_form'];
@@ -455,10 +464,15 @@ class PaymentsController extends AppController {
 //            echo date('Y-m-d', strtotime($Date . ' + 1 days'));
 //echo $rFrom; exit;
             $temp = date('Y-m-d', strtotime($rFrom . '-15  days'));
+            //   echo $temp.'<br>';
             $deadline = strtotime($temp);
             $temp = date('Y-m-d');
+            //   echo $temp.'<br>';
             $now = strtotime($temp);
+            //  echo $now.'<br>';
+            //   echo $deadline; exit;
             if ($now >= $deadline) { // this is prior 15 days of payment date. So generate invoice 
+                //     echo 'here'; exit;
                 $data['Transaction'] = array(
                     'package_customer_id' => $pc['id'],
                     'note' => 'This Invoice is generated from system',

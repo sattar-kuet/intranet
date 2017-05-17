@@ -36,13 +36,11 @@ class ReportsController extends AppController {
         $this->set(compact('due_customers'));
     }
 
-    function cancel() {
+    function cancel($start, $end) {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
         $this->loadModel('StatusHistory');
-        $datrange = json_decode($this->request->data['Role']['daterangeonly'], true);
-        $start = $datrange['start'];
-        $end = $datrange['end'];
+
         $conditions = 'status_histories.status = "canceled" AND status_histories.date >="' . $start . '" AND status_histories.date <="' . $end . '"';
 
         $sql = "SELECT * FROM status_histories  
@@ -56,16 +54,11 @@ class ReportsController extends AppController {
         return $data;
     }
 
-    function payment_history($page, $start, $end, $pay_mode) {
+    function payment_history($page, $start, $end, $pay_mode = null) {
         $this->loadModel('Transaction');
         $this->loadModel('PackageCustomer');
 
-        if (isset($this->request->data['Role'])) {
-            $datrange = json_decode($this->request->data['Role']['daterangepaymode'], true);
-            $start = $datrange['start'];
-            $end = $datrange['end'];
-            $pay_mode = $this->request->data['Role']['pay_mode'];
-        }
+
 
         $conditions = " tr.status = 'success' AND ";
         if (!empty($pay_mode) && $pay_mode != null) {
@@ -459,31 +452,28 @@ class ReportsController extends AppController {
 
     function expcustomers($page, $start, $end) {
         $this->loadModel('PackageCustomer');
-        $datrange = json_decode($this->request->data['Role']['daterangeonly'], true);
-        $conditions = array('PackageCustomer.package_exp_date >=' => $datrange['start'], 'PackageCustomer.package_exp_date <=' => $datrange['end']);
+
+        $conditions = array('PackageCustomer.package_exp_date >=' => $start, 'PackageCustomer.package_exp_date <=' => $end);
         $customers = $this->PackageCustomer->find('all', array('conditions' => $conditions));
 
         return $customers;
     }
 
-    function newcustomers($dateRange) {
+    function newcustomers($start, $end) {
         $this->loadModel('PackageCustomer');
         $this->loadModel('StatusHistory');
-        $datrange = json_decode($dateRange, true);
-        $dateselected = count($datrange);
 
-        $start = $datrange['start'];
-        $end = $datrange['end'];
-        $conditions = 'status_histories.status ="sales done" AND status_histories.date >="' . $start . '" AND status_histories.date <="' . $end . '"';
+        $conditions = 'status_histories.status ="sales done" AND status_histories.date >="' . $start .
+                '" AND status_histories.date <="' . $end . '"';
         $sql = "SELECT * FROM package_customers pc                
             LEFT JOIN status_histories ON pc.id = status_histories.package_customer_id           
             left join transactions tr on pc.id = tr.package_customer_id    
             left join psettings ps on ps.id = pc.psetting_id
             LEFT JOIN packages p ON p.id = ps.package_id 
             LEFT JOIN custom_packages cp  ON cp.id = pc.custom_package_id";
-        if ($dateselected) {
-            $sql .=" WHERE " . $conditions;
-        }
+
+        $sql .=" WHERE " . $conditions;
+
         $sql .= " GROUP BY status_histories.package_customer_id order by status_histories.id desc limit 0,200";
 
         $customers = $this->StatusHistory->query($sql);
@@ -491,7 +481,7 @@ class ReportsController extends AppController {
         return $customers;
     }
 
-    function call_log($page = 1, $start = null, $end = null) {
+    function call_log($page = 1, $start, $end, $issue, $agent, $status) {
         $this->loadModel('Issue');
         $this->loadModel('Track');
         $this->loadModel('Ticket');
@@ -499,17 +489,6 @@ class ReportsController extends AppController {
         $this->loadModel('Role');
         $offset = --$page * $this->per_page;
 
-        $issue = $this->request->data['Role']['issue_id'];
-        $agent = $this->request->data['Role']['user_id'];
-        $datrange = json_decode($this->request->data['Role']['daterangecalllog'], true);
-        $status = $this->request->data['Role']['status'];
-
-        $ds = new DateTime($datrange['start']);
-        $timestamp = $ds->getTimestamp(); // Unix timestamp
-        $startd = $ds->format('m/y'); // 2003-10-16
-        $de = new DateTime($datrange['end']);
-        $timestamp = $de->getTimestamp(); // Unix timestamp
-        $endd = $de->format('m/y'); // 2003-10-16
         $conditions = "";
         if (!empty($issue)) {
             $conditions .= " tr.issue_id = $issue AND";
@@ -517,12 +496,12 @@ class ReportsController extends AppController {
         if (!empty($agent)) {
             $conditions .=" tr.forwarded_by = $agent AND";
         }
-        if (count($datrange)) {
-            if ($datrange['start'] == $datrange['end']) {
-                $nextday = date('Y-m-d', strtotime($datrange['end'] . "+1 days"));
-                $conditions .=" t.created >=' " . $datrange['start'] . "' AND  t.created < '" . $nextday . "' AND ";
+        if (isset($start)) {
+            if ($start == $end) {
+                $nextday = date('Y-m-d', strtotime($end . "+1 days"));
+                $conditions .=" t.created >=' " . $start . "' AND  t.created < '" . $nextday . "' AND ";
             } else {
-                $conditions .=" t.created >='" . $datrange['start'] . "' AND  t.created <='" . $datrange['end'] . "' AND ";
+                $conditions .=" t.created >='" . $start . "' AND  t.created <='" . $end . "' AND ";
             }
         }
         if (isset($issue) && is_numeric($issue)) {
@@ -1013,99 +992,128 @@ class ReportsController extends AppController {
         $this->set(compact('filteredData', 'technician'));
     }
 
-    function all($page = 1, $start = null, $end = null, $pay_mode = null) {
+    function all($action = null, $page = 1, $start = null, $end = null,$issue=null,$agent=null,$status=null) {
         $this->loadModel('Issue');
         $this->loadModel('User');
         $this->loadModel('Role');
         $this->loadModel('PackageCustomer');
         $loggedUser = $this->Auth->user();
         $role_name = $loggedUser['Role']['name'];
-        $action = 0;
+       
+
         $data = array();
         if ($this->request->is('post')) {
-
             $action = strtolower($this->request->data['Role']['action']);
-            if ($action == 'newcustomer') {
-                $data = $this->newcustomers($this->request->data['Role']['daterangeonly']);
-            }
-            if ($action == 'paymenthistory') {
-                $data = $this->payment_history($page = 1, $start = null, $end = null, $pay_mode = null);
-            }
-            if ($action == 'cancel') {
-                $data = $this->cancel();
-            }
-            if ($action == 'expirecustomer') {
-                $data = $this->expcustomers($page = 0, $start = null, $end = null);
+            if (!isset($start)) {
+                $start = '1970-05-01';
+                $end = date('Y-m-d');
+                $dateRange = json_decode($this->request->data['Role']['daterangeonly']);
+                if (count($dateRange)) {
+                    $start = $dateRange->start;
+                    $end = $dateRange->end;
+                }
             }
             if ($action == 'calllog') {
-
-                $data = $this->call_log($page = 1, $start = null, $end = null);
+                $issue = $this->request->data['Role']['issue_id'];
+                $agent = $this->request->data['Role']['user_id'];
+                $status = $this->request->data['Role']['status'];
+                $this->redirect("/reports/all/$action/1/$start/$end/$issue/$agent/$status");
             }
 
-            if ($action == 'allautorecurring') {
-                $data = $this->allautorecurring($page = 1, $start = null, $end = null);
+            $this->redirect("/reports/all/$action/1/$start/$end");
+        }
+
+        if ($action == 'newcustomer') {
+            $data = $this->newcustomers($start, $end);
+        }
+        if ($action == 'paymenthistory') {
+            $data = $this->payment_history($page, $start, $end);
+        }
+        if ($action == 'cancel') {
+            $data = $this->cancel($start, $end);
+        }
+        if ($action == 'expirecustomer') {
+            $data = $this->expcustomers($page = 0, $start = null, $end = null);
+        }
+        if ($action == 'calllog') {
+            $data = $this->call_log($page, $start, $end, $issue, $agent, $status);
+        }
+
+        if ($action == 'allautorecurring') {
+            if (!isset($start)) {
+                $start = '1970-05-01';
+                $end = date('Y-m-d');
+                $dateRange = json_decode($this->request->data['Role']['daterangeonly']);
+
+                if (count($dateRange)) {
+                    $start = $dateRange->start;
+                    $end = $dateRange->end;
+                }
             }
 
-            if ($action == 'successful') {
-                $data = $this->successful($page = 1, $start = null, $end = null);
-            }
 
-            if ($action == 'failed') {
-                $data = $this->failed($page = 1, $start = null, $end = null);
-            }
+            $data = $this->allautorecurring($page, $start, $end);
+        }
 
-            if ($action == 'summeryreport') {
-                $data = $this->summeryreport($start = null, $end = null);
-            }
+        if ($action == 'successful') {
+            $data = $this->successful($page = 1, $start = null, $end = null);
+        }
 
-            if ($action == 'allinvoice') {
-                $data = $this->allInvoice();
-            }
+        if ($action == 'failed') {
+            $data = $this->failed($page = 1, $start = null, $end = null);
+        }
 
-            if ($action == 'allinvoice_tr') {
-                $data = $this->allinvoice_tr();
-            }
+        if ($action == 'summeryreport') {
+            $data = $this->summeryreport($start = null, $end = null);
+        }
+
+        if ($action == 'allinvoice') {
+            $data = $this->allInvoice();
+        }
+
+        if ($action == 'allinvoice_tr') {
+            $data = $this->allinvoice_tr();
+        }
 
 
-            if ($action == 'paidinvoice') {
-                $data = $this->paidInvoice();
-            }
+        if ($action == 'paidinvoice') {
+            $data = $this->paidInvoice();
+        }
 
-            if ($action == 'openinvoice') {
-                $data = $this->openinvoice();
-            }
-            if ($action == 'overdueinvoice') {
-                $data = $this->overdueInvoice();
-            }
-            if ($action == 'passedinvoice') {
-                $data = $this->passedinvoice();
-            }
+        if ($action == 'openinvoice') {
+            $data = $this->openinvoice();
+        }
+        if ($action == 'overdueinvoice') {
+            $data = $this->overdueInvoice();
+        }
+        if ($action == 'passedinvoice') {
+            $data = $this->passedinvoice();
+        }
 
-            if ($action == 'closedinvoice') {
-                $data = $this->closedinvoice($start = null, $end = null);
-            }
+        if ($action == 'closedinvoice') {
+            $data = $this->closedinvoice($start = null, $end = null);
+        }
 
-            if ($action == 'customerbyloaction') {
-                $data = $this->customerbyloaction();
-            }
+        if ($action == 'customerbyloaction') {
+            $data = $this->customerbyloaction();
+        }
 
-            if ($action == 'customersummary') {
-                $data = $this->customerSummary();
-            }
+        if ($action == 'customersummary') {
+            $data = $this->customerSummary();
+        }
 
-            if ($action == 'overallreport') {
-                $data = $this->overAllreport($start = null, $end = null);
-            }
+        if ($action == 'overallreport') {
+            $data = $this->overAllreport($start = null, $end = null);
         }
 
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
         $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
 
-        $this->set(compact('data', 'action', 'users', 'issues', 'roles', 'role_name'));
+        $this->set(compact('data', 'start', 'end', 'action', 'users', 'issues', 'roles', 'role_name'));
     }
 
-    function allAutorecurringCustomer($page = 1, $start = null, $end = null, $pay_mode = null) { //Auto recurring data all
+    function allAutorecurringSettings($page = 1, $start = null, $end = null, $pay_mode = null) { //Auto recurring data all
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
@@ -1122,28 +1130,23 @@ class ReportsController extends AppController {
                     LEFT JOIN users u ON pc.technician_id = u.id
                     LEFT JOIN psettings ps ON ps.id = pc.psetting_id
                     LEFT JOIN custom_packages cp ON cp.id = pc.custom_package_id
-                    WHERE pc.auto_r =  'yes' and pc.r_form >='" . $start . "' AND pc.r_form <='" . $end . "'  order by pc.id desc" . " LIMIT " . $offset . "," . $this->per_page);
+                    WHERE pc.auto_r =  'yes' ORDER BY pc.id desc" . " LIMIT " . $offset . "," . $this->per_page);
 
-        if (count($datrange)) {
-            $sql = "SELECT SUM(pc.payable_amount) as total FROM package_customers pc
-                left join transactions tr on pc.id = tr.package_customer_id
-                WHERE pc.auto_r =  'yes' and pc.r_form >='$start' AND pc.r_form <='$end'";
-        } else {
-            $sql = "SELECT SUM(pc.payable_amount) as total FROM package_customers pc
+        $sql = "SELECT SUM(pc.payable_amount) as total FROM package_customers pc
                 left join transactions tr on pc.id = tr.package_customer_id
                 WHERE pc.auto_r =  'yes'";
-        }
+
         $temp = $this->Transaction->query($sql);
         $totalPayment = $temp[0][0]['total'];
         $totalPayment = round($totalPayment, 2);
 
-        $sql = "SELECT COUNT(pc.id) as total FROM package_customers pc
+        $sql = "SELECT COUNT(DISTINCT pc.id) as total FROM package_customers pc
                 left join transactions tr on pc.id = tr.package_customer_id
-                WHERE pc.auto_r =  'yes' and pc.r_form >='" . $start . "' AND pc.r_form <='" . $end . "'";
+                WHERE pc.auto_r =  'yes'";
         $temp = $this->Transaction->query($sql);
         $totalCustomer = $temp[0][0]['total'];
 
-        $temp = $this->PackageCustomer->query("SELECT COUNT(pc.id) as total FROM package_customers pc WHERE pc.auto_r =  'yes' and pc.r_form >='" . $start . "' AND pc.r_form <='" . $end . "'");
+        $temp = $this->PackageCustomer->query("SELECT COUNT(pc.id) as total FROM package_customers pc WHERE pc.auto_r =  'yes'");
         $total = $temp[0][0]['total'];
         $total_page = ceil($total / $this->per_page);
 
@@ -1153,61 +1156,69 @@ class ReportsController extends AppController {
         $return['end'] = $end;
         $return['totalCustomer'] = $totalCustomer;
         $return['totalPayment'] = $totalPayment;
+        $data = $return;
 
-        return $return;
+        $this->set(compact('data'));
     }
 
-    function allAutorecurring($page = 1, $start = null, $end = null) { //Auto recurring data all
+    function allAutorecurring($page, $start, $end) { //Auto recurring data all
+        //  echo 'here'; exit;
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
         $offset = --$page * $this->per_page;
-        // echo $this->per_page; exit;
-
-        if (isset($this->request->data['Role'])) {
-            $datrange = json_decode($this->request->data['Role']['daterangeonly'], true);
-            $start = $datrange['start'];
-            $end = $datrange['end'];
-        }
 
         $sql = "SELECT * FROM transactions
                     LEFT JOIN package_customers ON package_customers.id = transactions.package_customer_id
                     LEFT JOIN psettings ON psettings.id = package_customers.psetting_id
                     LEFT JOIN custom_packages ON custom_packages.id = package_customers.custom_package_id
-                    LEFT JOIN packages  ON packages.id = psettings.package_id
-                    WHERE transactions.auto_recurring = 1
-                    AND CAST(transactions.created as DATE) >='" .
-                $start . "' AND CAST(transactions.created as DATE) <='" . $end .
-                "' order by transactions.id desc" . " LIMIT " . $offset . "," . $this->per_page;
 
-        //  echo $sql; exit;
+                    WHERE transactions.auto_recurring = 1";
+        if ($end) {
+            $sql .= " AND CAST(transactions.created as DATE) >='" .
+                    $start . "' AND CAST(transactions.created as DATE) <='" . $end . "'";
+        }
+
+        $sql .= " ORDER BY transactions.id desc" . " LIMIT " . $offset . "," . $this->per_page;
+
+
+
+        // echo $sql; exit;
         $allData = $this->Transaction->query($sql);
 
 
         $sql = "SELECT SUM(payable_amount) as total FROM transactions 
-                WHERE transactions.auto_recurring = 1 AND transactions.status =  'success' AND CAST(transactions.created as DATE) >='" .
-                $start . "' AND CAST(transactions.created as DATE) <='" . $end . "'";
+                WHERE transactions.auto_recurring = 1";
+        if ($end) {
+            $sql .=" AND CAST(transactions.created as DATE) >='" . $start . "' AND CAST(transactions.created as DATE) <='" . $end . "'";
+        }
+
         $temp = $this->Transaction->query($sql);
         $totalPayment = $temp[0][0]['total'];
         $totalPayment = round($totalPayment, 2);
 
         $sql = "SELECT COUNT(id) as total FROM transactions 
-                WHERE transactions.auto_recurring = 1 AND transactions.status =  'success' AND CAST(transactions.created as DATE) >='" .
-                $start . "' AND CAST(transactions.created as DATE) <='" . $end . "'";
+                WHERE transactions.auto_recurring = 1";
+        if ($end) {
+            $sql .= " AND CAST(transactions.created as DATE) >='" .
+                    $start . "' AND CAST(transactions.created as DATE) <='" . $end . "'";
+        }
+
         $temp = $this->Transaction->query($sql);
         $totalCustomer = $temp[0][0]['total'];
 
-
-        $temp = $this->Transaction->query("SELECT COUNT(transactions.id) as total FROM transactions WHERE
-                transactions.auto_recurring = 1  AND CAST(transactions.created as DATE) >='" .
-                $start . "' AND CAST(transactions.created as DATE) <='" . $end . "'");
+        $sql = "SELECT COUNT(transactions.id) as total FROM transactions WHERE
+                transactions.auto_recurring = 1";
+        if ($end) {
+            $sql .= " AND CAST(transactions.created as DATE) >='" .
+                    $start . "' AND CAST(transactions.created as DATE) <='" . $end . "'";
+        }
+        $temp = $this->Transaction->query($sql);
         $total = $temp[0][0]['total'];
         $total_page = ceil($total / $this->per_page);
 
         $return['allData'] = $allData;
         $return['total_page'] = $total_page;
-        $return['start'] = $start;
-        $return['end'] = $end;
         $return['totalCustomer'] = $totalCustomer;
         $return['totalPayment'] = $totalPayment;
         return $return;

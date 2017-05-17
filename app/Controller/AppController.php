@@ -296,8 +296,9 @@ class AppController extends Controller {
     }
 
     function generateInvoice($data = array()) {
+      //  echo 'Here';
+      //  pr($data); exit;
         $this->loadModel('Transaction');
-
         $this->Transaction->create();
         $d = $this->Transaction->save($data);
         // pr($d); exit;
