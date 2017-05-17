@@ -2368,7 +2368,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                             <?php
                                             $balance = array();
                                             foreach ($statements as $single):
-                                                
+
                                                 $bill = $single['bill'];
 //                                            pr($bill); exit;
                                                 $payments = $single['payment'];
@@ -2488,7 +2488,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                         </ul>
 
                                                     </td>
-<td><?php echo $payment['tr']['note']; ?></td>
+                                                    <td><?php echo $payment['tr']['note']; ?></td>
 
                                                     <td>
                                                         <?php
