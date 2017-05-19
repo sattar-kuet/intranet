@@ -140,8 +140,8 @@
                                             'type' => 'select',
                                             'options' => array(
                                                 'allautorecurring' => 'All Auto Recurring',
-                                                'allinvoice' => 'All Invoice(Print preview)',
-                                                'allinvoice_tr' => 'All Invoice',
+                                                'allinvoice_print_preview' => 'All Invoice(Print preview)',
+                                                'allinvoice' => 'All Invoice',
                                                 'calllog' => 'Call Log',
                                                 'cancel' => 'Cancel',
                                                 'closedinvoice' => 'Closed Invoice',
@@ -237,8 +237,8 @@
                 echo $this->element('allinvoice', array('data' => $data));
             }
 
-            if ($action == 'allinvoice_tr') {
-                echo $this->element('allinvoice_tr', array('data' => $data));
+            if ($action == 'allinvoice_print_preview') {
+                echo $this->element('allinvoice_print_preview', array('data' => $data));
             }
 
             if ($action == 'paidinvoice') {

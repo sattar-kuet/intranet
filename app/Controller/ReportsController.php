@@ -160,7 +160,7 @@ class ReportsController extends AppController {
         $this->set(compact('data'));
     }
 
-    function allInvoice($page = 1) {
+    function allinvoice_print_preview($page = 1) {
         $this->loadModel('PackageCustomer');
         $expiredate = trim(date('Y-m-d', strtotime("+25 days")));
         $offset = --$page * $this->per_page;
@@ -194,13 +194,18 @@ class ReportsController extends AppController {
         return $return;
     }
 
-    function allinvoice_tr() {
+    function allinvoice($page) {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
-        $transactions = $this->Transaction->query("SELECT *
-                    FROM transactions tr			
-                    LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id");
+        $offset = --$page * $this->per_page;
+        $sql = "SELECT * FROM transactions tr LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id LIMIT $offset,$this->per_page";
+        $transactions = $this->Transaction->query($sql);
+        $sql = "SELECT count(tr.id) as total FROM transactions tr";
+        $temp = $this->Transaction->query($sql);
+        $total = $temp[0][0]['total'];
+        $total_page = ceil($total / $this->per_page);
         $return['transactions'] = $transactions;
+        $return['total_page'] = $total_page;
         return $return;
     }
 
@@ -992,14 +997,14 @@ class ReportsController extends AppController {
         $this->set(compact('filteredData', 'technician'));
     }
 
-    function all($action = null, $page = 1, $start = null, $end = null,$issue=null,$agent=null,$status=null) {
+    function all($action = null, $page = 1, $start = null, $end = null, $issue = null, $agent = null, $status = null) {
         $this->loadModel('Issue');
         $this->loadModel('User');
         $this->loadModel('Role');
         $this->loadModel('PackageCustomer');
         $loggedUser = $this->Auth->user();
         $role_name = $loggedUser['Role']['name'];
-       
+
 
         $data = array();
         if ($this->request->is('post')) {
@@ -1067,12 +1072,12 @@ class ReportsController extends AppController {
             $data = $this->summeryreport($start = null, $end = null);
         }
 
-        if ($action == 'allinvoice') {
-            $data = $this->allInvoice();
+        if ($action == 'allinvoice_print_preview') {
+            $data = $this->allinvoice_print_preview();
         }
 
-        if ($action == 'allinvoice_tr') {
-            $data = $this->allinvoice_tr();
+        if ($action == 'allinvoice') {
+            $data = $this->allinvoice($page);
         }
 
 
