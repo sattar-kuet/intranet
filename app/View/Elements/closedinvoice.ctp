@@ -7,6 +7,22 @@
             <li>   </li>
         </ul>
         <script></script>
+                 <ul class="pagination" >
+                        <?php
+                        //echo $issue.':'.$agent.':'.$status;
+                        for ($i = 1; $i <= $total_page; $i++):
+                            $active = '';
+
+
+                            if (isset($this->params['pass'][0]) && $this->params['pass'][0] == $i) {
+                                $active = 'active';
+                            }
+                            ?>
+                            <li class="paginate_button <?php echo $active; ?>" aria-controls="sample_editable_1" tabindex="<?php echo $i; ?>">
+                                <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'all', $action, $i, $start, $end)) ?>"><?php echo $i; ?></a>
+                            </li>
+                        <?php endfor; ?>
+                    </ul>
         <div class="page-toolbar">
             <div class="btn-group pull-right">
                 <a class="btn btn-lg blue hidden-print margin-bottom-5" target="_blank" onclick="printDiv('printableArea')">

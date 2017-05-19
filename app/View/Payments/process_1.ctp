@@ -539,6 +539,32 @@
                                                     <div class="col-md-3">
                                                         <?php
                                                         echo $this->Form->input(
+                                                                'company', array(
+                                                            'type' => 'text',
+                                                            'class' => 'form-control input-sm ',
+                                                            'id' => 'card_number',
+                                                            'placeholder' => 'Company name'
+                                                        ));
+                                                        ?>
+                                                    </div>                                                    
+
+                                                    <div class="col-md-3">
+                                                        <?php
+                                                        echo $this->Form->input(
+                                                                'address', array(
+                                                            'type' => 'text',
+                                                            'class' => 'form-control input-sm ',
+                                                            'placeholder' => 'Address'
+                                                        ));
+                                                        ?>
+                                                    </div>
+
+                                                </div>
+                                                <br>                                                
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <?php
+                                                        echo $this->Form->input(
                                                                 'city', array(
                                                             'type' => 'text',
                                                             'id' => 'cityname',
@@ -547,7 +573,6 @@
                                                         ));
                                                         ?>
                                                     </div>
-
 
                                                     <div class="col-md-3">
                                                         <?php
@@ -561,10 +586,6 @@
                                                         ?>
                                                     </div>
 
-
-                                                </div>
-                                                <br>                                                
-                                                <div class="row">
                                                     <div class="col-md-3">
                                                         <?php
                                                         echo $this->Form->input(
@@ -577,6 +598,21 @@
                                                         ?>
                                                     </div>
 
+
+                                                    <div class="col-md-3">
+                                                        <?php
+                                                        echo $this->Form->input(
+                                                                'country', array(
+                                                            'type' => 'text',
+                                                            'class' => 'form-control input-sm ',
+                                                            'placeholder' => 'Country'
+                                                        ));
+                                                        ?>
+                                                    </div>
+                                                </div>
+
+                                                </br>
+                                                <div class="row">                                                   
                                                     <div class="col-md-3">
                                                         <?php
                                                         echo $this->Form->input(
@@ -588,6 +624,31 @@
                                                         ));
                                                         ?>
                                                     </div>
+
+                                                    <div class="col-md-3">
+                                                        <?php
+                                                        echo $this->Form->input(
+                                                                'email', array(
+                                                            'type' => 'text',
+                                                            'id' => 'emailadd',
+                                                            'class' => 'form-control input-sm ',
+                                                            'placeholder' => 'Email'
+                                                        ));
+                                                        ?>
+                                                    </div>
+
+                                                    <div class="col-md-3">
+                                                        <?php
+                                                        echo $this->Form->input(
+                                                                'fax', array(
+                                                            'type' => 'text',
+                                                            'id' => 'faxno',
+                                                            'class' => 'form-control input-sm ',
+                                                            'placeholder' => 'Fax'
+                                                        ));
+                                                        ?>
+                                                    </div>
+
 
                                                     <div class="col-md-3">
                                                         <?php
@@ -727,8 +788,8 @@
                                                         ?>
                                                     </div>
                                                 </div>
-                                                &nbsp;
-                                                <div class="row">
+                                                 &nbsp;
+                                                 <div class="row">
                                                     <div class="col-md-3 signupfont">
                                                         Payment date:
                                                     </div>
@@ -861,8 +922,8 @@
                                                         ?>
                                                     </div>
                                                 </div>
-                                                &nbsp;
-                                                <div class="row">
+                                                 &nbsp;
+                                                 <div class="row">
                                                     <div class="col-md-3 signupfont">
                                                         Payment date:
                                                     </div>
@@ -991,8 +1052,8 @@
                                                         ?>
                                                     </div>
                                                 </div>
-                                                &nbsp;
-                                                <div class="row">
+                                                 &nbsp;
+                                                 <div class="row">
                                                     <div class="col-md-3 signupfont">
                                                         Payment date:
                                                     </div>
@@ -1104,8 +1165,8 @@
                                                         ?>
                                                     </div>
                                                 </div>
-                                                &nbsp;
-                                                <div class="row">
+                                                 &nbsp;
+                                                 <div class="row">
                                                     <div class="col-md-3 signupfont">
                                                         Payment date:
                                                     </div>
@@ -1133,8 +1194,8 @@
 
                                                     </div>
                                                 </div>
-
-
+                                               
+                                                
                                                 <?php echo $this->Form->end(); ?>
                                             </div>
 

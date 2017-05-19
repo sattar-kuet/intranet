@@ -7,10 +7,7 @@
         text-align: center;
     }
     .txtArea { width:300px; }
-      ul.pagination {
-        display: flex;
-        justify-content: center;
-    }
+   
 </style>
 
 <div class="page-content-wrapper">
@@ -19,6 +16,8 @@
         <h3 class="page-title">
             Solved tickets <small>You can resolve, unresolve or froward</small>
         </h3>
+
+
 
         <!-- END PAGE HEADER-->
         <!-- BEGIN PAGE CONTENT-->
@@ -36,10 +35,11 @@
                             </a>
                         </div>
                     </div>
+
+
                     <div class="portlet-body">
 
-                        <?php echo $this->Session->flash(); ?>
-                         <ul class="pagination" >
+                        <ul class="pagination" >
                             <?php
                             for ($i = 1; $i <= $total_page; $i++):
                                 $active = '';
@@ -52,6 +52,9 @@
                                 </li>
                             <?php endfor; ?>
                         </ul>
+
+                        <?php echo $this->Session->flash(); ?>
+
                         <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                             <thead>
                                 <tr>
@@ -61,7 +64,7 @@
                                     <th>Open Time</th>
                                     <th>Detail</th>
                                     <th>History</th>
-                                    
+
                                 </tr>
                             </thead>
                             <tbody>

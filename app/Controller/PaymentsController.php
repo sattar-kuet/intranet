@@ -171,12 +171,12 @@ class PaymentsController extends AppController {
 
 
         $link = 'http://www.api2apipro.live/' . 'rest_payments/add.json';
-//pr($this->request->data); exit;
+        //pr($this->request->data); exit;
         // $httpSocket = new HttpSocket();
         $httpSocket = new HttpSocket();
-
+     //  unset($this->request->data['address']);
         $response = $httpSocket->post($link, $this->request->data);
-        // pr($response); exit();
+//         pr($response); exit();
         $result = $response->body;
         $return = json_decode($result, TRUE);
 

@@ -36,10 +36,11 @@ class ReportsController extends AppController {
         $this->set(compact('due_customers'));
     }
 
-    function cancel($start, $end) {
+    function cancel($page = 1, $start, $end) {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
         $this->loadModel('StatusHistory');
+        $offset = --$page * $this->per_page;
 
         $conditions = 'status_histories.status = "canceled" AND status_histories.date >="' . $start . '" AND status_histories.date <="' . $end . '"';
 
@@ -49,16 +50,20 @@ class ReportsController extends AppController {
             left join psettings  on psettings.id = package_customers.psetting_id
             LEFT JOIN packages  ON packages.id = psettings.package_id 
             LEFT JOIN custom_packages  ON custom_packages.id = package_customers.custom_package_id 
-            where $conditions GROUP BY status_histories.id  limit 0,199";
+            where $conditions GROUP BY status_histories.id  LIMIT $offset,$this->per_page";
         $data = $this->PackageCustomer->query($sql);
+
+        $temp = $this->StatusHistory->query("SELECT COUNT(status_histories.id) as total FROM status_histories where $conditions");
+        $total = $temp[0][0]['total'];
+        $total_page = ceil($total / $this->per_page);
+        $this->set(compact('total_page'));
+
         return $data;
     }
 
     function payment_history($page, $start, $end, $pay_mode = null) {
         $this->loadModel('Transaction');
         $this->loadModel('PackageCustomer');
-
-
 
         $conditions = " tr.status = 'success' AND ";
         if (!empty($pay_mode) && $pay_mode != null) {
@@ -160,7 +165,7 @@ class ReportsController extends AppController {
         $this->set(compact('data'));
     }
 
-    function allInvoice($page = 1) {
+    function allinvoice_print_preview($page = 1) {
         $this->loadModel('PackageCustomer');
         $expiredate = trim(date('Y-m-d', strtotime("+25 days")));
         $offset = --$page * $this->per_page;
@@ -194,13 +199,18 @@ class ReportsController extends AppController {
         return $return;
     }
 
-    function allinvoice_tr() {
+    function allinvoice($page) {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
-        $transactions = $this->Transaction->query("SELECT *
-                    FROM transactions tr			
-                    LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id");
+        $offset = --$page * $this->per_page;
+        $sql = "SELECT * FROM transactions tr LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id LIMIT $offset,$this->per_page";
+        $transactions = $this->Transaction->query($sql);
+        $sql = "SELECT count(tr.id) as total FROM transactions tr";
+        $temp = $this->Transaction->query($sql);
+        $total = $temp[0][0]['total'];
+        $total_page = ceil($total / $this->per_page);
         $return['transactions'] = $transactions;
+        $return['total_page'] = $total_page;
         return $return;
     }
 
@@ -230,9 +240,11 @@ class ReportsController extends AppController {
         $this->set(compact('packagecustomers'));
     }
 
-    function closedInvoice($start, $end) {
+    function closedInvoice($page = 1, $start, $end) {
         $this->loadModel('Package_customer');
         $this->loadModel('Transaction');
+        $offset = --$page * $this->per_page;
+
         $packagecustomers = $this->Transaction->query("SELECT tr.id, tr.package_customer_id, 
             CONCAT( first_name,' ', middle_name,' ', last_name ) AS name, pc.psetting_id, pc.mac,
             ps.name, p.name, tr.paid_amount, ps.amount, ps.duration,tr.created FROM transactions tr
@@ -240,9 +252,16 @@ class ReportsController extends AppController {
             left join psettings ps on ps.id = pc.psetting_id
             LEFT JOIN packages p ON p.id = ps.package_id 
             WHERE paid_amount !=0 and
-            tr.created >='" . $start . "' AND tr.created <='" . $end . "'");
+            tr.created >='" . $start . "' AND tr.created <='" . $end . "'  LIMIT $offset,$this->per_page");
 
         $return['packagecustomers'] = $packagecustomers;
+
+        $temp = $this->Transaction->query("SELECT COUNT(tr.id) as total FROM transactions tr where paid_amount !=0 and
+            tr.created >='" . $start . "' AND tr.created <='" . $end . "'");
+        $total = $temp[0][0]['total'];
+        $total_page = ceil($total / $this->per_page);
+        $this->set(compact('total_page'));
+
         return $return;
     }
 
@@ -547,9 +566,9 @@ class ReportsController extends AppController {
         $temp = $this->Track->query("SELECT COUNT(tr.id) as total FROM  tracks tr left JOIN tickets t ON tr.ticket_id = t.id WHERE $conditions");
         $total = $temp[0][0]['total'];
         $total_page = ceil($total / $this->per_page);
-        
-       
-        $url =  Router::url($this->here, true );
+
+
+        $url = Router::url($this->here, true);
 
         $this->set(compact('filteredTicket', 'total_page', 'start', 'end', 'issue', 'agent', 'status'));
 
@@ -990,12 +1009,16 @@ class ReportsController extends AppController {
     }
 
     function all($action = null, $page = 1, $start = null, $end = null, $issue = '#', $agent = '#', $status = '#') {
+
+        //function all($action = null, $page = 1, $start = null, $end = null, $issue = null, $agent = null, $status = null) {
+
         $this->loadModel('Issue');
         $this->loadModel('User');
         $this->loadModel('Role');
         $this->loadModel('PackageCustomer');
         $loggedUser = $this->Auth->user();
         $role_name = $loggedUser['Role']['name'];
+
 
         // pr($this->request->data); exit;
         $data = array();
@@ -1014,13 +1037,13 @@ class ReportsController extends AppController {
                 $issue = $this->request->data['Role']['issue_id'];
                 $agent = $this->request->data['Role']['user_id'];
                 $status = $this->request->data['Role']['status'];
-                if (empty($issue)){
+                if (empty($issue)) {
                     $issue = '#';
                 }
-                if (empty($agent)){
+                if (empty($agent)) {
                     $agent = '#';
                 }
-                if (empty($status)){
+                if (empty($status)) {
                     $status = '#';
                 }
                 $this->redirect("/reports/all/$action/1/$start/$end/$issue/$agent/$status");
@@ -1036,7 +1059,7 @@ class ReportsController extends AppController {
             $data = $this->payment_history($page, $start, $end);
         }
         if ($action == 'cancel') {
-            $data = $this->cancel($start, $end);
+            $data = $this->cancel($page, $start, $end);
         }
         if ($action == 'expirecustomer') {
             $data = $this->expcustomers($page = 0, $start = null, $end = null);
@@ -1077,12 +1100,12 @@ class ReportsController extends AppController {
             $data = $this->summeryreport($start = null, $end = null);
         }
 
-        if ($action == 'allinvoice') {
-            $data = $this->allInvoice();
+        if ($action == 'allinvoice_print_preview') {
+            $data = $this->allinvoice_print_preview($page);
         }
 
-        if ($action == 'allinvoice_tr') {
-            $data = $this->allinvoice_tr();
+        if ($action == 'allinvoice') {
+            $data = $this->allinvoice($page);
         }
 
 
@@ -1101,7 +1124,7 @@ class ReportsController extends AppController {
         }
 
         if ($action == 'closedinvoice') {
-            $data = $this->closedinvoice($start, $end);
+            $data = $this->closedinvoice($page , $start, $end);
         }
 
         if ($action == 'customerbyloaction') {
@@ -1120,7 +1143,7 @@ class ReportsController extends AppController {
         $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
 
-        $this->set(compact('data', 'start', 'end', 'action', 'users', 'issues', 'roles', 'role_name', 'agent', 'status','u'));
+        $this->set(compact('data', 'start', 'end', 'action', 'users', 'issues', 'roles', 'role_name', 'agent', 'status', 'u'));
     }
 
     function allAutorecurringSettings($page = 1, $start = null, $end = null, $pay_mode = null) { //Auto recurring data all
