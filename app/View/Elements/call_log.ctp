@@ -1,9 +1,5 @@
 <div class="page-content-wrapper" style="margin: 0px; padding: 0px;">
     <div class="">
-        <!-- BEGIN PAGE HEADER-->
-
-        <!-- END PAGE HEADER-->
-        <!-- BEGIN PAGE CONTENT-->
         <div class="invoice"  id="printableArea">
 
             <div class="row">
