@@ -209,12 +209,12 @@ class ReportsController extends AppController {
         return $return;
     }
 
-    function paidInvoice() {
+    function paidInvoice($start, $end) {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
-        $datrange = json_decode($this->request->data['Role']['daterangeonly'], true);
-        $start = $datrange['start'];
-        $end = $datrange['end'];
+//        $datrange = json_decode($this->request->data['Role']['daterangeonly'], true);
+//        $start = $datrange['start'];
+//        $end = $datrange['end'];
         $sql = "SELECT * FROM transactions tr LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id "
                 . "WHERE tr.next_payment >= '" . $start . "' AND  tr.next_payment <='" . $end . "' AND tr.status = 'paid' ";
 
@@ -235,14 +235,9 @@ class ReportsController extends AppController {
         $this->set(compact('packagecustomers'));
     }
 
-    function closedInvoice($start = null, $end = null) {
+    function closedInvoice($start, $end) {
         $this->loadModel('Package_customer');
         $this->loadModel('Transaction');
-        $datrange = json_decode($this->request->data['Role']['daterangeonly'], true);
-
-        $start = $datrange['start'] . ' 00:00:00';
-        $end = $datrange['end'] . ' 23:59:59';
-
         $packagecustomers = $this->Transaction->query("SELECT tr.id, tr.package_customer_id, 
             CONCAT( first_name,' ', middle_name,' ', last_name ) AS name, pc.psetting_id, pc.mac,
             ps.name, p.name, tr.paid_amount, ps.amount, ps.duration,tr.created FROM transactions tr
@@ -251,6 +246,7 @@ class ReportsController extends AppController {
             LEFT JOIN packages p ON p.id = ps.package_id 
             WHERE paid_amount !=0 and
             tr.created >='" . $start . "' AND tr.created <='" . $end . "'");
+        
         $return['packagecustomers'] = $packagecustomers;
         return $return;
     }
@@ -311,12 +307,12 @@ class ReportsController extends AppController {
         $this->set(compact('packagecustomers'));
     }
 
-    function openInvoice() {
+    function openInvoice($start, $end) {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
-        $datrange = json_decode($this->request->data['Role']['daterangeonly'], true);
-        $start = $datrange['start'];
-        $end = $datrange['end'];
+//        $datrange = json_decode($this->request->data['Role']['daterangeonly'], true);
+//        $start = $datrange['start'];
+//        $end = $datrange['end'];
         $sql = "SELECT * FROM transactions tr LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id "
                 . "WHERE tr.next_payment >= '" . $start . "' AND  tr.next_payment <='" . $end . "' AND tr.status = 'open' ";
 
@@ -494,6 +490,8 @@ class ReportsController extends AppController {
         $this->loadModel('Role');
         $offset = --$page * $this->per_page;
 
+//        pr($this->request->data); exit;
+        
         $conditions = "";
         if (!empty($issue)) {
             $conditions .= " tr.issue_id = $issue AND";
@@ -521,7 +519,7 @@ class ReportsController extends AppController {
         $conditions = str_replace("AND###", "", $conditions);
         $conditions = str_replace("AND ###", "", $conditions);
         $conditions = str_replace("###", "", $conditions);
-//        pr($conditions); exit;
+
         $sql = "SELECT * FROM tracks tr
                         left JOIN tickets t ON tr.ticket_id = t.id
                         left JOIN users fb ON tr.forwarded_by = fb.id
@@ -556,7 +554,7 @@ class ReportsController extends AppController {
         $total = $temp[0][0]['total'];
         $total_page = ceil($total / $this->per_page);
 
-        $this->set(compact('filteredTicket', 'total_page', 'start', 'end'));
+        $this->set(compact('filteredTicket', 'total_page', 'start', 'end', 'issue', 'agent', 'status'));
 
 
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
@@ -774,9 +772,9 @@ class ReportsController extends AppController {
         $total = array();
         //$total['call'] = $this->getTotalCall();
         //$total['cancel'] = $this->getTotalCancel(); 
-        $datrange = json_decode($this->request->data['Role']['daterangeonly'], true);
-        $start = $datrange['start'];
-        $end = $datrange['end'];
+//        $datrange = json_decode($this->request->data['Role']['daterangeonly'], true);
+//        $start = $datrange['start'];
+//        $end = $datrange['end'];
         $total['sales_query'] = $this->getTotalSalesQuery($start, $end);
 
         // $total[0] = $total['done'] + $total['ready'];
@@ -815,11 +813,11 @@ class ReportsController extends AppController {
                 $total['cancel_from_da'] + $total['unhold'];
 
 
-        $datrange = json_decode($this->request->data['Role']['daterangeonly'], true);
-        $start1 = $datrange['start'];
-        $start = date("m-d-Y", strtotime($start1));
-        $end1 = $datrange['end'];
-        $end = date("m-d-Y", strtotime($end1));
+//        $datrange = json_decode($this->request->data['Role']['daterangeonly'], true);
+//        $start1 = $datrange['start'];
+//        $start = date("m-d-Y", strtotime($start1));
+//        $end1 = $datrange['end'];
+//        $end = date("m-d-Y", strtotime($end1));
 
         $date = ($start . ' ' . 'To' . ' ' . $end);
 
@@ -1023,6 +1021,7 @@ class ReportsController extends AppController {
                 $agent = $this->request->data['Role']['user_id'];
                 $status = $this->request->data['Role']['status'];
                 $this->redirect("/reports/all/$action/1/$start/$end/$issue/$agent/$status");
+                
             }
 
             $this->redirect("/reports/all/$action/1/$start/$end");
@@ -1041,7 +1040,10 @@ class ReportsController extends AppController {
             $data = $this->expcustomers($page = 0, $start = null, $end = null);
         }
         if ($action == 'calllog') {
+           
+            
             $data = $this->call_log($page, $start, $end, $issue, $agent, $status);
+            
         }
 
         if ($action == 'allautorecurring') {
@@ -1082,11 +1084,11 @@ class ReportsController extends AppController {
 
 
         if ($action == 'paidinvoice') {
-            $data = $this->paidInvoice();
+            $data = $this->paidInvoice($start, $end);
         }
 
         if ($action == 'openinvoice') {
-            $data = $this->openinvoice();
+            $data = $this->openinvoice($start, $end);
         }
         if ($action == 'overdueinvoice') {
             $data = $this->overdueInvoice();
@@ -1096,7 +1098,7 @@ class ReportsController extends AppController {
         }
 
         if ($action == 'closedinvoice') {
-            $data = $this->closedinvoice($start = null, $end = null);
+            $data = $this->closedinvoice($start, $end);
         }
 
         if ($action == 'customerbyloaction') {
@@ -1108,14 +1110,14 @@ class ReportsController extends AppController {
         }
 
         if ($action == 'overallreport') {
-            $data = $this->overAllreport($start = null, $end = null);
+            $data = $this->overAllreport($start, $end);
         }
 
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
         $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
 
-        $this->set(compact('data', 'start', 'end', 'action', 'users', 'issues', 'roles', 'role_name'));
+        $this->set(compact('data', 'start', 'end', 'action', 'users', 'issues', 'roles', 'role_name','agent', 'status'));
     }
 
     function allAutorecurringSettings($page = 1, $start = null, $end = null, $pay_mode = null) { //Auto recurring data all
@@ -1186,9 +1188,6 @@ class ReportsController extends AppController {
 
         $sql .= " ORDER BY transactions.id desc" . " LIMIT " . $offset . "," . $this->per_page;
 
-
-
-        // echo $sql; exit;
         $allData = $this->Transaction->query($sql);
 
 

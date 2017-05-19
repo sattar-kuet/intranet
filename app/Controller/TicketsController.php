@@ -51,8 +51,6 @@ class TicketsController extends AppController {
     }
 
     function create($customer_id = null) {
-        // pr($this->request->data); exit;
-
         if ($customer_id == null) {
             $this->redirect('/admins/servicemanage');
         }
@@ -66,7 +64,6 @@ class TicketsController extends AppController {
         $this->loadModel('TicketDepartment');
         $this->loadModel('PackageCustomer');
         if ($this->request->is('post')) {
-//           pr($this->request->data); exit; 
             $this->Ticket->set($this->request->data);
             if ($this->Ticket->validates()) {
                 if (empty($this->request->data['Ticket']['user_id']) &&
@@ -102,8 +99,8 @@ class TicketsController extends AppController {
                     );
                     $cusinfo = $this->PackageCustomer->save($data);
                 }
-                
-                
+
+
 
                 $status = 'open';
                 if (trim($this->request->data['Ticket']['action_type']) == 'solved' ||
@@ -114,7 +111,6 @@ class TicketsController extends AppController {
                     $this->request->data['Ticket']['status'] = 'solved';
                     $status = 'solved';
                 }
-
                 $tickect = $this->Ticket->save($this->request->data['Ticket']); // Data save in Ticket
                 $trackData['Track'] = array(
                     'issue_id' => $this->request->data['Ticket']['issue_id'],
@@ -188,7 +184,6 @@ class TicketsController extends AppController {
                         'cancelled_date' => $this->request->data['Ticket']['cancelled_date'],
                         'pickup_date' => $this->request->data['Ticket']['pickup_date'],
                     );
-//pr('here'); exit;
                     $cusinfo = $this->PackageCustomer->save($data);
                 }
 
@@ -213,10 +208,9 @@ class TicketsController extends AppController {
                         'shipment_equipment' => $this->request->data['Ticket']['shipment_equipment'],
                         'shipment_note' => $this->request->data['Ticket']['shipment_note']
                     );
-//                    pr($data['PackageCustomer']); exit;
                     $this->PackageCustomer->save($data['PackageCustomer']);
                 }
-                
+
                 //  This code for outbound
 
                 if (trim($this->request->data['Ticket']['issue_id']) == 171) {
@@ -231,7 +225,7 @@ class TicketsController extends AppController {
                     );
                     $cusinfo = $this->PackageCustomer->save($data);
                 }
-                
+
                 $customer = $this->PackageCustomer->find('first', array('conditions' => array('PackageCustomer.id' => $customer_id)));
 
 //                if (!empty($customer['PackageCustomer']['email'])) {
@@ -548,9 +542,11 @@ class TicketsController extends AppController {
 
         $loggedUser = $this->Auth->user();
         $this->request->data['Track']['forwarded_by'] = $loggedUser['id'];
-
+//        pr($this->request->data);
+//        exit;
         $this->Track->save($this->request->data['Track']);
         $this->Ticket->id = $this->request->data['Track']['ticket_id'];
+
         $data = $this->Ticket->saveField('status', 'solved');
 //       pr($data); exit; 
         $msg = '<div class="alert alert-success">
@@ -806,8 +802,8 @@ class TicketsController extends AppController {
             $this->Session->setFlash($msg);
             return $this->redirect($this->referer());
         }
-        //  pr($this->request->data);
-        // exit;
+//        pr($this->request->data);
+//        exit;
         $this->Track->save($this->request->data['Track']);
         $msg = '<div class="alert alert-success">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -935,7 +931,7 @@ class TicketsController extends AppController {
         WHERE ti.payment_process =2");
         $this->set(compact('allData'));
     }
-    
+
     function payment_failed() {
         $this->loadModel('User');
         $this->loadModel('Ticket');
