@@ -100,6 +100,7 @@
                                                     'options' => $issues,
                                                     'empty' => 'Select Issue',
                                                     'class' => 'form-control select2me ',
+                                                    'default' => $issues
                                                         )
                                                 );
                                                 ?>
@@ -113,6 +114,7 @@
                                                     'options' => $users,
                                                     'empty' => 'Select From Existing admins panel user',
                                                     'class' => 'form-control select2me',
+                                                     'default' => $users
                                                         )
                                                 );
                                                 ?>
@@ -125,6 +127,7 @@
                                                     'type' => 'select',
                                                     'options' => $status,
                                                     'empty' => 'Select status',
+                                                    'default' => $status
                                                         )
                                                 );
                                                 ?>

@@ -241,7 +241,7 @@ class ReportsController extends AppController {
             LEFT JOIN packages p ON p.id = ps.package_id 
             WHERE paid_amount !=0 and
             tr.created >='" . $start . "' AND tr.created <='" . $end . "'");
-        
+
         $return['packagecustomers'] = $packagecustomers;
         return $return;
     }
@@ -485,13 +485,12 @@ class ReportsController extends AppController {
         $this->loadModel('Role');
         $offset = --$page * $this->per_page;
 
-//        pr($this->request->data); exit;
-        
+//       echo $agent; exit;
         $conditions = "";
-        if (!empty($issue)) {
+        if ($issue != '#') {
             $conditions .= " tr.issue_id = $issue AND";
         }
-        if (!empty($agent)) {
+        if ($agent != '#') {
             $conditions .=" tr.forwarded_by = $agent AND";
         }
         if (isset($start)) {
@@ -506,7 +505,7 @@ class ReportsController extends AppController {
             $conditions .= " tr.issue_id = $issue AND";
         }
 
-        if (!empty($status)) {
+        if ($status != '#') {
             $conditions .= " tr.status = '$status' AND";
         }
 
@@ -548,6 +547,9 @@ class ReportsController extends AppController {
         $temp = $this->Track->query("SELECT COUNT(tr.id) as total FROM  tracks tr left JOIN tickets t ON tr.ticket_id = t.id WHERE $conditions");
         $total = $temp[0][0]['total'];
         $total_page = ceil($total / $this->per_page);
+        
+       
+        $url =  Router::url($this->here, true );
 
         $this->set(compact('filteredTicket', 'total_page', 'start', 'end', 'issue', 'agent', 'status'));
 
@@ -766,10 +768,9 @@ class ReportsController extends AppController {
     function overAllreport($start, $end) {
         $total = array();
         //$total['call'] = $this->getTotalCall();
-        //$total['cancel'] = $this->getTotalCancel(); 
-//        $datrange = json_decode($this->request->data['Role']['daterangeonly'], true);
-//        $start = $datrange['start'];
-//        $end = $datrange['end'];
+        //$total['cancel'] = $this->getTotalCancel();
+        //  pr($this->request->data); exit;
+
         $total['sales_query'] = $this->getTotalSalesQuery($start, $end);
 
         // $total[0] = $total['done'] + $total['ready'];
@@ -808,11 +809,9 @@ class ReportsController extends AppController {
                 $total['cancel_from_da'] + $total['unhold'];
 
 
-//        $datrange = json_decode($this->request->data['Role']['daterangeonly'], true);
-//        $start1 = $datrange['start'];
-//        $start = date("m-d-Y", strtotime($start1));
-//        $end1 = $datrange['end'];
-//        $end = date("m-d-Y", strtotime($end1));
+        $start = date("m-d-Y", strtotime($start));
+
+        $end = date("m-d-Y", strtotime($end));
 
         $date = ($start . ' ' . 'To' . ' ' . $end);
 
@@ -990,15 +989,15 @@ class ReportsController extends AppController {
         $this->set(compact('filteredData', 'technician'));
     }
 
-    function all($action = null, $page = 1, $start = null, $end = null,$issue=null,$agent=null,$status=null) {
+    function all($action = null, $page = 1, $start = null, $end = null, $issue = '#', $agent = '#', $status = '#') {
         $this->loadModel('Issue');
         $this->loadModel('User');
         $this->loadModel('Role');
         $this->loadModel('PackageCustomer');
         $loggedUser = $this->Auth->user();
         $role_name = $loggedUser['Role']['name'];
-       
 
+        // pr($this->request->data); exit;
         $data = array();
         if ($this->request->is('post')) {
             $action = strtolower($this->request->data['Role']['action']);
@@ -1015,8 +1014,16 @@ class ReportsController extends AppController {
                 $issue = $this->request->data['Role']['issue_id'];
                 $agent = $this->request->data['Role']['user_id'];
                 $status = $this->request->data['Role']['status'];
+                if (empty($issue)){
+                    $issue = '#';
+                }
+                if (empty($agent)){
+                    $agent = '#';
+                }
+                if (empty($status)){
+                    $status = '#';
+                }
                 $this->redirect("/reports/all/$action/1/$start/$end/$issue/$agent/$status");
-                
             }
 
             $this->redirect("/reports/all/$action/1/$start/$end");
@@ -1035,10 +1042,11 @@ class ReportsController extends AppController {
             $data = $this->expcustomers($page = 0, $start = null, $end = null);
         }
         if ($action == 'calllog') {
-           
-            
+
+
             $data = $this->call_log($page, $start, $end, $issue, $agent, $status);
-            
+//            pr($data['users']); exit;
+            $u = $data['users'];
         }
 
         if ($action == 'allautorecurring') {
@@ -1105,14 +1113,14 @@ class ReportsController extends AppController {
         }
 
         if ($action == 'overallreport') {
-            $data = $this->overAllreport($start, $end);
+            $data = $this->overAllreport($start = null, $end = null);
         }
 
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
         $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
 
-        $this->set(compact('data', 'start', 'end', 'action', 'users', 'issues', 'roles', 'role_name','agent', 'status'));
+        $this->set(compact('data', 'start', 'end', 'action', 'users', 'issues', 'roles', 'role_name', 'agent', 'status','u'));
     }
 
     function allAutorecurringSettings($page = 1, $start = null, $end = null, $pay_mode = null) { //Auto recurring data all

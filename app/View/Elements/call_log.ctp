@@ -21,6 +21,7 @@
                 <div class="col-xs-12">
                     <ul class="pagination" >
                         <?php
+                        //echo $issue.':'.$agent.':'.$status;
                         for ($i = 1; $i <= $data['total_page']; $i++):
                             $active = '';
 
@@ -30,7 +31,7 @@
                             }
                             ?>
                             <li class="paginate_button <?php echo $active; ?>" aria-controls="sample_editable_1" tabindex="<?php echo $i; ?>">
-                                <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'all', $action, $i, $start, $end, $agent, $status)) ?>"><?php echo $i; ?></a>
+                                <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'all', $action, $i, $start, $end,$issue, $agent, $status)) ?>"><?php echo $i; ?></a>
                             </li>
                         <?php endfor; ?>
                     </ul>
