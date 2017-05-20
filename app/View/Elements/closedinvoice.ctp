@@ -13,7 +13,6 @@
                         for ($i = 1; $i <= $total_page; $i++):
                             $active = '';
 
-
                             if (isset($this->params['pass'][0]) && $this->params['pass'][0] == $i) {
                                 $active = 'active';
                             }
