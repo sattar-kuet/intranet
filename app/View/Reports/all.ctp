@@ -143,7 +143,7 @@
                                             'type' => 'select',
                                             'options' => array(
                                                 'allautorecurring' => 'All Auto Recurring',
-                                                'allinvoice_print_preview' => 'All Invoice(Print preview)',
+                                                'allinvoice_print_preview' => 'All Invoice (should be paid within next 25 days)',
                                                 'allinvoice' => 'All Invoice',
                                                 'calllog' => 'Call Log',
                                                 'cancel' => 'Cancel',

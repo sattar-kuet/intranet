@@ -174,23 +174,25 @@ class ReportsController extends AppController {
             left join package_customers pc on pc.id = tr.package_customer_id
             left join psettings ps on ps.id = pc.psetting_id
             LEFT JOIN packages p ON p.id = ps.package_id 
-            WHERE tr.next_payment>='" . date('Y-m-d') . "' AND tr.next_payment<='" . $expiredate . "' AND tr.next_payment != 0000-00-00 "
+            WHERE tr.next_payment>='" . date('Y-m-d') . "' AND tr.next_payment<='" . $expiredate . "' AND tr.next_payment != '0000-00-00' AND tr.status='open'"
                 . "GROUP BY pc.id limit $offset,$this->per_page");
 
         $temp = $this->PackageCustomer->query("SELECT COUNT(tr.id) as total FROM transactions tr           
             left join package_customers pc on pc.id = tr.package_customer_id            
-            WHERE tr.next_payment>='" . date('Y-m-d') . "' AND tr.next_payment<='" . $expiredate . "' AND tr.next_payment != 0000-00-00 "
+            WHERE tr.next_payment>='" . date('Y-m-d') . "' AND tr.next_payment<='" . $expiredate . "' AND tr.next_payment != '0000-00-00' AND tr.status='open'"
                 . "GROUP BY pc.id");
-        $total = $temp[0][0]['total'];
-        $total_page = ceil($total / $this->per_page);
+        $total_page = 0;
+        if (count($temp)) {
+            $total = $temp[0][0]['total'];
+            $total_page = ceil($total / $this->per_page);
+        }
+        
         $this->set(compact('total_page'));
         foreach ($packagecustomers as $data) {
             $pcid = $data['pc']['id'];
             $this->PackageCustomer->id = $pcid;
             $this->PackageCustomer->saveField("printed", 1);
         }
-        $mac = count(json_decode($packagecustomers['0']['pc']['mac']));
-        $packagecustomers[0]['pc']['mac'] = $mac;
 
         $return['packagecustomers'] = $packagecustomers;
 
@@ -482,7 +484,7 @@ class ReportsController extends AppController {
             LEFT JOIN custom_packages cp  ON cp.id = package_customers.custom_package_id 
             WHERE package_customers.package_exp_date >= '" . $start . "' AND package_customers.package_exp_date <=' $end ' order by package_customers.id desc LIMIT $offset,$this->per_page";
         $customers = $this->PackageCustomer->query($sql);
-       
+
         $temp = $this->PackageCustomer->query("SELECT COUNT(package_customers.id) as total FROM  package_customers WHERE package_customers.package_exp_date >= '" . $start . "' AND package_customers.package_exp_date <=' $end '");
         $total = $temp[0][0]['total'];
         $total_page = ceil($total / $this->per_page);
