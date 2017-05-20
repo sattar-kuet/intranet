@@ -322,23 +322,28 @@ class ReportsController extends AppController {
             left join psettings ps on ps.id = pc.psetting_id
             left join transactions tr on pc.id = tr.package_customer_id
             LEFT JOIN packages p ON p.id = ps.package_id 
-            
-
            where tr.invoice = '" . $invoice . "'");
         $this->set(compact('packagecustomers'));
     }
 
-    function openInvoice($start, $end) {
+    function openInvoice($page, $start, $end) {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
-//        $datrange = json_decode($this->request->data['Role']['daterangeonly'], true);
-//        $start = $datrange['start'];
-//        $end = $datrange['end'];
+        $offset = --$page * $this->per_page;
         $sql = "SELECT * FROM transactions tr LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id "
                 . "WHERE tr.next_payment >= '" . $start . "' AND  tr.next_payment <='" . $end . "' AND tr.status = 'open' ";
 
         $open = $this->Transaction->query($sql);
         $return['transactions'] = $open;
+        
+        $temp = "SELECT COUNT(tr.id) as total FROM transactions tr LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id "
+                . "WHERE tr.next_payment >= '" . $start . "' AND  tr.next_payment <='" . $end . "' AND tr.status = 'open' ";
+           
+               
+        $total = $temp[0][0]['total'];
+        $total_page = ceil($total / $this->per_page);
+        $this->set(compact('total_page'));
+        
         return $return;
     }
 
@@ -1124,13 +1129,12 @@ class ReportsController extends AppController {
             $data = $this->allinvoice($page);
         }
 
-
         if ($action == 'paidinvoice') {
             $data = $this->paidInvoice($start, $end);
         }
 
         if ($action == 'openinvoice') {
-            $data = $this->openinvoice($start, $end);
+            $data = $this->openinvoice($page, $start, $end);
         }
         if ($action == 'overdueinvoice') {
             $data = $this->overdueInvoice();
