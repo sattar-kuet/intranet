@@ -2994,11 +2994,10 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                     </section>
 
 
-                    <!-------------popup pdf start----------------->
-                    <!-------------popup pdf end----------------->
-
                     <div>
                         <!-------------payment history end----------------->
+                        
+                        
 
                         <!-------------ticket history start----------------->
 
@@ -3029,12 +3028,17 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                             </thead>
                                             <tbody>
                                                 <?php
+                                                                                                                        
                                                 foreach ($data as $single):
+//                                                       pr($single['history']['0']['tr']['status']);
                                                     $issue = end($single['history']);
                                                     $customer = end($single['history']);
+                                                 
                                                     $customer = $customer['pc'];
 
                                                     $ticket = $single['ticket'];
+                                                    $lasthistory = $issue;
+                                                    
                                                     ?>
                                                     <tr >
                                                         <td><?php echo $issue['i']['name']; ?></td>
@@ -3049,9 +3053,10 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                         <td>
                                                             <ol>
                                                                 <?php
-                                                                $lasthistory = $single['history'][0]['tr'];
-
+//                                                               $lasthistory = $single['history'][0]['tr'];
+                                                             
                                                                 foreach ($single['history'] as $history):
+                                                                   
                                                                     ?>
                                                                     <li>
                                                                         <?php if ($history['tr']['status'] != 'open') { ?>
@@ -3082,7 +3087,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                         </td>
                                                         <td>   
                                                             <div class="controls center text-center">
-                                                                <?php if ($lasthistory['status'] == 'open') { ?>
+                                                                <?php if ($lasthistory['tr']['status'] == 'open') { ?>
                                                                     <a  href="#" title="Solved">
                                                                         <span id="<?php echo $ticket['id']; ?>" class="fa fa-check fa-lg solve_ticket"></span>
                                                                     </a>
