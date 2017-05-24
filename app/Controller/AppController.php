@@ -53,7 +53,7 @@ class AppController extends Controller {
             )
         )
     );
-    public $per_page = 2;
+    public $per_page = 200;
 
     public function beforeFilter() {
         if (in_array($this->params['controller'], array('rest_payments'))) {
