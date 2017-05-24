@@ -14,7 +14,6 @@
             <?php echo $this->Session->flash(); ?> 
             <div class="row">
                 <div class="col-xs-12">
-
                     <ul class="pagination" >
                         <?php
                         //echo $issue.':'.$agent.':'.$status;
@@ -92,6 +91,5 @@
                 </div>
             </div>
         </div>
-        <!-- END EXAMPLE TABLE PORTLET-->
     </div>
 </div>

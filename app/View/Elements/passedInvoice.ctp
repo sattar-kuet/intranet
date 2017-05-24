@@ -19,7 +19,22 @@
             </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-           <div  id="printableArea">  
+
+            <ul class="pagination" >
+                <?php
+                for ($i = 1; $i <= $total_page; $i++):
+                    $active = '';
+                    if (isset($this->params['pass'][0]) && $this->params['pass'][0] == $i) {
+                        $active = 'active';
+                    }
+                    ?>
+                    <li class="paginate_button <?php echo $active; ?>" aria-controls="sample_editable_1" tabindex="<?php echo $i; ?>">
+                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'all', $action, $i, $start, $end,)) ?>"><?php echo $i; ?></a>
+                    </li>
+                <?php endfor; ?>
+            </ul>
+
+            <div  id="printableArea">  
                 <div class="col-md-12" >
                     <div style="height:1153px; width:806px; ">
                         <?php
@@ -133,10 +148,11 @@
                                                         <li><?php echo $single['ps']['name']; ?> </li>
                                                         <?php
                                                         if (!empty($single['tr']['note']))
-                                                            ; {
+                                                            ;
+                                                        {
                                                             ?>
                                                             <li><?php echo $single['tr']['note']; ?></li> 
-                                                        <?php } ?>
+    <?php } ?>
                                                     </ul>
                                                 </td>
 
@@ -151,7 +167,7 @@
                                                 </td> 
 
                                                 <td style=" color: #333 !important; text-align: center; padding: 43px 0px 0px 9px ;">
-                                                    <?php echo $single['tr']['status']; ?>
+    <?php echo $single['tr']['status']; ?>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -215,7 +231,7 @@
                                 </div>
                             </div> 
 
-                        <?php endforeach; ?> 
+<?php endforeach; ?> 
                     </div>
                 </div> 
             </div>

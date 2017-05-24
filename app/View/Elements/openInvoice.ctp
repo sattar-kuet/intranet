@@ -5,7 +5,20 @@
         All Open Invoice
     </h3>
     <?php echo $this->Session->flash(); ?>
-    <!-- END EXAMPLE TABLE PORTLET-->          
+    <!-- END EXAMPLE TABLE PORTLET-->   
+    <ul class="pagination" >
+        <?php
+        for ($i = 1; $i <= $total_page; $i++):
+            $active = '';
+            if (isset($this->params['pass'][0]) && $this->params['pass'][0] == $i) {
+                $active = 'active';
+            }
+            ?>
+            <li class="paginate_button <?php echo $active; ?>" aria-controls="sample_editable_1" tabindex="<?php echo $i; ?>">
+                <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'all', $action, $i, $start, $end,)) ?>"><?php echo $i; ?></a>
+            </li>
+        <?php endfor; ?>
+    </ul>
     <table cellpadding="0" cellspacing="0" border="0" class="responsive dynamicTable display table table-bordered" width="100%" >
         <thead>
             <tr >  
