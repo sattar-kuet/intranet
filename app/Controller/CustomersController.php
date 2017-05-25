@@ -644,6 +644,7 @@ WHERE transaction_id = " . $statement['tr']['id']
 //        Ticket History
         $response = $this->getAllTickectsByCustomer($id);
         $data = $response['data'];
+//        pr($data[0]['history']); exit;
         $users = $response['users'];
         $roles = $response['roles'];
         $this->set(compact('data', 'users', 'roles', 'customer_info'));
