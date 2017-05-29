@@ -61,16 +61,18 @@ class ReportsController extends AppController {
         return $data;
     }
 
-    function payment_history($page, $start, $end, $pay_mode = null) {
+    function payment_history($page, $start, $end, $pay_mode) {
+
         $this->loadModel('Transaction');
         $this->loadModel('PackageCustomer');
-
+         $offset = --$page * $this->per_page;
+        
         $conditions = " tr.status = 'success' AND ";
-        if (!empty($pay_mode) && $pay_mode != null) {
+        if ($pay_mode != '#') {
             $conditions .=" tr.pay_mode = '" . $pay_mode . "' AND ";
         }
 
-        if ($start != '') {
+        if ($start != '#') {
             if ($start == $end) {
                 $nextday = date('Y-m-d', strtotime($end . "+1 days"));
                 $conditions .="tr.created >=' " . $start . " 00:00:00' AND  tr.created < '" . $end . " 23:59:59' AND ";
@@ -84,20 +86,30 @@ class ReportsController extends AppController {
         $conditions = str_replace("AND ###", "", $conditions);
         $conditions = str_replace("###", "", $conditions);
 
-        $offset = 0; //--$page * $this->per_page;
-        $total = $this->Transaction->query("SELECT COUNT(tr.id) as total FROM transactions tr 
-                WHERE $conditions");
-        $total = $total[0][0]['total'];
-        $total_page = ceil($total / $this->per_page);
+
 
         $sql = "SELECT * FROM transactions tr 
                 left join package_customers pc on pc.id = tr.package_customer_id
                 left join psettings ps on ps.id = pc.psetting_id
                 LEFT JOIN packages p ON p.id = ps.package_id 
                 left join custom_packages cp on pc.custom_package_id = cp.id
-                WHERE $conditions order by tr.id desc limit $offset,$this->per_page";
-//        echo $sql; exit;
+                WHERE $conditions order by tr.id desc LIMIT $offset,$this->per_page";
+
         $transactions = $this->Transaction->query($sql);
+
+
+
+        $temp = $this->Transaction->query("SELECT COUNT(tr.id) as total FROM transactions tr 
+                left join package_customers pc on pc.id = tr.package_customer_id
+                left join psettings ps on ps.id = pc.psetting_id
+                LEFT JOIN packages p ON p.id = ps.package_id 
+                left join custom_packages cp on pc.custom_package_id = cp.id
+                WHERE $conditions");
+        $total = $temp[0][0]['total'];
+        $total_page = ceil($total / $this->per_page);
+        $this->set(compact('total_page'));
+
+
 
         $sql1 = "SELECT SUM(payable_amount)as totalamount FROM transactions tr WHERE $conditions ";
         $totalamount = $this->Transaction->query($sql1);
@@ -186,7 +198,7 @@ class ReportsController extends AppController {
             $total = $temp[0][0]['total'];
             $total_page = ceil($total / $this->per_page);
         }
-        
+
         $this->set(compact('total_page'));
         foreach ($packagecustomers as $data) {
             $pcid = $data['pc']['id'];
@@ -224,20 +236,21 @@ class ReportsController extends AppController {
                 . "WHERE tr.next_payment >= '" . $start . "' AND  tr.next_payment <='" . $end . "' AND tr.status = 'paid' LIMIT $offset,$this->per_page";
 
         $paid = $this->Transaction->query($sql);
-        
+
         $sql = "SELECT count(tr.id) as total FROM transactions tr LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id "
                 . "WHERE tr.next_payment >= '" . $start . "' AND  tr.next_payment <='" . $end . "' AND tr.status = 'paid'";
         $temp = $this->Transaction->query($sql);
         $total = $temp[0][0]['total'];
         $total_page = ceil($total / $this->per_page);
         $return['total_page'] = $total_page;
-        
+
         $return['transactions'] = $paid;
         return $return;
     }
 
     function passedInvoice($page) {
         $this->loadModel('PackageCustomer');
+        $this->loadModel('Transaction');
         $offset = --$page * $this->per_page;
         $packagecustomers = $this->PackageCustomer->query("SELECT * FROM transactions  tr            
             left join package_customers pc on pc.id = tr.package_customer_id
@@ -245,17 +258,18 @@ class ReportsController extends AppController {
             LEFT JOIN packages p ON p.id = ps.package_id 
             WHERE  pc.printed = 1 LIMIT $offset,$this->per_page");
         $return['packagecustomers'] = $packagecustomers;
-        
+
         $sql = "SELECT count(tr.id) as total FROM transactions tr left join package_customers pc on pc.id = tr.package_customer_id
             left join psettings ps on ps.id = pc.psetting_id
             LEFT JOIN packages p ON p.id = ps.package_id 
             WHERE  pc.printed = 1";
+
         $temp = $this->Transaction->query($sql);
         $total = $temp[0][0]['total'];
         $total_page = ceil($total / $this->per_page);
         $return['total_page'] = $total_page;
-        
-        
+
+
         return $return;
         $this->set(compact('packagecustomers'));
     }
@@ -355,14 +369,14 @@ class ReportsController extends AppController {
 
         $open = $this->Transaction->query($sql);
         $return['transactions'] = $open;
-        
+
         $sql = "SELECT COUNT(tr.id) as total FROM transactions tr LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id "
                 . "WHERE tr.next_payment >= '" . $start . "' AND  tr.next_payment <='" . $end . "' AND tr.status = 'open' ";
-        $temp = $this->Transaction->query($sql);   
+        $temp = $this->Transaction->query($sql);
         $total = $temp[0][0]['total'];
         $total_page = ceil($total / $this->per_page);
         $this->set(compact('total_page'));
-        
+
         return $return;
     }
 
@@ -374,15 +388,15 @@ class ReportsController extends AppController {
         $sql = "SELECT * FROM transactions tr LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id "
                 . "WHERE tr.status = 'open' and tr.next_payment < '$todaydate' LIMIT $offset,$this->per_page";
         $due = $this->Transaction->query($sql);
-        
-        
+
+
         $sql = "SELECT COUNT(tr.id) as total FROM transactions tr LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id "
                 . "WHERE tr.status = 'open' and tr.next_payment < '$todaydate'";
-        $temp = $this->Transaction->query($sql);   
+        $temp = $this->Transaction->query($sql);
         $total = $temp[0][0]['total'];
         $total_page = ceil($total / $this->per_page);
         $this->set(compact('total_page'));
-        
+
         $return['transactions'] = $due;
         return $return;
     }
@@ -551,7 +565,6 @@ class ReportsController extends AppController {
         $this->loadModel('User');
         $this->loadModel('Role');
         $offset = --$page * $this->per_page;
-
         $conditions = "";
         if ($issue != '#') {
             $conditions .= " tr.issue_id = $issue AND";
@@ -559,6 +572,11 @@ class ReportsController extends AppController {
         if ($agent != '#') {
             $conditions .=" tr.forwarded_by = $agent AND";
         }
+
+        if ($status != '#') {
+            $conditions .= " tr.status = '$status' AND";
+        }
+
         if (isset($start)) {
             if ($start == $end) {
                 $nextday = date('Y-m-d', strtotime($end . "+1 days"));
@@ -571,15 +589,14 @@ class ReportsController extends AppController {
             $conditions .= " tr.issue_id = $issue AND";
         }
 
-        if ($status != '#') {
-            $conditions .= " tr.status = '$status' AND";
-        }
-
         $conditions.="###";
         $conditions = str_replace("AND###", "", $conditions);
         $conditions = str_replace("AND ###", "", $conditions);
         $conditions = str_replace("###", "", $conditions);
 
+        //fb means forwarded_by
+        //fd means forwarded department
+        //fi means who will perform this task
         $sql = "SELECT * FROM tracks tr
                         left JOIN tickets t ON tr.ticket_id = t.id
                         left JOIN users fb ON tr.forwarded_by = fb.id
@@ -588,10 +605,7 @@ class ReportsController extends AppController {
                         left JOIN issues i ON tr.issue_id = i.id
                         left join package_customers pc on tr.package_customer_id = pc.id
                          WHERE $conditions order by pc.id desc limit $offset,$this->per_page";
-        // echo $sql; exit;
-
         $tickets = $this->Track->query($sql);
-
         $filteredTicket = array();
         $unique = array();
         $index = 0;
@@ -610,16 +624,13 @@ class ReportsController extends AppController {
             }
             $filteredTicket;
         }
+
         $temp = $this->Track->query("SELECT COUNT(tr.id) as total FROM  tracks tr left JOIN tickets t ON tr.ticket_id = t.id WHERE $conditions");
         $total = $temp[0][0]['total'];
         $total_page = ceil($total / $this->per_page);
 
-
         $url = Router::url($this->here, true);
-
         $this->set(compact('filteredTicket', 'total_page', 'start', 'end', 'issue', 'agent', 'status'));
-
-
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
         $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
@@ -1055,7 +1066,7 @@ class ReportsController extends AppController {
         $this->set(compact('filteredData', 'technician'));
     }
 
-    function all($action = null, $page = 1, $start = null, $end = null, $issue = '#', $agent = '#', $status = '#') {
+    function all($action = null, $page = 1, $start = null, $end = null, $issue = '#', $agent = '#', $status = '#', $pay_mode = '#') {
 
         //function all($action = null, $page = 1, $start = null, $end = null, $issue = null, $agent = null, $status = null) {
 
@@ -1066,8 +1077,6 @@ class ReportsController extends AppController {
         $loggedUser = $this->Auth->user();
         $role_name = $loggedUser['Role']['name'];
 
-
-        // pr($this->request->data); exit;
         $data = array();
         if ($this->request->is('post')) {
             $action = strtolower($this->request->data['Role']['action']);
@@ -1084,6 +1093,7 @@ class ReportsController extends AppController {
                 $issue = $this->request->data['Role']['issue_id'];
                 $agent = $this->request->data['Role']['user_id'];
                 $status = $this->request->data['Role']['status'];
+
                 if (empty($issue)) {
                     $issue = '#';
                 }
@@ -1096,6 +1106,14 @@ class ReportsController extends AppController {
                 $this->redirect("/reports/all/$action/1/$start/$end/$issue/$agent/$status");
             }
 
+            if ($action = 'paymenthistory') {
+                $pay_mode = $this->request->data['Role']['pay_mode'];
+                if (empty($pay_mode)) {
+                    $pay_mode = '#';
+                }
+                $this->redirect("/reports/all/$action/1/$start/$end/$pay_mode");
+            }
+
             $this->redirect("/reports/all/$action/1/$start/$end");
         }
 
@@ -1103,7 +1121,7 @@ class ReportsController extends AppController {
             $data = $this->newcustomers($page, $start, $end);
         }
         if ($action == 'paymenthistory') {
-            $data = $this->payment_history($page, $start, $end);
+            $data = $this->payment_history($page, $start, $end, $issue); // Here $issue variable is overwrite by $paymode
         }
         if ($action == 'cancel') {
             $data = $this->cancel($page, $start, $end);
@@ -1127,13 +1145,11 @@ class ReportsController extends AppController {
                     $end = $dateRange->end;
                 }
             }
-
-
             $data = $this->allautorecurring($page, $start, $end);
         }
 
         if ($action == 'successful') {
-            $data = $this->successful($page = 1, $start = null, $end = null);
+            $data = $this->successful($page, $start, $end);
         }
 
         if ($action == 'failed') {
@@ -1153,7 +1169,7 @@ class ReportsController extends AppController {
         }
 
         if ($action == 'paidinvoice') {
-            $data = $this->paidInvoice($page,$start, $end);
+            $data = $this->paidInvoice($page, $start, $end);
         }
 
         if ($action == 'openinvoice') {
@@ -1182,11 +1198,22 @@ class ReportsController extends AppController {
             $data = $this->overAllreport($start = null, $end = null);
         }
 
+        if ($action == 'successful_payment') {
+            $data = $this->successful_payment($page, $start, $end);
+        }
+
+        if ($action == 'failed_payment') {
+            $data = $this->failed_payment($page, $start, $end);
+        }
+
         $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
         $issues = $this->Issue->find('list', array('fields' => array('id', 'name',), 'order' => array('Issue.name' => 'ASC')));
         $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
 
-        $this->set(compact('data', 'start', 'end', 'action', 'users', 'issues', 'roles', 'role_name', 'agent', 'status', 'u'));
+
+//        $paymode = array('card' => 'Card', 'check' => 'Check', 'money order' => 'Money Order', 'online bill' => 'Online Bill', 'cash' => 'Cash', 'refund' => 'Refund');
+
+        $this->set(compact('pay_mode', 'data', 'start', 'end', 'action', 'users', 'issues', 'roles', 'role_name', 'agent', 'status'));
     }
 
     function allAutorecurringSettings($page = 1, $start = null, $end = null, $pay_mode = null) { //Auto recurring data all
@@ -1297,7 +1324,7 @@ class ReportsController extends AppController {
         return $return;
     }
 
-    function successful($page = 1, $start = null, $end = null) { //Auto recurring data success
+    function successful($page, $start, $end) { //Auto recurring data success
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
@@ -1350,13 +1377,12 @@ class ReportsController extends AppController {
         return $return;
     }
 
-    function failed($page = 1, $start, $end) { //Auto recurring data error
+    function failed($page, $start, $end) { //Auto recurring data error
         $this->loadModel('Ticket');
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
         $offset = --$page * $this->per_page;
-
         $data = $this->Ticket->query("SELECT * FROM tickets t
                     left JOIN tracks tr ON t.id = tr.ticket_id
                     left join package_customers pc on tr.package_customer_id = pc.id
@@ -1392,6 +1418,102 @@ class ReportsController extends AppController {
         $return['totalCustomer'] = $totalCustomer;
         $return['start'] = $start;
         $return['end'] = $end;
+        return $return;
+    }
+
+    function successful_payment($page, $start, $end) { // Payments success
+        $this->loadModel('User');
+        $this->loadModel('PackageCustomer');
+        $this->loadModel('Transaction');
+        $offset = --$page * $this->per_page;
+
+        $sql = "SELECT * 
+                    FROM transactions
+                    LEFT JOIN package_customers ON package_customers.id = transactions.package_customer_id
+                    LEFT JOIN psettings ON psettings.id = package_customers.psetting_id
+                    LEFT JOIN custom_packages ON custom_packages.id = package_customers.custom_package_id
+                    WHERE transactions.auto_recurring = 0
+                    AND  transactions.status =  'success' AND CAST(transactions.created as DATE) >='" .
+                $start . "' AND CAST(transactions.created as DATE) <='" . $end .
+                "' order by transactions.id desc" . " LIMIT " . $offset . "," . $this->per_page;
+//        echo $sql; exit;
+        $allData = $this->PackageCustomer->query($sql);
+
+        $sql = "SELECT SUM(payable_amount) as total FROM transactions 
+                WHERE transactions.auto_recurring = 0 AND transactions.status =  'success' AND CAST(transactions.created as DATE) >='" .
+                $start . "' AND CAST(transactions.created as DATE) <='" . $end . "'";
+        $temp = $this->Transaction->query($sql);
+        $totalPayment = $temp[0][0]['total'];
+        $totalPayment = round($totalPayment, 2);
+//        pr($totalPayment); exit;
+        $sql = "SELECT COUNT(id) as total FROM transactions 
+                WHERE transactions.auto_recurring = 0 AND transactions.status =  'success' AND CAST(transactions.created as DATE) >='" .
+                $start . "' AND CAST(transactions.created as DATE) <='" . $end . "'";
+        $temp = $this->Transaction->query($sql);
+        $totalCustomer = $temp[0][0]['total'];
+
+
+        $temp = $this->Transaction->query("SELECT COUNT(transactions.id) as total FROM transactions WHERE
+                transactions.auto_recurring = 0 AND  transactions.status =  'success' AND 
+                    CAST(transactions.created as DATE) >='" .
+                $start . "' AND CAST(transactions.created as DATE) <='" . $end . "'");
+        $total = $temp[0][0]['total'];
+        $total_page = ceil($total / $this->per_page);
+//        pr($allData); exit;
+        $return['allData'] = $allData;
+        $return['total_page'] = $total_page;
+        $return['start'] = $start;
+        $return['end'] = $end;
+        $return['totalCustomer'] = $totalCustomer;
+        $return['totalPayment'] = $totalPayment;
+        return $return;
+    }
+
+    function failed_payment($page, $start, $end) { // Payments success
+        $this->loadModel('User');
+        $this->loadModel('PackageCustomer');
+        $this->loadModel('Transaction');
+        $offset = --$page * $this->per_page;
+
+        $sql = "SELECT * 
+                    FROM transactions
+                    LEFT JOIN package_customers ON package_customers.id = transactions.package_customer_id
+                    LEFT JOIN psettings ON psettings.id = package_customers.psetting_id
+                    LEFT JOIN custom_packages ON custom_packages.id = package_customers.custom_package_id
+                    WHERE transactions.auto_recurring = 0
+                    AND  transactions.status =  'error' AND CAST(transactions.created as DATE) >='" .
+                $start . "' AND CAST(transactions.created as DATE) <='" . $end .
+                "' order by transactions.id desc" . " LIMIT " . $offset . "," . $this->per_page;
+//        echo $sql; exit;
+        $allData = $this->PackageCustomer->query($sql);
+//        pr($allData); exit;
+        $sql = "SELECT SUM(payable_amount) as total FROM transactions 
+                WHERE transactions.auto_recurring = 0 AND transactions.status =  'error' AND CAST(transactions.created as DATE) >='" .
+                $start . "' AND CAST(transactions.created as DATE) <='" . $end . "'";
+        $temp = $this->Transaction->query($sql);
+        $totalPayment = $temp[0][0]['total'];
+        $totalPayment = round($totalPayment, 2);
+
+        $sql = "SELECT COUNT(id) as total FROM transactions 
+                WHERE transactions.auto_recurring = 0 AND transactions.status =  'error' AND CAST(transactions.created as DATE) >='" .
+                $start . "' AND CAST(transactions.created as DATE) <='" . $end . "'";
+        $temp = $this->Transaction->query($sql);
+        $totalCustomer = $temp[0][0]['total'];
+
+
+        $temp = $this->Transaction->query("SELECT COUNT(transactions.id) as total FROM transactions WHERE
+                transactions.auto_recurring = 0 AND  transactions.status =  'error' AND 
+                    CAST(transactions.created as DATE) >='" .
+                $start . "' AND CAST(transactions.created as DATE) <='" . $end . "'");
+        $total = $temp[0][0]['total'];
+        $total_page = ceil($total / $this->per_page);
+//        pr($allData); exit;
+        $return['allData'] = $allData;
+        $return['total_page'] = $total_page;
+        $return['start'] = $start;
+        $return['end'] = $end;
+        $return['totalCustomer'] = $totalCustomer;
+        $return['totalPayment'] = $totalPayment;
         return $return;
     }
 

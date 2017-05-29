@@ -68,7 +68,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                             </a>
                         </div>
                         <div class="tools">
-                            <a href="<?php echo Router::url(array('controller' => 'admins', 'action' => 'servicemanage')) ?>" class="btnPrev"  style="color:  #E02222;">Back &nbsp;
+                            <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'search')) ?>" class="btnPrev"  style="color:  #E02222;">Back &nbsp;
                             </a>
                         </div>
                         <div class="tools">
@@ -3130,7 +3130,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                                         <?php
                                                                         echo $this->Form->input('package_customer_id', array(
                                                                             'type' => 'hidden',
-                                                                            'value' => $lasthistory['package_customer_id'],
+                                                                            'value' => $lasthistory['tr']['package_customer_id'],
                                                                                 )
                                                                         );
                                                                         ?>
@@ -3292,7 +3292,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                                                         echo $this->Form->input('comment', array(
                                                                                             'type' => 'textarea',
                                                                                             'class' => 'form-control  txtArea',
-                                                                                            'placeholder' => 'Write your comments'
+                                                                                            'placeholder' => 'Write your comments for Solved'
                                                                                                 )
                                                                                         );
                                                                                         ?>
@@ -3341,28 +3341,28 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                                         <?php
                                                                         echo $this->Form->input('user_id', array(
                                                                             'type' => 'hidden',
-                                                                            'value' => $lasthistory['user_id'],
+                                                                            'value' => $lasthistory['tr']['user_id'],
                                                                                 )
                                                                         );
                                                                         ?>
                                                                         <?php
                                                                         echo $this->Form->input('role_id', array(
                                                                             'type' => 'hidden',
-                                                                            'value' => $lasthistory['role_id'],
+                                                                            'value' => $lasthistory['tr']['role_id'],
                                                                                 )
                                                                         );
                                                                         ?>
                                                                         <?php
                                                                         echo $this->Form->input('issue_id', array(
                                                                             'type' => 'hidden',
-                                                                            'value' => $lasthistory['issue_id'],
+                                                                            'value' => $lasthistory['tr']['issue_id'],
                                                                                 )
                                                                         );
                                                                         ?>
                                                                         <?php
                                                                         echo $this->Form->input('package_customer_id', array(
                                                                             'type' => 'hidden',
-                                                                            'value' => $lasthistory['package_customer_id'],
+                                                                            'value' => $lasthistory['tr']['package_customer_id'],
                                                                                 )
                                                                         );
                                                                         ?>
@@ -3379,7 +3379,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                                                         echo $this->Form->input('comment', array(
                                                                                             'type' => 'textarea',
                                                                                             'class' => 'form-control  txtArea',
-                                                                                            'placeholder' => 'Write your comments'
+                                                                                            'placeholder' => 'Write your comments for Unresolved '
                                                                                                 )
                                                                                         );
                                                                                         ?>
@@ -3430,28 +3430,28 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                                         <?php
                                                                         echo $this->Form->input('user_id', array(
                                                                             'type' => 'hidden',
-                                                                            'value' => $lasthistory['user_id'],
+                                                                            'value' => $lasthistory['tr']['user_id'],
                                                                                 )
                                                                         );
                                                                         ?>
                                                                         <?php
                                                                         echo $this->Form->input('role_id', array(
                                                                             'type' => 'hidden',
-                                                                            'value' => $lasthistory['role_id'],
+                                                                            'value' => $lasthistory['tr']['role_id'],
                                                                                 )
                                                                         );
                                                                         ?>
                                                                         <?php
                                                                         echo $this->Form->input('issue_id', array(
                                                                             'type' => 'hidden',
-                                                                            'value' => $lasthistory['issue_id'],
+                                                                            'value' => $lasthistory['tr']['issue_id'],
                                                                                 )
                                                                         );
                                                                         ?>
                                                                         <?php
                                                                         echo $this->Form->input('package_customer_id', array(
                                                                             'type' => 'hidden',
-                                                                            'value' => $lasthistory['package_customer_id'],
+                                                                            'value' => $lasthistory['tr']['package_customer_id'],
                                                                                 )
                                                                         );
                                                                         ?>

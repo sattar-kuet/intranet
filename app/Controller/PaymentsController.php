@@ -134,7 +134,7 @@ class PaymentsController extends AppController {
         $this->loadModel('Transaction');
         $this->loadModel('Track');
         $this->loadModel('Ticket');
-
+        
         if (strpos($this->request->data['Transaction']['card_no'], 'X') !== false) {
             //Card number is not provided. So fetch previous card number
             //  $temp = $this->Transaction->findById($this->request->data['Transaction']['id']);
@@ -146,7 +146,6 @@ class PaymentsController extends AppController {
         if (count($loggedUser) == 0) {
             $loggedUser['id'] = 0;
         }
-        //  pr($loggedUser); exit;
         $msg = '<ul>';
         $card = $this->request->data['Transaction'];
         $exp_date = $card['exp_date']['month'] . '-' . $card['exp_date']['year'];
@@ -155,7 +154,7 @@ class PaymentsController extends AppController {
 
         $cid = $this->request->data['Transaction']['package_customer_id'];
         $pc = $this->PackageCustomer->findById($cid);
-
+ 
 
         // process payment
 
@@ -171,7 +170,7 @@ class PaymentsController extends AppController {
 
 
         $link = 'http://www.api2apipro.live/' . 'rest_payments/add.json';
-        //pr($this->request->data); exit;
+     
         // $httpSocket = new HttpSocket();
         $httpSocket = new HttpSocket();
      //  unset($this->request->data['address']);

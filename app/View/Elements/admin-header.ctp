@@ -26,7 +26,7 @@ echo $this->Html->css(
                 $dt = new DateTime();
                 echo $dt->format('l, F d, Y');
                 ?> <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
-                &nbsp;&nbsp; &nbsp; <a style="font-size: 17px; font-weight: bold; color:  lightskyblue; " title="Click here for knowledge :-)" class="fa fa-book"  target="_blank"
+                &nbsp;&nbsp; &nbsp; <a style="font-size: 17px; font-weight: bold; color:  lightskyblue; " title="Click here for CRM knowledge :-)" class="fa fa-book"  target="_blank"
                                        href="<?php echo Router::url(array('controller'=> 'customers', 'action'=>'knowledge'))?>"> &nbsp; Knowledge Base
                 </a>
             </div>

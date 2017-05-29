@@ -1068,6 +1068,7 @@ class AdminsController extends AppController {
             'date' => date('Y-m-d'),
             'status' => $this->request->data['Comment']['status']
         );
+//        pr($data4statusHistory); exit;
         $this->StatusHistory->save($data4statusHistory);
         $msg = '<div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
