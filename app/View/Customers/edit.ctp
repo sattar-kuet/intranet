@@ -3028,7 +3028,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                                                                                        
+                                                        //      pr($data);                                                          
                                                 foreach ($data as $single):
 //                                                       pr($single['history']['0']['tr']['status']);
                                                     $issue = end($single['history']);
@@ -3050,7 +3050,10 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                             </ul>
                                                         </td>
                                                         <td><?php echo date('m-d-Y h:m:s', strtotime($ticket['created'])); ?></td>
-                                                        <td><?php echo $ticket['content']; ?></td>
+                                                        <td>
+                                                            <?php echo $ticket['content']; ?>
+                                                            <br><strong>Ticket ID : </strong>#<?php echo $ticket['id']; ?>
+                                                        </td>
                                                         <td>
                                                             <ol>
                                                                 <?php

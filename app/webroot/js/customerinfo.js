@@ -233,6 +233,11 @@ $(document).ready(function () {
     });
 
 
-
+$('#autoRecurringBtn').click(function(e){
+ //  e.preventDefault();
+    $("#initialMsg").hide();
+    $("#processing").show(1000);
+  //  alert('wait..');
+});
 
 });

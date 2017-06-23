@@ -27,10 +27,7 @@
  */
 Router::connect('/', array('controller' => 'admins', 'action' => 'login'));
 Router::connect('/users/login', array('controller' => 'admins', 'action' => 'login'));
-Router::connect('/resellers/resetpw/*', array('controller' => 'resellers', 'action' => 'resetpw'));
-Router::connect('/OrderFromReseller/*', array('controller' => 'frontends', 'action' => 'OrderFromReseller'));
-Router::connect('/:action', array('controller' => 'frontends'));
-Router::connect('/detail/*', array('controller' => 'frontends', 'action' => 'detail'));
+
 
 /**
  * ...and connect the rest of 'Pages' controller's URLs.

@@ -6,7 +6,7 @@ require_once(APP . 'Vendor' . DS . 'class.upload.php');
 class PaymentsController extends AppController {
 
     var $layout = 'admin';
-    var $LivePayMode = 1;
+    var $LivePayMode = 0;
     public $components = array('Security', 'RequestHandler');
 
     // public $components = array('Auth');
@@ -174,7 +174,7 @@ class PaymentsController extends AppController {
         //pr($this->request->data); exit;
         // $httpSocket = new HttpSocket();
         $httpSocket = new HttpSocket();
-     //  unset($this->request->data['address']);
+        //  unset($this->request->data['address']);
         $response = $httpSocket->post($link, $this->request->data);
 //         pr($response); exit();
         $result = $response->body;
@@ -210,7 +210,7 @@ class PaymentsController extends AppController {
                 unset($this->request->data['Transaction']['id']);
                 //creatre transaction History 
 
-                $this->Transaction->save($return['Transaction']);
+                $transactionData = $this->Transaction->save($return['Transaction']);
                 unset($this->request->data['Transaction']['transaction_id']);
                 $status = 'close';
                 // check due amount 
@@ -235,9 +235,9 @@ class PaymentsController extends AppController {
                 unset($this->request->data['Transaction']['payable_amount']);
                 $this->Transaction->id = $id;
                 $this->Transaction->saveField("status", $status);
-
+                $transactionID = $transactionData['Transaction']['id'];
                 $msg .='<li> Transaction Successfull</li>';
-                $tdata['Ticket'] = array('content' => "Transaction successfull <br> <b>Amount : </b>$amount <br> <b> payment Mode: </b> Card");
+                $tdata['Ticket'] = array('content' => "Transaction successfull <br> <b>Amount : </b>$amount <br> <b> Payment Mode: </b> Card<br><b>Transaction ID:</b>$transactionID");
                 $tickect = $this->Ticket->save($tdata); // Data save in Ticket
                 $trackData['Track'] = array(
                     'package_customer_id' => $cid,
@@ -251,7 +251,10 @@ class PaymentsController extends AppController {
                 if (strtolower($pc['PackageCustomer']['auto_r']) == 'yes') {
                     $data = $pc['PackageCustomer'];
                     $this->PackageCustomer->id = $data['id'];
-                    $r_from = date('Y-m-' . $data['recurring_date'], strtotime("+" . $data['r_duration'] . " months", strtotime($data['from'])));
+                    // pr($data);
+                    $r_from = date('Y-m-' . $data['recurring_date'], strtotime("+" . $data['r_duration'] . " months", strtotime($data['r_form'])));
+
+                    $exp_date = $card['exp_date']['month'] . '/' . substr($card['exp_date']['year'], -2);
                     $data = array(
                         'r_form' => $r_from,
                         'invoice_created' => 0,
@@ -262,6 +265,7 @@ class PaymentsController extends AppController {
                         'cvv_code' => $card['cvv_code'],
                         'czip' => $card['zip_code']
                     );
+                    //  pr($data); exit;
                     $this->PackageCustomer->save($data);
                 }
             } else {
@@ -489,7 +493,6 @@ class PaymentsController extends AppController {
                 $this->PackageCustomer->saveField('invoice_created', 1);
             }
         }
-        $this->redirect('message');
     }
 
     function auto_recurring_payment() {
@@ -530,7 +533,7 @@ class PaymentsController extends AppController {
             );
             $this->individual_auto_recurring($data);
         }
-        return $this->redirect('message');
+        //return $this->redirect('message');
     }
 
     function message() {
@@ -1109,6 +1112,26 @@ class PaymentsController extends AppController {
         }
         $data = $this->Transaction->findById($id);
         $this->request->data = $data;
+    }
+
+    public function processAutoRecurring($status = null) {
+
+        $msg = 'This is the tool to run auto recurring script.Please follow the following steps strictly: '
+                . '<br>'
+                . "Click the 'Start Processing' button to start auto recurring. When you click on 'Start Processing' button don't move forward to any tab or link until process is completed"
+                . '<br><br>'
+                . '<a id="autoRecurringBtn" class="btn purple btn-block" href="' . Router::url(array('controller' => 'payments', 'action' => 'processAutoRecurring', 'processing')) . '">Start Processing</a>';
+
+        if ($status == "processing") {
+            $this->auto_recurring_invoice();
+            $this->auto_recurring_payment();
+            $this->redirect($this->referer() . 'done');
+        }
+
+        if ($status == 'done') {
+            $msg = '<i class="fa fa-check">Complete</i>';
+        }
+        $this->set(compact('msg'));
     }
 
 }
