@@ -3,7 +3,24 @@
         <div class="col-md-12">
 
             <div class="portlet box">
-                <div  class="col-md-12" style=" text-align: center; color: orange;"><h1>Knowledge Base</h1></div>
+                <!--                <div  class="col-md-12" style=" text-align: center; color:   darkgreen;"><h1>Knowledge Base</h1></div>-->
+
+                <canvas id="myCanvas" width="250" height="90"
+                        style="border:1px solid white; text-align: center; ">
+                    Your browser does not support the canvas element.
+                </canvas>
+
+                <script>
+                    var canvas = document.getElementById("myCanvas");
+                    var ctx = canvas.getContext("2d");
+                    ctx.font = "30px Comic Sans MS";
+                    ctx.fillStyle = "green";
+                    ctx.textAlign = "center";
+
+                    ctx.fillText("Knowledge Base", canvas.width / 2, canvas.height / 2);
+                </script>
+
+
                 <div class="tab-content" style="padding:0; background: #fff;">
                     <!-- START TAB 1 -->
                     <div class="tab-pane active" id="tab_1">
@@ -12,30 +29,30 @@
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a href="#newinstallation" data-parent="#newinstallation" data-toggle="collapse" class="accordion-toggle collapsed" aria-expanded="false">
-                                            <p>1. New Installation </p>  
+                                            <p>1. NEW INSTALLATION </p>  
                                         </a>
                                     </h4>
                                 </div>
 
                                 <div class="panel-collapse collapse in" id="newinstallation" aria-expanded="true">
                                     <div class="panel-body">
-                                        <h4><p>What is the requirements for new service?</p></h4>
+                                        <h4><p>What are the requirements for new service?</p></h4>
                                         <pre style="text-align: left;">
     1.Atlease 5 Mbps download speed capable internet line for each box
     2.A Router or Modem
     3.One Box can only serve One TV
                                         </pre>
 
-                                        <h4>How can I get Service?</h4>
+                                        <h4>How can I get service?</h4>
                                         <pre>
     You can Provide your contact information on our Website so that our representative can call you or you can directly call to our Customer Service contact number.
                                         </pre>
-                                        <h4>What are the Other charges?</h4>
+                                        <h4>What are the other charges?</h4>
                                         <pre> 
     Customer need to provide Security Deposit according to package terms which is refundable and there are certain charges for wire and Technician/Shipment
                                         </pre> 
 
-                                        <h4>How to Connect the Box?</h4>
+                                        <h4>How to connect the box?</h4>
                                         <pre> 
     After unbox please note the MAC number of the shipped box that is on the below, after that connect the internet wire with modem & the HDMI/ AVI wire with the TV 
     and our Box. After that please plug in the power cable and put the TV on correct Source then turn on the TV BOX by our remote and after showing activation notice call 
@@ -49,7 +66,7 @@
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a href="#accordion1_2" data-parent="#accordion1" data-toggle="collapse" class="accordion-toggle collapsed" aria-expanded="false">
-                                            2. Troubleshoot
+                                            2. TROUBLESHOOT
                                         </a>
                                     </h4>
                                 </div>
@@ -68,7 +85,7 @@
     the internet/wan light,then turn on the modem’s power and when internet light gets stable on router plug in the power cable of our box, 
     if problem remains please contact to our customer service
                                         </pre> 
-                                        <h4>What if Channel Stuck or Buffers?</h4>
+                                        <h4>What if channel stuck or buffers?</h4>
                                         <pre> 
     Please reboot (Plug out & plug in the power cable) our service box. If problem not solves check your internet speed if it’s below the required level, then call your 
     internet provider if above then please contact to our customer service. Required Speed is 5 Mbps for each box with below 10ms ping, if problem remains please contact
@@ -95,21 +112,21 @@
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a href="#accounts" data-parent="#accordion1" data-toggle="collapse" class="accordion-toggle collapsed" aria-expanded="false">
-                                            3. Accounts
+                                            3. ACCOUNTS
                                         </a>
                                     </h4>
                                 </div>
                                 <div class="panel-collapse collapse" id="accounts" aria-expanded="false" style="height: 0px;">
                                     <div class="panel-body">
-                                        <h4>How many ways you take Bills?</h4>
+                                        <h4>How many ways you take bills?</h4>
                                         <pre> 
     There are 3 ways to take Bill. Check, Card (Except American Express) Money Order
                                         </pre> 
-                                        <h4>What is the Deadline of providing Bill?</h4>
+                                        <h4>What is the deadline of providing bill?</h4>
                                         <pre> 
     8th of each month is the Deadline of Providing that session’s bill
                                         </pre> 
-                                        <h4>Is Online Payment Being Acceptable?</h4>
+                                        <h4>Is online payment being acceptable?</h4>
                                         <pre> 
     We are extremely sorry to inform you; Online payment is currently unavailable
                                         </pre> 
@@ -124,13 +141,13 @@
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a href="#cancelation" data-parent="#accordion1" data-toggle="collapse" class="accordion-toggle collapsed" aria-expanded="false">
-                                            4. Cancelation
+                                            4. CANCELATION
                                         </a>
                                     </h4>
                                 </div>
                                 <div class="panel-collapse collapse" id="cancelation" aria-expanded="false" style="height: 0px;">
                                     <div class="panel-body">
-                                        <h4>What is the procedure of Security Deposit Refund?</h4>
+                                        <h4>What is the procedure of security deposit refund?</h4>
                                         <pre> 
     After Pick up or ship back of box to our Ware house it will take 21 working days to send a check on the respective address 
     that’s is mentioned at account with the respective account holder name.
@@ -143,7 +160,7 @@
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a href="#address" data-parent="#accordion1" data-toggle="collapse" class="accordion-toggle collapsed" aria-expanded="false">
-                                            5. Address
+                                            5. ADDRESS
                                         </a>
                                     </h4>
                                 </div>
@@ -153,26 +170,48 @@
                                         <pre>
     75-22 37TH AVE UNIT NO #286 JACKSON HEIGHTS NY 11372 
     NOTE: RPOINT STANDS FOR RECOVERY POINT. THIS ADDRESS IS ONLY APPLICABLE FOR SHIPMENT 
-    TBN24 OFFICE ADDRESS 
+                                        </pre>
+
+                                        <h4>TBN24 OFFICE ADDRESS </h4>
+                                        <pre>
     37-19, 57TH STREET, WOODSIDE, NY 11377 
     OPEN:  MONDAY - SATURDAY
     TIME: 11 AM- 5 PM
-    DO NOT MENTION TOTAL CABLE ADDRESS
+    DO NOT MENTION TOTAL CABLE ADDRESS                     
                                         </pre>
+
                                         <h4> BILL MAILING ADDRESS</h4>
                                         <pre>
     TOTAL CABLE
     P. O BOX 170,
-    E. MEADOW NY 11554
-    E-MAIL & WEB
+    E. MEADOW NY 11554                     
+                                        </pre>
+
+                                        <h4>E-MAIL & WEB</h4>
+                                        <pre>
     TOTAL CABLE WEB: www.totalcablebd.com
     TBN 24 WEB: www.tbn24.com
     Email ADD:
     totaltvs@gmail.com
-    info@totalcableusa.com                      
+    info@totalcableusa.com                     
                                         </pre>
+                                    </div>
+                                </div>
+                            </div>
 
-                                        <h4>IMPORTANT PHONE NUMBER</h4>
+
+                            <div class="panel panel-danger">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a href="#importantphonenumber" data-parent="#accordion1" data-toggle="collapse" class="accordion-toggle collapsed" aria-expanded="false">
+                                            6. IMPORTANT PHONE NUMBER
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div class="panel-collapse collapse" id="importantphonenumber" aria-expanded="false">
+                                    <div class="panel-body">                                      
+
+                                        <h4>Important Phone Number</h4>
                                         <pre>
     NORTH AMERICA: +1 718 777 6556
     EUROPE: +44 203 695 1830
@@ -191,7 +230,7 @@
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a href="#phone_book" data-toggle="collapse" class="accordion-toggle collapsed" aria-expanded="false">
-                                            6. MANAGEMENT PHONE BOOK 
+                                            7. MANAGEMENT PHONE BOOK 
                                         </a>
                                     </h4>
                                 </div>
@@ -235,7 +274,7 @@
 
                                             <tr role="row" class="odd">
                                                 <td class="sorting_1">RONY BHAI</td>
-                                                <td>917 538 8397 </td>
+                                                <td>917 538 8397</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -246,7 +285,7 @@
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a href="#dealer_phone_book" data-parent="#accordion1" data-toggle="collapse" class="accordion-toggle collapsed" aria-expanded="false">
-                                            7. DEALER AND TECHNICIAN PHONE BOOK
+                                            8. DEALER AND TECHNICIAN PHONE BOOK
                                         </a>
                                     </h4>
                                 </div>
@@ -280,6 +319,7 @@
                                                     <td class="sorting_1">ARIF </td>
                                                     <td class="sorting_1">106 DOSCHER ST 2ND FL
                                                         BROOKLYN, NY 11208
+
                                                     </td>
                                                     <td>347 599 3363<br>
                                                         718 235 3703
@@ -291,6 +331,7 @@
                                                     <td class="sorting_1">SYED ABU BAKAR</td>
                                                     <td class="sorting_1">ADD: 16 41 65ST APT B5 BROOKLYN 
                                                         NY 11204
+
                                                     </td>
                                                     <td>718 666 8335<br>
                                                         718 414 2326
@@ -301,6 +342,7 @@
                                                     <td class="sorting_1">BELAL AHMED</td>
                                                     <td class="sorting_1">1370 VIRGINIA AVE 5C
                                                         BRONX NY 10462
+
                                                     </td>
                                                     <td>347 797 8213<br>
                                                         347 281 5626</td>
@@ -318,6 +360,7 @@
                                                     <td class="sorting_1">71-32 ROOSEVELT AVE LOWER LAVEL 
                                                         JACKSON HEIGHT NY 11372
 
+
                                                     </td>
                                                     <td>212 470 0343<br>
                                                         718 651 6578</td>
@@ -334,7 +377,7 @@
                                                     <td class="sorting_1">MOSHIUR RAHMAN SONET</td>
                                                     <td class="sorting_1">90 34 191 ST 1ST FL HOLLIS NY 11423
                                                     </td>
-                                                    <td>6467579470</td>
+                                                    <td>66467579470</td>
                                                 </tr>
 
                                                 <tr role="row" class="odd">
@@ -381,7 +424,7 @@
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a href="#price" data-parent="#accordion1" data-toggle="collapse" class="accordion-toggle collapsed" aria-expanded="false">
-                                            8. PRICE LIST (REGULER)
+                                            9. PRICE LIST (REGULER)
                                         </a>
                                     </h4>
                                 </div>
@@ -461,7 +504,7 @@
                                             <tr role="row" class="even">
                                                 <td>Single play 3 box</td>
                                                 <td>$60</td>
-                                                <td>$150 Refundable</td>
+                                                <td>$150</td>
                                                 <td>$300 + 1 Month addition</td>                                                
                                                 <td>$600 + 3 Month addition</td>                                              
                                             </tr>
@@ -490,7 +533,7 @@
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a href="#price_texas" data-parent="#accordion1" data-toggle="collapse" class="accordion-toggle collapsed" aria-expanded="false">
-                                            9. PRICE LIST (TEXAS)
+                                            10. PRICE LIST (TEXAS)
                                         </a>
                                     </h4>
                                 </div>
@@ -559,9 +602,9 @@
 
                                             <tr role="row" class="odd">
                                                 <td>Single play 3 box</td>
-                                                <td>$50 Refundable</td>
-                                                <td>$150 Refundable</td>
-                                                <td>$300 Refundable</td>
+                                                <td>$50 </td>
+                                                <td>$150 </td>
+                                                <td>$300 + 1 Month addition</td>
                                                 <td>$600 + 3 Month addition</td>                                              
                                             </tr>
                                         </table>
@@ -573,7 +616,7 @@
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a href="#price_michigan" data-parent="#accordion1" data-toggle="collapse" class="accordion-toggle collapsed" aria-expanded="false">
-                                            10. PRICE LIST (MICHIGAN)
+                                            11. PRICE LIST (MICHIGAN)
                                         </a>
                                     </h4>
                                 </div>
@@ -584,7 +627,7 @@
                                         <table class="table  dataTable" style="width: 100%;">                                           
                                             <thead>
                                                 <tr role="row"style="font-weight: bold; font-size: 19px;">
-                                                    <th>Service Catagorie</th>
+                                                    <th></th>
                                                     <th>1 month</th>
                                                     <th>3 month</th>
                                                     <th>6 month</th>
@@ -642,9 +685,9 @@
 
                                             <tr role="row" class="odd">
                                                 <td>Single play 3 box</td>
-                                                <td>$50 Refundable</td>
-                                                <td>$135 Refundable</td>
-                                                <td>$270 Refundable</td>
+                                                <td>$50 </td>
+                                                <td>$135 </td>
+                                                <td>$270+ 1 Month addition</td>
                                                 <td>$540 + 3 Month addition</td>                                              
                                             </tr>
                                         </table>
@@ -656,7 +699,7 @@
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a href="#price_CANADA" data-parent="#accordion1" data-toggle="collapse" class="accordion-toggle collapsed" aria-expanded="false">
-                                            11. PRICE LIST (CANADA)
+                                            12. PRICE LIST (CANADA)
                                         </a>
                                     </h4>
                                 </div>
@@ -730,7 +773,7 @@
                                                 <td>Single play 3 box</td>
                                                 <td>$45 Refundable</td>
                                                 <td>$135 Refundable</td>
-                                                <td>$270 Refundable</td>
+                                                <td>$270+ 1 Month addition</td>
                                                 <td>$540 + 3 Month addition</td>                                              
                                             </tr>
                                         </table>
@@ -742,7 +785,7 @@
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a href="#price_uk" data-parent="#accordion1" data-toggle="collapse" class="accordion-toggle collapsed" aria-expanded="false">
-                                            12. PRICE LIST FOR UK
+                                            13. PRICE LIST FOR UK
                                         </a>
                                     </h4>
                                 </div>
@@ -773,7 +816,7 @@
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a href="#price_eu" data-parent="#accordion1" data-toggle="collapse" class="accordion-toggle collapsed" aria-expanded="false">
-                                            13. PRICE LIST FOR EU
+                                            14. PRICE LIST FOR EU
                                         </a>
                                     </h4>
                                 </div>
@@ -808,7 +851,7 @@
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a href="#note" data-parent="#newinstallation" data-toggle="collapse" class="accordion-toggle collapsed" aria-expanded="false">
-                                            <p> Note</p>  
+                                            <p>NOTE</p>  
                                         </a>
                                     </h4>
                                 </div>
@@ -818,10 +861,11 @@
                                         <!--<h2><p>Note</p></h2>-->
                                         <pre style="text-align: left; font-size: 15px;">
 
-    *** We will charge $30 installation fee for 1 Month, 3 Month and 6 Month package
-    *** We will charge $25 installation fee for any additional box installation.
-    *** We will charge 1st-month bill and refund the remaining amount of payment if a customer cancels his service within 30 days from the date 
-        of installation. No payment will be refunded if the customer cancels it after 30 days of installation.
+    ** We will charge $30 installation fee for 1 Month, 3 Month and 6 Month package. 
+    ** We will charge $25 installation fee for any additional box installation.
+    ** We will charge 1st-month bill and refund the remaining amount of payment if a customer cancels his service within 30 days from the date 
+       of installation. No payment will be refunded if the customer cancels it after 30 days of installation.
+
                                         </pre> 
                                     </div>
                                 </div>

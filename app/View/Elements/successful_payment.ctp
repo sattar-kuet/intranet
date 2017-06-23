@@ -98,6 +98,7 @@
                             <?php endif; ?>
                             </td>       
                             <td class="hidden-480">
+                            <li> <b>Transaction status :</b> <?php echo $results['transactions']['status']; ?> </li>                           
                             <li> <b>Paid Amount :</b> <?php echo $results['transactions']['payable_amount']; ?> </li>                           
                             <li> <b>Transaction ID :</b> <?php echo $results['transactions']['trx_id']; ?> </li>                           
 

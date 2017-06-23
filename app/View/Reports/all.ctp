@@ -114,7 +114,7 @@
                                                     'options' => $users,
                                                     'empty' => 'Select From Existing admins panel user',
                                                     'class' => 'form-control select2me',
-                                                     'default' => $users
+                                                    'default' => $users
                                                         )
                                                 );
                                                 ?>
@@ -126,8 +126,7 @@
                                                     'class' => 'form-control  select2me',
                                                     'type' => 'select',
                                                     'options' => $status,
-                                                    'empty' => 'Select status',
-                                                    'default' => $status
+                                                    'empty' => 'Select status'
                                                         )
                                                 );
                                                 ?>
@@ -149,16 +148,18 @@
                                                 'cancel' => 'Cancel',
                                                 'closedinvoice' => 'Closed Invoice',
                                                 'customersummary' => 'Customer Summary',
-                                                'expirecustomer' => 'Expire Customer',
                                                 'failed' => 'Failed Auto Recurring',
+                                                'failedpayment' => 'Failed Payment',
+                                                'expirecustomer' => 'Expire Customer',                                                
                                                 'newcustomer' => 'New Customer',
-                                                'openInvoice' => 'Open Invoice',
-                                                'paidinvoice' => 'Paid Invoice',
+                                                'openInvoice' => 'Open Invoice',                                                
                                                 'overdueinvoice' => 'Over Due Invoice',
                                                 'overallreport' => 'Over all Report',
+                                                'paidinvoice' => 'Paid Invoice',
                                                 'passedinvoice' => 'Passed Due Invoice',
                                                 'paymenthistory' => 'Payment History',
                                                 'successful' => 'Succeeded Auto Recurring',
+                                                'successful_payment' => 'Successful Payment',
                                                 'summeryReport' => 'Summary'),
                                             'empty' => 'Select criteria',
                                             'class' => 'form-control select2me ',
@@ -220,7 +221,6 @@
             }
 
             if ($action == 'allautorecurring') {
-               // pr($data); exit;
                 echo $this->element('allAutorecurring', array('data' => $data));
             }
 
@@ -253,7 +253,7 @@
             }
 
             if ($action == 'overdueinvoice') {
-                echo $this->element('overdueInvoice', array('data' => $data));
+                echo $this->element('overdueinvoice', array('data' => $data));
             }
 
             if ($action == 'passedinvoice') {
@@ -274,6 +274,14 @@
 
             if ($action == 'overallreport') {
                 echo $this->element('over_allreport', array('data' => $data));
+            }
+
+            if ($action == 'successful_payment') {
+                echo $this->element('successful_payment', array('data' => $data));
+            }
+
+            if ($action == 'failedpayment') {
+                echo $this->element('failedpayment', array('data' => $data));
             }
         }
         ?>

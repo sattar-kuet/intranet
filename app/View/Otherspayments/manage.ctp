@@ -65,16 +65,15 @@
                                                        href="<?php echo Router::url(array('controller' => 'otherspayments', 'action' => 'cancel', $single['others_payments']['id'])) ?>" title="block">
                                                         <span class="fa  fa-close"></span>
                                                     </a>
-                                                <?php endif; ?>
-
-                                                &nbsp;&nbsp;
-                                                <?php if ($single['others_payments']['status'] == 'canceled'): ?>
-                                                    <a aria-describedby="qtip-8" data-hasqtip="true" title="Done" oldtitle="Remove task" 
+                                                &nbsp;
+                                                 <a aria-describedby="qtip-8" data-hasqtip="true" title="Done" oldtitle="Remove task" 
                                                        onclick="if (confirm( & quot; Are you sure to done this Admin? & quot; )) { return true; } return false;"
                                                        href="<?php echo Router::url(array('controller' => 'otherspayments', 'action' => 'done', $single['others_payments']['id'])) ?>" title="block">
                                                         <span class="fa  fa-check"></span>
                                                     </a>
                                                 <?php endif; ?>
+
+                                                
 
                                                 &nbsp;&nbsp;                                              
                                                 <a  title="edit" href="<?php echo Router::url(array('controller' => 'otherspayments', 'action' => 'edit', $single['others_payments']['id'])) ?>" >

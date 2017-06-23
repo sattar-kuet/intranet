@@ -849,6 +849,22 @@ class TechniciansController extends AppController {
         $technician = $this->User->find('list', array('conditions' => array('User.role_id' => 9)));
         $this->set(compact('filteredData', 'technician'));
     }
+    
+    function my_payment (){
+          $this->loadModel('OthersPayment');
+          $loggedUser = $this->Auth->user();
+          $id =$loggedUser['id'];
+          
+          //$payments = $this->OthersPayment->find('all');
+          
+           $sql = "SELECT * FROM others_payments where technician_id = $id";
+        $payments = $this->OthersPayment->query($sql);
+         // pr($payments); exit;
+        $this->set(compact('payments'));
+    }
+    
+     
+        
 
 }
 

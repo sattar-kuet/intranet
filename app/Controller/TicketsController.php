@@ -542,13 +542,11 @@ class TicketsController extends AppController {
 
         $loggedUser = $this->Auth->user();
         $this->request->data['Track']['forwarded_by'] = $loggedUser['id'];
-//        pr($this->request->data);
-//        exit;
+
         $this->Track->save($this->request->data['Track']);
         $this->Ticket->id = $this->request->data['Track']['ticket_id'];
 
         $data = $this->Ticket->saveField('status', 'solved');
-//       pr($data); exit; 
         $msg = '<div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <strong> Ticket is Solved succeesfully </strong>

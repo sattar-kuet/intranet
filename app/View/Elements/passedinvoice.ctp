@@ -22,14 +22,14 @@
 
             <ul class="pagination" >
                 <?php
-                for ($i = 1; $i <= $total_page; $i++):
+                for ($i = 1; $i <= $data['total_page']; $i++):
                     $active = '';
                     if (isset($this->params['pass'][0]) && $this->params['pass'][0] == $i) {
                         $active = 'active';
                     }
                     ?>
                     <li class="paginate_button <?php echo $active; ?>" aria-controls="sample_editable_1" tabindex="<?php echo $i; ?>">
-                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'all', $action, $i, $start, $end,)) ?>"><?php echo $i; ?></a>
+                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'all', $action, $i)) ?>"><?php echo $i; ?></a>
                     </li>
                 <?php endfor; ?>
             </ul>
