@@ -1,15 +1,11 @@
 <?php
-
 App::uses('HttpSocket', 'Network/Http');
 require_once(APP . 'Vendor' . DS . 'class.upload.php');
-
-
-
 
 class PaymentsController extends AppController {
 
     var $layout = 'admin';
-    var $LivePayMode = 0;
+    var $LivePayMode = 1;
     public $components = array('Security', 'RequestHandler');
 
 // public $components = array('Auth');
@@ -18,7 +14,6 @@ class PaymentsController extends AppController {
         $this->set(compact('sidebar'));
         return true;
     }
-
     public function beforeFilter() {
         if (!$this->Auth->loggedIn()) {
             return $this->redirect('/admins/login');
