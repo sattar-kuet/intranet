@@ -398,6 +398,32 @@
                     </li>
                 </ul>
             </li>
+            
+            
+            
+            <li <?php
+            $auto = array('PaymentsprocessAutoRecurring','ReportsallAutorecurringSettings');
+
+            if (in_array($this->name . '' . $this->action, $auto)):
+                ?> class="active"  <?php endif; ?>  >
+                <a href="javascript:;">
+                    <i class="fa fa-envelope"></i> <span class="title">Auto Recurring</span>  <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">                    
+                   
+
+                    <li <?php if ($this->name . '' . $this->action == 'Reportsallautorecurringsettings'): ?> class="active" <?php endif; ?> >
+                        <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'allAutorecurringSettings')) ?>"> <i class="fa fa-search"></i> Check Settings</a>
+                    </li>
+                    
+                     <li <?php if ($this->name . '' . $this->action == 'processautorecurring'): ?> class="active"  <?php endif; ?>  > 
+                        <a href="<?php echo Router::url(array('controller' => 'payments', 'action' => 'processAutoRecurring')) ?>"> <i class="fa fa-wrench"> </i> Process</a>
+                    </li>
+
+                   
+                </ul>
+            </li>
+          
 
         </ul>
         <!-- END SIDEBAR MENU -->
