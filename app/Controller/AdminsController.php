@@ -1190,9 +1190,11 @@ class AdminsController extends AppController {
     function changePassword() {
         $this->loadModel('Role');
         $this->loadModel('User');
+        
+        
         if ($this->request->is('post') || $this->request->is('put')) {
             $loggedUser = $this->Auth->user();
-            // pr($loggedUser); exit;
+            
             $user = $this->User->findById($loggedUser['id']);
             $passwordHasher = new SimplePasswordHasher(array('hashType' => 'sha256'));
             $givenPass = $passwordHasher->hash(
@@ -1218,10 +1220,10 @@ class AdminsController extends AppController {
     }
 
     function adjustmentMemo() {
+        $this->loadModel('Transaction');
         $sql = "SELECT * FROM transactions " .
                 "LEFT JOIN package_customers ON package_customers.id = transactions.package_customer_id " .
-                "WHERE LOWER(transactions.status) IN ('credit','sdadjustment','sdrefund','refferalbonus')";
-        $this->loadModel('Transaction');
+                "WHERE LOWER(transactions.status) IN ('credit','sdadjustment','sdrefund','refferalbonus')";        
         $data = $this->Transaction->query($sql);
         $this->set(compact('data'));
     }

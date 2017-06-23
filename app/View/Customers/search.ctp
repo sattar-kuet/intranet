@@ -94,6 +94,7 @@
                                 <div class="col-md-3">
                                     <?php
                                     $search = array("1" => "Customer", "2" => "Invoice No", "3" => "Transaction ID", '4' => 'Customer By Location',);
+//                                                    pr($clicked); exit;
                                     echo $this->Form->input(
                                             'search', array(
                                         'class' => 'form-control ',
@@ -148,8 +149,7 @@
                                             <?php
                                             $dt = new DateTime($message['m']['created']);
                                             echo $dt->format('g:i A');
-                                            ;
-                                            ?>  
+                                            ;?>  
                                         </span>
                                         <span class="body">
                                             <?php echo $message['m']['message']; ?> 

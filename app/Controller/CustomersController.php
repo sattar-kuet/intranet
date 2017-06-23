@@ -116,6 +116,7 @@ class CustomersController extends AppController {
         $this->loadModel('PackageCustomer');
         $data = array();
         $input = array();
+       
         if ($this->request->is('post')) {
             $input = $this->request->data['PackageCustomer'];
             
@@ -143,8 +144,7 @@ class CustomersController extends AppController {
           //  echo $param; exit;
             if ($clicked == 4) {
                 $params = explode("#", $param);
-//                pr($params);
-//                exit;
+
                 $state = $params[0];
                 $city = $params[1];
                 $zip = $params[2];
@@ -154,13 +154,14 @@ class CustomersController extends AppController {
                 $data = $this->searchbyinvoice($invoice, $clicked, $page);
             } else if ($clicked == 3) {
                 $trxId = $param;
+                
                 $data = $this->searchBytrxId($trxId, $clicked, $page);
             } else {
                 $input = array();
                 $input['page'] = $page;
                 $input['search'] = $clicked;
                 $input['param'] = $param;
-//                pr($param); exit;
+
                 $data = $this->searchByParam($input);
                
             }
@@ -177,12 +178,12 @@ class CustomersController extends AppController {
         $this->loadModel('CustomPackage');
         $this->loadModel('Psetting');
         $this->loadModel('Package');
-
+  
         $param = $input['param'];
         $page = $input['page'];
         $data['customer'] = array();
         $data['package'] = array();
-
+      
         if ($input['search'] == 1) {
              
             $data = $this->getCustomerByParam($page, $param, 'cell');
@@ -220,16 +221,13 @@ class CustomersController extends AppController {
     }
 
     function getCustomerByParam($page = 1, $param, $field) {
-//        echo $param;
-//        exit;
-       
+
         $offset = --$page * $this->per_page;
         $param = str_replace(' ', '', $param);
 
         $condition = " package_customers." . $field . " LIKE '%$param%'";
 
         $name = array('first_name', 'last_name', 'middle_name');
-//        pr($condition); exit;
         if ($field == "cell") {
             $regex = "/[()-]/i";
             $cell = preg_replace($regex, "", $param);
@@ -254,7 +252,6 @@ class CustomersController extends AppController {
             $fullname = strtolower($param);
             $condition = "LOWER(CONCAT(package_customers.first_name,package_customers.middle_name,package_customers.last_name)) LIKE '%" . $fullname . "%'";
         }
-//        pr($condition); exit;
         $sql = "SELECT * FROM package_customers "
                 . "LEFT JOIN psettings ON package_customers.psetting_id = psettings.id"
                 . " LEFT JOIN packages ON psettings.package_id = packages.id"
@@ -448,8 +445,7 @@ class CustomersController extends AppController {
 
 //        if ($this->request->is('post') || $this->request->is('put')) { // mac installation info will be insert in mac_history tbl. strat
 //            $data = $this->request->data['PackageCustomer'];
-////                      pr($data);
-////            exit;
+////                
 //            foreach ($data['mac'] as $k => $single) {
 //                $data2['MacHistory'] = array('mac' => $single, 'installed_by' => $data['user_id'][$k], 'installation_date' => $this->getFormatedDate($data['installation_date'][$k]), 'user_id' => $loggedUser['id'], 'package_customer_id' => $data['id']);
 //                $this->MacHistory->create();
@@ -560,6 +556,7 @@ WHERE transaction_id = " . $statement['tr']['id']
     }
 
     function edit($id = null) {
+        
         $this->loadModel('StatusHistory');
         $this->loadModel('User');
         $this->loadModel('MacHistory');
@@ -633,6 +630,7 @@ WHERE transaction_id = " . $statement['tr']['id']
         $c_acc_no = $customer_info['PackageCustomer']['c_acc_no'];
         $this->loadModel('Attachment');
         $transactions = $this->Transaction->find('all', array('conditions' => array('Transaction.package_customer_id' => $id)));
+//        pr($transactions); exit;
         $attachments = $this->Attachment->find('all', array('conditions' => array('Attachment.package_customer_id' => $id)));
         $status = $customer_info['PackageCustomer']['status'];
         $users = $this->User->find('list', array('order' => array('User.name' => 'ASC')));
@@ -644,7 +642,6 @@ WHERE transaction_id = " . $statement['tr']['id']
 //        Ticket History
         $response = $this->getAllTickectsByCustomer($id);
         $data = $response['data'];
-//        pr($data[0]['history']); exit;
         $users = $response['users'];
         $roles = $response['roles'];
         $this->set(compact('data', 'users', 'roles', 'customer_info'));
@@ -689,7 +686,6 @@ WHERE transaction_id = " . $statement['tr']['id']
 //            $this->request->data['PackageCustomer'] = $filteredData;
 //
 //        }
-//             pr($this->request->data); exit;
 
 
 
@@ -885,7 +881,6 @@ WHERE  transactions.id = $param";
         $this->loadModel('Issue');
         $loggedUser = $this->Auth->user();
         if ($this->request->is('post') || $this->request->is('put')) {
-//            pr($this->request->data); exit;
             $this->PackageCustomer->set($this->request->data);
             $this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
 //For Custom Package data insert
@@ -908,7 +903,6 @@ WHERE  transactions.id = $param";
                 $this->request->data['PackageCustomer']['attachment'] = '';
             }
             $this->request->data['PackageCustomer']['user_id'] = $loggedUser['id'];
-//            pr($this->request->data['PackageCustomer']); exit;
             $this->PackageCustomer->save($this->request->data['PackageCustomer']);
 //            $this->stbs_update($id);
 //update last comment

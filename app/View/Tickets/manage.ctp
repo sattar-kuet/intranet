@@ -8,7 +8,6 @@
     }
     .txtArea { width:300px; }
     ul.pagination {
-        display: flex;
         justify-content: center;
     }
 </style>
@@ -21,38 +20,25 @@
         </h3>
         <!-- END PAGE HEADER-->
         <!-- BEGIN PAGE CONTENT-->
+        <!--<div class="col-md-12">-->
         <div class="row">
-            <div class="col-md-12">
-                <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                <div class="portlet box green">
-                    <div class="portlet-title">
-                        <div class="caption">
-                            <i class="fa fa-ticket"></i>List of All Tickets Total tickets: <?php echo $total; ?> 
-                            <!--&nbsp; In-progress :-->
-                            <?php // echo $total_inprogress; ?> 
-                            <!--&nbsp; Close :-->
-                            <?php // echo $total_close; ?> 
-                        </div>
-                        <div class="tools">
-                            <a href="javascript:;" class="reload">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="portlet-body">
+            <div class="col-xs-12">
+                <ul class="pagination" >
+                        <?php
+                        for ($i = 1; $i <= $total_page; $i++):
+                            $active = '';
+                            if (isset($this->params['pass'][0]) && $this->params['pass'][0] == $i) {
+                                $active = 'active';
+                            }
+                            ?>
+                            <li class="paginate_button <?php echo $active; ?>" aria-controls="sample_editable_1" tabindex="<?php echo $i; ?>">
+                                <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'manage', $i)) ?>"><?php echo $i; ?></a>
+                            </li>
+                        <?php endfor; ?>
+                    </ul>
+                    
                         <?php echo $this->Session->flash(); ?>
-                        <ul class="pagination" >
-                            <?php
-                            for ($i = 1; $i <= $total_page; $i++):
-                                $active = '';
-                                if (isset($this->params['pass'][0]) && $this->params['pass'][0] == $i) {
-                                    $active = 'active';
-                                }
-                                ?>
-                                <li class="paginate_button <?php echo $active; ?>" aria-controls="sample_editable_1" tabindex="<?php echo $i; ?>">
-                                    <a href="<?php echo Router::url(array('controller' => 'tickets', 'action' => 'manage', $i)) ?>"><?php echo $i; ?></a>
-                                </li>
-                            <?php endfor; ?>
-                        </ul>
+
                         <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                             <thead>
                                 <tr>
@@ -494,9 +480,8 @@
 
                             </tbody>
                         </table>
-                    </div>
-                </div>
-                <!-- END EXAMPLE TABLE PORTLET-->
+                   
+             
             </div>
         </div>
         <!-- END PAGE CONTENT -->

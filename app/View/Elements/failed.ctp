@@ -15,7 +15,7 @@
     }
     .txtArea { width:300px; }
     ul.pagination {
-        display: flex;
+/*        display: flex;*/
         justify-content: center;
     }
 </style> 

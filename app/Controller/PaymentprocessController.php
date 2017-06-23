@@ -687,7 +687,6 @@ class PaymentsController extends AppController {
         $id = $this->request->data['Transaction']['id'];
         $this->request->data['Transaction']['transaction_id'] = $id;
         unset($this->request->data['Transaction']['id']);
-
         //creatre transaction History 
         $this->Transaction->save($this->request->data['Transaction']);
         unset($this->request->data['Transaction']['transaction_id']);

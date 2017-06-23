@@ -1890,8 +1890,9 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                     ),
                                     'id' => 'form_sample_3',
                                     'class' => 'form-horizontal',
-                                    'novalidate' => 'novalidate',
-                                    'url' => array('controller' => 'payments', 'action' => 'refundTransaction')
+                                    'novalidate' => 'novalidate',                                    
+                                    'enctype' => 'multipart/form-data',
+                                    'url' => array('controller' => 'payments', 'action' => 'refundTransaction152')
                                         )
                                 );
                                 ?>
@@ -3018,6 +3019,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                         <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                                             <thead>
                                                 <tr>
+                                                    <!--<th>Transaction Id</th>-->
                                                     <th>Subject</th>
                                                     <th>Customer Info</th>
                                                     <th>Open Time</th>
@@ -3028,20 +3030,20 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                                                                                        
                                                 foreach ($data as $single):
-//                                                       pr($single['history']['0']['tr']['status']);
+//                                                       
                                                     $issue = end($single['history']);
                                                     $customer = end($single['history']);
-                                                 
                                                     $customer = $customer['pc'];
 
                                                     $ticket = $single['ticket'];
+                                                         
                                                     $lasthistory = $issue;
-//                                                    pr($lasthistory);
+                                            
                                                     
                                                     ?>
                                                     <tr >
+                                                        <!--<td><?php echo $tr_id; ?></td>-->
                                                         <td><?php echo $issue['i']['name']; ?></td>
                                                         <td>
                                                             <ul>
@@ -3116,10 +3118,8 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                                             'class' => 'form-horizontal',
                                                                             'novalidate' => 'novalidate',
                                                                             'url' => array('controller' => 'tickets', 'action' => 'forward')
-                                                                                )
-                                                                        );
+                                                                                ));
                                                                         ?>
-
                                                                         <?php
                                                                         echo $this->Form->input('ticket_id', array(
                                                                             'type' => 'hidden',

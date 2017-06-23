@@ -91,6 +91,24 @@
                             Cancel</a>
                     </li>
                 </ul>
+                
+                 <li 
+            <?php
+            $payments = array('Techniciansmy_payment');
+            if (in_array($this->name . '' . $this->action, $payments)):
+                ?>
+                    class="active"
+                    <?php
+                endif;
+                ?>
+                >                 
+                <a href="<?php echo Router::url(array('controller' => 'technicians', 'action' => 'my_payment')) ?>">
+                    <i class="fa fa-money"></i>
+                    <span class="title">My Payment</span>
+                    <span class="arrow "></span>
+                </a>
+            </li> 
+            
             </li> 
         </ul>
     </div>

@@ -20,14 +20,12 @@
                         //echo $issue.':'.$agent.':'.$status;
                         for ($i = 1; $i <= $data['total_page']; $i++):
                             $active = '';
-
-
                             if (isset($this->params['pass'][0]) && $this->params['pass'][0] == $i) {
                                 $active = 'active';
                             }
                             ?>
                             <li class="paginate_button <?php echo $active; ?>" aria-controls="sample_editable_1" tabindex="<?php echo $i; ?>">
-                                <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'all', $action, $i, $start, $end,$issue, $agent, $status)) ?>"><?php echo $i; ?></a>
+                                <a href="<?php echo Router::url(array('controller' => 'reports', 'action' => 'all', $action, $i, $start, $end, $issue, $agent, $status)) ?>"><?php echo $i; ?></a>
                             </li>
                         <?php endfor; ?>
                     </ul>
@@ -65,7 +63,6 @@
                                         <ol>
                                             <?php
                                             $lasthistory = $single['history'][0]['tr'];
-
                                             foreach ($single['history'] as $history):
                                                 ?>
                                                 <li>
@@ -228,7 +225,6 @@
                                                     <?php echo $this->Form->end(); ?>
                                                     <!-- END FORM-->
                                                 </div>
-
                                                 <div id="solve_dialog<?php echo $ticket['id']; ?>" class="portlet-body form" style="display: none;">
 
                                                     <!-- BEGIN FORM-->

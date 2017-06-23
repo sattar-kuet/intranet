@@ -149,7 +149,7 @@
                                                 'closedinvoice' => 'Closed Invoice',
                                                 'customersummary' => 'Customer Summary',
                                                 'failed' => 'Failed Auto Recurring',
-                                                'failed_payment' => 'Failed Payment',
+                                                'failedpayment' => 'Failed Payment',
                                                 'expirecustomer' => 'Expire Customer',                                                
                                                 'newcustomer' => 'New Customer',
                                                 'openInvoice' => 'Open Invoice',                                                
@@ -221,7 +221,6 @@
             }
 
             if ($action == 'allautorecurring') {
-                // pr($data); exit;
                 echo $this->element('allAutorecurring', array('data' => $data));
             }
 
@@ -254,7 +253,7 @@
             }
 
             if ($action == 'overdueinvoice') {
-                echo $this->element('overdueInvoice', array('data' => $data));
+                echo $this->element('overdueinvoice', array('data' => $data));
             }
 
             if ($action == 'passedinvoice') {
@@ -281,8 +280,8 @@
                 echo $this->element('successful_payment', array('data' => $data));
             }
 
-            if ($action == 'failed_payment') {
-                echo $this->element('failed_payment', array('data' => $data));
+            if ($action == 'failedpayment') {
+                echo $this->element('failedpayment', array('data' => $data));
             }
         }
         ?>

@@ -15,7 +15,7 @@
         text-align: center;
     }
     ul.pagination {
-        display: flex;
+        /*display: flex;*/
         justify-content: center;
         color: blue;
     }
