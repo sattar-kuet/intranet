@@ -166,6 +166,14 @@ class TransactionsController extends AppController {
     
     function void($id = null) {
         $this->loadModel('Transaction');
+        $this->loadModel('PackageCustomer');
+        $temp = $this->Transaction->findById($id);
+       
+        if($temp['PackageCustomer']['auto_r']== 'yes'){
+            $this->PackageCustomer->id = $temp['PackageCustomer']['auto_r'];
+            $this->PackageCustomer->id = $temp['PackageCustomer']['id'];
+            $this->PackageCustomer->saveField("invoice_created", 0);
+        }
         $this->Transaction->id = $id;
         $this->Transaction->saveField("status", "void");
         $msg = '<div class="alert alert-success">
