@@ -1707,6 +1707,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
 
 
                 <!--     Begin Additional Invoice    -->
+                
                 <div class="portlet box lightseagreen" style="background-color:#daae2b; border: #daae2b solid 2px;">
                     <div class="portlet-title">
                         <div class="caption">
@@ -1892,7 +1893,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                     'class' => 'form-horizontal',
                                     'novalidate' => 'novalidate',                                    
                                     'enctype' => 'multipart/form-data',
-                                    'url' => array('controller' => 'payments', 'action' => 'refundTransaction152')
+                                    'url' => array('controller' => 'payments', 'action' => 'refundTransaction')
                                         )
                                 );
                                 ?>
@@ -1942,9 +1943,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                             </div>
                                         </div>
                                         <div class="form-group">
-
                                             <label class="control-label col-md-2">Card Exp Date</label>
-
                                             <div class="col-md-2">
                                                 <?php
                                                 echo $this->Form->input('exp_date.year', array(
@@ -2483,8 +2482,6 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                             <?php endif; ?> 
 
                                                             <li> Payment Date: <?php echo date('m-d-Y', strtotime($payment['tr']['created'])); ?> </li>
-
-
                                                             <li> Payment of : #<?php echo $payment['tr']['transaction_id']; ?> </li>
                                                         </ul>
 

@@ -358,7 +358,7 @@
                                                 </div>
                                                 <br>
                                                 <div class="">
-                                                    <label><input class="pmode" type="radio" value="check" name="pmode">CHECK</label>
+                                                    <label><input class="pmode" type="radio" value="check" name="pmode">CHEQUE</label>
                                                 </div>
                                                 <br>
                                                 <div class="">
@@ -705,7 +705,7 @@
                                                         echo $this->Form->input(
                                                                 'payable_amount', array(
                                                             'type' => 'text',
-                                                            'class' => 'form-control input-sm ',
+                                                            'class' => 'form-control input-sm required',
                                                         ));
                                                         ?>
                                                     </div>
@@ -720,7 +720,7 @@
                                                         echo $this->Form->input(
                                                                 'check_info', array(
                                                             'type' => 'text',
-                                                            'class' => 'form-control input-sm ',
+                                                            'class' => 'form-control input-sm required',
                                                             'placeholder' => 'Check No, Bank Name',
                                                             'value' => '',
                                                         ));
@@ -737,7 +737,7 @@
                                                         echo $this->Form->input(
                                                                 'created_check', array(
                                                             'type' => 'text',
-                                                            'class' => 'datepicker form-control ',
+                                                            'class' => 'datepicker form-control required',
                                                         ));
                                                         ?>
                                                     </div>

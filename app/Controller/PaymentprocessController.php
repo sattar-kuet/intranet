@@ -658,11 +658,9 @@ class PaymentsController extends AppController {
     }
 
     function getDue($id = null) {
-
         $this->loadModel('Transaction');
         $data1 = $this->Transaction->findById($id);
         $sql = "SELECT SUM(payable_amount) as paid FROM transactions WHERE transaction_id =" . $id;
-//              pr($sql); exit;  
         $data2 = $this->Transaction->query($sql);
         $payable = $data1['Transaction']['payable_amount'];
         $paid = $data2[0][0]['paid'];
@@ -951,8 +949,7 @@ class PaymentsController extends AppController {
         $this->Transaction->id = $id;
 //         pr('here'); exit;
         $this->Transaction->saveField('status', $status);
-//        echo $this->Transaction->getLastQuery();
-//        exit;
+
         // generate Ticket
         $tdata['Ticket'] = array('content' => "This is paid invoice.Paid invoice record saved successfully<br> <b> Amount : </b> $amount <br> <b> Payment mode :</b> Card", 'status' => 'solved');
         $tickect = $this->Ticket->save($tdata); // Data save in Ticket

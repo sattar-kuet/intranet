@@ -2,7 +2,6 @@
 
 App::uses('HttpSocket', 'Network/Http');
 require_once(APP . 'Vendor' . DS . 'class.upload.php');
-
 class PaymentsController extends AppController {
 
     var $layout = 'admin';
@@ -75,7 +74,7 @@ class PaymentsController extends AppController {
         $yyyy = 0;
         $mm = -1;
         $latestcardInfo = array('card_no' => '', 'exp_date' => array('year' => 0, 'month' => 0), 'fname' => '', 'lname' => '', 'cvv_code' => '', 'zip_code' => '', 'trx_id' => '');
-// pr($temp); exit;
+
         if (count($temp)) {
             $date = explode('/', $temp[0]['transactions']['exp_date']);
             if (count($date) != 2) {
@@ -119,7 +118,7 @@ class PaymentsController extends AppController {
         $this->request->data['Transaction']['id'] = $trans_id;
         $paid = getPaid($trans_id);
         $credit = $this->getCredit($customer_id);
-//pr($temp[0][0]['credit']); exit;
+
         $data = $this->Transaction->findById($trans_id);
         $latestcardInfo['card_no'] = $this->formatCardNumber($latestcardInfo['card_no']);
         $this->request->data['Transaction'] = $latestcardInfo;
@@ -150,12 +149,8 @@ class PaymentsController extends AppController {
         $card = $this->request->data['Transaction'];
         $exp_date = $card['exp_date']['month'] . '-' . $card['exp_date']['year'];
         $this->request->data['Transaction']['exp_date'] = $exp_date;
-
-
         $cid = $this->request->data['Transaction']['package_customer_id'];
         $pc = $this->PackageCustomer->findById($cid);
-
-
 // process payment
 
         if ($this->LivePayMode) {
@@ -167,24 +162,14 @@ class PaymentsController extends AppController {
             $this->request->data['marchantKey'] = "547z56Vcbs3Nz9R9"; // testing
             $this->request->data['testMode'] = 1;
         }
-
-
         $link = 'http://www.api2apipro.live/' . 'rest_payments/add.json';
-
 // $httpSocket = new HttpSocket();
         $httpSocket = new HttpSocket();
-
         //  unset($this->request->data['address']);
-
         $response = $httpSocket->post($link, $this->request->data);
-//        pr($response); exit;
         $result = $response->body;
         $return = json_decode($result, TRUE);
-
         $return = $return['return'];
-//        pr($result); 
-//        echo count($return);
-//        exit;
         if (!count($return)) {
             $transactionMsg = '<div class="alert alert-error">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -195,18 +180,15 @@ class PaymentsController extends AppController {
             return $this->redirect($this->referer());
         }
 
-
-
         $alert = '<div class="alert alert-success"> ';
         $amount = $this->request->data['Transaction']['payable_amount'];
-// pr($result); exit;
+
         if ($return['result']['authenticated']) {
-// pr($this->request->data); exit;
-//  pr($response); exit;
+
             if ($return['result']['tresponse']['status']) {
                 $id = $this->request->data['Transaction']['id'];
                 $this->request->data['Transaction']['transaction_id'] = $id;
-//  pr($this->request->data['Transaction']); exit;
+
                 unset($return['Transaction']['id']);
                 unset($this->request->data['Transaction']['id']);
 //creatre transaction History 
@@ -226,7 +208,7 @@ class PaymentsController extends AppController {
                     $data = array('transaction_id' => $id, 'status' => 'paid');
                     $this->Transaction->save($data);
                 }
-// pr($temp);
+
                 $due = $this->getDue($id);
                 $credit = $this->getCredit($this->request->data['Transaction']['package_customer_id']);
                 $totalDue = $due + $credit;
@@ -252,7 +234,7 @@ class PaymentsController extends AppController {
                 if (strtolower($pc['PackageCustomer']['auto_r']) == 'yes') {
                     $data = $pc['PackageCustomer'];
                     $this->PackageCustomer->id = $data['id'];
-                    // pr($data);
+               
                     $r_from = date('Y-m-' . $data['recurring_date'], strtotime("+" . $data['r_duration'] . " months", strtotime($data['r_form'])));
 
                     $exp_date = $card['exp_date']['month'] . '/' . substr($card['exp_date']['year'], -2);
@@ -266,7 +248,7 @@ class PaymentsController extends AppController {
                         'cvv_code' => $card['cvv_code'],
                         'czip' => $card['zip_code']
                     );
-                    //  pr($data); exit;
+                   
                     $this->PackageCustomer->save($data);
                 }
             } else {
@@ -320,15 +302,11 @@ class PaymentsController extends AppController {
     }
 
     public function individual_auto_recurring($data) {
-//echo 'Here'; exit;
         foreach ($data as $key => $value):
             $data[$key] = trim($value);
         endforeach;
-//  pr($data); exit;
 //Get ID and Input amount from edit_customer page
         $cid = $data['cid'];
-// pr($this->request->data); exit;
-//pr($this->request->data['Transaction']);
         $this->layout = 'ajax';
         $this->request->data['card'] = $data;
 
@@ -343,7 +321,6 @@ class PaymentsController extends AppController {
         $msg = '<ul>';
 
         $link = 'http://www.api2apipro.live/' . 'rest_payments/edit.json';
-//echo $link; exit;
 
         $httpSocket = new HttpSocket();
 
@@ -361,15 +338,14 @@ class PaymentsController extends AppController {
         $result = $response->body;
         $return = json_decode($result, TRUE);
         $return = $return['return'];
-// pr($response);
-// exit;
+
         if ($return['result']['authenticated']) {
             if ($return['result']['tresponse']['status']) {
-//  echo 'here'; exit;
+
                 $transaction['status'] = 'success';
                 $id = $data['id'];
                 $transaction['transaction_id'] = $id;
-//  pr($transaction); exit;
+
 //creatre transaction History 
                 $this->Transaction->create();
                 $this->Transaction->save($return['Transaction']);
@@ -456,12 +432,12 @@ class PaymentsController extends AppController {
 // $sql = 'SELECT * FROM package_customers WHERE  LOWER(package_customers.auto_r) ="yes" AND package_customers.invoice_created = 0';
 //$pcs = $this->PackageCustomer->query($sql);
         $pcs = $this->PackageCustomer->find('all', array('conditions' => array('PackageCustomer.auto_r' => 'yes', 'PackageCustomer.invoice_created' => 0)));
-//  echo $this->PackageCustomer->getLastQuery();
-//    pr($pcs); exit;
+  
+//echo $this->packageCustomer->getLastQuery();
         $success = 0;
         $failure = 0;
         foreach ($pcs as $single) {
-//pr($single); exit;
+
             $pc = $single['PackageCustomer'];
             $duration = $pc['r_duration'];
             $rFrom = $pc['r_form'];
@@ -540,22 +516,21 @@ class PaymentsController extends AppController {
     function message() {
         
     }
-
+  
     function refundTransaction() {
-        pr($this->request->data);
-        exit;
         $this->loadModel('Ticket');
         $this->loadModel('Track');
         $loggedUser = $this->Auth->user();
 // Common setup for API credentials
         $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
-// $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
-        $merchantAuthentication->setName("42UHbr9Qa9B"); // live mode
-// $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
-        $merchantAuthentication->setTransactionKey("6468X36RkrKGm3k6"); // live mode
+ $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
+      //  $merchantAuthentication->setName("42UHbr9Qa9B"); // live mode
+ $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
+       // $merchantAuthentication->setTransactionKey("6468X36RkrKGm3k6"); // live mode
         $refId = 'ref' . time();
 // Create the payment data for a credit card
         $creditCard = new AnetAPI\CreditCardType();
+   
         $creditCard->setCardNumber($this->request->data['Transaction']['card_no']);
 //$creditCard->setCardNumber("0015");
         $dateObj = $this->request->data['Transaction']['exp_date'];
@@ -584,7 +559,7 @@ class PaymentsController extends AppController {
         $data4transaction['Transaction']['user_id'] = $loggedUser['id'];
         if ($response != null) {
             $tresponse = $response->getTransactionResponse();
-//pr($tresponse); exit;
+
             if (($tresponse != null) && ($tresponse->getResponseCode() == "1")) {
                 $data4transaction['Transaction']['paid_amount'] = $this->request->data['Transaction']['refund_amount'];
                 $data4transaction['Transaction']['package_customer_id'] = $this->request->data['Transaction']['cid'];
@@ -615,7 +590,7 @@ class PaymentsController extends AppController {
                         '</strong> </p> </div>';
 
                 $tdata['Ticket'] = array('content' => 'Refund failed for Null response', 'status' => 'solved');
-//  pr($tdata['Ticket']);exit;
+
                 $tickect = $this->Ticket->save($tdata['Ticket']); // Data save in Ticket
                 $trackData['Track'] = array(
                     'package_customer_id' => $data4transaction['Transaction']['package_customer_id'],
@@ -657,7 +632,7 @@ class PaymentsController extends AppController {
 //  echo "Refund Null response returned";
         }
         $this->loadModel('Transaction');
-//        pr($this->request->data); exit;
+   
         $data4transaction['Transaction']['pay_mode'] = 'refund';
         $this->Transaction->save($data4transaction);
         $this->Session->setFlash($msg);
@@ -673,7 +648,7 @@ class PaymentsController extends AppController {
         $this->loadModel('Transaction');
         $data1 = $this->Transaction->findById($id);
         $sql = "SELECT SUM(payable_amount) as paid FROM transactions WHERE transaction_id =" . $id;
-//              pr($sql); exit;  
+
         $data2 = $this->Transaction->query($sql);
         $payable = $data1['Transaction']['payable_amount'];
         $paid = $data2[0][0]['paid'];
@@ -700,7 +675,7 @@ class PaymentsController extends AppController {
         $id = $this->request->data['Transaction']['id'];
         $this->request->data['Transaction']['transaction_id'] = $id;
         unset($this->request->data['Transaction']['id']);
-//        pr($this->request->data['Transaction']); exit;
+
 //creatre transaction History 
         $this->Transaction->save($this->request->data['Transaction']);
         unset($this->request->data['Transaction']['transaction_id']);
@@ -715,7 +690,7 @@ class PaymentsController extends AppController {
             $data = array('transaction_id' => $id, 'status' => 'paid');
             $this->Transaction->save($data);
         }
-//  pr($this->request->data);
+
         $due = $this->getDue($id);
         $credit = $this->getCredit($this->request->data['Transaction']['package_customer_id']);
         $totalDue = $due + $credit;
@@ -768,7 +743,7 @@ class PaymentsController extends AppController {
         $this->request->data['Transaction']['transaction_id'] = $id;
         unset($this->request->data['Transaction']['id']);
 
-// pr($this->request->data['Transaction']); exit;
+
 //creatre transaction History 
         $this->Transaction->save($this->request->data['Transaction']);
         unset($this->request->data['Transaction']['transaction_id']);
@@ -783,7 +758,7 @@ class PaymentsController extends AppController {
             $data = array('transaction_id' => $id, 'status' => 'paid');
             $this->Transaction->save($data);
         }
-// pr($temp);
+
         $due = $this->getDue($id);
         $credit = $this->getCredit($this->request->data['Transaction']['package_customer_id']);
         $totalDue = $due + $credit;
@@ -905,7 +880,7 @@ class PaymentsController extends AppController {
         $this->request->data['Transaction']['transaction_id'] = $id;
         unset($this->request->data['Transaction']['id']);
 //creatre transaction History 
-//         pr($this->request->data['Transaction']); exit;
+
         $this->Transaction->save($this->request->data['Transaction']);
         unset($this->request->data['Transaction']['transaction_id']);
 
@@ -1001,7 +976,7 @@ class PaymentsController extends AppController {
         unset($this->request->data['Transaction']['id']);
 
 //creatre transaction History 
-// pr($this->request->data['Transaction']); exit;
+
         $this->Transaction->save($this->request->data['Transaction']);
         unset($this->request->data['Transaction']['transaction_id']);
         unset($this->request->data['Transaction']['created']);
@@ -1016,7 +991,7 @@ class PaymentsController extends AppController {
         $amount = $this->request->data['Transaction']['payable_amount'];
         unset($this->request->data['Transaction']['payable_amount']);
         $this->Transaction->id = $id;
-//         pr('here'); exit;
+
         $this->Transaction->saveField('status', $status);
 //        echo $this->Transaction->getLastQuery();
 //        exit;
