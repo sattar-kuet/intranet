@@ -1,10 +1,11 @@
 <?php
+
 App::uses('HttpSocket', 'Network/Http');
 require_once(APP . 'Vendor' . DS . 'class.upload.php');
 class PaymentsController extends AppController {
 
     var $layout = 'admin';
-    var $LivePayMode = 1;
+    var $LivePayMode = 0;
     public $components = array('Security', 'RequestHandler');
 
 // public $components = array('Auth');
@@ -13,6 +14,7 @@ class PaymentsController extends AppController {
         $this->set(compact('sidebar'));
         return true;
     }
+
     public function beforeFilter() {
         if (!$this->Auth->loggedIn()) {
             return $this->redirect('/admins/login');
@@ -356,7 +358,7 @@ class PaymentsController extends AppController {
                 $this->Transaction->saveField("status", $status);
 
                 $msg .='<li> Transaction successfull by auto recurring</li>';
-                $tdata['Ticket'] = array('content' => "Transaction successfull by auto recurring <br> <b>Amount : </b>$amount <br> <b> payment Mode: </b> Card", 'status' => 'solved');
+                $tdata['Ticket'] = array('content' => "Transaction successfull by auto recurring <br> <b>Amount : </b>$amount <br> <b> payment Mode: </b> Card", 'status' => 'open');
                 $tickect = $this->Ticket->create(); // Data save in Ticket
                 $tickect = $this->Ticket->save($tdata); // Data save in Ticket
                 $trackData['Track'] = array(
@@ -514,7 +516,6 @@ class PaymentsController extends AppController {
     function message() {
         
     }
-
   
     function refundTransaction() {
         $this->loadModel('Ticket');
@@ -1073,7 +1074,7 @@ class PaymentsController extends AppController {
         if ($status == "processing") {
             $this->auto_recurring_invoice();
             $this->auto_recurring_payment();
-            $this->redirect($this->referer() . 'done');
+            $this->redirect($this->referer() . '/done');
         }
 
         if ($status == 'done') {

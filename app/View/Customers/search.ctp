@@ -91,7 +91,7 @@
 
                                 <div class="col-md-3">
                                     <?php
-                                    $search = array("1" => "Customer", "2" => "Invoice No", "3" => "Transaction ID", '4' => 'Customer By Location',);
+                                    $search = array("1" => "Customer",  "2" => "Invoice No", "3" => "Transaction ID", '4' => 'Customer By Location',"5" => "Ticket ID");
 //                                                    pr($clicked); exit;
                                     echo $this->Form->input(
                                             'search', array(
@@ -179,6 +179,10 @@
 
     if ($clicked == 4) {
         echo $this->element('customerbyloaction', array('data' => $data, 'type' => $clicked,'param' =>$param));
+    }
+
+    if ($clicked == 5) {
+        echo $this->element('customerbyticketid', array('data' => $data, 'type' => $clicked,'param' =>$param));
     }
     ?>
 

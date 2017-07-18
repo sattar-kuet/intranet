@@ -155,6 +155,9 @@ class CustomersController extends AppController {
             } else if ($clicked == 3) {
                 $trxId = $param;
                 $data = $this->searchBytrxId($trxId, $clicked, $page);
+            } else if ($clicked == 5) {
+                $ticketId = $param;
+                $data = $this->searchByticketId($ticketId, $clicked, $page);
             } else {
                 $input = array();
                 $input['page'] = $page;
@@ -305,6 +308,16 @@ class CustomersController extends AppController {
             left join package_customers  pc on tr.package_customer_id =pc.id 
             where tr.trx_id = '$param'");
         return $trinfo;
+    }
+
+    function searchByticketId($param) {
+        $this->loadModel('PackageCustomer');
+        $this->loadModel('Track');
+        $ticketinfo = $this->Track->query("SELECT * 
+        FROM  tracks
+        INNER JOIN package_customers ON tracks.package_customer_id = package_customers.id
+        WHERE tracks.ticket_id = '$param'");      
+        return $ticketinfo;
     }
 
     function searchbyinvoice($data = array()) {
@@ -1248,14 +1261,14 @@ WHERE pc.id=$id");
         $this->Session->setFlash($msg);
 
         $data['Transaction'] = array(
-            'user_id'=> $id,
+            'user_id' => $id,
             'package_customer_id' => $this->request->data['NextTransaction']['package_customer_id'],
             'note' => $this->request->data['NextTransaction']['note'],
             'discount' => $this->request->data['NextTransaction']['discount'],
             'status' => 'open',
             'next_payment' => $pc_data['PackageCustomer']['exp_date'],
             'payable_amount' => $this->request->data['NextTransaction']['payable_amount']
-        );       
+        );
         $this->generateInvoice($data['Transaction']);
         return $this->redirect($this->referer());
     }
