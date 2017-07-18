@@ -16,12 +16,12 @@ class CustomersController extends AppController {
 
     public function beforeFilter() {
         parent::beforeFilter();
-        
-         if (!$this->Auth->loggedIn()) {
-            return $this->redirect( '/admins/login');
-          //  echo 'here'; exit; //(array('action' => 'deshboard'));
+
+        if (!$this->Auth->loggedIn()) {
+            return $this->redirect('/admins/login');
+            //  echo 'here'; exit; //(array('action' => 'deshboard'));
         }
-        
+
         $this->Auth->allow('');
         // database name must be picture, attachment
         $this->img_config = array(
@@ -118,7 +118,7 @@ class CustomersController extends AppController {
         $input = array();
         if ($this->request->is('post')) {
             $input = $this->request->data['PackageCustomer'];
-            
+
             $param = str_replace(":", '>>>', $input['param']); //':' cuases problem. Hence this is used to reformat url so that cakephp can recognize it is as parmeter.
 
             if ($input['search'] == 4) {
@@ -140,7 +140,7 @@ class CustomersController extends AppController {
         } else if ($clicked) {
             // remove ':' before passing
             $param = str_replace(">>>", ":", $param);
-          //  echo $param; exit;
+            //  echo $param; exit;
             if ($clicked == 4) {
                 $params = explode("#", $param);
 //                pr($params);
@@ -162,7 +162,6 @@ class CustomersController extends AppController {
                 $input['param'] = $param;
 //                pr($param); exit;
                 $data = $this->searchByParam($input);
-               
             }
         }
         $admin_messages = $this->message();
@@ -184,10 +183,10 @@ class CustomersController extends AppController {
         $data['package'] = array();
 
         if ($input['search'] == 1) {
-             
+
             $data = $this->getCustomerByParam($page, $param, 'cell');
-            
-            if (count($data['customer']) == 0 || empty($param)) {                      
+
+            if (count($data['customer']) == 0 || empty($param)) {
                 $data = $this->getCustomerByParam($page, $param, 'first_name');
             }
             if (count($data['customer']) == 0 || empty($param)) {
@@ -222,7 +221,7 @@ class CustomersController extends AppController {
     function getCustomerByParam($page = 1, $param, $field) {
 //        echo $param;
 //        exit;
-       
+
         $offset = --$page * $this->per_page;
         $param = str_replace(' ', '', $param);
 
@@ -345,7 +344,7 @@ class CustomersController extends AppController {
         if ($zip) {
             $condition .=" pc.zip= $zip AND";
         }
-       
+
         if (empty($state) && empty($city) && empty($zip)) {
             $Msg = '<div class="alert alert-error">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -359,7 +358,6 @@ class CustomersController extends AppController {
 
         $sql .=' WHERE ' . $condition . " GROUP BY pc.id LIMIT $offset,$this->per_page";
 // echo $sql; exit;
- 
 // pagination start
         $temp = $this->PackageCustomer->query("SELECT COUNT(pc.id) as total 
                 FROM package_customers pc
@@ -612,7 +610,7 @@ WHERE transaction_id = " . $statement['tr']['id']
         }
 
         $statusHistories = $this->StatusHistory->find('all', array('conditions' => array('StatusHistory.package_customer_id' => $pcid)));
-       
+
         $lastStatus = end($statusHistories);
 //Show default value for custome package
         $customer_info['PackageCustomer']['date'] = $lastStatus['StatusHistory']['date'];
@@ -636,8 +634,8 @@ WHERE transaction_id = " . $statement['tr']['id']
         $attachments = $this->Attachment->find('all', array('conditions' => array('Attachment.package_customer_id' => $id)));
         $status = $customer_info['PackageCustomer']['status'];
         $users = $this->User->find('list', array('order' => array('User.name' => 'ASC')));
-        
-        
+
+
 
         $this->set(compact('users', 'status', 'transactions', 'customer_info', 'c_acc_no', 'macstb', 'custom_package_duration', 'checkMark', 'statusHistories'));
 
@@ -667,9 +665,8 @@ WHERE transaction_id = " . $statement['tr']['id']
         $this->loadModel('Transaction');
         $invoices = $this->getOpenInvoice($pcid);
         $statements = $this->getStatements($pcid);
-       
+
 //Need this code
-        
 //       $data = $this->MacHistory->find('all', array('conditions' => array('package_customer_id' => $pcid)));
 //      
 //        $filteredData = array();
@@ -693,7 +690,7 @@ WHERE transaction_id = " . $statement['tr']['id']
 
 
 
-        $this->set(compact('filteredData','invoices', 'statements', 'packageList', 'psettings', 'ym', 'custom_package_charge', 'user', 'attachments'));
+        $this->set(compact('filteredData', 'invoices', 'statements', 'packageList', 'psettings', 'ym', 'custom_package_charge', 'user', 'attachments'));
     }
 
     function adjustmentMemo($id = null) {
@@ -1228,7 +1225,8 @@ WHERE pc.id=$id");
 
     function update_payment($id = null) {
         $this->loadModel('PackageCustomer');
-
+        $loggedUser = $this->Auth->user();
+        $id = $loggedUser['id'];
         $this->PackageCustomer->id = $this->request->data['NextTransaction']['package_customer_id'];
         $data = array();
         $data['PackageCustomer'] = array(
@@ -1250,14 +1248,14 @@ WHERE pc.id=$id");
         $this->Session->setFlash($msg);
 
         $data['Transaction'] = array(
+            'user_id'=> $id,
             'package_customer_id' => $this->request->data['NextTransaction']['package_customer_id'],
             'note' => $this->request->data['NextTransaction']['note'],
             'discount' => $this->request->data['NextTransaction']['discount'],
             'status' => 'open',
             'next_payment' => $pc_data['PackageCustomer']['exp_date'],
             'payable_amount' => $this->request->data['NextTransaction']['payable_amount']
-        );
-
+        );       
         $this->generateInvoice($data['Transaction']);
         return $this->redirect($this->referer());
     }
@@ -2064,12 +2062,10 @@ where LOWER(i.name) = 'remote problem' and approved = 0 and LOWER(pc.status)!= '
         }
         return $this->redirect($this->referer());
     }
-    
-    function knowledge(){
+
+    function knowledge() {
         
     }
-        
-        
 
 }
 

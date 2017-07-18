@@ -312,11 +312,7 @@ class AdminsController extends AppController {
         $this->loadModel('Role');
         if ($this->request->is('post')) {
             $loggedUser = $this->Auth->user();
-            $user = 0;
-            if (count($loggedUser)) {
-                $user = $loggedUser['id'];
-            }
-            $this->request->data['User']['user_id'] = $user;
+            $this->request->data['User']['user_id'] = $loggedUser['id'];
             $this->User->set($this->request->data);
             if ($this->User->validates()) {
                 $result = array();

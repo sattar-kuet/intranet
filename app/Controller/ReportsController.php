@@ -51,6 +51,7 @@ class ReportsController extends AppController {
             LEFT JOIN packages  ON packages.id = psettings.package_id 
             LEFT JOIN custom_packages  ON custom_packages.id = package_customers.custom_package_id 
             where $conditions GROUP BY status_histories.id  LIMIT $offset,$this->per_page";
+
         $data = $this->PackageCustomer->query($sql);
 
         $temp = $this->StatusHistory->query("SELECT COUNT(status_histories.id) as total FROM status_histories where $conditions");
@@ -67,6 +68,7 @@ class ReportsController extends AppController {
         $this->loadModel('PackageCustomer');
         $offset = --$page * $this->per_page;
 
+
         $conditions = " tr.status = 'success' AND ";
         if ($pay_mode != '#') {
             $conditions .=" tr.pay_mode = '" . $pay_mode . "' AND ";
@@ -74,7 +76,6 @@ class ReportsController extends AppController {
 
         if ($start != '#') {
             if ($start == $end) {
-                $nextday = date('Y-m-d', strtotime($end . "+1 days"));
                 $conditions .="tr.created >=' " . $start . " 00:00:00' AND  tr.created < '" . $end . " 23:59:59' AND ";
             } else {
                 $conditions .=" tr.created >='" . $start . " 00:00:00' AND  tr.created <='" . $end . " 23:59:59' AND ";
@@ -171,21 +172,20 @@ class ReportsController extends AppController {
         $this->set(compact('data'));
     }
 
-    function allinvoice_print_preview($page = 1) {
+    function allinvoice_print_preview($page = 1, $start, $end) {
         $this->loadModel('PackageCustomer');
-        $expiredate = trim(date('Y-m-d', strtotime("+25 days")));
+        //$expiredate = trim(date('Y-m-d', strtotime("+25 days")));
         $offset = --$page * $this->per_page;
-
         $packagecustomers = $this->PackageCustomer->query("SELECT * FROM transactions tr           
             left join package_customers pc on pc.id = tr.package_customer_id
             left join psettings ps on ps.id = pc.psetting_id
             LEFT JOIN packages p ON p.id = ps.package_id 
-            WHERE tr.next_payment>='" . date('Y-m-d') . "' AND tr.next_payment<='" . $expiredate . "' AND tr.next_payment != '0000-00-00' AND tr.status='open'"
+            WHERE tr.next_payment>='" . date('Y-m-d') . "' AND tr.next_payment<='" . $end . "' AND tr.next_payment != '0000-00-00' AND tr.status='open'"
                 . "GROUP BY pc.id limit $offset,$this->per_page");
 
         $temp = $this->PackageCustomer->query("SELECT COUNT(tr.id) as total FROM transactions tr           
             left join package_customers pc on pc.id = tr.package_customer_id            
-            WHERE tr.next_payment>='" . date('Y-m-d') . "' AND tr.next_payment<='" . $expiredate . "' AND tr.next_payment != '0000-00-00' AND tr.status='open'"
+            WHERE tr.next_payment>='" . date('Y-m-d') . "' AND tr.next_payment<='" . $end . "' AND tr.next_payment != '0000-00-00' AND tr.status='open'"
                 . "GROUP BY pc.id");
         $total_page = 0;
         if (count($temp)) {
@@ -203,7 +203,6 @@ class ReportsController extends AppController {
         $return['packagecustomers'] = $packagecustomers;
 
         $return['total_page'] = $total_page;
-
         return $return;
     }
 
@@ -228,7 +227,6 @@ class ReportsController extends AppController {
         $offset = --$page * $this->per_page;
         $sql = "SELECT * FROM transactions tr LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id "
                 . "WHERE tr.next_payment >= '" . $start . "' AND  tr.next_payment <='" . $end . "' AND tr.status = 'paid' LIMIT $offset,$this->per_page";
-
         $paid = $this->Transaction->query($sql);
 
         $sql = "SELECT count(tr.id) as total FROM transactions tr LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id "
@@ -246,11 +244,14 @@ class ReportsController extends AppController {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
         $offset = --$page * $this->per_page;
+
+
         $packagecustomers = $this->PackageCustomer->query("SELECT * FROM transactions  tr            
             left join package_customers pc on pc.id = tr.package_customer_id
             left join psettings ps on ps.id = pc.psetting_id
             LEFT JOIN packages p ON p.id = ps.package_id 
             WHERE  pc.printed = 1 LIMIT $offset,$this->per_page");
+
         $return['packagecustomers'] = $packagecustomers;
 
         $sql = "SELECT count(tr.id) as total FROM transactions tr left join package_customers pc on pc.id = tr.package_customer_id
@@ -359,7 +360,6 @@ class ReportsController extends AppController {
         $offset = --$page * $this->per_page;
         $sql = "SELECT * FROM transactions tr LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id "
                 . "WHERE tr.next_payment >= '" . $start . "' AND  tr.next_payment <='" . $end . "' AND tr.status = 'open' LIMIT $offset,$this->per_page ";
-
         $open = $this->Transaction->query($sql);
         $return['transactions'] = $open;
 
@@ -376,15 +376,14 @@ class ReportsController extends AppController {
     function overdueInvoice($page, $start, $end) {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
-        $todaydate = date('Y-m-d');
+        //$todaydate = date('Y-m-d');
         $offset = --$page * $this->per_page;
         $sql = "SELECT * FROM transactions tr LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id "
-                . "WHERE tr.status = 'open' and tr.next_payment < '$todaydate' LIMIT $offset,$this->per_page";
+                . "WHERE tr.status = 'open' and tr.next_payment >= '$start' and tr.next_payment <= '$end' LIMIT $offset,$this->per_page";
+        
         $due = $this->Transaction->query($sql);
-
-
         $sql = "SELECT COUNT(tr.id) as total FROM transactions tr LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id "
-                . "WHERE tr.status = 'open' and tr.next_payment < '$todaydate'";
+                . "WHERE tr.status = 'open' and tr.next_payment >= '$start' and tr.next_payment <= '$end'";
         $temp = $this->Transaction->query($sql);
         $total = $temp[0][0]['total'];
         $total_page = ceil($total / $this->per_page);
@@ -597,7 +596,6 @@ class ReportsController extends AppController {
                         left JOIN issues i ON tr.issue_id = i.id
                         left join package_customers pc on tr.package_customer_id = pc.id
                          WHERE $conditions order by pc.id desc limit $offset,$this->per_page";
-
         $tickets = $this->Track->query($sql);
         $filteredTicket = array();
         $unique = array();
@@ -893,6 +891,7 @@ class ReportsController extends AppController {
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
         $loggedUser = $this->Auth->user();
+      
         $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
                     left join comments c on pc.id = c.package_customer_id
                     left join users u on c.user_id = u.id
@@ -1058,9 +1057,6 @@ class ReportsController extends AppController {
     }
 
     function all($action = null, $page = 1, $start = null, $end = null, $issue = '#', $agent = '#', $status = '#', $pay_mode = '#') {
-
-        //function all($action = null, $page = 1, $start = null, $end = null, $issue = null, $agent = null, $status = null) {
-
         $this->loadModel('Issue');
         $this->loadModel('User');
         $this->loadModel('Role');
@@ -1074,12 +1070,14 @@ class ReportsController extends AppController {
             if (!isset($start)) {
                 $start = '1970-05-01';
                 $end = date('Y-m-d');
+               
                 $dateRange = json_decode($this->request->data['Role']['daterangeonly']);
                 if (count($dateRange)) {
                     $start = $dateRange->start;
                     $end = $dateRange->end;
                 }
             }
+
             if ($action == 'calllog') {
                 $issue = $this->request->data['Role']['issue_id'];
                 $agent = $this->request->data['Role']['user_id'];
@@ -1094,6 +1092,13 @@ class ReportsController extends AppController {
                 if (empty($status)) {
                     $status = '#';
                 }
+                
+                 $dateRange = json_decode($this->request->data['Role']['daterangecalllog']);
+                if (count($dateRange)) {
+                    $start = $dateRange->start;
+                    $end = $dateRange->end;
+                }
+            
                 $this->redirect("/reports/all/$action/1/$start/$end/$issue/$agent/$status");
             }
 
@@ -1102,8 +1107,37 @@ class ReportsController extends AppController {
                 if (empty($pay_mode)) {
                     $pay_mode = '#';
                 }
+
+                if (!isset($start)) {
+                    $start = '1970-05-01';
+                    $end = date('Y-m-d');                   
+                } else {
+                    $dateRange = json_decode($this->request->data['Role']['daterangepaymode']);
+                    if (count($dateRange)) {
+                        $start = $dateRange->start;
+                        $end = $dateRange->end;
+                    }
+                }
+
                 $this->redirect("/reports/all/$action/1/$start/$end/$pay_mode");
             }
+            
+             if ($action == 'overdueinvoice') {
+                 $start = '1970-05-01';
+                 $end = date('Y-m-d');
+                 $dateRange = json_decode($this->request->data['Role']['daterangeonly']);
+                 if (count($dateRange)){
+                     $start = $dateRange->start;
+                     $end = $dateRange->end;
+                 }                                             
+                 $this->redirect("/reports/all/$action/1/$start/$end");
+            }         
+
+            if ($action == 'allinvoice_print_preview') {
+                $start = date('Y-m-d');
+                $end = trim(date('Y-m-d', strtotime("+25 days")));                
+                 $this->redirect("/reports/all/$action/1/$start/$end");
+            }           
             $this->redirect("/reports/all/$action/1/$start/$end");
         }
 
@@ -1111,6 +1145,7 @@ class ReportsController extends AppController {
             $data = $this->newcustomers($page, $start, $end);
         }
         if ($action == 'paymenthistory') {
+
             $data = $this->payment_history($page, $start, $end, $issue); // Here $issue variable is overwrite by $paymode
         }
         if ($action == 'cancel') {
@@ -1128,7 +1163,6 @@ class ReportsController extends AppController {
                 $start = '1970-05-01';
                 $end = date('Y-m-d');
                 $dateRange = json_decode($this->request->data['Role']['daterangeonly']);
-
                 if (count($dateRange)) {
                     $start = $dateRange->start;
                     $end = $dateRange->end;
@@ -1150,7 +1184,7 @@ class ReportsController extends AppController {
         }
 
         if ($action == 'allinvoice_print_preview') {
-            $data = $this->allinvoice_print_preview($page);
+            $data = $this->allinvoice_print_preview($page,$start,$end);
         }
 
         if ($action == 'allinvoice') {
@@ -1270,7 +1304,7 @@ class ReportsController extends AppController {
         }
 
         $sql .= " ORDER BY transactions.id desc" . " LIMIT " . $offset . "," . $this->per_page;
-
+//    echo $sql; exit;
         $allData = $this->Transaction->query($sql);
 
 
@@ -1370,6 +1404,7 @@ class ReportsController extends AppController {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
         $offset = --$page * $this->per_page;
+
         $data = $this->Ticket->query("SELECT * FROM tickets t
                     left JOIN tracks tr ON t.id = tr.ticket_id
                     left join package_customers pc on tr.package_customer_id = pc.id
@@ -1377,6 +1412,7 @@ class ReportsController extends AppController {
                     LEFT JOIN custom_packages ON custom_packages.id = pc.custom_package_id
                     WHERE t.auto_recurring != 0 and pc.r_form >='" . $start . "' AND pc.r_form <='" . $end .
                 "' GROUP BY t.id" . " LIMIT " . $offset . "," . $this->per_page);
+
         $sql = "SELECT SUM(t.auto_recurring) as total FROM tickets t
                     left JOIN tracks tr ON t.id = tr.ticket_id
                     left join package_customers pc on tr.package_customer_id = pc.id 
@@ -1389,6 +1425,8 @@ class ReportsController extends AppController {
                     left JOIN tracks tr ON t.id = tr.ticket_id
                     left join package_customers pc on tr.package_customer_id = pc.id
                     WHERE t.auto_recurring != 0 and pc.r_form >='" . $start . "' AND pc.r_form <='" . $end . "'";
+
+
         $temp = $this->Ticket->query($sql);
         $totalCustomer = $temp[0][0]['total'];
 
@@ -1422,8 +1460,6 @@ class ReportsController extends AppController {
                     AND  transactions.status =  'success' AND CAST(transactions.created as DATE) >='" .
                 $start . "' AND CAST(transactions.created as DATE) <='" . $end .
                 "' order by transactions.id desc" . " LIMIT " . $offset . "," . $this->per_page;
-        
-//        echo $sql; exit;
         $allData = $this->PackageCustomer->query($sql);
 
         $sql = "SELECT SUM(payable_amount) as total FROM transactions 
@@ -1454,7 +1490,7 @@ class ReportsController extends AppController {
         return $return;
     }
 
-    function failedpayment($page, $start, $end) { // Payments success
+    function failedpayment($page, $start, $end) { // Payments failed
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
@@ -1469,6 +1505,7 @@ class ReportsController extends AppController {
                     AND  transactions.status =  'error' AND CAST(transactions.created as DATE) >='" .
                 $start . "' AND CAST(transactions.created as DATE) <='" . $end .
                 "' order by transactions.id desc" . " LIMIT " . $offset . "," . $this->per_page;
+
         $allData = $this->PackageCustomer->query($sql);
         $sql = "SELECT SUM(payable_amount) as total FROM transactions 
                 WHERE transactions.auto_recurring = 0 AND transactions.status =  'error' AND CAST(transactions.created as DATE) >='" .

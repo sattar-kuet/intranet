@@ -10,7 +10,7 @@
                 </div>
                 <!-- END SIDEBAR TOGGLER BUTTON -->
             </li>  
-         
+
 
             <li 
             <?php
@@ -29,7 +29,7 @@
                 </a>
             </li>
 
-                           
+
             <li 
             <?php
             $tickets = array('Ticketscreate', 'Ticketsmanage', 'Ticketsassigned_to_me', 'Ticketsforwarded_by', 'Ticketssolved_ticket', 'Ticketsin_progress');
@@ -111,7 +111,7 @@
 
 
 
-            
+
             <li 
             <?php
             $services = array('Customersregistration', 'Customersshipment_installation', 'Customersedit_registration', 'Customersfollowup', 'Customersschedule_done');
@@ -194,15 +194,7 @@
 
                     <li <?php if ($this->name . '' . $this->action == 'Customersmoving'): ?> class="active"  <?php endif; ?>  >
                         <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'moving')) ?>"> <i class="fa icon-like"></i> Moving</a>
-                    </li>
-
-                    <li <?php if ($this->name . '' . $this->action == 'Customerswire_problem'): ?> class="active" <?php endif; ?>>
-                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'wire_problem')) ?>"> <i class="fa icon-like"></i> Wire problem</a>
-                    </li>
-
-                    <li <?php if ($this->name . '' . $this->action == 'Customersremote_problem'): ?> class="active" <?php endif; ?> >
-                        <a href="<?php echo Router::url(array('controller' => 'customers', 'action' => 'remote_problem')) ?>"> <i class="fa icon-like"></i> Remote Problem</a>
-                    </li>
+                    </li>  
                 </ul>
             </li> 
 
