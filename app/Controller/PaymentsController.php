@@ -2,6 +2,7 @@
 
 App::uses('HttpSocket', 'Network/Http');
 require_once(APP . 'Vendor' . DS . 'class.upload.php');
+
 class PaymentsController extends AppController {
 
     var $layout = 'admin';
@@ -218,9 +219,16 @@ class PaymentsController extends AppController {
                 unset($this->request->data['Transaction']['payable_amount']);
                 $this->Transaction->id = $id;
                 $this->Transaction->saveField("status", $status);
-                $transactionID = $transactionData['Transaction']['id'];
+                // $transactionID = $transactionData['Transaction']['id'];
                 $msg .='<li> Transaction Successfull</li>';
-                $tdata['Ticket'] = array('content' => "Transaction successfull <br> <b>Amount : </b>$amount <br> <b> Payment Mode: </b> Card<br><b>Transaction ID:</b>$transactionID");
+                $ticket_content = "Transaction successfull <br>."
+                        . " <b>Amount : </b>$amount <br>"
+                        . " <b> Payment Mode: </b> Card <br>"
+                        . " <b>Payment Date: </b> " . date('m-d-Y')
+                        . " <b>Payment of: </b> #" . $id;
+                // . " <b>Transaction ID:</b>".$transactionID;
+
+                $tdata['Ticket'] = array('content' => $ticket_content);
                 $tickect = $this->Ticket->save($tdata); // Data save in Ticket
                 $trackData['Track'] = array(
                     'package_customer_id' => $cid,
@@ -234,7 +242,7 @@ class PaymentsController extends AppController {
                 if (strtolower($pc['PackageCustomer']['auto_r']) == 'yes') {
                     $data = $pc['PackageCustomer'];
                     $this->PackageCustomer->id = $data['id'];
-               
+
                     $r_from = date('Y-m-' . $data['recurring_date'], strtotime("+" . $data['r_duration'] . " months", strtotime($data['r_form'])));
 
                     $exp_date = $card['exp_date']['month'] . '/' . substr($card['exp_date']['year'], -2);
@@ -248,7 +256,7 @@ class PaymentsController extends AppController {
                         'cvv_code' => $card['cvv_code'],
                         'czip' => $card['zip_code']
                     );
-                   
+
                     $this->PackageCustomer->save($data);
                 }
             } else {
@@ -358,7 +366,13 @@ class PaymentsController extends AppController {
                 $this->Transaction->saveField("status", $status);
 
                 $msg .='<li> Transaction successfull by auto recurring</li>';
-                $tdata['Ticket'] = array('content' => "Transaction successfull by auto recurring <br> <b>Amount : </b>$amount <br> <b> payment Mode: </b> Card", 'status' => 'open');
+                $ticket_content = "Transaction successfull by auto recurring <br>."
+                        . " <b>Amount : </b>$amount <br>"
+                        . " <b> payment Mode: </b> Card <br>"
+                        . " <b>Payment Date: </b> " . date('m-d-Y')
+                        . " <b>Payment of: </b> #" . $id;
+                // . " <b>Transaction ID:</b>".$transactionID;
+                $tdata['Ticket'] = array('content' => $ticket_content, 'status' => 'open');
                 $tickect = $this->Ticket->create(); // Data save in Ticket
                 $tickect = $this->Ticket->save($tdata); // Data save in Ticket
                 $trackData['Track'] = array(
@@ -432,7 +446,7 @@ class PaymentsController extends AppController {
 // $sql = 'SELECT * FROM package_customers WHERE  LOWER(package_customers.auto_r) ="yes" AND package_customers.invoice_created = 0';
 //$pcs = $this->PackageCustomer->query($sql);
         $pcs = $this->PackageCustomer->find('all', array('conditions' => array('PackageCustomer.auto_r' => 'yes', 'PackageCustomer.invoice_created' => 0)));
-  
+
 //echo $this->packageCustomer->getLastQuery();
         $success = 0;
         $failure = 0;
@@ -516,21 +530,21 @@ class PaymentsController extends AppController {
     function message() {
         
     }
-  
+
     function refundTransaction() {
         $this->loadModel('Ticket');
         $this->loadModel('Track');
         $loggedUser = $this->Auth->user();
 // Common setup for API credentials
         $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
- $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
-      //  $merchantAuthentication->setName("42UHbr9Qa9B"); // live mode
- $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
-       // $merchantAuthentication->setTransactionKey("6468X36RkrKGm3k6"); // live mode
+        $merchantAuthentication->setName("95x9PuD6b2"); // testing mode
+        //  $merchantAuthentication->setName("42UHbr9Qa9B"); // live mode
+        $merchantAuthentication->setTransactionKey("547z56Vcbs3Nz9R9");  // testing mode
+        // $merchantAuthentication->setTransactionKey("6468X36RkrKGm3k6"); // live mode
         $refId = 'ref' . time();
 // Create the payment data for a credit card
         $creditCard = new AnetAPI\CreditCardType();
-   
+
         $creditCard->setCardNumber($this->request->data['Transaction']['card_no']);
 //$creditCard->setCardNumber("0015");
         $dateObj = $this->request->data['Transaction']['exp_date'];
@@ -632,7 +646,7 @@ class PaymentsController extends AppController {
 //  echo "Refund Null response returned";
         }
         $this->loadModel('Transaction');
-   
+
         $data4transaction['Transaction']['pay_mode'] = 'refund';
         $this->Transaction->save($data4transaction);
         $this->Session->setFlash($msg);
@@ -704,7 +718,12 @@ class PaymentsController extends AppController {
         $this->request->data['Transaction']['status'] = $status;
         $this->Transaction->save($this->request->data['Transaction']);
 // generate Ticket
-        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment mode :</b> Check", 'status' => 'open', 'payment_process' => '2');
+        $ticket_content = "Transaction successfull <br>."
+                . " <b>Amount : </b>$amount <br>"
+                . " <b> payment Mode: </b> Cheque <br>"
+                . " <b>Payment Date: </b> " . $this->request->data['Transaction']['created']
+                . " <b>Payment of: </b> #" . $id;
+        $tdata['Ticket'] = array('content' => $ticket_content, 'payment_process' => '2');
         $tickect = $this->Ticket->save($tdata); // Data save in Ticket
 
         $trackData['Track'] = array(
@@ -772,7 +791,12 @@ class PaymentsController extends AppController {
         $this->request->data['Transaction']['status'] = $status;
         $this->Transaction->save($this->request->data['Transaction']);
 // generate Ticket
-        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment mode: </b> Money Order", 'status' => 'open', 'payment_process' => '2');
+        $ticket_content = "Transaction successfull<br>."
+                . " <b>Amount : </b>$amount <br>"
+                . " <b> payment Mode: </b> Money Order <br>"
+                . " <b>Payment Date: </b> " . $this->request->data['Transaction']['created']
+                . " <b>Payment of: </b> #" . $id;
+        $tdata['Ticket'] = array('content' => $ticket_content, 'status' => 'open', 'payment_process' => '2');
         $tickect = $this->Ticket->save($tdata); // Data save in Ticket
 
         $trackData['Track'] = array(
@@ -845,7 +869,12 @@ class PaymentsController extends AppController {
         $this->Transaction->save($this->request->data['Transaction']);
 
 // generate Ticket
-        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment Mode : </b> Online Bill", 'status' => 'open', 'payment_process' => '2');
+        $ticket_content = "Transaction successfull <br>."
+                . " <b>Amount : </b>$amount <br>"
+                . " <b> payment Mode: </b> Online Bill <br>"
+                . " <b>Payment Date: </b> " . $this->request->data['Transaction']['created']
+                . " <b>Payment of: </b> #" . $id;
+        $tdata['Ticket'] = array('content' => $ticket_content, 'status' => 'open', 'payment_process' => '2');
         $tickect = $this->Ticket->save($tdata); // Data save in Ticket
 
         $trackData['Track'] = array(
@@ -909,7 +938,12 @@ class PaymentsController extends AppController {
         $this->request->data['Transaction']['status'] = $status;
         $this->Transaction->save($this->request->data['Transaction']);
 // generate Ticket
-        $tdata['Ticket'] = array('content' => "Transaction successfull<br> <b> Amount : </b> $amount <br> <b> Payment Mode :</b> Cash", 'status' => 'open', 'payment_process' => '2');
+        $ticket_content = "Transaction successfull by auto recurring <br>."
+                . " <b>Amount : </b>$amount <br>"
+                . " <b>Payment Mode: </b> Cash <br>"
+                . " <b>Payment Date: </b> " . $this->request->data['Transaction']['created']
+                . " <b>Payment of: </b> #" . $id;
+        $tdata['Ticket'] = array('content' => $ticket_content, 'payment_process' => '2');
         $tickect = $this->Ticket->save($tdata); // Data save in Ticket
 
         $trackData['Track'] = array(
@@ -996,7 +1030,12 @@ class PaymentsController extends AppController {
 //        echo $this->Transaction->getLastQuery();
 //        exit;
 // generate Ticket
-        $tdata['Ticket'] = array('content' => "This is paid invoice.Paid invoice record saved successfully<br> <b> Amount : </b> $amount <br> <b> Payment mode :</b> Card", 'status' => 'solved');
+        $ticket_content = "Transaction successfull<br>."
+                . " <b>Amount : </b>$amount <br>"
+                . " <b>Payment Mode: </b> Card(Payment date was editable) <br>"
+                . " <b>Payment Date: </b> " . $this->request->data['Transaction']['created']
+                . " <b>Payment of: </b> #" . $id;
+        $tdata['Ticket'] = array('content' => $ticket_content, 'status' => 'solved');
         $tickect = $this->Ticket->save($tdata); // Data save in Ticket
 
         $trackData['Track'] = array(
