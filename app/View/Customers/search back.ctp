@@ -91,7 +91,7 @@
 
                                 <div class="col-md-3">
                                     <?php
-                                    $search = array("1" => "Customer","5" => "Ticket ID",  "2" => "Invoice No", "3" => "Transaction ID", '4' => 'Customer By Location');
+                                    $search = array("1" => "Customer",  "2" => "Invoice No", "3" => "Transaction ID", '4' => 'Customer By Location',"5" => "Ticket ID");
 //                                                    pr($clicked); exit;
                                     echo $this->Form->input(
                                             'search', array(

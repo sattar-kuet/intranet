@@ -638,20 +638,18 @@ class TicketsController extends AppController {
         $this->loadModel('Role');
         $loggedUser = $this->Auth->user();
         $offset = --$page * $this->per_page;
-//        pr($loggedUser['id']); exit;
         $tickets = $this->Ticket->query("SELECT * 
-                                        FROM tickets t
-                                        LEFT JOIN tracks tr ON tr.ticket_id = t.id
-                                        left JOIN issues i ON tr.issue_id = i.id
-                                        left join users fb on tr.forwarded_by = fb.id
-                                        left join users sb on tr.solved_by = sb.id
-                                        left join users usb on tr.unsolved_by = usb.id
-                                        left JOIN roles fd ON tr.role_id = fd.id
-                                        left JOIN users fi ON tr.user_id = fi.id
-                                        left join package_customers pc on tr.package_customer_id = pc.id
-                                        WHERE tr.ticket_id IN (SELECT ticket_id from tracks  tr where  tr.user_id  = " .
-                $loggedUser['id'] . ")" . " ORDER BY tr.id DESC" . " LIMIT " . $offset . "," . $this->per_page);
-
+        FROM tickets t
+        LEFT JOIN tracks tr ON tr.ticket_id = t.id
+        left JOIN issues i ON tr.issue_id = i.id
+        left join users fb on tr.forwarded_by = fb.id
+        left join users sb on tr.solved_by = sb.id
+        left join users usb on tr.unsolved_by = usb.id
+        left JOIN roles fd ON tr.role_id = fd.id
+        left JOIN users fi ON tr.user_id = fi.id
+        left join package_customers pc on tr.package_customer_id = pc.id
+        WHERE tr.ticket_id IN (SELECT ticket_id from tracks  tr where  tr.user_id  = " .
+        $loggedUser['id'] . ")" . " ORDER BY tr.id DESC" . " LIMIT " . $offset . "," . $this->per_page);
         $temp = $this->Ticket->query("SELECT COUNT( DISTINCT tr.ticket_id ) AS total FROM tracks tr WHERE tr.user_id = " . $loggedUser['id']);
 
         $total = $temp[0][0]['total'];

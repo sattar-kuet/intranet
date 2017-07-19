@@ -310,16 +310,6 @@ class CustomersController extends AppController {
         return $trinfo;
     }
 
-    function searchByticketId($param) {
-        $this->loadModel('PackageCustomer');
-        $this->loadModel('Track');
-        $ticketinfo = $this->Track->query("SELECT * 
-        FROM  tracks
-        INNER JOIN package_customers ON tracks.package_customer_id = package_customers.id
-        WHERE tracks.ticket_id = '$param'");      
-        return $ticketinfo;
-    }
-
     function searchbyinvoice($data = array()) {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
@@ -647,8 +637,6 @@ WHERE transaction_id = " . $statement['tr']['id']
         $attachments = $this->Attachment->find('all', array('conditions' => array('Attachment.package_customer_id' => $id)));
         $status = $customer_info['PackageCustomer']['status'];
         $users = $this->User->find('list', array('order' => array('User.name' => 'ASC')));
-
-
 
         $this->set(compact('users', 'status', 'transactions', 'customer_info', 'c_acc_no', 'macstb', 'custom_package_duration', 'checkMark', 'statusHistories'));
 
@@ -2078,6 +2066,49 @@ where LOWER(i.name) = 'remote problem' and approved = 0 and LOWER(pc.status)!= '
 
     function knowledge() {
         
+    }
+
+    function searchByticketId($ticketId, $param) {
+        $this->loadModel('Ticket');
+        $this->loadModel('User');
+        $this->loadModel('Role');
+        //fb means forwarded_by
+        //fd means forwarded department
+        //fi means who will perform this task
+        //sb means who will solved this task
+        //usb means who will unresolved this task
+        $tickets = $this->Ticket->query("SELECT * FROM tickets t
+        LEFT JOIN tracks tr ON tr.ticket_id = t.id
+        left JOIN issues i ON tr.issue_id = i.id
+        left join users fb on tr.forwarded_by = fb.id
+        left join users sb on tr.solved_by = sb.id
+        left join users usb on tr.unsolved_by = usb.id
+        left JOIN roles fd ON tr.role_id = fd.id
+        left JOIN users fi ON tr.user_id = fi.id
+        left join package_customers pc on tr.package_customer_id = pc.id
+        WHERE tr.ticket_id IN (SELECT ticket_id from tracks  tr where  tr.ticket_id  = $ticketId)");
+        $filteredTicket = array();
+        $unique = array();
+        $index = 0;
+        foreach ($tickets as $key => $ticket) {
+            $t = $ticket['t']['id'];
+            if (isset($unique[$t])) {
+                $temp = array('tr' => $ticket['tr'], 'sb' => $ticket['sb'], 'usb' => $ticket['usb'], 'fb' => $ticket['fb'], 'fd' => $ticket['fd'], 'fi' => $ticket['fi'], 'i' => $ticket['i'], 'pc' => $ticket['pc']);
+                $filteredTicket[$index]['history'][] = $temp;
+            } else {
+                if ($key != 0)
+                    $index++;
+                $unique[$t] = 'set';
+                $filteredTicket[$index]['ticket'] = $ticket['t'];
+                $temp = array('tr' => $ticket['tr'], 'sb' => $ticket['sb'], 'usb' => $ticket['usb'], 'fb' => $ticket['fb'], 'fd' => $ticket['fd'], 'fi' => $ticket['fi'], 'i' => $ticket['i'], 'pc' => $ticket['pc']);
+                $filteredTicket[$index]['history'][] = $temp;
+            }
+        }
+        $data = $filteredTicket;
+        $users = $this->User->find('list', array('fields' => array('id', 'name',), 'order' => array('User.name' => 'ASC')));
+        $roles = $this->Role->find('list', array('fields' => array('id', 'name',), 'order' => array('Role.name' => 'ASC')));
+        $this->set(compact('roles', 'users'));
+        return $data;
     }
 
 }
