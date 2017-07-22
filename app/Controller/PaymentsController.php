@@ -6,7 +6,7 @@ require_once(APP . 'Vendor' . DS . 'class.upload.php');
 class PaymentsController extends AppController {
 
     var $layout = 'admin';
-    var $LivePayMode = 0;
+    var $LivePayMode = 0; //zero means test mode
     public $components = array('Security', 'RequestHandler');
 
 // public $components = array('Auth');
@@ -225,7 +225,7 @@ class PaymentsController extends AppController {
                         . " <b>Amount : </b>$amount <br>"
                         . " <b> Payment Mode: </b> Card <br>"
                         . " <b>Payment Date: </b> " . date('m-d-Y')
-                        . " <b>Payment of: </b> #" . $id;
+                        . "  <br> <b>Payment of: </b> #" . $id;
                 // . " <b>Transaction ID:</b>".$transactionID;
 
                 $tdata['Ticket'] = array('content' => $ticket_content);
@@ -370,7 +370,7 @@ class PaymentsController extends AppController {
                         . " <b>Amount : </b>$amount <br>"
                         . " <b> payment Mode: </b> Card <br>"
                         . " <b>Payment Date: </b> " . date('m-d-Y')
-                        . " <b>Payment of: </b> #" . $id;
+                        . "  <br> <b>Payment of: </b> #" . $id;
                 // . " <b>Transaction ID:</b>".$transactionID;
                 $tdata['Ticket'] = array('content' => $ticket_content, 'status' => 'open');
                 $tickect = $this->Ticket->create(); // Data save in Ticket
@@ -672,7 +672,7 @@ class PaymentsController extends AppController {
     }
 
     public function individual_transaction_by_check() {
-        $this->request->data['Transaction']['created'] = $this->getFormatedDate($this->request->data['Transaction']['created_check']) . ' 00:00:00';
+        $transactionDate = $this->request->data['Transaction']['created'] = $this->getFormatedDate($this->request->data['Transaction']['created_check']) . ' 00:00:00';
         $this->loadModel('Transaction');
         $this->loadModel('Ticket');
         $this->loadModel('Track');
@@ -718,11 +718,13 @@ class PaymentsController extends AppController {
         $this->request->data['Transaction']['status'] = $status;
         $this->Transaction->save($this->request->data['Transaction']);
 // generate Ticket
-        $ticket_content = "Transaction successfull <br>."
-                . " <b>Amount : </b>$amount <br>"
-                . " <b> payment Mode: </b> Cheque <br>"
-                . " <b>Payment Date: </b> " . $this->request->data['Transaction']['created']
-                . " <b>Payment of: </b> #" . $id;
+       
+        $dt = date('m-d-Y', strtotime($transactionDate));
+        $ticket_content = "Transaction successfull by cheque <br>"
+                . " <b>Amount: </b>$amount <br>"
+                . " <b>payment Mode: </b> Cheque <br>"
+                . " <b>Payment Date: </b> " . $dt
+                . "  <br> <b>Payment of: </b> #" . $id;
         $tdata['Ticket'] = array('content' => $ticket_content, 'payment_process' => '2');
         $tickect = $this->Ticket->save($tdata); // Data save in Ticket
 
@@ -791,11 +793,13 @@ class PaymentsController extends AppController {
         $this->request->data['Transaction']['status'] = $status;
         $this->Transaction->save($this->request->data['Transaction']);
 // generate Ticket
-        $ticket_content = "Transaction successfull<br>."
+        $date = $this->request->data['Transaction']['created'];
+        $dt = date('m-d-Y', strtotime($date));
+        $ticket_content = "Transaction successfull by money order<br>"
                 . " <b>Amount : </b>$amount <br>"
                 . " <b> payment Mode: </b> Money Order <br>"
-                . " <b>Payment Date: </b> " . $this->request->data['Transaction']['created']
-                . " <b>Payment of: </b> #" . $id;
+                . " <b>Payment Date: </b> " . $dt
+                . "  <br> <b>Payment of: </b> #" . $id;
         $tdata['Ticket'] = array('content' => $ticket_content, 'status' => 'open', 'payment_process' => '2');
         $tickect = $this->Ticket->save($tdata); // Data save in Ticket
 
@@ -868,12 +872,14 @@ class PaymentsController extends AppController {
         $this->request->data['Transaction']['status'] = $status;
         $this->Transaction->save($this->request->data['Transaction']);
 
-// generate Ticket
-        $ticket_content = "Transaction successfull <br>."
+// generate Ticket      
+        $date = $this->request->data['Transaction']['created'];
+        $dt = date('m-d-Y', strtotime($date));
+        $ticket_content = "Transaction successfull by Online Bil <br>"
                 . " <b>Amount : </b>$amount <br>"
                 . " <b> payment Mode: </b> Online Bill <br>"
-                . " <b>Payment Date: </b> " . $this->request->data['Transaction']['created']
-                . " <b>Payment of: </b> #" . $id;
+                . " <b>Payment Date: </b> " . $dt
+                . "  <br> <b>Payment of: </b> #" . $id;
         $tdata['Ticket'] = array('content' => $ticket_content, 'status' => 'open', 'payment_process' => '2');
         $tickect = $this->Ticket->save($tdata); // Data save in Ticket
 
@@ -937,12 +943,15 @@ class PaymentsController extends AppController {
         $this->Transaction->id = $id;
         $this->request->data['Transaction']['status'] = $status;
         $this->Transaction->save($this->request->data['Transaction']);
-// generate Ticket
-        $ticket_content = "Transaction successfull by auto recurring <br>."
+
+// generate Ticket                
+        $date = $this->request->data['Transaction']['created'];
+        $dt = date('m-d-Y', strtotime($date));
+        $ticket_content = "Transaction successfull by Cash <br>"
                 . " <b>Amount : </b>$amount <br>"
                 . " <b>Payment Mode: </b> Cash <br>"
-                . " <b>Payment Date: </b> " . $this->request->data['Transaction']['created']
-                . " <b>Payment of: </b> #" . $id;
+                . " <b>Payment Date: </b> " . $dt
+                . "  <br> <b>Payment of: </b> #" . $id;
         $tdata['Ticket'] = array('content' => $ticket_content, 'payment_process' => '2');
         $tickect = $this->Ticket->save($tdata); // Data save in Ticket
 
@@ -991,7 +1000,7 @@ class PaymentsController extends AppController {
     }
 
     public function paidInvoice($trans_id = null, $customer_id = null) {
-        $this->request->data['Transaction']['created'] = $this->getFormatedDate($this->request->data['Transaction']['created']) . ' 00:00:00';
+        $transactionDate = $this->request->data['Transaction']['created'] = $this->getFormatedDate($this->request->data['Transaction']['created']) . ' 00:00:00';
         $this->loadModel('Transaction');
         $this->loadModel('Ticket');
         $this->loadModel('Track');
@@ -1030,11 +1039,13 @@ class PaymentsController extends AppController {
 //        echo $this->Transaction->getLastQuery();
 //        exit;
 // generate Ticket
-        $ticket_content = "Transaction successfull<br>."
+        $dt = date('m-d-Y', strtotime($transactionDate));
+//        pr($dt); exit;
+        $ticket_content = "Transaction successfull<br>"
                 . " <b>Amount : </b>$amount <br>"
                 . " <b>Payment Mode: </b> Card(Payment date was editable) <br>"
-                . " <b>Payment Date: </b> " . $this->request->data['Transaction']['created']
-                . " <b>Payment of: </b> #" . $id;
+                . " <b>Payment Date: </b> " . $dt
+                . " <br> <b>Payment of: </b> #" . $id;
         $tdata['Ticket'] = array('content' => $ticket_content, 'status' => 'solved');
         $tickect = $this->Ticket->save($tdata); // Data save in Ticket
 

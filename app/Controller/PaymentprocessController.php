@@ -1,5 +1,8 @@
 <?php
-require_once(APP . 'Vendor' . DS . 'class.upload.php');
+
+
+
+//require_once(APP . 'Vendor' . DS . 'class.upload.php');
 class PaymentsController extends AppController {
     var $layout = 'admin';
     // public $components = array('Auth');

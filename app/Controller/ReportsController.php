@@ -380,7 +380,7 @@ class ReportsController extends AppController {
         $offset = --$page * $this->per_page;
         $sql = "SELECT * FROM transactions tr LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id "
                 . "WHERE tr.status = 'open' and tr.next_payment >= '$start' and tr.next_payment <= '$end' LIMIT $offset,$this->per_page";
-        
+
         $due = $this->Transaction->query($sql);
         $sql = "SELECT COUNT(tr.id) as total FROM transactions tr LEFT JOIN package_customers pc ON pc.id = tr.package_customer_id "
                 . "WHERE tr.status = 'open' and tr.next_payment >= '$start' and tr.next_payment <= '$end'";
@@ -891,7 +891,7 @@ class ReportsController extends AppController {
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
         $loggedUser = $this->Auth->user();
-      
+
         $allData = $this->PackageCustomer->query("SELECT * FROM package_customers pc 
                     left join comments c on pc.id = c.package_customer_id
                     left join users u on c.user_id = u.id
@@ -1070,7 +1070,7 @@ class ReportsController extends AppController {
             if (!isset($start)) {
                 $start = '1970-05-01';
                 $end = date('Y-m-d');
-               
+
                 $dateRange = json_decode($this->request->data['Role']['daterangeonly']);
                 if (count($dateRange)) {
                     $start = $dateRange->start;
@@ -1092,13 +1092,13 @@ class ReportsController extends AppController {
                 if (empty($status)) {
                     $status = '#';
                 }
-                
-                 $dateRange = json_decode($this->request->data['Role']['daterangecalllog']);
+
+                $dateRange = json_decode($this->request->data['Role']['daterangecalllog']);
                 if (count($dateRange)) {
                     $start = $dateRange->start;
                     $end = $dateRange->end;
                 }
-            
+
                 $this->redirect("/reports/all/$action/1/$start/$end/$issue/$agent/$status");
             }
 
@@ -1110,7 +1110,7 @@ class ReportsController extends AppController {
 
                 if (!isset($start)) {
                     $start = '1970-05-01';
-                    $end = date('Y-m-d');                   
+                    $end = date('Y-m-d');
                 } else {
                     $dateRange = json_decode($this->request->data['Role']['daterangepaymode']);
                     if (count($dateRange)) {
@@ -1121,23 +1121,23 @@ class ReportsController extends AppController {
 
                 $this->redirect("/reports/all/$action/1/$start/$end/$pay_mode");
             }
-            
-             if ($action == 'overdueinvoice') {
-                 $start = '1970-05-01';
-                 $end = date('Y-m-d');
-                 $dateRange = json_decode($this->request->data['Role']['daterangeonly']);
-                 if (count($dateRange)){
-                     $start = $dateRange->start;
-                     $end = $dateRange->end;
-                 }                                             
-                 $this->redirect("/reports/all/$action/1/$start/$end");
-            }         
+
+            if ($action == 'overdueinvoice') {
+                $start = '1970-05-01';
+                $end = date('Y-m-d');
+                $dateRange = json_decode($this->request->data['Role']['daterangeonly']);
+                if (count($dateRange)) {
+                    $start = $dateRange->start;
+                    $end = $dateRange->end;
+                }
+                $this->redirect("/reports/all/$action/1/$start/$end");
+            }
 
             if ($action == 'allinvoice_print_preview') {
                 $start = date('Y-m-d');
-                $end = trim(date('Y-m-d', strtotime("+25 days")));                
-                 $this->redirect("/reports/all/$action/1/$start/$end");
-            }           
+                $end = trim(date('Y-m-d', strtotime("+25 days")));
+                $this->redirect("/reports/all/$action/1/$start/$end");
+            }
             $this->redirect("/reports/all/$action/1/$start/$end");
         }
 
@@ -1184,7 +1184,7 @@ class ReportsController extends AppController {
         }
 
         if ($action == 'allinvoice_print_preview') {
-            $data = $this->allinvoice_print_preview($page,$start,$end);
+            $data = $this->allinvoice_print_preview($page, $start, $end);
         }
 
         if ($action == 'allinvoice') {
@@ -1592,6 +1592,26 @@ class ReportsController extends AppController {
         $return['total_hold'] = $total_hold;
         $return['total_unhold'] = $total_unhold;
         return $return;
+    }
+
+    function notify_customer() {
+        $this->loadModel('Transaction');
+        $todate = date("Y-m-d");
+        $tdate = strtotime(date("Y-m-d"));
+        $date = date('m/d', $tdate);
+        // $stamp = strtotime($date); // get unix timestamp       
+      
+       
+        //two months plus with present date
+        $expire_date = date('Y-m-d', strtotime("$todate +2 month"));
+        $tdate1 = strtotime($expire_date);
+        $exp_con = date('m/d', $tdate1);
+        //$exp_con = strtotime($expire_date); // get unix timestamp 
+        
+        $concate = ("WHERE exp_date BETWEEN  '$date'  AND '$exp_con'");
+        $data = $this->Transaction->query("SELECT * FROM transactions 
+                WHERE id IN (SELECT MAX(id) FROM transactions $concate GROUP BY transaction_id)");     
+        $this->set(compact('data'));
     }
 
 }
