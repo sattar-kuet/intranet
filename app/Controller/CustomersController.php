@@ -2086,7 +2086,7 @@ where LOWER(i.name) = 'remote problem' and approved = 0 and LOWER(pc.status)!= '
         left JOIN roles fd ON tr.role_id = fd.id
         left JOIN users fi ON tr.user_id = fi.id
         left join package_customers pc on tr.package_customer_id = pc.id
-        WHERE tr.ticket_id IN (SELECT ticket_id from tracks  tr where  tr.ticket_id  = $ticketId)");
+        WHERE t.id   = $ticketId");
         $filteredTicket = array();
         $unique = array();
         $index = 0;
