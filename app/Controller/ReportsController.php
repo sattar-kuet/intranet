@@ -1610,7 +1610,8 @@ class ReportsController extends AppController {
         
         $concate = ("WHERE exp_date BETWEEN  '$date'  AND '$exp_con'");
         $data = $this->Transaction->query("SELECT * FROM transactions 
-                WHERE id IN (SELECT MAX(id) FROM transactions $concate GROUP BY transaction_id)");     
+                WHERE id IN (SELECT MAX(id) FROM transactions $concate GROUP BY transaction_id)");  
+        //echo $this->Transaction->getLastQuery($data); exit;
         $this->set(compact('data'));
     }
 
