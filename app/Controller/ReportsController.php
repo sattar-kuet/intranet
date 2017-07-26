@@ -1611,24 +1611,6 @@ class ReportsController extends AppController {
 
     function notify_customer() {
         $this->loadModel('Transaction');
-<<<<<<< HEAD
-        $todate = date("Y-m-d");
-        $tdate = strtotime(date("Y-m-d"));
-        $date = date('m/d', $tdate);
-        // $stamp = strtotime($date); // get unix timestamp       
-      
-       
-        //two months plus with present date
-        $expire_date = date('Y-m-d', strtotime("$todate +2 month"));
-        $tdate1 = strtotime($expire_date);
-        $exp_con = date('m/d', $tdate1);
-        //$exp_con = strtotime($expire_date); // get unix timestamp 
-        
-        $concate = ("WHERE exp_date BETWEEN  '$date'  AND '$exp_con'");
-        $data = $this->Transaction->query("SELECT * FROM transactions 
-                WHERE id IN (SELECT MAX(id) FROM transactions $concate GROUP BY transaction_id)");  
-        //echo $this->Transaction->getLastQuery($data); exit;
-=======
         $this->loadModel('Role');
         $m = date("m") + 2;
         $y = date("y");
@@ -1642,18 +1624,24 @@ class ReportsController extends AppController {
         $data = $this->Transaction->query($sql);
         $role = $this->Role->query("SELECT * FROM roles WHERE LOWER(name) = 'general'");
         foreach ($data as $single) {
+           // pr($single['t']['package_customer_id']); exit;
             $tData = array(
                 'issue_id' => 0,
-                'customer_id' => $single,
+                'customer_id' => $single['t']['package_customer_id'],
                 'user_id' => 0,
                 'role_id' => $role[0]['roles']['id'],
                 'status' => 'open',
                 'content' => 'The card of this customer will be expired within next 2 months. Please make a outbound.',
             );
-            $this->create_ticket();
+            $this->create_ticket($tData);
         }
->>>>>>> f087bdd52617d90ca7995c28ffdbb097222cd5bf
-        $this->set(compact('data'));
+        
+         $msg = '<div class="alert alert-success">
+                           <button type="button" class="close" data-dismiss="alert">×</button>
+                           <strong> The card of '.count($data).' Customers will be expired within next 2 months </strong>
+                        </div>';
+        
+        $this->set(compact('msg'));
     }
 
 }
