@@ -1634,7 +1634,13 @@ class ReportsController extends AppController {
             );
             $this->create_ticket();
         }
-        $this->set(compact('data'));
+        
+         $msg = '<div class="alert alert-success">
+                           <button type="button" class="close" data-dismiss="alert">×</button>
+                           <strong> The card of '.count($data).' Customers will be expired within next 2 months </strong>
+                        </div>';
+        
+        $this->set(compact('msg'));
     }
 
 }
