@@ -1239,6 +1239,16 @@ class ReportsController extends AppController {
         $this->set(compact('pay_mode', 'data', 'start', 'end', 'action', 'users', 'issues', 'roles', 'role_name', 'agent', 'status'));
     }
 
+    function checkInvoiceCreated($pid) {
+        $this->loadModel('Transaction');
+        $temp = $this->Transaction->find('first', array('conditions' => array('Transaction.package_customer_id' => $pid, 'Transaction.status' => 'open')));
+        if (count($temp)) {
+            return 'YES';
+        } else {
+            return 'NO';
+        }
+    }
+
     function allAutorecurringSettings($page = 1, $start = null, $end = null, $pay_mode = null) { //Auto recurring data all
         $this->loadModel('User');
         $this->loadModel('PackageCustomer');
@@ -1256,6 +1266,11 @@ class ReportsController extends AppController {
                     LEFT JOIN psettings ps ON ps.id = pc.psetting_id
                     LEFT JOIN custom_packages cp ON cp.id = pc.custom_package_id
                     WHERE pc.auto_r =  'yes' ORDER BY pc.id desc" . " LIMIT " . $offset . "," . $this->per_page);
+
+        foreach ($allData as $index => $all) {
+            $invoice_created = $this->checkInvoiceCreated($all['pc']['id']);
+            $allData[$index]['invoice_created'] = $invoice_created;
+        }
 
         $sql = "SELECT SUM(pc.payable_amount) as total FROM package_customers pc
                 left join transactions tr on pc.id = tr.package_customer_id
@@ -1596,6 +1611,7 @@ class ReportsController extends AppController {
 
     function notify_customer() {
         $this->loadModel('Transaction');
+<<<<<<< HEAD
         $todate = date("Y-m-d");
         $tdate = strtotime(date("Y-m-d"));
         $date = date('m/d', $tdate);
@@ -1612,6 +1628,31 @@ class ReportsController extends AppController {
         $data = $this->Transaction->query("SELECT * FROM transactions 
                 WHERE id IN (SELECT MAX(id) FROM transactions $concate GROUP BY transaction_id)");  
         //echo $this->Transaction->getLastQuery($data); exit;
+=======
+        $this->loadModel('Role');
+        $m = date("m") + 2;
+        $y = date("y");
+        $sql = "SELECT t.*
+                FROM transactions t
+                WHERE t.id = 
+                (SELECT MAX(t2.id) FROM transactions t2 
+                   WHERE t2.package_customer_id = t.package_customer_id)
+                   AND( LEFT(t.exp_date,2)<=$m AND RIGHT(t.exp_date,2)<=$y) ";
+
+        $data = $this->Transaction->query($sql);
+        $role = $this->Role->query("SELECT * FROM roles WHERE LOWER(name) = 'general'");
+        foreach ($data as $single) {
+            $tData = array(
+                'issue_id' => 0,
+                'customer_id' => $single,
+                'user_id' => 0,
+                'role_id' => $role[0]['roles']['id'],
+                'status' => 'open',
+                'content' => 'The card of this customer will be expired within next 2 months. Please make a outbound.',
+            );
+            $this->create_ticket();
+        }
+>>>>>>> f087bdd52617d90ca7995c28ffdbb097222cd5bf
         $this->set(compact('data'));
     }
 
