@@ -1241,7 +1241,7 @@ class ReportsController extends AppController {
 
     function checkInvoiceCreated($pid) {
         $this->loadModel('Transaction');
-        $temp = $this->Transaction->find('first', array('conditions' => array('Transaction.package_customer_id' => $pid, 'Transaction.status' => 'open')));
+        $temp = $this->Transaction->find('first', array('conditions' => array('Transaction.package_customer_id' => $pid, 'Transaction.status' => 'open', 'auto_recurring'=>1)));
         if (count($temp)) {
             return 'YES';
         } else {
