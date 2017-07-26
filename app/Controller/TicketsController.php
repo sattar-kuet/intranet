@@ -50,6 +50,7 @@ class TicketsController extends AppController {
         $this->PackageCustomer->save($data);
     }
 
+    
     function create($customer_id = null) {
         if ($customer_id == null) {
             $this->redirect('/admins/servicemanage');

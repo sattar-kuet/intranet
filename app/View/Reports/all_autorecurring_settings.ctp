@@ -94,13 +94,7 @@
                         <li> <b>Last Name : </b><?php echo $results['pc']['clast_name']; ?> </li>                           
                         <li> <b>CVV Code :</b> <?php echo $results['pc']['cvv_code']; ?></li>                           
                         <li> <b>Zip :</b> <?php echo $results['pc']['czip']; ?></li>  
-                        <li> <b>System generated invoice : </b> <?php
-                            if ($results['pc']['invoice_created'] == 0) {
-                                echo 'NO';
-                            } else {
-                                echo'YES';
-                            }
-                            ?> </li>  
+                        <li> <b>System generated invoice : </b> <?php echo $results['invoice_created']; ?> </li>  
                         </td>
                         </tr>
                     <?php endforeach; ?>  
