@@ -1624,15 +1624,16 @@ class ReportsController extends AppController {
         $data = $this->Transaction->query($sql);
         $role = $this->Role->query("SELECT * FROM roles WHERE LOWER(name) = 'general'");
         foreach ($data as $single) {
+           // pr($single['t']['package_customer_id']); exit;
             $tData = array(
                 'issue_id' => 0,
-                'customer_id' => $single,
+                'customer_id' => $single['t']['package_customer_id'],
                 'user_id' => 0,
                 'role_id' => $role[0]['roles']['id'],
                 'status' => 'open',
                 'content' => 'The card of this customer will be expired within next 2 months. Please make a outbound.',
             );
-            $this->create_ticket();
+            $this->create_ticket($tData);
         }
         
          $msg = '<div class="alert alert-success">
