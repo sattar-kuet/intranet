@@ -349,18 +349,10 @@ class TransactionsController extends AppController {
         $controller = new AnetController\CreateTransactionController($request);
         $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
         //$response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
-        
-//        pr($response); exit;
-        
         $msg = '';
-
         $data4transaction['Transaction']['exp_date'] = $this->request->data['Transaction']['exp_date'];
-
         $data4transaction['Transaction']['card_no'] = $this->request->data['Transaction']['card_no'];
         $data4transaction['Transaction']['user_id'] = $loggedUser['id'];
-
-
-
 
         if ($response != null) {
             $tresponse = $response->getTransactionResponse();
