@@ -1892,11 +1892,12 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                     'id' => 'form_sample_3',
                                     'class' => 'form-horizontal',
                                     'novalidate' => 'novalidate',                                    
-                                    'enctype' => 'multipart/form-data',
-                                    'url' => array('controller' => 'payments', 'action' => 'refundTransaction')
+                                    //'enctype' => 'multipart/form-data',
+                                    'url' => array('controller' => 'transactions', 'action' => 'refundTransaction')
                                         )
                                 );
                                 ?>
+                              
                                 <?php
                                 echo $this->Form->input(
                                         'pay_mode', array(
