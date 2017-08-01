@@ -1839,15 +1839,9 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                     ),
                                     'id' => 'form_sample_3',
                                     'class' => 'form-horizontal',
-<<<<<<< HEAD
-                                    'novalidate' => 'novalidate',
-                                    'enctype' => 'multipart/form-data',
-                                    'url' => array('controller' => 'payments', 'action' => 'refundTransaction')
-=======
                                     'novalidate' => 'novalidate',                                    
                                     //'enctype' => 'multipart/form-data',
                                     'url' => array('controller' => 'transactions', 'action' => 'refundTransaction')
->>>>>>> 91c5ee2711207ccbf5076123264af5635dc4f464
                                         )
                                 );
                                 ?>
