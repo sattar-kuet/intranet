@@ -168,9 +168,12 @@ class PaymentsController extends AppController {
         $httpSocket = new HttpSocket();
         //  unset($this->request->data['address']);
         $response = $httpSocket->post($link, $this->request->data);
+        
         $result = $response->body;
+        
         $return = json_decode($result, TRUE);
         $return = $return['return'];
+//          pr($return); exit;
         if (!count($return)) {
             $transactionMsg = '<div class="alert alert-error">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -530,7 +533,7 @@ class PaymentsController extends AppController {
     function message() {
         
     }
-
+       
     function refundTransaction() {
         $this->loadModel('Ticket');
         $this->loadModel('Track');
@@ -571,6 +574,10 @@ class PaymentsController extends AppController {
 
         $data4transaction['Transaction']['card_no'] = $this->request->data['Transaction']['card_no'];
         $data4transaction['Transaction']['user_id'] = $loggedUser['id'];
+        
+        
+        
+        
         if ($response != null) {
             $tresponse = $response->getTransactionResponse();
 
