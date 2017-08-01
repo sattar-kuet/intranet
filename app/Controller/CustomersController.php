@@ -440,34 +440,20 @@ class CustomersController extends AppController {
         return $this->redirect($this->referer());
     }
 
-    function update_status() {
+    function update_status($id) {
         $data4statusHistory = array();
         $this->loadModel('StatusHistory');
         $this->loadModel('PackageCustomer');
         $this->loadModel('MacHistory');
         $loggedUser = $this->Auth->user();
-
-//        if ($this->request->is('post') || $this->request->is('put')) { // mac installation info will be insert in mac_history tbl. strat
-//            $data = $this->request->data['PackageCustomer'];
-////                      pr($data);
-////            exit;
-//            foreach ($data['mac'] as $k => $single) {
-//                $data2['MacHistory'] = array('mac' => $single, 'installed_by' => $data['user_id'][$k], 'installation_date' => $this->getFormatedDate($data['installation_date'][$k]), 'user_id' => $loggedUser['id'], 'package_customer_id' => $data['id']);
-//                $this->MacHistory->create();
-//                $this->MacHistory->save($data2['MacHistory']);
-//            }
-//        } // end
-//      
-        $this->PackageCustomer->id = $this->request->data['PackageCustomer']['id'];
-        $this->PackageCustomer->saveField("status", $this->request->data['PackageCustomer']['status']);
-        $this->PackageCustomer->saveField("date", $this->getFormatedDate($this->request->data['PackageCustomer']['date']));
-        $data4statusHistory['StatusHistory'] = array(
-            'package_customer_id' => $this->request->data['PackageCustomer']['id'],
-            'date' => $this->getFormatedDate($this->request->data['PackageCustomer']['date']),
-            'status' => $this->request->data['PackageCustomer']['status'],
-        );
-
-        $this->StatusHistory->save($data4statusHistory);
+        $data = array();
+        foreach ($this->request->data['UpdateCustomer'] as $key => $arr) {
+            $data[$key] = json_encode($arr);
+        }
+        $data['package_customer_id'] = $id;
+//        pr($data);
+//        exit;
+        $this->StatusHistory->save($data);
         $Msg = '<div class="alert alert-success">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <strong>Status updated Successfully! </strong>
@@ -568,10 +554,8 @@ WHERE transaction_id = " . $statement['tr']['id']
         $loggedUser = $this->Auth->user();
         $user = $loggedUser['Role']['name'];
         if ($this->request->is('post') || $this->request->is('put')) {
-
 // update package_customers table
             $this->request->data['PackageCustomer']['id'] = $id;
-
             $this->updatePackageCustomerTable($this->request->data['PackageCustomer']);
             $msg = '<div class="alert alert-success">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -582,7 +566,49 @@ WHERE transaction_id = " . $statement['tr']['id']
         }
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
+        $this->loadModel('StatusHistory');
         $customer_info = $this->PackageCustomer->findById($pcid);
+        $statusUpdateData = $this->StatusHistory->find('first', array('conditions' => array('StatusHistory.package_customer_id' => $id), 'order' => array('StatusHistory.id' => 'DESC')));
+        $allStatus = array();
+
+        if (!count($statusUpdateData)) {
+            $allStatus['id'] = 0;
+            $allStatus['package_customer_id'] = $id;
+            foreach (json_decode($customer_info['PackageCustomer']['mac']) as $i => $value) {
+                $allStatus[$i]['status'] = '';
+                $allStatus[$i]['mac'] = $value;
+                $allStatus[$i]['date'] = '';
+                $allStatus[$i]['user_id'] = '';
+            }
+        } else {
+            $arr = json_decode($statusUpdateData['StatusHistory']['status']);
+            $records = count($arr);
+            // pr($statusUpdateData);
+            if ($records) {
+                $allStatus['id'] = $statusUpdateData['StatusHistory']['id'];
+                $allStatus['package_customer_id'] = $statusUpdateData['StatusHistory']['package_customer_id'];
+                $mac = json_decode($statusUpdateData['StatusHistory']['mac']);
+                $status = json_decode($statusUpdateData['StatusHistory']['status']);
+                $date = json_decode($statusUpdateData['StatusHistory']['date']);
+                $user_id = json_decode($statusUpdateData['StatusHistory']['user_id']);
+                for ($i = 0; $i < $records; $i++) {
+                    $allStatus[$i]['status'] = $status[$i];
+                    $allStatus[$i]['mac'] = $mac[$i];
+                    $allStatus[$i]['date'] = $date[$i];
+                    $allStatus[$i]['user_id'] = $user_id[$i];
+                }
+            } else {
+                $allStatus['id'] = 0;
+                $allStatus['package_customer_id'] = $id;
+                foreach (json_decode($customer_info['PackageCustomer']['mac']) as $i => $value) {
+                    $allStatus[$i]['status'] = '';
+                    $allStatus[$i]['mac'] = $value;
+                    $allStatus[$i]['date'] = '';
+                    $allStatus[$i]['user_id'] = '';
+                }
+            }
+        }
+//pr($allStatus); exit;
         $this->request->data = $customer_info;
         $date = explode('/', $customer_info['PackageCustomer']['exp_date']);
         $yyyy = date('Y');
@@ -638,7 +664,7 @@ WHERE transaction_id = " . $statement['tr']['id']
         $status = $customer_info['PackageCustomer']['status'];
         $users = $this->User->find('list', array('order' => array('User.name' => 'ASC')));
 
-        $this->set(compact('users', 'status', 'transactions', 'customer_info', 'c_acc_no', 'macstb', 'custom_package_duration', 'checkMark', 'statusHistories'));
+        $this->set(compact('users', 'allStatus', 'status', 'transactions', 'customer_info', 'c_acc_no', 'macstb', 'custom_package_duration', 'checkMark', 'statusHistories'));
 
 //        Ticket History
         $response = $this->getAllTickectsByCustomer($id);
