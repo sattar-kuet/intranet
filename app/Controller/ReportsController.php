@@ -1241,7 +1241,7 @@ class ReportsController extends AppController {
 
     function checkInvoiceCreated($pid) {
         $this->loadModel('Transaction');
-        $temp = $this->Transaction->find('first', array('conditions' => array('Transaction.package_customer_id' => $pid, 'Transaction.status' => 'open', 'auto_recurring'=>1)));
+        $temp = $this->Transaction->find('first', array('conditions' => array('Transaction.package_customer_id' => $pid, 'Transaction.status' => 'open', 'auto_recurring' => 1)));
         if (count($temp)) {
             return 'YES';
         } else {
@@ -1619,12 +1619,14 @@ class ReportsController extends AppController {
                 WHERE t.id = 
                 (SELECT MAX(t2.id) FROM transactions t2 
                    WHERE t2.package_customer_id = t.package_customer_id)
-                   AND( LEFT(t.exp_date,2)<=$m AND RIGHT(t.exp_date,2)<=$y) ";
+                   AND( LEFT(t.exp_date,2)<=$m AND RIGHT(t.exp_date,2)<=$y) AND t.auto_recurring = 1 AND t.exp_date !='' AND t.notify_exp =0 ";
 
         $data = $this->Transaction->query($sql);
+//       pr($data);
+//        exit;
         $role = $this->Role->query("SELECT * FROM roles WHERE LOWER(name) = 'general'");
         foreach ($data as $single) {
-           // pr($single['t']['package_customer_id']); exit;
+            // pr($single['t']['package_customer_id']); exit;
             $tData = array(
                 'issue_id' => 0,
                 'customer_id' => $single['t']['package_customer_id'],
@@ -1634,13 +1636,18 @@ class ReportsController extends AppController {
                 'content' => 'The card of this customer will be expired within next 2 months. Please make a outbound.',
             );
             $this->create_ticket($tData);
+            $this->Transaction->id = $single['t']['id'];
+            $trData['Transaction'] = array('notify_exp' => 1);
+            $this->Transaction->save($trData);
         }
-        
-         $msg = '<div class="alert alert-success">
-                           <button type="button" class="close" data-dismiss="alert">×</button>
-                           <strong> The card of '.count($data).' Customers will be expired within next 2 months </strong>
-                        </div>';
-        
+
+        $msg = '<div class="alert alert-success">
+                           <button type="button" class="close" data-dismiss="alert">×</button>';
+        //     <strong> The card of '.
+        //count($data).' Customers will be expired within next 2 months </strong>
+
+        $msg .= '<strong>Outbound generated successfully </strong></div>';
+
         $this->set(compact('msg'));
     }
 

@@ -1148,9 +1148,9 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                         </div>
                     </div>
                     <div class="portlet-body" id="status_update" style="display: none;">  
-                        <?php echo $this->Session->flash() ?>
+                        <?php echo $this->Session->flash(); //pr($users); ?>
                         <?php
-                        echo $this->Form->create('PackageCustomer', array(
+                        echo $this->Form->create('UpdateCustomer', array(
                             'inputDefaults' => array(
                                 'label' => false,
                                 'div' => false
@@ -1159,167 +1159,115 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                             //'class' => 'form-horizontal',
                             // 'novalidate' => 'novalidate',
                             'enctype' => 'multipart/form-data',
-                            'url' => array('controller' => 'customers', 'action' => 'update_status')
+                            'url' => array('controller' => 'customers', 'action' => 'update_status', $this->params['pass'][0])
                                 )
                         );
                         ?>
                         <br>
-                        <div class="row">                                     
-                            <?php
-                            echo $this->Form->input(
-                                    'id', array(
-                                'type' => 'hidden',
-                                'value' => $this->params['pass'][0],
-                            ));
+
+
+                        <?php
+                        echo $this->Form->input(
+                                'id', array(
+                            'type' => 'hidden',
+                            'value' => $allStatus['id'],
+                        ));
+                        unset($allStatus['id']);
+                        unset($allStatus['package_customer_id']);
+//                            pr($allStatus);
+                        foreach ($allStatus as $status):
                             ?>
-
-                            <br>
-                            <div class="col-md-2 signupfont">
-                                Status Update
-                            </div>
-                            <div class="col-md-2">
-                                <div class="input-list style-4 clearfix">
-                                    <div>
-                                        <?php
-                                        echo $this->Form->input('status', array(
-                                            'type' => 'select',
-                                            'options' => array(
-                                                'active' => 'Active',
-                                                'hold' => 'Hold',
-                                                'canceled' => 'Canceled',
-//                                                'sales done' => 'Installation done',                                                
-//                                                'inactive' => 'Inactive',                                                
-//                                                'requested' => 'Requested',
-//                                                'troubleshot done' => 'Troubleshot Done',
-//                                                'ready' => 'Ready to install',
-//                                                'old_ready' => 'Troubleshot',
-//                                                'scheduled' => 'Scheduled',
-//                                                'Request to cancel' => 'Request to cancel',
-//                                                'Request to hold' => 'Request to hold',
-//                                                'Request to unhold' => 'Request to unhold',                                                
-//                                                'unhold' => 'Unhold',
-//                                                'reconnection' => 'Reconnection',
-//                                                'request to reconnection' => 'Request to reconnection',
-//                                                'full service cancel' => 'Full Service Cancel',
-//                                                'cancel from due bill' => 'Cancel From Due Bill',
-//                                                'complimentary customer' => 'Complimentary customer',
-//                                                'request to reconnection' => 'Request to reconnection',
-//                                                'post pone' => 'Post pone',
-//                                                'rescheduled' => 'Reschedule'
-                                            ),
-                                            //'default' => $selected['package'],
-                                            'empty' => 'Select Status',
-                                            'class' => 'span12 uniform nostyle select1 ',
-                                            'id' => 'status'
-                                                //'id'=>'stbn',
-                                                )
-                                        );
-                                        ?>
-                                    </div>                            
-                                </div>
-                            </div>
-
-
-                            <div class="col-md-2 signupfont status-date">
-                            </div>
-                            <div class="col-md-4">
-                                <div class="input-list style-4 clearfix">
-                                    <div>
-                                        <?php
-                                        echo $this->Form->input(
-                                                'date', array(
-                                            'type' => 'text',
-                                            'class' => 'datepicker form-control '
-                                                )
-                                        );
-                                        ?> 
-                                    </div>                            
-                                </div>
-                                <div id="status-history" class="alert alert-success display-hide" style="text-align: inherit;">
+                            <div class="row">  
+                                <div class="col-md-12 signupfont text-center">
                                     <?php
-                                    foreach ($statusHistories as $history):
-                                        ?>
-                                        <span class="fa fa-hand-o-right pull-left"> <?php echo $history['StatusHistory']['status']; ?></span> &nbsp;
-                                        <span class="fa fa-clock-o pull-right"> <?php echo $history['StatusHistory']['date']; ?> </span> <br>
-                                    <?php endforeach; ?>
+                                    echo $this->Form->input(
+                                            'mac.', array(
+                                        'class' => 'form-control readonly',
+                                        'type' => 'text',
+                                        'value' => $status['mac'],
+                                        'readonly' => 'readonly',
+                                        'style' => 'text-align:center; letter-spacing:2px; color: green;'
+                                            )
+                                    );
+                                    ?>
                                 </div>
-                                <span  id="#status-history" title="Status History of Customer" class="toggleDiv">
-                                    <i class="fa fa-eye pull-right"> </i>
-                                </span>
-                            </div> 
-                            <br>
-                            <br> 
-                            <div class="col-md-12" >
-                                <div class="row"> 
+                            </div>
+                            <div class="row margin-top-10 margin-bottom-10">
 
-                                    <?php
-                                    if (is_array($macstb['mac'])):
-                                        foreach ($macstb['mac'] as $index => $mac):
-                                            $mac = $macstb['mac'][$index];
-                                            ?>
-                                            <div class="col-md-3 signupfont">
-                                                <?php
-                                                echo $this->Form->input(
-                                                        'mac.', array(
-                                                    'class' => 'form-control readonly',
-                                                    'type' => 'text',
-                                                    'value' => $mac,
-                                                    'readonly' => 'readonly'
-                                                        )
-                                                );
-                                                ?>
-                                            </div>
-                                            <div class="col-md-1 signupfont">                                   
-                                                Done By   
-                                            </div>                              
-                                            <div class="col-md-3">
-                                                <?php
-                                                echo $this->Form->input('user_id.', array(
-                                                    'type' => 'select',
-                                                    'options' => $users,
-                                                    'empty' => 'Select User',
-                                                    'default' => 0,
-                                                    'class' => 'form-control select2me ',
-                                                        )
-                                                );
-                                                ?>
-                                            </div>
-                                            <div class="col-md-2 signupfont">                                  
-                                                Installation Date                           
-                                            </div> 
-                                            <div class="col-md-3">
-                                                <div class="input-list style-3 clearfix">
-                                                    <?php
-                                                    echo $this->Form->input(
-                                                            'installation_date.', array(
-                                                        'type' => 'text',
-                                                        'placeholder' => 'Select date',
-                                                        'class' => "datepicker form-control ",
-                                                        'title' => 'Click & select date',
-                                                        'id' => false
-                                                            )
-                                                    );
-                                                    ?>                                          
-                                                </div>
-                                            </div> <br><br>
+                                <div class="col-md-2 signupfont text-center">
+                                    Status Update
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="input-list style-4 clearfix">
+                                        <div>
                                             <?php
-                                        endforeach;
-                                    endif;
-                                    ?>                                
-                                </div>   
-                            </div>  
-                            &nbsp;
-                            &nbsp;
-                            <div class="row margin-top-20">
-                                <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20"> 
-                                    <button class="btn btn-primary submitbtn red-soft" type="submit" id="">Update Customer Information</button>                                    </div>
+                                            echo $this->Form->input('status.', array(
+                                                'type' => 'select',
+                                                'options' => array(
+                                                    'active' => 'Active',
+                                                    'hold' => 'Hold',
+                                                    'canceled' => 'Canceled'
+                                                ),
+                                                'empty' => 'Select Status',
+                                                'class' => 'span12 uniform nostyle select1 ',
+                                                    )
+                                            );
+                                            ?>
+                                        </div>                            
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2 signupfont status-date text-center">
+                                    Date
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="input-list style-4 clearfix">
+                                        <div>
+                                            <?php
+                                            echo $this->Form->input(
+                                                    'date.', array(
+                                                'type' => 'text',
+                                                'class' => 'datepicker form-control ',
+                                                'value' => $status['date']
+                                                    )
+                                            );
+                                            ?> 
+                                        </div>                            
+                                    </div>
+
+                                </div> 
+
+                                <div class="col-md-2 signupfont status-date text-center">
+                                    BY
+                                </div>
+
+                                <div class="col-md-2">
+                                    <?php
+                                    echo $this->Form->input('user_id.', array(
+                                        'type' => 'select',
+                                        'options' => $users,
+                                        'empty' => 'Select User',
+                                        'default' => $status['user_id'],
+                                        'class' => 'form-control select2me ',
+                                            )
+                                    );
+                                    ?>
+                                </div>
                             </div>
+
+                        <?php endforeach;
+                        ?> 
+
+                        <div class="row margin-top-20">
+                            <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20"> 
+                                <button class="btn btn-primary submitbtn red-soft" type="submit" id="">Update Customer Information</button>                                    </div>
                         </div>
                     </div>
-                    <?php echo $this->Form->end(); ?>
                 </div>
-                <!--status update end-->    
+                <?php echo $this->Form->end(); ?>
             </div>
+            <!--status update end-->    
+
 
             <div class="col-md-12">
                 <div class="portlet box purple-sharp">
@@ -1707,7 +1655,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
 
 
                 <!--     Begin Additional Invoice    -->
-                
+
                 <div class="portlet box lightseagreen" style="background-color:#daae2b; border: #daae2b solid 2px;">
                     <div class="portlet-title">
                         <div class="caption">
@@ -1891,7 +1839,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                     ),
                                     'id' => 'form_sample_3',
                                     'class' => 'form-horizontal',
-                                    'novalidate' => 'novalidate',                                    
+                                    'novalidate' => 'novalidate',
                                     'enctype' => 'multipart/form-data',
                                     'url' => array('controller' => 'payments', 'action' => 'refundTransaction')
                                         )
@@ -2406,7 +2354,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                             <li>
                                                 Invoice Date : 
                                                 <?php echo date('m-d-Y', strtotime($bill['next_payment'])); ?>
-                                                <a  target="_blank" title="Edit" href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit', $bill['id'])) ?>" >
+                                                <a  target="_blank" title="Edit" href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit',$this->request->params['pass'][0], $bill['id'])) ?>" >
                                                     <span class="fa fa-pencil " target ="_blank"></span>
                                                 </a>
                                             </li>
@@ -2573,7 +2521,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                                     </th>
                                                                     <tr>
                                                                         <td style="padding-left: 5px; min-height: 115px; line-height: 15px;">
-                                                                            <?php // if (!empty($single['0']['name'])):               ?>
+                                                                            <?php // if (!empty($single['0']['name'])):                 ?>
                                                                             <?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?>
                                                                             <br>
                                                                             <?php echo $customer_address_one; ?><br>
@@ -2812,7 +2760,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                                         </th>
                                                                         <tr>
                                                                             <td style="padding-left: 5px; min-height: 115px; line-height: 15px;">
-                                                                                <?php // if (!empty($single['0']['name'])):                      ?>
+                                                                                <?php // if (!empty($single['0']['name'])):                         ?>
 
                                                                                 <?php echo $customer['first_name'] . ' ' . $customer['middle_name'] . ' ' . $customer['last_name']; ?>
 
@@ -2994,8 +2942,8 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
 
                     <div>
                         <!-------------payment history end----------------->
-                        
-                        
+
+
 
                         <!-------------ticket history start----------------->
 
@@ -3027,7 +2975,6 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                             </thead>
                                             <tbody>
                                                 <?php
-
                                                 foreach ($data as $single):
 //                                                       
                                                     $issue = end($single['history']);
@@ -3035,10 +2982,8 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                     $customer = $customer['pc'];
 
                                                     $ticket = $single['ticket'];
-                                                         
+
                                                     $lasthistory = $issue;
-                                            
-                                                    
                                                     ?>
                                                     <tr >
                                                         <!--<td><?php echo $tr_id; ?></td>-->
@@ -3058,9 +3003,8 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                             <ol>
                                                                 <?php
 //                                                               $lasthistory = $single['history'][0]['tr'];
-                                                             
+
                                                                 foreach ($single['history'] as $history):
-                                                                   
                                                                     ?>
                                                                     <li>
                                                                         <?php if ($history['tr']['status'] != 'open') { ?>
@@ -3119,7 +3063,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                                             'class' => 'form-horizontal',
                                                                             'novalidate' => 'novalidate',
                                                                             'url' => array('controller' => 'tickets', 'action' => 'forward')
-                                                                                ));
+                                                                        ));
                                                                         ?>
                                                                         <?php
                                                                         echo $this->Form->input('ticket_id', array(
