@@ -1419,14 +1419,18 @@ class ReportsController extends AppController {
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');
         $offset = --$page * $this->per_page;
-
-        $data = $this->Ticket->query("SELECT * FROM tickets t
+        
+        $sql = "SELECT * FROM tickets t
                     left JOIN tracks tr ON t.id = tr.ticket_id
                     left join package_customers pc on tr.package_customer_id = pc.id
                     LEFT JOIN psettings ON psettings.id = pc.psetting_id
                     LEFT JOIN custom_packages ON custom_packages.id = pc.custom_package_id
-                    WHERE t.auto_recurring != 0 and pc.r_form >='" . $start . "' AND pc.r_form <='" . $end .
-                "' GROUP BY t.id" . " LIMIT " . $offset . "," . $this->per_page);
+                    WHERE t.auto_recurring != 0 and CAST(t.created as DATE) >='" . $start . "' AND CAST(t.created as DATE) <='" . $end .
+                "' GROUP BY t.id" . " LIMIT " . $offset . "," . $this->per_page;
+        
+        //echo  $sql; exit;
+
+        $data = $this->Ticket->query($sql);
 
         $sql = "SELECT SUM(t.auto_recurring) as total FROM tickets t
                     left JOIN tracks tr ON t.id = tr.ticket_id
