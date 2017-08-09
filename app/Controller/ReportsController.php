@@ -1613,6 +1613,7 @@ class ReportsController extends AppController {
         $this->loadModel('Transaction');
         $this->loadModel('Role');
         $m = date("m") + 2;
+       
         $y = date("y");
         $sql = "SELECT t.*
                 FROM transactions t
@@ -1620,7 +1621,7 @@ class ReportsController extends AppController {
                 (SELECT MAX(t2.id) FROM transactions t2 
                    WHERE t2.package_customer_id = t.package_customer_id)
                    AND( LEFT(t.exp_date,2)<=$m AND RIGHT(t.exp_date,2)<=$y) AND t.auto_recurring = 1 AND t.exp_date !='' AND t.notify_exp =0 ";
-
+echo $sql; exit;
         $data = $this->Transaction->query($sql);
 //       pr($data);
 //        exit;
