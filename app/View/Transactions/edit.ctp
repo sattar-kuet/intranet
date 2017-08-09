@@ -47,6 +47,21 @@
                             echo $this->Form->input('id');
                             ?>
                             <div class="form-group">
+                                <label class="control-label col-md-3">Receive Date<span class="required">
+                                        * </span>
+                                </label>
+                                <div class="col-md-4">
+                                    <?php
+                                    echo $this->Form->input(
+                                            'created', array(
+                                        'class' => 'datepicker form-control',
+                                        'type' => 'text',
+                                            )
+                                    );
+                                    ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="control-label col-md-3">Next Payment Date<span class="required">
                                         * </span>
                                 </label>
@@ -54,7 +69,7 @@
                                     <?php
                                     echo $this->Form->input(
                                             'next_payment', array(
-                                        'class' => 'datepicker form-control required',
+                                        'class' => 'datepicker form-control',
                                         'type' => 'text',
                                             )
                                     );
