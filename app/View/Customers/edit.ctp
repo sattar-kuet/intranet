@@ -1153,7 +1153,8 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                         echo $this->Form->create('UpdateCustomer', array(
                             'inputDefaults' => array(
                                 'label' => false,
-                                'div' => false
+                                'div' => false,
+                                'id' => false
                             ),
                             //'id' => 'form-validate',
                             //'class' => 'form-horizontal',
@@ -2965,7 +2966,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                         <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                                             <thead>
                                                 <tr>
-                                                    <!--<th>Transaction Id</th>-->
+                                                    <th> Id</th>
                                                     <th>Subject</th>
                                                     <th>Customer Info</th>
                                                     <th>Open Time</th>
@@ -2983,11 +2984,11 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                     $customer = $customer['pc'];
 
                                                     $ticket = $single['ticket'];
-
+                                                 
                                                     $lasthistory = $issue;
                                                     ?>
                                                     <tr >
-                                                        <!--<td><?php echo $tr_id; ?></td>-->
+                                                        <td><?php echo $ticket['id']; ?></td>
                                                         <td><?php echo $issue['i']['name']; ?></td>
                                                         <td>
                                                             <ul>
