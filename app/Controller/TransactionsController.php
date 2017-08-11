@@ -127,16 +127,9 @@ class TransactionsController extends AppController {
     function edit($cid, $id = null) {       
         $this->loadModel('PackageCustomer');
         $this->loadModel('Transaction');       
-        
-        $id = count($this->params['pass']);
-        if ($id == 1) {
-            $id = $this->params['pass'][0];
-        } else {
-            $id = $this->params['pass'][1];
-        }
+   
         
         if ($this->request->is('post') || $this->request->is('put')) {
-            
             
             $loggedUser = $this->Auth->user();
            // pr($loggedUser); exit;

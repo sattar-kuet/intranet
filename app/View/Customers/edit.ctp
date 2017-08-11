@@ -1153,7 +1153,8 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                         echo $this->Form->create('UpdateCustomer', array(
                             'inputDefaults' => array(
                                 'label' => false,
-                                'div' => false
+                                'div' => false,
+                                'id' => false
                             ),
                             //'id' => 'form-validate',
                             //'class' => 'form-horizontal',
@@ -1209,6 +1210,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                     'canceled' => 'Canceled'
                                                 ),
                                                 'empty' => 'Select Status',
+                                                'default' => $status['status'],
                                                 'class' => 'span12 uniform nostyle select1 ',
                                                     )
                                             );
@@ -1638,7 +1640,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                                     }
                                                                     return false;"
 
-                                                        href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'void', $info['transactions']['id'])) ?>" title="Void">
+                                                        href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'void', $this->params['pass'][0], $info['transactions']['id'])) ?>" title="Void">
                                                         <span class="fa  fa-ban"></span>
                                                     </a>
                                                 </td>
