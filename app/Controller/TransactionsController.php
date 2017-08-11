@@ -194,7 +194,6 @@ class TransactionsController extends AppController {
         $temp = $this->Transaction->findById($id);
 
         if ($temp['PackageCustomer']['auto_r'] == 'yes') {
-            $this->PackageCustomer->id = $temp['PackageCustomer']['auto_r'];
             $this->PackageCustomer->id = $temp['PackageCustomer']['id'];
             $this->PackageCustomer->saveField("invoice_created", 0);
         }

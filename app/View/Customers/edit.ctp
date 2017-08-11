@@ -1619,7 +1619,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                 <td><?php echo $info['transactions']['note']; ?></td>
                                                 <td> 
                                                     <?php if (($user == 'sadmin') || ($user == 'supervisor')): ?>
-                                                        <a  target="_blank" title="Edit" href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit', $info['transactions']['id'])) ?>" >
+                                                        <a  target="_blank" title="Edit" href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit',$info['package_customers']['id'], $info['transactions']['id'])) ?>" >
                                                             <span class="fa fa-pencil"></span>
                                                         </a>
                                                     <?php endif; ?>
@@ -1635,12 +1635,12 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
 
                                                     &nbsp;
                                                     <a 
-                                                        onclick="if (confirm( & quot; Are you sure to Void this Transaction? & quot; )) {
+                                                        onclick="if (confirm('Are you sure to Void this Transaction?')) {
                                                                         return true;
                                                                     }
                                                                     return false;"
 
-                                                        href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'void', $this->params['pass'][0], $info['transactions']['id'])) ?>" title="Void">
+                                                        href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'void',  $info['transactions']['id'])) ?>" title="Void">
                                                         <span class="fa  fa-ban"></span>
                                                     </a>
                                                 </td>
