@@ -2409,7 +2409,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                             <?php elseif ($payment['tr']['pay_mode'] == 'cash'): ?>
                                                                 <li>Pay Mode : <?php echo $payment['tr']['pay_mode']; ?></li> 
                                                                 <li> Cash By : <?php echo $payment['tr']['cash_by']; ?> </li>
-                                                                <a  target="_blank" title="Edit"  href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit', $payment['tr']['id'])) ?>" >
+                                                                <a  target="_blank" title="Edit"  href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit', $this->request->params['pass'][0], $payment['tr']['id'])) ?>" >
                                                                     <span class="fa fa-pencil" target ="_blank"></span>
                                                                 </a>
                                                             <?php elseif ($payment['tr']['pay_mode'] == 'refund'): ?>
@@ -2418,7 +2418,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                                 <ul> <li>Amount : <?php echo $payment['tr']['paid_amount']; ?></li>
                                                                     <li>Refund Date : <?php echo date('m-d-Y', strtotime($payment['tr']['created'])); ?></li>
                                                                 </ul>
-                                                                <a  target="_blank" title="Edit"  href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit', $payment['tr']['id'])) ?>" >
+                                                                <a  target="_blank" title="Edit"  href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit',$this->request->params['pass'][0], $payment['tr']['id'])) ?>" >
                                                                     <span class="fa fa-pencil" target ="_blank"></span>
                                                                 </a>
                                                             <?php else: ?>
@@ -2427,7 +2427,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                                 <?php if (!empty($payment['tr']['check_image'])): ?>
                                                                     <img src="<?php echo $this->webroot . 'check_images' . '/' . $payment['tr']['check_image']; ?>"  width="50px" height="50px" />
                                                                 <?php endif; ?>
-                                                                <a  target="_blank" title="Edit"  href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit', $payment['tr']['id'])) ?>" >
+                                                                <a  target="_blank" title="Edit"  href="<?php echo Router::url(array('controller' => 'transactions', 'action' => 'edit', $this->request->params['pass'][0], $payment['tr']['id'])) ?>" >
                                                                     <span class="fa fa-pencil" target ="_blank"></span>
                                                                 </a>
                                                             <?php endif; ?> 
@@ -2967,7 +2967,7 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                         <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                                             <thead>
                                                 <tr>
-                                                    <!--<th>Transaction Id</th>-->
+                                                    <th> Id</th>
                                                     <th>Subject</th>
                                                     <th>Customer Info</th>
                                                     <th>Open Time</th>
@@ -2985,11 +2985,11 @@ if (strtolower($status) == 'inactive' || strtolower($status) == 'hold') {
                                                     $customer = $customer['pc'];
 
                                                     $ticket = $single['ticket'];
-
+                                                 
                                                     $lasthistory = $issue;
                                                     ?>
                                                     <tr >
-                                                        <!--<td><?php echo $tr_id; ?></td>-->
+                                                        <td><?php echo $ticket['id']; ?></td>
                                                         <td><?php echo $issue['i']['name']; ?></td>
                                                         <td>
                                                             <ul>
